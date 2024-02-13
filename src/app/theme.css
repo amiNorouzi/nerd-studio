@@ -1,0 +1,15 @@
+.primary-green {
+  --primary: 164 98% 31%;
+  --primary-foreground: 0, 0%, 99.3%;
+}
+
+/*234, 17%, 12%*/
+
+.theme-slate {
+  --background: 234 17% 12%;
+  --foreground: 0 0% 99%;
+  --card: 234 17% 12%;
+  --card-foreground: 0 0% 99%;
+  --popover: 234 17% 12%;
+  --popover-foreground: 0 0% 99%;
+}
