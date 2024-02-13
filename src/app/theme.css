@@ -1,15 +1,103 @@
 .primary-green {
   --primary: 164 98% 31%;
-  --primary-foreground: 0, 0%, 99.3%;
 }
 
-/*234, 17%, 12%*/
+.primary-blue {
+  --primary: 226 76% 64%;
+}
 
-.theme-slate {
+.primary-azure {
+  --primary: 225 85% 65%;
+}
+
+.primary-brown {
+  --primary: 34 28% 47%;
+}
+
+.primary-skyblue {
+  --primary: 191 100% 47%;
+}
+
+.primary-orange {
+  --primary: 31 96% 53%;
+}
+
+.primary-pink {
+  --primary: 333 73% 67%;
+}
+
+.primary-cerise {
+  --primary: 355 97% 70%;
+}
+
+.primary-desert-sand {
+  --primary: 35 10% 51%;
+}
+
+.theme-dark {
   --background: 234 17% 12%;
-  --foreground: 0 0% 99%;
+  --foreground: 208 14% 79%;
+
   --card: 234 17% 12%;
-  --card-foreground: 0 0% 99%;
+  --card-foreground: 208 14% 79%;
+
   --popover: 234 17% 12%;
-  --popover-foreground: 0 0% 99%;
+  --popover-foreground: 208 14% 79%;
+
+  --muted-foreground: 212 7% 52%;
+
+  --border: 236 15% 18%;
+  --input: 236 15% 18%;
+  --ring: 236 15% 18%;
+}
+
+.theme-grey {
+  --background: 0 0% 14%;
+  --foreground: 0 0% 79%;
+
+  --card: 0 0% 14%;
+  --card-foreground: 0 0% 79%;
+
+  --popover: 0 0% 14%;
+  --popover-foreground: 0 0% 79%;
+
+  --muted-foreground: 0 0% 53%;
+
+  --border: 0 0% 21%;
+  --input: 0 0% 21%;
+  --ring: 0 0% 21%;
+}
+
+.theme-darkblue {
+  --background: 215 15% 16%;
+  --foreground: 0 0% 79%;
+
+  --card: 215 15% 16%;
+  --card-foreground: 0 0% 79%;
+
+  --popover: 215 15% 16%;
+  --popover-foreground: 0 0% 79%;
+
+  --muted-foreground: 220 3% 54%;
+
+  --border: 214 16% 20%;
+  --input: 214 16% 20%;
+  --ring: 214 16% 20%;
+}
+
+.theme-light-brown {
+  --background: 43 60% 94%;
+  --foreground: 220 43% 11%;
+
+  --card: 43, 60%, 94%;
+  --card-foreground: 220 43% 11%;
+
+  --popover: 43, 60%, 94%;
+  --popover-foreground: 220 43% 11%;
+
+  --muted-foreground: 216 2% 47%;
+
+  --border: 41 24% 87%;
+  --input: 41 24% 87%;
+  --ring: 41 24% 87%;
 }
