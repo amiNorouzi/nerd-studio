@@ -11,10 +11,23 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function Home() {
+import { Header } from "@/app/[lang]/header";
+
+import { getDictionary } from "@/lib/dictionary";
+import type { Locale } from "../../../i18n.config";
+
+interface IProps {
+  params: {
+    lang: Locale;
+  };
+}
+export default async function Home({ params: { lang } }: IProps) {
+  const { page } = await getDictionary(lang);
+
   return (
     <div>
-      <Button>hello</Button>
+      <Header />
+      <Button>{page.home.title}</Button>
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline">Edit Profile</Button>
@@ -23,7 +36,7 @@ export default function Home() {
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+              Make changes to your profile here. Click save when you are done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

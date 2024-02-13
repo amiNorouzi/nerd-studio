@@ -1,0 +1,10 @@
+{
+  "navigation": {
+    "home": "Startseite"
+  },
+  "page": {
+    "home": {
+      "title": "Willkommen bei NextJs i18n"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "navigation": {
+    "home": "خانه"
+  },
+  "page": {
+    "home": {
+      "title": "عنوان"
+    }
+  }
+}

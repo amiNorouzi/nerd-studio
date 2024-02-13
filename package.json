@@ -10,8 +10,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.5.4",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-direction": "^1.0.1",
     "@radix-ui/react-hover-card": "^1.0.7",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.0.7",
@@ -27,6 +29,7 @@
     "clsx": "^2.1.0",
     "immer": "^10.0.3",
     "lucide-react": "^0.330.0",
+    "negotiator": "^0.6.3",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
@@ -36,6 +39,7 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
