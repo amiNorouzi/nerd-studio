@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="theme-light-brown primary-blue">{children}</body>
+      <body className="theme-slate primary-green">{children}</body>
     </html>
   );
 }
