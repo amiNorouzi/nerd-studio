@@ -1,9 +1,11 @@
 import React from "react";
 import type { Metadata } from "next";
 
+import { Providers } from "@/components/providers";
+import { i18n, type Locale } from "../../../i18n.config";
+
 import "../globals.css";
 import "../theme.css";
-import { i18n, type Locale } from "../../../i18n.config";
 
 export const metadata: Metadata = {
   title: {
@@ -25,8 +27,10 @@ export default function RootLayout({
   params: { lang: Locale };
 }>) {
   return (
-    <html lang={params.lang}>
-      <body className="theme-slate primary-green">{children}</body>
+    <html lang={params.lang} dir="ltr">
+      <body className="theme-slate primary-green">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

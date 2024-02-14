@@ -15,6 +15,9 @@ import { Header } from "@/app/[lang]/header";
 
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "../../../i18n.config";
+import { TableDemo } from "@/app/[lang]/test-table";
+import { DataTableDemo } from "@/app/[lang]/data-table-test";
+import Link from "next/link";
 
 interface IProps {
   params: {
@@ -27,13 +30,14 @@ export default async function Home({ params: { lang } }: IProps) {
   return (
     <div>
       <Header />
-      <Button>{page.home.title}</Button>
+      <Link href={`/${lang}/test`}>test</Link>
+      <Button className={"pr-2"}>{page.home.title}</Button>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Edit Profile</Button>
+          <Button variant="outline">{page.home["edit profile"]}</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
+          <DialogHeader className={"sm:text-start"}>
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>
               Make changes to your profile here. Click save when you are done.
@@ -58,6 +62,9 @@ export default async function Home({ params: { lang } }: IProps) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <TableDemo />
+      <DataTableDemo />
     </div>
   );
 }

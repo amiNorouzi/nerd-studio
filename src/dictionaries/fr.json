@@ -1,10 +1,12 @@
 {
+  "dir": "rtl",
   "navigation": {
     "home": "خانه"
   },
   "page": {
     "home": {
-      "title": "عنوان"
+      "title": "عنوان",
+      "edit profile": "ویرایش پروفایل"
     }
   }
 }

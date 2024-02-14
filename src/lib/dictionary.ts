@@ -7,4 +7,9 @@ const dictionaries = {
   de: () => import("@/dictionaries/de.json").then(module => module.default),
 };
 
+export const langDir = {
+  en: "ltr",
+  fr: "rtl",
+  de: "ltr",
+} as const;
 export const getDictionary = async (locale: Locale) => dictionaries[locale]();
