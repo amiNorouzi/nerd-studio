@@ -5,32 +5,27 @@
 @layer base {
   :root {
     --background: 0 0% 99%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 220 43% 11%;
 
     --card: 0 0% 99%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 43% 11%;
 
     --popover: 0 0% 99%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 43% 11%;
 
     --primary: 256 78% 69%;
     --primary-foreground: 0, 0%, 99.3%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 17% 93%;
+    --input: 220 17% 93%;
+    --ring: 220 17% 93%;
+    --hover: #00000010;
 
     --radius: 0.5rem;
   }
@@ -72,10 +67,55 @@ body {
     "Segoe UI Emoji";
 }
 
+@layer utilities {
+  .row {
+    @apply flex items-center;
+  }
+
+  .col {
+    @apply flex flex-col;
+  }
+
+  .spacing-row {
+    @apply flex items-center justify-between;
+  }
+
+  .centered-row {
+    @apply flex items-center justify-center;
+  }
+
+  .centered-col {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  .fit {
+    @apply h-fit w-fit;
+  }
+
+  .center-position {
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+}
+
+@layer components {
+  .vr {
+    @apply mx-1 h-full w-[1px] bg-primary/20;
+  }
+
+  .hr {
+    @apply my-1 h-[1px] bg-primary/20;
+  }
+
+  .error {
+    @apply ml-2 text-xs text-red-600;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

@@ -39,3 +39,11 @@ export function formatCompactNumber(number: number) {
   const formatter = Intl.NumberFormat("en", { notation: "compact" });
   return formatter.format(number);
 }
+
+/**
+ * pass variable and get hsl
+ * @param variable color variable from global css
+ */
+export const getHslColorByVar = (variable: string) => {
+  return `hsl(var(${variable}))`;
+};
