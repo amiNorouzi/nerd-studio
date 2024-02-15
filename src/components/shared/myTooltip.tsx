@@ -7,7 +7,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ChildrenProps } from "@/custom-types/props";
+import { useEditorContext } from "@/stores/contexts/useEditorContext";
+import type { ChildrenProps } from "@/services/types";
 
 interface IProps {
   title: string | ReactNode;
@@ -17,6 +18,7 @@ interface IProps {
   alignOffset?: number;
   open?: boolean;
   setOpen?: (val: boolean) => {};
+  responseTab?: boolean;
 }
 
 /**
@@ -36,7 +38,9 @@ const MyTooltip: FC<ChildrenProps<IProps>> = ({
   align,
   alignOffset,
   children,
+  responseTab,
 }) => {
+  const { editorAndFooterButtonsWrapperRef } = useEditorContext();
   return (
     <TooltipProvider delayDuration={delayDuration}>
       <Tooltip>
@@ -48,6 +52,9 @@ const MyTooltip: FC<ChildrenProps<IProps>> = ({
           align={align}
           alignOffset={alignOffset}
           className="!z-100 max-md:hidden"
+          {...(responseTab && {
+            container: editorAndFooterButtonsWrapperRef.current,
+          })}
         >
           <p className="text-xs first-letter:capitalize">{title}</p>
         </TooltipContent>

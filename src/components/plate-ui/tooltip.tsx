@@ -3,6 +3,7 @@
 import React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { withCn, withProps } from "@udecode/cn";
+import { useEditorContext } from "@/stores/contexts/useEditorContext";
 
 export const TooltipProvider = TooltipPrimitive.Provider;
 export const Tooltip = TooltipPrimitive.Root;
@@ -37,7 +38,7 @@ export function withTooltip<
     ref,
   ) {
     const [mounted, setMounted] = React.useState(false);
-
+    const { editorAndFooterButtonsWrapperRef } = useEditorContext();
     React.useEffect(() => {
       setMounted(true);
     }, []);
@@ -49,7 +50,7 @@ export function withTooltip<
         <Tooltip {...tooltipProps}>
           <TooltipTrigger asChild>{component}</TooltipTrigger>
 
-          <TooltipPortal>
+          <TooltipPortal container={editorAndFooterButtonsWrapperRef.current}>
             <TooltipContent {...tooltipContentProps}>{tooltip}</TooltipContent>
           </TooltipPortal>
         </Tooltip>

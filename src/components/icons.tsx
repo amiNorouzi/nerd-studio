@@ -1,6 +1,7 @@
 import React from "react";
 import { cva } from "class-variance-authority";
 import {
+  DownloadCloud,
   AlignCenter,
   AlignJustify,
   AlignLeft,
@@ -61,6 +62,12 @@ import {
   Ungroup,
   WrapText,
   X,
+  Redo,
+  Undo,
+  Film,
+  PenTool,
+  Copy,
+  CopyCheckIcon,
 } from "lucide-react";
 
 import type { LucideIcon } from "lucide-react";
@@ -158,6 +165,12 @@ const borderTop = (props: LucideProps) => (
 );
 
 export const Icons = {
+  downloadCloud: DownloadCloud,
+  excalidraw: PenTool,
+  embed: Film,
+  hr: Minus,
+  redo: Redo,
+  undo: Undo,
   add: Plus,
   alignCenter: AlignCenter,
   alignJustify: AlignJustify,
@@ -175,6 +188,7 @@ export const Icons = {
   borderTop,
   check: Check,
   chevronRight: ChevronRight,
+  chevronDown: ChevronDown,
   chevronsUpDown: ChevronsUpDown,
   clear: X,
   close: X,
@@ -222,7 +236,8 @@ export const Icons = {
   underline: Underline,
   unlink: Link2Off,
   viewing: Eye,
-
+  copy: Copy,
+  copyCheck: CopyCheckIcon,
   // www
   gitHub: (props: LucideProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
@@ -248,12 +263,12 @@ export const Icons = {
 export const iconVariants = cva("", {
   variants: {
     variant: {
-      toolbar: "size-5",
-      menuItem: "mr-2 size-5",
+      toolbar: "h-5 w-5",
+      menuItem: "mr-2 h-5 w-5",
     },
     size: {
-      sm: "mr-2 size-4",
-      md: "mr-2 size-6",
+      sm: "mr-2 h-4 w-4",
+      md: "mr-2 h-6 w-6",
     },
   },
   defaultVariants: {},

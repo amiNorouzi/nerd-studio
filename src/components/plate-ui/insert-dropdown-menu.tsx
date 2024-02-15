@@ -23,6 +23,24 @@ import {
   useOpenState,
 } from "./dropdown-menu";
 import { ToolbarButton } from "./toolbar";
+import {
+  ELEMENT_CODE_BLOCK,
+  insertEmptyCodeBlock,
+} from "@udecode/plate-code-block";
+import {
+  ELEMENT_IMAGE,
+  ELEMENT_MEDIA_EMBED,
+  insertMedia,
+} from "@udecode/plate-media";
+import {
+  KEY_LIST_STYLE_TYPE,
+  toggleIndentList,
+} from "@udecode/plate-indent-list";
+import { toggleList } from "@udecode/plate-list";
+import { ELEMENT_TABLE, insertTable } from "@udecode/plate-table";
+import { ELEMENT_LINK, triggerFloatingLink } from "@udecode/plate-link";
+import { ELEMENT_HR } from "@udecode/plate-horizontal-rule";
+import { ELEMENT_EXCALIDRAW } from "@udecode/plate-excalidraw";
 
 const items = [
   {
@@ -58,12 +76,12 @@ const items = [
         description: "Quote (⌘+⇧+.)",
         icon: Icons.blockquote,
       },
-      // {
-      //   value: ELEMENT_TABLE,
-      //   label: 'Table',
-      //   description: 'Table',
-      //   icon: Icons.table,
-      // },
+      {
+        value: ELEMENT_TABLE,
+        label: "Table",
+        description: "Table",
+        icon: Icons.table,
+      },
       // {
       //   value: 'ul',
       //   label: 'Bulleted list',
@@ -76,54 +94,54 @@ const items = [
       //   description: 'Numbered list',
       //   icon: Icons.ol,
       // },
+      {
+        value: ELEMENT_HR,
+        label: "Divider",
+        description: "Divider (---)",
+        icon: Icons.hr,
+      },
+    ],
+  },
+  {
+    label: "Media",
+    items: [
+      {
+        value: ELEMENT_CODE_BLOCK,
+        label: "Code",
+        description: "Code (```)",
+        icon: Icons.codeblock,
+      },
+      {
+        value: ELEMENT_IMAGE,
+        label: "Image",
+        description: "Image",
+        icon: Icons.image,
+      },
+      {
+        value: ELEMENT_MEDIA_EMBED,
+        label: "Embed",
+        description: "Embed",
+        icon: Icons.embed,
+      },
       // {
-      //   value: ELEMENT_HR,
-      //   label: 'Divider',
-      //   description: 'Divider (---)',
-      //   icon: Icons.hr,
+      //   value: ELEMENT_EXCALIDRAW,
+      //   label: "Excalidraw",
+      //   description: "Excalidraw",
+      //   icon: Icons.excalidraw,
       // },
     ],
   },
-  // {
-  //   label: 'Media',
-  //   items: [
-  //     {
-  //       value: ELEMENT_CODE_BLOCK,
-  //       label: 'Code',
-  //       description: 'Code (```)',
-  //       icon: Icons.codeblock,
-  //     },
-  //     {
-  //       value: ELEMENT_IMAGE,
-  //       label: 'Image',
-  //       description: 'Image',
-  //       icon: Icons.image,
-  //     },
-  //     {
-  //       value: ELEMENT_MEDIA_EMBED,
-  //       label: 'Embed',
-  //       description: 'Embed',
-  //       icon: Icons.embed,
-  //     },
-  //     {
-  //       value: ELEMENT_EXCALIDRAW,
-  //       label: 'Excalidraw',
-  //       description: 'Excalidraw',
-  //       icon: Icons.excalidraw,
-  //     },
-  //   ],
-  // },
-  // {
-  //   label: 'Inline',
-  //   items: [
-  //     {
-  //       value: ELEMENT_LINK,
-  //       label: 'Link',
-  //       description: 'Link',
-  //       icon: Icons.link,
-  //     },
-  //   ],
-  // },
+  {
+    label: "Inline",
+    items: [
+      {
+        value: ELEMENT_LINK,
+        label: "Link",
+        description: "Link",
+        icon: Icons.link,
+      },
+    ],
+  },
 ];
 
 export function InsertDropdownMenu(props: DropdownMenuProps) {
@@ -154,50 +172,50 @@ export function InsertDropdownMenu(props: DropdownMenuProps) {
                   className="min-w-[180px]"
                   onSelect={async () => {
                     switch (type) {
-                      // case ELEMENT_CODE_BLOCK: {
-                      //   insertEmptyCodeBlock(editor);
-                      //
-                      //   break;
-                      // }
-                      // case ELEMENT_IMAGE: {
-                      //   await insertMedia(editor, { type: ELEMENT_IMAGE });
-                      //
-                      //   break;
-                      // }
-                      // case ELEMENT_MEDIA_EMBED: {
-                      //   await insertMedia(editor, {
-                      //     type: ELEMENT_MEDIA_EMBED,
-                      //   });
-                      //
-                      //   break;
-                      // }
-                      // case 'ul':
-                      // case 'ol': {
-                      //   insertEmptyElement(editor, ELEMENT_PARAGRAPH, {
-                      //     select: true,
-                      //     nextBlock: true,
-                      //   });
-                      //
-                      //   if (settingsStore.get.checkedId(KEY_LIST_STYLE_TYPE)) {
-                      //     toggleIndentList(editor, {
-                      //       listStyleType: type === 'ul' ? 'disc' : 'decimal',
-                      //     });
-                      //   } else if (settingsStore.get.checkedId('list')) {
-                      //     toggleList(editor, { type });
-                      //   }
-                      //
-                      //   break;
-                      // }
-                      // case ELEMENT_TABLE: {
-                      //   insertTable(editor);
-                      //
-                      //   break;
-                      // }
-                      // case ELEMENT_LINK: {
-                      //   triggerFloatingLink(editor, { focused: true });
-                      //
-                      //   break;
-                      // }
+                      case ELEMENT_CODE_BLOCK: {
+                        insertEmptyCodeBlock(editor);
+
+                        break;
+                      }
+                      case ELEMENT_IMAGE: {
+                        await insertMedia(editor, { type: ELEMENT_IMAGE });
+
+                        break;
+                      }
+                      case ELEMENT_MEDIA_EMBED: {
+                        await insertMedia(editor, {
+                          type: ELEMENT_MEDIA_EMBED,
+                        });
+
+                        break;
+                      }
+                      case "ul":
+                      case "ol": {
+                        insertEmptyElement(editor, ELEMENT_PARAGRAPH, {
+                          select: true,
+                          nextBlock: true,
+                        });
+
+                        // if (settingsStore.get.checkedId(KEY_LIST_STYLE_TYPE)) {
+                        //   toggleIndentList(editor, {
+                        //     listStyleType: type === 'ul' ? 'disc' : 'decimal',
+                        //   });
+                        // } else if (settingsStore.get.checkedId('list')) {
+                        toggleList(editor, { type });
+                        // }
+
+                        break;
+                      }
+                      case ELEMENT_TABLE: {
+                        insertTable(editor);
+
+                        break;
+                      }
+                      case ELEMENT_LINK: {
+                        triggerFloatingLink(editor, { focused: true });
+
+                        break;
+                      }
                       default: {
                         insertEmptyElement(editor, type, {
                           select: true,

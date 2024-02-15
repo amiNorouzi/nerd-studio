@@ -14,6 +14,7 @@ import {
 import { cva } from "class-variance-authority";
 
 import { Icons } from "@/components/icons";
+import { useEditorContext } from "@/stores/contexts/useEditorContext";
 
 export const DropdownMenu = DropdownMenuPrimitive.Root;
 export const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
@@ -57,11 +58,17 @@ const DropdownMenuContentVariants = withProps(DropdownMenuPrimitive.Content, {
 
 export const DropdownMenuContent = withRef<
   typeof DropdownMenuPrimitive.Content
->(({ ...props }, ref) => (
-  <DropdownMenuPrimitive.Portal>
-    <DropdownMenuContentVariants ref={ref} {...props} />
-  </DropdownMenuPrimitive.Portal>
-));
+>(({ ...props }, ref) => {
+  const { editorAndFooterButtonsWrapperRef } = useEditorContext();
+
+  return (
+    <DropdownMenuPrimitive.Portal
+      container={editorAndFooterButtonsWrapperRef.current}
+    >
+      <DropdownMenuContentVariants ref={ref} {...props} />
+    </DropdownMenuPrimitive.Portal>
+  );
+});
 
 const menuItemVariants = cva(
   cn(

@@ -21,3 +21,7 @@ export interface IThemeConfig {
   primaryColor: PrimaryColor;
   theme: Theme;
 }
+
+export interface DirType {
+  dir: "ltr" | "rtl";
+}

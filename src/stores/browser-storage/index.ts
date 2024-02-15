@@ -1,7 +1,10 @@
-import BrowserStorage from "@/stores/browser-storage/storage";
+import BrowserStorage from "./storage";
+import type { DirType, IThemeConfig } from "./types";
 
-import type { IThemeConfig } from "./types";
-
+export const dirInLocalStorage = new BrowserStorage<DirType>(
+  "dir",
+  "localStorage",
+);
 export const themeConfigStorage = new BrowserStorage<IThemeConfig>(
   "themeConfig",
   "localStorage",

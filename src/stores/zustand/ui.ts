@@ -5,7 +5,7 @@ const initialState = {
   isSidePanelOpen: true,
 };
 
-export const useUi = create<IUiState>(set => ({
+export const useUi = create<IUiState>()(set => ({
   ...initialState,
   setIsSidePanelOpen: (val: boolean) => set({ isSidePanelOpen: val }),
   toggleIsSidePanelOpen: () =>

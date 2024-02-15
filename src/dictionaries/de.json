@@ -1,0 +1,12 @@
+{
+  "dir": "ltr",
+  "navigation": {
+    "home": "Startseite"
+  },
+  "page": {
+    "home": {
+      "title": "Willkommen bei NextJs i18n",
+      "edit profile": "Editoal prof"
+    }
+  }
+}

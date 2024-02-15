@@ -1,0 +1,12 @@
+{
+  "dir": "ltr",
+  "navigation": {
+    "home": "home"
+  },
+  "page": {
+    "home": {
+      "title": "this is title",
+      "edit profile": "edit profile"
+    }
+  }
+}
