@@ -14,16 +14,18 @@ import { Label } from "@/components/ui/label";
 import { Header } from "@/app/[lang]/header";
 
 import { getDictionary } from "@/lib/dictionary";
-import type { Locale } from "../../../i18n.config";
+import { i18n, Locale } from "../../../i18n.config";
 import { TableDemo } from "@/app/[lang]/test-table";
 import { DataTableDemo } from "@/app/[lang]/data-table-test";
 import Link from "next/link";
+import { TestClient } from "@/app/[lang]/test-client";
 
 interface IProps {
   params: {
     lang: Locale;
   };
 }
+
 export default async function Home({ params: { lang } }: IProps) {
   const { page } = await getDictionary(lang);
 
@@ -32,6 +34,7 @@ export default async function Home({ params: { lang } }: IProps) {
       <Header />
       <Link href={`/${lang}/test`}>test</Link>
       <Button className={"pr-2"}>{page.home.title}</Button>
+      <TestClient />
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline">{page.home["edit profile"]}</Button>

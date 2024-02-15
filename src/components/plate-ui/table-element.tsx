@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { PopoverAnchor } from "@radix-ui/react-popover";
 import { cn, withRef } from "@udecode/cn";
@@ -9,11 +9,9 @@ import {
   useEditorSelector,
   useElement,
   useRemoveNodeButton,
-  withHOC,
 } from "@udecode/plate-common";
 import {
   mergeTableCells,
-  TableProvider,
   TTableElement,
   unmergeTableCells,
   useTableBordersDropdownMenuContentState,
@@ -35,6 +33,9 @@ import {
 } from "./dropdown-menu";
 import { Popover, PopoverContent, popoverVariants } from "./popover";
 import { Separator } from "./separator";
+import { CopyAndDownloadButtons } from "@/components/shared/plate-editor/components";
+
+import { useDownLoadHandler } from "@/hooks/useDownloadHandler";
 
 export const TableBordersDropdownMenuContent = withRef<
   typeof DropdownMenuPrimitive.Content
@@ -195,45 +196,61 @@ export const TableFloatingToolbar = withRef<typeof PopoverContent>(
   },
 );
 
-export const TableElement = withHOC(
-  TableProvider,
-  withRef<typeof PlateElement>(({ className, children, ...props }, ref) => {
+export const TableElement = withRef<typeof PlateElement>(
+  ({ className, children, ...props }, ref) => {
     const { colSizes, isSelectingCell, minColumnWidth, marginLeft } =
       useTableElementState();
     const { props: tableProps, colGroupProps } = useTableElement();
+    const divWrapperTableRef = useRef<HTMLDivElement>(null);
+    const tableRef = useRef<HTMLTableElement>(null);
+
+    const { handleDownloadPdf, handleDownloadDocx } =
+      useDownLoadHandler(divWrapperTableRef);
 
     return (
       <TableFloatingToolbar>
-        <div style={{ paddingLeft: marginLeft }}>
-          <PlateElement
-            ref={ref}
-            asChild
-            className={cn(
-              "my-4 ml-px mr-0 table h-px w-full table-fixed border-collapse",
-              isSelectingCell && "[&_*::selection]:bg-none",
-              className,
-            )}
-            {...tableProps}
-            {...props}
+        <div className="gird space-y-1">
+          <CopyAndDownloadButtons>
+            <CopyAndDownloadButtons.DownloadDropDown
+              handleDownloadDocx={handleDownloadDocx}
+              handleDownloadPdf={handleDownloadPdf}
+            />
+          </CopyAndDownloadButtons>
+          <div
+            style={{ paddingLeft: marginLeft }}
+            className="group"
+            ref={divWrapperTableRef}
           >
-            <table>
-              <colgroup {...colGroupProps}>
-                {colSizes.map((width, index) => (
-                  <col
-                    key={index}
-                    style={{
-                      minWidth: minColumnWidth,
-                      width: width || undefined,
-                    }}
-                  />
-                ))}
-              </colgroup>
+            <PlateElement
+              ref={ref}
+              asChild
+              className={cn(
+                "my-4 ml-px mr-0 mt-0 table h-px w-full table-fixed border-collapse ",
+                isSelectingCell && "[&_*::selection]:bg-none",
+                className,
+              )}
+              {...tableProps}
+              {...props}
+            >
+              <table ref={tableRef}>
+                <colgroup {...colGroupProps}>
+                  {colSizes.map((width, index) => (
+                    <col
+                      key={index}
+                      style={{
+                        minWidth: minColumnWidth,
+                        width: width || undefined,
+                      }}
+                    />
+                  ))}
+                </colgroup>
 
-              <tbody className="min-w-full">{children}</tbody>
-            </table>
-          </PlateElement>
+                <tbody className="min-w-full">{children}</tbody>
+              </table>
+            </PlateElement>
+          </div>
         </div>
       </TableFloatingToolbar>
     );
-  }),
+  },
 );

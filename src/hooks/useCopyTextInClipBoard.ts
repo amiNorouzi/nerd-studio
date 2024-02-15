@@ -1,6 +1,7 @@
 "use client";
-import { copyTextToClipboard } from "@/lib/copyTextToClipBoard";
+
 import { useState } from "react";
+import { copyTextToClipboard } from "@/lib/copyTextToSystemClipboard";
 
 export function useCopyTextInClipBoard() {
   const [isCopied, setIsCopied] = useState(false);

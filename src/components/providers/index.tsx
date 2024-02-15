@@ -2,7 +2,10 @@
 import React, { useEffect } from "react";
 import { ReactQueryProvider } from "./ReactQueryProvider";
 import { DirectionProvider } from "@radix-ui/react-direction";
-import { useChangeDir } from "@/hooks/useChangeDir";
+
+import { EditorContextProvider } from "@/stores/contexts/editor-context";
+
+import { useChangeDir } from "@/hooks";
 import { dirInLocalStorage } from "@/stores/browser-storage";
 export function Providers({ children }: { children: React.ReactNode }) {
   const { dirState } = useChangeDir();
@@ -10,7 +13,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <ReactQueryProvider>
-      <DirectionProvider dir={dirState}>{children}</DirectionProvider>
+      <EditorContextProvider>
+        <DirectionProvider dir={dirState}>{children}</DirectionProvider>
+      </EditorContextProvider>
     </ReactQueryProvider>
   );
 }
