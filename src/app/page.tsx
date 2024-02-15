@@ -1,4 +1,3 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,78 +10,10 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { primaryColors, themes } from "@/constants/theme";
-import Image from "next/image";
-import { useTheme } from "@/hooks/useTheme";
-import { cn } from "@/lib/utils";
-import { PrimaryColor, Theme } from "@/stores/browser-storage/types";
-import RenderIf from "@/components/shared/RenderIf";
-import { BsCheck2 } from "react-icons/bs";
 
 export default function Home() {
-  const { activePrimaryColor, activeTheme, changeTheme } = useTheme();
-
   return (
     <div className="p-5">
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button className="mr-4">Theme</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-5xl">
-          <DialogHeader>
-            <DialogTitle>Change Theme profile</DialogTitle>
-          </DialogHeader>
-          <div className="col gap-2">
-            <h2>Themes</h2>
-            <div className="row mb-4 gap-2">
-              {themes.map(theme => (
-                <Button
-                  variant="ghost"
-                  className={cn(
-                    "fit overflow-hidden rounded-lg border-2 p-0",
-                    activeTheme === theme.key && "border-primary",
-                  )}
-                  key={theme.id}
-                  onClick={() =>
-                    changeTheme({ themeClass: theme.key as Theme })
-                  }
-                >
-                  <Image
-                    src={`/images/themes/${theme.image}`}
-                    alt={theme.key}
-                    width={250}
-                    height={200}
-                    className="!h-[72px] !w-[104px] object-cover"
-                  />
-                </Button>
-              ))}
-            </div>
-
-            <h2>Accent Colors</h2>
-            <div className="row gap-2">
-              {primaryColors.map(primary => (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-full"
-                  style={{ backgroundColor: primary.color }}
-                  key={primary.id}
-                  onClick={() =>
-                    changeTheme({
-                      primaryColorClass: primary.key as PrimaryColor,
-                    })
-                  }
-                >
-                  <RenderIf isTrue={primary.key === activePrimaryColor}>
-                    <BsCheck2 size="1.5rem" />
-                  </RenderIf>
-                </Button>
-              ))}
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline">Edit Profile</Button>

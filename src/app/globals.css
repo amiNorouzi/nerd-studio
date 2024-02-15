@@ -6,11 +6,13 @@
   :root {
     --background: 0 0% 99%;
     --foreground: 220 43% 11%;
+    --active-bg: #9372ee20;
+    --bg-overlay: #ffffff64;
 
     --card: 0 0% 99%;
     --card-foreground: 220 43% 11%;
 
-    --popover: 0 0% 99%;
+    --popover: 240 20% 99%;
     --popover-foreground: 220 43% 11%;
 
     --primary: 256 78% 69%;
@@ -33,6 +35,7 @@
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
+    --active-bg: #9372ee20;
 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -65,6 +68,16 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji";
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 300ms !important;
+}
+
+button,
+a,
+p {
+  font-size: 13px;
+  font-weight: 500;
 }
 
 @layer utilities {
@@ -99,11 +112,11 @@ body {
 
 @layer components {
   .vr {
-    @apply mx-1 h-full w-[1px] bg-primary/20;
+    @apply mx-1 h-full w-[1px] bg-border;
   }
 
   .hr {
-    @apply my-1 h-[1px] bg-primary/20;
+    @apply my-1 h-[1px] bg-border;
   }
 
   .error {
@@ -119,4 +132,55 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.balance:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 8px;
+  z-index: 0;
+  background: linear-gradient(
+    60deg,
+    rgba(61, 115, 235, 0.08) 13.4%,
+    rgba(222, 143, 255, 0.08) 86.6%
+  );
+}
+
+.hide-svg svg {
+  display: none;
+}
+
+.border-gradiant:hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(#3d73eb, #de8fff) border-box;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+}
+
+.text-gradiant {
+  display: flex;
+  align-items: baseline;
+  background: linear-gradient(60deg, #4d84ff 13.4%, #de8fff 86.6%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
 }
