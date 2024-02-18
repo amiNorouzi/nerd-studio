@@ -1,13 +1,25 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
-export function useCustomSearchParams() {
+export function useCustomSearchParams(
+  initialKey?: string,
+  initialValue?: string,
+) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams()!;
 
   // now you got a read/write object
   const current = new URLSearchParams(searchParams);
+
+  useEffect(() => {
+    if (!initialKey) return;
+    if (!initialValue) {
+      setSearchParams(initialKey);
+    } else {
+      setSearchParams(initialKey, initialValue);
+    }
+  }, []);
 
   /**
    *

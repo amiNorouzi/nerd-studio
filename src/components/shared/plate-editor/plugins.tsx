@@ -167,6 +167,8 @@ import { withPlaceholders } from "@/components/plate-ui/placeholder";
 import { EmojiCombobox } from "@/components/plate-ui/emoji-combobox";
 import { UndoRedoComponent } from "@/components/plate-ui/undo-redo";
 import { ListElement } from "@/components/plate-ui/list-element";
+import { createTogglePlugin, ELEMENT_TOGGLE } from "@udecode/plate-toggle";
+import { ToggleElement } from "@/components/plate-ui/toggle-element";
 
 export const indentPlugin = {
   inject: {
@@ -301,6 +303,7 @@ export const plugins = createPlugins(
     createTablePlugin(),
     createTodoListPlugin(),
     createExcalidrawPlugin(),
+    createTogglePlugin(),
     createBoldPlugin(),
     createItalicPlugin(),
     createUnderlinePlugin(),
@@ -502,6 +505,7 @@ export const plugins = createPlugins(
       [ELEMENT_TD]: TableCellElement,
       [ELEMENT_TH]: TableCellHeaderElement,
       [ELEMENT_TODO_LI]: TodoListElement,
+      [ELEMENT_TOGGLE]: ToggleElement,
       [MARK_BOLD]: withProps(PlateLeaf, { as: "strong" }),
       [MARK_CODE]: CodeLeaf,
       [MARK_COMMENT]: CommentLeaf,

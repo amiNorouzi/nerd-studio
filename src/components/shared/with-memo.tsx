@@ -1,4 +1,3 @@
-"use client";
 import React, { memo } from "react";
 
 export function withMemo<T>(WrapComponent: React.ComponentType<T>) {

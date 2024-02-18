@@ -9,7 +9,7 @@ import type { VariantProps } from "class-variance-authority";
 const editorVariants = cva(
   cn(
     "relative overflow-x-auto whitespace-pre-wrap break-words",
-    "min-h-[80px]  w-full bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none",
+    "min-h-[80px] h-full  w-full bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none",
     "[&_[data-slate-placeholder]]:text-muted-foreground [&_[data-slate-placeholder]]:!opacity-100",
     "[&_[data-slate-placeholder]]:top-[auto_!important]",
     "[&_strong]:font-bold",
@@ -66,7 +66,8 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
     return (
       <div
         ref={ref}
-        className="relative h-full max-h-full w-full flex-1 overflow-y-auto overflow-x-hidden border print:!h-fit print:!overflow-visible"
+        className="relative h-full max-h-full w-full flex-1 overflow-y-auto overflow-x-hidden  print:!h-fit print:!overflow-visible"
+        style={{ height: "calc(100% - 62px)" }}
       >
         <PlateContent
           className={cn(

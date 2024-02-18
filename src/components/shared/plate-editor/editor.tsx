@@ -1,4 +1,5 @@
-import { useEffect, useMemo } from "react";
+"use client";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { createPlateEditor, Plate } from "@udecode/plate-common";
 import { CommentsProvider } from "@udecode/plate-comments";
@@ -21,6 +22,9 @@ import { useDebounceValue } from "usehooks-ts";
 
 import { deserializeHtmlStringOrMarkDown } from "./utils";
 import { testJSON } from "@/lib/test-json";
+import { TooltipProvider } from "@/components/plate-ui/tooltip";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 interface IProps {
   editorValue: string;
   onChangeEditorValue: (v: any) => void;
@@ -73,46 +77,51 @@ export function PlateEditorResponse({
    * this function handles Editor changes
    * @param v is editor value
    */
-  function handleEditorChange(v: any) {
+  const handleEditorChange = useCallback((v: any) => {
     // this setter is used to say editor value change ,and it used to in font size and font family components
     setEditorChange();
 
     // this setter is used to store editor value in editor context
     setEditorValue(v);
-  }
+  }, []);
 
   return (
-    <CommentsProvider users={{}} myUserId="1">
-      <Plate
-        {...(isActiveEditor && {
-          editorRef,
-        })}
-        plugins={plugins}
-        initialValue={initialValue}
-        onChange={handleEditorChange}
-        normalizeInitialValue
-        key={editorValue}
-      >
-        <FixedToolbar>
-          <FixedToolbarButtons />
-        </FixedToolbar>
+    <TooltipProvider delayDuration={500} skipDelayDuration={0}>
+      <DndProvider backend={HTML5Backend}>
+        <CommentsProvider users={{}} myUserId="1">
+          <Plate
+            {...(isActiveEditor && {
+              editorRef,
+            })}
+            plugins={plugins}
+            initialValue={initialValue}
+            onChange={handleEditorChange}
+            normalizeInitialValue
+            key={editorValue}
+            value={valueInState}
+          >
+            <FixedToolbar>
+              <FixedToolbarButtons />
+            </FixedToolbar>
 
-        <Editor
-          {...(isActiveEditor && {
-            ref: textareaEditorDivRef,
-            contentRef: contentRef,
-          })}
-          size="md"
-        />
+            <Editor
+              {...(isActiveEditor && {
+                ref: textareaEditorDivRef,
+                contentRef: contentRef,
+              })}
+              size="md"
+            />
 
-        <FloatingToolbar>
-          <FloatingToolbarButtons />
-        </FloatingToolbar>
-        <MentionCombobox items={[]} />
+            <FloatingToolbar>
+              <FloatingToolbarButtons />
+            </FloatingToolbar>
+            <MentionCombobox items={[]} />
 
-        <CommentsPopover />
-      </Plate>
-    </CommentsProvider>
+            <CommentsPopover />
+          </Plate>
+        </CommentsProvider>
+      </DndProvider>
+    </TooltipProvider>
   );
 }
 

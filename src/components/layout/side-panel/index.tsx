@@ -16,10 +16,26 @@ import { Workspace } from "@/components/layout/workspace";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
 import { useUi } from "@/stores/zustand/ui";
+import { useParams } from "next/navigation";
+
+const sidePanelItems = [
+  { title: "Dashboard", to: "", icon: PiChartBarLight },
+  { title: "Chat", to: "chat", icon: "/images/gpt.jpeg" },
+  {
+    title: "Artist",
+    to: "artist",
+    icon: "/images/artist.png",
+  },
+  {
+    title: "Write",
+    to: "/write",
+    icon: PiChartBarLight,
+  },
+] as const;
 
 export function SidePanel() {
   const isMobile = useMediaQuery("(max-width:768px)");
-
+  const { lang } = useParams();
   const { isSidePanelOpen, setIsSidePanelOpen } = useUi();
   const [hovered, setHovered] = useState(false);
 
@@ -135,24 +151,15 @@ export function SidePanel() {
           }),
         }}
       >
-        <SidePanelItem
-          title="Dashboard"
-          to="/"
-          icon={PiChartBarLight}
-          isOpenSidePanel={isOpen}
-        />
-        <SidePanelItem
-          title="Chat"
-          to="/chat"
-          icon="/images/gpt.jpeg"
-          isOpenSidePanel={isOpen}
-        />
-        <SidePanelItem
-          title="Artist"
-          to="/artist"
-          icon="/images/artist.png"
-          isOpenSidePanel={isOpen}
-        />
+        {sidePanelItems.map(item => (
+          <SidePanelItem
+            key={item.title}
+            isOpenSidePanel={isOpen}
+            {...item}
+            to={`/${lang}/${item.to}`}
+          />
+        ))}
+
         <div className="hr my-2 w-full" />
         <p className={cn("mb-2", !isOpen && "hidden")}>Space</p>
         <SidePanelItem
