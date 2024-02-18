@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { copyTextToClipboard } from "@/lib/copyTextToSystemClipboard";
 
-export function useCopyTextInClipBoard() {
+export function useCopyTextInClipBoard(time: number = 1500) {
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = (text: string) => {
@@ -14,7 +14,7 @@ export function useCopyTextInClipBoard() {
         setIsCopied(true);
         setTimeout(() => {
           setIsCopied(false);
-        }, 1500);
+        }, time);
       })
       .catch(err => {
         console.log(err);

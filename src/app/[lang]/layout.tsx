@@ -31,13 +31,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={params.lang} dir="ltr">
-      <body>
+      <body suppressHydrationWarning>
         <Providers>
           <div className="flex h-dvh w-dvw">
             <SidePanel />
             <div id="main" className="flex h-full w-full flex-col">
-              <Header className="h-[3rem]" />
-              <main style={{ height: "calc(100% - 3rem)" }}>{children}</main>
+              <Header className="h-[3.5rem]" />
+              <main style={{ height: "calc(100% - 3.5rem)" }}>{children}</main>
             </div>
           </div>
         </Providers>

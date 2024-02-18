@@ -86,7 +86,11 @@ export function PlateEditorResponse({
   }, []);
 
   return (
-    <TooltipProvider delayDuration={500} skipDelayDuration={0}>
+    <TooltipProvider
+      disableHoverableContent
+      delayDuration={500}
+      skipDelayDuration={0}
+    >
       <DndProvider backend={HTML5Backend}>
         <CommentsProvider users={{}} myUserId="1">
           <Plate

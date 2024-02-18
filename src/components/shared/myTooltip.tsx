@@ -3,12 +3,15 @@ import React, { FC, ReactNode } from "react";
 
 import {
   Tooltip,
+  TooltipArrow,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useEditorContext } from "@/stores/contexts/useEditorContext";
 import type { ChildrenProps } from "@/services/types";
+import { cn } from "@/lib/utils";
+import RenderIf from "@/components/shared/RenderIf";
 
 interface IProps {
   title: string | ReactNode;
@@ -18,7 +21,9 @@ interface IProps {
   alignOffset?: number;
   open?: boolean;
   setOpen?: (val: boolean) => {};
+  contentClass?: string;
   responseTab?: boolean;
+  arrow?: boolean;
 }
 
 /**
@@ -31,36 +36,37 @@ interface IProps {
  * @param children
  * @constructor
  */
-const MyTooltip: FC<ChildrenProps<IProps>> = ({
+export const MyTooltip: FC<ChildrenProps<IProps>> = ({
   title,
   side = "top",
   delayDuration = 100,
   align,
   alignOffset,
   children,
+  contentClass,
   responseTab,
+  arrow = true,
 }) => {
   const { editorAndFooterButtonsWrapperRef } = useEditorContext();
   return (
     <TooltipProvider delayDuration={delayDuration}>
       <Tooltip>
-        <TooltipTrigger asChild onFocus={e => e.preventDefault()}>
-          {children}
-        </TooltipTrigger>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent
           side={side}
           align={align}
           alignOffset={alignOffset}
-          className="!z-100 max-md:hidden"
+          className={cn("!z-100 max-md:hidden", contentClass)}
           {...(responseTab && {
             container: editorAndFooterButtonsWrapperRef.current,
           })}
         >
-          <p className="text-xs first-letter:capitalize">{title}</p>
+          <p className="text-sm first-letter:capitalize">{title}</p>
+          <RenderIf isTrue={arrow}>
+            <TooltipArrow className="fill-background" />
+          </RenderIf>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );
 };
-
-export default MyTooltip;

@@ -4,7 +4,7 @@ import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { FaRegCopy } from "react-icons/fa";
 
 import { Button, buttonVariants } from "@/components/plate-ui/button";
-import MyTooltip from "@/components/shared/myTooltip";
+import { MyTooltip } from "@/components/shared/myTooltip";
 
 type IProps = React.ComponentPropsWithoutRef<"button"> &
   VariantProps<typeof buttonVariants> & {

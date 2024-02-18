@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/plate-ui/dropdown-menu";
-import MyTooltip from "@/components/shared/myTooltip";
+import { MyTooltip } from "@/components/shared/myTooltip";
 
 interface IProps {
   handleDownloadPdf: () => void;
