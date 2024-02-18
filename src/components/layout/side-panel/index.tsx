@@ -6,6 +6,7 @@ import { Menu, Sidebar } from "react-pro-sidebar";
 import { useMediaQuery } from "usehooks-ts";
 import { FaAnglesLeft } from "react-icons/fa6";
 import { PiChartBarLight, PiPlanet, PiShoppingBagLight } from "react-icons/pi";
+import { FaPen } from "react-icons/fa6";
 
 import SidePanelItem from "./SidePanelItem";
 import { UserBalance } from "./UserBalance";
@@ -29,7 +30,7 @@ const sidePanelItems = [
   {
     title: "Write",
     to: "/write",
-    icon: PiChartBarLight,
+    icon: FaPen,
   },
 ] as const;
 
