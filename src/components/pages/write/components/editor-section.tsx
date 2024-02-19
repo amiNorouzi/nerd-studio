@@ -7,7 +7,7 @@ export function EditorSection() {
 
   return (
     <div
-      className=" col-span-12 h-fit overflow-hidden rounded border bg-card shadow lg:col-span-6 lg:h-full xl:col-span-8"
+      className=" col-span-12 h-fit overflow-hidden  bg-card  lg:col-span-6 lg:h-full xl:col-span-9"
       ref={editorAndFooterButtonsWrapperRef}
     >
       <PlateEditor

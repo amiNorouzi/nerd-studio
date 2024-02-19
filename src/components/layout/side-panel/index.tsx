@@ -78,9 +78,7 @@ export function SidePanel() {
             height={40}
             className={isOpen ? "w-8" : "me-4 w-11"}
           />
-          <p className="whitespace-nowrap text-[13px] font-medium">
-            Nerd Studio
-          </p>
+          <p className="text-xsm whitespace-nowrap font-medium">Nerd Studio</p>
         </div>
         <Button
           variant="ghost"

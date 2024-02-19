@@ -19,7 +19,7 @@ export function useCustomSearchParams(
     } else {
       setSearchParams(initialKey, initialValue);
     }
-  }, []);
+  }, [initialValue, initialKey]);
 
   /**
    *

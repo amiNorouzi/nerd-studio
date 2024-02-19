@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
 import { SharePopover } from "./share-popover";
 import { SharePopoverContent } from "./share-popover-content";
 import { HistorySheet } from "./history-sheet";
+import { TabButtons } from "@/components/layout/header/apps-header/tabs-buttons";
 
 import { headerContent } from "@/constants/header-content";
 
@@ -15,13 +15,14 @@ export function AppsHeader(props: AppType) {
   return (
     <div className="flex flex-1 items-center justify-between">
       <div>
-        <h6 className="text-base font-semibold">{title}</h6>
+        <h6 className="text-[18px] font-semibold">{title}</h6>
         <Link href="/workspace" className="text-muted-foreground">
           My WorkSpace
         </Link>
       </div>
 
-      <Button className="w-[100px] text-sm">Info</Button>
+      <TabButtons />
+      {/*<Button className="w-[100px] text-sm">Info</Button>*/}
 
       <div className="flex gap-2">
         <HistorySheet>

@@ -29,3 +29,7 @@ export interface PlanItem {
   description: string;
   features: PlanFeatureItem[];
 }
+
+export interface SearchParamsType {
+  [key: string]: string | string[] | undefined;
+}

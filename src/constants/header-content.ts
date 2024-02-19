@@ -1,7 +1,7 @@
 export const headerContent = {
   apps: {
     write: {
-      title: "Write",
+      title: "Writing",
     },
     ask: {
       title: "ask",
