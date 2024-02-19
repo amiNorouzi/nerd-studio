@@ -1,3 +1,5 @@
+import { WorkspacePage } from "@/components/pages/workspace";
+
 export default function Workspace() {
-  return <div>Workspace</div>;
+  return <WorkspacePage />;
 }

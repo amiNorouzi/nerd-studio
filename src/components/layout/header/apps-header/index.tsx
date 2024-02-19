@@ -1,8 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
 import { SharePopover } from "./share-popover";
 import { SharePopoverContent } from "./share-popover-content";
+import { HistorySheet } from "./history-sheet";
 
 import { headerContent } from "@/constants/header-content";
 
@@ -11,7 +13,7 @@ type AppType = HeaderContentType["apps"][keyof HeaderContentType["apps"]];
 export function AppsHeader(props: AppType) {
   const { title } = props;
   return (
-    <div className="flex w-full items-center justify-between">
+    <div className="flex flex-1 items-center justify-between">
       <div>
         <h6 className="text-base font-semibold">{title}</h6>
         <Link href="/workspace" className="text-muted-foreground">
@@ -19,11 +21,16 @@ export function AppsHeader(props: AppType) {
         </Link>
       </div>
 
-      <span className="text-sm">Info</span>
+      <Button className="w-[100px] text-sm">Info</Button>
 
-      <SharePopover>
-        <SharePopoverContent />
-      </SharePopover>
+      <div className="flex gap-2">
+        <HistorySheet>
+          <div>this is content</div>
+        </HistorySheet>
+        <SharePopover>
+          <SharePopoverContent />
+        </SharePopover>
+      </div>
     </div>
   );
 }

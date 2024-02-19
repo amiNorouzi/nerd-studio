@@ -1,4 +1,3 @@
-import { useRef, useState } from "react";
 import { HiChevronUp } from "react-icons/hi";
 
 import {
@@ -8,27 +7,18 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 
-import { SelectLang } from "./select-lang";
-
 import { useCustomSearchParams } from "@/hooks";
 
 import { statuses } from "./contants";
 import type { IProps } from "./types";
 
-export function PopoverSelectionLang({ open, onOpenChange }: IProps) {
-  // const buttonRef = useRef<HTMLButtonElement>(null);
-  const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
+export function PopoverSelectionLang({ open, onOpenChange, children }: IProps) {
   const [searchParams] = useCustomSearchParams();
-  const popoverContentWidth = String(buttonRef?.offsetWidth) ?? "200";
 
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
-        <Button
-          ref={setButtonRef}
-          variant="outline"
-          className="w-full justify-between bg-muted"
-        >
+        <Button variant="outline" className="w-full justify-between bg-muted">
           {statuses.find(
             item => item.value === searchParams.get("response-lang"),
           )?.label ?? statuses[0].label}
@@ -40,8 +30,8 @@ export function PopoverSelectionLang({ open, onOpenChange }: IProps) {
           </span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={`w-[360px] p-0`} align="start">
-        <SelectLang onOpenChange={onOpenChange} />
+      <PopoverContent className="w-[360px] p-0" align="start">
+        {children}
       </PopoverContent>
     </Popover>
   );

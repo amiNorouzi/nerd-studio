@@ -8,7 +8,7 @@ import { useCustomSearchParams } from "@/hooks";
 import { statuses } from "./contants";
 import type { IProps } from "./types";
 
-export function DrawerSelectionLang({ open, onOpenChange }: IProps) {
+export function DrawerSelectionLang({ open, onOpenChange, children }: IProps) {
   const [searchParams] = useCustomSearchParams();
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
@@ -26,9 +26,7 @@ export function DrawerSelectionLang({ open, onOpenChange }: IProps) {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="mt-4 border-t">
-          <SelectLang onOpenChange={onOpenChange} />
-        </div>
+        <div className="mt-4 border-t">{children}</div>
       </DrawerContent>
     </Drawer>
   );

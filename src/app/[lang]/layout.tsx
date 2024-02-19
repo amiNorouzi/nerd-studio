@@ -36,8 +36,7 @@ export default function RootLayout({
           <div className="flex h-dvh w-dvw">
             <SidePanel />
             <div id="main" className="flex h-full w-full flex-col">
-              <Header className="h-[3.5rem]" />
-              <main style={{ height: "calc(100% - 3.5rem)" }}>{children}</main>
+              <main className="h-full w-full">{children}</main>
             </div>
           </div>
         </Providers>

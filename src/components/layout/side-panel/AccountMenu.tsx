@@ -23,14 +23,10 @@ import { cn, getFirstLetter } from "@/lib/utils";
 import { accountSettingsItems } from "@/constants/account-menu";
 import RenderIf from "@/components/shared/RenderIf";
 import { UserBalance } from "@/components/layout/side-panel/UserBalance";
+import { useUi } from "@/stores/zustand/ui";
 
-export function AccountMenu({
-  setHovered,
-  isOpenSidePanel,
-}: {
-  setHovered: (val: boolean) => void;
-  isOpenSidePanel: boolean;
-}) {
+export function AccountMenu({ isOpenSidePanel }: { isOpenSidePanel: boolean }) {
+  const setHovered = useUi(state => state.setIsHoverOnSidePanel);
   const [openAccountDialog, setOpenAccountMenu] = useState(false);
   const [activeMenu, setActiveMenu] = useState(accountSettingsItems[0].key);
   useTheme();

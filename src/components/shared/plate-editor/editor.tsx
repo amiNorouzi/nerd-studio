@@ -30,7 +30,7 @@ interface IProps {
   onChangeEditorValue: (v: any) => void;
   isActiveEditor: boolean;
 }
-export function PlateEditorResponse({
+function PlateEditorResponse({
   editorValue,
   onChangeEditorValue,
   isActiveEditor,

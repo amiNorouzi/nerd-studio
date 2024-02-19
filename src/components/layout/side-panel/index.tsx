@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 
 import { Menu, Sidebar } from "react-pro-sidebar";
@@ -9,15 +9,15 @@ import { PiChartBarLight, PiPlanet, PiShoppingBagLight } from "react-icons/pi";
 import { FaPen } from "react-icons/fa6";
 
 import SidePanelItem from "./SidePanelItem";
-import { UserBalance } from "./UserBalance";
 import { AccountMenu } from "./AccountMenu";
 import { Button } from "@/components/ui/button";
 import RenderIf from "@/components/shared/RenderIf";
 import { Workspace } from "@/components/layout/workspace";
 
-import { cn, getHslColorByVar } from "@/lib/utils";
 import { useUi } from "@/stores/zustand/ui";
 import { useParams } from "next/navigation";
+
+import { cn, getHslColorByVar } from "@/lib/utils";
 
 const sidePanelItems = [
   { title: "Dashboard", to: "", icon: PiChartBarLight },
@@ -37,8 +37,12 @@ const sidePanelItems = [
 export function SidePanel() {
   const isMobile = useMediaQuery("(max-width:768px)");
   const { lang } = useParams();
-  const { isSidePanelOpen, setIsSidePanelOpen } = useUi();
-  const [hovered, setHovered] = useState(false);
+  const {
+    isSidePanelOpen,
+    setIsSidePanelOpen,
+    setIsHoverOnSidePanel,
+    isHoverOnSidePanel,
+  } = useUi(state => state);
 
   const collapsed = isMobile ? true : !isSidePanelOpen;
 
@@ -51,12 +55,12 @@ export function SidePanel() {
     }
   }, [collapsed]);
 
-  const isOpen = !collapsed || hovered;
+  const isOpen = !collapsed || isHoverOnSidePanel;
 
   return (
     <Sidebar
       collapsed={collapsed}
-      collapsedWidth={hovered ? "240px" : "68px"}
+      collapsedWidth={isHoverOnSidePanel ? "240px" : "68px"}
       width="240px"
       transitionDuration={400}
       backgroundColor={getHslColorByVar("--background")}
@@ -72,13 +76,15 @@ export function SidePanel() {
         display: "flex",
         flexDirection: "column",
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={() => setIsHoverOnSidePanel(true)}
+      onMouseLeave={() => setIsHoverOnSidePanel(false)}
     >
       <div
         className={cn(
           "spacing-row h-11 py-2",
-          !collapsed || hovered ? "px-4 " : "!w-full overflow-hidden px-3",
+          !collapsed || isHoverOnSidePanel
+            ? "px-4 "
+            : "!w-full overflow-hidden px-3",
         )}
       >
         <div className="row gap-1">
@@ -188,7 +194,7 @@ export function SidePanel() {
         <RenderIf isTrue={isSidePanelOpen}>
           <Workspace />
         </RenderIf>
-        <AccountMenu setHovered={setHovered} isOpenSidePanel={isOpen} />
+        <AccountMenu isOpenSidePanel={isOpen} />
       </div>
     </Sidebar>
   );

@@ -30,18 +30,15 @@ const spaces = [
     value: "2",
     label: "Second Space",
   },
-];
+] as const;
 
 export function Workspace({ isHeader = false }: { isHeader?: boolean }) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState<string>("");
+  const [value, setValue] = React.useState<string>(spaces[0].value);
   const isSidePanelOpen = useUi(state => state.isSidePanelOpen);
+  const isSidePanelHovered = useUi(state => state.isHoverOnSidePanel);
 
-  useEffect(() => {
-    setValue(spaces[0].value);
-  }, []);
-
-  if (isHeader && isSidePanelOpen) return null;
+  if (isHeader && (isSidePanelOpen || isSidePanelHovered)) return null;
 
   const handleSelect = (currentValue: string) => {
     setValue(currentValue === value ? "" : currentValue);
@@ -52,12 +49,15 @@ export function Workspace({ isHeader = false }: { isHeader?: boolean }) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
+          variant="ghost"
           role="combobox"
           aria-expanded={open}
-          className={cn("row gap-1.5 px-2", isHeader ? "me-2 w-44" : "w-full")}
+          className={cn(
+            "row h-10 gap-1.5 px-2 text-lg font-semibold",
+            isHeader ? "me-2 w-44" : "w-full",
+          )}
         >
-          <div className="centered-col h-6 w-6 rounded-md bg-active text-primary">
+          <div className="centered-col h-6 w-6 rounded-md bg-foreground p-2  text-center text-sm text-background">
             {!!value
               ? getFirstLetter(spaces.find(s => s.value === value)!.label)
               : "W"}

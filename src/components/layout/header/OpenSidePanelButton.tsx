@@ -12,10 +12,10 @@ export function OpenSidePanelButton() {
   return (
     <Button
       variant="ghost"
-      className="fit me-2 p-0"
+      className="fit me-2 p-0 text-muted-foreground"
       onClick={() => setIsSidePanelOpen(true)}
     >
-      <FaAnglesRight size="1rem" />
+      <FaAnglesRight size="0.75rem" />
     </Button>
   );
 }

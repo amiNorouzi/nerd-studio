@@ -1,5 +1,7 @@
 export interface IUiState {
   isSidePanelOpen: boolean;
+  isHoverOnSidePanel: boolean;
+  setIsHoverOnSidePanel: (val: boolean) => void;
   setIsSidePanelOpen: (val: boolean) => void;
   toggleIsSidePanelOpen: () => void;
 }

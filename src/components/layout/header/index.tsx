@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
-import { OpenSidePanelButton } from "./OpenSidePanelButton";
-import { Workspace } from "@/components/layout/workspace";
-import { AppsHeader } from "./apps-header";
-
 import { usePathname } from "next/navigation";
+
+import { OpenSidePanelButton } from "./OpenSidePanelButton";
+import { AppsHeader } from "./apps-header";
 
 import { cn } from "@/lib/utils";
 import { headerContent } from "@/constants/header-content";
@@ -21,19 +20,11 @@ export function Header({ className, ...otherProps }: IProps) {
       {...otherProps}
     >
       <OpenSidePanelButton />
-      {/*<Workspace isHeader />*/}
-      {/*<h1>Header</h1>*/}
       {lastPath in headerContent.apps ? (
         <AppsHeader
           {...headerContent.apps[lastPath as keyof HeaderContentType["apps"]]}
         />
-      ) : (
-        <WorkSpaceHeader />
-      )}
+      ) : null}
     </header>
   );
-}
-
-export function WorkSpaceHeader() {
-  return <div>hi</div>;
 }

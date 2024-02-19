@@ -12,7 +12,9 @@ import { cn } from "@/lib/utils";
 import { statuses } from "./contants";
 import type { IProps } from "./types";
 
-export function SelectLang({ onOpenChange }: Omit<IProps, "open">) {
+export function SelectLang({
+  onOpenChange,
+}: Omit<IProps, "open" | "children">) {
   const [searchParams, setSearchParams] = useCustomSearchParams();
 
   return (
