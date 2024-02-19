@@ -11,7 +11,9 @@ const connection = [
   },
 ];
 
-export function Connections() {
+//Connections panel in user panel dialog
+
+export default function Connections() {
   return (
     <ul className="col gap-2 pt-4">
       {connection.map(({ Icon, id, description, title }) => (

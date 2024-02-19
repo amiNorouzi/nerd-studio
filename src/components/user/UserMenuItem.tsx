@@ -23,12 +23,7 @@ interface IItemProps {
  * @param classNames extra classNames
  * @constructor
  */
-export function AccountMenuItem({
-  title,
-  onClick,
-  icon,
-  classNames,
-}: IItemProps) {
+export function UserMenuItem({ title, onClick, icon, classNames }: IItemProps) {
   const Icon = icon;
 
   return (

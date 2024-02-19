@@ -7,18 +7,23 @@ import RenderIf from "@/components/shared/RenderIf";
 import { Button } from "@/components/ui/button";
 
 import { useTheme } from "@/hooks/useTheme";
+import { useGetDictionary } from "@/hooks";
+
 import { cn } from "@/lib/utils";
 
 import type { PrimaryColor, Theme } from "@/stores/browser-storage/types";
 
 import { primaryColors, themes } from "@/constants/theme";
 
-export function AppearanceSettings() {
+//Appearance settings panel in user panel dialog
+
+export default function AppearanceSettings() {
   const { activePrimaryColor, activeTheme, changeTheme } = useTheme();
+  const userPanelDictionary = useGetDictionary().components.user.panel;
 
   return (
     <div className="col gap-2">
-      <h2>Themes</h2>
+      <h2>{userPanelDictionary.appearance_themes_title}</h2>
       <div className="row mb-4 gap-2">
         {themes.map(theme => (
           <Button
@@ -41,7 +46,7 @@ export function AppearanceSettings() {
         ))}
       </div>
 
-      <h2>Accent Colors</h2>
+      <h2>{userPanelDictionary.appearance_colors_title}</h2>
       <div className="row gap-2">
         {primaryColors.map(primary => (
           <Button

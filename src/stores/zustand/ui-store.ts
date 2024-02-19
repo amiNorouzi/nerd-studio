@@ -1,7 +1,9 @@
 import { create } from "zustand";
-import type { IUiState } from "@/stores/zustand/types";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
+
+import { createSelectors } from "./createSelectors";
+import type { IUiState } from "@/stores/zustand/types";
 
 const initialState = {
   isSidePanelOpen: true,
@@ -27,3 +29,5 @@ export const useUi = create<IUiState>()(
     })),
   ),
 );
+
+export const useUiStore = createSelectors(useUi);

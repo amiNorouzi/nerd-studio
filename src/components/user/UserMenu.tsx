@@ -13,31 +13,52 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { AccountDialog } from "./AccountDialog";
-import { AccountMenuItem } from "./AccountMenuItem";
+
+import { UserPanel } from "./panel";
+import { UserMenuItem } from "./UserMenuItem";
+import { UserAvatar } from "@/components/user/UserAvatar";
+import UserBalance from "./UserBalance";
+import RenderIf from "@/components/shared/RenderIf";
 
 import { useTheme } from "@/hooks/useTheme";
+import { useUiStore } from "@/stores/zustand/ui-store";
+import { useGetDictionary } from "@/hooks";
 
-import { cn, getFirstLetter } from "@/lib/utils";
-import { accountSettingsItems } from "@/constants/account-menu";
-import RenderIf from "@/components/shared/RenderIf";
-import { UserBalance } from "@/components/layout/side-panel/UserBalance";
-import { useUi } from "@/stores/zustand/ui";
+import { cn } from "@/lib/utils";
+import { accountSettingsItems } from "@/constants/user-panel";
 
-export function AccountMenu({ isOpenSidePanel }: { isOpenSidePanel: boolean }) {
-  const setHovered = useUi(state => state.setIsHoverOnSidePanel);
+/**
+ * a hover card used in bottom of side panel
+ * by hover open a menu
+ * by click open user panel dialog
+ * @param setHovered for set it false when open user panel dialog
+ * @param isOpenSidePanel for hide user balance button if is not open
+ * @constructor
+ */
+
+export function UserMenu({ isOpenSidePanel }: { isOpenSidePanel: boolean }) {
+  const setHovered = useUiStore.use.setIsHoverOnSidePanel();
   const [openAccountDialog, setOpenAccountMenu] = useState(false);
+  //active panel of user panel dialog
   const [activeMenu, setActiveMenu] = useState(accountSettingsItems[0].key);
   useTheme();
+  const {
+    components: {
+      user: { menu: userMenuDictionary },
+    },
+  } = useGetDictionary();
 
   const useInfoTextClass =
     "capitalize text-[11px] font-normal overflow-hidden text-ellipsis whitespace-nowrap";
-
   const user = {
     firstname: "Amir",
     lastname: "Abbasi",
   };
+
+  /**
+   * open user panel dialog
+   * @param menu if menu passed select go to target menu panel after open dialog
+   */
   const handleOpenAccountDialog = (menu?: string) => {
     setOpenAccountMenu(!openAccountDialog);
     setHovered(false);
@@ -53,17 +74,17 @@ export function AccountMenu({ isOpenSidePanel }: { isOpenSidePanel: boolean }) {
         isOpenSidePanel ? "flex-row" : "flex-col-reverse",
       )}
     >
-      <HoverCard openDelay={100}>
+      <HoverCard openDelay={100} closeDelay={200}>
         <HoverCardTrigger asChild>
-          <Avatar
-            onClick={() => handleOpenAccountDialog()}
-            className="border-gradiant relative z-50 h-9 w-9 cursor-pointer"
-          >
-            {/*<AvatarImage src={userInfo.image} />*/}
-            <AvatarFallback className="bg-primary/30">
-              {`${getFirstLetter(user.firstname)}${getFirstLetter(user.lastname)}`}
-            </AvatarFallback>
-          </Avatar>
+          <div>
+            <UserAvatar
+              imageSrc=""
+              firstname={user.firstname}
+              lastname={user.lastname}
+              onClick={() => handleOpenAccountDialog()}
+              className="border-gradiant relative z-50 cursor-pointer"
+            />
+          </div>
         </HoverCardTrigger>
         <HoverCardContent
           className="col !z-100 w-56 p-1 text-start"
@@ -72,10 +93,11 @@ export function AccountMenu({ isOpenSidePanel }: { isOpenSidePanel: boolean }) {
           role="dialog"
         >
           <div className="row mb-1 gap-2 border-b p-2">
-            <Avatar className=" h-9 w-9">
-              {/*<AvatarImage src={userInfo.image} />*/}
-              <AvatarFallback className="bg-primary/30">AA</AvatarFallback>
-            </Avatar>
+            <UserAvatar
+              imageSrc=""
+              firstname={user.firstname}
+              lastname={user.lastname}
+            />
             <div className="col gap-[1px]">
               <p
                 className={useInfoTextClass}
@@ -85,29 +107,29 @@ export function AccountMenu({ isOpenSidePanel }: { isOpenSidePanel: boolean }) {
               </p>
             </div>
           </div>
-          <AccountMenuItem
+          <UserMenuItem
             onClick={() => {}}
-            title="Notifications"
+            title={userMenuDictionary.notification_label}
             icon={MdOutlineNotifications}
           />
-          <AccountMenuItem
+          <UserMenuItem
             onClick={() => handleOpenAccountDialog("account")}
-            title="Account Settings"
+            title={userMenuDictionary.account_label}
             icon={MdOutlineManageAccounts}
           />
-          <AccountMenuItem
+          <UserMenuItem
             onClick={() => handleOpenAccountDialog("appearance")}
-            title="Prefrences"
+            title={userMenuDictionary.preferences_label}
             icon={MdOutlineRoomPreferences}
           />
-          <AccountMenuItem
+          <UserMenuItem
             onClick={() => {}}
-            title="Logout"
+            title={userMenuDictionary.logout_label}
             icon={RiLogoutCircleRLine}
           />
         </HoverCardContent>
       </HoverCard>
-      <AccountDialog
+      <UserPanel
         isOpen={openAccountDialog}
         setIsOpen={setOpenAccountMenu}
         activeMenu={activeMenu}

@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 
 import { Providers } from "@/components/providers";
 import { SidePanel } from "@/components/layout/side-panel";
-import { Header } from "@/components/layout/header";
 
 import { i18n, type Locale } from "../../../i18n.config";
 

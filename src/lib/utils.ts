@@ -47,3 +47,22 @@ export function formatCompactNumber(number: number) {
 export const getHslColorByVar = (variable: string) => {
   return `hsl(var(${variable}))`;
 };
+
+/**
+ * get a number and separate by 3 number 000,000
+ * @param number
+ */
+export function separatePrice(number: string) {
+  if (number != null) {
+    number += "";
+    number = number.replace(",", "");
+    let x = number.split(".");
+    let y = x[0];
+    let z = x.length > 1 ? "." + x[1] : "";
+    const rgx = /(\d+)(\d{3})/;
+    while (rgx.test(y)) y = y.replace(rgx, "$1" + "," + "$2");
+    return y + z;
+  } else {
+    return 0;
+  }
+}

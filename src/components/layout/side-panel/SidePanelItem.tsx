@@ -1,12 +1,12 @@
+import { memo } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { useParams, usePathname } from "next/navigation";
 
 import { MenuItem } from "react-pro-sidebar";
 import { IconType } from "react-icons";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { memo } from "react";
 
 interface IProps {
   title: string;
@@ -15,17 +15,24 @@ interface IProps {
   isOpenSidePanel: boolean;
 }
 
+/**
+ * menu item left icon render image or icon from React icons
+ * @param icon //string for image src or React icon type
+ * @param isOpenSidePanel for change icon size in open and close
+ * @param isActive round image if is active passed true
+ */
 const renderIcon = (
   icon: string | IconType,
   isOpenSidePanel: boolean,
   isActive: boolean,
 ) => {
   const ReactIcon = icon;
+  //string it means image src so render an Image
   if (typeof icon === "string") {
     return (
       <Image
         src={icon}
-        alt="{title}"
+        alt="side panel icon"
         width={40}
         height={40}
         className={cn(
@@ -36,6 +43,7 @@ const renderIcon = (
     );
   }
 
+  //else if is IconType render icon
   return (
     <ReactIcon className={isOpenSidePanel ? "h-5 w-5" : "h-[30px] w-[30px]"} />
   );
@@ -43,14 +51,15 @@ const renderIcon = (
 
 const SidePanelItem = ({ title, to, icon, isOpenSidePanel }: IProps) => {
   const pathname = usePathname();
-  const isActive = pathname === to;
+  const { lang } = useParams();
+  const isActive = pathname === `/${lang}${to === "/" ? "" : to}`;
 
   return (
     <MenuItem
       aria-level={1}
       active={isActive}
       icon={renderIcon(icon, isOpenSidePanel, isActive)}
-      component={<Link href={to} />}
+      component={<Link href={`/${lang}${to}`} />}
       rootStyles={{
         color: getHslColorByVar("--foreground"),
         fontSize: "13px",

@@ -1,6 +1,8 @@
 import Image from "next/image";
 
-export function About() {
+//about panel in user panel dialog
+
+export default function About() {
   return (
     <div className="col">
       <div className="row gap-3">

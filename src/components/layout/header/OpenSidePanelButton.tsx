@@ -2,11 +2,15 @@
 import { FaAnglesRight } from "react-icons/fa6";
 
 import { Button } from "@/components/ui/button";
-import { useUi } from "@/stores/zustand/ui";
+import { useUiStore } from "@/stores/zustand/ui-store";
+
+//used in header for open side panel
 
 export function OpenSidePanelButton() {
-  const { isSidePanelOpen, setIsSidePanelOpen } = useUi();
+  const isSidePanelOpen = useUiStore.use.isSidePanelOpen(); //side panel open state
+  const setIsSidePanelOpen = useUiStore.use.setIsSidePanelOpen(); //side panel open state handler
 
+  //don't show when side panel is open (close button is in side panel
   if (isSidePanelOpen) return null;
 
   return (

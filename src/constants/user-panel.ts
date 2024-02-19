@@ -10,24 +10,28 @@ export const accountSettingsItems = [
     icon: MdOutlineManageAccounts,
     key: "account",
     title: "Account Settings",
+    i18Key: "account_panel_label",
   },
   {
     id: "12",
     icon: IoCubeOutline,
     key: "connections",
     title: "Connections",
+    i18Key: "connections_panel_label",
   },
   {
     id: "13",
     icon: GrUpgrade,
     key: "upgrade",
     title: "Upgrade",
+    i18Key: "upgrade_panel_label",
   },
   {
     id: "14",
     icon: IoGiftOutline,
     key: "referral",
     title: "Referral & Rewards",
+    i18Key: "referral_panel_label",
   },
 ];
 
@@ -37,17 +41,20 @@ export const generalSettingsItems = [
     icon: LuShirt,
     key: "appearance",
     title: "Appearance",
+    i18Key: "appearance_panel_label",
   },
   {
     id: "22",
     icon: GrLanguage,
     key: "language",
     title: "Language",
+    i18Key: "language_panel_label",
   },
   {
     id: "23",
     icon: GoInfo,
     key: "about",
     title: "About",
+    i18Key: "about_panel_label",
   },
 ];

@@ -5,6 +5,7 @@ import { copyTextToClipboard } from "@/lib/copyTextToSystemClipboard";
 
 export function useCopyTextInClipBoard(time: number = 1500) {
   const [isCopied, setIsCopied] = useState(false);
+  const [copiedVal, setCopiedVal] = useState("");
 
   const handleCopy = (text: string) => {
     // Asynchronously call copyTextToClipboard
@@ -19,7 +20,8 @@ export function useCopyTextInClipBoard(time: number = 1500) {
       .catch(err => {
         console.log(err);
       });
+    setCopiedVal(text);
   };
 
-  return [handleCopy, isCopied] as const;
+  return [handleCopy, isCopied, copiedVal] as const;
 }

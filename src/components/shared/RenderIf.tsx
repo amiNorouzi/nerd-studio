@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { ChildrenProps } from "@/services/types/props";
+import { ChildrenProps } from "@/services/types";
 
 /**
  * for conditional rendering

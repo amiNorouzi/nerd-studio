@@ -1,9 +1,7 @@
 "use client";
-import { useEffect } from "react";
-
 import * as React from "react";
 import { ChevronsUpDown } from "lucide-react";
-import { useUi } from "@/stores/zustand/ui";
+import { useUiStore } from "@/stores/zustand/ui-store";
 
 import { cn, getFirstLetter } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -32,14 +30,24 @@ const spaces = [
   },
 ] as const;
 
+/**
+ * workspace select rendered in side panel if is open else rendered in header
+ * @param isHeader for change size and hide it if side panel open
+ * @constructor
+ */
 export function Workspace({ isHeader = false }: { isHeader?: boolean }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState<string>(spaces[0].value);
-  const isSidePanelOpen = useUi(state => state.isSidePanelOpen);
-  const isSidePanelHovered = useUi(state => state.isHoverOnSidePanel);
+
+  const isSidePanelHovered = useUiStore.use.isHoverOnSidePanel();
+  const isSidePanelOpen = useUiStore.use.isSidePanelOpen();
 
   if (isHeader && (isSidePanelOpen || isSidePanelHovered)) return null;
 
+  /**
+   * on select item change value and close select popover
+   * @param currentValue
+   */
   const handleSelect = (currentValue: string) => {
     setValue(currentValue === value ? "" : currentValue);
     setOpen(false);
