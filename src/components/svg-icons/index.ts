@@ -7,3 +7,5 @@ export { Whatsapp } from "./Whatsapp";
 export { UserBalanceIcon } from "./UserBalanceIcon";
 export { UpgradeIcon } from "./UpgradeIcon";
 export { Pen } from "./Pen";
+export { DownloadIcon } from "./Download";
+export { Share } from "./Share";

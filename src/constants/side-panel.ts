@@ -31,4 +31,4 @@ export const apps = [
     route: "/write",
     icon: PiPencilLineLight,
   },
-];
+] as const;

@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Pen } from "@/components/svg-icons";
+import { DescriptionHoverCard } from "@/components/shared";
 
 export function FormSection() {
   return (
@@ -41,12 +42,17 @@ export function TextBox() {
       <Label htmlFor="textbox" className="text-xsm font-semibold">
         Target Text
       </Label>
-      <textarea
-        name="userTextBox"
-        id="textbox"
-        rows={10}
-        className="rounded-lg border p-2 outline-none ring-0"
-      />
+      <div className="relative h-full w-full">
+        <textarea
+          name="userTextBox"
+          id="textbox"
+          rows={10}
+          className="w-full rounded-lg border p-2 outline-none ring-0"
+        />
+        {/*<div className="absolute bottom-2 start-2 flex justify-start">*/}
+        {/*  <Button variant="ghost"><></Button>*/}
+        {/*</div>*/}
+      </div>
     </div>
   );
 }
@@ -87,12 +93,28 @@ const selectValues = {
   "Point of view": ["Default", "First Person", "Second Person", "Third Person"],
 } as const;
 
+const selectValuesDescription = {
+  Creativity:
+    "Increase or decrease the creativity level to get various results",
+  "Tone of Voice": "Set result tone of the text as needed",
+} as const;
 export function SelectBoxes() {
   return (
     <div className="grid grid-cols-4 items-start gap-x-5 gap-y-3">
       {Object.entries(selectValues).map(([key, value]) => (
         <div key={key} className="col-span-4 flex flex-col gap-2 sm:col-span-2">
-          <span className="text-xsm m-0 font-semibold">{key}</span>
+          <span className="text-xsm m-0 flex items-baseline gap-2 font-semibold">
+            {key}
+            {key in selectValuesDescription && (
+              <DescriptionHoverCard
+                description={
+                  selectValuesDescription[
+                    key as keyof typeof selectValuesDescription
+                  ]
+                }
+              />
+            )}
+          </span>
           <Select
             defaultValue={value[0]}
             onValueChange={value => console.log(value)}
@@ -116,8 +138,12 @@ export function SelectBoxes() {
         </div>
       ))}
       <div className="col-span-4 mt-1 flex flex-col gap-3 sm:col-span-2">
-        <Label htmlFor="numOfResult" className="text-xsm font-semibold">
-          Number of Results
+        <Label
+          htmlFor="numOfResult"
+          className="text-xsm flex flex-nowrap gap-2  font-semibold"
+        >
+          Number of Results{" "}
+          <DescriptionHoverCard description="Maximum supported resluts is 50" />
         </Label>
         <Input
           type="number"
