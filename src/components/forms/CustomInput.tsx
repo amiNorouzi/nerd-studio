@@ -17,6 +17,17 @@ export interface ICustomInputProps
   isPassword?: boolean;
 }
 
+/**
+ * input with error message and password toggle
+ * @param rootClassName extra class for root div
+ * @param error error message
+ * @param className extra class for input
+ * @param inputWrapperClassName extra class for input wrapper
+ * @param type input type
+ * @param isPassword is input a password type for show/hide password button
+ * @param otherProps other input props
+ * @constructor
+ */
 export function CustomInput({
   rootClassName,
   error,
@@ -48,7 +59,7 @@ export function CustomInput({
         <RenderIf isTrue={isPassword}>
           <Button
             type="button"
-            className="fit absolute right-2 top-1/2 -translate-y-1/2 p-0 text-muted-foreground hover:text-foreground"
+            className="fit absolute end-2 top-1/2 -translate-y-1/2 p-0 text-muted-foreground hover:text-foreground"
             onClick={toggleShowPass}
             variant="ghost"
           >

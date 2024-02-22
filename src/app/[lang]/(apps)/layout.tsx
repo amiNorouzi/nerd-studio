@@ -8,8 +8,10 @@ export default function AppsLayout({
   return (
     <section className="flex h-full w-full flex-col">
       {/* Include shared UI here e.g. a header or sidebar */}
-      <Header className="h-[3.5rem]" />
-      <div style={{ height: "calc(100% - 3.5rem)" }}>{children}</div>
+      <Header className="h-apps-header" />
+      <div style={{ height: "var(--apps-main-height" }} className="bg-image">
+        {children}
+      </div>
     </section>
   );
 }

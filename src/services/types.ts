@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
+import { Locale } from "../../i18n.config";
 
 export type ChildrenProps<P extends any = {}> = P & {
   children: ReactNode | ReactNode[];
@@ -28,4 +29,20 @@ export interface PlanItem {
   creditsAmount: number;
   description: string;
   features: PlanFeatureItem[];
+}
+
+export type StateSetterType<T> = Dispatch<SetStateAction<T>>;
+
+export interface AppItem {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  url: string;
+  category: string;
+  installCount: number;
+}
+
+export interface LangParams {
+  params: { lang: Locale };
 }

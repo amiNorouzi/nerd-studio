@@ -34,6 +34,11 @@
 
     --radius: 0.5rem;
     --bacgroud-image: url("/images/backgrounds/light-background-image.svg");
+
+    --apps-header-height: 3.5rem;
+    --apps-main-height: calc(100dvh - 3.5rem);
+    --header-height: 3rem;
+    --main-height: calc(100dvh - 3rem);
   }
 
   .dark {
@@ -91,6 +96,19 @@
     @apply flex flex-col;
   }
 
+  .h-apps-header {
+    height: var(--apps-header-height);
+  }
+  .h-header {
+    height: var(--header-height);
+  }
+  .max-h-apps-page {
+    max-height: var(--apps-main-height);
+  }
+  .max-h-page {
+    max-height: var(--main-height);
+  }
+
   .spacing-row {
     @apply flex items-center justify-between;
   }
@@ -109,9 +127,6 @@
 
   .center-position {
     @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
-  }
-  .max-h-page {
-    @apply max-h-[calc(100vh-3rem)];
   }
 }
 
@@ -173,6 +188,12 @@ input {
 ::-webkit-scrollbar-thumb:hover {
   background: #a8a4a4 !important;
 }
+
+/*input[type="search"]::-webkit-search-cancel-button {*/
+/*  display: inline-block;*/
+/*  width: 10px;*/
+/*  height: 10px;*/
+/*}*/
 
 /****************************************** html elements style *************************************/
 
@@ -257,4 +278,24 @@ input {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.app-store-hero {
+  background-image: linear-gradient(60deg, #3d73eb 13.4%, #de8fff 86.6%);
+}
+
+.app-store-hero:before,
+.app-store-hero:after {
+  content: "";
+  @apply pointer-events-none absolute inset-0;
+}
+
+.app-store-hero:before {
+  background: url("/images/backgrounds/app-store-hero-dot-baclground.svg")
+    no-repeat 50%;
+}
+
+.app-store-hero:after {
+  background: url("/images/backgrounds/app-store-hero-baclground.svg") no-repeat
+    50%;
 }

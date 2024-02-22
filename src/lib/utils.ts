@@ -52,7 +52,7 @@ export const getHslColorByVar = (variable: string) => {
  * get a number and separate by 3 number 000,000
  * @param number
  */
-export function separatePrice(number: string) {
+export function separateNumber(number: string) {
   if (number != null) {
     number += "";
     number = number.replace(",", "");

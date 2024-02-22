@@ -2,7 +2,7 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 
-import { OpenSidePanelButton } from "./OpenSidePanelButton";
+import { ToggleSidePanelButton } from "./ToggleSidePanelButton";
 import { AppsHeader } from "./apps-header";
 
 import { cn } from "@/lib/utils";
@@ -16,10 +16,10 @@ export function Header({ className, ...otherProps }: IProps) {
   const lastPath = pathName.split("/").pop() ?? "";
   return (
     <header
-      className={cn("row h-12 w-full items-center border-b px-5", className)}
+      className={cn("row w-full items-center border-b px-4", className)}
       {...otherProps}
     >
-      <OpenSidePanelButton />
+      <ToggleSidePanelButton />
       {lastPath in headerContent.apps ? (
         <AppsHeader
           {...headerContent.apps[lastPath as keyof HeaderContentType["apps"]]}

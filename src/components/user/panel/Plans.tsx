@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { plans } from "@/constants/plans";
 import PlanCard from "./PlanCard";
 
+// list of plans show in upgrade panel in user panel dialog
 function Plans() {
   const {
     components: {
@@ -21,7 +22,7 @@ function Plans() {
   const tabClass = "w-full h-full bg-transparent transition-all duration-200";
 
   return (
-    <div className="col gap-4 pt-4">
+    <section className="col gap-4 pt-4">
       <h4 className="border-b pb-2">{userPanelDictionary.compare_title}</h4>
 
       <div className="mx-auto flex h-9 w-48 rounded-md bg-muted p-1">
@@ -63,7 +64,7 @@ function Plans() {
       >
         {userPanelDictionary.see_all_feature_button_label}
       </Button>
-    </div>
+    </section>
   );
 }
 

@@ -17,6 +17,13 @@ interface ISettingItemProps {
   Action: ReactNode;
 }
 
+/**
+ * SettingItem component show the setting item with title, Action and children
+ * @param title
+ * @param Action button or any action
+ * @param children
+ * @constructor
+ */
 const SettingItem = ({
   title,
   Action,
@@ -29,6 +36,7 @@ const SettingItem = ({
   </div>
 );
 
+// AccountSettings component show the account settings on user panel
 function AccountSettings() {
   const {
     components: {

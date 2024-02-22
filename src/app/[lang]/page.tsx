@@ -1,3 +1,7 @@
-export default function Home() {
-  return <div className="h-full p-5"></div>;
+import Dashboard from "@/components/pages/dashboard";
+
+import type { LangParams } from "@/services/types";
+
+export default function Home({ params: { lang } }: LangParams) {
+  return <Dashboard lang={lang} />;
 }

@@ -4,9 +4,12 @@ import { UserBalanceIcon } from "@/components/svg-icons";
 
 import { useGetDictionary } from "@/hooks";
 
-//show user plan
-//by click open user panel dialog and go upgrade panel
-
+/**
+ * show user plan
+ * by click open user panel dialog and go upgrade panel
+ * @param handleClick
+ * @constructor
+ */
 function UserBalance({ handleClick }: { handleClick: () => void }) {
   const dictionary = useGetDictionary();
 

@@ -1,5 +1,7 @@
 import { WorkspacePage } from "@/components/pages/workspace";
 
-export default function Workspace() {
-  return <WorkspacePage />;
+import type { LangParams } from "@/services/types";
+
+export default function Workspace({ params: { lang } }: LangParams) {
+  return <WorkspacePage lang={lang} />;
 }

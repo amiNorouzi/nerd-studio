@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { useGetDictionary } from "@/hooks";
 
 /**
- * use for toggle collapsible div
+ * button use for toggle collapsible div
  * @param isOpen for change icon rotation
  * @param handleToggle onClick
  * @constructor

@@ -33,7 +33,7 @@ export const accountSettingsItems = [
     title: "Referral & Rewards",
     i18Key: "referral_panel_label",
   },
-];
+] as const;
 
 export const generalSettingsItems = [
   {
@@ -57,4 +57,14 @@ export const generalSettingsItems = [
     title: "About",
     i18Key: "about_panel_label",
   },
-];
+] as const;
+
+export const extraSettingsItems = [
+  {
+    id: "31",
+    icon: LuShirt,
+    key: "transactions",
+    title: "Transactions",
+    i18Key: "transactions_panel_label",
+  },
+] as const;

@@ -15,6 +15,17 @@ interface IProps extends ICustomInputProps {
   btnVariant?: "destructive" | "outline" | "secondary";
 }
 
+/**
+ * Input with button on right side for action
+ * @param btnTitle - title of button
+ * @param handleClickButton - action on button click
+ * @param btnClassName - class for button
+ * @param rootClassName - extra class for root div
+ * @param btnVariant - variant of button
+ * @param className - extra class for input
+ * @param otherProps - other input props
+ * @constructor
+ */
 export function InputWithButton({
   btnTitle,
   handleClickButton,

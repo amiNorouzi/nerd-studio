@@ -1,4 +1,4 @@
-export const UpgradeIcon = () => (
+export const Stars = () => (
   <svg
     className="mr-2 w-4 flex-shrink-0"
     width={16}
