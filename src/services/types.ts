@@ -33,3 +33,7 @@ export interface PlanItem {
 export interface SearchParamsType {
   [key: string]: string | string[] | undefined;
 }
+
+export interface ParamsType {
+  lang: "en";
+}

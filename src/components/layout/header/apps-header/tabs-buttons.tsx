@@ -1,10 +1,11 @@
 import React, { memo } from "react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { useCustomSearchParams } from "@/hooks";
+import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 
 function ToggleTabs() {
   const [searchParams, setSearchParams] = useCustomSearchParams();
   const value = searchParams.get("apps-tab") ?? "run";
+  const { components } = useGetDictionary();
   function onChange(val: string) {
     const currentValue = searchParams.get("apps-tab") === val;
     if (currentValue) return;
@@ -19,14 +20,14 @@ function ToggleTabs() {
         aria-label="Toggle run"
         data-state={value === "run" ? "on" : "off"}
       >
-        Run
+        {components.apps_header.run}
       </ToggleGroupItem>
       <ToggleGroupItem
         value="info"
         aria-label="Toggle info"
         data-state={value === "info" ? "on" : "off"}
       >
-        Info
+        {components.apps_header.info}
       </ToggleGroupItem>
     </ToggleGroup>
   );

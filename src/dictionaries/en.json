@@ -14,6 +14,28 @@
       "hero_codes_generated": "Codes Generated",
       "hero_voiceover_tasks": "Voiceover Tasks",
       "hero_audio_transcribed": "Audio Transcribed"
+    },
+    "writing": {
+      "form_description": "Write and improve your content with the help of AI in just a second",
+      "form_language": "Language",
+      "form_textarea_label": "Target Text",
+      "form_num_of_results": "Number of Results",
+      "form_num_of_results_desc": "Maximum supported results is 50",
+      "form_creativity": "Creativity",
+      "form_tone": "Tone of Voice",
+      "form_point": "Point of view",
+      "form_creativity_description": "Increase or decrease the creativity level to get various results",
+      "form_tone_description": "Set result tone of the text as needed",
+      "form_rewrite_button": "Rewrite",
+      "editor_header_copy_text_without_style": "Copy Text without style",
+      "editor_header_copy_text_with_style": "Copy Text with style",
+      "editor_header_copy_html": "Copy Html",
+      "editor_header_down_pdf": "PDF",
+      "editor_header_down_word": "MS Word",
+      "editor_footer_total_word": "Total Word:",
+      "editor_footer_total_char": "Total Char:",
+      "editor_footer_total_Sentence": "Total Sentence:",
+      "editor_footer_total_token": "Total Token:"
     }
   },
   "common": {
@@ -35,6 +57,20 @@
     "audio_files": "Audio Files"
   },
   "components": {
+    "apps_header": {
+      "not_found": "Not Found",
+      "writing": "Writing",
+      "chat": "Chat",
+      "run": "Run",
+      "info": "Info",
+      "history": "History",
+      "share": "Share",
+      "share_link": "Share link",
+      "share_link_for_credits": "Share link to earn more credits.",
+      "Learn_more": "Learn more",
+      "copy": "Copy link",
+      "copied": "Copied"
+    },
     "user": {
       "menu": {
         "notification_label": "Notifications",
@@ -42,6 +78,7 @@
         "preferences_label": "Preferences",
         "logout_label": "Logout"
       },
+
       "panel": {
         "account_items_title": "Account",
         "general_items_title": "General",
@@ -130,6 +167,15 @@
     },
     "shared": {
       "delete_alert_button_label": "Delete"
+    },
+    "info_tab": {
+      "add_to_workSpace": "Add to workspace",
+      "delete": "Delete",
+      "delete_alert_title": "Delete this app?",
+      "delete_alert_desc": "It will permanently delete this app and all associated data will be unrecoverable.",
+      "cancel": "Cancel",
+
+"app_intro": "App Introduction"
     }
   }
 }

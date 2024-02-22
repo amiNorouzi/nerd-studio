@@ -2,13 +2,14 @@ import { memo, Suspense } from "react";
 
 import { EditorSection, FormSection } from "./components";
 import { Info as InfoTab } from "@/components/shared";
-import type { SearchParamsType } from "@/services/types";
+import type { ParamsType, SearchParamsType } from "@/services/types";
 
 const Form = memo(FormSection);
 const Editor = memo(EditorSection);
 const Info = memo(InfoTab);
 interface IProps {
   searchParamsAppSTab: SearchParamsType;
+  params: ParamsType;
 }
 
 const tabToShow = {
@@ -16,25 +17,29 @@ const tabToShow = {
   info: Info,
 };
 
-export function WritePage({ searchParamsAppSTab }: IProps) {
+export function Run({ params }: { params: ParamsType }) {
+  return (
+    <>
+      <Suspense>
+        <Form params={params} />
+      </Suspense>
+      <Editor />
+    </>
+  );
+}
+
+export function WritePage({ searchParamsAppSTab, params }: IProps) {
   const tabValue = searchParamsAppSTab["apps-tab"] ?? "run";
   const Content = tabToShow[tabValue as keyof typeof tabToShow];
 
   return (
-    <div className="grid h-full max-h-full grid-cols-12 divide-x  lg:overflow-hidden ">
-      <Content mdDescription={mdForTest} headerDescription={"hello"} />
+    <div className="grid h-full max-h-full grid-cols-12 divide-x overflow-y-auto lg:overflow-hidden ">
+      <Content
+        mdDescription={mdForTest}
+        headerDescription={"hello"}
+        params={params}
+      />
     </div>
-  );
-}
-
-export function Run() {
-  return (
-    <>
-      <Suspense>
-        <Form />
-      </Suspense>
-      <Editor />
-    </>
   );
 }
 

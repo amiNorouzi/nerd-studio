@@ -17,7 +17,7 @@ export function PopoverSelectionLang({ open, onOpenChange, children }: IProps) {
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="w-full justify-between bg-muted">
+        <Button variant="outline" className="w-full justify-between ">
           {statuses.find(
             item => item.value === searchParams.get("response-lang"),
           )?.label ?? statuses[0].label}

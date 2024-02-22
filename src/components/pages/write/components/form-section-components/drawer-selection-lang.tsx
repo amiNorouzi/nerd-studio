@@ -12,7 +12,7 @@ export function DrawerSelectionLang({ open, onOpenChange, children }: IProps) {
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="w-full justify-between bg-muted">
+        <Button variant="outline" className="w-full justify-between">
           {statuses.find(
             item => item.value === searchParams.get("response-lang"),
           )?.label ?? statuses[0].label}

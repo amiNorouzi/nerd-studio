@@ -1,9 +1,15 @@
+import { Suspense } from "react";
 import { WritePage } from "@/components/pages/write";
-import type { SearchParamsType } from "@/services/types";
+import type { ParamsType, SearchParamsType } from "@/services/types";
 
 interface IProps {
   searchParams: SearchParamsType;
+  params: ParamsType;
 }
-export default function Write({ searchParams }: IProps) {
-  return <WritePage searchParamsAppSTab={searchParams} />;
+export default function Write({ searchParams, params }: IProps) {
+  return (
+    <Suspense>
+      <WritePage searchParamsAppSTab={searchParams} params={params} />
+    </Suspense>
+  );
 }
