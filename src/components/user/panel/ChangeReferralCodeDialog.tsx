@@ -15,7 +15,7 @@ import { CustomInput } from "@/components/forms";
 import { useGetDictionary } from "@/hooks";
 
 /**
- * change referral code popover used in user panel account settings panel
+ * change referral code dialog used in user panel account settings panel
  * @constructor
  */
 function ChangeReferralCodeDialog() {

@@ -25,6 +25,10 @@ export default function LanguageSettings() {
   const currentLang = useParams().lang as string;
   const { changeDir } = useChangeDir();
 
+  /**
+   * Change language handler for select component
+   * @param lang - target language to select
+   */
   const handleChangeLang = (lang: string) => {
     router.replace(redirectedPathName(pathName, lang));
     changeDir(langDir[lang as keyof typeof langDir]);

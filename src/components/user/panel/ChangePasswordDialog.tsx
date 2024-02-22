@@ -16,7 +16,7 @@ import { CustomInput } from "@/components/forms";
 import { useGetDictionary } from "@/hooks";
 
 /**
- * change password popover used in user panel account settings panel
+ * change password dialog used in user panel account settings panel
  * get current and new password and change user password
  * @constructor
  */

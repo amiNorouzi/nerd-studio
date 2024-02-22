@@ -34,7 +34,10 @@ export default function RootLayout({
         <Providers>
           <div className="flex h-dvh w-dvw">
             <SidePanel />
-            <div id="main" className="flex h-full w-full flex-col">
+            <div
+              id="main"
+              className="flex h-full w-full flex-col overflow-x-hidden"
+            >
               <Suspense>
                 <main className="h-full w-full">{children}</main>
               </Suspense>

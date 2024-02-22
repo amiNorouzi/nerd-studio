@@ -2,18 +2,51 @@
   "dir": "ltr",
   "page": {
     "dashboard": {
+      "header_title": "Dashboard",
       "hero_words_left": "Words Left",
       "hero_images_left": "Images Left",
       "hero_characters_left": "Characters Left",
       "hero_minutes_left": "Minutes Left",
-      "hero_current_plan_message": "our account is currently part of our",
+      "hero_current_plan_message": "Your account is currently part of our",
       "hero_free_plan_message": "Subscribe to one of our plans to get access to all features and benefits",
       "hero_documents_created": "Documents Created",
       "hero_words_generated": "Words Generated",
       "hero_images_created": "Images Created",
       "hero_codes_generated": "Codes Generated",
       "hero_voiceover_tasks": "Voiceover Tasks",
-      "hero_audio_transcribed": "Audio Transcribed"
+      "hero_audio_transcribed": "Audio Transcribed",
+      "hero_upgrade_button_label": "Upgrade Now",
+      "all_docs_name_column_label": "Document Name",
+      "all_docs_workbook_column_label": "Workbook",
+      "all_docs_category_column_label": "Category",
+      "all_docs_created_column_label": "Created On",
+      "all_docs_language_column_label": "Language",
+      "all_docs_word_column_label": "Word Used",
+      "all_docs_actions_column_label": "Actions",
+      "all_docs_title": "All My Documents",
+      "favorite_assistants_title": "Favorite AI Chat Assistants",
+      "favorite_assistants_description": "Have your favorite AI chat assistants handy anytime you need them",
+      "favorite_assistants_empty_message": "To add AI chat assistants as your favorite ones, simply click on the start icon on desired",
+      "favorite_assistants_button_label": "AI Chat Assistants",
+      "favorite_template_title": "Favorite Templates",
+      "favorite_template_description": "Always have your top favorite templates handy whenever you need them",
+      "favorite_template_empty_message": "To add templates as your favorite ones, simply click on the start icon on desired",
+      "favorite_template_button_label": "Templates",
+      "words_chart_title": "Word Generation (Current Month)",
+      "words_chart_description": "Monitor your daily word generation closely",
+      "generated_images_title": "Generated Images",
+      "generated_images_description": "Images that you generate with nerd AI image generator",
+      "show_more_images_button_label": "Show More"
+    },
+    "store": {
+      "header_title": "App Store",
+      "search_label": "Search",
+      "add_button_label": "Add to workspace"
+    },
+    "workspace": {
+      "team_tab_label": "Workspace Apps",
+      "members_tab_label": "Members",
+      "settings_tab_label": "Settings"
     }
   },
   "common": {
@@ -32,7 +65,12 @@
     "images": "Images",
     "codes": "Codes",
     "tasks": "Tasks",
-    "audio_files": "Audio Files"
+    "audio_files": "Audio Files",
+    "page": "page",
+    "showing": "Showing",
+    "of": "of",
+    "to": "to",
+    "generated": "Generated"
   },
   "components": {
     "user": {
@@ -52,6 +90,7 @@
         "appearance_panel_label": "Appearance",
         "language_panel_label": "Language",
         "about_panel_label": "About",
+        "transactions_panel_label": "Transactions History",
         "appearance_themes_title": "Themes",
         "appearance_colors_title": "Accent Colors",
         "account_profile_title": "Profile",
@@ -115,7 +154,16 @@
         "current_plan_tag": "Current",
         "current_plan_button_label": "Current Plan",
         "credits_tag": "credits",
-        "free_credits_tag": "free credits"
+        "free_credits_tag": "free credits",
+        "transactions_credits_tab_label": "Credits",
+        "transactions_expenses_tab_label": "Expenses",
+        "transactions_descriptions": "Purchased and rewarded credits are displayed. Credits for the Free/Basic/Pro/Premium were not recorded.",
+        "credits_table_transactions": "Transactions",
+        "transactions_tables_credits": "Credits",
+        "transactions_tables_balance": "Balance",
+        "credits_table_time": "Time",
+        "expenses_table_app": "App",
+        "expenses_table_consumption": "Consumption"
       }
     },
     "side_panel": {

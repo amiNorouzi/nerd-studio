@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import { ChevronsUpDown } from "lucide-react";
-import { useUiStore } from "@/stores/zustand/ui-store";
 
 import { cn, getFirstLetter } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -18,6 +17,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CreateWorkspaceDialog } from "@/components/layout/workspace/CreateWorkspaceDialog";
+import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
 
 const spaces = [
   {
@@ -39,10 +39,9 @@ export function Workspace({ isHeader = false }: { isHeader?: boolean }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState<string>(spaces[0].value);
 
-  const isSidePanelHovered = useUiStore.use.isHoverOnSidePanel();
-  const isSidePanelOpen = useUiStore.use.isSidePanelOpen();
+  const isSidePanelOpen = useCheckSidePanelOpen();
 
-  if (isHeader && (isSidePanelOpen || isSidePanelHovered)) return null;
+  if (isHeader && isSidePanelOpen) return null;
 
   /**
    * on select item change value and close select popover
@@ -57,15 +56,15 @@ export function Workspace({ isHeader = false }: { isHeader?: boolean }) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="ghost"
+          variant="outline"
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "row h-10 gap-1.5 px-2 text-lg font-semibold",
-            isHeader ? "me-2 w-44" : "w-full",
+            "row gap-1.5 px-2",
+            isHeader ? "me-2 w-44" : "mt-1.5 w-full",
           )}
         >
-          <div className="centered-col h-6 w-6 rounded-md bg-foreground p-2  text-center text-sm text-background">
+          <div className="centered-col h-6 w-6 rounded-md bg-active text-primary">
             {!!value
               ? getFirstLetter(spaces.find(s => s.value === value)!.label)
               : "W"}

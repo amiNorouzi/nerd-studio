@@ -7,12 +7,12 @@ import { MenuItem } from "react-pro-sidebar";
 import { IconType } from "react-icons";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
+import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
 
 interface IProps {
   title: string;
   to: string;
   icon: string | IconType;
-  isOpenSidePanel: boolean;
 }
 
 /**
@@ -49,10 +49,12 @@ const renderIcon = (
   );
 };
 
-const SidePanelItem = ({ title, to, icon, isOpenSidePanel }: IProps) => {
+const SidePanelItem = ({ title, to, icon }: IProps) => {
   const pathname = usePathname();
   const { lang } = useParams();
   const isActive = pathname === `/${lang}${to === "/" ? "" : to}`;
+
+  const isOpenSidePanel = useCheckSidePanelOpen();
 
   return (
     <MenuItem

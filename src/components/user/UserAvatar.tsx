@@ -9,6 +9,15 @@ interface IProps {
   className?: string;
 }
 
+/**
+ * UserAvatar component show image with first later of firstname and lastname fallback
+ * @param imageSrc - image source
+ * @param className - extra class name
+ * @param onClick - click event of avatar
+ * @param lastname - user lastname
+ * @param firstname user firstname
+ * @constructor
+ */
 export function UserAvatar({
   imageSrc,
   className,

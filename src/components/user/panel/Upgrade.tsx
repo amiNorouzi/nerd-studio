@@ -1,8 +1,7 @@
 "use client";
 import { useToggle } from "usehooks-ts";
 
-import { UpgradeIcon } from "@/components/svg-icons";
-import { useGetDictionary } from "@/hooks";
+import { Stars } from "@/components/svg-icons";
 import { Button } from "@/components/ui/button";
 import { Collapsible, DescriptionHoverCard } from "@/components/shared";
 import {
@@ -15,7 +14,17 @@ import Plans from "./Plans";
 import UpgradeDetailsProgress from "./UpgradeDetailsProgress";
 import CollapsibleToggle from "./CollapsibleToggle";
 
-function Upgrade() {
+import { useGetDictionary } from "@/hooks";
+
+import type { StateSetterType } from "@/services/types";
+
+//upgrade panel in user panel dialog
+//show current plan and upgrade options
+function Upgrade({
+  setActiveMenu,
+}: {
+  setActiveMenu: StateSetterType<string>;
+}) {
   const {
     common: { free },
     components: {
@@ -27,7 +36,7 @@ function Upgrade() {
   return (
     <div className="col">
       <div className="bg-gradiant mb-4 flex rounded-md px-4 py-2">
-        <UpgradeIcon />
+        <Stars />
         <div className="text-gradiant">
           {userPanelDictionary.upgrade_header_text}
           <Button variant="link" className="fit ms-1 p-0">
@@ -79,6 +88,7 @@ function Upgrade() {
 
           <div className="row mt-4 gap-3">
             <Button
+              onClick={() => setActiveMenu("transactions")}
               variant="ghost"
               className="fit p-0 hover:bg-transparent hover:text-primary"
             >

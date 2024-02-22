@@ -3,8 +3,14 @@ import RenderIf from "@/components/shared/RenderIf";
 import { useGetDictionary } from "@/hooks";
 import { DescriptionHoverCard } from "@/components/shared";
 import { Button } from "@/components/ui/button";
-import { separatePrice } from "@/lib/utils";
+import { separateNumber } from "@/lib/utils";
 
+/**
+ * PlanCard component used in plan selection of upgrade panel
+ * @param plan PlanItem
+ * @param showYearly - show yearly price
+ * @constructor
+ */
 function PlanCard({
   plan,
   showYearly,
@@ -34,7 +40,7 @@ function PlanCard({
         <span className="text-xsm font-normal">/ {month}</span>
       </p>
       <p className="row gap-1 border-b pb-2 text-xs">
-        {separatePrice(plan.creditsAmount.toString())}{" "}
+        {separateNumber(plan.creditsAmount.toString())}{" "}
         {plan.isFree
           ? userPanelDictionary.free_credits_tag
           : userPanelDictionary.credits_tag}{" "}

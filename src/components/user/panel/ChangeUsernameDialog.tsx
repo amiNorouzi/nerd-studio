@@ -15,7 +15,7 @@ import { CustomInput } from "@/components/forms";
 import { useGetDictionary } from "@/hooks";
 
 /**
- * change username popover used in user panel account settings panel
+ * change username dialog used in user panel account settings panel
  * @constructor
  */
 function ChangeUsernameDialog() {

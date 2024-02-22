@@ -6,5 +6,8 @@ export const headerContent = {
     chat: {
       title: "chat",
     },
+    artist: {
+      title: "artist",
+    },
   },
 } as const;

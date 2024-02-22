@@ -3,28 +3,25 @@ import { useEffect } from "react";
 import Image from "next/image";
 
 import { Menu, Sidebar } from "react-pro-sidebar";
-import { useMediaQuery } from "usehooks-ts";
-import { FaAnglesLeft } from "react-icons/fa6";
 
 import SidePanelItem from "./SidePanelItem";
 import { UserMenu } from "@/components/user";
-import { Button } from "@/components/ui/button";
 import SpaceItems from "@/components/layout/side-panel/SpaceItems";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
 import { useUiStore } from "@/stores/zustand/ui-store";
 
 import { apps } from "@/constants/side-panel";
+import useMobileSize from "@/hooks/useMobileSize";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
 //overlay on hover and expand on open button click
 
 export function SidePanel() {
-  const isMobile = useMediaQuery("(max-width:768px)");
+  const isMobile = useMobileSize();
   const isSidePanelOpen = useUiStore.use.isSidePanelOpen();
   const isHoverOnSidePanel = useUiStore.use.isHoverOnSidePanel();
-  const setIsSidePanelOpen = useUiStore.use.setIsSidePanelOpen();
   const setIsHoverOnSidePanel = useUiStore.use.setIsHoverOnSidePanel();
   const collapsed = isMobile ? true : !isSidePanelOpen;
 
@@ -64,29 +61,20 @@ export function SidePanel() {
     >
       <div
         className={cn(
-          "spacing-row h-11 py-2",
+          "row h-11 gap-1 py-2",
           !collapsed || isHoverOnSidePanel
             ? "px-4 "
             : "!w-full overflow-hidden px-3",
         )}
       >
-        <div className="row gap-1">
-          <Image
-            src="/images/logo.png"
-            alt="nerd logo"
-            width={50}
-            height={40}
-            className={isOpen ? "w-8" : "me-4 w-11"}
-          />
-          <p className="text-xsm whitespace-nowrap font-medium">Nerd Studio</p>
-        </div>
-        <Button
-          variant="ghost"
-          className="fit p-0"
-          onClick={() => setIsSidePanelOpen(false)}
-        >
-          <FaAnglesLeft size="1rem" />
-        </Button>
+        <Image
+          src="/images/logo.png"
+          alt="nerd logo"
+          width={50}
+          height={40}
+          className={isOpen ? "w-8" : "me-4 w-11"}
+        />
+        <p className="whitespace-nowrap text-[13px] font-medium">Nerd Studio</p>
       </div>
 
       <Menu
@@ -145,13 +133,12 @@ export function SidePanel() {
             title={app.title}
             to={app.route}
             icon={app.icon}
-            isOpenSidePanel={isOpen}
           />
         ))}
 
         <div className="col absolute inset-x-0 bottom-0 gap-1.5 px-3 py-2">
-          <SpaceItems isOpen={isOpen} />
-          <UserMenu isOpenSidePanel={isOpen} />
+          <SpaceItems />
+          <UserMenu />
         </div>
       </Menu>
     </Sidebar>

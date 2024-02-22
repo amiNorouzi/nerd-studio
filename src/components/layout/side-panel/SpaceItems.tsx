@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 import { PiPlanet, PiShoppingBagLight } from "react-icons/pi";
+import { RxDrawingPin, RxDrawingPinFilled } from "react-icons/rx";
 
 import {
   Accordion,
@@ -9,46 +12,61 @@ import {
 import SidePanelItem from "@/components/layout/side-panel/SidePanelItem";
 import RenderIf from "@/components/shared/RenderIf";
 import { Workspace } from "@/components/layout/workspace";
+import { MyTooltip } from "@/components/shared/myTooltip";
 
-import { cn } from "@/lib/utils";
+import useCheckSidePanelOpen from "./hooks/useCheckSidePanelOpen";
 import { useGetDictionary } from "@/hooks";
 
-import { useUiStore } from "@/stores/zustand/ui-store";
+import { cn } from "@/lib/utils";
 
 /**
- * //yed in side panel
- * @param isOpen isSidePanelOpen by expand or open with hover
+ * used in side panel
  * @constructor
  */
-function SpaceItems({ isOpen }: { isOpen: boolean }) {
+function SpaceItems() {
   const { space_items_title } = useGetDictionary().components.side_panel;
-  const isSidePanelOpen = useUiStore.use.isSidePanelOpen();
+  const [pin, setPin] = useState(false);
+
+  const isOpenSidePanel = useCheckSidePanelOpen();
 
   return (
-    <Accordion type="single" collapsible className="w-full border-y py-2">
+    <Accordion
+      type="single"
+      collapsible
+      className={cn("w-full border-y py-2", !isOpenSidePanel && "border-t-0")}
+      value={pin ? "space" : undefined}
+    >
       <AccordionItem value="space" className="!border-b-0">
         <AccordionTrigger
           className={cn(
-            "py-0 text-xs font-semibold text-muted-foreground",
-            !isOpen && "hidden",
+            "relative items-center py-0 text-xs font-semibold text-muted-foreground",
+            !isOpenSidePanel && "hidden",
           )}
         >
-          {space_items_title}
+          <div className="spacing-row w-full pe-1">
+            {space_items_title}
+            <MyTooltip title="Pin in window" side="top">
+              <div
+                className="fit cursor-pointer p-1"
+                onClick={() => setPin(!pin)}
+              >
+                {pin ? (
+                  <RxDrawingPinFilled size=".9rem" className="text-primary" />
+                ) : (
+                  <RxDrawingPin size=".9rem" />
+                )}
+              </div>
+            </MyTooltip>
+          </div>
         </AccordionTrigger>
         <AccordionContent className="pb-0 pt-2">
           <SidePanelItem
             title="App Store"
             to="/app-store"
             icon={PiShoppingBagLight}
-            isOpenSidePanel={isOpen}
           />
-          <SidePanelItem
-            title="Workspace"
-            to="/workspace"
-            icon={PiPlanet}
-            isOpenSidePanel={isOpen}
-          />
-          <RenderIf isTrue={isSidePanelOpen}>
+          <SidePanelItem title="Workspace" to="/workspace" icon={PiPlanet} />
+          <RenderIf isTrue={isOpenSidePanel}>
             <Workspace />
           </RenderIf>
         </AccordionContent>

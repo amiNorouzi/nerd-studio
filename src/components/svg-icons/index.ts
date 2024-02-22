@@ -5,7 +5,7 @@ export { Facebook } from "./Facebook";
 export { Telegram } from "./Telegram";
 export { Whatsapp } from "./Whatsapp";
 export { UserBalanceIcon } from "./UserBalanceIcon";
-export { UpgradeIcon } from "./UpgradeIcon";
+export { Stars } from "./Stars";
 export { Pen } from "./Pen";
 export { DownloadIcon } from "./Download";
 export { Share } from "./Share";

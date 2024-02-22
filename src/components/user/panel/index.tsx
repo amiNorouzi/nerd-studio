@@ -9,6 +9,13 @@ import AppearanceSettings from "./AppearanceSettings";
 import LanguageSettings from "./LanguageSettings";
 import Connections from "./Connections";
 import About from "./About";
+import AccountSettings from "./AccountSettings";
+import Referral from "./Referral";
+import Upgrade from "./Upgrade";
+import Transactions from "@/components/user/panel/Transactions";
+import { IoChevronBackOutline } from "react-icons/io5";
+import RenderIf from "@/components/shared/RenderIf";
+import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
 
@@ -16,25 +23,25 @@ import { cn } from "@/lib/utils";
 
 import {
   accountSettingsItems,
+  extraSettingsItems,
   generalSettingsItems,
 } from "@/constants/user-panel";
-import AccountSettings from "./AccountSettings";
-import Referral from "./Referral";
-import Upgrade from "./Upgrade";
+
+import type { StateSetterType } from "@/services/types";
 
 interface IProps {
   isOpen: boolean;
-  setIsOpen: (val: boolean) => void;
+  setIsOpen: StateSetterType<boolean>;
   activeMenu: string;
-  setActiveMenu: (val: string) => void;
+  setActiveMenu: StateSetterType<string>;
 }
 
 /**
  * user panel dialog open by clicking on user avatar in side panel
- * @param isOpen
- * @param setIsOpen
- * @param activeMenu
- * @param setActiveMenu
+ * @param isOpen - state of dialog
+ * @param setIsOpen set state of dialog
+ * @param activeMenu - active panel in dialog
+ * @param setActiveMenu - set active panel in dialog
  * @constructor
  */
 export function UserPanel({
@@ -57,9 +64,11 @@ export function UserPanel({
   const getActiveMenuTitle = () => {
     //first get find active panel from list of panels
     //then get i18Key to get i18 value of title form dictionary
-    const key = [...accountSettingsItems, ...generalSettingsItems].find(
-      item => item.key === activeMenu,
-    )?.i18Key;
+    const key = [
+      ...accountSettingsItems,
+      ...generalSettingsItems,
+      ...extraSettingsItems,
+    ].find(item => item.key === activeMenu)?.i18Key;
 
     return userPanelDictionary[key as keyof typeof userPanelDictionary];
   };
@@ -115,18 +124,28 @@ export function UserPanel({
           </div>
         </div>
         <div className="h-full flex-grow overflow-y-auto px-12 py-6">
-          <h3 className="mb-4 border-b pb-1 text-[15px] font-semibold">
+          <h3 className="row mb-4 gap-1.5 border-b pb-1 text-[15px] font-semibold">
+            <RenderIf isTrue={activeMenu === "transactions"}>
+              <Button
+                variant="ghost"
+                className="fit p-0"
+                onClick={() => setActiveMenu("upgrade")}
+              >
+                <IoChevronBackOutline size="1.2rem" />
+              </Button>
+            </RenderIf>
             {getActiveMenuTitle()}
           </h3>
           {
             {
               account: <AccountSettings />,
               connections: <Connections />,
-              upgrade: <Upgrade />,
+              upgrade: <Upgrade setActiveMenu={setActiveMenu} />,
               referral: <Referral />,
               appearance: <AppearanceSettings />,
               language: <LanguageSettings />,
               about: <About />,
+              transactions: <Transactions />,
             }[activeMenu]
           }
         </div>

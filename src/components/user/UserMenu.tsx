@@ -26,22 +26,25 @@ import { useGetDictionary } from "@/hooks";
 
 import { cn } from "@/lib/utils";
 import { accountSettingsItems } from "@/constants/user-panel";
+import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
 
 /**
  * a hover card used in bottom of side panel
  * by hover open a menu
  * by click open user panel dialog
- * @param setHovered for set it false when open user panel dialog
- * @param isOpenSidePanel for hide user balance button if is not open
  * @constructor
  */
 
-export function UserMenu({ isOpenSidePanel }: { isOpenSidePanel: boolean }) {
+export function UserMenu() {
   const setHovered = useUiStore.use.setIsHoverOnSidePanel();
   const [openAccountDialog, setOpenAccountMenu] = useState(false);
   //active panel of user panel dialog
-  const [activeMenu, setActiveMenu] = useState(accountSettingsItems[0].key);
+  const [activeMenu, setActiveMenu] = useState<string>(
+    accountSettingsItems[0].key,
+  );
   useTheme();
+  const isOpenSidePanel = useCheckSidePanelOpen();
+
   const {
     components: {
       user: { menu: userMenuDictionary },

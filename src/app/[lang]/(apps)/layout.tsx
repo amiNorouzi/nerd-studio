@@ -8,10 +8,9 @@ export default function AppsLayout({
   return (
     <section className="flex h-full w-full flex-col">
       {/* header for apps that includes share , history , tabs and app title */}
-      <Header className="h-[3.5rem]" />
-
+      <Header className="h-apps-header" />
       {/*apps*/}
-      <div className="bg-image" style={{ height: "calc(100% - 3.5rem)" }}>
+      <div style={{ height: "var(--apps-main-height" }} className="bg-image">
         {children}
       </div>
     </section>

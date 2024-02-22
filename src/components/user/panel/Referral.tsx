@@ -20,6 +20,8 @@ import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
 import { socialMedias } from "@/constants/social-medias";
 import { SocialMedias } from "@/components/shared";
 
+//component for referral and invite other user
+//used in user-panel dialog
 function Referral() {
   const userPanelDictionary = useGetDictionary().components.user.panel;
   const [handleCopy, isCopied, copiedVal] = useCopyTextInClipBoard();

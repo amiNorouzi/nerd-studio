@@ -7,6 +7,14 @@ interface IProps {
   openClassName?: string;
 }
 
+/**
+ * Collapsible div by passed stated
+ * @param isOpen - state to open or close collapsible div
+ * @param className - extra class name
+ * @param openClassName - extra class name when open
+ * @param children - children
+ * @constructor
+ */
 export function Collapsible({
   isOpen,
   className,
