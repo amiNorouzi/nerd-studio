@@ -52,6 +52,7 @@ export interface SearchParamsType {
 
 export interface ParamsType {
   lang: Locale;
+  templateId: string;
 }
 
 export type WordType = "char" | "word" | "sentence" | "token";

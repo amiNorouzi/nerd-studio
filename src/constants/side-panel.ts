@@ -1,6 +1,5 @@
-import { FaPen } from "react-icons/fa";
 import { PiChartBarLight, PiPencilLineLight } from "react-icons/pi";
-import { TiPen } from "react-icons/ti";
+import { ImInsertTemplate } from "react-icons/im";
 
 export const apps = [
   {
@@ -30,5 +29,12 @@ export const apps = [
     title: "Write",
     route: "/write",
     icon: PiPencilLineLight,
+  },
+  {
+    id: "5",
+    i18Key: "",
+    title: "Template",
+    route: "/template",
+    icon: ImInsertTemplate,
   },
 ] as const;
