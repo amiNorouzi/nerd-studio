@@ -1,5 +1,4 @@
-import { HiChevronUp } from "react-icons/hi";
-
+import { BsChevronUp } from "react-icons/bs";
 import {
   Popover,
   PopoverContent,
@@ -18,7 +17,7 @@ export function PopoverSelectionLang({ open, onOpenChange, children }: IProps) {
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="w-full justify-between bg-muted">
+        <Button variant="outline" className="w-full justify-between ">
           {statuses.find(
             item => item.value === searchParams.get("response-lang"),
           )?.label ?? statuses[0].label}
@@ -26,11 +25,11 @@ export function PopoverSelectionLang({ open, onOpenChange, children }: IProps) {
             data-open={open}
             className="transition data-[open=false]:rotate-180"
           >
-            <HiChevronUp />
+            <BsChevronUp className="h-4 w-4 opacity-50" />
           </span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[360px] p-0" align="start">
+      <PopoverContent className="w-full p-0" align="start">
         {children}
       </PopoverContent>
     </Popover>

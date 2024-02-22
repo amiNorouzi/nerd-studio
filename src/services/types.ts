@@ -46,3 +46,10 @@ export interface AppItem {
 export interface LangParams {
   params: { lang: Locale };
 }
+export interface SearchParamsType {
+  [key: string]: string | string[] | undefined;
+}
+
+export interface ParamsType {
+  lang: Locale;
+}

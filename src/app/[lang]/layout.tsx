@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 
 import { Providers } from "@/components/providers";
@@ -38,7 +38,9 @@ export default function RootLayout({
               id="main"
               className="flex h-full w-full flex-col overflow-x-hidden"
             >
-              <main className="h-full w-full">{children}</main>
+              <Suspense>
+                <main className="h-full w-full">{children}</main>
+              </Suspense>
             </div>
           </div>
         </Providers>

@@ -1,16 +1,13 @@
 export const headerContent = {
   apps: {
     write: {
-      title: "Write",
-    },
-    ask: {
-      title: "ask",
+      title: "writing",
     },
     chat: {
-      title: "Chat",
+      title: "chat",
     },
     artist: {
-      title: "Artist",
+      title: "artist",
     },
   },
 } as const;

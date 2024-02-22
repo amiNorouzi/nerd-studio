@@ -1,20 +1,15 @@
-"use client";
-import { PlateEditor } from "@/components/shared/plate-editor/editor";
-import { useEditorContext } from "@/stores/contexts/useEditorContext";
-
+import {
+  Editor,
+  EditorSectionFooter,
+  EditorSectionHeader,
+} from "./editor-section-component";
+import "../styles/editor-section.css";
 export function EditorSection() {
-  const { editorAndFooterButtonsWrapperRef } = useEditorContext();
-
   return (
-    <div
-      className=" col-span-12 h-fit overflow-hidden rounded border bg-card shadow lg:col-span-6 lg:h-full xl:col-span-8"
-      ref={editorAndFooterButtonsWrapperRef}
-    >
-      <PlateEditor
-        isActiveEditor
-        editorValue=""
-        onChangeEditorValue={v => console.log(v)}
-      />
+    <div className=" col-span-12 h-fit overflow-hidden  bg-card  lg:col-span-6 lg:h-full xl:col-span-8">
+      <EditorSectionHeader />
+      <Editor />
+      <EditorSectionFooter />
     </div>
   );
 }

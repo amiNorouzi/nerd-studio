@@ -6,3 +6,6 @@ export { Telegram } from "./Telegram";
 export { Whatsapp } from "./Whatsapp";
 export { UserBalanceIcon } from "./UserBalanceIcon";
 export { Stars } from "./Stars";
+export { Pen } from "./Pen";
+export { DownloadIcon } from "./Download";
+export { Share } from "./Share";

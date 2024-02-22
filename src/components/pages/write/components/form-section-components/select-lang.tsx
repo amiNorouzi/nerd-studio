@@ -34,7 +34,7 @@ export function SelectLang({
             >
               <IoCheckmarkSharp
                 className={cn(
-                  "mr-2 h-4 w-4",
+                  "text-xsm mr-2 h-4 w-4",
                   status.value === searchParams.get("response-lang")
                     ? "opacity-100"
                     : "opacity-0",

@@ -20,10 +20,17 @@ export function Header({ className, ...otherProps }: IProps) {
       {...otherProps}
     >
       <ToggleSidePanelButton />
+
+      {/* in this condition check if lastPath is in headerContent.app like(write or chat)
+          if it is then we show apps header
+       */}
       {lastPath in headerContent.apps ? (
-        <AppsHeader
-          {...headerContent.apps[lastPath as keyof HeaderContentType["apps"]]}
-        />
+        <>
+          {/* we passed apps info like title to header*/}
+          <AppsHeader
+            {...headerContent.apps[lastPath as keyof HeaderContentType["apps"]]}
+          />
+        </>
       ) : null}
     </header>
   );

@@ -299,3 +299,7 @@ input {
   background: url("/images/backgrounds/app-store-hero-baclground.svg") no-repeat
     50%;
 }
+
+.bg-linearGradient {
+  background: linear-gradient(89.33deg, #4d84ff 1.8%, #de8fff 94.53%);
+}

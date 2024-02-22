@@ -1,7 +1,6 @@
-import { HiChevronUp } from "react-icons/hi";
+import { BsChevronUp } from "react-icons/bs";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { SelectLang } from "./select-lang";
 
 import { useCustomSearchParams } from "@/hooks";
 
@@ -13,7 +12,7 @@ export function DrawerSelectionLang({ open, onOpenChange, children }: IProps) {
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="w-full justify-between bg-muted">
+        <Button variant="outline" className="w-full justify-between">
           {statuses.find(
             item => item.value === searchParams.get("response-lang"),
           )?.label ?? statuses[0].label}
@@ -21,7 +20,7 @@ export function DrawerSelectionLang({ open, onOpenChange, children }: IProps) {
             data-open={open}
             className="transition data-[open=false]:rotate-180"
           >
-            <HiChevronUp />
+            <BsChevronUp className="h-4 w-4 opacity-50" />
           </span>
         </Button>
       </DrawerTrigger>

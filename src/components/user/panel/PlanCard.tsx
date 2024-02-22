@@ -37,7 +37,7 @@ function PlanCard({
       </h2>
       <p className="text-xl font-semibold">
         ${showYearly ? plan.yearlyPrice : plan.price}{" "}
-        <span className="text-[13px] font-normal">/ {month}</span>
+        <span className="text-xsm font-normal">/ {month}</span>
       </p>
       <p className="row gap-1 border-b pb-2 text-xs">
         {separateNumber(plan.creditsAmount.toString())}{" "}

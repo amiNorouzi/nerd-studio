@@ -8,9 +8,7 @@ import * as React from "react";
 //hero component with search box init used in app store
 export function AppStoreHero() {
   const {
-    page: {
-      store: { search_label },
-    },
+    common: { search },
   } = useGetDictionary();
   return (
     <section className="centered-col app-store-hero relative h-48 min-h-48 w-full rounded-lg px-6">
@@ -21,7 +19,7 @@ export function AppStoreHero() {
         />
         <Button>
           <FiSearch size="1rem" className="me-1" />
-          {search_label}
+          {search}
         </Button>
       </div>
     </section>
