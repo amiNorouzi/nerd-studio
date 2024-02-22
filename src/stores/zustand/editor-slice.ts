@@ -9,6 +9,7 @@ import type { EditorActions, EditorState } from "./types";
 const initialState: EditorState = {
   isEditorChange: false,
   editorValue: null,
+  editorTextContent: "",
 };
 const useEditor = create<EditorState & EditorActions>()(
   devtools(
@@ -18,9 +19,10 @@ const useEditor = create<EditorState & EditorActions>()(
         set(state => {
           state.isEditorChange = !state.isEditorChange;
         }),
-      setEditorValue: v =>
+      setEditorValue: (v, textContent) =>
         set(state => {
           state.editorValue = v;
+          state.editorTextContent = textContent;
         }),
     })),
     { name: "editor state" },

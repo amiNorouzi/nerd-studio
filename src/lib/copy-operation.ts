@@ -1,3 +1,5 @@
+import { copyTextToClipboard } from "./copyTextToSystemClipboard";
+
 interface ArgType {
   text?: string;
   styleMode?: boolean;
@@ -20,7 +22,7 @@ export async function copyOperation({
     await navigator.clipboard.write(data);
   } else {
     parent.innerHTML = text;
-    await navigator.clipboard.writeText(parent.innerText);
+    await copyTextToClipboard(parent.innerText);
   }
 
   cb("checked");

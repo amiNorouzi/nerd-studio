@@ -82,7 +82,7 @@ function PlateEditorResponse({
     setEditorChange();
 
     // this setter is used to store editor value in editor context
-    setEditorValue(v);
+    setEditorValue(v, editorTextBoxRef.current?.textContent ?? "");
   }, []);
 
   return (

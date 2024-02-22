@@ -7,7 +7,7 @@ import { copyTextToClipboard } from "@/lib/copyTextToSystemClipboard";
 export const characterValueItems = [
   "editor_footer_total_word",
   "editor_footer_total_char",
-  "editor_footer_total_Sentence",
+  "editor_footer_total_sentence",
   "editor_footer_total_token",
 ] as const;
 

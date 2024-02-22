@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Locale } from "../../i18n.config";
 
 export type ChildrenProps<P extends any = {}> = P & {
   children: ReactNode | ReactNode[];
@@ -35,5 +36,7 @@ export interface SearchParamsType {
 }
 
 export interface ParamsType {
-  lang: "en";
+  lang: Locale;
 }
+
+export type WordType = "char" | "word" | "sentence" | "token";
