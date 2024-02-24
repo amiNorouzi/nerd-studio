@@ -1,6 +1,6 @@
 export * from "./useScrollEnd";
 export * from "./useGetDictionary";
-export * from "./useChangeDir";
+export * from "./useChangeDirection";
 export * from "./useCustomSearchParams";
 export * from "./useDownloadHandler";
 export * from "./useFullScreenElement";

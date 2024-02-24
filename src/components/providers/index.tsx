@@ -5,10 +5,10 @@ import { DirectionProvider } from "@radix-ui/react-direction";
 
 import { EditorContextProvider } from "@/stores/contexts/editor-context";
 
-import { useChangeDir } from "@/hooks";
+import { useChangeDirection } from "@/hooks";
 import { dirInLocalStorage } from "@/stores/browser-storage";
 export function Providers({ children }: { children: React.ReactNode }) {
-  const { dirState } = useChangeDir();
+  const { dirState } = useChangeDirection();
   useInitialSetDirToHtmlTag();
 
   return (

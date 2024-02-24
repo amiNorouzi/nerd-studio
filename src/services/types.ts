@@ -56,3 +56,8 @@ export interface ParamsType {
 }
 
 export type WordType = "char" | "word" | "sentence" | "token";
+
+export interface SCRPropsType {
+  searchParams: SearchParamsType;
+  params: ParamsType;
+}

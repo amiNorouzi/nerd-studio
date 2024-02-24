@@ -15,11 +15,12 @@ module.exports = {
       screens: {
         "2xl": "1400px",
       },
-      fontSize: {
-        xsm: "13px",
-      },
     },
+
     extend: {
+      fontSize: {
+        xsm: ["13px", "20px"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

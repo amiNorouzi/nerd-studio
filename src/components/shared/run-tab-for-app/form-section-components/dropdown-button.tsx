@@ -2,7 +2,6 @@ import React from "react";
 import { BsChevronUp } from "react-icons/bs";
 
 import { Button } from "@/components/ui/button";
-import { statuses } from "./contants";
 
 interface DropDownButtonProps {
   children: React.ReactNode;

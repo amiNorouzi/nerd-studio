@@ -9,5 +9,8 @@ export const headerContent = {
     artist: {
       title: "artist",
     },
+    template: {
+      title: "template",
+    },
   },
 } as const;

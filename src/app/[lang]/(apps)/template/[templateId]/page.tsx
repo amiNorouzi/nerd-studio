@@ -1,4 +1,5 @@
-import { ParamsType } from "@/services/types";
+import { ParamsType, SCRPropsType } from "@/services/types";
+import { DynamicTemplatePage } from "@/components/pages/template/components";
 
 export async function generateStaticParams() {
   return [
@@ -11,13 +12,6 @@ export async function generateStaticParams() {
   ];
 }
 
-interface IProps {
-  params: ParamsType;
-}
-export default function Page({ params }: IProps) {
-  return (
-    <div>
-      template:{params.templateId} and lang:{params.lang}
-    </div>
-  );
+export default function Page({ params, searchParams }: SCRPropsType) {
+  return <DynamicTemplatePage params={params} searchParams={searchParams} />;
 }

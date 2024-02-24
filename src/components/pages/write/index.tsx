@@ -1,45 +1,33 @@
-import { memo, Suspense } from "react";
+import { memo } from "react";
+import {
+  Info as InfoTab,
+  SetSearchParamProvider,
+  Run as RunTab,
+} from "@/components/shared";
+import type { SCRPropsType } from "@/services/types";
 
-import { EditorSection, FormSection } from "./components";
-import { Info as InfoTab } from "@/components/shared";
-import type { ParamsType, SearchParamsType } from "@/services/types";
-
-const Form = memo(FormSection);
-const Editor = memo(EditorSection);
 const Info = memo(InfoTab);
-interface IProps {
-  searchParamsAppSTab: SearchParamsType;
-  params: ParamsType;
-}
+const Run = memo(RunTab);
 
 const tabToShow = {
   run: Run,
   info: Info,
 };
 
-export function Run({ params }: { params: ParamsType }) {
-  return (
-    <>
-      <Suspense>
-        <Form params={params} />
-      </Suspense>
-      <Editor />
-    </>
-  );
-}
-
-export function WritePage({ searchParamsAppSTab, params }: IProps) {
-  const tabValue = searchParamsAppSTab["apps-tab"] ?? "run";
+export function WritePage({ searchParams, params }: SCRPropsType) {
+  const tabValue = searchParams["apps-tab"] ?? "run";
   const Content = tabToShow[tabValue as keyof typeof tabToShow];
 
   return (
-    <div className="grid h-full max-h-full grid-cols-12 divide-x overflow-y-auto lg:overflow-hidden ">
-      <Content
-        mdDescription={mdForTest}
-        headerDescription={"hello"}
-        params={params}
-      />
-    </div>
+    <SetSearchParamProvider appName="app" appSearchParamValue="write">
+      <div className="grid h-full max-h-full grid-cols-12 divide-x overflow-y-auto lg:overflow-hidden ">
+        <Content
+          mdDescription={mdForTest}
+          headerDescription={"hello"}
+          params={params}
+        />
+      </div>
+    </SetSearchParamProvider>
   );
 }
 

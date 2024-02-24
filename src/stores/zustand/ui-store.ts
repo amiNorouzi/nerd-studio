@@ -27,6 +27,7 @@ export const useUi = create<IUiState>()(
           state.isSidePanelOpen = !state.isSidePanelOpen;
         }),
     })),
+    { name: "ui", store: "ui" },
   ),
 );
 

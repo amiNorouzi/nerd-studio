@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { DownloadIcon, Share } from "@/components/svg-icons";
 
 import { useGetDictionary } from "@/hooks";
-import { useHandleCopyAndDownloadAction } from "@/components/pages/write/hooks";
+import { useHandleCopyAndDownloadAction } from "./useHandleCopyAndDownloadAction";
 
 import { downloadDropdownItems, value } from "./constants";
 
@@ -36,7 +36,7 @@ function InputAndSelectSpace() {
     <div className="flex flex-1 gap-2">
       <Input
         type="text"
-        className="text-xsm h-[42px] w-full max-w-[292px]"
+        className="h-[42px] w-full max-w-[292px] text-xsm"
         defaultValue="New Document"
       />
       <Select defaultValue={value[0]} onValueChange={v => console.log(v)}>

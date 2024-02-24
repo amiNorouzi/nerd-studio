@@ -25,7 +25,7 @@ const useEditor = create<EditorState & EditorActions>()(
           state.editorTextContent = textContent;
         }),
     })),
-    { name: "editor state" },
+    { name: "editor", store: "editor" },
   ),
 );
 

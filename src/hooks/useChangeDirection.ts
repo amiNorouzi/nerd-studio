@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { dirInLocalStorage } from "@/stores/browser-storage";
 
-export function useChangeDir() {
+export function useChangeDirection() {
   const [dirState, setDir] = useState(dirInLocalStorage.get().dir ?? "ltr");
 
   function changeDir(dir: "ltr" | "rtl") {

@@ -24,7 +24,7 @@ function NumberOfResults() {
     <div className="col-span-4 mt-1 flex flex-col gap-3 sm:col-span-2">
       <Label
         htmlFor="numOfResult"
-        className="text-xsm flex flex-nowrap gap-2  font-semibold"
+        className="flex flex-nowrap gap-2 text-xsm  font-semibold"
       >
         {writing.form_num_of_results}
         <DescriptionHoverCard description={writing.form_num_of_results_desc} />
@@ -53,7 +53,7 @@ function ListOfSelectBox() {
     <>
       {Object.entries(selectValues).map(([key, value]) => (
         <div key={key} className="col-span-4 flex flex-col gap-2 sm:col-span-2">
-          <span className="text-xsm m-0 flex items-baseline gap-2 font-semibold">
+          <span className="m-0 flex items-baseline gap-2 text-xsm font-semibold">
             {writing[resolveKey(key as keyof typeof selectValues)]}
             {key in selectValuesDescription && (
               <DescriptionHoverCard

@@ -12,18 +12,12 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import RenderIf from "@/components/shared/RenderIf";
+import { useCustomSearchParams } from "@/hooks";
 
-const categories = [
-  "Recommended",
-  "Writing",
-  "Chat",
-  "Image",
-  "Video",
-  "Audio",
-  "Social",
-  "Programing",
-  "Other",
-];
+interface IProps {
+  name: string;
+  categories: string[];
+}
 
 /**
  * list of apps categories
@@ -31,7 +25,8 @@ const categories = [
  * if items is get space more than available width of container, will show more button
  * @constructor
  */
-export function AppsCategories() {
+export function Categories({ name, categories }: IProps) {
+  const [searchParams, setSearchParams] = useCustomSearchParams();
   // get container ref for calculate width
   const ref = useRef<HTMLDivElement>(null);
   //calculate width of container
@@ -48,7 +43,11 @@ export function AppsCategories() {
 
   return (
     <nav className="w-full max-w-full" ref={ref}>
-      <Tabs defaultValue="Recommended" className="h-full w-full">
+      <Tabs
+        defaultValue={searchParams.get(name) ?? categories[0]}
+        className="h-full w-full"
+        onValueChange={v => setSearchParams(name, v)}
+      >
         <TabsList className="row w-full justify-start gap-1 overflow-hidden border-b bg-transparent pb-0">
           {categories.slice(0, maxItem).map(category => (
             <TabsTrigger

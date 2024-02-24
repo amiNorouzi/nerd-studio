@@ -11,7 +11,7 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 
-import { useChangeDir } from "@/hooks";
+import { useChangeDirection } from "@/hooks";
 
 import { redirectedPathName } from "@/lib/redirectedPathName";
 import { langDir } from "@/lib/dictionary";
@@ -23,7 +23,7 @@ export default function LanguageSettings() {
   const pathName = usePathname();
   const router = useRouter();
   const currentLang = useParams().lang as string;
-  const { changeDir } = useChangeDir();
+  const { changeDir } = useChangeDirection();
 
   /**
    * Change language handler for select component
