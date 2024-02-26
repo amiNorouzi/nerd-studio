@@ -1,17 +1,9 @@
 "use client";
 import { FormEvent } from "react";
 
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import Loading from "@/components/shared/Loading";
 import { CustomInput } from "@/components/forms";
+import { SettingsDialog } from "@/components/shared";
 
 import { useGetDictionary } from "@/hooks";
 
@@ -21,15 +13,15 @@ import { useGetDictionary } from "@/hooks";
  * @constructor
  */
 function ChangePasswordDialog() {
-  const isSubmitting = false;
   const {
-    common: { save_label },
     components: {
       user: { panel: userPanelDictionary },
     },
   } = useGetDictionary();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {};
+  //form submit handler
+  //TODO: implement
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {};
 
   const renderMain = () => (
     <form
@@ -74,36 +66,17 @@ function ChangePasswordDialog() {
         // value={formValues.newRePass}
         // onChange={handleChange}
       />
-
-      <Button
-        type="submit"
-        className="relative mt-4 w-full px-10 sm:ml-auto sm:w-fit md:px-5"
-        disabled={isSubmitting}
-      >
-        {isSubmitting && (
-          <div className=" absolute right-1/2 translate-x-1/2">
-            <Loading showLabel={false} svgClass="w-5 h-5 z-10" />
-          </div>
-        )}
-        {save_label}
-      </Button>
     </form>
   );
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">
-          {userPanelDictionary.account_password_button_label}
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="col max-h-[100dvh] max-w-md bg-popover">
-        <DialogHeader className="mb-4">
-          <DialogTitle>{userPanelDictionary.change_password_title}</DialogTitle>
-        </DialogHeader>
-        {renderMain()}
-      </DialogContent>
-    </Dialog>
+    <SettingsDialog
+      onSubmit={handleSubmit}
+      triggerBtnLabel={userPanelDictionary.account_password_button_label}
+      title={userPanelDictionary.change_password_title}
+    >
+      {renderMain()}
+    </SettingsDialog>
   );
 }
 

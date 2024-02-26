@@ -19,6 +19,9 @@ async function AppStorePage({ lang }: { lang: Locale }) {
 
   return (
     <div className="w-full">
+      {/*
+          header with search box on right shown when hero section search box is not visible
+      */}
       <SpacesHeader>
         <h1 className="ms-2 text-[15px] font-semibold">{header_title}</h1>
         <HeaderSearchBox />
@@ -27,8 +30,13 @@ async function AppStorePage({ lang }: { lang: Locale }) {
         id="app-store-main"
         className="col max-h-page bg-image h-[var(--main-height)] w-full gap-4 overflow-y-auto p-2 md:p-4 lg:gap-6 lg:p-6"
       >
+        {/*
+          hero section with search box on center
+        */}
         <AppStoreHero />
+        {/* apps categories tabs*/}
         <AppsCategories />
+        {/* apps list*/}
         <AppsList />
       </div>
     </div>

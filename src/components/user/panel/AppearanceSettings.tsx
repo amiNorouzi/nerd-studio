@@ -15,14 +15,20 @@ import type { PrimaryColor, Theme } from "@/stores/browser-storage/types";
 
 import { primaryColors, themes } from "@/constants/theme";
 
-//Appearance settings panel in user panel dialog
-
+/**
+ * Appearance settings panel in user panel dialog
+ * @constructor
+ */
 export default function AppearanceSettings() {
   const { activePrimaryColor, activeTheme, changeTheme } = useTheme();
   const userPanelDictionary = useGetDictionary().components.user.panel;
 
   return (
     <div className="col gap-2">
+      {/*
+          list of themes
+          this change background color, popover background color, overlay color, muted color and text color
+      */}
       <h2>{userPanelDictionary.appearance_themes_title}</h2>
       <div className="row mb-4 gap-2">
         {themes.map(theme => (
@@ -46,6 +52,10 @@ export default function AppearanceSettings() {
         ))}
       </div>
 
+      {/*
+            list of primary colors
+            this change primary color of the theme
+        */}
       <h2>{userPanelDictionary.appearance_colors_title}</h2>
       <div className="row gap-2">
         {primaryColors.map(primary => (

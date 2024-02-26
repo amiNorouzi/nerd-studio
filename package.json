@@ -79,6 +79,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.1",
+    "embla-carousel-react": "^8.0.0",
     "immer": "^10.0.3",
     "lucide-react": "^0.330.0",
     "negotiator": "^0.6.3",

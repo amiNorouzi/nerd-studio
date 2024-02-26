@@ -10,6 +10,8 @@ const initialState = {
   isHoverOnSidePanel: false,
 };
 
+//for all the ui related states like open dialogs
+
 export const useUi = create<IUiState>()(
   devtools(
     immer(set => ({

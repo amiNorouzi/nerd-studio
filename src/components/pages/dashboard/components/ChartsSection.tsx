@@ -16,6 +16,8 @@ import { getHslColorByVar } from "@/lib/utils";
 import { IoDocumentText } from "react-icons/io5";
 import * as React from "react";
 
+//chart data
+//TODO: replace with real data from api
 const data = [
   {
     day: "1",
@@ -139,6 +141,11 @@ const data = [
   },
 ];
 
+/**
+ * ChartsSection component
+ * used in dashboard page
+ * @constructor
+ */
 export function ChartsSection() {
   const {
     common: { words, generated },
@@ -148,6 +155,7 @@ export function ChartsSection() {
   return (
     <section className="flex flex-col gap-4 lg:flex-row">
       <div className="col h-96 w-full gap-1 rounded-lg border bg-background p-4 shadow-sm ">
+        {/*title*/}
         <h2 className="row gap-1.5">
           <IoDocumentText size="1.2rem" className="text-primary" />
           {dashboardDictionary.words_chart_title}

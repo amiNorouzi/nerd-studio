@@ -27,18 +27,21 @@ function PlanCard({
 
   return (
     <div className="col w-40 gap-2 rounded-md border p-3">
+      {/* plan title*/}
       <h2>
-        {plan.title}{" "}
+        {plan.title} {/* render if target plan is active for user*/}
         <RenderIf isTrue={plan.isActive}>
           <span className="rounded-sm bg-active px-1.5 text-primary">
             {userPanelDictionary.current_plan_tag}
           </span>
         </RenderIf>
       </h2>
+      {/* plan price*/}
       <p className="text-xl font-semibold">
         ${showYearly ? plan.yearlyPrice : plan.price}{" "}
         <span className="text-xsm font-normal">/ {month}</span>
       </p>
+      {/* plan credits*/}
       <p className="row gap-1 border-b pb-2 text-xs">
         {separateNumber(plan.creditsAmount.toString())}{" "}
         {plan.isFree
@@ -50,6 +53,7 @@ function PlanCard({
           iconSize=".75rem"
         />
       </p>
+      {/* plan features*/}
       <ul className="col mb-1 list-item list-disc gap-2 ps-4">
         {plan.features.map(feature => (
           <li
@@ -69,11 +73,18 @@ function PlanCard({
         ))}
       </ul>
 
+      {/*
+        upgrade button
+        active plan will not have(is disabled)
+        */}
       <Button
         disabled={plan.isActive}
         variant={plan.isActive ? "muted" : "default"}
         className="mt-auto"
       >
+        {/*
+            label is different for active and inactive plans
+        */}
         {plan.isActive
           ? userPanelDictionary.current_plan_button_label
           : upgrade}

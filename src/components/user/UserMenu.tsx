@@ -42,7 +42,7 @@ export function UserMenu() {
   const [activeMenu, setActiveMenu] = useState<string>(
     accountSettingsItems[0].key,
   );
-  useTheme();
+  useTheme(); //for apply prev selected theme in first load
   const isOpenSidePanel = useCheckSidePanelOpen();
 
   const {
@@ -53,6 +53,9 @@ export function UserMenu() {
 
   const useInfoTextClass =
     "capitalize text-[11px] font-normal overflow-hidden text-ellipsis whitespace-nowrap";
+
+  //user info
+  //TODO: replace with real user info
   const user = {
     firstname: "Amir",
     lastname: "Abbasi",
@@ -80,6 +83,9 @@ export function UserMenu() {
       <HoverCard openDelay={100} closeDelay={200}>
         <HoverCardTrigger asChild>
           <div>
+            {/*
+              on hover open user menu and on click open user panel dialog
+            */}
             <UserAvatar
               imageSrc=""
               firstname={user.firstname}
@@ -95,6 +101,7 @@ export function UserMenu() {
           side="top"
           role="dialog"
         >
+          {/*user info and avatar*/}
           <div className="row mb-1 gap-2 border-b p-2">
             <UserAvatar
               imageSrc=""
@@ -110,6 +117,7 @@ export function UserMenu() {
               </p>
             </div>
           </div>
+          {/*user menu items*/}
           <UserMenuItem
             onClick={() => {}}
             title={userMenuDictionary.notification_label}
@@ -132,12 +140,17 @@ export function UserMenu() {
           />
         </HoverCardContent>
       </HoverCard>
+      {/*user panel dialog*/}
       <UserPanel
         isOpen={openAccountDialog}
         setIsOpen={setOpenAccountMenu}
         activeMenu={activeMenu}
         setActiveMenu={setActiveMenu}
       />
+      {/*
+        user current plan
+        render when side panel is open
+      */}
       <RenderIf isTrue={isOpenSidePanel}>
         <UserBalance handleClick={() => handleOpenAccountDialog("upgrade")} />
       </RenderIf>

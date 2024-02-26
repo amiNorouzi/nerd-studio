@@ -18,6 +18,8 @@ import { UserAvatar } from "@/components/user";
 
 import { useGetDictionary } from "@/hooks";
 
+//list of workspace members
+// TODO: replace with real data from api
 const users = [
   {
     id: "1",
@@ -33,6 +35,11 @@ const users = [
   },
 ] as const;
 
+/**
+ * member tab content in workspace page
+ * show all members and their permissions
+ * @constructor
+ */
 export function WorkspaceMembers() {
   const {
     common: { search },
@@ -41,7 +48,11 @@ export function WorkspaceMembers() {
 
   return (
     <>
-      <div className="bg-gradiant row mb-5 h-40 w-full justify-around rounded-lg text-center">
+      {/*
+        hero section
+        show number of members and pending members
+      */}
+      <section className="bg-gradiant row mb-5 h-40 w-full justify-around rounded-lg text-center">
         <div className="col gap-1">
           <span className="text-3xl font-bold">2</span>
           <p className="text-[15px]">{workspaceDictionary.members_label}</p>
@@ -56,9 +67,10 @@ export function WorkspaceMembers() {
             />
           </p>
         </div>
-      </div>
+      </section>
 
       <div className="sm: mb-5 flex flex-col justify-between gap-2 border-b pb-4 sm:flex-row sm:items-center">
+        {/*search box*/}
         <div className="fit relative">
           <Input
             type="search"
@@ -71,12 +83,14 @@ export function WorkspaceMembers() {
           />
         </div>
 
+        {/*invite member button*/}
         <Button className="w-fit">
           <LuUserPlus className="me-2 h-4 w-4" />
           {workspaceDictionary.members_invite_button_label}
         </Button>
       </div>
 
+      {/*members table*/}
       <Table className="font-normal">
         <TableHeader>
           <TableRow>
@@ -92,6 +106,7 @@ export function WorkspaceMembers() {
           {users.map(item => (
             <TableRow key={item.id} className="[&>td]:py-2">
               <TableCell>
+                {/*user full name and user avatar*/}
                 <div className="row gap-2">
                   <UserAvatar
                     imageSrc=""
@@ -104,6 +119,7 @@ export function WorkspaceMembers() {
                 </div>
               </TableCell>
               <TableCell className="text-green-600">
+                {/*user permission(role)*/}
                 <span className="rounded-md border border-primary bg-active px-2 py-1 font-normal capitalize text-primary">
                   {item.permissions}
                 </span>

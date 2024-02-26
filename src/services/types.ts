@@ -46,10 +46,20 @@ export interface AppItem {
 export interface LangParams {
   params: { lang: Locale };
 }
+
 export interface SearchParamsType {
   [key: string]: string | string[] | undefined;
 }
 
 export interface ParamsType {
   lang: Locale;
+}
+
+export interface ChatItem {
+  id: string;
+  message: string;
+  isBot: boolean;
+  image: string;
+  firstname: string;
+  lastname: string;
 }

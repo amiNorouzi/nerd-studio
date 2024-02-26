@@ -11,6 +11,10 @@ import { useGetDictionary } from "@/hooks";
 
 import { generatedImages } from "@/constants/generated-images";
 
+/**
+ * section with generated images
+ * @constructor
+ */
 export function ImagesSection() {
   const {
     page: { dashboard: dashboardDictionary },
@@ -21,8 +25,10 @@ export function ImagesSection() {
     title: "",
     image: "/images/generateds/1.webp",
   };
+  // for showing selected image details in dialog
   const [selectedImage, setSelectedImage] = useState(initSelected);
 
+  // close dialog when clicked outside by setting selected image to initial state
   const handleOpenChange = (val: boolean) => {
     if (!val) {
       setSelectedImage(initSelected);
@@ -31,15 +37,19 @@ export function ImagesSection() {
 
   return (
     <section className="col gap-1 rounded-lg border bg-background p-4 shadow-sm">
+      {/*title*/}
       <h2 className="row gap-1.5">
         <FaFileImage size="1.2rem" className="text-primary" />
         {dashboardDictionary.generated_images_title}
       </h2>
+      {/*description*/}
       <p className="mb-4 text-muted-foreground">
         {dashboardDictionary.generated_images_description}
       </p>
 
+      {/*image gallery wrapper for limit size*/}
       <div className="relative mx-auto my-4 h-[50rem] w-full max-w-7xl overflow-hidden px-4 transition-all delay-300">
+        {/*image gallery*/}
         <div className="relative columns-2 gap-2 md:columns-4">
           {generatedImages.map(item => (
             <div
@@ -69,6 +79,10 @@ export function ImagesSection() {
           </Button>
         </div>
       </div>
+      {/*
+          image details dialog
+          open dialog when selected image id is not initial state (have valid id)
+        */}
       <Dialog onOpenChange={handleOpenChange} open={selectedImage.id !== "0"}>
         <DialogContent
           className="flex h-[100dvh] max-h-[100dvh] !w-full max-w-[100vw] flex-col gap-4
@@ -82,12 +96,17 @@ export function ImagesSection() {
             className="rounded-md object-contain"
           />
           <div className="col flex-grow">
+            {/*title that saved in history*/}
             <h1 className="mb-4 text-base font-bold">{selectedImage.title}</h1>
-            <p className="mb-1">Prompt:</p>
+            {/*prompt that generate image*/}
+            <p className="mb-1">{dashboardDictionary.prompt_title}:</p>
             <p className="min-w-md max-w-lg rounded-lg border bg-muted p-2 text-muted-foreground">
               {selectedImage.prompt}
             </p>
-            <Button className="ms-auto mt-auto w-fit px-5">Try It</Button>
+            {/*try it button for generate a new image with this prompt*/}
+            <Button className="ms-auto mt-auto w-fit px-5">
+              {dashboardDictionary.try_button_label}
+            </Button>
           </div>
         </DialogContent>
       </Dialog>

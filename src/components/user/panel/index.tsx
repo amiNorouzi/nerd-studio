@@ -76,7 +76,13 @@ export function UserPanel({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="flex h-5/6 max-w-[100vw] gap-0 overflow-hidden p-0 text-foreground/80 lg:max-w-5xl">
+        {/*
+          left side of dialog
+          list of panels
+          in two category of account and general
+        */}
         <div className="col relative h-full w-60 border-e bg-popover p-2 pt-5 lg:min-w-60">
+          {/*all panels about account settings*/}
           <h2 className="mb-2 ms-2">
             {userPanelDictionary.account_items_title}
           </h2>
@@ -96,6 +102,7 @@ export function UserPanel({
               onClick={() => setActiveMenu(item.key)}
             />
           ))}
+          {/*all panels about general settings*/}
           <h2 className="mb-2 ms-2 mt-4">
             {userPanelDictionary.general_items_title}
           </h2>
@@ -116,6 +123,7 @@ export function UserPanel({
             />
           ))}
           <div className="absolute inset-x-0 bottom-0 border-t p-2">
+            {/*logout button*/}
             <UserMenuItem
               onClick={() => {}}
               title={menuDictionary.logout_label}
@@ -123,6 +131,10 @@ export function UserPanel({
             />
           </div>
         </div>
+        {/*
+          right side of dialog
+          content of active panel
+        */}
         <div className="h-full flex-grow overflow-y-auto px-12 py-6">
           <h3 className="row mb-4 gap-1.5 border-b pb-1 text-[15px] font-semibold">
             <RenderIf isTrue={activeMenu === "transactions"}>
@@ -136,6 +148,7 @@ export function UserPanel({
             </RenderIf>
             {getActiveMenuTitle()}
           </h3>
+          {/*switch component to render suitable panel based on active menu state*/}
           {
             {
               account: <AccountSettings />,

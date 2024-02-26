@@ -1,3 +1,4 @@
+// export components of this folder
 export { AppStoreHero } from "./AppStoreHero";
 export { AppsCategories } from "./AppsCategories";
 export { AppsList } from "./AppsList";

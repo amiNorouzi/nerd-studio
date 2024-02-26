@@ -6,8 +6,7 @@ import { LuCopy, LuCopyCheck } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { GiftSvg } from "@/components/svg-icons";
 import ChangeReferralCodeDialog from "./ChangeReferralCodeDialog";
-import { InputWithButton } from "@/components/forms";
-import { Input } from "@/components/ui/input";
+import { InputWithButton, MultiValueInput } from "@/components/forms";
 import {
   Accordion,
   AccordionContent,
@@ -17,21 +16,26 @@ import {
 
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
 
-import { socialMedias } from "@/constants/social-medias";
 import { SocialMedias } from "@/components/shared";
 
-//component for referral and invite other user
-//used in user-panel dialog
+/**
+ * component for referral and invite other user
+ * used in user-panel dialog
+ * @constructor
+ */
 function Referral() {
   const userPanelDictionary = useGetDictionary().components.user.panel;
+  //for copy referral code and link
   const [handleCopy, isCopied, copiedVal] = useCopyTextInClipBoard();
 
+  //TODO: replace with real data
   const link = "https://nerd/?r=qJGwqoEp";
   const code = "qwelfsvs";
 
   return (
     <div className="col">
       <div className="col overflow-hidden rounded-md border bg-popover">
+        {/*hero*/}
         <div className="row bg-gradiant mb-2 gap-4 p-4">
           <GiftSvg />
           <div className="col gap-0.5">
@@ -41,12 +45,14 @@ function Referral() {
             <p className="font-normal">
               {userPanelDictionary.invite_user_header_description}
             </p>
-            <Button variant="ghost" className="fit p-0 text-primary">
+            <Button variant="ghost" className="fit row gap-1 p-0 text-primary">
               {userPanelDictionary.invite_user_header_link}
               <GoArrowRight size="1rem" />
             </Button>
           </div>
         </div>
+
+        {/*referral code and link*/}
         <div className="col gap-[3px] p-4">
           <h4>{userPanelDictionary.referral_code_title}</h4>
           <p className="font-normal text-muted-foreground">
@@ -74,6 +80,7 @@ function Referral() {
             </div>
           </div>
 
+          {/*referral link*/}
           <h4>{userPanelDictionary.referral_link_title}</h4>
           <div className="row mb-4">
             <InputWithButton
@@ -90,9 +97,14 @@ function Referral() {
             <SocialMedias />
           </div>
 
+          {/*referral email*/}
           <h4>{userPanelDictionary.referral_email_title}</h4>
-          <Input
-            className="h-20 !align-text-top placeholder:text-start"
+          {/*<Input*/}
+          {/*  className="h-20 !align-text-top placeholder:text-start"*/}
+          {/*  placeholder={userPanelDictionary.referral_email_description}*/}
+          {/*/>*/}
+          <MultiValueInput
+            onValuesChange={() => {}}
             placeholder={userPanelDictionary.referral_email_description}
           />
           <Button className="ms-auto mt-1">
@@ -102,6 +114,7 @@ function Referral() {
         </div>
       </div>
 
+      {/*faq about referral and rewards*/}
       <h2 className=" mt-6 text-base">{userPanelDictionary.faq_title}</h2>
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">

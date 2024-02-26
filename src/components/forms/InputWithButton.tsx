@@ -1,12 +1,8 @@
 "use client";
-import { InputHTMLAttributes } from "react";
-
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import RenderIf from "@/components/shared/RenderIf";
+import { CustomInput, ICustomInputProps } from "@/components/forms/CustomInput";
 
 import { cn } from "@/lib/utils";
-import { CustomInput, ICustomInputProps } from "@/components/forms/CustomInput";
 
 interface IProps extends ICustomInputProps {
   btnTitle: string;
@@ -37,10 +33,12 @@ export function InputWithButton({
 }: IProps) {
   return (
     <div className={cn("flex h-9 w-full", rootClassName)}>
+      {/* input field */}
       <CustomInput
         {...otherProps}
         className={cn("!h-9 rounded-e-none", className)}
       />
+      {/* button rendered right side of input */}
       <Button
         variant={btnVariant}
         type="button"

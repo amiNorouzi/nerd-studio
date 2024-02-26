@@ -36,7 +36,9 @@
       "words_chart_description": "Monitor your daily word generation closely",
       "generated_images_title": "Generated Images",
       "generated_images_description": "Images that you generate with nerd AI image generator",
-      "show_more_images_button_label": "Show More"
+      "show_more_images_button_label": "Show More",
+      "prompt_title": "Prompt",
+      "try_button_label": "Try It"
     },
     "store": {
       "header_title": "App Store",
@@ -55,7 +57,19 @@
       "members_invite_button_label": "Invite",
       "members_user_column_label": "User",
       "members_permissions_column_label": "Permissions",
-      "hero_audio_transcribed": "Audio Transcribed"
+      "hero_audio_transcribed": "Audio Transcribed",
+      "basic_setting_title": "Basic Information",
+      "danger_setting_title": "Danger Zone",
+      "setting_name_label": "Workspace Name",
+      "setting_transfer_label": "Transfer",
+      "setting_transfer_description": "Transfer workspace ownership to another member",
+      "setting_delete_label": "Delete workspace",
+      "setting_delete_description": "Please be cautious, this action cannot be irreversible. Deleting the workspace will permanently delete all apps and associated data in the workspace.",
+      "edit_button_label": "Edit",
+      "delete_button_label": "Delete",
+      "edit_workspace_name_title": "Edit Workspace Name",
+      "transfer_workspace_title": "Transfer Workspace",
+      "transfer_workspace_select_placeholder": "Select a workspace member"
     },
     "writing": {
       "form_description": "Write and improve your content with the help of AI in just a second",
@@ -78,6 +92,16 @@
       "editor_footer_total_char": "Total Char:",
       "editor_footer_total_Sentence": "Total Sentence:",
       "editor_footer_total_token": "Total Token:"
+    },
+    "chat": {
+      "prompt_library_title": "Prompt Library",
+      "voice_input_button_label": "Voice Input",
+      "send_button_label": "Send",
+      "prompt_input_placeholder": "Ask me anything",
+      "new_chat_button_label": "New Chat",
+      "share_button_label": "Shar Conversation",
+      "speak_button_label": "Speak",
+      "copy_button_label": "Copy"
     }
   },
   "common": {

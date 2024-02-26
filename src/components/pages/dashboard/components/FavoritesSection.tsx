@@ -1,8 +1,14 @@
 "use client";
-import { useGetDictionary } from "@/hooks";
 import { Stars } from "@/components/svg-icons";
 import { Button } from "@/components/ui/button";
 
+import { useGetDictionary } from "@/hooks";
+
+/**
+ * Favorites section of the dashboard
+ * favorites assistants and templates
+ * @constructor
+ */
 export function FavoritesSection() {
   const {
     page: { dashboard: dashboardDictionary },
@@ -11,6 +17,7 @@ export function FavoritesSection() {
   return (
     <section className="flex flex-col gap-4 lg:flex-row">
       <div className="col h-72 w-full gap-1 rounded-lg border bg-background p-4 shadow-sm lg:w-1/2">
+        {/* favorite assistants*/}
         <h2 className="row text-sm font-semibold">
           <Stars />
           {dashboardDictionary.favorite_assistants_title}
@@ -29,6 +36,7 @@ export function FavoritesSection() {
           </Button>
         </p>
       </div>
+      {/* favorite templates*/}
       <div className="col h-72 w-full gap-1 rounded-lg border bg-background p-4 shadow-sm lg:w-1/2">
         <h2 className="row text-sm font-semibold">
           <Stars />

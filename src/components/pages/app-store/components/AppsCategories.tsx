@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/hover-card";
 import RenderIf from "@/components/shared/RenderIf";
 
+// list of apps categories for test
+//TODO fetch with api
 const categories = [
   "Recommended",
   "Writing",
@@ -61,6 +63,10 @@ export function AppsCategories() {
               {category}
             </TabsTrigger>
           ))}
+          {/*
+           * if items is get space more than available width of container, will show more button
+           * a hover card will show when hover on more button and show rest of categories vertically list
+           */}
           <RenderIf isTrue={maxItem < categories.length}>
             <HoverCard openDelay={10} closeDelay={50}>
               <HoverCardTrigger asChild>

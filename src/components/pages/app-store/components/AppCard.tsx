@@ -25,12 +25,13 @@ function AppCard({ app }: { app: AppItem }) {
       store: { add_button_label },
     },
   } = useGetDictionary();
-  const { lang } = useParams();
+  const { lang } = useParams(); // get current language for add to link
 
   return (
     <Link href={`/${lang}${app.url}`}>
       <article className="col w-full cursor-pointer gap-3 rounded-md border bg-background p-4 transition-all duration-300 hover:shadow-card-hover">
         <div className="spacing-row">
+          {/* app logo*/}
           <Image
             src={app.imageUrl}
             alt={app.title}
@@ -38,19 +39,29 @@ function AppCard({ app }: { app: AppItem }) {
             height={80}
             className="h-10 w-10 rounded-md"
           />
+          {/*how many times app added to workspace*/}
           <p className="row gap-1 text-xs font-light text-muted-foreground">
             <MdInstallDesktop size=".8rem" />
             {separateNumber(app.installCount.toString())}
           </p>
         </div>
+
         <h3>{app.title}</h3>
+        {/* show description max 2 line with line-clamp-2*/}
         <p className="line-clamp-2 font-normal text-muted-foreground">
           {app.description}
         </p>
+
         <div className="spacing-row">
+          {/*
+           * app category
+           */}
           <span className="rounded-md bg-muted px-3 py-1.5 text-xs capitalize">
             {app.category}
           </span>
+          {/*
+           * add to workspace button
+           */}
           <Button
             className="z-10"
             onClick={e => {

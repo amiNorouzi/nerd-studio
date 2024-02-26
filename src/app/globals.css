@@ -162,8 +162,9 @@ p {
   font-weight: 500;
 }
 
-input {
-  @apply placeholder:font-normal placeholder:text-muted-foreground;
+input,
+textarea {
+  @apply font-normal placeholder:font-normal placeholder:text-muted-foreground;
 }
 
 /* width */

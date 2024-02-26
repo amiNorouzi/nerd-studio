@@ -39,7 +39,9 @@ export function CustomInput({
 }: ICustomInputProps) {
   const [showPass, setShowPass] = useState(false);
 
+  // toggle show/hide password
   const toggleShowPass = (e: MouseEvent<HTMLButtonElement>) => {
+    // prevent form submit
     e.stopPropagation();
     setShowPass(!showPass);
   };
@@ -47,6 +49,9 @@ export function CustomInput({
   return (
     <div className={cn("h-fit w-full", rootClassName)}>
       <div className={cn("relative h-fit w-full", inputWrapperClassName)}>
+        {/*
+          input field
+        */}
         <Input
           type={isPassword ? (showPass ? "text" : "password") : type}
           className={cn(
@@ -56,6 +61,10 @@ export function CustomInput({
           )}
           {...otherProps}
         />
+        {/*
+          show and hide password toggle
+           only show if input type is password
+        */}
         <RenderIf isTrue={isPassword}>
           <Button
             type="button"
@@ -67,6 +76,9 @@ export function CustomInput({
           </Button>
         </RenderIf>
       </div>
+      {/*
+        show error message if any error passed
+      */}
       <RenderIf isTrue={!!error}>
         <div className="mt-0.5 flex h-3">
           <span className="error">{error}</span>

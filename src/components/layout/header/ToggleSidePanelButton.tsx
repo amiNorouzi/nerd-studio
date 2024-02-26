@@ -17,6 +17,9 @@ export function ToggleSidePanelButton() {
       className="fit me-2 p-0 text-muted-foreground"
       onClick={toggleIsSidePanelOpen}
     >
+      {/*
+        rotate icon 180 degree (from right to left) when side panel is open
+      */}
       <FaAnglesRight
         size="0.75rem"
         className={cn(
