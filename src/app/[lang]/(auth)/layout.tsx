@@ -4,7 +4,7 @@ interface IProps {
 }
 export default function Layout({ children }: IProps) {
   return (
-    <div className="flex h-full w-full items-start justify-center overflow-hidden">
+    <div className="flex h-full w-full items-center justify-center overflow-hidden">
       {children}
     </div>
   );

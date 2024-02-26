@@ -1,0 +1,11 @@
+.authLayout::before {
+  @apply absolute block;
+  content: "";
+  width: 200%;
+  height: 300%;
+  top: -100%;
+  left: -50%;
+
+  background: url("/images/login.svg");
+  transform: rotate(-28deg);
+}

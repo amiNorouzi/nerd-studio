@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={params.lang} dir="ltr">
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className="h-dvh w-dvw">
         <Providers>{children}</Providers>
       </body>
     </html>
