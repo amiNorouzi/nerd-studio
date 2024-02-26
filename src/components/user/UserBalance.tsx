@@ -16,6 +16,7 @@ function UserBalance({ handleClick }: { handleClick: () => void }) {
   return (
     <Button
       variant="ghost"
+      //border-gradiant is a custom class in global.css
       className="spacing-row balance border-gradiant relative h-8 w-full rounded-lg px-2.5 hover:after:!rounded-lg"
       onClick={handleClick}
     >
@@ -24,6 +25,10 @@ function UserBalance({ handleClick }: { handleClick: () => void }) {
         <div className="text-gradiant ms-1">67.66</div>
       </div>
 
+      {/*
+        current plan
+        TODO: add real data
+      */}
       <div className="text-gradiant">{dictionary.common.free}</div>
     </Button>
   );

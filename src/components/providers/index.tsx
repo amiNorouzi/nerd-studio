@@ -7,6 +7,13 @@ import { EditorContextProvider } from "@/stores/contexts/editor-context";
 
 import { useChangeDirection } from "@/hooks";
 import { dirInLocalStorage } from "@/stores/browser-storage";
+
+/**
+ * all providers of app
+ * used in main layout
+ * @param children
+ * @constructor
+ */
 export function Providers({ children }: { children: React.ReactNode }) {
   const { dirState } = useChangeDirection();
   useInitialSetDirToHtmlTag();

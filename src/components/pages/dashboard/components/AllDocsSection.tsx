@@ -38,6 +38,8 @@ import { FaPen } from "react-icons/fa6";
 import * as React from "react";
 import { PiPencilLineLight } from "react-icons/pi";
 
+// list of documents user generate
+// TODO: replace with real data from api
 const data = [
   {
     id: "1",
@@ -61,6 +63,11 @@ const data = [
   },
 ];
 
+/**
+ * section to show all documents user generated
+ * used in dashboard
+ * @constructor
+ */
 export function AllDocsSection() {
   const {
     common: { showing, of, to, page },
@@ -69,12 +76,14 @@ export function AllDocsSection() {
 
   return (
     <section className="col gap-5 rounded-lg border bg-background p-4 shadow-sm">
+      {/*title*/}
       <h2 className="row gap-1.5 border-b pb-2">
         <IoDocumentText size="1.2rem" className="text-primary" />
         {dashboardDictionary.all_docs_title}
       </h2>
 
       <div className="spacing-row">
+        {/* select for choose how many item return in a page*/}
         <Select>
           <SelectTrigger className="h-8 w-20">
             <SelectValue placeholder="25" />
@@ -89,6 +98,7 @@ export function AllDocsSection() {
           </SelectContent>
         </Select>
 
+        {/* search box*/}
         <div className="fit relative">
           <Input type="search" className="w-60 ps-10" />
           <FiSearch
@@ -124,6 +134,8 @@ export function AllDocsSection() {
             </TableHead>
           </TableRow>
         </TableHeader>
+
+        {/*documents table*/}
         <TableBody>
           {data.map(item => (
             <TableRow key={item.id} className="[&>td]:py-2">
@@ -163,9 +175,12 @@ export function AllDocsSection() {
       </Table>
 
       <div className="spacing-row w-full">
+        {/*show how many page of data exist*/}
         <p className="text-xs font-light text-muted-foreground">
           {showing} {page} 1 {of} 1
         </p>
+
+        {/*pagination*/}
         <Pagination className="mx-0 w-fit">
           <PaginationContent>
             <PaginationItem>

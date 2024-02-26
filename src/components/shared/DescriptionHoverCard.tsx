@@ -22,6 +22,7 @@ export function DescriptionHoverCard({
   description: string;
   iconSize?: string;
 }) {
+  // open state for hover card to open with click for mobile devices
   const [open, setOpen] = useState(false);
 
   return (

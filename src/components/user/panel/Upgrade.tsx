@@ -18,8 +18,12 @@ import { useGetDictionary } from "@/hooks";
 
 import type { StateSetterType } from "@/services/types";
 
-//upgrade panel in user panel dialog
-//show current plan and upgrade options
+/**
+ * upgrade panel in user panel dialog
+ * show current plan and upgrade options
+ * @param setActiveMenu - set active menu in user panel
+ * @constructor
+ */
 function Upgrade({
   setActiveMenu,
 }: {
@@ -35,16 +39,24 @@ function Upgrade({
 
   return (
     <div className="col">
+      {/*
+        about upgrade
+        bg-gradiant is a custom class for background gradiant in global css
+       */}
       <div className="bg-gradiant mb-4 flex rounded-md px-4 py-2">
         <Stars />
         <div className="text-gradiant">
           {userPanelDictionary.upgrade_header_text}
-          <Button variant="link" className="fit ms-1 p-0">
+          <Button
+            variant="link"
+            className="fit ms-1 rounded-none border-b border-primary p-0"
+          >
             {userPanelDictionary.learn_more_button_label}
           </Button>
         </div>
       </div>
 
+      {/*user active plan information`*/}
       <div className="mb-4 flex gap-2">
         <div className="col w-full rounded-md border px-5 py-4">
           <div className="row">
@@ -59,6 +71,7 @@ function Upgrade({
           </div>
           <p className="mb-2 text-2xl font-bold">67.66</p>
 
+          {/*faq about credit*/}
           <Accordion type="single" collapsible className="mb-2 w-full">
             <AccordionItem value="item-1">
               <AccordionTrigger>
@@ -70,6 +83,10 @@ function Upgrade({
             </AccordionItem>
           </Accordion>
 
+          {/*
+            progress of credit
+            progress bar for gratis and plan
+          */}
           <Collapsible isOpen={isDetailOpen} className="col gap-3">
             <UpgradeDetailsProgress
               title={userPanelDictionary.gratis_progress_label}
@@ -87,6 +104,7 @@ function Upgrade({
           </Collapsible>
 
           <div className="row mt-4 gap-3">
+            {/*go to user transaction panel*/}
             <Button
               onClick={() => setActiveMenu("transactions")}
               variant="ghost"
@@ -112,8 +130,13 @@ function Upgrade({
             />
           </div>
 
+          {/*current plan*/}
           <p className="border-b pb-4 text-[15px]">{free}</p>
 
+          {/*
+            next payment date and amount
+            show next payment date and amount
+          */}
           <Collapsible isOpen={isDetailOpen} className="col gap-3">
             <p className="mt-4 text-xs font-normal text-muted-foreground">
               {userPanelDictionary.next_payment_date_title}
@@ -136,6 +159,7 @@ function Upgrade({
         </div>
       </div>
 
+      {/*plans*/}
       <Plans />
     </div>
   );

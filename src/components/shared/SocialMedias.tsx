@@ -19,6 +19,14 @@ const shareButtonComponent = {
   telegram: TelegramShareButton,
   whatsapp: WhatsappShareButton,
 } as const;
+
+/**
+ * SocialMedias component
+ * list of social media for share app
+ * @param className extra class for root div
+ * @param otherProps other props for root div
+ * @constructor
+ */
 export function SocialMedias({ className, ...otherProps }: IProps) {
   const location = useLocation();
   return (

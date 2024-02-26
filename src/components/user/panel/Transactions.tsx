@@ -14,6 +14,11 @@ import { useGetDictionary } from "@/hooks";
 
 import { credits, expenses } from "@/constants/transactions";
 
+/**
+ * user transactions component used in the User Panel
+ * open in upgrade panel by click on transaction history button
+ * @constructor
+ */
 function Transactions() {
   const {
     components: {
@@ -23,6 +28,11 @@ function Transactions() {
 
   return (
     <Tabs defaultValue="credits" className=" w-full">
+      {/*
+        tabs trigger list
+        - credits
+        - expenses
+      */}
       <TabsList className="grid h-9 w-40 grid-cols-2 rounded-lg p-[1px]">
         <TabsTrigger value="credits" className="rounded-md">
           {userPanelDictionary.transactions_credits_tab_label}
@@ -32,6 +42,11 @@ function Transactions() {
         </TabsTrigger>
       </TabsList>
 
+      {/*
+        tabs content
+        - credits
+        - expenses
+      */}
       <TabsContent value="credits" className=" w-full">
         <p className="row my-4 gap-1 text-xs font-normal text-muted-foreground">
           <GoInfo size=".8rem" />

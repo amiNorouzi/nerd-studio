@@ -46,6 +46,7 @@ export interface AppItem {
 export interface LangParams {
   params: { lang: Locale };
 }
+
 export interface SearchParamsType {
   [key: string]: string | string[] | undefined;
 }
@@ -60,4 +61,13 @@ export type WordType = "char" | "word" | "sentence" | "token";
 export interface SCRPropsType {
   searchParams: SearchParamsType;
   params: ParamsType;
+}
+
+export interface ChatItem {
+  id: string;
+  message: string;
+  isBot: boolean;
+  image: string;
+  firstname: string;
+  lastname: string;
 }

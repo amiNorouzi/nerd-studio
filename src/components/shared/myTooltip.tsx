@@ -51,7 +51,9 @@ export const MyTooltip: FC<ChildrenProps<IProps>> = ({
   return (
     <TooltipProvider delayDuration={delayDuration}>
       <Tooltip>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        <TooltipTrigger asChild onFocus={e => e.preventDefault()}>
+          {children}
+        </TooltipTrigger>
         <TooltipContent
           side={side}
           align={align}
@@ -61,7 +63,7 @@ export const MyTooltip: FC<ChildrenProps<IProps>> = ({
             container: editorAndFooterButtonsWrapperRef.current,
           })}
         >
-          <p className="text-sm first-letter:capitalize">{title}</p>
+          <p className="text-xs font-normal first-letter:capitalize">{title}</p>
           <RenderIf isTrue={arrow}>
             <TooltipArrow className="fill-background" />
           </RenderIf>

@@ -40,6 +40,9 @@ export function DeleteAlertDialog({
 
   return (
     <AlertDialog>
+      {/*
+        if Trigger is not provided, use default button
+      */}
       <AlertDialogTrigger asChild>
         {Trigger ? (
           Trigger
@@ -58,7 +61,13 @@ export function DeleteAlertDialog({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
+          {/*
+            cancel button that close the dialog
+          */}
           <AlertDialogCancel>Cancel</AlertDialogCancel>
+          {/*
+                delete button that call handleSubmit function
+            */}
           <Button variant="destructive" onClick={handleSubmit}>
             {delete_alert_button_label}
           </Button>

@@ -29,7 +29,9 @@ function SpacesHeader({
       )}
     >
       <div className="row pb-2">
+        {/*for open and close side panel*/}
         <ToggleSidePanelButton />
+        {/* workspace select rendered when side panel closed*/}
         <Workspace isHeader />
       </div>
       <div className={cn("row h-full w-full pb-2", childrenWrapperClassName)}>

@@ -1,7 +1,10 @@
 import Image from "next/image";
 
-//about panel in user panel dialog
-
+/**
+ * about panel in user panel dialog
+ * @constructor
+ * @returns {JSX.Element} - JSX about panel
+ */
 export default function About() {
   return (
     <div className="col">

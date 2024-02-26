@@ -9,42 +9,25 @@ import type { ChildrenProps } from "@/services/types";
 import ChangePasswordDialog from "./ChangePasswordDialog";
 import ChangeUsernameDialog from "./ChangeUsernameDialog";
 import ChangeEmailDialog from "./ChangeEmailDialog";
-import { DeleteAlertDialog } from "@/components/shared";
+import { DeleteAlertDialog, SettingItem } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 
-interface ISettingItemProps {
-  title: string;
-  Action: ReactNode;
-}
-
 /**
- * SettingItem component show the setting item with title, Action and children
- * @param title
- * @param Action button or any action
- * @param children
+ * AccountSettings component show the account settings on user panel
  * @constructor
+ * @return {JSX.Element} - JSX.Element
  */
-const SettingItem = ({
-  title,
-  Action,
-  children,
-}: ChildrenProps<ISettingItemProps>) => (
-  <div className="row border-b px-3 py-4 last:border-b-0">
-    <p className="w-40 text-foreground/80">{title}</p>
-    <div className="row w-full px-2">{children}</div>
-    {Action}
-  </div>
-);
-
-// AccountSettings component show the account settings on user panel
 function AccountSettings() {
   const {
     components: {
       user: { panel: userPanelDictionary },
     },
   } = useGetDictionary();
+  // for handle when click on upload button open file dialog
   const uploadInputRef = useRef<HTMLInputElement>(null);
 
+  //user info
+  //TODO: get user info from server
   const user = {
     firstname: "Amir",
     lastname: "Abbasi",
@@ -53,8 +36,10 @@ function AccountSettings() {
 
   return (
     <div className="col gap-2">
+      {/*profile settings*/}
       <h4>{userPanelDictionary.account_profile_title}</h4>
       <div className="col mb-4 rounded-md border">
+        {/*change avatar*/}
         <SettingItem
           title={userPanelDictionary.account_avatar_label}
           Action={
@@ -76,6 +61,7 @@ function AccountSettings() {
           />
         </SettingItem>
 
+        {/*change username*/}
         <SettingItem
           title={userPanelDictionary.account_username_label}
           Action={<ChangeUsernameDialog />}
@@ -83,6 +69,7 @@ function AccountSettings() {
           <p className="text-foreground/80">{`${user.firstname} ${user.lastname}`}</p>
         </SettingItem>
 
+        {/*change password*/}
         <SettingItem
           title={userPanelDictionary.account_password_label}
           Action={<ChangePasswordDialog />}
@@ -90,6 +77,7 @@ function AccountSettings() {
           <></>
         </SettingItem>
 
+        {/*change email*/}
         <SettingItem
           title={userPanelDictionary.account_email_label}
           Action={<ChangeEmailDialog />}
@@ -98,8 +86,10 @@ function AccountSettings() {
         </SettingItem>
       </div>
 
+      {/*danger settings*/}
       <h4>{userPanelDictionary.account_danger_title}</h4>
       <div className="rounded-md border">
+        {/*delete account*/}
         <SettingItem
           title={userPanelDictionary.account_danger_title}
           Action={

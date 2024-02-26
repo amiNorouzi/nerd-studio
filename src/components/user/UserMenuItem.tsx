@@ -2,11 +2,8 @@ import { IconType } from "react-icons";
 
 import { Button } from "@/components/ui/button";
 import RenderIf from "@/components/shared/RenderIf";
-import { cn } from "@/lib/utils";
 
-//use avatar in header
-//it's a hover card that with click and hover open a menu
-//includes profile, user api key, logout
+import { cn } from "@/lib/utils";
 
 interface IItemProps {
   title: string;

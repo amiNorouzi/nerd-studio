@@ -1,9 +1,10 @@
 "use client";
+
+import { FiSearch } from "react-icons/fi";
+
 import { Button } from "@/components/ui/button";
 
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
-import { FiSearch } from "react-icons/fi";
-import * as React from "react";
 
 //hero component with search box init used in app store
 interface IProps {
@@ -15,7 +16,12 @@ export function BannerWithSearch({ name }: IProps) {
   } = useGetDictionary();
   const [searchParams, setSearchParams] = useCustomSearchParams();
   return (
+    //  * with gradiant background and image on :after and :before class
+    //  * background classes are in global.css
     <section className="centered-col app-store-hero relative h-48 min-h-48 w-full rounded-lg px-6">
+      {/*
+       * search box with search icon and input
+       */}
       <div className="row h-10 w-full min-w-60 max-w-lg rounded-md bg-background p-1">
         <input
           className="h-full w-full border-none bg-transparent px-2 font-normal focus:outline-0 focus:ring-0"

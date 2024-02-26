@@ -1,6 +1,8 @@
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
 
+//Connection data
+//TODO: Replace with real data from api
 const connection = [
   {
     id: "1",
@@ -11,8 +13,10 @@ const connection = [
   },
 ];
 
-//Connections panel in user panel dialog
-
+/**
+ * Connections panel in user panel dialog
+ * @constructor
+ */
 export default function Connections() {
   return (
     <ul className="col gap-2 pt-4">

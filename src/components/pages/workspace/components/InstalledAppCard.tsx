@@ -17,15 +17,23 @@ import { useGetDictionary } from "@/hooks";
 
 import type { AppItem } from "@/services/types";
 
+/**
+ * installed app card used in workspace app list tab
+ * @param app - app item
+ * @constructor
+ */
 function InstalledAppCard({ app }: { app: AppItem }) {
+  // get language from url for adding start of link href
   const { lang } = useParams();
   const {
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
 
   return (
+    // Link to app detail page
     <Link href={`/${lang}${app.url}`}>
       <article className="row group w-full cursor-pointer gap-2 rounded-md border bg-background p-4 transition-all duration-300 hover:shadow-card-hover">
+        {/*app icon*/}
         <Image
           src={app.imageUrl}
           alt={app.title}
@@ -34,6 +42,7 @@ function InstalledAppCard({ app }: { app: AppItem }) {
           className="h-10 w-10 rounded-md"
         />
         <h3>{app.title}</h3>
+        {/*hover card that show all action of installed app*/}
         <HoverCard openDelay={10} closeDelay={50}>
           <HoverCardTrigger asChild>
             <Button
@@ -44,6 +53,10 @@ function InstalledAppCard({ app }: { app: AppItem }) {
             </Button>
           </HoverCardTrigger>
           <HoverCardContent side="bottom" className="col max-w-36 p-1">
+            {/*
+              delete action
+              with danger text and background color
+            */}
             <Button
               variant="ghost"
               className="row h-fit w-full justify-start gap-2 px-2.5 py-2 text-foreground/70

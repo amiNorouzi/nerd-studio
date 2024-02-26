@@ -7,6 +7,11 @@ import { spacesTabs } from "@/constants/spaces";
 
 import type { Locale } from "../../../../i18n.config";
 
+/**
+ * WorkspacePage with three tabs(apps, members, settings)
+ * @param lang - current language get from page params
+ * @constructor
+ */
 export async function WorkspacePage({ lang }: { lang: Locale }) {
   const {
     page: { workspace: workspaceDictionary },
@@ -34,6 +39,7 @@ export async function WorkspacePage({ lang }: { lang: Locale }) {
         <TabsContent value="tabone">tab one</TabsContent>
         {spacesTabs.map(({ value, Component }) => (
           <TabsContent key={value} value={value}>
+            {/*page content*/}
             <Component />
           </TabsContent>
         ))}

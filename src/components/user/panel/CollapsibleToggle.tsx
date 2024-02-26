@@ -1,6 +1,7 @@
 import { LuChevronDown } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
+
 import { cn } from "@/lib/utils";
 import { useGetDictionary } from "@/hooks";
 
@@ -27,6 +28,9 @@ function CollapsibleToggle({
       className="fit row ms-auto gap-1 p-1 text-xs text-muted-foreground"
     >
       {isOpen ? hide : details}
+      {/*
+        rotate icon when open to top
+      */}
       <LuChevronDown
         className={cn(
           "h-3 w-3 transition-transform duration-200",

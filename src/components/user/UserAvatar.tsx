@@ -1,4 +1,5 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import { cn, getFirstLetter } from "@/lib/utils";
 
 interface IProps {
@@ -7,6 +8,7 @@ interface IProps {
   lastname: string;
   onClick?: () => void;
   className?: string;
+  fallbackClassname?: string;
 }
 
 /**
@@ -16,6 +18,8 @@ interface IProps {
  * @param onClick - click event of avatar
  * @param lastname - user lastname
  * @param firstname user firstname
+ * @param fallbackClassname extra class for fallback
+ *
  * @constructor
  */
 export function UserAvatar({
@@ -24,11 +28,12 @@ export function UserAvatar({
   onClick,
   lastname,
   firstname,
+  fallbackClassname,
 }: IProps) {
   return (
     <Avatar onClick={onClick} className={cn("h-9 w-9", className)}>
-      {/*<AvatarImage src={userInfo.image} />*/}
-      <AvatarFallback className="bg-primary/30">
+      <AvatarImage src={imageSrc} />
+      <AvatarFallback className={cn("bg-primary/30 ", fallbackClassname)}>
         {`${getFirstLetter(firstname)}${getFirstLetter(lastname)}`}
       </AvatarFallback>
     </Avatar>

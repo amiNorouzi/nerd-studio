@@ -1,3 +1,4 @@
+// Code: Export all components
 export { DeleteAlertDialog } from "./DeleteAlertDialog";
 export { SocialMedias } from "./SocialMedias";
 export { DescriptionHoverCard } from "./DescriptionHoverCard";
@@ -8,3 +9,5 @@ export { BannerWithSearch } from "./BannerWithSearch";
 export { SetSearchParamProvider } from "./SetSearchParamProvider";
 export { Run } from "./run-tab-for-app";
 export { FavoriteButtonAndDialog } from "./FavoriteButtonAndDialog";
+export { SettingItem } from "./SettingItem";
+export { SettingsDialog } from "./SettingsDialog";
