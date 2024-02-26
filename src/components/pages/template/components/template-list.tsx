@@ -18,7 +18,7 @@ export function TemplateList() {
             <h3 className="text-base font-semibold text-muted-foreground">
               {category}:
             </h3>
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {mockTemplateData
                 .filter(item => item.category === category)
                 .map(item => (
@@ -37,7 +37,7 @@ export function TemplateList() {
     <div
       className={cn(
         selectedTemplate !== "All Template" &&
-          "grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3",
+          "grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
       )}
     >
       {items}

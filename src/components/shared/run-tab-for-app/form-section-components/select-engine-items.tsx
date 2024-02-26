@@ -9,40 +9,40 @@ import {
 } from "@/components/ui/command";
 import { useCustomSearchParams } from "@/hooks";
 import { cn } from "@/lib/utils";
-import { statuses } from "./contants";
+import { engines, statuses } from "./contants";
 import type { IProps } from "./types";
 
-export function SelectLang({
+export function SelectEngineItems({
   onOpenChange,
 }: Omit<IProps, "open" | "children">) {
   const [searchParams, setSearchParams] = useCustomSearchParams();
 
   return (
     <Command>
-      <CommandInput placeholder="Search language..." />
+      <CommandInput placeholder="Search Engine..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
-          {statuses.map(status => (
+          {engines.map(engine => (
             <CommandItem
-              key={status.value}
-              value={status.value}
+              key={engine}
+              value={engine}
               onSelect={value => {
-                setSearchParams("response-lang", value);
+                setSearchParams("engine", value);
                 onOpenChange(false);
               }}
             >
               <IoCheckmarkSharp
                 className={cn(
                   "mr-2 h-4 w-4 text-xsm",
-                  status.value.toLowerCase() ===
-                    (searchParams.get("response-lang")?.toLowerCase() ??
-                      statuses[0].value)
+                  engine.toLowerCase() ===
+                    (searchParams.get("engine")?.toLowerCase() ??
+                      engines[0].toLowerCase())
                     ? "opacity-100"
                     : "opacity-0",
                 )}
               />
-              {status.label}
+              {engine}
             </CommandItem>
           ))}
         </CommandGroup>

@@ -11,16 +11,22 @@ import { useCustomSearchParams } from "@/hooks";
 import { statuses } from "./contants";
 import type { IProps } from "./types";
 
-export function PopoverSelectionLang({ open, onOpenChange, children }: IProps) {
+interface Props extends IProps {
+  buttonContent: string;
+}
+export function PopoverSelection({
+  open,
+  onOpenChange,
+  buttonContent,
+  children,
+}: Props) {
   const [searchParams] = useCustomSearchParams();
 
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="w-full justify-between ">
-          {statuses.find(
-            item => item.value === searchParams.get("response-lang"),
-          )?.label ?? statuses[0].label}
+          {buttonContent}
           <span
             data-open={open}
             className="transition data-[open=false]:rotate-180"

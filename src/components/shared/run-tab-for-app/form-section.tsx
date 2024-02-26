@@ -39,7 +39,7 @@ export function FormSection({ template }: IProps) {
   const cardIcon = favTemp ? "fav" : "notFav";
   const ButtonIcon = startIcon[cardIcon];
   return (
-    <div className="col-span-12 flex h-full flex-col gap-5   bg-card p-4  lg:col-span-6 xl:col-span-4">
+    <div className="col-span-12 flex h-full max-h-full flex-col gap-5 overflow-y-auto  bg-card p-4  lg:col-span-6 xl:col-span-4">
       {/*this is for when use select a template that show icon title and fav icon in form section*/}
       <RenderIf isTrue={!!template}>
         <div className="flex justify-between">
@@ -79,7 +79,6 @@ export function FormSection({ template }: IProps) {
       <p className="text-xsm text-muted-foreground">
         {template ? template.description : writing.form_description}
       </p>
-      <SelectResponseLang />
       <TextBox template={template} />
       <SelectBoxes />
       <SubmitButton />

@@ -60,7 +60,6 @@
     "writing": {
       "form_description": "Write and improve your content with the help of AI in just a second",
       "form_language": "Language",
-      "form_textarea_label": "Target Text",
       "form_num_of_results": "Number of Results",
       "form_num_of_results_desc": "Maximum supported results is 50",
       "form_creativity": "Creativity",
@@ -81,6 +80,7 @@
     }
   },
   "common": {
+    "form_textarea_label": "Target Text",
     "save_label": "Save",
     "free": "Free",
     "hide": "Hide",

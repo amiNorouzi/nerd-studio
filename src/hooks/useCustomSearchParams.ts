@@ -1,5 +1,5 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 export function useCustomSearchParams(
   initialKey?: string,
@@ -10,19 +10,13 @@ export function useCustomSearchParams(
   const searchParams = useSearchParams()!;
 
   // now you got a read/write object
-  const current = new URLSearchParams(searchParams);
-
-  useEffect(() => {
-    if (!initialKey) return;
-    if (!initialValue) {
-      setSearchParams(initialKey);
-    } else {
-      setSearchParams(initialKey, initialValue);
-    }
-  }, [initialValue, initialKey]);
+  const current = useMemo(
+    () => new URLSearchParams(searchParams),
+    [searchParams],
+  );
 
   /**
-   *
+   * this function used to set/delete value in url query param
    * @param key for key of query param
    * @param value for set to key param in url - if value is not exist delete key from url
    * @param replace for replace url or push if it is false
@@ -45,8 +39,18 @@ export function useCustomSearchParams(
         router.push(`${pathname}${query}`);
       }
     },
-    [searchParams],
+    [router, current, pathname],
   );
+
+  // this use effect used for initial setSearchParam
+  useEffect(() => {
+    if (!initialKey) return;
+    if (!initialValue) {
+      setSearchParams(initialKey);
+    } else {
+      setSearchParams(initialKey, initialValue);
+    }
+  }, [initialValue, initialKey, setSearchParams]);
 
   return [searchParams, setSearchParams] as const;
 }

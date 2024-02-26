@@ -1,6 +1,6 @@
 export const statuses = [
   {
-    value: "en-US",
+    value: "en-us",
     label: "English (USA)",
   },
   {
@@ -19,6 +19,8 @@ export const statuses = [
 
 export const selectValues = {
   creativity: [
+    "Auto",
+
     "Original",
     "Repetitive",
     "Deterministic",
@@ -26,6 +28,8 @@ export const selectValues = {
     "Imaginative",
   ],
   tone: [
+    "Auto",
+
     "Professional",
     "Exciting",
     "Friendly",
@@ -50,10 +54,18 @@ export const selectValues = {
     "Sarcastic",
     "Dramatic",
   ],
-  point: ["Default", "First Person", "Second Person", "Third Person"],
+  point: ["Auto", "Default", "First Person", "Second Person", "Third Person"],
 } as const;
 
 export const selectValuesDescription = {
   creativity: "form_creativity_description",
   tone: "form_tone_description",
 } as const;
+
+export const engines = [
+  "GPT-3.5 Turbo",
+  "GPT-4 Turbo",
+  "Claude-instant",
+  "Claude-2",
+  "Gemini Pro",
+];

@@ -6,7 +6,7 @@ export default function AppsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex h-full w-full flex-col">
+    <section className="flex h-full w-full flex-col overflow-hidden">
       {/* header for apps that includes share , history , tabs and app title */}
       <Header className="h-apps-header" />
       {/*apps*/}

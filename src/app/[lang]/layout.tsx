@@ -1,8 +1,7 @@
-import React, { Suspense } from "react";
+import React from "react";
 import type { Metadata } from "next";
 
 import { Providers } from "@/components/providers";
-import { SidePanel } from "@/components/layout/side-panel";
 
 import { i18n, type Locale } from "../../../i18n.config";
 
@@ -31,19 +30,7 @@ export default function RootLayout({
   return (
     <html lang={params.lang} dir="ltr">
       <body suppressHydrationWarning>
-        <Providers>
-          <div className="flex h-dvh w-dvw">
-            <SidePanel />
-            <div
-              id="main"
-              className="flex h-full w-full flex-col overflow-x-hidden"
-            >
-              <Suspense>
-                <main className="h-full w-full">{children}</main>
-              </Suspense>
-            </div>
-          </div>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
