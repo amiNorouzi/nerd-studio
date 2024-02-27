@@ -16,6 +16,13 @@ interface IActionButtonProps extends ButtonProps {
   Icon: IconType;
 }
 
+/**
+ * action button for chat card
+ * @param title button title fot tooltip
+ * @param Icon button icon
+ * @param otherProps button props
+ * @constructor
+ */
 const ActionButton = ({ title, Icon, ...otherProps }: IActionButtonProps) => (
   <MyTooltip title={title}>
     <Button variant="ghost" className="fit p-0.5" {...otherProps}>
@@ -24,14 +31,23 @@ const ActionButton = ({ title, Icon, ...otherProps }: IActionButtonProps) => (
   </MyTooltip>
 );
 
+/**
+ * chat card component used in chat list
+ * is for bot and user
+ * show message and bot or user image and name
+ * TODO: add markdown
+ * @param chatItem chat item
+ * @constructor
+ */
 function ChatCard({ chatItem }: { chatItem: ChatItem }) {
   const {
     page: { chat: chatDictionary },
   } = useGetDictionary();
-  const [handleCopy, isCopied] = useCopyTextInClipBoard();
+  const [handleCopy, isCopied] = useCopyTextInClipBoard(); //for copy message to clipboard
 
   return (
     <div className="col group relative w-fit">
+      {/* avatar and name*/}
       <div className="row gap-1.5 ">
         <UserAvatar
           imageSrc={chatItem.image}
@@ -42,9 +58,15 @@ function ChatCard({ chatItem }: { chatItem: ChatItem }) {
         />
         <p className="text-sm font-semibold">{`${chatItem.firstname} ${chatItem.lastname}`}</p>
       </div>
+      {/* message*/}
       <div className="w-fit rounded-lg rounded-ss-none border bg-background p-4 font-normal leading-5 tracking-wide text-muted-foreground">
         {chatItem.message}
       </div>
+      {/*
+        action buttons
+        in mobile show in bottom of card
+        in desktop is hidden and show on hover on right bottom side of card
+       */}
       <div
         className="row absolute ms-0.5 w-fit gap-0.5 rounded-md border bg-background px-1 py-[3px]
        opacity-100 shadow-sm transition-opacity duration-200 max-lg:end-0 max-lg:top-full max-lg:mt-0.5 lg:bottom-0 lg:start-full

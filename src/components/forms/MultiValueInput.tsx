@@ -83,7 +83,7 @@ export function MultiValueInput({
       {/* input wrapper style like input*/}
       <div
         className={cn(
-          "relative flex h-full w-full flex-wrap gap-2 rounded-lg border p-1.5 hover:border-primary/50 focus:border-primary",
+          "relative flex h-full w-full flex-wrap gap-2 rounded-lg border p-1.5 focus-within:border-primary hover:border-primary/50",
           !!error &&
             "border-destructive hover:border-destructive focus-visible:border-destructive",
           isEmpty(values) ? "px-2.5" : "px-1.5",

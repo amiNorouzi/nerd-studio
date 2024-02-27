@@ -52,7 +52,7 @@ export function WorkspaceMembers() {
         hero section
         show number of members and pending members
       */}
-      <section className="bg-gradiant row mb-5 h-40 w-full justify-around rounded-lg text-center">
+      <section className="bg-linearGradient row mb-5 h-40 w-full justify-around rounded-lg text-center">
         <div className="col gap-1">
           <span className="text-3xl font-bold">2</span>
           <p className="text-[15px]">{workspaceDictionary.members_label}</p>

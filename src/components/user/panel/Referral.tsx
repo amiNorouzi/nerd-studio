@@ -99,10 +99,6 @@ function Referral() {
 
           {/*referral email*/}
           <h4>{userPanelDictionary.referral_email_title}</h4>
-          {/*<Input*/}
-          {/*  className="h-20 !align-text-top placeholder:text-start"*/}
-          {/*  placeholder={userPanelDictionary.referral_email_description}*/}
-          {/*/>*/}
           <MultiValueInput
             onValuesChange={() => {}}
             placeholder={userPanelDictionary.referral_email_description}

@@ -14,6 +14,12 @@ import { Button } from "@/components/ui/button";
 import { useGetDictionary } from "@/hooks";
 import { promptLibrary } from "@/constants/chat";
 
+/**
+ * component for prompt library dialog
+ * list of sample prompts
+ * trigger by button in prompt input
+ * @constructor
+ */
 function PromptLibraryDialog() {
   const {
     page: { chat: chatDictionary },
@@ -36,7 +42,7 @@ function PromptLibraryDialog() {
           <DialogTitle>{chatDictionary.prompt_library_title}</DialogTitle>
         </DialogHeader>
 
-        <div className="app-store-hero centered-col h-14 w-full rounded-lg py-5">
+        <div className="bg-linearGradient centered-col h-14 w-full rounded-lg py-5">
           <div className="row mx-auto h-10 w-full min-w-60 max-w-lg rounded-md bg-background p-1">
             <input
               className="h-full w-full border-none bg-transparent px-2 font-normal focus:outline-0 focus:ring-0"

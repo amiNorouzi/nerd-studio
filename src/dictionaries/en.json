@@ -258,8 +258,12 @@
       "delete_alert_title": "Delete this app?",
       "delete_alert_desc": "It will permanently delete this app and all associated data will be unrecoverable.",
       "cancel": "Cancel",
-
       "app_intro": "App Introduction"
+    },
+    "signup_questions": {
+      "next_button_label": "Next",
+      "previous_button_label": "Previous",
+      "finish_button_label": "Finish"
     }
   }
 }

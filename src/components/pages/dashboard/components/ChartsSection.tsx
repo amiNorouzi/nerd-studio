@@ -157,7 +157,7 @@ export function ChartsSection() {
       <div className="col h-96 w-full gap-1 rounded-lg border bg-background p-4 shadow-sm ">
         {/*title*/}
         <h2 className="row gap-1.5">
-          <IoDocumentText size="1.2rem" className="text-primary" />
+          <IoDocumentText size="1.2rem" />
           {dashboardDictionary.words_chart_title}
         </h2>
         <p className="mb-4 text-muted-foreground">

@@ -78,7 +78,7 @@ export function AllDocsSection() {
     <section className="col gap-5 rounded-lg border bg-background p-4 shadow-sm">
       {/*title*/}
       <h2 className="row gap-1.5 border-b pb-2">
-        <IoDocumentText size="1.2rem" className="text-primary" />
+        <IoDocumentText size="1.2rem" />
         {dashboardDictionary.all_docs_title}
       </h2>
 

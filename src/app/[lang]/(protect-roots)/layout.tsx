@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import type { Locale } from "../../../../i18n.config";
 import { SidePanel } from "@/components/layout/side-panel";
+import SignupQuestions from "@/components/shared/SignupQuestions";
 
 export default function RootLayout({
   children,
@@ -15,6 +16,7 @@ export default function RootLayout({
       <div id="main" className="flex h-full w-full flex-col overflow-x-hidden">
         <Suspense>
           <main className="h-full w-full">{children}</main>
+          <SignupQuestions />
         </Suspense>
       </div>
     </div>

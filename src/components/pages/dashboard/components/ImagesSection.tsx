@@ -39,7 +39,7 @@ export function ImagesSection() {
     <section className="col gap-1 rounded-lg border bg-background p-4 shadow-sm">
       {/*title*/}
       <h2 className="row gap-1.5">
-        <FaFileImage size="1.2rem" className="text-primary" />
+        <FaFileImage size="1.2rem" />
         {dashboardDictionary.generated_images_title}
       </h2>
       {/*description*/}

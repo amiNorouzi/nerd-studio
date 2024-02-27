@@ -24,7 +24,7 @@ export function DashboardHero() {
 
   return (
     <section className="col rounded-lg border bg-background p-4 shadow-sm">
-      <div className="dashboard-hero flex w-full flex-col items-start gap-4 rounded-md bg-primary/5 p-4 lg:flex-row">
+      <div className="dashboard-hero flex w-full flex-col items-start gap-4 rounded-md border bg-primary/5 p-4 lg:flex-row">
         <div className="col max-w-md gap-2">
           {/* user full name*/}
           <h1 className="mb-1 text-xl font-semibold capitalize">
@@ -73,7 +73,7 @@ export function DashboardHero() {
       <div className="grid grid-cols-2 pt-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         {heroGeneratesList.map(item => (
           <div key={item.id} className="col w-full items-center gap-1 p-2">
-            <item.icon className="text-2xl text-primary" />
+            <item.icon className="text-2xl text-foreground" />
             <h3 className="tex-xs font-semibold sm:text-[15px]">
               {dashboardDictionary[item.titleKey]}
             </h3>

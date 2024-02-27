@@ -58,6 +58,7 @@ export function ChatSettings() {
 
   return (
     <div className="spacing-row w-full items-end py-1.5">
+      {/*engine select*/}
       <Select onValueChange={value => setActiveEngineId(value)}>
         <SelectTrigger className="borde r h-7 w-48">
           <div className="row gap-2">

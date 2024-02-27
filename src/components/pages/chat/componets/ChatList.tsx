@@ -3,6 +3,7 @@ import ChatCard from "@/components/pages/chat/componets/ChatCard";
 /**
  * List of chat messages used in chat page
  * contains user and chatbot messages
+ * TODO: replace with real data from api and map through it
  * @constructor
  */
 
