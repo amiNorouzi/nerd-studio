@@ -13,6 +13,7 @@ import { useUiStore } from "@/stores/zustand/ui-store";
 
 import { apps } from "@/constants/side-panel";
 import useMobileSize from "@/hooks/useMobileSize";
+import { useParams, usePathname } from "next/navigation";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
@@ -21,9 +22,16 @@ import useMobileSize from "@/hooks/useMobileSize";
 export function SidePanel() {
   const isMobile = useMobileSize();
   const isSidePanelOpen = useUiStore.use.isSidePanelOpen();
+  const pathname = usePathname();
+  const { lang } = useParams();
   const isHoverOnSidePanel = useUiStore.use.isHoverOnSidePanel();
   const setIsHoverOnSidePanel = useUiStore.use.setIsHoverOnSidePanel();
   const collapsed = isMobile ? true : !isSidePanelOpen;
+
+  const isMainHeader =
+    pathname === `/${lang}` ||
+    pathname === `/${lang}/workspace` ||
+    pathname === `/${lang}/app-store`;
 
   //need to add padding to main because sidebar go over it on fixed position
   useEffect(() => {
@@ -61,10 +69,11 @@ export function SidePanel() {
     >
       <div
         className={cn(
-          "row h-11 gap-1 py-2",
+          "row gap-2.5 border-b py-2",
           !collapsed || isHoverOnSidePanel
             ? "px-4 "
             : "!w-full overflow-hidden px-3",
+          isMainHeader ? "h-header" : "h-apps-header",
         )}
       >
         <Image
@@ -72,29 +81,33 @@ export function SidePanel() {
           alt="nerd logo"
           width={50}
           height={40}
-          className={isOpen ? "w-8" : "me-4 w-11"}
+          className={isOpen ? "w-10" : "me-4 w-11"}
         />
-        <p className="whitespace-nowrap text-[13px] font-medium">Nerd Studio</p>
+        <h1 className="text-gradiant whitespace-nowrap text-xl font-bold">
+          Nerd Studio
+        </h1>
       </div>
 
       <Menu
-        rootStyles={{ padding: "4px 12px" }}
+        rootStyles={{ padding: isOpen ? "0" : "4px 12px" }}
         menuItemStyles={{
-          root: { margin: isOpen ? "4px auto" : "5px auto" },
+          root: { margin: isOpen ? "0" : "5px auto" },
           button: ({ active }) => ({
-            background: active && isOpen ? "var(--active-bg)" : "transparent",
-            color:
+            background:
               active && isOpen
-                ? getHslColorByVar("--primary")
-                : getHslColorByVar("--foreground"),
+                ? `linear-gradient(90deg, ${getHslColorByVar("--primary-light")}, transparent)`
+                : "transparent",
+            color: active
+              ? getHslColorByVar("--foreground")
+              : getHslColorByVar("--muted-foreground"),
             margin: "0 auto",
-            borderRadius: isOpen ? "0.5rem" : "50%",
+            borderRadius: isOpen ? "0" : "50%",
             display: "flex",
             justifyContent: isOpen ? "start" : "center",
             alignItems: "center",
-            padding: isOpen ? "1px 3px" : "2px",
+            padding: isOpen ? "1px 10px" : "2px",
             gap: isOpen ? "1px" : "0",
-            height: isOpen ? "32px" : "40px",
+            height: "40px",
             width: isOpen ? "100%" : "40px",
             zIndex: 1,
             position: "relative",
@@ -119,10 +132,11 @@ export function SidePanel() {
             },
           }),
           icon: ({ active }) => ({
-            color:
-              active && isOpen
+            color: active
+              ? isOpen
                 ? getHslColorByVar("--primary")
-                : getHslColorByVar("--foreground"),
+                : getHslColorByVar("--foreground")
+              : getHslColorByVar("--muted-foreground"),
             margin: "0 auto",
           }),
         }}
@@ -136,7 +150,7 @@ export function SidePanel() {
           />
         ))}
 
-        <div className="col absolute inset-x-0 bottom-0 gap-1.5 px-3 py-2">
+        <div className="col absolute inset-x-0 bottom-0 gap-1.5 py-2">
           <SpaceItems />
           <UserMenu />
         </div>

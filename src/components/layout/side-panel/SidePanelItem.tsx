@@ -67,11 +67,17 @@ const SidePanelItem = ({ title, to, icon }: IProps) => {
         fontSize: "13px",
         fontWeight: 500,
         "&>a": {
+          transition: "all 300ms",
           border:
             isActive || isOpenSidePanel || typeof icon === "string"
               ? "none"
               : "1px solid",
           borderColor: getHslColorByVar("--border"),
+          borderLeft: isActive && isOpenSidePanel ? "4px solid" : "none",
+          borderLeftColor:
+            isActive && isOpenSidePanel
+              ? getHslColorByVar("--primary")
+              : getHslColorByVar("--border"),
         },
       }}
     >

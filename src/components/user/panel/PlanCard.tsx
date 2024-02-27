@@ -77,11 +77,7 @@ function PlanCard({
         upgrade button
         active plan will not have(is disabled)
         */}
-      <Button
-        disabled={plan.isActive}
-        variant={plan.isActive ? "muted" : "default"}
-        className="mt-auto"
-      >
+      <Button disabled={plan.isActive} className="mt-auto">
         {/*
             label is different for active and inactive plans
         */}

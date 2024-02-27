@@ -53,10 +53,10 @@ export function PromptInput() {
       onSubmit={handleSubmit}
       onKeyDown={handleKeyDown}
       onClick={() => textAreaRef.current?.focus()}
-      className="col mx-auto h-fit w-full rounded-lg border bg-background focus-within:border-primary hover:border-primary/50"
+      className="col mx-auto h-fit w-full rounded-lg border bg-muted focus-within:border-primary focus-within:bg-background hover:border-primary/40"
     >
       <textarea
-        className=" max-h-40 w-full rounded-lg border-none bg-transparent px-2.5 py-2.5 placeholder:font-normal focus:outline-none"
+        className=" max-h-40 w-full rounded-lg border-none bg-transparent px-2.5 py-2.5 placeholder:font-normal placeholder:text-muted-foreground focus:outline-none"
         placeholder={chatDictionary.prompt_input_placeholder}
         value={prompt}
         onChange={e => setPrompt(e.target.value)}

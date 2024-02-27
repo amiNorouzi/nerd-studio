@@ -76,7 +76,7 @@ export function UserMenu() {
   return (
     <div
       className={cn(
-        "flex w-full items-center gap-1.5",
+        "flex w-full items-center gap-1.5 px-3",
         isOpenSidePanel ? "flex-row" : "flex-col-reverse",
       )}
     >

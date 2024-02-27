@@ -25,7 +25,10 @@ export function PopoverSelection({
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="w-full justify-between ">
+        <Button
+          variant="outline"
+          className="w-full justify-between bg-muted hover:border-primary-light hover:text-foreground aria-expanded:border-primary"
+        >
           {buttonContent}
           <span
             data-open={open}

@@ -74,7 +74,7 @@ export function ImagesSection() {
           ))}
         </div>
         <div className="centered-col pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[150px] bg-gradient-to-t from-black to-transparent dark:from-gray-900">
-          <Button className="mt-14">
+          <Button className="pointer-events-auto mt-14">
             {dashboardDictionary.show_more_images_button_label}
           </Button>
         </div>

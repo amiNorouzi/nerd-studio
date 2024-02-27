@@ -162,12 +162,14 @@ export function AllDocsSection() {
               <TableCell>{item.language}</TableCell>
               <TableCell>{item.words}</TableCell>
               <TableCell>
-                <Button variant="outline" className="fit me-1 p-1.5">
-                  <IoDocumentText size="1rem" />
-                </Button>
-                <Button variant="destructive" className="fit p-1.5">
-                  <MdDeleteOutline size="1rem" />
-                </Button>
+                <div className="row flex-wrap gap-1">
+                  <Button variant="outline" className="fit p-1">
+                    <IoDocumentText size="1rem" />
+                  </Button>
+                  <Button variant="destructive" className="fit p-1">
+                    <MdDeleteOutline size="1rem" />
+                  </Button>
+                </div>
               </TableCell>
             </TableRow>
           ))}

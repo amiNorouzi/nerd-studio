@@ -39,7 +39,7 @@ function SpaceItems() {
       <AccordionItem value="space" className="!border-b-0">
         <AccordionTrigger
           className={cn(
-            "relative items-center py-0 text-xs font-semibold text-muted-foreground",
+            "relative items-center px-3 py-0 text-xs font-semibold text-muted-foreground",
             !isOpenSidePanel && "hidden",
           )}
         >
@@ -67,7 +67,9 @@ function SpaceItems() {
           />
           <SidePanelItem title="Workspace" to="/workspace" icon={PiPlanet} />
           <RenderIf isTrue={isOpenSidePanel}>
-            <Workspace />
+            <div className="px-3 pt-2">
+              <Workspace />
+            </div>
           </RenderIf>
         </AccordionContent>
       </AccordionItem>

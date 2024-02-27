@@ -27,7 +27,7 @@ function Plans() {
       <h4 className="border-b pb-2">{userPanelDictionary.compare_title}</h4>
 
       {/* tabs for switch between monthly and yearly */}
-      <div className="mx-auto flex h-9 w-48 rounded-md bg-muted p-1">
+      <div className="mx-auto flex h-10 w-48 rounded-md bg-muted p-0.5">
         <Button
           variant="ghost"
           onClick={() => setActivePlansTap("monthly")}

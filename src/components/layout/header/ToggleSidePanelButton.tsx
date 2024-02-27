@@ -4,6 +4,7 @@ import { FaAnglesRight } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { useUiStore } from "@/stores/zustand/ui-store";
 import { cn } from "@/lib/utils";
+import { RiMenuUnfoldLine } from "react-icons/ri";
 
 //used in header for open side  and close panel
 
@@ -18,13 +19,13 @@ export function ToggleSidePanelButton() {
       onClick={toggleIsSidePanelOpen}
     >
       {/*
-        rotate icon 180 degree (from right to left) when side panel is open
+        flip icon horizontally (from right to left) when side panel is open
       */}
-      <FaAnglesRight
-        size="0.75rem"
+      <RiMenuUnfoldLine
+        size="1.5rem"
         className={cn(
-          "transition-transform duration-200",
-          isSidePanelOpen && "rotate-180",
+          "-transition-transform duration-200",
+          isSidePanelOpen && "-scale-x-100",
         )}
       />
     </Button>

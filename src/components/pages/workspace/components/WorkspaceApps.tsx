@@ -32,7 +32,7 @@ export function WorkspaceApps() {
           {/*add app button*/}
           <Button className="w-fit">
             {" "}
-            <IoAdd className="me-2 h-4 w-4" />
+            <IoAdd className="me-2 h-5 w-5" />
             {workspaceDictionary.add_app_button_label}
           </Button>
 

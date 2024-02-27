@@ -21,7 +21,7 @@ export function SharePopover({ children }: IProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="  gap-1 text-sm ">
+        <Button variant="outline" size="sm" className="  gap-1 ">
           <FiShare2 /> <span>{components.apps_header.share}</span>
         </Button>
       </PopoverTrigger>
