@@ -12,3 +12,4 @@ export { Pen } from "./Pen";
 export { DownloadIcon } from "./Download";
 export { Share } from "./Share";
 export { PromptLibrary } from "./PromptLibrary";
+export { BgWave } from "./BgWave";

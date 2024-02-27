@@ -16,7 +16,7 @@ export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="template">
-      <div className="grid h-full max-h-full grid-cols-12 divide-x overflow-y-auto lg:overflow-hidden ">
+      <div className="grid h-fit max-h-full grid-cols-12 divide-x overflow-y-auto lg:h-full lg:overflow-hidden ">
         <Content
           mdDescription={""}
           headerDescription={"hello"}

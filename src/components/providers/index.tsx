@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect } from "react";
-import { ReactQueryProvider } from "./ReactQueryProvider";
 import { DirectionProvider } from "@radix-ui/react-direction";
 
 import { EditorContextProvider } from "@/stores/contexts/editor-context";
 
 import { useChangeDirection } from "@/hooks";
 import { dirInLocalStorage } from "@/stores/browser-storage";
+import { ReactQueryProvider } from "./ReactQueryProvider";
 
 /**
  * all providers of app

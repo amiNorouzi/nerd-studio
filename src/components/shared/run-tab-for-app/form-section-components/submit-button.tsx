@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Pen } from "@/components/svg-icons";
+import { SelectEngine } from "./select-engine";
 import { useGetDictionary } from "@/hooks";
 
 export function SubmitButton() {
@@ -8,8 +9,12 @@ export function SubmitButton() {
     page: { writing },
   } = useGetDictionary();
   return (
-    <Button className="bg-linearGradient h-[50px] w-full gap-2">
-      <Pen /> {writing.form_rewrite_button}
-    </Button>
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      {/*show engine select box*/}
+      <SelectEngine />
+      <Button className="h-14 gap-2">
+        <Pen /> {writing.form_rewrite_button}
+      </Button>
+    </div>
   );
 }

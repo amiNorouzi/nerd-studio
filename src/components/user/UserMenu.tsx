@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 import {
   MdOutlineManageAccounts,
@@ -24,9 +25,9 @@ import { useTheme } from "@/hooks/useTheme";
 import { useUiStore } from "@/stores/zustand/ui-store";
 import { useGetDictionary } from "@/hooks";
 
-import { cn } from "@/lib/utils";
-import { accountSettingsItems } from "@/constants/user-panel";
 import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
+import { accountSettingsItems } from "@/constants/user-panel";
+import { cn } from "@/lib/utils";
 
 /**
  * a hover card used in bottom of side panel
@@ -134,7 +135,7 @@ export function UserMenu() {
             icon={MdOutlineRoomPreferences}
           />
           <UserMenuItem
-            onClick={() => {}}
+            onClick={() => signOut()}
             title={userMenuDictionary.logout_label}
             icon={RiLogoutCircleRLine}
           />

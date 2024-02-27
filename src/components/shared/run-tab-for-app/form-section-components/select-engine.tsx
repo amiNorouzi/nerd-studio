@@ -43,10 +43,10 @@ export function SelectEngine() {
     page: { writing },
   } = useGetDictionary();
   return (
-    <div className="flex flex-col gap-2 ">
-      <span className="m-0 flex items-baseline gap-2 text-xsm font-semibold">
-        Engines
-      </span>
+    <div className="flex flex-col justify-center gap-2 ">
+      {/*<span className="m-0 flex items-baseline gap-2 text-xsm font-semibold">*/}
+      {/*  Engines*/}
+      {/*</span>*/}
       <SelectEngineDropDown />
     </div>
   );

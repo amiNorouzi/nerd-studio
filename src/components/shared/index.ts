@@ -12,3 +12,4 @@ export { FavoriteButtonAndDialog } from "./FavoriteButtonAndDialog";
 export { SettingItem } from "./SettingItem";
 export { SettingsDialog } from "./SettingsDialog";
 export { FormField } from "./FormField";
+export { GoogleSignInButton } from "./AuthButtons";

@@ -1,14 +1,24 @@
 import React, { Suspense } from "react";
 import type { Locale } from "../../../../i18n.config";
 import { SidePanel } from "@/components/layout/side-panel";
+import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
+import { getServerSession } from "next-auth";
+import { authConfig } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode;
   params: { lang: Locale };
 }>) {
+  const session = await getServerSession(authConfig);
+
+  console.log("Session: ", session);
+
+  if (!session) return redirect("/signup");
+
   return (
     <div className="flex h-dvh w-dvw">
       <SidePanel />

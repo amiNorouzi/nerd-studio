@@ -5,6 +5,7 @@ import { Providers } from "@/components/providers";
 
 import { i18n, type Locale } from "../../../i18n.config";
 
+import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
 import "../globals.css";
 import "../theme.css";
 
@@ -20,7 +21,7 @@ export async function generateStaticParams() {
   return i18n.locales.map(locale => ({ lang: locale }));
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: Readonly<{
@@ -30,7 +31,9 @@ export default function RootLayout({
   return (
     <html lang={params.lang} dir="ltr">
       <body suppressHydrationWarning className="h-dvh w-dvw">
-        <Providers>{children}</Providers>
+        <NextAuthProvider>
+          <Providers>{children}</Providers>
+        </NextAuthProvider>
       </body>
     </html>
   );
