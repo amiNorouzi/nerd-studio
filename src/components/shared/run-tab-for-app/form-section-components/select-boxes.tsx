@@ -45,7 +45,6 @@ function NumberOfResults() {
         value={searchParams.get("numOfResults") ?? "1"}
         onChange={e => setSearchParams("numOfResults", e.target.value)}
         min={1}
-        className="h-[40px]"
       />
     </div>
   );
@@ -131,8 +130,6 @@ export function SelectBoxes() {
         <div className="grid grid-cols-1 items-start gap-x-5 gap-y-3 sm:grid-cols-2">
           {/*show language select box*/}
           <SelectResponseLang />
-          {/*show engine select box*/}
-          <SelectEngine />
         </div>
         <CollapsibleContent className="grid grid-cols-1 items-start gap-x-5 gap-y-3 sm:grid-cols-2">
           {/*show list of select box options(creativity,tone,...)*/}

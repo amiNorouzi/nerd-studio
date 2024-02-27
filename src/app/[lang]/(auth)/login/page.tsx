@@ -1,10 +1,5 @@
-import Link from "next/link";
+import { LoginPage } from "@/components/pages/login";
 
 export default function Login() {
-  return (
-    <div>
-      this is login page
-      <Link href="sign-up">Sing up</Link>
-    </div>
-  );
+  return <LoginPage />;
 }

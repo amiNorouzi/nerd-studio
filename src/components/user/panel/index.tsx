@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import { signOut } from "next-auth/react";
 
 import { RiLogoutCircleRLine } from "react-icons/ri";
 
@@ -125,7 +126,7 @@ export function UserPanel({
           <div className="absolute inset-x-0 bottom-0 border-t p-2">
             {/*logout button*/}
             <UserMenuItem
-              onClick={() => {}}
+              onClick={() => signOut()}
               title={menuDictionary.logout_label}
               icon={RiLogoutCircleRLine}
             />

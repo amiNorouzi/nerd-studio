@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
+    "@hookform/resolvers": "^3.3.4",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.0.4",
@@ -86,10 +87,12 @@
     "lucide-react": "^0.330.0",
     "negotiator": "^0.6.3",
     "next": "14.1.0",
+    "next-auth": "^4.24.6",
     "react": "^18",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18",
+    "react-hook-form": "^7.50.1",
     "react-icons": "^5.0.1",
     "react-lite-youtube-embed": "^2.4.0",
     "react-markdown": "^9.0.1",
@@ -109,6 +112,7 @@
     "tailwindcss-animate": "^1.0.7",
     "usehooks-ts": "^2.14.0",
     "vaul": "^0.9.0",
+    "zod": "^3.22.4",
     "zustand": "^4.5.0"
   },
   "devDependencies": {
