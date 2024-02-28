@@ -9,23 +9,11 @@ import type { SCRPropsType } from "@/services/types";
 const Info = memo(InfoTab);
 const Run = memo(RunTab);
 
-const tabToShow = {
-  run: Run,
-  info: Info,
-};
-
-export function WritePage({ searchParams, params }: SCRPropsType) {
-  const tabValue = searchParams["apps-tab"] ?? "run";
-  const Content = tabToShow[tabValue as keyof typeof tabToShow];
-
+export function WritePage({ params }: SCRPropsType) {
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="write">
-      <div className="grid h-full max-h-full grid-cols-12 divide-x overflow-y-auto lg:overflow-hidden ">
-        <Content
-          mdDescription={mdForTest}
-          headerDescription={"hello"}
-          params={params}
-        />
+      <div className="grid h-fit max-h-full grid-cols-12 divide-x overflow-y-auto lg:h-full lg:overflow-hidden ">
+        <Run params={params} />
       </div>
     </SetSearchParamProvider>
   );

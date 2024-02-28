@@ -1,40 +1,23 @@
-import { useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
+import { SelectAndDrawer } from "@/components/shared";
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
-import { SelectEngineItems } from "./select-engine-items";
 import { engines } from "./contants";
-import { PopoverSelection } from "./popover-selection";
-import { DrawerSelection } from "./drawer-selection";
+import { useCallback } from "react";
 
 function SelectEngineDropDown() {
-  const [open, setOpen] = useState(false);
-  const [searchParams] = useCustomSearchParams();
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-  const buttonContent =
-    engines.find(
-      item => item.toLowerCase() === searchParams.get("engine")?.toLowerCase(),
-    ) ?? engines[0];
-
-  if (isDesktop) {
-    return (
-      <PopoverSelection
-        open={open}
-        onOpenChange={setOpen}
-        buttonContent={buttonContent}
-      >
-        <SelectEngineItems onOpenChange={setOpen} />
-      </PopoverSelection>
-    );
-  }
+  const [searchParams, setSearchParams] = useCustomSearchParams();
+  const value = searchParams.get("engine") ?? engines[0];
+  const handleSelect = (item: string) =>
+    value.toLowerCase() === item.toLowerCase()
+      ? setSearchParams("engine")
+      : setSearchParams("engine", item);
 
   return (
-    <DrawerSelection
-      open={open}
-      onOpenChange={setOpen}
-      buttonContent={buttonContent}
-    >
-      <SelectEngineItems onOpenChange={setOpen} />
-    </DrawerSelection>
+    <SelectAndDrawer
+      value={searchParams.get("engine") ?? engines[0]}
+      setValue={handleSelect}
+      items={engines}
+      isSelect
+    />
   );
 }
 

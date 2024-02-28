@@ -1,5 +1,5 @@
 "use client";
-import { DescriptionHoverCard } from "@/components/shared";
+import { DescriptionHoverCard, SelectAndDrawer } from "@/components/shared";
 import {
   Select,
   SelectContent,
@@ -23,7 +23,7 @@ import { SelectEngine } from "./select-engine";
 
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { selectValues, selectValuesDescription } from "./contants";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 function NumberOfResults() {
   const [searchParams, setSearchParams] = useCustomSearchParams();
@@ -50,63 +50,55 @@ function NumberOfResults() {
   );
 }
 
-function ListOfSelectBox() {
+function Selects({
+  keyInSearchParam,
+  value,
+}: {
+  keyInSearchParam: string;
+  value: (typeof selectValues)[keyof typeof selectValues];
+}) {
   const [searchParams, setSearchParams] = useCustomSearchParams();
   const {
     page: { writing },
   } = useGetDictionary();
   const resolveKey = (key: keyof typeof selectValues): keyof typeof writing =>
     `form_${key}`;
+  const handleSelect = (item: string) =>
+    item === "Auto"
+      ? setSearchParams(keyInSearchParam)
+      : setSearchParams(keyInSearchParam, item);
 
-  function onChange(key: string, value: string) {
-    if (value === "Auto") {
-      setSearchParams(key);
-    } else {
-      setSearchParams(key, value);
-    }
-  }
+  return (
+    <div className="flex flex-col gap-2">
+      <span className="m-0 flex items-baseline gap-2 text-xsm font-semibold">
+        {writing[resolveKey(keyInSearchParam as keyof typeof selectValues)]}
+        {keyInSearchParam in selectValuesDescription && (
+          <DescriptionHoverCard
+            description={
+              writing[
+                selectValuesDescription[
+                  keyInSearchParam as keyof typeof selectValuesDescription
+                ]
+              ]
+            }
+          />
+        )}
+      </span>
+
+      <SelectAndDrawer
+        value={searchParams.get(keyInSearchParam) ?? value[0]}
+        setValue={handleSelect}
+        items={value as unknown as string[]}
+      />
+    </div>
+  );
+}
+
+function ListOfSelectBox() {
   return (
     <>
       {Object.entries(selectValues).map(([key, value]) => (
-        <div key={key} className="flex flex-col gap-2">
-          <span className="m-0 flex items-baseline gap-2 text-xsm font-semibold">
-            {writing[resolveKey(key as keyof typeof selectValues)]}
-            {key in selectValuesDescription && (
-              <DescriptionHoverCard
-                description={
-                  writing[
-                    selectValuesDescription[
-                      key as keyof typeof selectValuesDescription
-                    ]
-                  ]
-                }
-              />
-            )}
-          </span>
-          <Select
-            value={searchParams.get(key) ?? value[0]}
-            onValueChange={v => onChange(key, v)}
-          >
-            <SelectTrigger className="m-0 w-full">
-              <SelectValue
-                placeholder="Select an option"
-                className="text-xsm"
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel className="text-xsm font-semibold">
-                  {key}
-                </SelectLabel>
-                {value.map(item => (
-                  <SelectItem key={item} value={item} className="text-xsm">
-                    {item}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+        <Selects key={key} keyInSearchParam={key} value={value} />
       ))}
     </>
   );
@@ -117,13 +109,18 @@ export function SelectBoxes() {
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger asChild>
-        <div className="mb-5 flex items-center justify-start gap-2">
-          <Label htmlFor="collapse-trigger">Advanced</Label>
+        <div className="mb-5 flex items-start justify-start gap-2">
           <Switch
             id="collapse-trigger"
             checked={open}
             onCheckedChange={setOpen}
           />
+          <Label htmlFor="collapse-trigger" className="flex flex-col gap-1">
+            <span>Advanced</span>
+            <span className="text-muted-foreground">
+              More access for more accurate results
+            </span>
+          </Label>
         </div>
       </CollapsibleTrigger>
       <div className="grid grid-cols-1 gap-y-3">

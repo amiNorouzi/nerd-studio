@@ -67,10 +67,6 @@ export function Form() {
               placeholder="John Doe"
               rules={{
                 required: "Full name required!",
-                minLength: {
-                  value: 8,
-                  message: "this field must be more than 8 character",
-                },
               }}
             >
               <GoPerson

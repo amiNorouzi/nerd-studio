@@ -10,7 +10,6 @@ import {
   HeaderInfo as HInfo,
 } from "./components";
 import type { ParamsType } from "@/services/types";
-
 const HeaderActions = memo(HActions);
 const HeaderDescription = memo(HDescription);
 const HeaderIcon = memo(HIcon);
@@ -24,7 +23,7 @@ interface IProps {
 
 export function Info({ mdDescription, headerDescription, params }: IProps) {
   return (
-    <div className="col-span-12 flex h-fit w-full items-start justify-center overflow-hidden bg-background lg:h-full">
+    <div className="col-span-12 flex h-fit max-h-full w-full items-start justify-center overflow-y-auto bg-background lg:h-full lg:overflow-hidden">
       <div className="flex h-full w-full  max-w-4xl flex-col items-center justify-start gap-8 overflow-hidden p-0 md:p-5">
         {/* header - actions - icon - description*/}
         <HeaderInfo>

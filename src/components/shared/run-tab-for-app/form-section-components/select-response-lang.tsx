@@ -1,47 +1,21 @@
 "use client";
-import { memo, useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
-
-import { PopoverSelection } from "./popover-selection";
-import { DrawerSelection } from "./drawer-selection";
-import { SelectLang } from "./select-lang";
-
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
-
+import { SelectAndDrawer } from "@/components/shared";
 import { statuses } from "./contants";
-
-const SelectLanguage = memo(SelectLang);
+import { useMemo } from "react";
 export function ResponseLang() {
-  const [open, setOpen] = useState(false);
-  const [searchParams] = useCustomSearchParams();
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-  const buttonContent =
-    statuses.find(
-      item =>
-        item.value.toLowerCase() ===
-        searchParams.get("response-lang")?.toLowerCase(),
-    )?.label ?? statuses[0].label;
-
-  if (isDesktop) {
-    return (
-      <PopoverSelection
-        open={open}
-        onOpenChange={setOpen}
-        buttonContent={buttonContent}
-      >
-        <SelectLanguage onOpenChange={setOpen} />
-      </PopoverSelection>
-    );
-  }
+  const [searchParams, setSearchParams] = useCustomSearchParams();
+  const items = useMemo(() => statuses.map(item => item.label), []);
+  const handleSelect = (item: string) => setSearchParams("response-lang", item);
 
   return (
-    <DrawerSelection
-      open={open}
-      onOpenChange={setOpen}
-      buttonContent={buttonContent}
-    >
-      <SelectLanguage onOpenChange={setOpen} />
-    </DrawerSelection>
+    <SelectAndDrawer
+      value={searchParams.get("response-lang") ?? statuses[0].label}
+      setValue={handleSelect}
+      items={items}
+      isSelect={false}
+      showSearch={true}
+    />
   );
 }
 
