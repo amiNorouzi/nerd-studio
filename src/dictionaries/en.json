@@ -100,7 +100,26 @@
       "new_chat_button_label": "New Chat",
       "share_button_label": "Shar Conversation",
       "speak_button_label": "Speak",
-      "copy_button_label": "Copy"
+      "copy_button_label": "Copy",
+      "chat_settings_button_label": "Chat Settings",
+      "voice_switch_label": "Voice Response",
+      "respond_language_label": "Respond Language"
+    },
+    "image": {
+      "empty_result_message": "Start Generating",
+      "empty_result_subtitle": "Fill in the App to see the result! Introduction",
+      "history_title": "History",
+      "page_title": "Images",
+      "prompt_title": "Create an image from text prompt",
+      "prompt_placeholder": "paste your text that you wish to rewrite or improve ...",
+      "text_to_image_tab_label": "Text to Image",
+      "image_to_image_tab_label": "Image to Image",
+      "multi_prompt_tab_label": "Multi Prompting",
+      "upscale_tab_label": "Image Upscale",
+      "resolution_label": "Resolution",
+      "style_label": "Style",
+      "generated_count_message": "Image Generate",
+      "generate_label": "Generate"
     }
   },
   "common": {
@@ -126,14 +145,16 @@
     "of": "of",
     "to": "to",
     "generated": "Generated",
-    "search": "Search"
+    "search": "Search",
+    "auto": "Auto",
+    "delete_label": "Delete"
   },
   "components": {
     "apps_header": {
       "not_found": "Not Found",
       "writing": "Writing",
       "chat": "Chat",
-      "artist": "Artist",
+      "images": "Images",
       "template": "Template",
       "run": "Run",
       "info": "Info",

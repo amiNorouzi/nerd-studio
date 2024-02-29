@@ -13,3 +13,4 @@ export { DownloadIcon } from "./Download";
 export { Share } from "./Share";
 export { PromptLibrary } from "./PromptLibrary";
 export { BgWave } from "./BgWave";
+export { Generate } from "./Generate";

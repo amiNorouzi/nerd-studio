@@ -68,6 +68,13 @@ export interface ChatItem {
   message: string;
   isBot: boolean;
   image: string;
-  firstname: string;
-  lastname: string;
+  name: string;
+}
+
+export interface HistoryItem {
+  id: string;
+  title: string;
+  date: string;
+  thumbnailImage: string;
+  imageCount: number;
 }

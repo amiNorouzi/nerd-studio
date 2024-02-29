@@ -1,19 +1,21 @@
 "use client";
 import { useEffect } from "react";
 import Image from "next/image";
+import { useParams, usePathname } from "next/navigation";
 
 import { Menu, Sidebar } from "react-pro-sidebar";
+import { RiMenuFoldLine } from "react-icons/ri";
 
 import SidePanelItem from "./SidePanelItem";
 import { UserMenu } from "@/components/user";
 import SpaceItems from "@/components/layout/side-panel/SpaceItems";
+import { Button } from "@/components/ui/button";
+
+import { useUiStore } from "@/stores/zustand/ui-store";
+import useMobileSize from "@/hooks/useMobileSize";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
-import { useUiStore } from "@/stores/zustand/ui-store";
-
 import { apps } from "@/constants/side-panel";
-import useMobileSize from "@/hooks/useMobileSize";
-import { useParams, usePathname } from "next/navigation";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
@@ -26,7 +28,8 @@ export function SidePanel() {
   const { lang } = useParams();
   const isHoverOnSidePanel = useUiStore.use.isHoverOnSidePanel();
   const setIsHoverOnSidePanel = useUiStore.use.setIsHoverOnSidePanel();
-  const collapsed = isMobile ? true : !isSidePanelOpen;
+  const setIsSidePanelOpen = useUiStore.use.setIsSidePanelOpen();
+  const collapsed = !isSidePanelOpen;
 
   const isMainHeader =
     pathname === `/${lang}` ||
@@ -36,27 +39,27 @@ export function SidePanel() {
   //need to add padding to main because sidebar go over it on fixed position
   useEffect(() => {
     const main = document.getElementById("main");
-    if (collapsed) {
+    if (collapsed && !isMobile) {
       main!.style.paddingLeft = "68px";
     } else {
       main!.style.paddingLeft = "0px";
     }
-  }, [collapsed]);
+  }, [collapsed, isMobile]);
 
   const isOpen = !collapsed || isHoverOnSidePanel;
 
   return (
     <Sidebar
       collapsed={collapsed}
-      collapsedWidth={isHoverOnSidePanel ? "240px" : "68px"}
+      collapsedWidth={isMobile ? "0" : isHoverOnSidePanel ? "240px" : "68px"}
       width="240px"
-      transitionDuration={400}
+      transitionDuration={500}
       backgroundColor={getHslColorByVar("--background")}
       rootStyles={{
         overflow: "hidden",
         borderRightWidth: "1px",
         borderRightColor: getHslColorByVar("--border"),
-        position: collapsed ? "fixed" : "sticky",
+        position: isMobile || collapsed ? "fixed" : "sticky",
         top: 0,
         bottom: 0,
         zIndex: 40,
@@ -81,15 +84,25 @@ export function SidePanel() {
           alt="nerd logo"
           width={50}
           height={40}
-          className={isOpen ? "w-10" : "me-4 w-11"}
+          className={isOpen ? "w-9 md:w-10" : "me-4 w-11"}
         />
-        <h1 className="text-gradiant whitespace-nowrap text-xl font-bold">
+        <h1 className="text-gradiant whitespace-nowrap text-lg font-bold md:text-xl">
           Nerd Studio
         </h1>
+
+        <Button
+          variant="ghost"
+          className="fit me-2 ms-auto p-1 text-muted-foreground lg:hidden"
+          onClick={() => setIsSidePanelOpen(false)}
+        >
+          <RiMenuFoldLine size="1.3rem" />
+        </Button>
       </div>
 
       <Menu
-        rootStyles={{ padding: isOpen ? "0" : "4px 12px" }}
+        rootStyles={{
+          padding: isOpen ? "0" : "4px 12px",
+        }}
         menuItemStyles={{
           root: { margin: isOpen ? "0" : "5px auto" },
           button: ({ active }) => ({
