@@ -1,6 +1,4 @@
 "use client";
-import { FaAnglesRight } from "react-icons/fa6";
-
 import { Button } from "@/components/ui/button";
 import { useUiStore } from "@/stores/zustand/ui-store";
 import { cn } from "@/lib/utils";
@@ -15,14 +13,14 @@ export function ToggleSidePanelButton() {
   return (
     <Button
       variant="ghost"
-      className="fit me-2 p-0 text-muted-foreground"
+      className="fit me-2 p-1 text-muted-foreground"
       onClick={toggleIsSidePanelOpen}
     >
       {/*
         flip icon horizontally (from right to left) when side panel is open
       */}
       <RiMenuUnfoldLine
-        size="1.5rem"
+        size="1.3rem"
         className={cn(
           "-transition-transform duration-200",
           isSidePanelOpen && "-scale-x-100",

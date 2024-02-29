@@ -64,6 +64,7 @@ function AppCard({ app }: { app: AppItem }) {
            */}
           <Button
             className="z-10"
+            size="sm"
             onClick={e => {
               e.preventDefault();
             }}

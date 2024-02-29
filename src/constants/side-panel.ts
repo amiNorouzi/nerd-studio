@@ -19,8 +19,8 @@ export const apps = [
   {
     id: "3",
     i18Key: "",
-    title: "Artist",
-    route: "/artist",
+    title: "Images",
+    route: "/image",
     icon: "/images/artist.png",
   },
   {

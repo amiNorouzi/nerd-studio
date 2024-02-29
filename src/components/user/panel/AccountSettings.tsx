@@ -6,6 +6,7 @@ import { UserAvatar } from "@/components/user";
 import { useGetDictionary } from "@/hooks";
 
 import type { ChildrenProps } from "@/services/types";
+import { useSession } from "next-auth/react";
 import ChangePasswordDialog from "./ChangePasswordDialog";
 import ChangeUsernameDialog from "./ChangeUsernameDialog";
 import ChangeEmailDialog from "./ChangeEmailDialog";
@@ -27,12 +28,7 @@ function AccountSettings() {
   const uploadInputRef = useRef<HTMLInputElement>(null);
 
   //user info
-  //TODO: get user info from server
-  const user = {
-    firstname: "Amir",
-    lastname: "Abbasi",
-    email: "amir.h.abbas.g@gmail.com",
-  };
+  const { data: session } = useSession();
 
   return (
     <div className="col gap-2">
@@ -55,9 +51,8 @@ function AccountSettings() {
           }
         >
           <UserAvatar
-            imageSrc=""
-            firstname={user.firstname}
-            lastname={user.lastname}
+            imageSrc={session?.user?.image || ""}
+            name={session?.user?.name || ""}
           />
         </SettingItem>
 
@@ -66,7 +61,7 @@ function AccountSettings() {
           title={userPanelDictionary.account_username_label}
           Action={<ChangeUsernameDialog />}
         >
-          <p className="text-foreground/80">{`${user.firstname} ${user.lastname}`}</p>
+          <p className="text-foreground/80">{session?.user?.name}</p>
         </SettingItem>
 
         {/*change password*/}
@@ -82,7 +77,7 @@ function AccountSettings() {
           title={userPanelDictionary.account_email_label}
           Action={<ChangeEmailDialog />}
         >
-          <p className="text-foreground/80">{user.email}</p>
+          <p className="text-foreground/80">{session?.user?.email}</p>
         </SettingItem>
       </div>
 

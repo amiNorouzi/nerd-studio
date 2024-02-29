@@ -4,8 +4,7 @@ import { cn, getFirstLetter } from "@/lib/utils";
 
 interface IProps {
   imageSrc: string;
-  firstname: string;
-  lastname: string;
+  name: string;
   onClick?: () => void;
   className?: string;
   fallbackClassname?: string;
@@ -26,14 +25,15 @@ export function UserAvatar({
   imageSrc,
   className,
   onClick,
-  lastname,
-  firstname,
+  name = "Nerd Studio",
   fallbackClassname,
 }: IProps) {
+  const [firstname, lastname] = name.split(" ");
+
   return (
     <Avatar onClick={onClick} className={cn("h-9 w-9", className)}>
       <AvatarImage src={imageSrc} />
-      <AvatarFallback className={cn("bg-primary/30 ", fallbackClassname)}>
+      <AvatarFallback className={cn("bg-primary/30", fallbackClassname)}>
         {`${getFirstLetter(firstname)}${getFirstLetter(lastname)}`}
       </AvatarFallback>
     </Avatar>

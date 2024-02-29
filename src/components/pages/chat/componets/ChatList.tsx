@@ -1,3 +1,5 @@
+import { getServerSession } from "next-auth";
+
 import ChatCard from "@/components/pages/chat/componets/ChatCard";
 
 /**
@@ -7,15 +9,16 @@ import ChatCard from "@/components/pages/chat/componets/ChatCard";
  * @constructor
  */
 
-export function ChatList() {
+export async function ChatList() {
   const bot = "Chat Gpt";
+  const session = await getServerSession();
+
   return (
-    <div className="col flex-grow gap-6 pb-5">
+    <div className="col flex-grow gap-6 pb-6">
       <ChatCard
         chatItem={{
-          firstname: "Amir",
-          lastname: "Abbasi",
-          image: "",
+          name: session?.user?.name || "",
+          image: session?.user?.image || "",
           message: "Tell me about your Iran",
           isBot: false,
           id: "1",
@@ -23,8 +26,7 @@ export function ChatList() {
       />
       <ChatCard
         chatItem={{
-          firstname: bot.split(" ")[0],
-          lastname: bot.split(" ")[1],
+          name: bot,
           image: "/images/gpt.jpeg",
           message:
             "Iran, officially known as the Islamic Republic of Iran, is a country located in Western Asia. It is bordered by Armenia, Azerbaijan, Turkmenistan, and the Caspian Sea to the north, Afghanistan and Pakistan to the east, Turkey and Iraq to the west, and the Persian Gulf and the Gulf of Oman to the south.\n" +
@@ -41,9 +43,8 @@ export function ChatList() {
 
       <ChatCard
         chatItem={{
-          firstname: "Amir",
-          lastname: "Abbasi",
-          image: "",
+          name: session?.user?.name || "",
+          image: session?.user?.image || "",
           message: "About iran food",
           isBot: false,
           id: "1",
@@ -51,8 +52,7 @@ export function ChatList() {
       />
       <ChatCard
         chatItem={{
-          firstname: bot.split(" ")[0],
-          lastname: bot.split(" ")[1],
+          name: bot,
           image: "/images/gpt.jpeg",
           message:
             "Iranian cuisine is a blend of various culinary traditions that have developed over centuries within the cultural sphere of Iran. It is known for its use of fresh herbs, fruits, vegetables, and spices, as well as its intricate cooking techniques.",

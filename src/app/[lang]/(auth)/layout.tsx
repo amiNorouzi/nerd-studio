@@ -10,8 +10,6 @@ interface IProps {
 export default async function Layout({ children }: IProps) {
   const session = await getServerSession(authConfig);
 
-  console.log("Session: ", session);
-
   if (session) return redirect("/");
   return (
     <div className="bg-linearGradient relative flex h-full w-full items-center justify-center overflow-hidden">

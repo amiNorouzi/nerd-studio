@@ -48,7 +48,7 @@ export const apps: AppItem[] = [
     category: "image",
     installCount: 1180,
     imageUrl: "/images/artist.png",
-    url: "/artist",
+    url: "/image",
   },
   {
     id: "3",
@@ -68,7 +68,7 @@ export const apps: AppItem[] = [
     category: "image",
     installCount: 1180,
     imageUrl: "/images/artist.png",
-    url: "/artist",
+    url: "/image",
   },
   {
     id: "5",
@@ -88,7 +88,7 @@ export const apps: AppItem[] = [
     category: "image",
     installCount: 1180,
     imageUrl: "/images/artist.png",
-    url: "/artist",
+    url: "/image",
   },
   {
     id: "7",
@@ -108,6 +108,6 @@ export const apps: AppItem[] = [
     category: "image",
     installCount: 1180,
     imageUrl: "/images/artist.png",
-    url: "/artist",
+    url: "/image",
   },
 ];

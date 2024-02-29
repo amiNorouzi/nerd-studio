@@ -40,7 +40,7 @@ export const expenses = [
   },
   {
     id: "3",
-    app: "Artist",
+    app: "AI Image",
     workspace: "My Workspace",
     consumption: "1",
     unit: "1344x768",

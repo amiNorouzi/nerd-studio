@@ -26,6 +26,7 @@
     --muted: 0 0% 97%;
     --muted-dark: 0 0% 94%;
     --muted-foreground: 0 0% 45%;
+    --muted-foreground-light: 231 5% 74%;
 
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
@@ -147,6 +148,11 @@
 
   .error {
     @apply ml-2 text-xs text-red-600;
+  }
+  .border-b-tab {
+    @apply !rounded-none border-b-2 border-transparent !bg-transparent !pb-2 text-sm
+    text-muted-foreground hover:text-primary data-[state=active]:border-primary
+    data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none;
   }
 }
 

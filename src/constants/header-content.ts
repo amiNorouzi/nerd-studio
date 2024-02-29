@@ -6,8 +6,8 @@ export const headerContent = {
     chat: {
       title: "chat",
     },
-    artist: {
-      title: "artist",
+    image: {
+      title: "images",
     },
     template: {
       title: "template",

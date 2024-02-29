@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 import {
   MdOutlineManageAccounts,
@@ -55,12 +55,7 @@ export function UserMenu() {
   const useInfoTextClass =
     "capitalize text-[11px] font-normal overflow-hidden text-ellipsis whitespace-nowrap";
 
-  //user info
-  //TODO: replace with real user info
-  const user = {
-    firstname: "Amir",
-    lastname: "Abbasi",
-  };
+  const { data: session } = useSession();
 
   /**
    * open user panel dialog
@@ -88,9 +83,8 @@ export function UserMenu() {
               on hover open user menu and on click open user panel dialog
             */}
             <UserAvatar
-              imageSrc=""
-              firstname={user.firstname}
-              lastname={user.lastname}
+              imageSrc={session?.user?.image || ""}
+              name={session?.user?.name || ""}
               onClick={() => handleOpenAccountDialog()}
               className="border-gradiant relative z-50 cursor-pointer"
             />
@@ -105,16 +99,13 @@ export function UserMenu() {
           {/*user info and avatar*/}
           <div className="row mb-1 gap-2 border-b p-2">
             <UserAvatar
-              imageSrc=""
-              firstname={user.firstname}
-              lastname={user.lastname}
+              imageSrc={session?.user?.image || ""}
+              name={session?.user?.name || ""}
             />
             <div className="col gap-[1px]">
-              <p
-                className={useInfoTextClass}
-              >{`${user.firstname} ${user.lastname}`}</p>
+              <p className={useInfoTextClass}>{session?.user?.name}</p>
               <p className={cn(useInfoTextClass, "text-muted-foreground")}>
-                Amir.h.a@gmail.com
+                {session?.user?.email}
               </p>
             </div>
           </div>
