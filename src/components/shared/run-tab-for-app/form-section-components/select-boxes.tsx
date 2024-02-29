@@ -63,10 +63,20 @@ function Selects({
   } = useGetDictionary();
   const resolveKey = (key: keyof typeof selectValues): keyof typeof writing =>
     `form_${key}`;
-  const handleSelect = (item: string) =>
-    item === "Auto"
-      ? setSearchParams(keyInSearchParam)
-      : setSearchParams(keyInSearchParam, item);
+
+  function handleSelect(item: string) {
+    console.log(item);
+
+    if (item.toLowerCase() === "auto") {
+      setSearchParams(keyInSearchParam);
+    } else {
+      const foundedItemInList = value.find(
+        valueInList => item.toLowerCase() === valueInList.toLowerCase(),
+      );
+
+      setSearchParams(keyInSearchParam, foundedItemInList);
+    }
+  }
 
   return (
     <div className="flex flex-col gap-2">

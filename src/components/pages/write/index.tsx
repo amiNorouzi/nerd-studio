@@ -1,20 +1,13 @@
 import { memo } from "react";
-import {
-  Info as InfoTab,
-  SetSearchParamProvider,
-  Run as RunTab,
-} from "@/components/shared";
+import { SetSearchParamProvider, Run as RunTab } from "@/components/shared";
 import type { SCRPropsType } from "@/services/types";
 
-const Info = memo(InfoTab);
 const Run = memo(RunTab);
 
 export function WritePage({ params }: SCRPropsType) {
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="write">
-      <div className="grid h-fit max-h-full grid-cols-12 divide-x overflow-y-auto lg:h-full lg:overflow-hidden ">
-        <Run params={params} />
-      </div>
+      <Run params={params} />
     </SetSearchParamProvider>
   );
 }
