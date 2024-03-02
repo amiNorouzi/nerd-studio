@@ -1,16 +1,15 @@
 "use client";
 
+import { FiSearch } from "react-icons/fi";
+import { useMediaQuery } from "usehooks-ts";
+
 import ImageHistoryItem from "./ImageHistoryItem";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import { Input } from "@/components/ui/input";
 
 import { useGetDictionary } from "@/hooks";
 
 import type { HistoryItem, StateSetterType } from "@/services/types";
-import { useMediaQuery } from "usehooks-ts";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { FiSearch } from "react-icons/fi";
 
 interface IProps {
   histories: HistoryItem[];
@@ -18,6 +17,16 @@ interface IProps {
   setIsOpenMobileImageHistory: StateSetterType<boolean>;
 }
 
+/**
+ * responsive ImageHistory component
+ *used in ImagePage result section
+ * it's a list of ImageHistoryItem
+ * render drawer in mobile and sidebar in desktop
+ * @param histories list of HistoryItem
+ * @param setIsOpenMobileImageHistory - set state to open/close mobile drawer
+ * @param isOpenMobileImageHistory - state to open/close mobile drawer
+ * @constructor
+ */
 function ImageHistory({
   histories,
   setIsOpenMobileImageHistory,
@@ -28,8 +37,10 @@ function ImageHistory({
     page: { image: imageDictionary },
   } = useGetDictionary();
 
+  // check if mobile screen
   const isMd = useMediaQuery("(max-width:768px)");
 
+  // render main content
   const renderMain = () => (
     <>
       <h3 className="mb-2 border-b px-4 py-2.5 font-semibold">
@@ -59,6 +70,7 @@ function ImageHistory({
     </>
   );
 
+  // render drawer in mobile and sidebar in desktop
   if (isMd)
     return (
       <Drawer

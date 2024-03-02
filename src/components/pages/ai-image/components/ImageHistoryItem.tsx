@@ -13,6 +13,13 @@ import { cn } from "@/lib/utils";
 
 import type { HistoryItem } from "@/services/types";
 
+/**
+ * Image history item component
+ * used in image history list(ImageHistory.tsx
+ * @param history - history item
+ * @param isActive - is selected
+ * @constructor
+ */
 function ImageHistoryItem({
   history,
   isActive,
@@ -32,6 +39,7 @@ function ImageHistoryItem({
         isActive && "border-primary bg-primary-light",
       )}
     >
+      {/*thumb image*/}
       <Image
         src={history.thumbnailImage}
         alt={history.title}
@@ -49,6 +57,7 @@ function ImageHistoryItem({
         <p className="text-[10px] font-normal text-muted-foreground-light">
           {history.imageCount} {imageDictionary.generated_count_message}
         </p>
+        {/*delete button*/}
         <MyTooltip title={delete_label}>
           <Button
             variant="ghost"

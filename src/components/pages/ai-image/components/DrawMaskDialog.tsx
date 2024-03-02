@@ -56,9 +56,8 @@ interface IProps {
 }
 
 /**
- * used for image to image and masking page
- * select and image for image to image page
- * and select an image and draw on it with brush for mask image on masking page
+ * used for image to image tab in  image generate
+ * draw a mask on uploaded image with brush for mask image
  * @param setMaskImage set mask after save
  * @param isMobileSize for check if mobile size render bottom sheet else popover
  * @param canvasDimensions width and height of canvas changed by size of device
@@ -139,6 +138,10 @@ const DrawMaskDialog: FC<IProps> = ({
     }
   };
 
+  /**
+   * main content
+   * rendered in drawer form mobile and in dialog for desktop
+   */
   const renderMain = () => (
     <div className="col flex-grow items-center justify-center md:mt-2 ">
       <CanvasDraw
@@ -155,6 +158,7 @@ const DrawMaskDialog: FC<IProps> = ({
       />
 
       <div className="row w-full max-w-[80vw] flex-wrap justify-center gap-2 pt-2">
+        {/*brush size*/}
         <div className="row w-full gap-2 rounded-lg border bg-muted p-3 sm:w-64">
           <Label htmlFor="brush-width">
             {imageDictionary.brush_size_label}
@@ -170,6 +174,7 @@ const DrawMaskDialog: FC<IProps> = ({
           />
         </div>
 
+        {/*undo button*/}
         <MyTooltip title={imageDictionary.undo_button_label} side="top">
           <Button
             variant="outline"
@@ -179,6 +184,8 @@ const DrawMaskDialog: FC<IProps> = ({
             <MdUndo size="1.1rem" />
           </Button>
         </MyTooltip>
+
+        {/*erase button*/}
         <MyTooltip title={imageDictionary.erase_button_label} side="top">
           <Button
             variant="outline"
@@ -188,6 +195,11 @@ const DrawMaskDialog: FC<IProps> = ({
             <BsEraser size="1.1rem" />
           </Button>
         </MyTooltip>
+
+        {/*
+          select color between white and black
+          TODO: change settings mask selected color for send to AI
+        */}
         <Select onValueChange={handleChangeColor} value={brushColor}>
           <SelectTrigger className="h-9 w-24 bg-muted text-xs capitalize focus:ring-0">
             <div className="row gap-1.5">
@@ -195,12 +207,14 @@ const DrawMaskDialog: FC<IProps> = ({
                 className="h-4 w-4 rounded-full border border-primary"
                 style={{ backgroundColor: brushColor }}
               />
+              {/*show selected color in trigger*/}
               {brushColor === "#00000090"
                 ? imageDictionary.black_color_label
                 : imageDictionary.white_color_label}
             </div>
           </SelectTrigger>
           <SelectContent>
+            {/*black item*/}
             <SelectItem
               value="#00000090"
               className="hide-svg px-0 data-[state=checked]:bg-primary-light"
@@ -210,6 +224,7 @@ const DrawMaskDialog: FC<IProps> = ({
                 {imageDictionary.black_color_label}
               </div>
             </SelectItem>
+            {/*white item*/}
             <SelectItem
               value="#ffffff90"
               className="hide-svg px-0  data-[state=checked]:bg-primary-light"
@@ -221,6 +236,8 @@ const DrawMaskDialog: FC<IProps> = ({
             </SelectItem>
           </SelectContent>
         </Select>
+
+        {/*save button*/}
         <MyTooltip title={imageDictionary.share_button_label} side="top">
           <Button className="fit p-2" onClick={handleSave}>
             <TfiSave size="1.1rem" />
@@ -230,6 +247,7 @@ const DrawMaskDialog: FC<IProps> = ({
     </div>
   );
 
+  // un mobile size render drawer from button
   if (isMobile)
     return (
       <Drawer open={open} onOpenChange={setOpen}>
@@ -245,6 +263,7 @@ const DrawMaskDialog: FC<IProps> = ({
       </Drawer>
     );
 
+  // for desktop in a dialog
   return (
     <Dialog onOpenChange={handleOpenChange} open={open}>
       <DialogContent

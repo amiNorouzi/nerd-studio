@@ -9,8 +9,13 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+
 import { useGetDictionary } from "@/hooks";
 
+/**
+ * some settings in collapsible div that open and close by switch
+ * @constructor
+ */
 function AdvanceSettings() {
   const {
     page: { image: imageDictionary },
@@ -21,6 +26,7 @@ function AdvanceSettings() {
   return (
     <>
       <div className="mb-5 flex items-start justify-start gap-2">
+        {/*open and close collapsible div*/}
         <Switch
           id="collapse-trigger"
           checked={open}
@@ -33,6 +39,7 @@ function AdvanceSettings() {
           </span>
         </Label>
       </div>
+
       <Collapsible isOpen={open}>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="col gap-2">

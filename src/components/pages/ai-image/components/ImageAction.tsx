@@ -13,6 +13,15 @@ interface IActionButtonProps extends ButtonProps {
   iconClassname?: string;
 }
 
+/**
+ * ImageAction is a button with an icon and a tooltip
+ * @param title - tooltip title
+ * @param Icon - icon component
+ * @param iconClassname - extra class for the icon
+ * @param className - extra class for the button
+ * @param otherProps - other props for the button
+ * @constructor
+ */
 function ImageAction({
   title,
   Icon,

@@ -138,7 +138,10 @@
       "black_color_label": "Black",
       "white_color_label": "White",
       "draw_mask_title": "Draw Mask",
-      "draw_mask_description": "Draw mask with brush on your image for masking"
+      "draw_mask_description": "Draw mask with brush on your image for masking",
+      "download_ext_label": "Save As",
+      "download_ext_description": "Select the file type and download.",
+      "download_input_placeholder": "Your file name"
     }
   },
   "common": {

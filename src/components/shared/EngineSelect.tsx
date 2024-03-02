@@ -39,6 +39,16 @@ interface SelectPropsType extends IProps {
   onOpenChange: StateSetterType<boolean>;
 }
 
+/**
+ * CommandSelectEngines component
+ * used to render the list of engines
+ * in the select component or drawer
+ * @param setValue - function to set the value
+ * @param value - current value
+ * @param onOpenChange - function to set the open state
+ * @param engines - list of engines
+ * @constructor
+ */
 function CommandSelectEngines({
   setValue,
   value,
@@ -61,6 +71,7 @@ function CommandSelectEngines({
       <CommandList>
         <CommandEmpty>{no_result_message}</CommandEmpty>
         <CommandGroup>
+          {/*list of engines*/}
           {engines.map(item => (
             <CommandItem
               key={item.id}
@@ -72,6 +83,7 @@ function CommandSelectEngines({
                   "bg-primary-light  aria-selected:bg-primary-light ",
               )}
             >
+              {/*engine image*/}
               <UserAvatar
                 imageSrc={item.image}
                 name={item.name}
@@ -79,6 +91,7 @@ function CommandSelectEngines({
                 fallbackClassname="text-[10px]"
               />
               {item.name}
+              {/*selected check*/}
               <LuCheck
                 className={cn(
                   "ms-auto h-4 w-4 text-xsm",
@@ -93,19 +106,27 @@ function CommandSelectEngines({
   );
 }
 
+/**
+ * it a select popover in desktop and drawer in mobile
+ * used for selecting the engine for different pages
+ * get the list of engines and the current value
+ * @param props
+ * @constructor
+ */
 function EngineSelectComponent(props: IProps) {
   const {
     components: {
       engine_select: { select_message },
     },
   } = useGetDictionary();
+
   const { engines, value, triggerClassName, contentClassName, contentWidth } =
     props;
-  const [open, setOpen] = useState(false);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-  const buttonContent = value
+  const [open, setOpen] = useState(false); // open state
+  const isDesktop = useMediaQuery("(min-width: 768px)"); // check if the device is desktop render popover else drawer
+  const currentValue = value
     ? engines.find(item => item.id === value)
-    : engines[0];
+    : engines[0]; // get the current value
 
   const renderTrigger = () => (
     <Button
@@ -115,13 +136,14 @@ function EngineSelectComponent(props: IProps) {
         triggerClassName,
       )}
     >
+      {/*engine image*/}
       <UserAvatar
-        imageSrc={buttonContent?.image || ""}
-        name={buttonContent?.name || ""}
+        imageSrc={currentValue?.image || ""}
+        name={currentValue?.name || ""}
         className="h-5 w-5"
         fallbackClassname="text-xs"
       />
-      {buttonContent?.name || select_message}
+      {currentValue?.name || select_message}
       <span
         data-open={open}
         className="ms-auto transition-all duration-200 data-[open=false]:rotate-180"
@@ -131,6 +153,7 @@ function EngineSelectComponent(props: IProps) {
     </Button>
   );
 
+  // render drawer for mobile
   if (!isDesktop)
     return (
       <Drawer open={open} onOpenChange={setOpen}>
@@ -141,6 +164,7 @@ function EngineSelectComponent(props: IProps) {
       </Drawer>
     );
 
+  //render popover for desktop
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{renderTrigger()}</PopoverTrigger>

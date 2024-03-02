@@ -2,6 +2,12 @@
 import { Label } from "@/components/ui/label";
 import { useGetDictionary } from "@/hooks";
 
+/**
+ * Prompt textarea component
+ * used for image prompt to generate
+ * includes label and textarea and character count
+ * @constructor
+ */
 function PromptTextArea() {
   const {
     page: { image: imageDictionary },
@@ -9,6 +15,7 @@ function PromptTextArea() {
 
   return (
     <>
+      {/*label*/}
       <Label htmlFor="image-prompt-teaxtarea">
         {imageDictionary.prompt_title}
       </Label>
@@ -20,6 +27,7 @@ function PromptTextArea() {
           placeholder={imageDictionary.prompt_placeholder}
           className="w-full rounded-lg border bg-muted p-2 outline-none ring-0 focus:border-primary focus:bg-background"
         />
+        {/*character count*/}
         <span className="text-xs text-muted-foreground">0/200</span>
       </div>
     </>

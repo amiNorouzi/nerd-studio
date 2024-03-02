@@ -2,7 +2,12 @@ import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 
+/**
+ * tabs for switch between text-to-image, image-to-image and image-upscale to render suitable options
+ * @constructor
+ */
 function ImageFromTabs() {
+  // get search params and set search params
   const [searchParams, setSearchParams] = useCustomSearchParams();
   const {
     page: { image: imageDictionary },

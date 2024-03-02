@@ -1,4 +1,4 @@
-import React, { useCallback, MouseEvent, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Image from "next/image";
 
 import { useDropzone } from "react-dropzone";
@@ -31,6 +31,9 @@ function UploadZone() {
 
   const currentTab = searchParams.get("feature") || "text-to-image";
 
+  /**
+   * onDrop for drop zone
+   */
   const onDrop = useCallback((acceptedFiles: any) => {
     acceptedFiles.forEach((file: File) => {
       const reader = new FileReader();
@@ -56,11 +59,7 @@ function UploadZone() {
     },
   });
 
-  const handleOpen = (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    open();
-  };
-
+  //if text to image tab is selected, don't show the upload zone
   if (currentTab === "text-to-image") return null;
 
   return (
@@ -70,6 +69,10 @@ function UploadZone() {
         className="mb-2 flex h-[160px] w-full gap-2 rounded-xl border
          bg-background p-2 transition-all duration-300 hover:bg-hover lg:mb-3 xl:mb-5"
       >
+        {/*
+            thumbnail of the uploaded image
+            render if uploadedImage is not empty
+        */}
         <RenderIf isTrue={uploadedImage !== ""}>
           <div className="col relative h-full w-fit gap-1">
             <div className=" relative h-full w-fit">
@@ -80,6 +83,10 @@ function UploadZone() {
                 height={100}
                 className="h-full w-36 rounded-lg object-cover"
               />
+              {/*
+                  show user that mask drawn on the image
+                  render if maskImage is not empty
+              */}
               <RenderIf isTrue={maskImage !== ""}>
                 <div className="fit group absolute end-0.5 top-0.5 z-20 rounded-md bg-muted-dark/80 p-1">
                   <PiPaintBrushLight size="1rem" />
@@ -96,6 +103,7 @@ function UploadZone() {
                 </div>
               </RenderIf>
               <div className="absolute inset-0 z-10 flex items-end justify-end bg-transparent p-1 lg:bg-[#00000050] lg:opacity-0 lg:hover:opacity-100">
+                {/*delete image button*/}
                 <ImageAction
                   title={delete_label}
                   Icon={MdDeleteOutline}
@@ -108,6 +116,10 @@ function UploadZone() {
                 />
               </div>
             </div>
+            {/*
+                draw mask button
+                render if currentTab is image-to-image
+            */}
             <RenderIf isTrue={currentTab === "image-to-image"}>
               <Button
                 size="sm"
@@ -134,6 +146,9 @@ function UploadZone() {
           </div>
         </div>
       </div>
+      {/*
+      draw mask dialog
+      */}
       <DrawMaskDialog
         open={openMaskDialog}
         setOpen={setOpenMaskDialog}

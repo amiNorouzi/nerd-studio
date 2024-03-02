@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
 import { HiOutlineChevronRight } from "react-icons/hi";
+import { useMediaQuery } from "usehooks-ts";
 
 import { Label } from "@/components/ui/label";
 import { SelectAndDrawer } from "@/components/shared";
@@ -13,10 +15,10 @@ import {
 } from "@/components/ui/popover";
 
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
-import { useMediaQuery } from "usehooks-ts";
-import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 
+// TODO: replace with real data
 const resolutions = ["1024 x 1024", "789 x 1024", "1024 x 2048", "2048 x 2048"];
 const styles = [
   {
@@ -81,18 +83,25 @@ const styles = [
   },
 ];
 
+/**
+ * style and resolution settings
+ * @constructor
+ */
 function CommonSettings() {
   const {
     page: { image: imageDictionary },
   } = useGetDictionary();
   const [selectedResolution, setSelectedResolution] = useState("1024 x 1024");
-  const [currentStyle, setCurrentStyle] = useState("none");
+  const [currentStyle, setCurrentStyle] = useState("none"); //selected style
   const [searchParams] = useCustomSearchParams();
+  //get current tab for don't render style in upscale tab
   const currentTab = searchParams.get("feature") || "text-to-image";
+  //mobile size for change side of style popover
   const isMobile = useMediaQuery("(max-width: 1024px)");
 
   return (
     <div className="row mb-2 gap-4 lg:mb-3 xl:mb-5">
+      {/*resolution select*/}
       <div className="col w-full">
         <Label className="mb-2">Resolution</Label>
         <SelectAndDrawer
@@ -102,6 +111,10 @@ function CommonSettings() {
         />
       </div>
 
+      {/*
+        style popover
+        won't render in upscale
+      */}
       <RenderIf isTrue={currentTab !== "image-upscale"}>
         <div className="col w-full">
           <Label className="mb-2">Style</Label>
@@ -120,8 +133,13 @@ function CommonSettings() {
               align={isMobile ? "end" : "center"}
               className="w-[300px] lg:w-[400px]"
             >
+              {/*
+                  3 item in a row for mobile size and 4 for desktop size
+              */}
               <div className="grid grid-cols-3 gap-2 lg:grid-cols-4">
                 {styles.map(item => (
+                  // style item
+                  // a button with style image and title in it
                   <Button
                     variant="muted"
                     className={cn(
