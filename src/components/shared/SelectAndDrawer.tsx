@@ -74,7 +74,7 @@ function CommandSelectItems({
               value={item}
               onSelect={handleSelectItem}
               className={cn(
-                "flex-row-reverse justify-between ps-1 text-xsm",
+                "flex-row-reverse justify-between px-2 text-xsm",
                 value.toLowerCase() === item.toLowerCase() &&
                   "bg-primary-light  aria-selected:bg-primary-light ",
               )}
@@ -115,7 +115,7 @@ function SelectComponent({
               key={item}
               value={item}
               className={cn(
-                "flex-row-reverse justify-between ps-1 text-xsm",
+                "flex-row-reverse justify-between px-2 text-xsm",
                 value.toLowerCase() === item.toLowerCase() &&
                   "bg-primary-light focus:bg-primary-light",
               )}

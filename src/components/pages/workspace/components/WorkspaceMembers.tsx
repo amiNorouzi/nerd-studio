@@ -23,14 +23,12 @@ import { useGetDictionary } from "@/hooks";
 const users = [
   {
     id: "1",
-    firstname: "Amir",
-    lastname: "Abbasi",
+    name: "Amir Abbasi",
     permissions: "owner",
   },
   {
     id: "1",
-    firstname: "Ali Reza",
-    lastname: "Kamali",
+    name: "Ali Reza Kamali",
     permissions: "admin",
   },
 ] as const;
@@ -108,14 +106,8 @@ export function WorkspaceMembers() {
               <TableCell>
                 {/*user full name and user avatar*/}
                 <div className="row gap-2">
-                  <UserAvatar
-                    imageSrc=""
-                    firstname={item.firstname}
-                    lastname={item.lastname}
-                  />
-                  <p className="font-normal capitalize">
-                    {item.firstname} {item.lastname}
-                  </p>
+                  <UserAvatar imageSrc="" name={item.name} />
+                  <p className="font-normal capitalize">{item.name}</p>
                 </div>
               </TableCell>
               <TableCell className="text-green-600">

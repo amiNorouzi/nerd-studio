@@ -78,3 +78,9 @@ export interface HistoryItem {
   thumbnailImage: string;
   imageCount: number;
 }
+
+export interface EngineItem {
+  id: string;
+  name: string;
+  image: string;
+}

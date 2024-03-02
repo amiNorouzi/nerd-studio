@@ -9,6 +9,10 @@ import { useGetDictionary } from "@/hooks";
 import { isEmpty } from "@/lib/utils";
 
 import type { HistoryItem } from "@/services/types";
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { IoMdMore } from "react-icons/io";
+import { GoHistory } from "react-icons/go";
 
 const images: string[] = [
   "/images/generateds/4.webp",
@@ -45,10 +49,12 @@ export function ResultSection() {
   const {
     page: { image: imageDictionary },
   } = useGetDictionary();
+  const [isOpenMobileImageHistory, setIsOpenMobileImageHistory] =
+    useState(false);
 
   return (
-    <section className="col-span-12 h-fit overflow-hidden p-3 lg:col-span-6 lg:h-full lg:p-5 xl:col-span-8">
-      <div className="flex h-fit overflow-hidden rounded-xl border bg-background shadow-2xl lg:h-full ">
+    <section className="col-span-12 h-full overflow-hidden p-3 lg:col-span-8  lg:p-5 ">
+      <div className="flex h-full overflow-hidden rounded-xl border bg-background shadow-2xl ">
         {isEmpty(images) && isEmpty(history) ? (
           <EmptyResult />
         ) : (
@@ -57,15 +63,28 @@ export function ResultSection() {
               <div className="row gap-2.5 border-b px-4 py-2.5">
                 <Generate classname="w-4 h-4" />
                 <h2 className="font-bold">{imageDictionary.generate_label}</h2>
-                <p className="font-normal">
-                  Draw the man in the picture as a warrior fighting a demon ...
+                <p className="overflow-hidden text-ellipsis text-nowrap font-normal lg:max-w-72 xl:max-w-full">
+                  Draw the man in the picture as a warrior fighting a demon
                 </p>
+                <Button
+                  variant="ghost"
+                  className="fit ms-auto p-1 md:hidden"
+                  onClick={() =>
+                    setIsOpenMobileImageHistory(!isOpenMobileImageHistory)
+                  }
+                >
+                  <GoHistory size="1rem" />
+                </Button>
               </div>
-              <div className="centered-col h-full w-full pb-5">
+              <div className="centered-col h-full w-full p-2 pb-5">
                 <GeneratedImages images={images} />
               </div>
             </div>
-            <ImageHistory histories={histories} />
+            <ImageHistory
+              histories={histories}
+              isOpenMobileImageHistory={isOpenMobileImageHistory}
+              setIsOpenMobileImageHistory={setIsOpenMobileImageHistory}
+            />
           </>
         )}
       </div>

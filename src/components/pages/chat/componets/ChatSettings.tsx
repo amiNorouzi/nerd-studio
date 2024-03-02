@@ -29,6 +29,7 @@ import { Switch } from "@/components/ui/switch";
 
 import { cn } from "@/lib/utils";
 import { statuses } from "@/components/shared/run-tab-for-app/form-section-components/contants";
+import { EngineSelect } from "@/components/shared";
 
 //list of engines
 //TODO: replace with real engines data from api
@@ -49,11 +50,11 @@ const engines = [
     image: "/images/gemni.jpeg",
   },
   {
-    id: "2",
+    id: "4",
     name: "Clouds",
     image: "/images/cloude.png",
   },
-] as const;
+];
 
 /**
  * Chat settings component used in chat page
@@ -67,50 +68,16 @@ export function ChatSettings() {
   //user selected engine id
   const [activeEngineId, setActiveEngineId] = useState<string>(engines[0].id);
 
-  //get active engine by activeEngineId
-  const activeEngine = engines.find(engine => engine.id === activeEngineId);
-
   return (
     <div className="spacing-row w-full items-end py-1.5">
       {/*engine select*/}
-      <Select onValueChange={value => setActiveEngineId(value)}>
-        <SelectTrigger className="borde r h-7 w-48">
-          <div className="row gap-2">
-            <Image
-              src={activeEngine!.image}
-              alt={activeEngine!.name}
-              className="me-2 h-5 w-5 rounded-full"
-              width={30}
-              height={30}
-            />
-            {activeEngine!.name}
-          </div>
-        </SelectTrigger>
-        <SelectContent>
-          {engines.map(engine => (
-            <SelectItem
-              key={engine.id}
-              value={engine.id}
-              onClick={() => setActiveEngineId(engine.id)}
-              className={cn(
-                "hide-svg px-2 py-1.5",
-                activeEngineId === engine.id && "bg-active text-primary",
-              )}
-            >
-              <div className="row gap-2">
-                <Image
-                  src={engine.image}
-                  alt={engine.name}
-                  className="me-2 h-5 w-5 rounded-full"
-                  width={30}
-                  height={30}
-                />
-                {engine.name}
-              </div>
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <EngineSelect
+        value={activeEngineId}
+        setValue={setActiveEngineId}
+        engines={engines}
+        triggerClassName="w-48 h-7"
+        contentWidth={192}
+      />
       <div className="row h-7 rounded-lg border bg-muted px-1">
         <Popover>
           <PopoverTrigger asChild>

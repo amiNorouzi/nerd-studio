@@ -11,7 +11,7 @@ function ImageFromTabs() {
   return (
     <Tabs
       defaultValue={searchParams.get("feature") ?? "text-to-image"}
-      className="h-full w-full"
+      className=" w-full"
       onValueChange={v => setSearchParams("feature", v)}
     >
       <TabsList className=" grid h-12 w-full grid-cols-3 gap-1 overflow-hidden border-b bg-muted pb-0">

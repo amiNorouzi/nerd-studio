@@ -28,7 +28,7 @@ function ImageHistoryItem({
   return (
     <article
       className={cn(
-        "flex h-28 cursor-pointer gap-2 rounded-lg border p-2 hover:bg-muted-dark",
+        "flex h-28 cursor-pointer gap-2 rounded-lg border p-2 hover:border-muted-dark hover:bg-muted-dark",
         isActive && "border-primary bg-primary-light",
       )}
     >

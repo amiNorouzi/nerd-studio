@@ -6,8 +6,9 @@ import { createSelectors } from "./createSelectors";
 import type { IUiState } from "@/stores/zustand/types";
 
 const initialState = {
-  isSidePanelOpen: true,
+  isSidePanelOpen: false,
   isHoverOnSidePanel: false,
+  isOpenImageHistory: false,
 };
 
 //for all the ui related states like open dialogs

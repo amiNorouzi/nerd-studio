@@ -13,12 +13,17 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useGetDictionary } from "@/hooks";
+import { usePathname } from "next/navigation";
 
 interface IProps {
   children: React.ReactNode;
 }
 export function HistorySheet({ children }: IProps) {
   const { components } = useGetDictionary();
+  const pathname = usePathname();
+
+  if (pathname.includes("image")) return null;
+
   return (
     <Sheet>
       <SheetTrigger asChild>
