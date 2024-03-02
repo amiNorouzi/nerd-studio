@@ -179,6 +179,7 @@
   "components": {
     "apps_header": {
       "not_found": "Not Found",
+      "translate": "Translate",
       "ReWrite": "ReWrite",
       "chat": "Chat",
       "images": "Images",

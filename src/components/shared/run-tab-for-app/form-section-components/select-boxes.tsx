@@ -14,6 +14,8 @@ import { SelectResponseLang } from "./select-response-lang";
 
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { selectValues, selectValuesDescription } from "./contants";
+import RenderIf from "@/components/shared/RenderIf";
+import { cn } from "@/lib/utils";
 
 function NumberOfResults() {
   const [searchParams, setSearchParams] = useCustomSearchParams();
@@ -111,7 +113,11 @@ function ListOfSelectBox() {
   );
 }
 
-export function SelectBoxes() {
+interface IProps {
+  hiddenSelectResponseLang?: boolean;
+}
+
+export function SelectBoxes({ hiddenSelectResponseLang = false }: IProps) {
   const [open, setOpen] = useState(false);
   const {
     components: { form_section },
@@ -119,7 +125,12 @@ export function SelectBoxes() {
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger asChild>
-        <div className="mb-9 flex items-start justify-start gap-3">
+        <div
+          className={cn(
+            "mb-9 flex items-start justify-start gap-3",
+            // hiddenSelectResponseLang && "mb-0",
+          )}
+        >
           <Switch
             id="collapse-trigger"
             checked={open}
@@ -139,10 +150,12 @@ export function SelectBoxes() {
         data-state={open}
         className="grid grid-cols-1 gap-y-9 data-[state=false]:gap-0"
       >
-        <div className="grid grid-cols-1 items-start gap-x-5 gap-y-3 sm:grid-cols-2">
-          {/*show language select box*/}
-          <SelectResponseLang />
-        </div>
+        {/*show language select box*/}
+        <RenderIf isTrue={!hiddenSelectResponseLang}>
+          <div className="grid grid-cols-1 items-start gap-x-5 gap-y-3 sm:grid-cols-2">
+            <SelectResponseLang />
+          </div>
+        </RenderIf>
         <CollapsibleContent className="grid grid-cols-1 items-start gap-x-5 gap-y-9  sm:grid-cols-2">
           {/*show list of select box options(creativity,tone,...)*/}
           <ListOfSelectBox />

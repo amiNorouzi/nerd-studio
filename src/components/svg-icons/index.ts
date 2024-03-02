@@ -15,3 +15,7 @@ export { PromptLibrary } from "./PromptLibrary";
 export { BgWave } from "./BgWave";
 export { Generate } from "./Generate";
 export { ReWriteIcon } from "./ReWrite";
+export { Setting } from "./Setting";
+export { TranslateIcon } from "./Translate";
+export { LinkIcon } from "./LinkIcon";
+export { PdfIcon } from "./PdfIcon";

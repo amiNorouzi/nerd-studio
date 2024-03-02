@@ -17,3 +17,5 @@ export { SelectAndDrawer } from "./SelectAndDrawer";
 export { RenderImageOrIcon } from "./RenderImageOrIcon";
 export { EngineSelect } from "./EngineSelect";
 export { MyTooltip } from "./myTooltip";
+export { SliderWithTooltip } from "./SliderWithTooltip";
+export { UploadPdf } from "./UploadPdf";

@@ -1,3 +1,4 @@
+"use client";
 import { useEffect } from "react";
 
 export function useScrollEnd<T>(el: HTMLElement | null, value: T) {

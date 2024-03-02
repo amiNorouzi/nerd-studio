@@ -55,7 +55,7 @@ function InputAndSelectSpace() {
 
 function DownloadAndSaveButtons() {
   const {
-    page: { ReWrite },
+    components: { editor_section },
   } = useGetDictionary();
   const { handleCopyAction, handleDownLoadAction } =
     useHandleCopyAndDownloadAction();
@@ -72,7 +72,7 @@ function DownloadAndSaveButtons() {
           className="flex gap-2"
         >
           <item.Icon />
-          {ReWrite[item.title]}
+          {editor_section[item.title]}
         </DropdownMenuItem>
       )),
     [],

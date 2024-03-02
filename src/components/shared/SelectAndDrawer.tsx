@@ -65,7 +65,7 @@ function CommandSelectItems({
   return (
     <Command>
       <RenderIf isTrue={showSearch}>
-        <CommandInput placeholder="Search Engine..." />
+        <CommandInput placeholder="Search ..." />
       </RenderIf>
       <CommandList>
         <RenderIf isTrue={showSearch}>

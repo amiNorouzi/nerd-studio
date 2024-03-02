@@ -1,6 +1,6 @@
 import { PiChartBarLight, PiPencilLineLight } from "react-icons/pi";
 import { ImInsertTemplate } from "react-icons/im";
-import { ReWriteIcon } from "@/components/svg-icons";
+import { ReWriteIcon, TranslateIcon } from "@/components/svg-icons";
 
 export const apps = [
   {
@@ -37,5 +37,12 @@ export const apps = [
     title: "Template",
     route: "/template",
     icon: ImInsertTemplate,
+  },
+  {
+    id: "6",
+    i18Key: "",
+    title: "Translate",
+    route: "/translate",
+    icon: TranslateIcon,
   },
 ] as const;
