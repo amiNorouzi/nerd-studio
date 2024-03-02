@@ -1,18 +1,17 @@
-import React, { memo } from "react";
+import React from "react";
 import { EditorSection } from "./editor-section";
 import { FormSection } from "./form-section";
 import { cn } from "@/lib/utils";
-import type { TemplateState } from "@/stores/zustand/types";
-import type { ParamsType } from "@/services/types";
-
-const Form = memo(FormSection);
-const Editor = memo(EditorSection);
 
 interface IProps extends React.ComponentPropsWithoutRef<"div"> {
-  params: ParamsType;
-  template?: TemplateState["currentTemplate"];
+  children: React.ReactNode;
 }
-export function Run({ params, template, className, ...divProps }: IProps) {
+export function Run({
+  children,
+
+  className,
+  ...divProps
+}: IProps) {
   return (
     <div
       className={cn(
@@ -21,8 +20,9 @@ export function Run({ params, template, className, ...divProps }: IProps) {
       )}
       {...divProps}
     >
-      <Form params={params} template={template} />
-      <Editor />
+      {children}
     </div>
   );
 }
+Run.Form = FormSection;
+Run.Editor = EditorSection;

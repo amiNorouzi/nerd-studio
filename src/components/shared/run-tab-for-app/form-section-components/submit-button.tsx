@@ -5,13 +5,13 @@ import { useGetDictionary } from "@/hooks";
 
 export function SubmitButton() {
   const {
-    page: { writing },
+    page: { ReWrite },
   } = useGetDictionary();
   return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div className="grid grid-cols-1 items-end gap-5 sm:grid-cols-2">
       {/*show engine select box*/}
       <SelectEngine />
-      <Button>{writing.form_rewrite_button}</Button>
+      <Button>{ReWrite.form_rewrite_button}</Button>
     </div>
   );
 }

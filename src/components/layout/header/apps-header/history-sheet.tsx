@@ -32,7 +32,7 @@ export function HistorySheet({ children }: IProps) {
           {components.apps_header.history}
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-[400px] sm:w-[600px]">
+      <SheetContent className="w-full max-w-[400px] sm:max-w-[600px]">
         <SheetHeader>
           <SheetTitle>{components.apps_header.history}</SheetTitle>
           <SheetDescription></SheetDescription>

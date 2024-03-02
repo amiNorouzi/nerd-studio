@@ -13,13 +13,19 @@ export default function AppsLayout({
 }) {
   const searchParams = useSearchParams();
 
+  /** determine show run or info tab
+   *  this value set in url search param in Header/AppsHeader/TabButtons component
+   *  this component used in apps pages like(ReWriting and template ,...)
+   */
   const tab = searchParams.get("apps-tab") ?? "run";
+
   return (
     <section className="flex h-full w-full flex-col overflow-hidden">
       {/* header for apps that includes share , history , tabs and app title */}
       <Header className="h-apps-header" />
       {/*apps*/}
       <div style={{ height: "var(--apps-main-height" }} className="bg-image">
+        {/* children are run tabs and Info is info tab*/}
         {tab === "run" ? (
           children
         ) : (
@@ -34,6 +40,7 @@ export default function AppsLayout({
   );
 }
 
+// TODO: this is for test and should replace with data form api
 const mdForTest = `
         # Dillinger
 ## _The Last Markdown Editor, Ever_

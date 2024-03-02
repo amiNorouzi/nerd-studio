@@ -27,7 +27,7 @@ export function SharePopover({ children }: IProps) {
       </PopoverTrigger>
       <PopoverContent
         collisionPadding={popoverPaddingFromEdge}
-        className="flex w-[480px] flex-col gap-3 divide-y px-6 pt-3"
+        className="flex flex-col  gap-3 divide-x divide-y px-6 pt-3 lg:w-[480px]"
       >
         {children}
       </PopoverContent>

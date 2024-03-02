@@ -2,10 +2,17 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { getDictionary } from "@/lib/dictionary";
+import type { ParamsType } from "@/services/types";
 interface IProps {
   children: React.ReactNode;
+  params: ParamsType;
 }
-export default function Layout({ children }: IProps) {
+export default async function Layout({ children, params }: IProps) {
+  const {
+    common,
+    page: { login },
+  } = await getDictionary(params.lang);
   return (
     <div className="flex h-full w-full flex-col items-center justify-between ">
       <header className="z-50 flex w-full bg-white p-5 sm:p-8">
@@ -17,13 +24,13 @@ export default function Layout({ children }: IProps) {
             height={80}
             className="h-10 w-10"
           />
-          <span className="text-lg font-semibold">Nerd Studio</span>
+          <span className="text-lg font-semibold">{common.nerd_studio}</span>
         </div>
         <div className="flex items-center justify-between gap-2">
-          <span>{`Don't have an account?`}</span>
+          <span>{login.dont_have_account}</span>
           <Link href="/signup">
             <Button size="lg" className="text-sm font-bold shadow">
-              Sign up
+              {login.signup}
             </Button>
           </Link>
         </div>
@@ -31,15 +38,15 @@ export default function Layout({ children }: IProps) {
       {children}
       <footer>
         <span className="text-xs text-white">
-          This site is protected by reCAPTCHA and the Google{" "}
+          {login.footer_description}
           <Link href="#" className="underline">
-            Privacy Policy
+            {common.privacy_policy}
           </Link>{" "}
-          and{" "}
+          {common.and}{" "}
           <Link href="#" className="underline">
-            Terms of Service
+            {common.terms_of_service}
           </Link>{" "}
-          apply.
+          {common.apply}
         </span>
       </footer>
     </div>

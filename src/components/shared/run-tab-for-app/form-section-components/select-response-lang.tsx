@@ -1,8 +1,8 @@
 "use client";
+import { useMemo } from "react";
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { SelectAndDrawer } from "@/components/shared";
 import { statuses } from "./contants";
-import { useMemo } from "react";
 export function ResponseLang() {
   const [searchParams, setSearchParams] = useCustomSearchParams();
   const items = useMemo(() => statuses.map(item => item.label), []);
@@ -21,13 +21,11 @@ export function ResponseLang() {
 
 export function SelectResponseLang() {
   const {
-    page: { writing },
+    components: { form_section },
   } = useGetDictionary();
   return (
-    <div className="flex flex-col gap-2">
-      <span className="m-0 flex items-baseline gap-2 text-xsm font-semibold">
-        {writing.form_language}
-      </span>
+    <div className="flex flex-col gap-3">
+      <span className="text-sm font-normal">{form_section.form_language}</span>
       <ResponseLang />
     </div>
   );

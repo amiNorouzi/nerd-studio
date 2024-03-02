@@ -1,5 +1,6 @@
 import { PiChartBarLight, PiPencilLineLight } from "react-icons/pi";
 import { ImInsertTemplate } from "react-icons/im";
+import { ReWriteIcon } from "@/components/svg-icons";
 
 export const apps = [
   {
@@ -26,9 +27,9 @@ export const apps = [
   {
     id: "4",
     i18Key: "",
-    title: "Write",
-    route: "/write",
-    icon: PiPencilLineLight,
+    title: "ReWrite",
+    route: "/ReWrite",
+    icon: ReWriteIcon,
   },
   {
     id: "5",

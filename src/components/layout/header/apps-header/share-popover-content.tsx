@@ -1,18 +1,20 @@
 import React from "react";
 
 import { SocialMedias } from "@/components/shared/SocialMedias";
-import { MyTooltip } from "@/components/shared/myTooltip";
 import { Button } from "@/components/ui/button";
-
-import { useLocation } from "@/hooks/useLocation";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
-
+import { useLocation } from "@/hooks/useLocation";
 function SocialMediaSection() {
   const {
     components: { apps_header },
   } = useGetDictionary();
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-wrap items-center justify-between">
       {/* share in social media*/}
       <span className="text-base">{apps_header.share_link_for_credits}</span>
       <SocialMedias />
@@ -58,14 +60,24 @@ function Description() {
         {apps_header.share_link_for_credits}
       </span>
 
-      <MyTooltip
-        title="Earn 200 credits for everyone who registered Anakin successfully through your link. No invitation limit."
-        contentClass="w-72 text-sm"
-      >
-        <span className="text-gradiant text-sm underline">
+      <HoverCard openDelay={200} closeDelay={100}>
+        <HoverCardTrigger className="text-gradiant h-fit p-0 text-sm underline">
+          {" "}
           {apps_header.Learn_more}
-        </span>
-      </MyTooltip>
+        </HoverCardTrigger>
+
+        <HoverCardContent
+          side="top"
+          sideOffset={12}
+          className="col cart-arrow relative max-w-72 gap-2 p-2 text-start"
+        >
+          <p className="text-xs text-gray-600">
+            {
+              "Earn 200 credits for everyone who registered Anakin successfully through your link. No invitation limit."
+            }
+          </p>
+        </HoverCardContent>
+      </HoverCard>
     </div>
   );
 }

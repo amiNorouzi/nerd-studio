@@ -1,5 +1,5 @@
 "use client";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,8 +23,11 @@ import { useGetDictionary } from "@/hooks";
 import { useHandleCopyAndDownloadAction } from "./useHandleCopyAndDownloadAction";
 
 import { downloadDropdownItems, value } from "./constants";
+import { Save } from "@/components/svg-icons/Save";
+import { SelectAndDrawer } from "@/components/shared";
 
 function InputAndSelectSpace() {
+  const [selectValue, setSelectValue] = useState(value[0]);
   const items = useMemo(() => {
     return value.map(item => (
       <SelectItem key={item} value={item} className="text-xsm">
@@ -33,27 +36,26 @@ function InputAndSelectSpace() {
     ));
   }, []);
   return (
-    <div className="flex flex-1 gap-2">
+    <div className="flex flex-1 gap-3">
       <Input
         type="text"
-        className="h-[42px] w-full max-w-[292px] text-xsm"
+        className=" w-full max-w-[230px] px-6 py-1 text-xsm"
         defaultValue="New Document"
       />
-      <Select defaultValue={value[0]} onValueChange={v => console.log(v)}>
-        <SelectTrigger className="m-0 h-[42px]  w-full max-w-[292px]">
-          <SelectValue placeholder="Select a workspace" className="text-xsm" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>{items}</SelectGroup>
-        </SelectContent>
-      </Select>
+
+      <SelectAndDrawer
+        value={selectValue}
+        setValue={setSelectValue}
+        items={value}
+        buttonStyle="w-full max-w-[230px] px-6 py-1"
+      />
     </div>
   );
 }
 
 function DownloadAndSaveButtons() {
   const {
-    page: { writing },
+    page: { ReWrite },
   } = useGetDictionary();
   const { handleCopyAction, handleDownLoadAction } =
     useHandleCopyAndDownloadAction();
@@ -70,7 +72,7 @@ function DownloadAndSaveButtons() {
           className="flex gap-2"
         >
           <item.Icon />
-          {writing[item.title]}
+          {ReWrite[item.title]}
         </DropdownMenuItem>
       )),
     [],
@@ -79,7 +81,10 @@ function DownloadAndSaveButtons() {
     <div className="flex gap-2">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="group h-[42px] w-[42px] p-0">
+          <Button
+            variant="ghost"
+            className="group h-[42px] w-[42px] bg-muted p-0"
+          >
             <DownloadIcon />
           </Button>
         </DropdownMenuTrigger>
@@ -89,8 +94,8 @@ function DownloadAndSaveButtons() {
       </DropdownMenu>
 
       {/*save button*/}
-      <Button variant="outline" className="group h-[42px] w-[42px] p-0">
-        <Share />
+      <Button variant="ghost" className="group h-[42px] w-[42px] bg-muted p-0">
+        <Save />
       </Button>
     </div>
   );
@@ -98,7 +103,7 @@ function DownloadAndSaveButtons() {
 
 export function EditorSectionHeader() {
   return (
-    <div className="flex justify-between gap-2 p-5">
+    <div className="flex flex-col  justify-between gap-2 p-5 sm:flex-row">
       <InputAndSelectSpace />
       <DownloadAndSaveButtons />
     </div>

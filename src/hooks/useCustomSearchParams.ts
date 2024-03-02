@@ -1,5 +1,5 @@
+import { useEffect } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo } from "react";
 
 export function useCustomSearchParams(
   initialKey?: string,
@@ -10,10 +10,7 @@ export function useCustomSearchParams(
   const searchParams = useSearchParams()!;
 
   // now you got a read/write object
-  const current = useMemo(
-    () => new URLSearchParams(searchParams),
-    [searchParams],
-  );
+  const current = new URLSearchParams(searchParams);
 
   /**
    * this function used to set/delete value in url query param
@@ -21,26 +18,6 @@ export function useCustomSearchParams(
    * @param value for set to key param in url - if value is not exist delete key from url
    * @param replace for replace url or push if it is false
    */
-  const setSearchParams = useCallback(
-    (key: string, value?: string, replace: boolean = true) => {
-      if (!value) {
-        current.delete(key);
-      } else {
-        current.set(key, value);
-      }
-      // cast to string
-      const search = current.toString();
-      // or const query = `${'?'.repeat(search.length && 1)}${search}`;
-      const query = search ? `?${search}` : "";
-
-      if (replace) {
-        router.replace(`${pathname}${query}`);
-      } else {
-        router.push(`${pathname}${query}`);
-      }
-    },
-    [router, current, pathname],
-  );
 
   // this use effect used for initial setSearchParam
   useEffect(() => {
@@ -50,7 +27,29 @@ export function useCustomSearchParams(
     } else {
       setSearchParams(initialKey, initialValue);
     }
-  }, [initialValue, initialKey, setSearchParams]);
+  }, [initialValue, initialKey]);
+
+  function setSearchParams(
+    key: string,
+    value?: string,
+    replace: boolean = true,
+  ) {
+    if (!value) {
+      current.delete(key);
+    } else {
+      current.set(key, value);
+    }
+    // cast to string
+    const search = current.toString();
+    // or const query = `${'?'.repeat(search.length && 1)}${search}`;
+    const query = search ? `?${search}` : "";
+
+    if (replace) {
+      router.replace(`${pathname}${query}`);
+    } else {
+      router.push(`${pathname}${query}`);
+    }
+  }
 
   return [searchParams, setSearchParams] as const;
 }

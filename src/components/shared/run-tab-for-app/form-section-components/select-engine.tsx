@@ -23,13 +23,13 @@ function SelectEngineDropDown() {
 
 export function SelectEngine() {
   const {
-    page: { writing },
+    page: { ReWrite },
   } = useGetDictionary();
   return (
     <div className="flex flex-col justify-center gap-2 ">
-      {/*<span className="m-0 flex items-baseline gap-2 text-xsm font-semibold">*/}
-      {/*  Engines*/}
-      {/*</span>*/}
+      <span className="m-0 flex items-baseline gap-2 text-sm font-normal">
+        Engines
+      </span>
       <SelectEngineDropDown />
     </div>
   );

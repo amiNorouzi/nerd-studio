@@ -20,12 +20,13 @@ export function EditorSectionFooter() {
   const editorTextContentValue = useEditorStore.use.editorTextContent();
   const [value, setValue] = useState<string>(characterValueItems[0]);
   const {
-    page: { writing },
+    page: { ReWrite },
+    components: { editor_section },
   } = useGetDictionary();
   const items = useMemo(() => {
     return characterValueItems.map(item => (
       <SelectItem key={item} value={item} className="text-xsm">
-        {`${writing[item]} ${numberOfTextContent(item.split("_").pop() as WordType, editorTextContentValue)}`}
+        {`${editor_section[item]} ${numberOfTextContent(item.split("_").pop() as WordType, editorTextContentValue)}`}
       </SelectItem>
     ));
   }, [editorTextContentValue]);
