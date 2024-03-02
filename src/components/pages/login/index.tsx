@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { FormField, GoogleSignInButton } from "@/components/shared";
 
 import { cn } from "@/lib/utils";
+import { useGetDictionary } from "@/hooks";
 
 interface FormTypes {
   userName: string;
@@ -25,6 +26,10 @@ export function LoginPage() {
     },
   });
 
+  const {
+    common,
+    page: { login },
+  } = useGetDictionary();
   return (
     <section className=" z-50 flex w-full flex-col items-center justify-center gap-8 p-3">
       <form

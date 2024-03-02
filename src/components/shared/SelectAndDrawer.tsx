@@ -1,7 +1,10 @@
 "use client";
 import { memo, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { Check, ChevronDown } from "lucide-react";
+import {
+  BsCheck2 as Check,
+  BsChevronDown as ChevronDown,
+} from "react-icons/bs";
 
 import {
   Command,
@@ -40,6 +43,7 @@ interface IProps {
   isSelect?: boolean;
   label?: string;
   src?: string;
+  buttonStyle?: string;
 }
 interface SelectPropsType extends IProps {
   onOpenChange: StateSetterType<boolean>;
@@ -101,10 +105,13 @@ function SelectComponent({
   setValue,
   value,
   label,
+  buttonStyle,
 }: Omit<IProps, "showSearch" | "isSelect">) {
   return (
     <Select value={value} onValueChange={setValue}>
-      <SelectTrigger className="m-0 w-full !text-xsm text-black">
+      <SelectTrigger
+        className={cn("m-0 w-full !text-xsm text-black", buttonStyle)}
+      >
         <SelectValue placeholder="Select an option" className="!text-xsm" />
       </SelectTrigger>
       <SelectContent>
@@ -129,7 +136,7 @@ function SelectComponent({
   );
 }
 function UserSelectAndDrawer(props: IProps) {
-  const { items, value, isSelect = true, setValue, label } = props;
+  const { buttonStyle, items, value, isSelect = true, setValue, label } = props;
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const buttonContent = value
@@ -140,7 +147,10 @@ function UserSelectAndDrawer(props: IProps) {
     return (
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
-          <Button variant="outline" className="w-full justify-between">
+          <Button
+            variant="outline"
+            className={cn("w-full justify-between px-3 py-2", buttonStyle)}
+          >
             {buttonContent}
             <span
               data-open={open}
@@ -165,6 +175,7 @@ function UserSelectAndDrawer(props: IProps) {
         value={value}
         items={items}
         label={label}
+        buttonStyle={buttonStyle}
       />
     );
   }
@@ -174,15 +185,18 @@ function UserSelectAndDrawer(props: IProps) {
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className="w-full justify-between bg-muted hover:border-primary-light hover:text-foreground aria-expanded:border-primary"
+          className={cn(
+            "w-full justify-between bg-muted px-3 py-2 hover:border-primary-light hover:text-foreground aria-expanded:border-primary",
+            buttonStyle,
+          )}
         >
           {buttonContent}
-          <span
-            data-open={open}
-            // className="transition data-[open=false]:rotate-180"
-          >
-            <ChevronDown className="h-4 w-4 opacity-50" />
-          </span>
+          {/*<span*/}
+          {/*  data-open={open}*/}
+          {/*  // className="transition data-[open=false]:rotate-180"*/}
+          {/*>*/}
+          <ChevronDown className="h-4 w-4 opacity-50" />
+          {/*</span>*/}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0" align="start">

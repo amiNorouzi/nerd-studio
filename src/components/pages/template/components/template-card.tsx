@@ -32,7 +32,7 @@ interface InfoDialogProps {
  * @param open for open or close modal
  * @param onOpenChange set open or close modal
  */
-export function InfoDialog({ template, open, onOpenChange }: InfoDialogProps) {
+function InfoDialog({ template, open, onOpenChange }: InfoDialogProps) {
   const { prompt, description, title, inputs, category, icon } = template;
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

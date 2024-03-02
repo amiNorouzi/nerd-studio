@@ -6,9 +6,12 @@ import { categories } from "./constant";
 import { cn } from "@/lib/utils";
 export function TemplateList() {
   const searchParams = useSearchParams();
+
+  // selected template that read from search param that Categories component set it in url
   const selectedTemplate =
     searchParams.get("select-template-category") ?? "All Template";
 
+  // generate and memoized list of template cards
   const items = useMemo(() => {
     if (selectedTemplate === "All Template") {
       return categories
@@ -45,6 +48,7 @@ export function TemplateList() {
   );
 }
 
+// this is simple data and must be replaced with data from api
 const mockTemplateData = [
   {
     id: "1",

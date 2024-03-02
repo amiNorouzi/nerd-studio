@@ -9,12 +9,12 @@ interface IProps {
 }
 export function TextBox({ template }: IProps) {
   const listOfText = template?.inputs ?? [];
-  const { common } = useGetDictionary();
+  const { common, components } = useGetDictionary();
 
   return (
     <div className="mt-1 grid gap-2">
       <div>
-        <Label htmlFor="textbox" className="text-xsm font-semibold">
+        <Label htmlFor="textbox" className="text-sm font-medium">
           {common.form_textarea_label}
         </Label>
         <div className="relative h-full w-full">
@@ -22,8 +22,9 @@ export function TextBox({ template }: IProps) {
             name="userTextBox"
             id="textbox"
             rows={8}
+            placeholder={components.form_section.form_textarea_placeholder}
             defaultValue={template?.prompt ?? ""}
-            className="w-full rounded-lg border bg-muted p-2 outline-none ring-0"
+            className="w-full rounded-lg border bg-muted p-2 outline-none ring-0 placeholder:text-xs"
           />
           <span className="text-xs text-muted-foreground">0/200</span>
         </div>

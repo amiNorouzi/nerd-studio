@@ -14,3 +14,4 @@ export { SettingsDialog } from "./SettingsDialog";
 export { FormField } from "./FormField";
 export { GoogleSignInButton } from "./AuthButtons";
 export { SelectAndDrawer } from "./SelectAndDrawer";
+export { RenderImageOrIcon } from "./RenderImageOrIcon";

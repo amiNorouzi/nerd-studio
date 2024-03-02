@@ -12,8 +12,6 @@ type IProps = React.ComponentPropsWithoutRef<"header">;
 
 type HeaderContentType = typeof headerContent;
 export function Header({ className, ...otherProps }: IProps) {
-  // const pathName = usePathname();
-  // const lastPath = pathName.split("/").pop() ?? "";
   const searchParams = useSearchParams();
   const appPage = searchParams.get("app") ?? "";
   return (

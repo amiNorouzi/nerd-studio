@@ -1,14 +1,6 @@
 "use client";
+import { useState } from "react";
 import { DescriptionHoverCard, SelectAndDrawer } from "@/components/shared";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import {
@@ -19,25 +11,25 @@ import {
 import { Switch } from "@/components/ui/switch";
 
 import { SelectResponseLang } from "./select-response-lang";
-import { SelectEngine } from "./select-engine";
 
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { selectValues, selectValuesDescription } from "./contants";
-import { useCallback, useState } from "react";
 
 function NumberOfResults() {
   const [searchParams, setSearchParams] = useCustomSearchParams();
   const {
-    page: { writing },
+    components: { form_section },
   } = useGetDictionary();
   return (
     <div className=" mt-1 flex flex-col gap-3 ">
       <Label
         htmlFor="numOfResult"
-        className="flex flex-nowrap gap-2 text-xsm  font-semibold"
+        className="flex flex-nowrap gap-2 text-sm font-normal"
       >
-        {writing.form_num_of_results}
-        <DescriptionHoverCard description={writing.form_num_of_results_desc} />
+        {form_section.form_num_of_results}
+        <DescriptionHoverCard
+          description={form_section.form_num_of_results_desc}
+        />
       </Label>
       <Input
         type="number"
@@ -59,10 +51,11 @@ function Selects({
 }) {
   const [searchParams, setSearchParams] = useCustomSearchParams();
   const {
-    page: { writing },
+    components: { form_section },
   } = useGetDictionary();
-  const resolveKey = (key: keyof typeof selectValues): keyof typeof writing =>
-    `form_${key}`;
+  const resolveKey = (
+    key: keyof typeof selectValues,
+  ): keyof typeof form_section => `form_${key}`;
 
   function handleSelect(item: string) {
     console.log(item);
@@ -79,13 +72,17 @@ function Selects({
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <span className="m-0 flex items-baseline gap-2 text-xsm font-semibold">
-        {writing[resolveKey(keyInSearchParam as keyof typeof selectValues)]}
+    <div className="flex flex-col gap-3">
+      <span className="m-0 flex items-baseline gap-2 text-sm font-normal">
+        {
+          form_section[
+            resolveKey(keyInSearchParam as keyof typeof selectValues)
+          ]
+        }
         {keyInSearchParam in selectValuesDescription && (
           <DescriptionHoverCard
             description={
-              writing[
+              form_section[
                 selectValuesDescription[
                   keyInSearchParam as keyof typeof selectValuesDescription
                 ]
@@ -116,29 +113,37 @@ function ListOfSelectBox() {
 
 export function SelectBoxes() {
   const [open, setOpen] = useState(false);
+  const {
+    components: { form_section },
+  } = useGetDictionary();
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger asChild>
-        <div className="mb-5 flex items-start justify-start gap-2">
+        <div className="mb-9 flex items-start justify-start gap-3">
           <Switch
             id="collapse-trigger"
             checked={open}
             onCheckedChange={setOpen}
           />
-          <Label htmlFor="collapse-trigger" className="flex flex-col gap-1">
-            <span>Advanced</span>
-            <span className="text-muted-foreground">
-              More access for more accurate results
+          <Label htmlFor="collapse-trigger" className="flex flex-col gap-0.5">
+            <span className="text-base font-medium">
+              {form_section.form_advanced}
+            </span>
+            <span className="text-base font-normal text-muted-foreground">
+              {form_section.form_advanced_description}
             </span>
           </Label>
         </div>
       </CollapsibleTrigger>
-      <div className="grid grid-cols-1 gap-y-3">
+      <div
+        data-state={open}
+        className="grid grid-cols-1 gap-y-9 data-[state=false]:gap-0"
+      >
         <div className="grid grid-cols-1 items-start gap-x-5 gap-y-3 sm:grid-cols-2">
           {/*show language select box*/}
           <SelectResponseLang />
         </div>
-        <CollapsibleContent className="grid grid-cols-1 items-start gap-x-5 gap-y-3 sm:grid-cols-2">
+        <CollapsibleContent className="grid grid-cols-1 items-start gap-x-5 gap-y-9  sm:grid-cols-2">
           {/*show list of select box options(creativity,tone,...)*/}
           <ListOfSelectBox />
 

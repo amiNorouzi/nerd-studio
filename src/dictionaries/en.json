@@ -1,6 +1,23 @@
 {
   "dir": "ltr",
   "page": {
+    "login": {
+      "signup": "Sign up",
+      "footer_description": "This site is protected by reCAPTCHA and the Google ",
+      "dont_have_account": "Don't have an account?",
+      "user_name_placeholder": "Enter your email or username",
+      "user_name_error_message": "User name required!",
+      "pass_placeholder": "Enter password",
+      "forget_pass" : "Forget Password!",
+      "login": "Log In",
+      "welcome": "Welcome back!"
+    },
+    "signup": {
+      "login": "Login",
+      "form_header": "Let's go!",
+      "signup": "Sign up"
+
+    },
     "dashboard": {
       "header_title": "Dashboard",
       "hero_words_left": "Words Left",
@@ -71,26 +88,8 @@
       "transfer_workspace_title": "Transfer Workspace",
       "transfer_workspace_select_placeholder": "Select a workspace member"
     },
-    "writing": {
-      "form_description": "Write and improve your content with the help of AI in just a second",
-      "form_language": "Language",
-      "form_num_of_results": "Number of Results",
-      "form_num_of_results_desc": "Maximum supported results is 50",
-      "form_creativity": "Creativity",
-      "form_tone": "Tone of Voice",
-      "form_point": "Point of view",
-      "form_creativity_description": "Increase or decrease the creativity level to get various results",
-      "form_tone_description": "Set result tone of the text as needed",
-      "form_rewrite_button": "Rewrite",
-      "editor_header_copy_text_without_style": "Copy Text without style",
-      "editor_header_copy_text_with_style": "Copy Text with style",
-      "editor_header_copy_html": "Copy Html",
-      "editor_header_down_pdf": "PDF",
-      "editor_header_down_word": "MS Word",
-      "editor_footer_total_word": "Total Word:",
-      "editor_footer_total_char": "Total Char:",
-      "editor_footer_total_sentence": "Total Sentence:",
-      "editor_footer_total_token": "Total Token:"
+    "ReWrite": {
+      "form_rewrite_button": "ReWrite"
     },
     "chat": {
       "prompt_library_title": "Prompt Library",
@@ -147,12 +146,20 @@
     "generated": "Generated",
     "search": "Search",
     "auto": "Auto",
-    "delete_label": "Delete"
+    "delete_label": "Delete",
+    "nerd_studio": "Nerd Studio",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service",
+    "and": "and",
+    "apply": "apply.",
+    "user_name": "User Name",
+    "password": "Password"
+
   },
   "components": {
     "apps_header": {
       "not_found": "Not Found",
-      "writing": "Writing",
+      "ReWrite": "ReWrite",
       "chat": "Chat",
       "images": "Images",
       "template": "Template",
@@ -285,6 +292,48 @@
       "next_button_label": "Next",
       "previous_button_label": "Previous",
       "finish_button_label": "Finish"
+    },
+    "form_section": {
+      "form_description": "Write and improve your content with the help of AI in just a second",
+      "form_language": "Language",
+      "form_num_of_results": "Number of Results",
+      "form_num_of_results_desc": "Maximum supported results is 50",
+      "form_creativity": "Creativity",
+      "form_tone": "Tone of Voice",
+      "form_point": "Point of view",
+      "form_creativity_description": "Increase or decrease the creativity level to get various results",
+      "form_tone_description": "Set result tone of the text as needed",
+      "form_advanced": "Advanced",
+      "form_advanced_description": "More access for more accurate results",
+      "form_textarea_placeholder": "paste your text that you wish to rewrite or improve ..."
+    },
+    "editor_section": {
+      "editor_header_copy_text_without_style": "Copy Text without style",
+      "editor_header_copy_text_with_style": "Copy Text with style",
+      "editor_header_copy_html": "Copy Html",
+      "editor_header_down_pdf": "PDF",
+      "editor_header_down_word": "MS Word",
+      "editor_footer_total_word": "Total Word:",
+      "editor_footer_total_char": "Total Char:",
+      "editor_footer_total_sentence": "Total Sentence:",
+      "editor_footer_total_token": "Total Token:"
+    },
+    "form": {
+      "full_name": "Full Name",
+      "full_name_placeholder": "John Doe",
+      "full_name_error_message": "Full name required!",
+      "email": "Email",
+      "email_placeholder": "example@site.com",
+      "email_error_message": "Email required!",
+      "choose_pass": "Choose Password",
+      "pass_placeholder": "Minimum 8 characters",
+      "pass_error1": "Password required!",
+      "pass_error2": "Password must be 8 characters or longer!",
+      "show_pass": "Show",
+      "accept_receive_email_label": "By checking this box, you agree to receive emails for marketing from Nerd Studio",
+      "accept_policy_error": "You must accept the policies in order to use Nerd Studio.",
+      "accept_policy_description1": "By checking this box, you agree to out",
+      "accept_policy_description2": ", and consent to data transfer, hosting, and processing outside of the."
     }
   }
 }

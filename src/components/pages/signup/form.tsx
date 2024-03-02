@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/form";
 
 import { cn } from "@/lib/utils";
+import { useGetDictionary } from "@/hooks";
 
 interface FormTypes {
   fullName: string;
@@ -30,6 +31,11 @@ interface FormTypes {
 }
 export function Form() {
   const [showPass, setShowPass] = useState(false);
+  const {
+    components: { form: formLang },
+    page: { signup },
+    common,
+  } = useGetDictionary();
   const form = useForm<FormTypes>({
     defaultValues: {
       fullName: "",
@@ -45,6 +51,7 @@ export function Form() {
     handleSubmit,
     formState: { errors },
   } = form;
+
   return (
     <section className="z-50 flex w-full  flex-col items-center justify-center gap-8 p-3">
       <FormProvider {...form}>
@@ -52,9 +59,11 @@ export function Form() {
           onSubmit={handleSubmit(data => console.log(data))}
           className="flex h-fit w-full max-w-[480px] flex-col gap-5 rounded bg-white p-5 shadow-2xl sm:px-16 sm:py-10"
         >
-          <h2 className="text-center text-lg font-bold">{"Let's go!"}</h2>
+          <h2 className="text-center text-lg font-bold">
+            {signup.form_header}
+          </h2>
           <div className="grid grid-cols-1 items-start gap-2">
-            <Label htmlFor="fullName">Full Name</Label>
+            <Label htmlFor="fullName">{formLang.full_name}</Label>
 
             <FormField
               control={control}
@@ -64,9 +73,9 @@ export function Form() {
               type="text"
               className="relative"
               inputClass="ps-8 h-[40px]"
-              placeholder="John Doe"
+              placeholder={formLang.full_name_placeholder}
               rules={{
-                required: "Full name required!",
+                required: formLang.full_name_error_message,
               }}
             >
               <GoPerson
@@ -79,7 +88,7 @@ export function Form() {
             </FormField>
           </div>
           <div className="grid grid-cols-1 items-start gap-2">
-            <Label htmlFor="Email">Email</Label>
+            <Label htmlFor="Email">{formLang.email}</Label>
 
             <FormField
               control={control}
@@ -88,8 +97,8 @@ export function Form() {
               type="text"
               className="relative"
               inputClass="ps-8 h-[40px]"
-              placeholder="example@site.com"
-              rules={{ required: "Email required!" }}
+              placeholder={formLang.email_placeholder}
+              rules={{ required: formLang.email_error_message }}
             >
               <CiMail
                 className={cn(
@@ -101,20 +110,20 @@ export function Form() {
             </FormField>
           </div>
           <div className="grid grid-cols-1 items-start gap-2">
-            <Label htmlFor="password">Choose Password</Label>
+            <Label htmlFor="password">{formLang.choose_pass}</Label>
             <FormField
               control={control}
               id="password"
-              name={"password"}
+              name="password"
               type={showPass ? "text" : "password"}
-              placeholder="Minimum 8 characters"
+              placeholder={formLang.pass_placeholder}
               className="relative "
               inputClass="ps-8 pe-[120px] h-[40px]"
               rules={{
-                required: "Password  required!",
+                required: formLang.pass_error1,
                 minLength: {
                   value: 8,
-                  message: "Password must be 8 characters or longer!",
+                  message: formLang.pass_error2,
                 },
               }}
             >
@@ -131,7 +140,7 @@ export function Form() {
                 className="absolute end-1 top-[20px] z-50 -translate-y-1/2  p-1 text-primary hover:bg-inherit hover:text-primary hover:underline hover:decoration-dotted"
                 onClick={() => setShowPass(!showPass)}
               >
-                Show
+                {formLang.show_pass}
               </Button>
             </FormField>
           </div>
@@ -148,10 +157,7 @@ export function Form() {
                   />
                 </FormControl>
                 <div className="text-xs font-medium  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  <FormLabel>
-                    By checking this box, you agree to receive emails for
-                    marketing from Nerd Studio
-                  </FormLabel>
+                  <FormLabel>{formLang.accept_receive_email_label}</FormLabel>
                 </div>
               </FormItem>
             )}
@@ -161,8 +167,7 @@ export function Form() {
             control={control}
             name="acceptPolicy"
             rules={{
-              required:
-                "You must accept the policies in order to use Nerd Studio.",
+              required: formLang.accept_policy_error,
             }}
             render={({ field }) => (
               <FormItem className="flex flex-row items-start space-x-3 space-y-0 ">
@@ -174,16 +179,15 @@ export function Form() {
                 </FormControl>
                 <div className="text-xs font-medium  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   <FormLabel>
-                    By checking this box, you agree to out{" "}
+                    {formLang.accept_policy_description1}{" "}
                     <Link href="#" className="underline">
-                      Terms of Service
+                      {common.terms_of_service}
                     </Link>{" "}
-                    and{" "}
+                    {common.and}{" "}
                     <Link href="#" className="underline">
-                      Privacy Policy
+                      {common.privacy_policy}
                     </Link>
-                    , and consent to data transfer, hosting, and processing
-                    outside of the.
+                    {formLang.accept_policy_description2}
                   </FormLabel>
                   <FormMessage className="text-xs" />
                 </div>
@@ -192,9 +196,9 @@ export function Form() {
           />
 
           <Button type="submit" className="h-14 w-full text-sm font-extrabold">
-            Sign Up
+            {signup.signup}
           </Button>
-          <span className="text-center">or</span>
+
           <GoogleSignInButton />
         </form>
       </FormProvider>
