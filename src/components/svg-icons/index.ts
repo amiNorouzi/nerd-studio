@@ -19,3 +19,5 @@ export { Setting } from "./Setting";
 export { TranslateIcon } from "./Translate";
 export { LinkIcon } from "./LinkIcon";
 export { PdfIcon } from "./PdfIcon";
+export { GrammarIcon } from "./GrammarIcon";
+export { ErrorIcon } from "./404Icon";

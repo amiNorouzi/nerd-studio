@@ -15,5 +15,8 @@ export const headerContent = {
     Translate: {
       title: "translate",
     },
+    Grammar: {
+      title: "grammar",
+    },
   },
 } as const;

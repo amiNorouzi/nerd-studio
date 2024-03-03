@@ -19,6 +19,8 @@ import type { TemplateState } from "@/stores/zustand/types";
 interface IProps {
   template?: TemplateState["currentTemplate"];
   mainTextAreaPlaceholder: string;
+  hideToggle?: boolean;
+  label?: string;
 }
 
 /**
@@ -27,6 +29,8 @@ interface IProps {
  */
 export function MainTextArea({
   mainTextAreaPlaceholder,
+  hideToggle = false,
+  label,
 }: Omit<IProps, "template">) {
   const { common } = useGetDictionary();
   const [textType, setTextType] = useState<string | undefined>();
@@ -47,9 +51,9 @@ export function MainTextArea({
           htmlFor="textbox"
           className={cn("text-sm font-medium", !!textType && "opacity-0")}
         >
-          {common.form_textarea_label}
+          {label ?? common.form_textarea_label}
         </Label>
-        <div className="flex flex-row gap-3">
+        <div className={cn("flex flex-row gap-3", hideToggle && "hidden")}>
           <ToggleGroup
             type="single"
             value={textType}
@@ -138,12 +142,21 @@ export function MainTextArea({
  * @param template , if template is valid show another inputs(for templates placeholder)
  * @constructor
  */
-export function TextBox({ template, mainTextAreaPlaceholder }: IProps) {
+export function TextBox({
+  template,
+  mainTextAreaPlaceholder,
+  hideToggle,
+  label,
+}: IProps) {
   const listOfText = template?.inputs ?? [];
 
   return (
     <div className="mt-1 grid gap-2">
-      <MainTextArea mainTextAreaPlaceholder={mainTextAreaPlaceholder} />
+      <MainTextArea
+        mainTextAreaPlaceholder={mainTextAreaPlaceholder}
+        hideToggle={hideToggle}
+        label={label}
+      />
       <RenderIf isTrue={listOfText.length !== 0}>
         {listOfText.map(item => (
           <div key={item.id}>
