@@ -19,3 +19,5 @@ export { EngineSelect } from "./EngineSelect";
 export { MyTooltip } from "./myTooltip";
 export { SliderWithTooltip } from "./SliderWithTooltip";
 export { UploadPdf } from "./UploadPdf";
+export { CustomTextarea } from "./CustomTextarea";
+export { SelectEngine } from "./SelectEngine";

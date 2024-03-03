@@ -37,3 +37,18 @@ export interface TemplateState {
 export interface TemplateAction {
   setCurrentTemplate: (v: TemplateState["currentTemplate"]) => void;
 }
+
+export type engineSettingState = Record<
+  string,
+  { top: number; temperature: number; presence: number; frequency: number }
+>;
+export interface FormSectionState {
+  engines: engineSettingState;
+}
+export interface FormSectionAction {
+  handleEngineSetting: (
+    engineName: string,
+    settingName: "top" | "temperature" | "presence" | "frequency",
+    value: number,
+  ) => void;
+}

@@ -1,58 +1,29 @@
 "use client";
-import { SelectBoxes, SubmitButton, TextBox } from "./form-section-components";
-
-import { RenderImageOrIcon, SelectAndDrawer } from "@/components/shared";
 import { useSearchParams } from "next/navigation";
+import {
+  OptionsSelectBoxes,
+  SubmitButtonSelectEngine,
+  TextBox,
+  SelectTranslateLanguages,
+} from "./form-section-components";
+import { RenderImageOrIcon } from "@/components/shared";
+
+import { useGetDictionary } from "@/hooks";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
-import { useState } from "react";
 
 interface IProps {
   params: ParamsType;
 }
 
-export function SelectLanguage() {
-  const [value, setValue] = useState({
-    fromLang: languages[0],
-    toLang: languages[0],
-  });
-  const setLanguage = (lang: string, name: string) => {
-    setValue(prev => ({ ...prev, [name]: lang }));
-  };
-  return (
-    <div className="grid grid-cols-1 items-start gap-x-5 gap-y-9  sm:grid-cols-2">
-      <div className="flex flex-col gap-3">
-        <span className="m-0 flex items-baseline gap-2 text-sm font-normal">
-          Text language
-        </span>
-
-        <SelectAndDrawer
-          value={value.fromLang}
-          setValue={v => setLanguage(v, "fromLang")}
-          items={languages}
-        />
-      </div>
-      <div className="flex flex-col gap-3">
-        <span className="m-0 flex items-baseline gap-2 text-sm font-normal">
-          Translation language
-        </span>
-
-        <SelectAndDrawer
-          value={value.toLang}
-          setValue={v => setLanguage(v, "toLang")}
-          items={languages}
-        />
-      </div>
-    </div>
-  );
-}
-
 export function TranslateFormSection({ params }: IProps) {
-  /** these states used when user select a template
-   * these states are for favorite icon and open modal to show message for add or remove from favorites
-   * */
+  const {
+    page: { translate },
+  } = useGetDictionary();
+
   const searchParams = useSearchParams();
   const appName = searchParams.get("app");
+  // find app info from apps constant that we had set in search url params in SetSearchParamProvider
   const app = apps.find(
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
@@ -65,25 +36,14 @@ export function TranslateFormSection({ params }: IProps) {
           <h3 className="text-base font-semibold">{app?.title}</h3>
         </div>
       </div>
-
-      <SelectLanguage />
-      <TextBox />
-      <SelectBoxes hiddenSelectResponseLang />
-      <SubmitButton />
+      {/*select language from/to for translate*/}
+      <SelectTranslateLanguages />
+      {/*text area and pdf upload and url input*/}
+      <TextBox mainTextAreaPlaceholder={translate.text_input_placeholder} />
+      {/*option section like response lang or creativity,...*/}
+      <OptionsSelectBoxes hiddenSelectResponseLang />
+      {/*submit button and select engine with setting*/}
+      <SubmitButtonSelectEngine buttonContent={translate.submit_button_label} />
     </div>
   );
 }
-
-const languages = [
-  "English",
-  "Persian",
-  "Arabic",
-  "French",
-  "German",
-  "Italian",
-  "Japanese",
-  "Korean",
-  "Russian",
-  "Spanish",
-  "Turkish",
-];

@@ -44,6 +44,12 @@ function NumberOfResults() {
   );
 }
 
+/**
+ * this component generate options select boxes
+ * @param keyInSearchParam , this key is used to store select value in url search params
+ * @param value , list of options
+ * @constructor
+ */
 function Selects({
   keyInSearchParam,
   value,
@@ -103,6 +109,10 @@ function Selects({
   );
 }
 
+/**
+ * this component generate list of Selects components
+ * @constructor
+ */
 function ListOfSelectBox() {
   return (
     <>
@@ -117,7 +127,9 @@ interface IProps {
   hiddenSelectResponseLang?: boolean;
 }
 
-export function SelectBoxes({ hiddenSelectResponseLang = false }: IProps) {
+export function OptionsSelectBoxes({
+  hiddenSelectResponseLang = false,
+}: IProps) {
   const [open, setOpen] = useState(false);
   const {
     components: { form_section },

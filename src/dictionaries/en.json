@@ -89,7 +89,8 @@
       "transfer_workspace_select_placeholder": "Select a workspace member"
     },
     "ReWrite": {
-      "form_rewrite_button": "ReWrite"
+      "form_rewrite_button": "ReWrite",
+      "text_input_placeholder": "paste your text that you wish to rewrite or improve ..."
     },
     "chat": {
       "prompt_library_title": "Prompt Library",
@@ -139,6 +140,16 @@
       "white_color_label": "White",
       "draw_mask_title": "Draw Mask",
       "draw_mask_description": "Draw mask with brush on your image for masking"
+    },
+    "translate": {
+      "submit_button_label": "AI Translate",
+      "text_language_label": "Text Language",
+      "translate_language_label": "Translation Language",
+      "text_input_placeholder": "paste your text that you wish to translate ..."
+    },
+    "template": {
+      "template_button_label": "Generate",
+      "text_input_placeholder": "paste your text that you wish to rewrite or improve ..."
     }
   },
   "common": {
@@ -173,10 +184,18 @@
     "and": "and",
     "apply": "apply.",
     "user_name": "User Name",
-    "password": "Password"
-
+    "password": "Password",
+    "url_website": "URL Website",
+"search_placeholder": "Search ...",
+"no_result_message": "No results found."
   },
   "components": {
+    "custom_textarea": {
+      "voice_button_label": "Voice Input",
+      "copy_label": "Copy",
+      "speak_button_label": "Speak",
+      "clear_button_label": "Clear"
+    },
     "apps_header": {
       "not_found": "Not Found",
       "translate": "Translate",
@@ -360,6 +379,20 @@
       "accept_policy_error": "You must accept the policies in order to use Nerd Studio.",
       "accept_policy_description1": "By checking this box, you agree to out",
       "accept_policy_description2": ", and consent to data transfer, hosting, and processing outside of the."
+    },
+    "upload_pdf": {
+      "upload_zone_placeholder": "Drag and drop your PDF here, or click to select files",
+      "upload_size": "(PDF / 5MB Max)",
+      "upload_size_error_message": "File size is more than 5MB"
+    },
+    "select_engine": {
+      "engine_setting": "Engine Setting",
+      "temperature": "Temperature",
+        "top": "Top",
+      "frequency_penalty": "Frequency Penalty",
+        "presence_penalty": "Presence Penalty",
+      "select_an_option": "Select an option",
+      "engines": "Engines"
     }
   }
 }
