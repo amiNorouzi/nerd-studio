@@ -5,3 +5,5 @@ export * from "./useCustomSearchParams";
 export * from "./useDownloadHandler";
 export * from "./useFullScreenElement";
 export * from "./useCopyTextInClipBoard";
+export * from "./useSpeechToText";
+export * from "./useTextToSpeech";

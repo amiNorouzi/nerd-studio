@@ -15,8 +15,12 @@ export function SelectTranslateLanguages() {
   const {
     page: { translate },
   } = useGetDictionary();
-  const setLanguage = (lang: string, name: string) => {
-    setValue(prev => ({ ...prev, [name]: lang }));
+  const setLanguage = (id: string, name: string) => {
+    const item = languages.find(
+      item => item.id.toLowerCase() === id.toLowerCase(),
+    );
+    console.log(item);
+    setValue(prev => ({ ...prev, [name]: item }));
   };
   return (
     <div className="grid grid-cols-1 items-start gap-x-5 gap-y-9  sm:grid-cols-2">

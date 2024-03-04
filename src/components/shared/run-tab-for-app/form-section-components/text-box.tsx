@@ -5,16 +5,23 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { LinkIcon, PdfIcon } from "@/components/svg-icons";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { CustomTextarea, UploadPdf } from "@/components/shared";
+import { CustomTextarea, UploadDocuments } from "@/components/shared";
 import { Input } from "@/components/ui/input";
 import { FaRegFilePdf } from "react-icons/fa6";
 import { MdDeleteOutline } from "react-icons/md";
+import { AiOutlineFileWord } from "react-icons/ai";
 import RenderIf from "../../RenderIf";
 
 import { useGetDictionary } from "@/hooks";
 
 import { cn } from "@/lib/utils";
 import type { TemplateState } from "@/stores/zustand/types";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface IProps {
   template?: TemplateState["currentTemplate"];
@@ -35,14 +42,25 @@ export function MainTextArea({
   const { common } = useGetDictionary();
   const [textType, setTextType] = useState<string | undefined>();
   const [textareaValue, setTextAreaValue] = useState("");
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [documentFiles, setDocumentFiles] = useState<File[]>([]);
   const [pdfFileDivWrapper, setPdfFileDivWrapper] =
     useState<HTMLDivElement | null>(null);
 
-  const handlePdfFile = useCallback((file: File | null) => {
-    setPdfFile(file);
-    setTextType(undefined);
+  const handlePdfFile = useCallback((file: File[]) => {
+    setDocumentFiles(v => [...v, ...file]);
+    // setTextType(undefined);
   }, []);
+
+  function handleDeleteFile(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    fileIndex: number,
+  ) {
+    e.stopPropagation();
+    const filterList = documentFiles.filter(
+      (item, index) => fileIndex !== index,
+    );
+    setDocumentFiles(filterList);
+  }
 
   return (
     <div className="grid gap-2">
@@ -80,17 +98,20 @@ export function MainTextArea({
             value={textareaValue}
             maxLength={400}
             placeholder={mainTextAreaPlaceholder}
-            // if file is valid add padding bottom to textarea,size of pdfFile wrapper Height
+            // if file is valid add padding bottom to textarea,size of documentFiles wrapper Height
             style={{
               paddingBottom: pdfFileDivWrapper
-                ? `${pdfFileDivWrapper.offsetHeight + 20}px`
+                ? `${pdfFileDivWrapper.clientHeight + 20}px`
                 : "",
             }}
           />
         </RenderIf>
         {/*upload pdf*/}
         <RenderIf isTrue={textType === "pdf"}>
-          <UploadPdf pdfFile={pdfFile} setPdfFile={handlePdfFile} />
+          <UploadDocuments
+            documentFiles={documentFiles}
+            setDocumentFiles={handlePdfFile}
+          />
         </RenderIf>
         {/*url input*/}
         <RenderIf isTrue={textType === "url"}>
@@ -100,38 +121,49 @@ export function MainTextArea({
           </div>
         </RenderIf>
 
-        {/*if pdf file is valid , show pdf file icon*/}
-        {pdfFile && (
-          <div
-            className={cn(
-              "absolute bottom-10 start-2",
-              Boolean(textType) && "relative inset-0",
-            )}
-            ref={setPdfFileDivWrapper}
-          >
-            <div className="relative flex   flex-col items-center  justify-center gap-2  truncate">
-              <FaRegFilePdf size={25} />
-              <span className="truncate text-xs text-muted-foreground">
-                {pdfFile.name}
-              </span>
-              {/*show file*/}
-              <div className="absolute inset-0 z-10 flex items-end justify-end rounded-lg bg-transparent p-1 lg:bg-[#00000050] lg:opacity-0 lg:hover:opacity-100">
-                <Button
-                  variant="ghost"
-                  className={cn(
-                    "fit z-10 !h-7 !w-7  rounded-full bg-[#98989860]  p-1 text-primary hover:bg-muted hover:text-primary-dark",
-                  )}
-                  onClick={e => {
-                    e.stopPropagation();
-                    setPdfFile(null);
-                  }}
-                >
-                  <MdDeleteOutline className={cn("h-5 w-5 text-destructive")} />
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
+        {/*if documents file is valid , show documents file icon*/}
+        <div
+          className={cn(
+            "absolute bottom-10 start-2 flex max-w-[75%] flex-wrap gap-3",
+            Boolean(textType) && "relative inset-0",
+          )}
+          ref={setPdfFileDivWrapper}
+        >
+          {documentFiles.map((file, index) => (
+            <TooltipProvider key={index}>
+              <Tooltip>
+                <TooltipTrigger>
+                  <div
+                    key={index}
+                    className="relative flex   flex-col  items-center justify-center   truncate"
+                  >
+                    {file.type === "application/pdf" ? (
+                      <FaRegFilePdf size={50} />
+                    ) : (
+                      <AiOutlineFileWord size={50} />
+                    )}
+
+                    {/*show file*/}
+                    <div className="absolute inset-0 z-10 flex items-end justify-end rounded-lg bg-transparent p-1 lg:bg-[#00000050] lg:opacity-0 lg:hover:opacity-100">
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "fit z-10 !h-7 !w-7  rounded-full bg-[#98989860]  p-1 text-primary hover:bg-muted hover:text-primary-dark",
+                        )}
+                        onClick={e => handleDeleteFile(e, index)}
+                      >
+                        <MdDeleteOutline
+                          className={cn("h-5 w-5 text-destructive")}
+                        />
+                      </Button>
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>{file.name}</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          ))}
+        </div>
       </div>
     </div>
   );

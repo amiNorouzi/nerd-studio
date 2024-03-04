@@ -6,23 +6,24 @@ import { FiUpload } from "react-icons/fi";
 import { useGetDictionary } from "@/hooks";
 
 interface IProps {
-  setPdfFile: (v: File | null) => void;
-  pdfFile: File | null;
+  documentFiles: File[];
+  setDocumentFiles: (v: File[]) => void;
 }
 
 /**
  * drop zone upload component
- * used for upload pdf
+ * used for upload document
  * @constructor
  */
-export function UploadPdf({ pdfFile, setPdfFile }: IProps) {
+export function UploadDocuments({ setDocumentFiles, documentFiles }: IProps) {
   const {
     components: { upload_pdf },
   } = useGetDictionary();
 
-  const onDrop = useCallback((acceptedFiles: any) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    console.log(acceptedFiles);
+    setDocumentFiles(acceptedFiles);
     acceptedFiles.forEach((file: File) => {
-      setPdfFile(file);
       const reader = new FileReader();
       reader.onload = async () => {
         // Do whatever you want with the file contents
@@ -37,7 +38,11 @@ export function UploadPdf({ pdfFile, setPdfFile }: IProps) {
    * @param file
    */
   function sizeValidation(file: File) {
-    if (file.size > 5000000) {
+    const documentsSize = documentFiles.reduce((prev, cur) => {
+      prev += cur.size;
+      return prev;
+    }, 0);
+    if (documentsSize + file.size > 5000000) {
       return {
         code: "file is too big",
         message: upload_pdf.upload_size_error_message,
@@ -48,7 +53,12 @@ export function UploadPdf({ pdfFile, setPdfFile }: IProps) {
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
     onDrop,
-    accept: { "application/pdf": [] },
+    accept: {
+      "application/pdf": [],
+      "application/msword": [],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        [],
+    },
     validator: sizeValidation,
   });
 

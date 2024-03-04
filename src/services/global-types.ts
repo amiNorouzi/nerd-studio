@@ -14,4 +14,10 @@ declare global {
     mozRequestFullScreen?: () => Promise<void>;
     webkitRequestFullscreen?: () => Promise<void>;
   }
+
+  // Declare a global interface to add the webkitSpeechRecognition property to the Window object
+  interface Window {
+    webkitSpeechRecognition: any;
+    SpeechRecognition: any;
+  }
 }

@@ -63,17 +63,23 @@ export const selectValuesDescription = {
 } as const;
 
 export const languages = [
-  "English",
-  "Persian",
-  "Arabic",
-  "French",
-  "German",
-  "Italian",
-  "Japanese",
-  "Korean",
-  "Russian",
-  "Spanish",
-  "Turkish",
+  {
+    id: "en",
+    value: "English",
+    image: "/images/gpt.jpeg",
+  },
+  {
+    id: "pr",
+    value: "Persian",
+  },
+  {
+    id: "ar",
+    value: "Arabic",
+  },
+  {
+    id: "fr",
+    value: "French",
+  },
 ];
 
 export const enginesImage = {

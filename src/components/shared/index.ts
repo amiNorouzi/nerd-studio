@@ -18,6 +18,6 @@ export { RenderImageOrIcon } from "./RenderImageOrIcon";
 export { EngineSelect } from "./EngineSelect";
 export { MyTooltip } from "./myTooltip";
 export { SliderWithTooltip } from "./SliderWithTooltip";
-export { UploadPdf } from "./UploadPdf";
+export { UploadDocuments } from "./UploadDocuments";
 export { CustomTextarea } from "./CustomTextarea";
 export { SelectEngine } from "./SelectEngine";
