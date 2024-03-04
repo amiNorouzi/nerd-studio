@@ -52,11 +52,22 @@ function UploadZone() {
     });
   }, []);
 
+  function sizeValidation(file: File) {
+    if (file.size > 5000000) {
+      return {
+        code: "file is too big",
+        message: "File size is more than 5MB",
+      };
+    }
+    return null;
+  }
+
   const { getRootProps, getInputProps, open } = useDropzone({
     onDrop,
     accept: {
       "image/*": [".jpeg", ".png", ".webp", ".jpg"],
     },
+    validator: sizeValidation,
   });
 
   //if text to image tab is selected, don't show the upload zone

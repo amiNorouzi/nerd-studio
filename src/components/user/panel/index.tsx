@@ -19,6 +19,7 @@ import RenderIf from "@/components/shared/RenderIf";
 import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
+import { useUiStore } from "@/stores/zustand/ui-store";
 
 import { cn } from "@/lib/utils";
 
@@ -28,31 +29,17 @@ import {
   generalSettingsItems,
 } from "@/constants/user-panel";
 
-import type { StateSetterType } from "@/services/types";
-
-interface IProps {
-  isOpen: boolean;
-  setIsOpen: StateSetterType<boolean>;
-  activeMenu: string;
-  setActiveMenu: StateSetterType<string>;
-}
-
 /**
  * user panel dialog open by clicking on user avatar in side panel
- * @param isOpen - state of dialog
- * @param setIsOpen set state of dialog
- * @param activeMenu - active panel in dialog
- * @param setActiveMenu - set active panel in dialog
  * @constructor
  */
-export function UserPanel({
-  isOpen,
-  setIsOpen,
-  activeMenu,
-  setActiveMenu,
-}: IProps) {
+export function UserPanel() {
   const { panel: userPanelDictionary, menu: menuDictionary } =
     useGetDictionary().components.user;
+  const isOpen = useUiStore.use.openUserPanelDialog();
+  const setIsOpen = useUiStore.use.setOpenUserPanelDialog();
+  const activeMenu = useUiStore.use.userPanelActiveMenu();
+  const setActiveMenu = useUiStore.use.setUserPanelActiveMenu();
 
   //set active panel to first one on close dialog
   useEffect(() => {

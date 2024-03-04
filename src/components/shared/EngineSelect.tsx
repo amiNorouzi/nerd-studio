@@ -171,6 +171,7 @@ function EngineSelectComponent(props: IProps) {
       <PopoverContent
         className={cn("p-0", contentClassName)}
         style={{ width: contentWidth ? contentWidth : "100%" }}
+        align="start"
       >
         <CommandSelectEngines {...props} onOpenChange={setOpen} />
       </PopoverContent>

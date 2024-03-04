@@ -74,6 +74,7 @@ const DrawMaskDialog: FC<IProps> = ({
   setOpen,
 }) => {
   const {
+    common: { share },
     page: { image: imageDictionary },
   } = useGetDictionary();
   const [brushWidth, setBrushWidth] = useState(20);
@@ -238,7 +239,7 @@ const DrawMaskDialog: FC<IProps> = ({
         </Select>
 
         {/*save button*/}
-        <MyTooltip title={imageDictionary.share_button_label} side="top">
+        <MyTooltip title={share} side="top">
           <Button className="fit p-2" onClick={handleSave}>
             <TfiSave size="1.1rem" />
           </Button>

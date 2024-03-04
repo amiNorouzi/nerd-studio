@@ -15,7 +15,6 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 
-import { UserPanel } from "./panel";
 import { UserMenuItem } from "./UserMenuItem";
 import { UserAvatar } from "@/components/user/UserAvatar";
 import UserBalance from "./UserBalance";
@@ -26,7 +25,6 @@ import { useUiStore } from "@/stores/zustand/ui-store";
 import { useGetDictionary } from "@/hooks";
 
 import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
-import { accountSettingsItems } from "@/constants/user-panel";
 import { cn } from "@/lib/utils";
 
 /**
@@ -38,11 +36,9 @@ import { cn } from "@/lib/utils";
 
 export function UserMenu() {
   const setHovered = useUiStore.use.setIsHoverOnSidePanel();
-  const [openAccountDialog, setOpenAccountMenu] = useState(false);
-  //active panel of user panel dialog
-  const [activeMenu, setActiveMenu] = useState<string>(
-    accountSettingsItems[0].key,
-  );
+  const setUserPanelActiveMenu = useUiStore.use.setUserPanelActiveMenu();
+  const setOpenUserPanelDialog = useUiStore.use.setOpenUserPanelDialog();
+
   useTheme(); //for apply prev selected theme in first load
   const isOpenSidePanel = useCheckSidePanelOpen();
 
@@ -53,7 +49,7 @@ export function UserMenu() {
   } = useGetDictionary();
 
   const useInfoTextClass =
-    "capitalize text-[11px] font-normal overflow-hidden text-ellipsis whitespace-nowrap";
+    "capitalize text-[11px] font-normal overflow-hidden text-ellipsis whitespace-nowrap max-w-[160px]";
 
   const { data: session } = useSession();
 
@@ -62,10 +58,10 @@ export function UserMenu() {
    * @param menu if menu passed select go to target menu panel after open dialog
    */
   const handleOpenAccountDialog = (menu?: string) => {
-    setOpenAccountMenu(!openAccountDialog);
+    setOpenUserPanelDialog(true);
     setHovered(false);
     if (menu) {
-      setActiveMenu(menu);
+      setUserPanelActiveMenu(menu);
     }
   };
 
@@ -76,7 +72,7 @@ export function UserMenu() {
         isOpenSidePanel ? "flex-row" : "flex-col-reverse",
       )}
     >
-      <HoverCard openDelay={100} closeDelay={200}>
+      <HoverCard openDelay={100} closeDelay={0}>
         <HoverCardTrigger asChild>
           <div>
             {/*
@@ -91,7 +87,7 @@ export function UserMenu() {
           </div>
         </HoverCardTrigger>
         <HoverCardContent
-          className="col !z-100 w-56 p-1 text-start"
+          className="col w-56 p-1 text-start"
           align="start"
           side="top"
           role="dialog"
@@ -133,12 +129,7 @@ export function UserMenu() {
         </HoverCardContent>
       </HoverCard>
       {/*user panel dialog*/}
-      <UserPanel
-        isOpen={openAccountDialog}
-        setIsOpen={setOpenAccountMenu}
-        activeMenu={activeMenu}
-        setActiveMenu={setActiveMenu}
-      />
+
       {/*
         user current plan
         render when side panel is open

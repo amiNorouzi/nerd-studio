@@ -17,6 +17,9 @@ import { GoHistory } from "react-icons/go";
 //list of images
 //TODO: replace with real data
 const images: string[] = [
+  "/images/generateds/1.webp",
+  "/images/generateds/2.webp",
+  "/images/generateds/3.webp",
   "/images/generateds/4.webp",
   "/images/generateds/5.webp",
   "/images/generateds/6.webp",

@@ -8,7 +8,7 @@
       "user_name_placeholder": "Enter your email or username",
       "user_name_error_message": "User name required!",
       "pass_placeholder": "Enter password",
-      "forget_pass" : "Forget Password!",
+      "forget_pass": "Forget Password!",
       "login": "Log In",
       "welcome": "Welcome back!"
     },
@@ -16,7 +16,6 @@
       "login": "Login",
       "form_header": "Let's go!",
       "signup": "Sign up"
-
     },
     "dashboard": {
       "header_title": "Dashboard",
@@ -125,8 +124,6 @@
       "text_to_image_send_label": "Send to text to image",
       "image_to_image_send_label": "Send to image to image",
       "upscale_image_send_label": "Send to image upscale",
-      "download_button_label": "Download",
-      "share_button_label": "Share",
       "draw_mask_button_label": "Draw Mask",
       "upscale_button_label": "Upscale",
       "advance_settings_title": "Advance",
@@ -142,6 +139,33 @@
       "download_ext_label": "Save As",
       "download_ext_description": "Select the file type and download.",
       "download_input_placeholder": "Your file name"
+    },
+    "code": {
+      "page_title": "Code",
+      "code_convertor_title": "AI Code Converter",
+      "code_generator_title": "AI Code Generator",
+      "code_explainer_title": "AI Code Explainer",
+      "code_convertor_description": "Provide any code you want to convert, let the AI doing the hard job for you.",
+      "code_generator_description": "Write any programming requirement, generate code through AI.",
+      "code_explainer_description": "Provide any code you don't understand', let the AI explain it to you.",
+      "generate_code_textarea_label": "Description of the code to generate",
+      "generate_code_textarea_placeholder": "Paste your text that you wish to translate ...",
+      "want_select_label": "I Want",
+      "output_language_select_label": "Language output in",
+      "code_language_select_label": "Language",
+      "generate_button_label": "Generate",
+     "engine_select_label": "Engine",
+      "code_convert_from_language_label": "From language",
+      "code_convert_to_language_label": "To language",
+      "code_convert_code_input_label": "Code to convert",
+      "code_convert_button_label": "Convert",
+      "explainer_additional_textarea_label": "Additional Information (Optional)",
+      "explainer_additional_textarea_description": "Description what to do ...",
+      "explainer_code_input_label": "Code to explain",
+      "explainer_button_label": "Explain",
+      "result_label": "Result",
+      "explanation_label": "Explanation",
+      "select_language_placeholder": "Select Language..."
     }
   },
   "common": {
@@ -176,14 +200,18 @@
     "and": "and",
     "apply": "apply.",
     "user_name": "User Name",
-    "password": "Password"
-
+    "password": "Password",
+    "copy": "Copy",
+    "share": "Share",
+    "full_screen": "Full Screen",
+    "download": "Download"
   },
   "components": {
     "apps_header": {
       "not_found": "Not Found",
       "ReWrite": "ReWrite",
       "chat": "Chat",
+      "code": "Code",
       "images": "Images",
       "template": "Template",
       "run": "Run",
@@ -203,7 +231,6 @@
         "preferences_label": "Preferences",
         "logout_label": "Logout"
       },
-
       "panel": {
         "account_items_title": "Account",
         "general_items_title": "General",
@@ -362,6 +389,11 @@
       "accept_policy_error": "You must accept the policies in order to use Nerd Studio.",
       "accept_policy_description1": "By checking this box, you agree to out",
       "accept_policy_description2": ", and consent to data transfer, hosting, and processing outside of the."
+    },
+    "custom_textarea": {
+      "voice_button_label": "Voice Input",
+      "speak_button_label": "Speak",
+      "clear_button_label": "Clear"
     }
   }
 }

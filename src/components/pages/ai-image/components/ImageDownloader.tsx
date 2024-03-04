@@ -30,6 +30,7 @@ type EXT = "png" | "webp" | "jpg" | "pdf";
  */
 const ImageDownloader = ({ image }: { image: string }) => {
   const {
+    common: { download },
     page: { image: imageDictionary },
   } = useGetDictionary();
   //save ext
@@ -44,10 +45,7 @@ const ImageDownloader = ({ image }: { image: string }) => {
     <ResponsivePopover
       trigger={
         <div>
-          <ImageAction
-            title={imageDictionary.download_button_label}
-            Icon={LuDownload}
-          />
+          <ImageAction title={download} Icon={LuDownload} />
         </div>
       }
       drawerContentProps={{
@@ -86,7 +84,7 @@ const ImageDownloader = ({ image }: { image: string }) => {
           onClick={handleDownload}
         >
           <BsDownload size=".8rem" />
-          {imageDictionary.download_button_label}
+          {download}
         </Button>
       </div>
     </ResponsivePopover>

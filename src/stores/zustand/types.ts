@@ -4,6 +4,10 @@ export interface IUiState {
   setIsHoverOnSidePanel: (val: boolean) => void;
   setIsSidePanelOpen: (val: boolean) => void;
   toggleIsSidePanelOpen: () => void;
+  openUserPanelDialog: boolean;
+  setOpenUserPanelDialog: (val: boolean) => void;
+  userPanelActiveMenu: string;
+  setUserPanelActiveMenu: (val: string) => void;
 }
 
 export interface EditorState {

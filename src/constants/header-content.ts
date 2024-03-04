@@ -12,5 +12,8 @@ export const headerContent = {
     template: {
       title: "template",
     },
+    code: {
+      title: "code",
+    },
   },
 } as const;

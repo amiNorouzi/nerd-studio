@@ -44,6 +44,7 @@ interface IProps {
   label?: string;
   src?: string;
   buttonStyle?: string;
+  placeholder?: string;
 }
 interface SelectPropsType extends IProps {
   onOpenChange: StateSetterType<boolean>;
@@ -55,6 +56,7 @@ function CommandSelectItems({
   value,
   onOpenChange,
   showSearch = true,
+  placeholder = "Search Engine...",
   src,
 }: SelectPropsType) {
   function handleSelectItem(item: string) {
@@ -65,7 +67,7 @@ function CommandSelectItems({
   return (
     <Command>
       <RenderIf isTrue={showSearch}>
-        <CommandInput placeholder="Search Engine..." />
+        <CommandInput placeholder={placeholder} />
       </RenderIf>
       <CommandList>
         <RenderIf isTrue={showSearch}>
@@ -110,7 +112,7 @@ function SelectComponent({
   return (
     <Select value={value} onValueChange={setValue}>
       <SelectTrigger
-        className={cn("m-0 w-full !text-xsm text-black", buttonStyle)}
+        className={cn("m-0 w-full !text-xsm text-foreground", buttonStyle)}
       >
         <SelectValue placeholder="Select an option" className="!text-xsm" />
       </SelectTrigger>

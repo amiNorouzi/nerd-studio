@@ -1,6 +1,7 @@
 import { PiChartBarLight, PiPencilLineLight } from "react-icons/pi";
 import { ImInsertTemplate } from "react-icons/im";
 import { ReWriteIcon } from "@/components/svg-icons";
+import { IoCodeSlashOutline } from "react-icons/io5";
 
 export const apps = [
   {
@@ -37,5 +38,12 @@ export const apps = [
     title: "Template",
     route: "/template",
     icon: ImInsertTemplate,
+  },
+  {
+    id: "5",
+    i18Key: "",
+    title: "Code",
+    route: "/code",
+    icon: IoCodeSlashOutline,
   },
 ] as const;

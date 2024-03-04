@@ -16,19 +16,13 @@ import CollapsibleToggle from "./CollapsibleToggle";
 
 import { useGetDictionary } from "@/hooks";
 
-import type { StateSetterType } from "@/services/types";
-
 /**
  * upgrade panel in user panel dialog
  * show current plan and upgrade options
  * @param setActiveMenu - set active menu in user panel
  * @constructor
  */
-function Upgrade({
-  setActiveMenu,
-}: {
-  setActiveMenu: StateSetterType<string>;
-}) {
+function Upgrade({ setActiveMenu }: { setActiveMenu: (val: string) => void }) {
   const {
     common: { free },
     components: {

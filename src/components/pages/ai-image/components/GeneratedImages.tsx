@@ -45,6 +45,7 @@ function GeneratedImages({ images }: { images: string[] }) {
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const [searchParams] = useCustomSearchParams();
   const {
+    common: { share },
     page: { image: imageDictionary },
   } = useGetDictionary();
 
@@ -53,14 +54,14 @@ function GeneratedImages({ images }: { images: string[] }) {
   return (
     <div className="flex h-full w-fit flex-col gap-2 rounded-2xl bg-primary-light/60 p-4 max-xl:items-center max-xl:justify-center lg:p-5 xl:h-fit xl:flex-row xl:p-9">
       {/*main image and actions*/}
-      <div className="fit group relative overflow-hidden rounded-lg">
+      <div className="group relative overflow-hidden rounded-lg xl:h-full">
         {/*main image*/}
         <Image
           src={selectedImage}
           alt="generated"
           width={300}
           height={300}
-          className="mx-auto rounded-lg max-xl:max-h-[350px]"
+          className="mx-auto rounded-lg max-xl:max-h-[350px] xl:h-full xl:max-h-[25rem]"
         />
         <div
           className="absolute inset-x-0 bottom-0 z-10 flex h-1/2 items-end justify-end gap-2 bg-gradient-to-t from-[#00000090] to-transparent
@@ -90,10 +91,7 @@ function GeneratedImages({ images }: { images: string[] }) {
           </Popover>
 
           {/*share*/}
-          <ImageAction
-            title={imageDictionary.share_button_label}
-            Icon={PiShareNetwork}
-          />
+          <ImageAction title={share} Icon={PiShareNetwork} />
 
           {/*download*/}
           <ImageDownloader image={selectedImage} />
@@ -102,12 +100,12 @@ function GeneratedImages({ images }: { images: string[] }) {
       </div>
 
       {/*thumbs*/}
-      <div className="flex h-fit flex-row gap-1 max-xl:overflow-x-auto xl:h-full xl:flex-col xl:overflow-y-auto">
+      <div className="flex h-fit flex-row gap-1 max-xl:max-w-xs max-xl:overflow-x-auto xl:h-full xl:max-h-[25rem] xl:flex-col xl:overflow-y-auto">
         {images.map(image => (
           <ImageThumb
             imageSrc={image}
             key={image}
-            className="w-20"
+            className="min-h-20 w-20 max-xl:min-w-20 xl:min-h-24"
             imageClassname="h-20 lg:h-24"
             onClick={() => setSelectedImage(image)}
             isActive={selectedImage === image}
