@@ -1,6 +1,8 @@
 import React from "react";
 import { EditorSection } from "./editor-section";
 import { FormSection } from "./form-section";
+import { TranslateFormSection } from "./translate-form";
+import { GrammarFormSection } from "./grammar-form";
 import { cn } from "@/lib/utils";
 
 interface IProps extends React.ComponentPropsWithoutRef<"div"> {
@@ -26,3 +28,5 @@ export function Run({
 }
 Run.Form = FormSection;
 Run.Editor = EditorSection;
+Run.TranslateForm = TranslateFormSection;
+Run.GrammarForm = GrammarFormSection;

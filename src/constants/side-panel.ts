@@ -1,7 +1,11 @@
-import { PiChartBarLight, PiPencilLineLight } from "react-icons/pi";
+import { PiChartBarLight } from "react-icons/pi";
 import { ImInsertTemplate } from "react-icons/im";
-import { ReWriteIcon } from "@/components/svg-icons";
 import { IoCodeSlashOutline } from "react-icons/io5";
+import {
+  ReWriteIcon,
+  TranslateIcon,
+  GrammarIcon,
+} from "@/components/svg-icons";
 
 export const apps = [
   {
@@ -40,10 +44,24 @@ export const apps = [
     icon: ImInsertTemplate,
   },
   {
-    id: "5",
+    id: "6",
     i18Key: "",
     title: "Code",
     route: "/code",
     icon: IoCodeSlashOutline,
+  },
+  {
+    id: "7",
+    i18Key: "",
+    title: "Translate",
+    route: "/translate",
+    icon: TranslateIcon,
+  },
+  {
+    id: "8",
+    i18Key: "",
+    title: "Grammar",
+    route: "/grammar",
+    icon: GrammarIcon,
   },
 ] as const;

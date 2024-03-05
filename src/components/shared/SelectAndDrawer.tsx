@@ -34,20 +34,28 @@ import {
 
 import { cn } from "@/lib/utils";
 import type { StateSetterType } from "@/services/types";
+import Image from "next/image";
 
-interface IProps {
+type objectItem = Partial<Record<string, string>> & {
+  id: string;
+  image?: string;
   value: string;
+};
+type Items = objectItem | string;
+interface IProps {
+  value: Items;
   setValue: (item: string) => void;
-  items: string[];
+  items: Items[];
+
   showSearch?: boolean;
   isSelect?: boolean;
   label?: string;
-  src?: string;
   buttonStyle?: string;
-  placeholder?: string;
 }
 interface SelectPropsType extends IProps {
   onOpenChange: StateSetterType<boolean>;
+  items: objectItem[];
+  value: objectItem;
 }
 
 function CommandSelectItems({
@@ -56,8 +64,6 @@ function CommandSelectItems({
   value,
   onOpenChange,
   showSearch = true,
-  placeholder = "Search Engine...",
-  src,
 }: SelectPropsType) {
   function handleSelectItem(item: string) {
     setValue(item);
@@ -67,7 +73,7 @@ function CommandSelectItems({
   return (
     <Command>
       <RenderIf isTrue={showSearch}>
-        <CommandInput placeholder={placeholder} />
+        <CommandInput placeholder="Search ..." />
       </RenderIf>
       <CommandList>
         <RenderIf isTrue={showSearch}>
@@ -76,24 +82,31 @@ function CommandSelectItems({
         <CommandGroup>
           {items.map(item => (
             <CommandItem
-              key={item}
-              value={item}
+              key={item.id}
+              value={item.id}
               onSelect={handleSelectItem}
               className={cn(
                 "flex-row-reverse justify-between px-2 text-xsm",
-                value.toLowerCase() === item.toLowerCase() &&
+                value.value.toLowerCase() === item.value.toLowerCase() &&
                   "bg-primary-light  aria-selected:bg-primary-light ",
               )}
             >
               <Check
                 className={cn(
                   "me-2 h-4 w-4 text-xsm",
-                  item.toLowerCase() === value.toLowerCase()
+                  item.value.toLowerCase() === value.value.toLowerCase()
                     ? "opacity-100"
                     : "opacity-0",
                 )}
               />
-              {item}
+              <div className="flex justify-start gap-2">
+                {item.image && (
+                  <div className="relative  h-5  w-5 overflow-hidden rounded-full">
+                    <Image src={item.image} alt={item.id} fill />
+                  </div>
+                )}
+                {item.value}
+              </div>
             </CommandItem>
           ))}
         </CommandGroup>
@@ -108,11 +121,15 @@ function SelectComponent({
   value,
   label,
   buttonStyle,
-}: Omit<IProps, "showSearch" | "isSelect">) {
+}: Omit<IProps, "showSearch" | "isSelect" | "items"> & {
+  items: objectItem[];
+  value: objectItem;
+}) {
+  console.log(value);
   return (
-    <Select value={value} onValueChange={setValue}>
+    <Select value={value.id} onValueChange={setValue}>
       <SelectTrigger
-        className={cn("m-0 w-full !text-xsm text-foreground", buttonStyle)}
+        className={cn("m-0 w-full !text-xsm text-black", buttonStyle)}
       >
         <SelectValue placeholder="Select an option" className="!text-xsm" />
       </SelectTrigger>
@@ -121,15 +138,22 @@ function SelectComponent({
           <SelectLabel className="text-xsm font-semibold">{label}</SelectLabel>
           {items.map(item => (
             <SelectItem
-              key={item}
-              value={item}
+              key={item.id}
+              value={item.id}
               className={cn(
                 "flex-row-reverse justify-between px-2 text-xsm",
-                value.toLowerCase() === item.toLowerCase() &&
+                value.value.toLowerCase() === item.value.toLowerCase() &&
                   "bg-primary-light focus:bg-primary-light",
               )}
             >
-              {item}
+              <div className="flex justify-start gap-2">
+                {item.image && (
+                  <div className="relative  h-5  w-5 overflow-hidden rounded-full">
+                    <Image src={item.image} alt={item.id} fill />
+                  </div>
+                )}
+                {item.value}
+              </div>
             </SelectItem>
           ))}
         </SelectGroup>
@@ -137,12 +161,45 @@ function SelectComponent({
     </Select>
   );
 }
+
 function UserSelectAndDrawer(props: IProps) {
-  const { buttonStyle, items, value, isSelect = true, setValue, label } = props;
+  const {
+    buttonStyle,
+    items: itemList,
+    value: userValue,
+    isSelect = true,
+    setValue,
+    label,
+  } = props;
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  // this function check if items list is list of string
+  function isListOfString(arr: Items[]) {
+    return (
+      Array.isArray(arr) && arr.every(element => typeof element === "string")
+    );
+  }
+
+  //////////* in this section we convert value and list of items to objectItem type///////////
+  const value: objectItem =
+    typeof userValue === "string"
+      ? { id: userValue, value: userValue }
+      : userValue;
+
+  // if items list is strings list then convert it to objectItem[]
+  const items: objectItem[] = isListOfString(itemList)
+    ? (itemList.map(item => ({
+        id: item,
+        value: item,
+        image: "",
+      })) as unknown as objectItem[])
+    : (itemList as unknown as objectItem[]);
+  ////////////////////////////////*//////////////////////////////////////////////////
+
   const buttonContent = value
-    ? items.find(item => item.toLowerCase() === value.toLowerCase())
+    ? items.find(item => item.value.toLowerCase() === value.value.toLowerCase())
+        ?.value
     : "Select an option";
 
   if (!isDesktop)
@@ -153,7 +210,15 @@ function UserSelectAndDrawer(props: IProps) {
             variant="outline"
             className={cn("w-full justify-between px-3 py-2", buttonStyle)}
           >
-            {buttonContent}
+            <div className="flex justify-start gap-2">
+              {/*if image is valid then show it*/}
+              {value.image && (
+                <div className="relative h-5 w-5  overflow-hidden rounded-full">
+                  <Image src={value.image} alt={value.value} fill />
+                </div>
+              )}
+              {buttonContent}
+            </div>
             <span
               data-open={open}
               // className="transition data-[open=false]:rotate-180"
@@ -164,7 +229,12 @@ function UserSelectAndDrawer(props: IProps) {
         </DrawerTrigger>
         <DrawerContent>
           <div className="mt-4 border-t">
-            <CommandSelectItems {...props} onOpenChange={setOpen} />
+            <CommandSelectItems
+              {...props}
+              items={items}
+              value={value}
+              onOpenChange={setOpen}
+            />
           </div>
         </DrawerContent>
       </Drawer>
@@ -192,7 +262,16 @@ function UserSelectAndDrawer(props: IProps) {
             buttonStyle,
           )}
         >
-          {buttonContent}
+          <div className="flex justify-start gap-2">
+            {/*if image is valid then show it*/}
+
+            {value.image && (
+              <div className="relative h-5 w-5  overflow-hidden rounded-full">
+                <Image src={value.image} alt={value.value} fill />
+              </div>
+            )}
+            {buttonContent}
+          </div>
           {/*<span*/}
           {/*  data-open={open}*/}
           {/*  // className="transition data-[open=false]:rotate-180"*/}
@@ -202,9 +281,15 @@ function UserSelectAndDrawer(props: IProps) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0" align="start">
-        <CommandSelectItems {...props} onOpenChange={setOpen} />
+        <CommandSelectItems
+          {...props}
+          items={items}
+          value={value}
+          onOpenChange={setOpen}
+        />
       </PopoverContent>
     </Popover>
   );
 }
+
 export const SelectAndDrawer = memo(UserSelectAndDrawer);

@@ -2,12 +2,13 @@
 import { TextareaHTMLAttributes } from "react";
 
 import { PiMicrophone } from "react-icons/pi";
-import type { IconType } from "react-icons";
 
-import { Button, ButtonProps } from "@/components/ui/button";
-import { MyTooltip } from "@/components/shared/myTooltip";
-
-import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
+import {
+  useCopyTextInClipBoard,
+  useGetDictionary,
+  useSpeechToText,
+  useTextToSpeech,
+} from "@/hooks";
 
 import { cn } from "@/lib/utils";
 import { MdDeleteOutline } from "react-icons/md";
@@ -51,19 +52,46 @@ export function CustomTextarea({
   } = useGetDictionary();
   //for copy value
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
+  const { handleToggleRecording, isRecording } = useSpeechToText({
+    transcript: value as string,
+    setTranscript: setValue,
+  });
+  const {
+    handlePlaySpeak,
+    handleStopSpeak,
+    handlePauseSpeak,
+    isPaused,
+    isSpeaking,
+  } = useTextToSpeech(value as string);
 
   return (
     <div className={cn("relative w-full", rootClassName)}>
       {/*voice input*/}
-      <MinimalButton
-        Icon={PiMicrophone}
-        title={dictionary.voice_button_label}
-        className="absolute start-1.5 top-2.5"
-      />
+      {isRecording ? (
+        <button
+          onClick={handleToggleRecording}
+          className=" absolute start-1.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
+        >
+          <svg
+            className="h-12 w-12 "
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path fill="white" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+          </svg>
+        </button>
+      ) : (
+        <MinimalButton
+          Icon={PiMicrophone}
+          title={dictionary.voice_button_label}
+          className="absolute start-1.5 top-2.5"
+          onClick={handleToggleRecording}
+        />
+      )}
 
       {/*textarea*/}
       <textarea
-        rows={rows}
+        rows={8}
         className={cn(
           "mb-0 w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
           className,
@@ -81,10 +109,26 @@ export function CustomTextarea({
           title={dictionary.clear_button_label}
           onClick={() => setValue("")}
         />
-        <MinimalButton
-          Icon={HiOutlineSpeakerWave}
-          title={dictionary.speak_button_label}
-        />
+        {isSpeaking ? (
+          <button
+            onClick={handleStopSpeak}
+            className=" flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
+          >
+            <svg
+              className="h-12 w-12 "
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path fill="white" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+            </svg>
+          </button>
+        ) : (
+          <MinimalButton
+            Icon={HiOutlineSpeakerWave}
+            title={dictionary.speak_button_label}
+            onClick={handlePlaySpeak}
+          />
+        )}
         <MinimalButton
           Icon={isCopied ? LuCopyCheck : LuCopy}
           title={copy}

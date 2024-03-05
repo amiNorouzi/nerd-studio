@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { dirInLocalStorage } from "@/stores/browser-storage";
 

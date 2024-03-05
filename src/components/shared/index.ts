@@ -21,3 +21,8 @@ export { ResponsivePopover } from "./ResponsivePopover";
 export { CustomTextarea } from "./CustomTextarea";
 export { MinimalButton } from "./MinimalButtton";
 export { Show } from "./Show";
+export { SliderWithTooltip } from "./SliderWithTooltip";
+export { UploadDocuments } from "./UploadDocuments";
+export { SelectEngine } from "./SelectEngine";
+export { HistoryBox } from "./HistoryBox";
+export { HistoryItems } from "./HistoryItems";

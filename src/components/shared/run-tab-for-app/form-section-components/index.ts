@@ -1,4 +1,6 @@
 export { SelectResponseLang } from "./select-response-lang";
-export { SelectBoxes } from "./select-boxes";
+export { OptionsSelectBoxes } from "./options-select-boxes";
 export { TextBox } from "./text-box";
-export { SubmitButton } from "./submit-button";
+export { SubmitButtonSelectEngine } from "./submit-button-select-engine";
+export { SelectTranslateLanguages } from "./select-translate-languages";
+export { GrammarTextBox } from "./grammar-text-box";

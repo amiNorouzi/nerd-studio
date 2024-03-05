@@ -44,7 +44,6 @@ function CodeLanguageSelect({ setCurrentLanguage }: IProps) {
       items={codeLanguages}
       showSearch
       isSelect={false}
-      placeholder={select_language_placeholder}
     />
   );
 }

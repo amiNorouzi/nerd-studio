@@ -1,6 +1,10 @@
 "use client";
 import { useState } from "react";
-import { SelectBoxes, SubmitButton, TextBox } from "./form-section-components";
+import {
+  OptionsSelectBoxes,
+  SubmitButtonSelectEngine,
+  TextBox,
+} from "./form-section-components";
 import RenderIf from "@/components/shared/RenderIf";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +21,8 @@ import type { TemplateState } from "@/stores/zustand/types";
 interface IProps {
   params: ParamsType;
   template?: TemplateState["currentTemplate"];
+  buttonContent: string;
+  mainTextAreaPlaceholder: string;
 }
 
 const startIcon = {
@@ -24,7 +30,11 @@ const startIcon = {
   notFav: FaRegStar,
 } as const;
 
-export function FormSection({ template }: IProps) {
+export function FormSection({
+  template,
+  buttonContent,
+  mainTextAreaPlaceholder,
+}: IProps) {
   /** these states used when user select a template
    * these states are for favorite icon and open modal to show message for add or remove from favorites
    * */
@@ -79,9 +89,12 @@ export function FormSection({ template }: IProps) {
       >
         {template?.description}
       </p>
-      <TextBox template={template} />
-      <SelectBoxes />
-      <SubmitButton />
+      <TextBox
+        template={template}
+        mainTextAreaPlaceholder={mainTextAreaPlaceholder}
+      />
+      <OptionsSelectBoxes />
+      <SubmitButtonSelectEngine buttonContent={buttonContent} />
     </div>
   );
 }

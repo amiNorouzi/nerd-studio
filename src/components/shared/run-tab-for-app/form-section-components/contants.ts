@@ -62,6 +62,33 @@ export const selectValuesDescription = {
   tone: "form_tone_description",
 } as const;
 
+export const languages = [
+  {
+    id: "en",
+    value: "English",
+    image: "/images/gpt.jpeg",
+  },
+  {
+    id: "pr",
+    value: "Persian",
+  },
+  {
+    id: "ar",
+    value: "Arabic",
+  },
+  {
+    id: "fr",
+    value: "French",
+  },
+];
+
+export const enginesImage = {
+  "GPT-3.5 Turbo": "/images/gpt.jpeg",
+  "GPT-4 Turbo": "/images/gpt.jpeg",
+  "Claude-instant": "/images/cloude.png",
+  "Claude-2": "/images/cloude.png",
+  "Gemini Pro": "/images/gemni.jpeg",
+};
 export const engines = [
   "GPT-3.5 Turbo",
   "GPT-4 Turbo",
