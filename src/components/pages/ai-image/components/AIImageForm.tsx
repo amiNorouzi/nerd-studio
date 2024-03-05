@@ -15,7 +15,8 @@ import { Label } from "@/components/ui/label";
 import CommonSettings from "./CommonSettings";
 import AdvanceSettings from "./AdvanceSettings";
 
-import { useCustomSearchParams, useGetDictionary } from "@/hooks";
+import { useGetDictionary } from "@/hooks";
+import useImageTabs from "@/components/pages/ai-image/hooks/useImageTabs";
 
 //list of engines
 //TODO: replace with real engines data from api
@@ -52,8 +53,7 @@ export function AIImageForm() {
   const {
     page: { image: imageDictionary },
   } = useGetDictionary();
-  const [searchParams] = useCustomSearchParams(); //for check current tab
-  const currentTab = searchParams.get("feature") || "text-to-image"; //current tab set in tabs component
+  const { currentTab } = useImageTabs();
 
   const [activeEngine, setActiveEngine] = useState(engines[0].id);
   // get items container ref for calculate width for set to engine select width

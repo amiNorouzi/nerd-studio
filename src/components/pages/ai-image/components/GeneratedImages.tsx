@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Image from "next/image";
 
-import { LuDownload } from "react-icons/lu";
 import { PiShareNetwork } from "react-icons/pi";
 import { VscSend } from "react-icons/vsc";
 
@@ -15,10 +14,11 @@ import {
 } from "@/components/ui/popover";
 import ImageAction from "./ImageAction";
 
-import { useCustomSearchParams, useGetDictionary } from "@/hooks";
+import { useGetDictionary } from "@/hooks";
 
 import { cn } from "@/lib/utils";
 import ImageDownloader from "@/components/pages/ai-image/components/ImageDownloader";
+import useImageTabs from "@/components/pages/ai-image/hooks/useImageTabs";
 
 //for send selected image to other tabs to use
 const sendActions = [
@@ -41,15 +41,13 @@ const sendActions = [
  * @constructor
  */
 function GeneratedImages({ images }: { images: string[] }) {
+  const { currentTab } = useImageTabs();
   //for show main image of selected
   const [selectedImage, setSelectedImage] = useState(images[0]);
-  const [searchParams] = useCustomSearchParams();
   const {
     common: { share },
     page: { image: imageDictionary },
   } = useGetDictionary();
-
-  const currentTab = searchParams.get("feature") || "text-to-image"; //for render suitable send actions
 
   return (
     <div className="flex h-full w-fit flex-col gap-2 rounded-2xl bg-primary-light/60 p-4 max-xl:items-center max-xl:justify-center lg:p-5 xl:h-fit xl:flex-row xl:p-9">

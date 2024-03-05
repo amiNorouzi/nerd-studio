@@ -1,18 +1,22 @@
 "use client";
+import { useState } from "react";
+
+import { GoHistory } from "react-icons/go";
+
 import EmptyResult from "./EmptyResult";
 import ImageHistory from "./ImageHistory";
 import GeneratedImages from "./GeneratedImages";
+import ImageCompare from "./ImageCompare";
 import { Generate } from "@/components/svg-icons";
+import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
+import useImageTabs from "../hooks/useImageTabs";
 
 import { isEmpty } from "@/lib/utils";
 
 import type { HistoryItem } from "@/services/types";
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { IoMdMore } from "react-icons/io";
-import { GoHistory } from "react-icons/go";
+import { Show } from "@/components/shared";
 
 //list of images
 //TODO: replace with real data
@@ -64,6 +68,7 @@ export function ResultSection() {
   } = useGetDictionary();
   const [isOpenMobileImageHistory, setIsOpenMobileImageHistory] =
     useState(false);
+  const { currentTab, tabs } = useImageTabs();
 
   return (
     <section className="col-span-12 h-full overflow-hidden p-3 lg:col-span-8  lg:p-5 ">
@@ -93,8 +98,21 @@ export function ResultSection() {
                 </Button>
               </div>
 
-              <div className="centered-col h-full w-full p-2 pb-5">
-                <GeneratedImages images={images} />
+              <div className="centered-col h-full w-full p-4 pb-5">
+                <Show>
+                  <Show.When isTrue={currentTab === tabs.imageUpscale}>
+                    <div className="h-fit w-full rounded-2xl bg-primary-light/60 p-4 lg:p-5 xl:p-9">
+                      <ImageCompare
+                        beforeImage="/images/upscale-before.png"
+                        afterImage="/images/upscale-after.png"
+                      />
+                    </div>
+                  </Show.When>
+
+                  <Show.Else>
+                    <GeneratedImages images={images} />
+                  </Show.Else>
+                </Show>
               </div>
             </div>
             <ImageHistory

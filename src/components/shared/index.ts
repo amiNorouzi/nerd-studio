@@ -20,3 +20,4 @@ export { MyTooltip } from "./myTooltip";
 export { ResponsivePopover } from "./ResponsivePopover";
 export { CustomTextarea } from "./CustomTextarea";
 export { MinimalButton } from "./MinimalButtton";
+export { Show } from "./Show";

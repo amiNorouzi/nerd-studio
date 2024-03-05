@@ -82,7 +82,7 @@ export function UserMenu() {
               imageSrc={session?.user?.image || ""}
               name={session?.user?.name || ""}
               onClick={() => handleOpenAccountDialog()}
-              className="border-gradiant relative z-50 cursor-pointer"
+              className="border-gradiant hover-border-gradiant z-50 cursor-pointer"
             />
           </div>
         </HoverCardTrigger>

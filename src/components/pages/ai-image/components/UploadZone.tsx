@@ -12,7 +12,8 @@ import DrawMaskDialog from "./DrawMaskDialog";
 import ImageAction from "./ImageAction";
 import { Button } from "@/components/ui/button";
 
-import { useCustomSearchParams, useGetDictionary } from "@/hooks";
+import { useGetDictionary } from "@/hooks";
+import useImageTabs from "@/components/pages/ai-image/hooks/useImageTabs";
 
 /**
  * drop zone upload component
@@ -27,9 +28,8 @@ function UploadZone() {
   const [uploadedImage, setUploadedImage] = useState("");
   const [maskImage, setMaskImage] = useState("");
   const [openMaskDialog, setOpenMaskDialog] = useState(false);
-  const [searchParams] = useCustomSearchParams();
 
-  const currentTab = searchParams.get("feature") || "text-to-image";
+  const { currentTab } = useImageTabs();
 
   /**
    * onDrop for drop zone
@@ -62,7 +62,7 @@ function UploadZone() {
     return null;
   }
 
-  const { getRootProps, getInputProps, open } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
       "image/*": [".jpeg", ".png", ".webp", ".jpg"],

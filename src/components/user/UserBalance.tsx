@@ -17,7 +17,7 @@ function UserBalance({ handleClick }: { handleClick: () => void }) {
     <Button
       variant="ghost"
       //border-gradiant is a custom class in global.css
-      className="spacing-row balance border-gradiant relative h-8 w-full rounded-lg px-2.5 hover:after:!rounded-lg"
+      className="spacing-row balance border-gradiant hover-border-gradiant relative h-8 w-full rounded-lg px-2.5 after:!rounded-lg"
       onClick={handleClick}
     >
       <div className="row gap-1">

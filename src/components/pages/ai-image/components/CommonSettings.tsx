@@ -14,9 +14,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { useCustomSearchParams, useGetDictionary } from "@/hooks";
-
 import { cn } from "@/lib/utils";
+import useImageTabs from "@/components/pages/ai-image/hooks/useImageTabs";
 
 // TODO: replace with real data
 const resolutions = ["1024 x 1024", "789 x 1024", "1024 x 2048", "2048 x 2048"];
@@ -88,14 +87,10 @@ const styles = [
  * @constructor
  */
 function CommonSettings() {
-  const {
-    page: { image: imageDictionary },
-  } = useGetDictionary();
   const [selectedResolution, setSelectedResolution] = useState("1024 x 1024");
   const [currentStyle, setCurrentStyle] = useState("none"); //selected style
-  const [searchParams] = useCustomSearchParams();
   //get current tab for don't render style in upscale tab
-  const currentTab = searchParams.get("feature") || "text-to-image";
+  const { currentTab } = useImageTabs();
   //mobile size for change side of style popover
   const isMobile = useMediaQuery("(max-width: 1024px)");
 

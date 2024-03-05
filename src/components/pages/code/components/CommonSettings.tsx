@@ -51,7 +51,7 @@ function CommonSettings({ submitButtonTitle }: IProps) {
   return (
     <>
       {/*i want select*/}
-      <div className="col col-span-1 gap-2">
+      <div className="col col-span-2 gap-2 sm:col-span-1">
         <Label>{codeDictionary.want_select_label}</Label>
         <SelectAndDrawer
           value="To Convert + Explanation"
@@ -61,7 +61,7 @@ function CommonSettings({ submitButtonTitle }: IProps) {
       </div>
 
       {/*output language select*/}
-      <div className="col col-span-1 gap-2">
+      <div className="col col-span-2 gap-2 sm:col-span-1">
         <Label>{codeDictionary.output_language_select_label}</Label>
         <SelectAndDrawer
           value="English"
@@ -71,7 +71,7 @@ function CommonSettings({ submitButtonTitle }: IProps) {
       </div>
 
       {/*engines select*/}
-      <div className="col col-span-1 gap-2">
+      <div className="col col-span-2 gap-2 sm:col-span-1">
         <Label>{codeDictionary.engine_select_label}</Label>
         <EngineSelect
           value={activeEngine}
@@ -81,7 +81,9 @@ function CommonSettings({ submitButtonTitle }: IProps) {
       </div>
 
       {/*submit button*/}
-      <Button className="col-span-1 mt-auto">{submitButtonTitle}</Button>
+      <Button className="col-span-2 mt-auto sm:col-span-1">
+        {submitButtonTitle}
+      </Button>
     </>
   );
 }

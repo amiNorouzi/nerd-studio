@@ -49,7 +49,7 @@ function CodeEditor({
   language,
 }: IProps) {
   const {
-    common: { copy, share, full_screen, download },
+    common: { copy, full_screen, download },
   } = useGetDictionary();
   //for copy value
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
@@ -89,13 +89,6 @@ function CodeEditor({
             className="hover:bg-muted/30"
             onClick={handleFullscreen}
           />
-          {/*share button*/}
-          <MinimalButton
-            Icon={PiShareNetwork}
-            title={share}
-            className="hover:bg-muted/30"
-          />
-
           {/*download button*/}
           <MinimalButton
             Icon={LuDownload}

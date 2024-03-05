@@ -231,7 +231,19 @@ textarea {
   display: none;
 }
 
-.border-gradiant:hover::after {
+.bg-gradiant,
+.border-gradiant {
+  position: relative;
+}
+.border-gradiant.hover-border-gradiant {
+  @apply transition-all duration-200 after:opacity-0;
+}
+
+.hover-border-gradiant:hover::after {
+  @apply opacity-100;
+}
+
+.border-gradiant::after {
   content: "";
   position: absolute;
   top: 0;

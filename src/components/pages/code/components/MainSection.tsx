@@ -4,9 +4,9 @@ import { features } from "@/constants/code";
 import CodeGenerator from "./CodeGenerator";
 import CodeConvertor from "./CodeConvertor";
 import CodeExplainer from "./CodeExplainer";
-import Result from "./Result";
 
-import { useCustomSearchParams, useGetDictionary } from "@/hooks";
+import { useGetDictionary } from "@/hooks";
+import useCodeFeatures from "../hooks/useCodeFeatures";
 
 /**
  * section for inputs and results
@@ -19,9 +19,8 @@ export function MainSection() {
     page: { code: codeDictionary },
   } = useGetDictionary();
 
-  const [searchParams] = useCustomSearchParams();
   //get the feature from the url search params or use the default feature "code-convertor"
-  const currentFeature = searchParams.get("feature") ?? "code-convertor";
+  const { currentFeature } = useCodeFeatures();
 
   //get the title key of the feature from the features array
   //and get the title from the dictionary by key
@@ -30,14 +29,14 @@ export function MainSection() {
   )?.titleI18Key;
 
   return (
-    <section className="max-h-apps-page col-span-12 h-full overflow-hidden p-3 lg:col-span-9 lg:p-5">
+    <section className="md:max-h-apps-page col-span-12 h-full overflow-hidden md:col-span-8 md:p-3 lg:col-span-9 lg:p-5">
       <div
-        className="col h-full max-h-[calc(var(--apps-main-height)-24px)] overflow-y-auto overflow-x-hidden
-        rounded-xl border bg-background shadow-2xl lg:max-h-[calc(var(--apps-main-height)-40px)]"
+        className="col h-fit overflow-hidden bg-background md:h-full md:max-h-[calc(var(--apps-main-height)-24px)]
+        md:overflow-y-auto md:rounded-xl md:border md:shadow-2xl lg:max-h-[calc(var(--apps-main-height)-40px)]"
       >
         {/*feature title*/}
-        <div className="flex w-full">
-          <h1 className="text-gradiant mx-auto p-5 text-center text-4xl font-bold">
+        <div className="hidden w-full md:flex">
+          <h1 className="text-gradiant mx-auto p-5 text-center text-2xl font-bold xl:text-4xl">
             {codeDictionary[titleKey!]}
           </h1>
         </div>

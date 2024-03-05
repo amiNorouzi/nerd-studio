@@ -1,6 +1,7 @@
-import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useCustomSearchParams, useGetDictionary } from "@/hooks";
+
+import { useGetDictionary } from "@/hooks";
+import useImageTabs, { type TabsType } from "../hooks/useImageTabs";
 
 /**
  * tabs for switch between text-to-image, image-to-image and image-upscale to render suitable options
@@ -8,16 +9,16 @@ import { useCustomSearchParams, useGetDictionary } from "@/hooks";
  */
 function ImageFromTabs() {
   // get search params and set search params
-  const [searchParams, setSearchParams] = useCustomSearchParams();
+  const { currentTab, setTab } = useImageTabs();
   const {
     page: { image: imageDictionary },
   } = useGetDictionary();
 
   return (
     <Tabs
-      defaultValue={searchParams.get("feature") ?? "text-to-image"}
+      defaultValue={currentTab}
       className=" w-full"
-      onValueChange={v => setSearchParams("feature", v)}
+      onValueChange={v => setTab(v as TabsType)}
     >
       <TabsList className=" grid h-12 w-full grid-cols-3 gap-1 overflow-hidden border-b bg-muted pb-0">
         <TabsTrigger value="text-to-image" className="border-b-tab h-full">
