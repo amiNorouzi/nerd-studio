@@ -1,5 +1,10 @@
 "use client";
-import { Run, SetSearchParamProvider } from "@/components/shared";
+import {
+  HistoryBox,
+  HistoryItems,
+  Run,
+  SetSearchParamProvider,
+} from "@/components/shared";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 import type { SCRPropsType } from "@/services/types";
 import { useGetDictionary } from "@/hooks";
@@ -25,7 +30,11 @@ export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
           buttonContent={templatePage.template_button_label}
           mainTextAreaPlaceholder={templatePage.text_input_placeholder}
         />
-        <Run.Editor />
+        <Run.Editor>
+          <HistoryBox>
+            <HistoryItems appName="template" />
+          </HistoryBox>
+        </Run.Editor>
       </Run>
     </SetSearchParamProvider>
   );

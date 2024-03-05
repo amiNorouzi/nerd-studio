@@ -1,5 +1,10 @@
 import { memo } from "react";
-import { SetSearchParamProvider, Run } from "@/components/shared";
+import {
+  SetSearchParamProvider,
+  Run,
+  HistoryBox,
+  HistoryItems,
+} from "@/components/shared";
 import type { SCRPropsType } from "@/services/types";
 import { getDictionary } from "@/lib/dictionary";
 
@@ -20,7 +25,11 @@ export async function WritePage({ params }: SCRPropsType) {
           buttonContent={ReWrite.form_rewrite_button}
           mainTextAreaPlaceholder={ReWrite.text_input_placeholder}
         />
-        <Run.Editor />
+        <Run.Editor>
+          <HistoryBox>
+            <HistoryItems appName="ReWrite" />
+          </HistoryBox>
+        </Run.Editor>
       </Run>
     </SetSearchParamProvider>
   );

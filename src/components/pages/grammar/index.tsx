@@ -1,4 +1,9 @@
-import { Run, SetSearchParamProvider } from "@/components/shared";
+import {
+  HistoryBox,
+  HistoryItems,
+  Run,
+  SetSearchParamProvider,
+} from "@/components/shared";
 import type { ParamsType } from "@/services/types";
 
 interface IProps {
@@ -14,7 +19,11 @@ export function GrammarPage({ params }: IProps) {
     <SetSearchParamProvider appName="app" appSearchParamValue="Grammar">
       <Run>
         <Run.GrammarForm params={params} />
-        <Run.Editor />
+        <Run.Editor>
+          <HistoryBox>
+            <HistoryItems appName="Grammar" />
+          </HistoryBox>
+        </Run.Editor>
       </Run>
     </SetSearchParamProvider>
   );

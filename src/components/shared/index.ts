@@ -21,3 +21,5 @@ export { SliderWithTooltip } from "./SliderWithTooltip";
 export { UploadDocuments } from "./UploadDocuments";
 export { CustomTextarea } from "./CustomTextarea";
 export { SelectEngine } from "./SelectEngine";
+export { HistoryBox } from "./HistoryBox";
+export { HistoryItems } from "./HistoryItems";

@@ -1,4 +1,9 @@
-import { Run, SetSearchParamProvider } from "@/components/shared";
+import {
+  HistoryBox,
+  HistoryItems,
+  Run,
+  SetSearchParamProvider,
+} from "@/components/shared";
 
 import type { ParamsType } from "@/services/types";
 interface IProps {
@@ -9,7 +14,11 @@ export default async function TranslatePage({ params }: IProps) {
     <SetSearchParamProvider appName="app" appSearchParamValue="Translate">
       <Run>
         <Run.TranslateForm params={params} />
-        <Run.Editor />
+        <Run.Editor>
+          <HistoryBox>
+            <HistoryItems appName="Translate" />
+          </HistoryBox>
+        </Run.Editor>
       </Run>
     </SetSearchParamProvider>
   );
