@@ -8,7 +8,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { HistoryInfo } from "@/components/shared/HistoryInfo";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { cn } from "@/lib/utils";
 import type { HistoryItem } from "@/stores/zustand/types";
@@ -85,7 +84,7 @@ interface IProps {
 export function HistoryItems({ appName }: IProps) {
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
-  const [openInfo, setOpenInfo] = useState(false);
+  const setHistoryInfoOpen = useHistoryStore.use.setHistoryInfoOpen();
   const isItemSelected = (id: string) => selectedHistoryItem?.id === id;
   const items = listOfHistoryItem.map(item => (
     <div
@@ -97,7 +96,7 @@ export function HistoryItems({ appName }: IProps) {
       )}
       onClick={() => {
         setSelectHistoryItem(item);
-        setOpenInfo(true);
+        setHistoryInfoOpen(true);
       }}
     >
       {/*title and delete and bookmark button*/}
@@ -135,28 +134,9 @@ export function HistoryItems({ appName }: IProps) {
   ));
 
   return (
-    <>
-      <div className="flex w-full flex-col items-center justify-start gap-3 overflow-y-auto">
-        {items}
-      </div>
-      {/*info sheet that when a history item select then open*/}
-      <HistoryInfo
-        open={openInfo}
-        onOpenChange={setOpenInfo}
-        engine={selectedHistoryItem?.engine}
-        engineIcon={selectedHistoryItem?.engineIcon}
-      >
-        <div className="grid gap-4 py-4">
-          <span className="text-xs">{selectedHistoryItem?.title}</span>
-          <textarea
-            defaultValue={selectedHistoryItem?.question}
-            disabled
-            rows={10}
-            className="rounded-lg border p-2"
-          />
-        </div>
-      </HistoryInfo>
-    </>
+    <div className="flex w-full flex-col items-center justify-start gap-3 overflow-y-auto">
+      {items}
+    </div>
   );
 }
 

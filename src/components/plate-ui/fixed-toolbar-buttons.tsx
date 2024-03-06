@@ -44,7 +44,7 @@ export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
   return (
     <div className="w-full overflow-hidden print:opacity-0">
       <div
-        className="flex flex-nowrap overflow-x-auto"
+        className="flex flex-wrap "
         style={{
           transform: "translateX(calc(-1px))",
         }}

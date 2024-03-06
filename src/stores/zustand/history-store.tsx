@@ -8,6 +8,7 @@ const initialState = {
   isHistoryOpen: false,
   historySearch: "",
   selectedHistoryItem: null,
+  isHistoryInfoOpen: false,
 } as HistoryState;
 
 const useHistory = create<HistoryState & HistoryAction>()(
@@ -25,6 +26,10 @@ const useHistory = create<HistoryState & HistoryAction>()(
       setSelectHistoryItem: v =>
         set(state => {
           state.selectedHistoryItem = v;
+        }),
+      setHistoryInfoOpen: v =>
+        set(state => {
+          state.isHistoryInfoOpen = v;
         }),
       resetHistory: () => {
         set(initialState);

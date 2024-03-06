@@ -4,3 +4,4 @@ export { TextBox } from "./text-box";
 export { SubmitButtonSelectEngine } from "./submit-button-select-engine";
 export { SelectTranslateLanguages } from "./select-translate-languages";
 export { GrammarTextBox } from "./grammar-text-box";
+export { Upload } from "./upload";
