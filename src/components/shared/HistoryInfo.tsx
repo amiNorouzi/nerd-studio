@@ -31,10 +31,7 @@ export function HistoryInfo({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent
-        side={side}
-        className="w-full max-w-[400px] sm:max-w-[650px]"
-      >
+      <SheetContent side={side} className="w-full max-w-[400px] sm:max-w-lg">
         <SheetHeader>
           <SheetTitle>Information</SheetTitle>
         </SheetHeader>

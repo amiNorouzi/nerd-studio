@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { FiUpload } from "react-icons/fi";
 import { PiPaintBrushLight } from "react-icons/pi";
-import { MdDeleteOutline } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
 
 import RenderIf from "@/components/shared/RenderIf";
@@ -14,6 +13,7 @@ import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
 import useImageTabs from "@/components/pages/ai-image/hooks/useImageTabs";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 /**
  * drop zone upload component
@@ -117,9 +117,9 @@ function UploadZone() {
                 {/*delete image button*/}
                 <ImageAction
                   title={delete_label}
-                  Icon={MdDeleteOutline}
+                  Icon={FaRegTrashCan}
                   iconClassname="text-destructive"
-                  className="!h-7 !w-7 p-1"
+                  className="!h-7 !w-7 p-2"
                   onClick={e => {
                     e.stopPropagation();
                     setUploadedImage("");

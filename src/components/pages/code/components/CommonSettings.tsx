@@ -6,6 +6,9 @@ import { EngineSelect, SelectAndDrawer } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
+import { useHistoryStore } from "@/stores/zustand/history-store";
+import { ChildrenProps } from "@/services/types";
+import { cn } from "@/lib/utils";
 
 //list of engines
 //TODO: replace with real engines data from api
@@ -36,6 +39,20 @@ interface IProps {
   submitButtonTitle: string;
 }
 
+const Box = (props: ChildrenProps) => {
+  const isHistoryOpen = useHistoryStore.use.isHistoryOpen();
+  return (
+    <div
+      className={cn(
+        "col col-span-2 gap-2",
+        isHistoryOpen ? "lg:col-span-1" : " sm:col-span-1",
+      )}
+    >
+      {props.children}
+    </div>
+  );
+};
+
 /**
  * common settings for all features of code page
  * contains: want select, output language select, engine select and submit button
@@ -51,24 +68,24 @@ function CommonSettings({ submitButtonTitle }: IProps) {
   return (
     <>
       {/*i want select*/}
-      <div className="col col-span-2 gap-2 sm:col-span-1">
+      <Box>
         <Label>{codeDictionary.want_select_label}</Label>
         <SelectAndDrawer
           value="To Convert + Explanation"
           setValue={() => {}}
           items={["To Convert + Explanation"]}
         />
-      </div>
+      </Box>
 
       {/*output language select*/}
-      <div className="col col-span-2 gap-2 sm:col-span-1">
+      <Box>
         <Label>{codeDictionary.output_language_select_label}</Label>
         <SelectAndDrawer
           value="English"
           setValue={() => {}}
           items={["English"]}
         />
-      </div>
+      </Box>
 
       {/*engines select*/}
       <div className="col col-span-2 gap-2 sm:col-span-1">

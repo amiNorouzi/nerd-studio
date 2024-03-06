@@ -46,8 +46,10 @@ export function CodeFeaturesSection() {
           key={item.id}
           onClick={() => setFeature(item.key)}
         >
-          <h2 className="text-lg">{codeDictionary[item.titleI18Key]}</h2>
-          <p className="font-normal text-muted-foreground ">
+          <h2 className="text-base lg:text-lg">
+            {codeDictionary[item.titleI18Key]}
+          </h2>
+          <p className="text-xs font-normal text-muted-foreground lg:text-xsm">
             {codeDictionary[item.descriptionI18Key]}
           </p>
         </div>
@@ -91,7 +93,7 @@ export function CodeFeaturesSection() {
   );
 
   return (
-    <section className="relative col-span-12 h-fit overflow-y-auto bg-background md:col-span-4 lg:col-span-3 lg:h-full lg:max-h-full">
+    <section className="relative col-span-12 h-fit overflow-y-auto bg-background md:col-span-3 md:h-full md:max-h-full">
       {/*page header*/}
       <h1 className="row gap-2 border-b px-4 py-2.5 text-xl">
         <IoCodeSlashOutline size="1.5rem" />

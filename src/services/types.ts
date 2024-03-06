@@ -84,3 +84,12 @@ export interface EngineItem {
   name: string;
   image: string;
 }
+
+export interface CodeHistoryItem {
+  id: string;
+  title: string;
+  date: string;
+  feature: string;
+  engine: string;
+  engineIcon: string;
+}

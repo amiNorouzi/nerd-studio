@@ -56,8 +56,9 @@ export function HistoryBox({ children, className, ...props }: IProps) {
     return (
       <div
         className={cn(
-          " flex h-full  w-0 basis-0 flex-col  items-center justify-start  gap-4   divide-y bg-muted p-3 pt-0 opacity-0",
-          isHistoryOpen && "w-fit basis-3/4 opacity-100 xl:basis-1/2",
+          "flex h-full w-0 max-w-0 basis-0 flex-col items-center  justify-start   gap-4 divide-y bg-muted opacity-0 transition-all duration-300",
+          isHistoryOpen &&
+            " w-fit max-w-[300px] basis-3/4  p-3 pt-0 opacity-100 xl:basis-1/2 ",
           className,
         )}
         {...props}

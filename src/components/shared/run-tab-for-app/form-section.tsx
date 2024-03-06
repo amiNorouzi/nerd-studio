@@ -52,7 +52,7 @@ export function FormSection({
   const cardIcon = favTemp ? "fav" : "notFav";
   const ButtonIcon = startIcon[cardIcon];
   return (
-    <div className="col-span-12 flex h-fit flex-col gap-9 overflow-y-auto bg-background bg-card p-4 lg:col-span-6 lg:h-full  lg:max-h-full xl:col-span-4">
+    <div className="col-span-12 flex h-fit flex-col gap-9 overflow-y-auto bg-background p-4 lg:col-span-6 lg:h-full  lg:max-h-full xl:col-span-4">
       <div className="flex justify-between">
         <div className="flex items-center justify-start gap-3">
           {icon && <RenderImageOrIcon icon={icon} />}

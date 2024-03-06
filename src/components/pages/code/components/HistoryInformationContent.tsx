@@ -16,7 +16,7 @@ function HistoryInformationContent() {
   } = useGetDictionary();
 
   return (
-    <div className="grid h-full w-full grid-cols-2 gap-4">
+    <div className="mb-5 grid w-full grid-cols-2 content-start gap-5 py-5">
       <RenderIf isTrue={currentFeature === "code-converter"}>
         <div
           data-feature={currentFeature}

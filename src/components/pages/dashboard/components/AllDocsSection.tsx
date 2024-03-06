@@ -1,6 +1,8 @@
 "use client";
 import { IoDocumentText } from "react-icons/io5";
 import { FiSearch } from "react-icons/fi";
+import { FaRegTrashCan } from "react-icons/fa6";
+import { PiPencilLineLight } from "react-icons/pi";
 
 import {
   Select,
@@ -14,7 +16,6 @@ import {
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -23,7 +24,6 @@ import {
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -33,10 +33,6 @@ import { Input } from "@/components/ui/input";
 
 import { useGetDictionary } from "@/hooks";
 import { Button } from "@/components/ui/button";
-import { MdDeleteOutline } from "react-icons/md";
-import { FaPen } from "react-icons/fa6";
-import * as React from "react";
-import { PiPencilLineLight } from "react-icons/pi";
 
 // list of documents user generate
 // TODO: replace with real data from api
@@ -167,7 +163,7 @@ export function AllDocsSection() {
                     <IoDocumentText size="1rem" />
                   </Button>
                   <Button variant="destructive" className="fit p-1">
-                    <MdDeleteOutline size="1rem" />
+                    <FaRegTrashCan size="0.8rem" />
                   </Button>
                 </div>
               </TableCell>

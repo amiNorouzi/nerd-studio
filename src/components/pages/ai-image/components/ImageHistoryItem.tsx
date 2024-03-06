@@ -2,16 +2,15 @@
 import { memo } from "react";
 import Image from "next/image";
 
-import { MdDeleteOutline } from "react-icons/md";
-
-import { Button } from "@/components/ui/button";
-import { MyTooltip } from "@/components/shared/myTooltip";
+import { FaRegTrashCan } from "react-icons/fa6";
+import { BsBookmark } from "react-icons/bs";
 
 import { useGetDictionary } from "@/hooks";
 
 import { cn } from "@/lib/utils";
 
 import type { HistoryItem } from "@/services/types";
+import { MinimalButton } from "@/components/shared";
 
 /**
  * Image history item component
@@ -57,15 +56,19 @@ function ImageHistoryItem({
         <p className="text-[10px] font-normal text-muted-foreground-light">
           {history.imageCount} {imageDictionary.generated_count_message}
         </p>
-        {/*delete button*/}
-        <MyTooltip title={delete_label}>
-          <Button
-            variant="ghost"
-            className="fit ms-auto mt-auto p-0 text-destructive"
-          >
-            <MdDeleteOutline size="1.2rem" />
-          </Button>
-        </MyTooltip>
+        <div className="mt-auto flex items-end justify-end">
+          <MinimalButton
+            Icon={BsBookmark}
+            title={save_label}
+            iconClassname={isActive ? "text-primary" : "text-muted-foreground"}
+          />
+          {/*delete button*/}
+          <MinimalButton
+            Icon={FaRegTrashCan}
+            title={delete_label}
+            iconClassname="text-destructive"
+          />
+        </div>
       </div>
     </article>
   );
