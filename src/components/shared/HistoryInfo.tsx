@@ -1,7 +1,9 @@
+"use client";
 import React from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -10,33 +12,34 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+
 import { dirInLocalStorage } from "@/stores/browser-storage";
+import { useHistoryStore } from "@/stores/zustand/history-store";
+import { Separator } from "@/components/ui/separator";
 
 interface IProps {
-  open: boolean;
-  onOpenChange: (v: boolean) => void;
   children: React.ReactNode;
-  engineIcon?: string;
-  engine?: string;
 }
-export function HistoryInfo({
-  open,
-  onOpenChange,
-  children,
-  engine,
-  engineIcon,
-}: IProps) {
+export function HistoryInfo({ children }: IProps) {
   const dir = dirInLocalStorage.get().dir ?? "ltr";
   const side = dir === "ltr" ? "right" : "left";
+  const open = useHistoryStore.use.isHistoryInfoOpen();
+  const onOpenChange = useHistoryStore.use.setHistoryInfoOpen();
+  const engine = useHistoryStore.use.selectedHistoryItem()?.engine;
+  const engineIcon = useHistoryStore.use.selectedHistoryItem()?.engineIcon;
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side={side} className="w-full max-w-[400px] sm:max-w-lg">
         <SheetHeader>
-          <SheetTitle>Information</SheetTitle>
+          <SheetTitle className="flex gap-2 text-sm font-medium text-primary">
+            <IoMdInformationCircleOutline size={20} />
+            Information
+          </SheetTitle>
         </SheetHeader>
+        <Separator className="my-4" />
         {children}
-        <SheetFooter className="flex flex-row flex-nowrap gap-2">
+        <SheetFooter className="mt-9 flex flex-row flex-nowrap gap-16">
           <SheetClose asChild>
             <Button
               variant="outline"

@@ -4,6 +4,7 @@ import {
   OptionsSelectBoxes,
   SubmitButtonSelectEngine,
   TextBox,
+  Upload,
 } from "./form-section-components";
 import RenderIf from "@/components/shared/RenderIf";
 import { Button } from "@/components/ui/button";
@@ -40,6 +41,10 @@ export function FormSection({
    * */
   const [favTemp, setFavTemp] = useState(template?.favorite ?? false);
   const [open, setOpen] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
+  const [url, setUrl] = useState<string>("");
+
+  // get app name from url
   const searchParams = useSearchParams();
   const appName = searchParams.get("app");
   const app = apps.find(
@@ -92,6 +97,13 @@ export function FormSection({
       <TextBox
         template={template}
         mainTextAreaPlaceholder={mainTextAreaPlaceholder}
+      />
+
+      <Upload
+        setFiles={setFiles}
+        setUserUrl={setUrl}
+        files={files}
+        userUrl={url}
       />
       <OptionsSelectBoxes />
       <SubmitButtonSelectEngine buttonContent={buttonContent} />

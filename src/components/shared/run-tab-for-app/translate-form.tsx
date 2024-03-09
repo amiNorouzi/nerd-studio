@@ -5,12 +5,14 @@ import {
   SubmitButtonSelectEngine,
   TextBox,
   SelectTranslateLanguages,
+  Upload,
 } from "./form-section-components";
 import { RenderImageOrIcon } from "@/components/shared";
 
 import { useGetDictionary } from "@/hooks";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
+import { useState } from "react";
 
 interface IProps {
   params: ParamsType;
@@ -20,7 +22,8 @@ export function TranslateFormSection({ params }: IProps) {
   const {
     page: { translate },
   } = useGetDictionary();
-
+  const [files, setFiles] = useState<File[]>([]);
+  const [url, setUrl] = useState<string>("");
   const searchParams = useSearchParams();
   const appName = searchParams.get("app");
   // find app info from apps constant that we had set in search url params in SetSearchParamProvider
@@ -40,6 +43,14 @@ export function TranslateFormSection({ params }: IProps) {
       <SelectTranslateLanguages />
       {/*text area and pdf upload and url input*/}
       <TextBox mainTextAreaPlaceholder={translate.text_input_placeholder} />
+      {/*upload pdf and url input*/}
+      <Upload
+        setFiles={setFiles}
+        setUserUrl={setUrl}
+        files={files}
+        userUrl={url}
+      />
+
       {/*option section like response lang or creativity,...*/}
       <OptionsSelectBoxes hiddenSelectResponseLang />
       {/*submit button and select engine with setting*/}

@@ -92,10 +92,10 @@ function CodeHistoryItems({ appName }: IProps) {
   const {
     common: { save_label },
   } = useGetDictionary();
-  const [selectedHistoryItem, setSelectedHistoryItem] =
-    useState<CodeHistoryItem>();
+  const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
+  const setSelectedHistoryItem = useHistoryStore.use.setSelectHistoryItem();
+  const setOpenInfo = useHistoryStore.use.setHistoryInfoOpen();
 
-  const [openInfo, setOpenInfo] = useState(false);
   const isItemSelected = (id: string) => selectedHistoryItem?.id === id;
 
   const items = listOfHistoryItem.map(item => (
@@ -147,12 +147,7 @@ function CodeHistoryItems({ appName }: IProps) {
         {items}
       </div>
       {/*info sheet that when a history item select then open*/}
-      <HistoryInfo
-        open={openInfo}
-        onOpenChange={setOpenInfo}
-        engine={selectedHistoryItem?.engine}
-        engineIcon={selectedHistoryItem?.engineIcon}
-      >
+      <HistoryInfo>
         <HistoryInformationContent />
       </HistoryInfo>
     </>

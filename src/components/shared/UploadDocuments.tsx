@@ -4,8 +4,9 @@ import { useDropzone } from "react-dropzone";
 import { FiUpload } from "react-icons/fi";
 
 import { useGetDictionary } from "@/hooks";
+import { cn } from "@/lib/utils";
 
-interface IProps {
+interface IProps extends React.ComponentPropsWithoutRef<"div"> {
   documentFiles: File[];
   setDocumentFiles: (v: File[]) => void;
 }
@@ -15,7 +16,12 @@ interface IProps {
  * used for upload document
  * @constructor
  */
-export function UploadDocuments({ setDocumentFiles, documentFiles }: IProps) {
+export function UploadDocuments({
+  setDocumentFiles,
+  documentFiles,
+  className,
+  ...divProps
+}: IProps) {
   const {
     components: { upload_pdf },
   } = useGetDictionary();
@@ -65,8 +71,11 @@ export function UploadDocuments({ setDocumentFiles, documentFiles }: IProps) {
   return (
     <div
       {...getRootProps()}
-      className="mb-2 flex h-[160px] w-full gap-2 rounded-xl border
-         bg-background p-2 transition-all duration-300 hover:bg-hover lg:mb-3 xl:mb-5"
+      className={cn(
+        "mb-2 flex h-[160px] w-full gap-2 rounded-xl border bg-background p-2 transition-all duration-300 hover:bg-hover lg:mb-3 xl:mb-5",
+        className,
+      )}
+      {...divProps}
     >
       <div className="centered-col h-full w-full cursor-pointer">
         <input {...getInputProps()} onClick={e => e.stopPropagation()} />

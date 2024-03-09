@@ -4,10 +4,12 @@ import {
   HistoryItems,
   Run,
   SetSearchParamProvider,
+  HistoryInfo,
 } from "@/components/shared";
+import { HistoryInfoContent } from "./history-info-content";
 import { useTemplateStore } from "@/stores/zustand/template-store";
-import type { SCRPropsType } from "@/services/types";
 import { useGetDictionary } from "@/hooks";
+import type { SCRPropsType } from "@/services/types";
 
 export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
   // pass template to Form component to used its data to show and change it
@@ -34,6 +36,10 @@ export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
           <HistoryBox>
             <HistoryItems appName="template" />
           </HistoryBox>
+          {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
+          <HistoryInfo>
+            <HistoryInfoContent />
+          </HistoryInfo>
         </Run.Editor>
       </Run>
     </SetSearchParamProvider>
