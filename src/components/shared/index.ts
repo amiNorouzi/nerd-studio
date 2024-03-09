@@ -26,3 +26,4 @@ export { UploadDocuments } from "./UploadDocuments";
 export { SelectEngine } from "./SelectEngine";
 export { HistoryBox } from "./HistoryBox";
 export { HistoryItems } from "./HistoryItems";
+export { SemicircleProgressBar } from "./SemicircleProgressBar";

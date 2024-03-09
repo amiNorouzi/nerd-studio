@@ -68,6 +68,7 @@ module.exports = {
         popup: "0 16px 56px rgba(16,24,40,0.16)",
         "card-hover":
           "0px 0px 4px rgba(40,41,61,0.02),0px 2px 24px rgba(40,41,61,0.08)",
+        "dashboard-card": "0px 12px 12px 0px rgba(79, 73, 85, 0.08);",
       },
       borderRadius: {
         lg: "var(--radius)",

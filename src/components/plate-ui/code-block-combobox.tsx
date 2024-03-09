@@ -22,12 +22,12 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 const languages: { value: string; label: string }[] = [
-  { value: "text", label: "Plain Text" },
+  { generatedCount: "text", label: "Plain Text" },
   ...Object.entries({
     ...CODE_BLOCK_LANGUAGES_POPULAR,
     ...CODE_BLOCK_LANGUAGES,
   }).map(([key, val]) => ({
-    value: key,
+    generatedCount: key,
     label: val as string,
   })),
 ];

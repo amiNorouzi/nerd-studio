@@ -1,18 +1,9 @@
 "use client";
-import { IoDocumentText } from "react-icons/io5";
-import { FiSearch } from "react-icons/fi";
+import { FiInfo } from "react-icons/fi";
 import { FaRegTrashCan } from "react-icons/fa6";
-import { PiPencilLineLight } from "react-icons/pi";
+import { GoHistory } from "react-icons/go";
+import { BsBookmark } from "react-icons/bs";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -29,10 +20,13 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Input } from "@/components/ui/input";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { MinimalButton } from "@/components/shared";
 
 import { useGetDictionary } from "@/hooks";
-import { Button } from "@/components/ui/button";
+import useMobileSize from "@/hooks/useMobileSize";
+
+import { docs } from "@/constants/dashboard";
 
 // list of documents user generate
 // TODO: replace with real data from api
@@ -43,17 +37,27 @@ const data = [
     appName: "Ai Writer",
     workbook: "All",
     category: "Writer",
-    createdOn: "05/02/2024",
+    createdOn: "48 Min ago",
     language: "English(us)",
     words: 30,
   },
   {
-    id: "1",
+    id: "2",
     name: "My Document",
     appName: "Article Wizard",
     workbook: "All",
     category: "Writer",
-    createdOn: "06/08/2024",
+    createdOn: "1 Hr ago",
+    language: "English(us)",
+    words: 80,
+  },
+  {
+    id: "3",
+    name: "My Document",
+    appName: "Article Wizard",
+    workbook: "All",
+    category: "Writer",
+    createdOn: "1 Week ago",
     language: "English(us)",
     words: 80,
   },
@@ -66,47 +70,41 @@ const data = [
  */
 export function AllDocsSection() {
   const {
-    common: { showing, of, to, page },
+    common: { save_label, delete_label },
     page: { dashboard: dashboardDictionary },
   } = useGetDictionary();
+  const isMobile = useMobileSize();
+
+  if (isMobile) return null;
 
   return (
-    <section className="col gap-5 rounded-lg border bg-background p-4 shadow-sm">
+    <section className="col col-span-3 row-span-3 gap-3 rounded-xl border bg-background px-3 py-3 shadow-dashboard-card max-lg:hidden lg:px-5">
       {/*title*/}
-      <h2 className="row gap-1.5 border-b pb-2">
-        <IoDocumentText size="1.2rem" />
-        {dashboardDictionary.all_docs_title}
-      </h2>
+      <div className="row gap-1.5 border-b">
+        <GoHistory
+          size="1.2rem"
+          className="h-7 w-7 rounded-lg bg-primary-light p-1.5 text-primary"
+        />
+        <h2>{dashboardDictionary.all_docs_title}</h2>
 
-      <div className="spacing-row">
-        {/* select for choose how many item return in a page*/}
-        <Select>
-          <SelectTrigger className="h-8 w-20">
-            <SelectValue placeholder="25" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Count</SelectLabel>
-              <SelectItem value="apple">25</SelectItem>
-              <SelectItem value="banana">50</SelectItem>
-              <SelectItem value="blueberry">100</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-
-        {/* search box*/}
-        <div className="fit relative">
-          <Input type="search" className="w-60 ps-10" />
-          <FiSearch
-            size="1.2rem"
-            className="absolute start-2 top-1/2 -translate-y-1/2"
-          />
-        </div>
+        <Tabs defaultValue="1" className=" w-full ">
+          <TabsList className="flex w-full justify-end overflow-hidden bg-transparent pb-0">
+            {docs.map(item => (
+              <TabsTrigger
+                value={item.id}
+                className="border-b-tab h-full"
+                key={item.id}
+              >
+                {dashboardDictionary[item.titleKey]}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
       </div>
 
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="[&>th]:h-8 [&>th]:py-1 [&>th]:text-xs">
             <TableHead>
               {dashboardDictionary.all_docs_name_column_label}
             </TableHead>
@@ -114,57 +112,41 @@ export function AllDocsSection() {
               {dashboardDictionary.all_docs_workbook_column_label}
             </TableHead>
             <TableHead>
-              {dashboardDictionary.all_docs_category_column_label}
-            </TableHead>
-            <TableHead>
-              {dashboardDictionary.all_docs_created_column_label}
-            </TableHead>
-            <TableHead>
               {dashboardDictionary.all_docs_language_column_label}
             </TableHead>
             <TableHead>
               {dashboardDictionary.all_docs_word_column_label}
             </TableHead>
-            <TableHead>
+            <TableHead className="text-end">
               {dashboardDictionary.all_docs_actions_column_label}
             </TableHead>
           </TableRow>
         </TableHeader>
 
         {/*documents table*/}
-        <TableBody>
+        <TableBody className="text-xs font-normal">
           {data.map(item => (
-            <TableRow key={item.id} className="[&>td]:py-2">
+            <TableRow key={item.id} className="\ [&>td]:py-1">
               <TableCell>
-                <div className="row gap-1.5">
-                  <span className="rounded-md bg-active p-1.5">
-                    <PiPencilLineLight size={20} />
+                <p className="col text-xs">
+                  {item.name}
+                  <span className="text-xs font-light text-muted-foreground">
+                    {item.createdOn}
                   </span>
-                  <p className="col">
-                    {item.name}
-                    <span className="text-xs font-light text-muted-foreground">
-                      {item.appName}
-                    </span>
-                  </p>
-                </div>
+                </p>
               </TableCell>
               <TableCell>{item.workbook}</TableCell>
-              <TableCell>
-                <span className="rounded-md border border-primary bg-active px-2 py-1 font-normal text-primary">
-                  {item.category}
-                </span>
-              </TableCell>
-              <TableCell>{item.createdOn}</TableCell>
               <TableCell>{item.language}</TableCell>
               <TableCell>{item.words}</TableCell>
               <TableCell>
-                <div className="row flex-wrap gap-1">
-                  <Button variant="outline" className="fit p-1">
-                    <IoDocumentText size="1rem" />
-                  </Button>
-                  <Button variant="destructive" className="fit p-1">
-                    <FaRegTrashCan size="0.8rem" />
-                  </Button>
+                <div className="row justify-end gap-1 text-muted-foreground">
+                  <MinimalButton title={save_label} Icon={BsBookmark} />
+
+                  <MinimalButton Icon={FaRegTrashCan} title={delete_label} />
+                  <MinimalButton
+                    Icon={FiInfo}
+                    title={dashboardDictionary.info_button_label}
+                  />
                 </div>
               </TableCell>
             </TableRow>
@@ -172,30 +154,30 @@ export function AllDocsSection() {
         </TableBody>
       </Table>
 
-      <div className="spacing-row w-full">
-        {/*show how many page of data exist*/}
-        <p className="text-xs font-light text-muted-foreground">
-          {showing} {page} 1 {of} 1
-        </p>
-
-        {/*pagination*/}
-        <Pagination className="mx-0 w-fit">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
-            </PaginationItem>
-            {/*<PaginationItem>*/}
-            {/*  <PaginationEllipsis />*/}
-            {/*</PaginationItem>*/}
-            <PaginationItem>
-              <PaginationNext href="#" />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </div>
+      {/*pagination*/}
+      <Pagination className="mx-0 mt-auto w-full">
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious href="#" size="sm" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#" isActive={true} size="sm">
+              1
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#" size="sm">
+              2
+            </PaginationLink>
+          </PaginationItem>
+          {/*<PaginationItem>*/}
+          {/*  <PaginationEllipsis />*/}
+          {/*</PaginationItem>*/}
+          <PaginationItem>
+            <PaginationNext href="#" size="sm" />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </section>
   );
 }

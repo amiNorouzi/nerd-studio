@@ -13,7 +13,7 @@ import {
 
 import { useGetDictionary } from "@/hooks";
 import { getHslColorByVar } from "@/lib/utils";
-import { IoDocumentText } from "react-icons/io5";
+import { DashboardHeroIcons } from "@/components/svg-icons";
 import * as React from "react";
 
 //chart data
@@ -153,16 +153,20 @@ export function ChartsSection() {
   } = useGetDictionary();
 
   return (
-    <section className="flex flex-col gap-4 lg:flex-row">
-      <div className="col h-96 w-full gap-1 rounded-lg border bg-background p-4 shadow-sm ">
+    <section className="col-span-2 row-span-3 flex flex-col gap-4 lg:flex-row">
+      <div className="col w-full rounded-xl bg-background p-4 shadow-dashboard-card ">
         {/*title*/}
-        <h2 className="row gap-1.5">
-          <IoDocumentText size="1.2rem" />
-          {dashboardDictionary.words_chart_title}
-        </h2>
-        <p className="mb-4 text-muted-foreground">
-          {dashboardDictionary.words_chart_description}
-        </p>
+        <div className="row mb-5 gap-2">
+          <div className="centered-col h-8 w-8 bg-primary-light">
+            <DashboardHeroIcons.Words className="h-4 w-4" />
+          </div>
+          <div>
+            <h2>{dashboardDictionary.words_chart_title}</h2>
+            <p className="text-xs font-normal text-muted-foreground">
+              {dashboardDictionary.words_chart_description}
+            </p>
+          </div>
+        </div>
 
         <ResponsiveContainer width="100%" height="100%">
           <BarChart

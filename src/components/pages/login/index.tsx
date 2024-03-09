@@ -73,7 +73,7 @@ export function LoginPage() {
             rules={{
               required: "Password required!",
               minLength: {
-                value: 8,
+                generatedCount: 8,
                 message: "Password must be 8 characters or longer! ",
               },
             }}

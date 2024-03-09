@@ -2,8 +2,6 @@
 import { useState } from "react";
 import Image from "next/image";
 
-import { FaFileImage } from "react-icons/fa6";
-
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
@@ -36,26 +34,23 @@ export function ImagesSection() {
   };
 
   return (
-    <section className="col gap-1 rounded-lg border bg-background p-4 shadow-sm">
+    <section className="col col-span-2 row-span-3 rounded-lg border bg-background p-3 shadow-sm ">
       {/*title*/}
-      <h2 className="row gap-1.5">
-        <FaFileImage size="1.2rem" />
-        {dashboardDictionary.generated_images_title}
-      </h2>
+      <h2>{dashboardDictionary.generated_images_title}</h2>
       {/*description*/}
-      <p className="mb-4 text-muted-foreground">
+      <p className="mb-3 text-xs font-normal text-muted-foreground">
         {dashboardDictionary.generated_images_description}
       </p>
 
       {/*image gallery wrapper for limit size*/}
-      <div className="relative mx-auto my-4 h-[50rem] w-full max-w-7xl overflow-hidden px-4 transition-all delay-300">
+      <div className="relative mx-auto h-full max-h-[30rem] w-full max-w-7xl overflow-hidden transition-all delay-300">
         {/*image gallery*/}
-        <div className="relative columns-2 gap-2 md:columns-4">
+        <div className="relative columns-4 gap-1 md:columns-6 lg:columns-8">
           {generatedImages.map(item => (
             <div
               onClick={() => setSelectedImage(item as typeof initSelected)}
               key={item.id}
-              className=" group relative mb-2 inline-block cursor-pointer overflow-hidden rounded-lg shadow-none transition-shadow ease-in-out hover:shadow-xl"
+              className=" group relative inline-block cursor-pointer overflow-hidden rounded-lg shadow-none transition-shadow ease-in-out hover:shadow-xl"
             >
               <Image
                 src={`/images/generateds/${item.image}`}
@@ -65,19 +60,19 @@ export function ImagesSection() {
                 className="h-auto w-full object-contain"
               />
 
-              <div className="absolute left-0 top-full flex h-full w-full items-end bg-gradient-to-b from-zinc-800/5 to-zinc-800/80 p-3 text-sm text-white transition-all group-hover:top-0">
-                <p className="line-clamp-3 whitespace-pre-line break-words text-base font-semibold">
-                  {item.title}
-                </p>
-              </div>
+              {/*<div className="absolute left-0 top-full flex h-full w-full items-end bg-gradient-to-b from-zinc-800/5 to-zinc-800/80 p-3 text-sm text-white transition-all group-hover:top-0">*/}
+              {/*  <p className="line-clamp-3 whitespace-pre-line break-words text-base font-semibold">*/}
+              {/*    {item.title}*/}
+              {/*  </p>*/}
+              {/*</div>*/}
             </div>
           ))}
         </div>
-        <div className="centered-col pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[150px] bg-gradient-to-t from-black to-transparent dark:from-gray-900">
-          <Button className="pointer-events-auto mt-14">
-            {dashboardDictionary.show_more_images_button_label}
-          </Button>
-        </div>
+        {/*<div className="centered-col pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[150px] bg-gradient-to-t from-black to-transparent dark:from-gray-900">*/}
+        {/*  <Button className="pointer-events-auto mt-14">*/}
+        {/*    {dashboardDictionary.show_more_images_button_label}*/}
+        {/*  </Button>*/}
+        {/*</div>*/}
       </div>
       {/*
           image details dialog

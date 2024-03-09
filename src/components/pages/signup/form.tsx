@@ -122,7 +122,7 @@ export function Form() {
               rules={{
                 required: formLang.pass_error1,
                 minLength: {
-                  value: 8,
+                  generatedCount: 8,
                   message: formLang.pass_error2,
                 },
               }}
