@@ -17,6 +17,10 @@ import { selectValues, selectValuesDescription } from "./contants";
 import RenderIf from "@/components/shared/RenderIf";
 import { cn } from "@/lib/utils";
 
+/**
+ * this component generate input type number for determine number of results
+ * @constructor
+ */
 function NumberOfResults() {
   const [searchParams, setSearchParams] = useCustomSearchParams();
   const {
@@ -65,12 +69,16 @@ function Selects({
     key: keyof typeof selectValues,
   ): keyof typeof form_section => `form_${key}`;
 
+  /**
+   * this function handle select change
+   * @param item , selected item
+   */
   function handleSelect(item: string) {
-    console.log(item);
-
+    // if item is auto remove it from search params
     if (item.toLowerCase() === "auto") {
       setSearchParams(keyInSearchParam);
     } else {
+      // find item in list and set it in search params
       const foundedItemInList = value.find(
         valueInList => item.toLowerCase() === valueInList.toLowerCase(),
       );
@@ -127,6 +135,11 @@ interface IProps {
   hiddenSelectResponseLang?: boolean;
 }
 
+/**
+ * this component generate options select boxes like tone , creativity , ...
+ * @param hiddenSelectResponseLang
+ * @constructor
+ */
 export function OptionsSelectBoxes({
   hiddenSelectResponseLang = false,
 }: IProps) {

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import type { ParamsType } from "@/services/types";
 import { getDictionary } from "@/lib/dictionary";
+import type { ParamsType } from "@/services/types";
 interface IProps {
   params: ParamsType;
 }
@@ -24,7 +24,7 @@ export async function Header({ params }: IProps) {
         <span className="text-lg font-semibold">{common.nerd_studio}</span>
       </div>
       <div className="flex items-center justify-start gap-2">
-        <span>{`Already playing with ClickUp?`}</span>
+        <span>{signup.already_have_account}</span>
         <Link href="login">
           <Button size="lg" className="text-sm font-bold shadow-2xl">
             {signup.login}

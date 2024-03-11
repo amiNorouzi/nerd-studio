@@ -3,16 +3,18 @@ import { useEffect, useRef, useState } from "react";
 export function useTextToSpeech(text: string) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  // const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(
-  //   null,
-  // );
   const utterance = useRef<SpeechSynthesisUtterance | null>(null);
 
   useEffect(() => {
     const synth = window.speechSynthesis;
     const u = new SpeechSynthesisUtterance(text);
 
-    // setUtterance(u);
+    // this method is called when the speech is finished
+    u.onend = () => {
+      setIsSpeaking(false);
+      setIsPaused(true);
+    };
+
     utterance.current = u;
 
     return () => {
@@ -52,7 +54,16 @@ export function useTextToSpeech(text: string) {
     setIsPaused(false);
   };
 
+  const handleToggleSpeak = () => {
+    if (isSpeaking) {
+      handlePauseSpeak();
+    } else {
+      handlePlaySpeak();
+    }
+  };
+
   return {
+    handleToggleSpeak,
     handlePauseSpeak,
     handlePlaySpeak,
     handleStopSpeak,

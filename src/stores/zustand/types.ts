@@ -84,3 +84,28 @@ export interface HistoryAction {
   resetHistory: () => void;
   setHistoryInfoOpen: (v: boolean) => void;
 }
+
+//chat
+export interface ChatHistoryItem {
+  id: string;
+  title: string;
+  description: string;
+  timeline: string;
+  file?: string | string[];
+  engine: string;
+  engineIcon: string;
+  prompt: string;
+}
+export interface ChatState {
+  files: File[];
+  chatTextBoxValue: string;
+  selectedHistoryItem: ChatHistoryItem | null;
+  historyList: ChatHistoryItem[];
+}
+export interface ChatAction {
+  setFiles: (v: File[]) => void;
+  addFiles: (v: File[]) => void;
+  setChatTextBoxValue: (v: string) => void;
+  setSelectHistoryItem: (v: ChatHistoryItem) => void;
+  setHistoryList: (v: ChatHistoryItem[]) => void;
+}

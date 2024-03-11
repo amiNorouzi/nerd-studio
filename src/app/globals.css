@@ -332,3 +332,7 @@ textarea {
 .formats > span {
   @apply rounded-md border border-primary bg-primary-light px-2 py-1 text-center text-xs uppercase;
 }
+
+.promptInputFormShadow {
+  box-shadow: 0px 12px 36px 0px rgba(101, 77, 132, 0.25);
+}

@@ -15,7 +15,12 @@
     "signup": {
       "login": "Login",
       "form_header": "Let's go!",
-      "signup": "Sign up"
+      "signup": "Sign up",
+      "already_have_account": "Already playing with Nerd Studio?"
+    },
+    "forget_pass": {
+      "send_me_link": "Send me the link",
+      "or_sign_in": "or sign in"
     },
     "dashboard": {
       "header_title": "Dashboard",
@@ -106,20 +111,43 @@
     },
     "ReWrite": {
       "form_rewrite_button": "ReWrite",
-      "text_input_placeholder": "paste your text that you wish to rewrite or improve ..."
+      "text_input_placeholder": "paste your text that you wish to rewrite or improve ...",
+      "text_label": "Text",
+        "tone_label": "Tone",
+        "style_label": "Style",
+        "Url_label": "URL Website",
+        "tags": "Tags"
     },
     "chat": {
-      "prompt_library_title": "Prompt Library",
-      "voice_input_button_label": "Voice Input",
+      "prompt_library_title": "Library Prompt",
+      "voice_input_button_label": "Voice",
       "send_button_label": "Send",
-      "prompt_input_placeholder": "Ask me anything",
+      "prompt_input_placeholder": "What is in your mind ?...",
       "new_chat_button_label": "New Chat",
       "share_button_label": "Shar Conversation",
       "speak_button_label": "Speak",
       "copy_button_label": "Copy",
       "chat_settings_button_label": "Chat Settings",
       "voice_switch_label": "Voice Response",
-      "respond_language_label": "Respond Language"
+      "respond_language_label": "Respond Language",
+      "saves_label": "Saves",
+      "save_button_label": "Save",
+      "edit_button_label": "Edit",
+      "retry_button_label": "Retry",
+      "highlight_button_label": "Highlight",
+      "title_nerd_welcome": "Hello! I’m Nerd.",
+      "description_nerd_welcome": "I can answer any question and you can easily trust me.Our chats stay between us. We never share your data for marketing.",
+      "chatHero_title": "According to your needs, I can do anything for you.",
+      "chat_setting_title": "To start the chat, you can guide me to display the best result",
+      "chat_setting_select_engine_title":"Choose Conversation Style",
+      "chat_setting_tools_title": "Conversation Tools",
+      "upload_zone_placeholder": "Select your Document that you want ",
+      "upload_zone_description": "(File Document / 5MB & 10Doc Max)",
+      "chat_tools_webAccess_label": "Web Access",
+        "chat_tools_painter_label": "Painter",
+      "stop_response_button_label": "Stop Responding",
+      "chat_tools_button_label": "Tools",
+      "upload_button_label": "Upload File"
     },
     "image": {
       "empty_result_message": "Start Generating",
@@ -159,7 +187,14 @@
       "submit_button_label": "AI Translate",
       "text_language_label": "Text Language",
       "translate_language_label": "Translation Language",
-      "text_input_placeholder": "paste your text that you wish to translate ..."
+      "text_input_placeholder": "paste your text that you wish to translate ...",
+      "text_language": "Text Language",
+      "translation_language": "Translation Language",
+      "text_label": "Text",
+      "tone_label": "Tone",
+      "style_label": "Style",
+      "Url_label": "URL Website",
+      "tags": "Tags"
     },
     "template": {
       "template_button_label": "Generate",
@@ -167,7 +202,8 @@
       "draw_mask_description": "Draw mask with brush on your image for masking",
       "download_ext_label": "Save As",
       "download_ext_description": "Select the file type and download.",
-      "download_input_placeholder": "Your file name"
+      "download_input_placeholder": "Your file name",
+      "prompt": "prompt:"
     },
     "code": {
       "page_title": "Code",
@@ -195,6 +231,9 @@
       "result_label": "Result",
       "explanation_label": "Explanation",
       "select_language_placeholder": "Select Language..."
+    },
+    "grammar": {
+      "history_info_textarea_label": "Include your text here to check"
     }
   },
   "common": {
@@ -239,6 +278,20 @@
 "no_result_message": "No results found."
   },
   "components": {
+    "history_box": {
+      "history_title": "History",
+      "history_search_placeholder": "Search"
+    },
+    "history_info": {
+      "information_title": "Information",
+      "edit_prompt": "Edit Prompt"
+    },
+    "history_items": {
+      "delete_title": "Delete history item",
+        "delete_description": "Are you sure you want to delete this item?",
+      "cancel": "Cancel",
+        "delete": "Delete"
+    },
     "apps_header": {
       "not_found": "Not Found",
       "translate": "Translate",
@@ -394,7 +447,13 @@
       "form_tone_description": "Set result tone of the text as needed",
       "form_advanced": "Advanced",
       "form_advanced_description": "More access for more accurate results",
-      "form_textarea_placeholder": "paste your text that you wish to rewrite or improve ..."
+      "form_textarea_placeholder": "paste your text that you wish to rewrite or improve ...",
+      "form_upload": "Upload",
+      "form_url_website": "URL Website",
+      "form_save": "Save",
+      "form_error": "Error",
+      "form_grammar_textarea_label": "Include your text here to check",
+      "form_grammar_textarea_placeholder": "paste your text that you wish to Grammar ..."
     },
     "editor_section": {
       "editor_header_copy_text_without_style": "Copy Text without style",
@@ -413,6 +472,7 @@
       "full_name_error_message": "Full name required!",
       "email": "Email",
       "email_placeholder": "example@site.com",
+      "email_placeholder2": "Enter your email",
       "email_error_message": "Email required!",
       "choose_pass": "Choose Password",
       "pass_placeholder": "Minimum 8 characters",
@@ -427,7 +487,8 @@
     "custom_textarea": {
       "voice_button_label": "Voice Input",
       "speak_button_label": "Speak",
-      "clear_button_label": "Clear"
+      "clear_button_label": "Clear",
+      "copy_button_label": "Copy"
     },
     "upload_pdf": {
       "upload_zone_placeholder": "Drag and drop your PDF here, or click to select files",

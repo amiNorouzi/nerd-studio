@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FiUpload } from "react-icons/fi";
 import { AiOutlineLink } from "react-icons/ai";
-import { TooltipForUploadedFile } from "./tooltip-for-uploaded-file";
+import { TooltipForUploadedFile } from "../../TooltipForUploadedFile";
 import { DialogForUpload } from "./dialog-for-upload";
 
 import { cn } from "@/lib/utils";
+import { useGetDictionary } from "@/hooks";
 
 interface IProps {
   setFiles: (files: File[]) => void;
@@ -14,12 +15,24 @@ interface IProps {
   files: File[];
   userUrl: string;
 }
+
+/**
+ * upload component
+ * @param setFiles - set files
+ * @param setUserUrl - set user url
+ * @param files - files
+ * @param userUrl - user url
+ * @constructor
+ */
 export function Upload({ setFiles, setUserUrl, files, userUrl }: IProps) {
   const [open, setOpen] = useState(false);
   const [documentFiles, setDocumentFiles] = useState<File[]>(files);
   const [fileType, setFileType] = useState<"file" | "url">("file");
   const [url, setUrl] = useState<string>(userUrl);
-
+  const {
+    components: { form_section },
+  } = useGetDictionary();
+  //TODO: move this handlers to custom hooks
   function handleDeleteFilesFromParent(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     fileIndex: number,
@@ -88,7 +101,7 @@ export function Upload({ setFiles, setUserUrl, files, userUrl }: IProps) {
           className="gap-2 text-sm text-muted-foreground"
         >
           <FiUpload className="stroke-muted-foreground" size={20} />
-          Upload
+          {form_section.form_upload}
         </Button>
       </div>
 

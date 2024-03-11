@@ -16,10 +16,17 @@ import {
 import { dirInLocalStorage } from "@/stores/browser-storage";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { Separator } from "@/components/ui/separator";
+import { useGetDictionary } from "@/hooks";
 
 interface IProps {
   children: React.ReactNode;
 }
+
+/**
+ * this component is a wrapper for history info content that open in a sheet
+ * @param children - history info content
+ * @constructor
+ */
 export function HistoryInfo({ children }: IProps) {
   const dir = dirInLocalStorage.get().dir ?? "ltr";
   const side = dir === "ltr" ? "right" : "left";
@@ -27,14 +34,16 @@ export function HistoryInfo({ children }: IProps) {
   const onOpenChange = useHistoryStore.use.setHistoryInfoOpen();
   const engine = useHistoryStore.use.selectedHistoryItem()?.engine;
   const engineIcon = useHistoryStore.use.selectedHistoryItem()?.engineIcon;
-
+  const {
+    components: { history_info },
+  } = useGetDictionary();
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side={side} className="w-full max-w-[400px] sm:max-w-lg">
         <SheetHeader>
           <SheetTitle className="flex gap-2 text-sm font-medium text-primary">
             <IoMdInformationCircleOutline size={20} />
-            Information
+            {history_info.information_title}
           </SheetTitle>
         </SheetHeader>
         <Separator className="my-4" />
@@ -54,7 +63,7 @@ export function HistoryInfo({ children }: IProps) {
           </SheetClose>
           <SheetClose asChild>
             <Button className="w-1/2" onClick={() => onOpenChange(false)}>
-              Edit Prompt
+              {history_info.edit_prompt}
             </Button>
           </SheetClose>
         </SheetFooter>

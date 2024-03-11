@@ -1,6 +1,7 @@
-import { getServerSession } from "next-auth";
-
-import ChatCard from "@/components/pages/chat/componets/ChatCard";
+"use client";
+import { UserMessageCard } from "./UserMessageCard";
+import { useSession } from "next-auth/react";
+import { AssistMessageCard } from "@/components/pages/chat/componets/AssistMessageCard";
 
 /**
  * List of chat messages used in chat page
@@ -10,56 +11,50 @@ import ChatCard from "@/components/pages/chat/componets/ChatCard";
  */
 
 export async function ChatList() {
-  const bot = "Chat Gpt";
-  const session = await getServerSession();
-
+  const { data: session } = useSession();
   return (
-    <div className="col flex-grow gap-6 pb-6">
-      <ChatCard
-        chatItem={{
-          name: session?.user?.name || "",
-          image: session?.user?.image || "",
-          message: "Tell me about your Iran",
-          isBot: false,
-          id: "1",
-        }}
-      />
-      <ChatCard
-        chatItem={{
-          name: bot,
-          image: "/images/gpt.jpeg",
-          message:
-            "Iran, officially known as the Islamic Republic of Iran, is a country located in Western Asia. It is bordered by Armenia, Azerbaijan, Turkmenistan, and the Caspian Sea to the north, Afghanistan and Pakistan to the east, Turkey and Iraq to the west, and the Persian Gulf and the Gulf of Oman to the south.\n" +
-            "\n" +
-            "Iran has a rich history dating back thousands of years, with a significant influence on global culture, art, and science. The country is known for its ancient Persian Empire, which was one of the largest empires in history. Iran is also home to a diverse population, with a majority of the population being Persian, but also including significant ethnic minorities such as Azeris, Kurds, Arabs, and Balochs.\n" +
-            "\n" +
-            "The capital of Iran is Tehran, which is the largest city in the country and serves as its political and cultural center. Iran is a predominantly Muslim country, with the majority of the population practicing Shia Islam.\n" +
-            "\n" +
-            "Iran is known for its beautiful architecture, stunning landscapes, and rich cultural heritage. The country is also a major player in the global oil industry, with significant reserves of oil and natural gas. However, Iran has faced economic challenges due to international sanctions and political tensions with other countries.",
-          isBot: true,
-          id: "1",
-        }}
-      />
+    <div className="col  w-full max-w-4xl flex-grow gap-6 pb-6 ">
+      {data.map(item => {
+        const image = session?.user?.image ?? item[0].image;
+        const name = session?.user?.name ?? item[0].name;
+        return (
+          <>
+            <UserMessageCard
+              key={item[0].id}
+              {...item[0]}
+              image={image}
+              name={name}
+            />
 
-      <ChatCard
-        chatItem={{
-          name: session?.user?.name || "",
-          image: session?.user?.image || "",
-          message: "About iran food",
-          isBot: false,
-          id: "1",
-        }}
-      />
-      <ChatCard
-        chatItem={{
-          name: bot,
-          image: "/images/gpt.jpeg",
-          message:
-            "Iranian cuisine is a blend of various culinary traditions that have developed over centuries within the cultural sphere of Iran. It is known for its use of fresh herbs, fruits, vegetables, and spices, as well as its intricate cooking techniques.",
-          isBot: true,
-          id: "1",
-        }}
-      />
+            <AssistMessageCard key={item[1].id} {...item[1]} />
+          </>
+        );
+      })}
     </div>
   );
 }
+
+const contantPropmt =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n";
+const constantPrompt2 =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+const data = Array.from({ length: 5 }, (v, i) => {
+  return [
+    {
+      id: String(i),
+      prompt: Array.from({ length: 3 }, (v, i) => `${contantPropmt} ${i}`),
+      image: "/images/logo.png",
+      timeLine: "5 Min ago",
+      name: "kasra",
+      role: "user",
+    },
+    {
+      id: String(i) + "answer",
+      prompt: Array.from({ length: 3 }, (v, i) => `${constantPrompt2} ${i}`),
+      image: "/images/gemni.jpeg",
+      timeLine: "5 Min ago",
+      name: "kasra",
+      role: "assistance",
+    },
+  ];
+});

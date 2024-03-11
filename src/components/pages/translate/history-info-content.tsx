@@ -36,23 +36,24 @@ export function HistoryInfoContent() {
   const {
     common: { copy },
     components: { custom_textarea: dictionary },
+    page: { translate },
   } = useGetDictionary();
   return (
     <div className="grid gap-9 ">
       {/* show selected language*/}
       <div className="grid grid-cols-2 gap-16">
         <div className="grid items-start gap-3">
-          <span>Text Language</span>
+          <span>{translate.text_language}</span>
           <DivWrapper>Auto detect</DivWrapper>
         </div>
         <div className="grid items-start gap-3">
-          <span>Translation Language</span>
+          <span>{translate.translation_language}</span>
           <DivWrapper>English</DivWrapper>
         </div>
       </div>
       {/* show prompt and inputs*/}
       <div className="grid items-start gap-3">
-        <span>Text</span>
+        <span>{translate.text_label}</span>
         <div className="relative">
           <textarea
             defaultValue={selectedHistoryItem?.question}
@@ -92,23 +93,23 @@ export function HistoryInfoContent() {
       {/*show options*/}
       <div className="grid grid-cols-2 gap-16">
         <div className="grid items-start gap-3">
-          <span>Tone</span>
+          <span>{translate.tone_label}</span>
           <DivWrapper>1024 x 1024px</DivWrapper>
         </div>
         <div className="grid items-start gap-3">
-          <span>Style</span>
+          <span>{translate.style_label}</span>
           <DivWrapper>Anime</DivWrapper>
         </div>
       </div>
       {/*show url or file*/}
       <div className="grid items-start gap-3">
-        <span>URL Website</span>
+        <span>{translate.Url_label}</span>
         <DivWrapper>http://www.google.com</DivWrapper>
       </div>
 
       {/*show tags*/}
       <div className="grid items-start gap-3">
-        <span>Tags</span>
+        <span>{translate.tags}</span>
         <div className="flex flex-wrap gap-1">
           {tags.map(tag => (
             <span

@@ -31,6 +31,13 @@ const startIcon = {
   notFav: FaRegStar,
 } as const;
 
+/**
+ * form section for Rewrite and template
+ * @param template
+ * @param buttonContent
+ * @param mainTextAreaPlaceholder
+ * @constructor
+ */
 export function FormSection({
   template,
   buttonContent,

@@ -18,6 +18,11 @@ interface IProps {
   params: ParamsType;
 }
 
+/**
+ * grammar form section
+ * @param params
+ * @constructor
+ */
 export function GrammarFormSection({ params }: IProps) {
   const {
     page: { translate },

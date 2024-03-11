@@ -31,7 +31,7 @@ type EXT = "png" | "webp" | "jpg" | "pdf";
 const ImageDownloader = ({ image }: { image: string }) => {
   const {
     common: { download },
-    page: { image: imageDictionary },
+    page: { template },
   } = useGetDictionary();
   //save ext
   const [format, setFormat] = useState<EXT>("png");
@@ -54,7 +54,7 @@ const ImageDownloader = ({ image }: { image: string }) => {
     >
       {/*select ext for download*/}
       <div className="col gap-2">
-        <Label htmlFor="format">{imageDictionary.download_ext_label}</Label>
+        <Label htmlFor="format">{template.download_ext_label}</Label>
         <Select onValueChange={val => setFormat(val as EXT)}>
           <SelectTrigger id="format" className="h-8 w-full focus:ring-0">
             <SelectValue placeholder="PNG" />
@@ -67,12 +67,12 @@ const ImageDownloader = ({ image }: { image: string }) => {
           </SelectContent>
         </Select>
         <p className="pl-2 text-xs font-normal text-muted-foreground-light">
-          {imageDictionary.download_ext_description}
+          {template.download_ext_description}
         </p>
 
         {/*input for filename*/}
         <Input
-          placeholder={imageDictionary.download_input_placeholder}
+          placeholder={template.download_input_placeholder}
           value={fileName}
           onChange={event => setFileName(event.target.value)}
           className=" my-2 w-full"

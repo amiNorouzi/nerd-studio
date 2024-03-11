@@ -10,6 +10,12 @@ import { cn } from "@/lib/utils";
 interface IProps {
   children: React.ReactNode;
 }
+
+/**
+ * this component is a wrapper for editor section
+ * @param children
+ * @constructor
+ */
 export function EditorSection({ children }: IProps) {
   return (
     <div
@@ -20,8 +26,11 @@ export function EditorSection({ children }: IProps) {
       <div className="flex h-fit divide-x  overflow-hidden rounded-2xl border shadow-2xl lg:h-full">
         {/* editor section*/}
         <div className="h-fit overflow-hidden    lg:h-full">
+          {/* editor header like download and save and workspace */}
           <EditorSectionHeader />
+          {/* editor */}
           <Editor />
+          {/*editor footer contains number of words or char ,...*/}
           <EditorSectionFooter />
         </div>
         {/* history section*/}
