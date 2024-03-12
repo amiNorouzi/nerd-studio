@@ -33,6 +33,8 @@ import { MoreDropdownMenu } from "./more-dropdown-menu";
 import { FontSize } from "./font-size";
 import { FontFamily } from "./font-family";
 import { LineHeightDropdownMenu } from "./line-height-dropdown-menu";
+import { AiModal } from "@/components/plate-ui/ai-modal";
+import { AiOptionsDropdownMenu } from "@/components/plate-ui/ai-options-dropdown-menu";
 
 interface IProps {
   isReadOnly?: boolean;
@@ -52,6 +54,8 @@ export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
         {!isReadOnly && !readOnly && (
           <>
             <ToolbarGroup noSeparator>
+              <AiModal />
+              <AiOptionsDropdownMenu />
               <InsertDropdownMenu />
               <TurnIntoDropdownMenu />
               <FontSize />
