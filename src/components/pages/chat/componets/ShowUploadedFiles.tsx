@@ -9,6 +9,14 @@ interface IProps {
   ) => void;
   children?: React.ReactNode;
 }
+
+/**
+ * this component is for show uploaded files
+ * @param children - upload zone - optional
+ * @param files - files to show
+ * @param handleDeleteFile - function to delete file
+ * @constructor
+ */
 export function ShowUploadedFiles({
   children,
   files,

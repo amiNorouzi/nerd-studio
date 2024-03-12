@@ -7,7 +7,12 @@ import { useGetDictionary, useSpeechToText } from "@/hooks";
 import useAutosizeTextArea from "@/hooks/useAutosizeTextArea";
 import { cn } from "@/lib/utils";
 
+/**
+ * this component is for prompt input text box and microphone button
+ * @constructor
+ */
 export function PromptInputTextBox() {
+  // textarea value that store in zustand
   const prompt = useChatStore.use.chatTextBoxValue();
   const setPrompt = useChatStore.use.setChatTextBoxValue();
   const { handleToggleRecording, isRecording } = useSpeechToText({
@@ -19,6 +24,7 @@ export function PromptInputTextBox() {
     page: { chat: chatDictionary },
   } = useGetDictionary();
 
+  // this hook is for resize text area
   useAutosizeTextArea(textAreaRef.current, prompt);
 
   return (

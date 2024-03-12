@@ -1,0 +1,1 @@
+export { useHandleUpload } from "./useHandleUpload";

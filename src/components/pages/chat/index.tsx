@@ -30,6 +30,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
         <div className="col mx-auto h-full w-full items-center overflow-y-auto p-2 lg:p-4">
           {/* chat list or chat option*/}
           <Content>
+            {/*these children are for Options component*/}
             <Title lang={lang} />
             <ChatHero lang={lang} />
             <ChatSettingAndUpload />
@@ -42,10 +43,12 @@ export default function ChatPage({ lang }: { lang: Locale }) {
             <RenderIf isTrue={isChatListValid === "chatList"}>
               <ChatSettings />
             </RenderIf>
+            {/*prompt input (text box)*/}
             <PromptInput setChatList={setChatList} />
           </div>
         </div>
 
+        {/*history box open when history button in header clicked (value of history button save in zustand)*/}
         <HistoryBox>
           <HistoryItems />
         </HistoryBox>

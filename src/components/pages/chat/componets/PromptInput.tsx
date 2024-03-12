@@ -69,6 +69,7 @@ export function PromptInput({
 
   return (
     <div className="flex w-full items-start gap-4 ">
+      {/*new chat button*/}
       <MyTooltip title={chatDictionary.new_chat_button_label}>
         <Button
           variant="ghost"
@@ -84,6 +85,7 @@ export function PromptInput({
         onKeyDown={handleKeyDown}
         className="promptInputFormShadow col mx-auto h-fit w-full  rounded-lg border  border-primary-dark bg-primary-light p-2 lg:px-4 lg:py-3"
       >
+        {/*prompt input text box and uploaded files*/}
         <div className=" col items-start">
           <ShowUploadedFiles
             files={files}
@@ -92,6 +94,7 @@ export function PromptInput({
           <PromptInputTextBox />
         </div>
         <div className="flex items-end gap-3">
+          {/*upload button that when click on it open modal*/}
           <UploadDialog
             setOpen={setOpenUploadDialog}
             open={openUploadDialog}
@@ -109,6 +112,7 @@ export function PromptInput({
           </UploadDialog>
           {/*prompt library button*/}
           <PromptLibraryDialog />
+          {/*save button*/}
           <MyTooltip title={chatDictionary.saves_label}>
             <Button
               variant="ghost"

@@ -82,7 +82,9 @@ export function UserMessageCard({ timeLine, prompt, image, name }: IProps) {
                 />
               </Button>
             </MyTooltip>
+            {/*prompt*/}
             <p
+              // when user click on edit button we make prompt editable
               contentEditable={isEditPrompt}
               className="focus:ouline-none border-none text-sm outline-none lg:text-lg"
             >
@@ -92,6 +94,7 @@ export function UserMessageCard({ timeLine, prompt, image, name }: IProps) {
 
           {/* footer icon and time*/}
           <div className="flex">
+            {/*if user click on edit button we show save and cancel button else we show copy, save and edit button*/}
             {isEditPrompt ? (
               <div className="flex w-full justify-center gap-3 ">
                 <Button onClick={() => setIsEditPrompt(false)}>
@@ -150,6 +153,7 @@ export function UserMessageCard({ timeLine, prompt, image, name }: IProps) {
             )}
           </div>
         </div>
+        {/*pagination*/}
         <div className="flex items-center gap-2 text-muted-foreground">
           <Button
             className="fit p-0"

@@ -13,38 +13,32 @@ import { Button } from "@/components/ui/button";
 import { ShowUploadedFiles } from "./ShowUploadedFiles";
 import { useChatStore } from "@/stores/zustand/chat-store";
 import type { StateSetterType } from "@/services/types";
+import { useHandleUpload } from "@/components/pages/chat/hooks";
 
 interface IProps {
   children: React.ReactNode;
   open: boolean;
   setOpen: StateSetterType<boolean>;
 }
+
+/**
+ * this component is for upload file and open in modal
+ * @param children - trigger button
+ * @param open - open modal
+ * @param setOpen - set open modal
+ * @constructor
+ */
 export function UploadDialog({ children, open, setOpen }: IProps) {
-  const initialFile = useChatStore.use.files();
-  const handleSave = useChatStore.use.setFiles();
-  const [documentFiles, setDocumentFiles] = useState<File[]>(initialFile);
+  const {
+    documentFiles,
+    handleDeleteFile,
+    handleSelectFile,
+    handleSaveButton,
+  } = useHandleUpload(setOpen);
   const {
     page: { chat },
   } = useGetDictionary();
 
-  function handleSaveButton() {
-    handleSave(documentFiles);
-    setOpen(false);
-  }
-  function handleDeleteFile(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    fileIndex: number,
-  ) {
-    e.stopPropagation();
-    const filterList = documentFiles.filter(
-      (item, index) => fileIndex !== index,
-    );
-    setDocumentFiles(filterList);
-  }
-
-  function handleSelectFile(file: File[]) {
-    setDocumentFiles(v => [...v, ...file]);
-  }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -52,7 +46,7 @@ export function UploadDialog({ children, open, setOpen }: IProps) {
         <DialogHeader className="m-0 p-6 pb-0">
           <DialogTitle className="flex gap-2 text-2xl font-medium">
             <FiUpload size={35} />
-            Upload
+            {chat.upload_label}
           </DialogTitle>
         </DialogHeader>
         <div className="flex flex-1 flex-col justify-between p-9 pt-3">
@@ -71,7 +65,7 @@ export function UploadDialog({ children, open, setOpen }: IProps) {
 
           <div className="flex w-full justify-end">
             <Button className="w-full lg:w-1/2" onClick={handleSaveButton}>
-              Save
+              {chat.save_button_label}
             </Button>
           </div>
         </div>

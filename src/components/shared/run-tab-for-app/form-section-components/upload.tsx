@@ -1,13 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { FiUpload } from "react-icons/fi";
 import { AiOutlineLink } from "react-icons/ai";
 import { TooltipForUploadedFile } from "../../TooltipForUploadedFile";
 import { DialogForUpload } from "./dialog-for-upload";
 
-import { cn } from "@/lib/utils";
 import { useGetDictionary } from "@/hooks";
+import { useHandleUpload } from "./useHandleUpload";
+import { cn } from "@/lib/utils";
 
 interface IProps {
   setFiles: (files: File[]) => void;
@@ -24,41 +25,25 @@ interface IProps {
  * @param userUrl - user url
  * @constructor
  */
-export function Upload({ setFiles, setUserUrl, files, userUrl }: IProps) {
-  const [open, setOpen] = useState(false);
-  const [documentFiles, setDocumentFiles] = useState<File[]>(files);
-  const [fileType, setFileType] = useState<"file" | "url">("file");
-  const [url, setUrl] = useState<string>(userUrl);
+export function Upload(props: IProps) {
+  const { userUrl, files } = props;
+  const {
+    fileType,
+    open,
+    documentFiles,
+    url,
+    setDocumentFiles,
+    setUrl,
+    setOpen,
+    handleDeleteFilesFromParent,
+    handleDeleteUrl,
+    handleSave,
+    handleTriggerOpenButton,
+  } = useHandleUpload(props);
+
   const {
     components: { form_section },
   } = useGetDictionary();
-  //TODO: move this handlers to custom hooks
-  function handleDeleteFilesFromParent(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    fileIndex: number,
-  ) {
-    e.stopPropagation();
-    const filterList = files.filter((item, index) => fileIndex !== index);
-    setFiles(filterList);
-  }
-  function handleDeleteUrl() {
-    setUserUrl("");
-  }
-  function handleSave(tab: string) {
-    if (tab === "document") {
-      setFiles(documentFiles);
-      setFileType("file");
-    } else {
-      setUserUrl(url);
-      setFileType("url");
-    }
-    setOpen(false);
-  }
-  function handleTriggerOpenButton() {
-    setDocumentFiles(files);
-    setUrl(userUrl);
-    setOpen(true);
-  }
 
   const isFileOrUrlValid =
     (fileType === "file" && files.length > 0) ||
@@ -104,7 +89,7 @@ export function Upload({ setFiles, setUserUrl, files, userUrl }: IProps) {
           {form_section.form_upload}
         </Button>
       </div>
-
+      {/*upload modal*/}
       <DialogForUpload
         open={open}
         setOpen={setOpen}

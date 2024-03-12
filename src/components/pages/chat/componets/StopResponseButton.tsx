@@ -5,6 +5,13 @@ import { cn } from "@/lib/utils";
 import { useGetDictionary } from "@/hooks";
 
 interface IProps extends ButtonProps {}
+
+/**
+ * this component is for stop responding that comes from AI
+ * @param className
+ * @param props
+ * @constructor
+ */
 export function StopResponseButton({ className, ...props }: IProps) {
   const {
     page: { chat },

@@ -132,6 +132,7 @@
       "respond_language_label": "Respond Language",
       "saves_label": "Saves",
       "save_button_label": "Save",
+      "upload_label": "Upload",
       "edit_button_label": "Edit",
       "retry_button_label": "Retry",
       "highlight_button_label": "Highlight",
@@ -147,7 +148,11 @@
         "chat_tools_painter_label": "Painter",
       "stop_response_button_label": "Stop Responding",
       "chat_tools_button_label": "Tools",
-      "upload_button_label": "Upload File"
+      "upload_button_label": "Upload File",
+      "delete_history_item" : "Delete history item",
+      "delete_history_description" : "Are you sure you want to delete this item?",
+      "delete": "Delete",
+    "cancel": "Cancel"
     },
     "image": {
       "empty_result_message": "Start Generating",
