@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { useMediaQuery } from "usehooks-ts";
 import {
@@ -7,6 +7,7 @@ import {
   BsChevronDown as ChevronDown,
 } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
+import { type ClassValue } from "clsx";
 
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
@@ -259,7 +260,7 @@ function SettingPopover({ engine }: SettingPopoverProps) {
  * to show available engines with settings(Temperature,...)
  * @constructor
  */
-function SelectEngineDropDown() {
+function SelectEngineDropDown({ buttonStyle }: { buttonStyle?: ClassValue }) {
   const [searchParams, setSearchParams] = useCustomSearchParams();
   const [open, setOpen] = useState(false);
   const engine = searchParams.get("engine") ?? engines[0];
@@ -285,7 +286,7 @@ function SelectEngineDropDown() {
           <DrawerTrigger asChild>
             <Button
               variant="outline"
-              className={cn("w-full justify-between px-3 py-2")}
+              className={cn("w-full justify-between px-3 py-2", buttonStyle)}
             >
               <div className="flex justify-start gap-2">
                 <div className="relative h-5 w-5  overflow-hidden rounded-full">
@@ -322,7 +323,9 @@ function SelectEngineDropDown() {
   return (
     <Select value={engine} onValueChange={handleSelect}>
       <div className="relative">
-        <SelectTrigger className={cn("m-0 w-full !text-xsm text-black")}>
+        <SelectTrigger
+          className={cn("m-0 w-full !text-xsm text-black", buttonStyle)}
+        >
           <SelectValue placeholder="Select an option" className="!text-xsm" />
         </SelectTrigger>
         <SettingPopover engine={engine} />
@@ -360,16 +363,36 @@ function SelectEngineDropDown() {
   );
 }
 
-export function SelectEngine() {
+interface SelectEngineProps extends React.ComponentPropsWithoutRef<"div"> {
+  buttonStyle?: ClassValue;
+  title?: string;
+  titleStyle?: string;
+}
+export function SelectEngine({
+  className,
+  buttonStyle,
+  title,
+  titleStyle,
+  ...divProps
+}: SelectEngineProps) {
   const {
-    page: { ReWrite },
+    components: { select_engine },
   } = useGetDictionary();
   return (
-    <div className="flex flex-col justify-center gap-2 ">
-      <span className="m-0 flex items-baseline gap-2 text-sm font-normal">
-        Engines
+    <div
+      className={cn("flex flex-col justify-center gap-2", className)}
+      {...divProps}
+    >
+      <span
+        className={cn(
+          "m-0 flex items-baseline gap-2 text-sm font-normal",
+          titleStyle,
+        )}
+      >
+        {title ?? select_engine.engines}
       </span>
-      <SelectEngineDropDown />
+
+      <SelectEngineDropDown buttonStyle={buttonStyle} />
     </div>
   );
 }

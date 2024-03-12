@@ -11,16 +11,28 @@ import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 
 import { cn } from "@/lib/utils";
+import { useGetDictionary } from "@/hooks";
 
 interface IProps extends React.ComponentPropsWithoutRef<"div"> {
   children: React.ReactNode;
 }
+
+/**
+ * this component is a wrapper for history content(history items)
+ * @param children - history items
+ * @param className
+ * @param props
+ * @constructor
+ */
 export function HistoryBox({ children, className, ...props }: IProps) {
   const searchValue = useHistoryStore.use.historySearch();
   const isHistoryOpen = useHistoryStore.use.isHistoryOpen();
   const setSearch = useHistoryStore.use.setHistorySearch();
   const setHistoryIsOpen = useHistoryStore.use.setHistoryIsOpen();
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const {
+    components: { history_box },
+  } = useGetDictionary();
   const header = (
     <>
       {/*header and search section*/}
@@ -28,7 +40,7 @@ export function HistoryBox({ children, className, ...props }: IProps) {
         <div className=" flex w-full items-center justify-between border-b py-1.5">
           <div className="flex items-center justify-start gap-1 text-sm font-medium text-primary">
             <TbHistory size={20} />
-            History
+            {history_box.history_title}
           </div>
           <div>
             <Button
@@ -46,7 +58,7 @@ export function HistoryBox({ children, className, ...props }: IProps) {
             value={searchValue}
             onChange={e => setSearch(e.target.value)}
             type="search"
-            placeholder="Search"
+            placeholder={history_box.history_search_placeholder}
             className="border-none bg-white px-0 outline-none ring-0"
           />
         </div>

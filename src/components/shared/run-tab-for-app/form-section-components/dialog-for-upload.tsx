@@ -1,27 +1,28 @@
 import React, { useState } from "react";
+import { TbFileUpload } from "react-icons/tb";
+import { AiOutlineLink } from "react-icons/ai";
+import { FiUpload } from "react-icons/fi";
+
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { FiUpload } from "react-icons/fi";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TbFileUpload } from "react-icons/tb";
-import { AiOutlineLink } from "react-icons/ai";
-import { TooltipForUploadedFile } from "./tooltip-for-uploaded-file";
-import { UploadDocuments } from "@/components/shared";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
+import { UploadZone, TooltipForUploadedFile } from "@/components/shared";
+
 import { useGetDictionary } from "@/hooks";
-import { StateSetterType } from "@/services/types";
+import type { StateSetterType } from "@/services/types";
 
 interface IProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   handleSave: (v: string) => void;
-
   documentFiles: File[];
   setDocumentFiles: StateSetterType<File[]>;
   url: string;
@@ -38,7 +39,10 @@ export function DialogForUpload({
 }: IProps) {
   const [tab, setTab] = useState("document");
 
-  const { common } = useGetDictionary();
+  const {
+    common,
+    components: { form_section },
+  } = useGetDictionary();
   function handlePdfFile(file: File[]) {
     setDocumentFiles(v => [...v, ...file]);
   }
@@ -60,7 +64,7 @@ export function DialogForUpload({
         <DialogHeader className="m-0 p-6">
           <DialogTitle className="flex gap-2 text-2xl font-medium">
             <FiUpload size={35} />
-            Upload
+            {form_section.form_upload}
           </DialogTitle>
         </DialogHeader>
         <div className="flex flex-1 flex-col">
@@ -75,14 +79,14 @@ export function DialogForUpload({
                 className=" flex gap-2 rounded-none text-muted-foreground shadow-none data-[state=active]:border-b data-[state=active]:border-primary data-[state=active]:bg-primary-light data-[state=active]:text-primary  data-[state=active]:shadow-none"
               >
                 <TbFileUpload size={20} />
-                Upload
+                {form_section.form_upload}
               </TabsTrigger>
               <TabsTrigger
                 value="url"
                 className="flex gap-2 rounded-none text-muted-foreground shadow-none data-[state=active]:border-b data-[state=active]:border-primary data-[state=active]:bg-primary-light data-[state=active]:text-primary  data-[state=active]:shadow-none"
               >
                 <AiOutlineLink size={20} />
-                Url Website
+                {form_section.form_url_website}
               </TabsTrigger>
             </TabsList>
             <TabsContent value="document" className="p-6">
@@ -99,7 +103,7 @@ export function DialogForUpload({
                     ))}
                   </div>
                 )}
-                <UploadDocuments
+                <UploadZone
                   documentFiles={documentFiles}
                   setDocumentFiles={handlePdfFile}
                   className="mb-0 rounded-none border-none lg:mb-0 xl:mb-0"
@@ -126,7 +130,7 @@ export function DialogForUpload({
 
           <div className="flex w-full justify-end p-6">
             <Button className="w-1/2" onClick={() => handleSave(tab)}>
-              Save
+              {form_section.form_save}
             </Button>
           </div>
         </div>

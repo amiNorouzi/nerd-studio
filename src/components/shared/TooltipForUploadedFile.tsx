@@ -1,15 +1,16 @@
+import React from "react";
+import { MdDeleteOutline } from "react-icons/md";
+import { FaRegFilePdf } from "react-icons/fa";
+import { AiOutlineFileWord } from "react-icons/ai";
+
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { FaRegFilePdf } from "react-icons/fa";
-import { AiOutlineFileWord } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { MdDeleteOutline } from "react-icons/md";
-import React from "react";
 
 interface IProps {
   file: File;
@@ -19,6 +20,14 @@ interface IProps {
   ) => void;
   index: number;
 }
+
+/**
+ * this component is a tooltip and icon button for delete for uploaded file
+ * @param file - uploaded file
+ * @param handleDeleteFiles - delete file function
+ * @param index - file index
+ * @constructor
+ */
 export function TooltipForUploadedFile({
   file,
   handleDeleteFiles,

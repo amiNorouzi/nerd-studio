@@ -50,8 +50,7 @@ export function GrammarTextBox({
   ...props
 }: IProps) {
   const {
-    common: { copy },
-    components: { custom_textarea: dictionary },
+    components: { custom_textarea: dictionary, form_section },
   } = useGetDictionary();
   //for copy value
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
@@ -60,7 +59,7 @@ export function GrammarTextBox({
     <div className="grid gap-2">
       <div className="flex flex-row items-end justify-between">
         <Label htmlFor="textbox" className={cn("text-sm font-medium")}>
-          Include your text here to check
+          {form_section.form_grammar_textarea_label}
         </Label>
       </div>
       <div className="relative grid h-full w-full gap-2">
@@ -81,7 +80,7 @@ export function GrammarTextBox({
             value={value}
             onChange={e => setValue?.(e.target.value)}
             maxLength={maxLength}
-            placeholder="paste your text that you wish to Grammar ..."
+            placeholder={form_section.form_grammar_textarea_placeholder}
             {...props}
           />
 
@@ -89,7 +88,7 @@ export function GrammarTextBox({
           <div className="absolute bottom-8 start-4 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
             <ErrorIcon />
             <span className="font-sans text-xs text-muted-foreground-light">
-              Error
+              {form_section.form_error}
             </span>
           </div>
 
@@ -106,7 +105,7 @@ export function GrammarTextBox({
             />
             <MinimalButton
               Icon={isCopied ? LuCopyCheck : LuCopy}
-              title={copy}
+              title={dictionary.copy_button_label}
               onClick={() => handleCopy(value!.toString())}
             />
             {!!renderMoreActions && renderMoreActions()}

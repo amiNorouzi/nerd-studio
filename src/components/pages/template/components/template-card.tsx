@@ -61,7 +61,7 @@ function InfoDialog({ template, open, onOpenChange }: InfoDialogProps) {
         </DialogHeader>
         <div className="flex w-full flex-col items-start gap-5">
           <div className="flex flex-col gap-2">
-            <span className="text-base font-semibold"> prompt:</span>
+            <span className="text-base font-semibold"> {template.prompt}</span>
             <div className="rounded bg-muted-foreground p-4 text-start text-sm text-muted">
               {prompt}
             </div>

@@ -11,15 +11,23 @@ import {
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { cn } from "@/lib/utils";
 import type { HistoryItem } from "@/stores/zustand/types";
+import { useGetDictionary } from "@/hooks";
 
 interface DeletePopoverProps {
   item: HistoryItem;
 }
+
+/**
+ * this component is a popover for delete history item
+ * @param item - history item
+ * @constructor
+ */
 function DeletePopOver({ item }: DeletePopoverProps) {
   const [open, setOpen] = useState(false);
-
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
-
+  const {
+    components: { history_items },
+  } = useGetDictionary();
   const isItemSelected = (id: string) => selectedHistoryItem?.id === id;
 
   return (
@@ -48,8 +56,10 @@ function DeletePopOver({ item }: DeletePopoverProps) {
         collisionPadding={30}
       >
         <div>
-          <h3 className="text-base font-semibold">Delete history item</h3>
-          <p>Are you sure you want to delete this item?</p>
+          <h3 className="text-base font-semibold">
+            {history_items.delete_title}
+          </h3>
+          <p>{history_items.delete_description}</p>
         </div>
         <div className="flex justify-end gap-2">
           <Button
@@ -59,7 +69,7 @@ function DeletePopOver({ item }: DeletePopoverProps) {
               setOpen(false);
             }}
           >
-            Cancel
+            {history_items.cancel}
           </Button>
 
           <Button
@@ -70,7 +80,7 @@ function DeletePopOver({ item }: DeletePopoverProps) {
               setOpen(false);
             }}
           >
-            Delete
+            {history_items.delete}
           </Button>
         </div>
       </PopoverContent>
@@ -81,6 +91,12 @@ function DeletePopOver({ item }: DeletePopoverProps) {
 interface IProps {
   appName: string;
 }
+
+/**
+ * this component is a list of history items
+ * @param appName
+ * @constructor
+ */
 export function HistoryItems({ appName }: IProps) {
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
@@ -140,6 +156,7 @@ export function HistoryItems({ appName }: IProps) {
   );
 }
 
+// this is test data for history items
 const randomIndex = (): number => Math.floor(Math.random() * 5);
 const randomEngine = () => Object.entries(engines)[randomIndex()];
 const engines = {

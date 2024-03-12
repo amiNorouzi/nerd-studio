@@ -28,7 +28,8 @@ export function LoginPage() {
 
   const {
     common,
-    page: { login },
+    page: { login, signup },
+    components: { form },
   } = useGetDictionary();
   return (
     <section className=" z-50 flex w-full flex-col items-center justify-center gap-8 p-3">
@@ -36,9 +37,9 @@ export function LoginPage() {
         onSubmit={handleSubmit(data => console.log(data))}
         className="flex h-fit w-full max-w-[480px] flex-col gap-5 rounded bg-white p-5 shadow-2xl sm:px-16 sm:py-10"
       >
-        <h2 className="text-center text-lg font-bold">Welcome back!</h2>
+        <h2 className="text-center text-lg font-bold">{login.welcome}</h2>
         <div className="grid grid-cols-1 items-start gap-2">
-          <Label htmlFor="userName">User Name</Label>
+          <Label htmlFor="userName">{common.user_name}</Label>
 
           <FormField
             control={control}
@@ -48,8 +49,8 @@ export function LoginPage() {
             type="text"
             className="relative"
             inputClass="ps-8 h-[40px]"
-            placeholder="Enter your email or username"
-            rules={{ required: "User name required!" }}
+            placeholder={login.user_name_placeholder}
+            rules={{ required: login.user_name_error_message }}
           >
             <CiMail
               className={cn(
@@ -61,20 +62,20 @@ export function LoginPage() {
           </FormField>
         </div>
         <div className="grid grid-cols-1 items-start gap-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{common.password}</Label>
           <FormField
             control={control}
             id="password"
             name={"password"}
             type="password"
-            placeholder="Enter password"
+            placeholder={login.pass_placeholder}
             className="relative "
             inputClass="ps-8 pe-[120px] h-[40px]"
             rules={{
-              required: "Password required!",
+              required: form.pass_error1,
               minLength: {
                 value: 8,
-                message: "Password must be 8 characters or longer! ",
+                message: form.pass_error2,
               },
             }}
           >
@@ -93,7 +94,7 @@ export function LoginPage() {
                 variant="ghost"
                 className="h-14 p-1 text-primary hover:bg-inherit hover:text-primary hover:underline hover:decoration-dotted"
               >
-                Forget Password?
+                {login.forget_pass}
               </Button>
             </Link>
           </FormField>
@@ -102,15 +103,15 @@ export function LoginPage() {
           type="submit"
           className="h-[50px] w-full text-sm font-extrabold"
         >
-          Log In
+          {login.login}
         </Button>
-        <span className="text-center">or</span>
+
         <GoogleSignInButton />
       </form>
       <div className="text-white">
-        {"Don't have an account? "}
+        {login.dont_have_account + " "}
         <Link href="signup" className="underline">
-          Sing up
+          {signup.signup}
         </Link>
       </div>
     </section>

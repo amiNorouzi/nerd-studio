@@ -1,6 +1,7 @@
 import { Button, ButtonProps } from "@/components/ui/button";
 import type { IconType } from "react-icons";
 import { MyTooltip } from "@/components/shared/myTooltip";
+import { cn } from "@/lib/utils";
 
 interface IActionButtonProps extends ButtonProps {
   title: string;
@@ -20,12 +21,17 @@ function ActionButton({
   title,
   Icon,
   iconClassname,
+  className,
   ...otherProps
 }: IActionButtonProps) {
   return (
     <>
       <MyTooltip title={title}>
-        <Button variant="ghost" className="fit p-0.5" {...otherProps}>
+        <Button
+          variant="ghost"
+          className={cn("fit p-0.5", className)}
+          {...otherProps}
+        >
           <Icon size="1rem" className={iconClassname} />
         </Button>
       </MyTooltip>

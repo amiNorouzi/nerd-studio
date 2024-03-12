@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { PromptLibrary } from "@/components/svg-icons";
+import { Books } from "@/components/svg-icons";
 import { MyTooltip } from "@/components/shared/myTooltip";
 import { Button } from "@/components/ui/button";
 
@@ -20,7 +20,7 @@ import { promptLibrary } from "@/constants/chat";
  * trigger by button in prompt input
  * @constructor
  */
-function PromptLibraryDialog() {
+export function PromptLibraryDialog() {
   const {
     page: { chat: chatDictionary },
   } = useGetDictionary();
@@ -29,8 +29,11 @@ function PromptLibraryDialog() {
     <Dialog>
       <MyTooltip title={chatDictionary.prompt_library_title}>
         <DialogTrigger asChild>
-          <Button variant="ghost" className="fit p-0 text-foreground/80">
-            <PromptLibrary />
+          <Button
+            variant="ghost"
+            className="fit group rounded  p-0 active:bg-primary-dark"
+          >
+            <Books className="fill-muted-foreground-light group-active:fill-white" />
           </Button>
         </DialogTrigger>
       </MyTooltip>
@@ -69,5 +72,3 @@ function PromptLibraryDialog() {
     </Dialog>
   );
 }
-
-export default PromptLibraryDialog;

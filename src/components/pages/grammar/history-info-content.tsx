@@ -19,12 +19,13 @@ export function HistoryInfoContent() {
   const {
     common: { copy },
     components: { custom_textarea: dictionary },
+    page: { grammar },
   } = useGetDictionary();
   return (
     <div className="grid gap-9 ">
       {/* show prompt and inputs*/}
       <div className="grid items-start gap-3">
-        <span>Include your text here to check</span>
+        <span>{grammar.history_info_textarea_label}</span>
         <div className="relative">
           <textarea
             defaultValue={selectedHistoryItem?.question}

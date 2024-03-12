@@ -3,6 +3,11 @@ import { useMemo } from "react";
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { SelectAndDrawer } from "@/components/shared";
 import { statuses } from "./contants";
+
+/**
+ * this component is for select response language that comes from AI
+ * @constructor
+ */
 export function ResponseLang() {
   const [searchParams, setSearchParams] = useCustomSearchParams();
   const items = useMemo(() => statuses.map(item => item.label), []);

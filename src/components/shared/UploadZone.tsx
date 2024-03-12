@@ -9,6 +9,9 @@ import { cn } from "@/lib/utils";
 interface IProps extends React.ComponentPropsWithoutRef<"div"> {
   documentFiles: File[];
   setDocumentFiles: (v: File[]) => void;
+  acceptedFiles?: Record<string, string[]>;
+  placeholder?: string;
+  description?: string;
 }
 
 /**
@@ -16,10 +19,13 @@ interface IProps extends React.ComponentPropsWithoutRef<"div"> {
  * used for upload document
  * @constructor
  */
-export function UploadDocuments({
+export function UploadZone({
   setDocumentFiles,
   documentFiles,
   className,
+  acceptedFiles,
+  description,
+  placeholder,
   ...divProps
 }: IProps) {
   const {
@@ -59,7 +65,7 @@ export function UploadDocuments({
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
     onDrop,
-    accept: {
+    accept: acceptedFiles ?? {
       "application/pdf": [],
       "application/msword": [],
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
@@ -81,9 +87,11 @@ export function UploadDocuments({
         <input {...getInputProps()} onClick={e => e.stopPropagation()} />
         <div className="col items-center gap-3">
           <FiUpload className="h-10 w-10 text-muted-foreground-light" />
-          <p className="text-center">{upload_pdf.upload_zone_placeholder}</p>
+          <p className="text-center">
+            {placeholder ?? upload_pdf.upload_zone_placeholder}
+          </p>
           <p className="text-center text-xs font-normal text-muted-foreground">
-            {upload_pdf.upload_size}
+            {description ?? upload_pdf.upload_size}
           </p>
           {fileRejections.map(({ file, errors }, index) => (
             <div key={index} className="text-destructive">
