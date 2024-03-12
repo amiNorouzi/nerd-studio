@@ -1,7 +1,10 @@
 "use client";
 import { TextareaHTMLAttributes } from "react";
 
-import { PiMicrophone } from "react-icons/pi";
+import { LuCopy, LuCopyCheck } from "react-icons/lu";
+import { TbMicrophone, TbTrash, TbVolume } from "react-icons/tb";
+
+import { MinimalButton } from "@/components/shared/MinimalButtton";
 
 import {
   useCopyTextInClipBoard,
@@ -11,10 +14,6 @@ import {
 } from "@/hooks";
 
 import { cn } from "@/lib/utils";
-import { MdDeleteOutline } from "react-icons/md";
-import { LuCopy, LuCopyCheck } from "react-icons/lu";
-import { HiOutlineSpeakerWave } from "react-icons/hi2";
-import { MinimalButton } from "@/components/shared/MinimalButtton";
 
 interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   maxLength?: number;
@@ -82,7 +81,7 @@ export function CustomTextarea({
         </button>
       ) : (
         <MinimalButton
-          Icon={PiMicrophone}
+          Icon={TbMicrophone}
           title={dictionary.voice_button_label}
           className="absolute start-1.5 top-2.5"
           onClick={handleToggleRecording}
@@ -105,7 +104,7 @@ export function CustomTextarea({
       {/*action buttons*/}
       <div className="row absolute bottom-8 end-4 gap-1">
         <MinimalButton
-          Icon={MdDeleteOutline}
+          Icon={TbTrash}
           title={dictionary.clear_button_label}
           onClick={() => setValue("")}
         />
@@ -124,7 +123,7 @@ export function CustomTextarea({
           </button>
         ) : (
           <MinimalButton
-            Icon={HiOutlineSpeakerWave}
+            Icon={TbVolume}
             title={dictionary.speak_button_label}
             onClick={handlePlaySpeak}
           />

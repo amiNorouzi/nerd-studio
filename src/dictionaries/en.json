@@ -153,7 +153,11 @@
       "black_color_label": "Black",
       "white_color_label": "White",
       "draw_mask_title": "Draw Mask",
-      "draw_mask_description": "Draw mask with brush on your image for masking"
+      "draw_mask_description": "Draw mask with brush on your image for masking",
+      "download_ext_label": "Save As",
+      "download_ext_description": "Select the file type and download.",
+      "download_input_placeholder": "Your file name",
+      "information_title": "Information"
     },
     "translate": {
       "submit_button_label": "AI Translate",
@@ -164,10 +168,7 @@
     "template": {
       "template_button_label": "Generate",
       "text_input_placeholder": "paste your text that you wish to rewrite or improve ...",
-      "draw_mask_description": "Draw mask with brush on your image for masking",
-      "download_ext_label": "Save As",
-      "download_ext_description": "Select the file type and download.",
-      "download_input_placeholder": "Your file name"
+      "draw_mask_description": "Draw mask with brush on your image for masking"
     },
     "code": {
       "page_title": "Code",

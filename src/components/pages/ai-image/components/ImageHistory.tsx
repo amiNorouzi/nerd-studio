@@ -10,6 +10,9 @@ import { Input } from "@/components/ui/input";
 import { useGetDictionary } from "@/hooks";
 
 import type { HistoryItem, StateSetterType } from "@/services/types";
+import { TbHistory } from "react-icons/tb";
+import React, { useState } from "react";
+import ImageHistoryInfo from "@/components/pages/ai-image/components/ImageHistoryInfo";
 
 interface IProps {
   histories: HistoryItem[];
@@ -36,14 +39,22 @@ function ImageHistory({
     common: { search },
     page: { image: imageDictionary },
   } = useGetDictionary();
+  const [selectedItem, setSelectedItem] = useState<HistoryItem>();
+  const [isOpenInfo, setIsOpenInfo] = useState(false);
 
   // check if mobile screen
   const isMd = useMediaQuery("(max-width:768px)");
 
+  const handleClickItem = (history: HistoryItem) => {
+    setSelectedItem(history);
+    setIsOpenInfo(true);
+  };
+
   // render main content
   const renderMain = () => (
     <>
-      <h3 className="mb-2 border-b px-4 py-2.5 font-semibold">
+      <h3 className="row mb-2 gap-1 border-b px-4 py-2.5 font-semibold text-primary">
+        <TbHistory size={20} />
         {imageDictionary.history_title}
       </h3>
       <div className="col gap-2 p-5 md:p-2">
@@ -61,12 +72,18 @@ function ImageHistory({
         </div>
         {histories?.map(history => (
           <ImageHistoryItem
+            onClick={() => handleClickItem(history)}
             history={history}
             key={history.id}
-            isActive={history.id === "1"}
+            isActive={history.id === selectedItem?.id}
           />
         ))}
       </div>
+      <ImageHistoryInfo
+        isOpen={isOpenInfo}
+        setIsOpen={setIsOpenInfo}
+        history={selectedItem!}
+      />
     </>
   );
 

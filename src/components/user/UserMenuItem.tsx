@@ -27,7 +27,7 @@ export function UserMenuItem({ title, onClick, icon, classNames }: IItemProps) {
     <Button
       variant="ghost"
       className={cn(
-        "h-fit w-full px-2.5 py-2 text-foreground/70 hover:bg-hover hover:text-primary-light focus-visible:ring-offset-0",
+        "h-fit w-full px-2.5 py-2 text-foreground/70 hover:bg-hover focus-visible:ring-offset-0",
         classNames,
       )}
       onClick={onClick}

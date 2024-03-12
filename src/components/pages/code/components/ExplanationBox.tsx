@@ -1,8 +1,10 @@
 import React from "react";
-import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
-import { MinimalButton } from "@/components/shared";
-import { PiShareNetwork } from "react-icons/pi";
 import { LuCopy, LuCopyCheck } from "react-icons/lu";
+import { TbShare } from "react-icons/tb";
+
+import { MinimalButton } from "@/components/shared";
+
+import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
 
 /**
  * use for show result explanation
@@ -23,7 +25,7 @@ function ExplanationBox({ explanation }: { explanation: string }) {
       <div className="row justify-end gap-1">
         {/* share button */}
         <MinimalButton
-          Icon={PiShareNetwork}
+          Icon={TbShare}
           title={share}
           className="hover:bg-muted/30"
         />

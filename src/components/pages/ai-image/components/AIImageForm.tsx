@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 
-import { MdOutlineCameraAlt } from "react-icons/md";
+import { TbCamera } from "react-icons/tb";
 import { useResizeObserver } from "usehooks-ts";
 
 import { EngineSelect } from "@/components/shared";
@@ -68,7 +68,7 @@ export function AIImageForm() {
     <section className="relative col-span-12 flex h-fit flex-col overflow-y-auto bg-background lg:col-span-4 lg:h-full lg:max-h-full ">
       {/*header*/}
       <h1 className="row gap-1.5 border-b px-4 py-2.5 text-xl">
-        <MdOutlineCameraAlt size="1.5rem" />
+        <TbCamera size="1.5rem" />
         {imageDictionary.page_title}
       </h1>
       <ImageFromTabs />

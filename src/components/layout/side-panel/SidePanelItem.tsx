@@ -1,18 +1,20 @@
 import { memo } from "react";
 import Link from "next/link";
-import Image from "next/image";
+
 import { useParams, usePathname } from "next/navigation";
 
 import { MenuItem } from "react-pro-sidebar";
-import { IconType } from "react-icons";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
 import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
 
+import type { AppIconType } from "@/components/svg-icons/AppsIcons";
+import { IconType, IconBase } from "react-icons";
+
 interface IProps {
   title: string;
   to: string;
-  icon: string | IconType;
+  icon: IconType | AppIconType;
 }
 
 /**
@@ -20,32 +22,28 @@ interface IProps {
  * @param icon //string for image src or React icon type
  * @param isOpenSidePanel for change icon size in open and close
  * @param isActive round image if is active passed true
+ * @param hasCustomIcon
  */
 const renderIcon = (
-  icon: string | IconType,
+  icon: IconType | AppIconType,
   isOpenSidePanel: boolean,
   isActive: boolean,
+  hasCustomIcon: boolean,
 ) => {
-  const ReactIcon = icon;
-  //string it means image src so render an Image
-  if (typeof icon === "string") {
-    return (
-      <Image
-        src={icon}
-        alt="side panel icon"
-        width={40}
-        height={40}
-        className={cn(
-          isOpenSidePanel ? "h-5 w-5" : "h-[30px] w-[30px]",
-          isActive && !isOpenSidePanel ? "rounded-full" : "rounded-md",
-        )}
-      />
-    );
+  const Icon = icon;
+
+  if (hasCustomIcon) {
+    return <Icon isActive={isActive} hasTitle={isOpenSidePanel} />;
   }
 
-  //else if is IconType render icon
   return (
-    <ReactIcon className={isOpenSidePanel ? "h-5 w-5" : "h-[30px] w-[30px]"} />
+    <Icon
+      className={cn(
+        "text-muted-foreground",
+        isOpenSidePanel ? "h-5 w-5" : "h-6 w-6",
+        isActive && (isOpenSidePanel ? "text-primary" : "text-foreground"),
+      )}
+    />
   );
 };
 
@@ -60,7 +58,7 @@ const SidePanelItem = ({ title, to, icon }: IProps) => {
     <MenuItem
       aria-level={1}
       active={isActive}
-      icon={renderIcon(icon, isOpenSidePanel, isActive)}
+      icon={renderIcon(icon, isOpenSidePanel, isActive, to.includes("grammar"))}
       component={<Link href={`/${lang}${to}`} />}
       rootStyles={{
         color: getHslColorByVar("--foreground"),
@@ -68,10 +66,6 @@ const SidePanelItem = ({ title, to, icon }: IProps) => {
         fontWeight: 500,
         "&>a": {
           transition: "all 300ms",
-          border:
-            isActive || isOpenSidePanel || typeof icon === "string"
-              ? "none"
-              : "1px solid",
           borderColor: getHslColorByVar("--border"),
           borderLeft: isActive && isOpenSidePanel ? "4px solid" : "none",
           borderLeftColor:

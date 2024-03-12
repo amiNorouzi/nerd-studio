@@ -145,14 +145,9 @@ export function SidePanel() {
                 backgroundColor: "var(--hover)",
               },
             }),
-            icon: ({ active }) => ({
-              color: active
-                ? isOpen
-                  ? getHslColorByVar("--primary")
-                  : getHslColorByVar("--foreground")
-                : getHslColorByVar("--muted-foreground"),
+            icon: {
               margin: "0 auto",
-            }),
+            },
           }}
         >
           {apps.map(app => (

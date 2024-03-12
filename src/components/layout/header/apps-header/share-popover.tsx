@@ -5,11 +5,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { FiShare2 } from "react-icons/fi";
 
 import { Button } from "@/components/ui/button";
-import type { ChildrenProps } from "@/services/types";
 import { useGetDictionary } from "@/hooks";
+import { TbShare } from "react-icons/tb";
 
 interface IProps {
   children: React.ReactNode;
@@ -22,7 +21,7 @@ export function SharePopover({ children }: IProps) {
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="  gap-1 ">
-          <FiShare2 /> <span>{components.apps_header.share}</span>
+          <TbShare /> <span>{components.apps_header.share}</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent

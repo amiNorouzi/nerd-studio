@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 
 import {
@@ -14,18 +13,18 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-
-import { UserMenuItem } from "./UserMenuItem";
-import { UserAvatar } from "@/components/user/UserAvatar";
-import UserBalance from "./UserBalance";
 import RenderIf from "@/components/shared/RenderIf";
+import { UserAvatar } from "@/components/user/UserAvatar";
+import { UserMenuItem } from "./UserMenuItem";
 
 import { useTheme } from "@/hooks/useTheme";
-import { useUiStore } from "@/stores/zustand/ui-store";
 import { useGetDictionary } from "@/hooks";
+import { TbBell } from "react-icons/tb";
+import { useUiStore } from "@/stores/zustand/ui-store";
 
 import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
 import { cn } from "@/lib/utils";
+import { MinimalButton } from "@/components/shared";
 
 /**
  * a hover card used in bottom of side panel
@@ -68,7 +67,7 @@ export function UserMenu() {
   return (
     <div
       className={cn(
-        "flex w-full items-center gap-1.5 px-3",
+        "flex w-full items-center gap-2 px-3",
         isOpenSidePanel ? "flex-row" : "flex-col-reverse",
       )}
     >
@@ -128,15 +127,32 @@ export function UserMenu() {
           />
         </HoverCardContent>
       </HoverCard>
-      {/*user panel dialog*/}
+      <RenderIf isTrue={isOpenSidePanel}>
+        <div className="spacing-row w-full ">
+          <div className="col">
+            <p className="max-w-[18ch] overflow-hidden text-ellipsis text-nowrap capitalize">
+              {session?.user?.name || "User"}
+            </p>
+            <span className="text-xs font-light text-muted-foreground">
+              Free
+            </span>
+          </div>
+
+          <MinimalButton
+            Icon={TbBell}
+            title="Notification"
+            iconClassname="h-5 w-5"
+          />
+        </div>
+      </RenderIf>
 
       {/*
         user current plan
         render when side panel is open
       */}
-      <RenderIf isTrue={isOpenSidePanel}>
-        <UserBalance handleClick={() => handleOpenAccountDialog("upgrade")} />
-      </RenderIf>
+      {/*<RenderIf isTrue={isOpenSidePanel}>*/}
+      {/*  <UserBalance handleClick={() => handleOpenAccountDialog("upgrade")} />*/}
+      {/*</RenderIf>*/}
     </div>
   );
 }

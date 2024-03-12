@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 
-import { IoCodeSlashOutline } from "react-icons/io5";
 import { useMediaQuery } from "usehooks-ts";
+import { TbCode } from "react-icons/tb";
 
 import {
   Accordion,
@@ -61,7 +61,7 @@ export function CodeFeaturesSection() {
     <Accordion
       type="single"
       collapsible
-      className="border-gradiant relative border-y-2 bg-background after:!rounded-none after:!border-x-0"
+      className="border-gradiant relative border-y-2 bg-background after:!rounded-none after:!border-x-0 md:hidden"
       value={isOpenAccordion ? "item-1" : undefined}
       onValueChange={value => setIsOpenAccordion(value === "item-1")}
     >
@@ -96,7 +96,7 @@ export function CodeFeaturesSection() {
     <section className="relative col-span-12 h-fit overflow-y-auto bg-background md:col-span-3 md:h-full md:max-h-full">
       {/*page header*/}
       <h1 className="row gap-2 border-b px-4 py-2.5 text-xl">
-        <IoCodeSlashOutline size="1.5rem" />
+        <TbCode size="1.5rem" />
         {codeDictionary.page_title}
       </h1>
       {/*features list*/}

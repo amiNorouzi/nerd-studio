@@ -1,143 +1,53 @@
 "use client";
 import {
-  BarChart,
-  Bar,
-  Rectangle,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
+  AreaChart,
+  Area,
 } from "recharts";
+import { TbWriting } from "react-icons/tb";
+
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { useGetDictionary } from "@/hooks";
+
 import { getHslColorByVar } from "@/lib/utils";
-import { DashboardHeroIcons } from "@/components/svg-icons";
-import * as React from "react";
+import { docs } from "@/constants/dashboard";
 
 //chart data
 //TODO: replace with real data from api
+
 const data = [
   {
-    day: "1",
-    value: 0,
+    name: "1",
+    value: 300,
   },
   {
-    day: "2",
-    value: 30,
+    name: "5",
+    value: 400,
   },
   {
-    day: "3",
-    value: 0,
-  },
-  {
-    day: "4",
-    value: 0,
-  },
-  {
-    day: "5",
+    name: "10",
     value: 10,
   },
   {
-    day: "6",
-    value: 15,
+    name: "15",
+    value: 200,
   },
   {
-    day: "7",
-    value: 10,
+    name: "20",
+    value: 200,
   },
   {
-    day: "8",
-    value: 0,
+    name: "25",
+    value: 400,
   },
   {
-    day: "9",
-    value: 0,
-  },
-  {
-    day: "10",
-    value: 0,
-  },
-  {
-    day: "11",
-    value: 0,
-  },
-  {
-    day: "12",
-    value: 2,
-  },
-  {
-    day: "13",
-    value: 0,
-  },
-  {
-    day: "14",
-    value: 0,
-  },
-  {
-    day: "15",
-    value: 0,
-  },
-  {
-    day: "16",
-    value: 0,
-  },
-  {
-    day: "17",
-    value: 0,
-  },
-  {
-    day: "18",
-    value: 0,
-  },
-  {
-    day: "19",
-    value: 0,
-  },
-  {
-    day: "20",
-    value: 0,
-  },
-  {
-    day: "21",
-    value: 0,
-  },
-  {
-    day: "22",
-    value: 0,
-  },
-  {
-    day: "23",
-    value: 0,
-  },
-  {
-    day: "24",
-    value: 0,
-  },
-  {
-    day: "25",
-    value: 0,
-  },
-  {
-    day: "26",
-    value: 0,
-  },
-  {
-    day: "27",
-    value: 0,
-  },
-  {
-    day: "28",
-    value: 0,
-  },
-  {
-    day: "29",
-    value: 0,
-  },
-  {
-    day: "30",
-    value: 0,
+    name: "30",
+    value: 600,
   },
 ];
 
@@ -153,30 +63,45 @@ export function ChartsSection() {
   } = useGetDictionary();
 
   return (
-    <section className="col-span-2 row-span-3 flex flex-col gap-4 lg:flex-row">
-      <div className="col w-full rounded-xl bg-background p-4 shadow-dashboard-card ">
+    <section className="col flex w-full rounded-xl bg-background p-3 shadow-dashboard-card lg:w-[68%]">
+      <div className="flex h-80 w-full flex-col gap-3">
         {/*title*/}
-        <div className="row mb-5 gap-2">
-          <div className="centered-col h-8 w-8 bg-primary-light">
-            <DashboardHeroIcons.Words className="h-4 w-4" />
-          </div>
-          <div>
-            <h2>{dashboardDictionary.words_chart_title}</h2>
-            <p className="text-xs font-normal text-muted-foreground">
+        <div className="row mb-3 gap-2 border-b">
+          <TbWriting className="mb-2 h-9 w-9 rounded-lg bg-primary-light p-1.5 text-primary" />
+
+          <div className="pb-2 max-sm:hidden">
+            <h2 className="whitespace-nowrap">
+              {dashboardDictionary.words_chart_title}
+            </h2>
+            <p className="whitespace-nowrap text-xs font-normal text-muted-foreground">
               {dashboardDictionary.words_chart_description}
             </p>
           </div>
-        </div>
 
+          {/*tabs to filter*/}
+          <Tabs defaultValue="1" className=" w-full ">
+            <TabsList className="flex w-full justify-end overflow-hidden bg-transparent pb-0">
+              {docs.map(item => (
+                <TabsTrigger
+                  value={item.id}
+                  className="border-b-tab h-full px-1.5 text-[11px] sm:text-xs"
+                  key={item.id}
+                >
+                  {dashboardDictionary[item.titleKey]}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+        </div>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart
+          <AreaChart
             data={data}
             margin={{
               right: 40,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" />
+            <XAxis dataKey="name" />
             <YAxis />
             <Tooltip
               contentStyle={{
@@ -185,14 +110,13 @@ export function ChartsSection() {
               label="day"
               formatter={value => [`${value} ${words}`, generated]}
             />
-            <Legend />
-            <Bar
+            <Area
+              type="monotone"
               dataKey="value"
-              barSize={25}
-              fill={getHslColorByVar("--primary")}
-              activeBar={<Rectangle fill={getHslColorByVar("--primary")} />}
+              stroke={getHslColorByVar("--primary")}
+              fill={getHslColorByVar("--primary-light")}
             />
-          </BarChart>
+          </AreaChart>
         </ResponsiveContainer>
       </div>
     </section>

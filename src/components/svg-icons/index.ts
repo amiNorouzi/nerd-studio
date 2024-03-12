@@ -22,4 +22,5 @@ export { PdfIcon } from "./PdfIcon";
 export { GrammarIcon } from "./GrammarIcon";
 export { ErrorIcon } from "./404Icon";
 export * as DashboardHeroIcons from "./DashboardHeroIcons";
+export * as AppsIcons from "./AppsIcons";
 export { RemainingPlan } from "./RemainingPlan";

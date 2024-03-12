@@ -1,5 +1,5 @@
 "use client";
-import { FiInfo } from "react-icons/fi";
+import { TbInfoCircle } from "react-icons/tb";
 
 import { docs } from "@/constants/dashboard";
 import { MinimalButton } from "@/components/shared";
@@ -49,25 +49,45 @@ const activities = [
     date: "1 Week ago",
     typeId: "3",
   },
+  {
+    id: "8",
+    title: "Image",
+    date: "1 Week ago",
+    typeId: "3",
+  },
+  {
+    id: "9",
+    title: "Image",
+    date: "1 Week ago",
+    typeId: "3",
+  },
 ];
 
+/**
+ * use activities section to display the activities in the dashboard
+ * like the recent activities with the type of activity and the date
+ * @constructor
+ */
 export function ActivitiesSection() {
   const {
     page: { dashboard: dashboardDictionary },
   } = useGetDictionary();
 
   return (
-    <section className="col row-span-5 h-fit w-full overflow-y-auto rounded-xl border bg-background shadow-dashboard-card lg:h-full">
-      <h3 className="border-b  px-5 py-3 text-lg">
+    <section className="col w-full overflow-y-auto rounded-xl border bg-background shadow-dashboard-card max-lg:h-fit lg:row-span-5 ">
+      {/*title*/}
+      <h3 className="border-b px-5 py-3 text-lg">
         {dashboardDictionary.activities_title}
       </h3>
 
+      {/*activities list*/}
       {activities.map(activity => {
         const { icon: Icon, iconBackground } = docs.find(
           i => i.id === activity.typeId,
         )!;
 
         return (
+          // activity item
           <div
             className="row gap-2 px-5 py-3 [&:not(:last-child)]:border-b"
             key={activity.id}
@@ -86,8 +106,9 @@ export function ActivitiesSection() {
               </p>
             </div>
 
+            {/*info button*/}
             <MinimalButton
-              Icon={FiInfo}
+              Icon={TbInfoCircle}
               className="ms-auto"
               title={dashboardDictionary.info_button_label}
             />

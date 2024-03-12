@@ -1,11 +1,13 @@
-import { PiChartBarLight } from "react-icons/pi";
-import { ImInsertTemplate } from "react-icons/im";
-import { IoCodeSlashOutline } from "react-icons/io5";
+import { AppsIcons } from "@/components/svg-icons";
 import {
-  ReWriteIcon,
-  TranslateIcon,
-  GrammarIcon,
-} from "@/components/svg-icons";
+  TbBooks,
+  TbCamera,
+  TbCode,
+  TbLanguage,
+  TbLayoutDashboard,
+  TbMessages,
+  TbWriting,
+} from "react-icons/tb";
 
 export const apps = [
   {
@@ -13,55 +15,55 @@ export const apps = [
     i18Key: "",
     title: "Dashboard",
     route: "/",
-    icon: PiChartBarLight,
+    icon: TbLayoutDashboard,
   },
   {
     id: "2",
     i18Key: "",
     title: "Chat",
     route: "/chat",
-    icon: "/images/gpt.jpeg",
+    icon: TbMessages,
   },
   {
     id: "3",
     i18Key: "",
     title: "Images",
     route: "/image",
-    icon: "/images/artist.png",
+    icon: TbCamera,
   },
   {
     id: "4",
     i18Key: "",
     title: "ReWrite",
     route: "/ReWrite",
-    icon: ReWriteIcon,
+    icon: TbWriting,
   },
   {
     id: "5",
     i18Key: "",
     title: "Template",
     route: "/template",
-    icon: ImInsertTemplate,
+    icon: TbBooks,
   },
   {
     id: "6",
     i18Key: "",
     title: "Code",
     route: "/code",
-    icon: IoCodeSlashOutline,
+    icon: TbCode,
   },
   {
     id: "7",
     i18Key: "",
     title: "Translate",
     route: "/translate",
-    icon: TranslateIcon,
+    icon: TbLanguage,
   },
   {
     id: "8",
     i18Key: "",
     title: "Grammar",
     route: "/grammar",
-    icon: GrammarIcon,
+    icon: AppsIcons.GrammarIcon,
   },
 ] as const;

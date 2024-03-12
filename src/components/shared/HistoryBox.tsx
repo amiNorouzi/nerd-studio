@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { IoMdClose, IoIosSearch } from "react-icons/io";
-import { GoHistory } from "react-icons/go";
+import { TbHistory } from "react-icons/tb";
 import { useMediaQuery } from "usehooks-ts";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
@@ -24,22 +25,22 @@ export function HistoryBox({ children, className, ...props }: IProps) {
     <>
       {/*header and search section*/}
       <div className="sticky top-0 flex w-full flex-col gap-4 bg-muted">
-        <div className=" flex w-full items-center justify-between">
+        <div className=" flex w-full items-center justify-between border-b py-1.5">
           <div className="flex items-center justify-start gap-1 text-sm font-medium text-primary">
-            <GoHistory className="fill-primary stroke-primary" size={20} />
+            <TbHistory size={20} />
             History
           </div>
           <div>
             <Button
               onClick={() => setHistoryIsOpen(false)}
               variant="ghost"
-              size="icon"
+              className="fit p-1"
             >
               <IoMdClose size={20} />
             </Button>
           </div>
         </div>
-        <div className="flex h-[44px] w-full items-center justify-center gap-1 rounded bg-white p-2">
+        <div className="flex h-[44px] w-full items-center justify-center gap-1 rounded-lg bg-white p-2">
           <IoIosSearch size={20} />
           <Input
             value={searchValue}

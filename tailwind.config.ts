@@ -28,6 +28,7 @@ module.exports = {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
+        "main-background": "hsl(var(--bg-main))",
         foreground: "hsl(var(--foreground))",
         active: "var(--active-bg)",
         hover: "var(--hover)",

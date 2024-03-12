@@ -50,6 +50,7 @@ export function GrammarTextBox({
   ...props
 }: IProps) {
   const {
+    common: { copy },
     components: { custom_textarea: dictionary },
   } = useGetDictionary();
   //for copy value
@@ -105,7 +106,7 @@ export function GrammarTextBox({
             />
             <MinimalButton
               Icon={isCopied ? LuCopyCheck : LuCopy}
-              title={dictionary.copy_label}
+              title={copy}
               onClick={() => handleCopy(value!.toString())}
             />
             {!!renderMoreActions && renderMoreActions()}

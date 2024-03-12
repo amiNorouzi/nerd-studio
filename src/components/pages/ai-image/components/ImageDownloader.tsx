@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 import { BsDownload } from "react-icons/bs";
-import { LuDownload } from "react-icons/lu";
+import { TbDownload } from "react-icons/tb";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -45,7 +45,7 @@ const ImageDownloader = ({ image }: { image: string }) => {
     <ResponsivePopover
       trigger={
         <div>
-          <ImageAction title={download} Icon={LuDownload} />
+          <ImageAction title={download} Icon={TbDownload} />
         </div>
       }
       drawerContentProps={{

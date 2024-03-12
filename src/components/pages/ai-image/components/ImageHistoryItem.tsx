@@ -2,8 +2,7 @@
 import { memo } from "react";
 import Image from "next/image";
 
-import { FaRegTrashCan } from "react-icons/fa6";
-import { BsBookmark } from "react-icons/bs";
+import { TbBookmark, TbTrash } from "react-icons/tb";
 
 import { useGetDictionary } from "@/hooks";
 
@@ -17,14 +16,17 @@ import { MinimalButton } from "@/components/shared";
  * used in image history list(ImageHistory.tsx
  * @param history - history item
  * @param isActive - is selected
+ * @param onClick - on click on item handler
  * @constructor
  */
 function ImageHistoryItem({
   history,
   isActive,
+  onClick,
 }: {
   history: HistoryItem;
   isActive: boolean;
+  onClick: () => void;
 }) {
   const {
     common: { delete_label, save_label },
@@ -33,6 +35,7 @@ function ImageHistoryItem({
 
   return (
     <article
+      onClick={onClick}
       className={cn(
         "flex h-28 cursor-pointer gap-2 rounded-lg border p-2 hover:border-muted-dark hover:bg-muted-dark",
         isActive && "border-primary bg-primary-light",
@@ -58,13 +61,13 @@ function ImageHistoryItem({
         </p>
         <div className="mt-auto flex items-end justify-end">
           <MinimalButton
-            Icon={BsBookmark}
+            Icon={TbBookmark}
             title={save_label}
             iconClassname={isActive ? "text-primary" : "text-muted-foreground"}
           />
           {/*delete button*/}
           <MinimalButton
-            Icon={FaRegTrashCan}
+            Icon={TbTrash}
             title={delete_label}
             iconClassname="text-destructive"
           />

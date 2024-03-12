@@ -1,20 +1,10 @@
 import React from "react";
-import { GoHistory } from "react-icons/go";
 
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { useGetDictionary } from "@/hooks";
 import { usePathname } from "next/navigation";
 import { useHistoryStore } from "@/stores/zustand/history-store";
+import { TbHistory } from "react-icons/tb";
 
 interface IProps {
   children: React.ReactNode;
@@ -37,7 +27,7 @@ export function HistorySheet({ children }: IProps) {
         className="gap-1"
         onClick={() => setHistoryIsOpen(!isHistoryOpen)}
       >
-        <GoHistory />
+        <TbHistory />
         {components.apps_header.history}
       </Button>
       {/* </SheetTrigger>*/}

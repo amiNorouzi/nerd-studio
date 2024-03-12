@@ -87,6 +87,11 @@ const renderActiveShape = (props: any) => {
   );
 };
 
+/**
+ * pie chart section used in dashboard
+ * contains pie chart and its title
+ * @constructor
+ */
 export function PieChartSection() {
   const {
     page: { dashboard: dashboardDictionary },
@@ -98,9 +103,9 @@ export function PieChartSection() {
   };
 
   return (
-    <section className="col relative col-span-1 row-span-3 h-fit w-full rounded-xl border bg-background p-3 shadow-dashboard-card lg:h-full ">
+    <section className="col relative h-fit w-full rounded-xl border bg-background p-3 shadow-dashboard-card lg:w-[32%]">
       {/*title*/}
-      <div className="h-80 lg:h-full">
+      <div className="h-80">
         <h2>{dashboardDictionary.pie_chart_title}</h2>
         <p className=" text-xs font-normal text-muted-foreground">
           {dashboardDictionary.pie_chart_subtitle}
@@ -128,7 +133,7 @@ export function PieChartSection() {
               fill="#8884d8"
               paddingAngle={5}
               dataKey="value"
-              activeShape={renderActiveShape}
+              // activeShape={renderActiveShape}
               onMouseEnter={onPieEnter}
               activeIndex={activeIndex}
             >

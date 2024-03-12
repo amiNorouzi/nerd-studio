@@ -1,8 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { BsBookmark } from "react-icons/bs";
-import { FaRegTrashCan } from "react-icons/fa6";
+import { TbBookmark, TbTrash } from "react-icons/tb";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +16,6 @@ import { MinimalButton } from "@/components/shared";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { cn } from "@/lib/utils";
 
-import type { CodeHistoryItem } from "@/services/types";
 import { useGetDictionary } from "@/hooks";
 
 function DeletePopOver({ itemId }: { itemId: string }) {
@@ -36,7 +34,7 @@ function DeletePopOver({ itemId }: { itemId: string }) {
       <PopoverTrigger asChild>
         <div>
           <MinimalButton
-            Icon={FaRegTrashCan}
+            Icon={TbTrash}
             title={delete_label}
             onClick={e => {
               e.stopPropagation();
@@ -44,8 +42,8 @@ function DeletePopOver({ itemId }: { itemId: string }) {
               console.log("deleted itemId: ", itemId);
             }}
             iconClassname={cn(
-              "fill-muted-foreground-light",
-              isItemSelected(itemId) && "fill-destructive",
+              "text-muted-foreground-light",
+              isItemSelected(itemId) && "text-destructive",
             )}
           />
         </div>
@@ -95,6 +93,11 @@ function CodeHistoryItems({ appName }: IProps) {
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const setSelectedHistoryItem = useHistoryStore.use.setSelectHistoryItem();
   const setOpenInfo = useHistoryStore.use.setHistoryInfoOpen();
+  const resetHistory = useHistoryStore.use.resetHistory();
+
+  useEffect(() => {
+    return () => resetHistory();
+  }, []);
 
   const isItemSelected = (id: string) => selectedHistoryItem?.id === id;
 
@@ -122,10 +125,10 @@ function CodeHistoryItems({ appName }: IProps) {
               e.stopPropagation();
               console.log("bookmark itemId: ", item.id);
             }}
-            Icon={BsBookmark}
+            Icon={TbBookmark}
             iconClassname={cn(
-              "fill-muted-foreground-light",
-              isItemSelected(item.id) && "fill-primary",
+              "text-muted-foreground-light",
+              isItemSelected(item.id) && "text-primary",
             )}
           />
 
@@ -173,6 +176,7 @@ const listOfHistoryItem = Array.from({ length: 20 }, (v, i) => {
     title: "history " + String(i + 1),
     date: "48 Min ago",
     feature: "Convert & Explanation",
+    question: "",
     engine: engine[0],
     engineIcon: engine[1],
   };

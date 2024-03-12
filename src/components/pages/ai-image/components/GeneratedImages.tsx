@@ -2,8 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-import { PiShareNetwork } from "react-icons/pi";
-import { VscSend } from "react-icons/vsc";
+import { TbBookmark, TbSend, TbShare } from "react-icons/tb";
 
 import { Button } from "@/components/ui/button";
 import ImageThumb from "./ImageThumb";
@@ -45,7 +44,7 @@ function GeneratedImages({ images }: { images: string[] }) {
   //for show main image of selected
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const {
-    common: { share },
+    common: { share, save_label },
     page: { image: imageDictionary },
   } = useGetDictionary();
 
@@ -69,7 +68,7 @@ function GeneratedImages({ images }: { images: string[] }) {
           <Popover>
             <PopoverTrigger asChild>
               <div>
-                <ImageAction title="Send To" Icon={VscSend} />
+                <ImageAction title="Send To" Icon={TbSend} />
               </div>
             </PopoverTrigger>
             <PopoverContent className="w-52 p-2" side="top">
@@ -89,7 +88,8 @@ function GeneratedImages({ images }: { images: string[] }) {
           </Popover>
 
           {/*share*/}
-          <ImageAction title={share} Icon={PiShareNetwork} />
+          <ImageAction title={share} Icon={TbShare} />
+          <ImageAction title={save_label} Icon={TbBookmark} />
 
           {/*download*/}
           <ImageDownloader image={selectedImage} />

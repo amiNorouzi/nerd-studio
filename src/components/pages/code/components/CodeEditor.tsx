@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 
 import Editor from "@monaco-editor/react";
-import { LuCopy, LuCopyCheck, LuDownload } from "react-icons/lu";
-import { PiShareNetwork } from "react-icons/pi";
+import { LuCopy, LuCopyCheck } from "react-icons/lu";
+import { TbDownload } from "react-icons/tb";
 import { RiFullscreenExitFill, RiFullscreenFill } from "react-icons/ri";
 
 import { MinimalButton } from "@/components/shared";
@@ -91,7 +91,7 @@ function CodeEditor({
           />
           {/*download button*/}
           <MinimalButton
-            Icon={LuDownload}
+            Icon={TbDownload}
             title={download}
             className="hover:bg-muted/30"
             onClick={() => downloadCode(language || "Javascript", value)}

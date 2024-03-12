@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useUiStore } from "@/stores/zustand/ui-store";
 import { cn } from "@/lib/utils";
 import { RiMenuUnfoldLine } from "react-icons/ri";
+import { TbMenu2 } from "react-icons/tb";
 
 //used in header for open side  and close panel
 
@@ -19,13 +20,7 @@ export function ToggleSidePanelButton() {
       {/*
         flip icon horizontally (from right to left) when side panel is open
       */}
-      <RiMenuUnfoldLine
-        size="1.3rem"
-        className={cn(
-          "-transition-transform duration-200",
-          isSidePanelOpen && "-scale-x-100",
-        )}
-      />
+      <TbMenu2 size="1.3rem" />
     </Button>
   );
 }

@@ -1,8 +1,23 @@
-import React from "react";
+import { JSX, ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 
-type IProps = React.ComponentPropsWithoutRef<"svg">;
-export function GrammarIcon({ className, ...props }: IProps) {
+export type IAppIconProps = ComponentPropsWithoutRef<"svg"> & {
+  isActive?: boolean;
+  hasTitle?: boolean;
+};
+
+export type AppIconType = (props: IAppIconProps) => JSX.Element;
+
+export function GrammarIcon({
+  className,
+  isActive,
+  hasTitle,
+  ...props
+}: IAppIconProps) {
+  const pathClassName = cn(
+    "stroke-muted-foreground",
+    isActive && (hasTitle ? "stroke-primary" : "stroke-foreground"),
+  );
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +25,7 @@ export function GrammarIcon({ className, ...props }: IProps) {
       height="36"
       viewBox="0 0 36 36"
       fill="none"
-      className={cn(className, "fill-none")}
+      className={cn(className, "fill-none", hasTitle ? "h-5 w-5" : "h-6 w-6")}
       {...props}
     >
       <g clipPath="url(#clip0_471_8010)">
@@ -20,6 +35,7 @@ export function GrammarIcon({ className, ...props }: IProps) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className={pathClassName}
         />
         <path
           d="M6 18V10.5C6 9.90905 6.1164 9.32389 6.34254 8.77792C6.56869 8.23196 6.90016 7.73588 7.31802 7.31802C7.73588 6.90016 8.23196 6.56869 8.77792 6.34254C9.32389 6.1164 9.90905 6 10.5 6C11.0909 6 11.6761 6.1164 12.2221 6.34254C12.768 6.56869 13.2641 6.90016 13.682 7.31802C14.0998 7.73588 14.4313 8.23196 14.6575 8.77792C14.8836 9.32389 15 9.90905 15 10.5V18"
@@ -27,6 +43,7 @@ export function GrammarIcon({ className, ...props }: IProps) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className={pathClassName}
         />
         <path
           d="M6 13.5H15"
@@ -34,6 +51,7 @@ export function GrammarIcon({ className, ...props }: IProps) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className={pathClassName}
         />
         <path
           d="M30 9V18"
@@ -41,6 +59,7 @@ export function GrammarIcon({ className, ...props }: IProps) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className={pathClassName}
         />
         <path
           d="M6 24H24"
@@ -48,6 +67,7 @@ export function GrammarIcon({ className, ...props }: IProps) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className={pathClassName}
         />
         <path
           d="M6 30H15"
@@ -55,6 +75,7 @@ export function GrammarIcon({ className, ...props }: IProps) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className={pathClassName}
         />
         <path
           d="M21 30L24 33L31.5 25.5"
@@ -62,6 +83,7 @@ export function GrammarIcon({ className, ...props }: IProps) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className={pathClassName}
         />
       </g>
       <defs>

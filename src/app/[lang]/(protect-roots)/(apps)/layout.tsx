@@ -24,7 +24,10 @@ export default function AppsLayout({
       {/* header for apps that includes share , history , tabs and app title */}
       <Header className="h-apps-header" />
       {/*apps*/}
-      <div style={{ height: "var(--apps-main-height" }} className="bg-image">
+      <div
+        style={{ height: "var(--apps-main-height" }}
+        className="bg-main-background"
+      >
         {/* children are run tabs and Info is info tab*/}
         {tab === "run" ? (
           children
