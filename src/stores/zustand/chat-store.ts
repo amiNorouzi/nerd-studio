@@ -9,6 +9,8 @@ const initialState = {
   chatTextBoxValue: "",
   selectedHistoryItem: null,
   historyList: [],
+  selectedMessageForHighlight: null,
+  openHighlightBox: false,
 } as ChatState;
 
 const useChat = create<ChatState & ChatAction>()(
@@ -34,6 +36,14 @@ const useChat = create<ChatState & ChatAction>()(
       setHistoryList: v =>
         set(state => {
           state.historyList = v;
+        }),
+      setSelectedMessageForHighlight: v =>
+        set(state => {
+          state.selectedMessageForHighlight = v;
+        }),
+      setOpenHighlightBox: v =>
+        set(state => {
+          state.openHighlightBox = v;
         }),
     })),
 

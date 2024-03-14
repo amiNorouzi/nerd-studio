@@ -9,11 +9,11 @@ import { getDictionary } from "@/lib/dictionary";
  * chat hero section
  * @constructor
  */
-export async function ChatHero({ lang }: { lang: Locale }) {
+export function ChatHero({ lang }: { lang: Locale }) {
   //TODO: write chat dictionary
   const {
     page: { dashboard: dashboardDictionary, chat },
-  } = await getDictionary(lang);
+  } = useGetDictionary();
 
   return (
     <div className="hidden w-full  flex-col items-start gap-6 rounded-3xl border px-9 py-6 lg:flex">

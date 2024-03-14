@@ -44,3 +44,5 @@ export { Stop } from "./Stop";
 export { Pin } from "./Pin";
 export { Mic } from "./Mic";
 export * from "./PlayPause";
+export { Close } from "./Close";
+export * from "./TbIcons";

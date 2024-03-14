@@ -21,11 +21,7 @@ import type { StateSetterType } from "@/services/types";
  * contains a textarea and send button nad some tools for input
  * @constructor
  */
-export function PromptInput({
-  setChatList,
-}: {
-  setChatList: StateSetterType<boolean>;
-}) {
+export function PromptInput() {
   const [openUploadDialog, setOpenUploadDialog] = useState(false);
 
   const formRef = useRef<HTMLFormElement>(null); //need it for submit on enter button pressed
@@ -69,16 +65,6 @@ export function PromptInput({
 
   return (
     <div className="flex w-full items-start gap-4 ">
-      {/*new chat button*/}
-      <MyTooltip title={chatDictionary.new_chat_button_label}>
-        <Button
-          variant="ghost"
-          className="h-8 w-8 rounded-full bg-primary-dark p-[10px] text-white hover:bg-primary-dark lg:h-12  lg:w-12 "
-          onClick={() => setChatList(v => !v)}
-        >
-          <NewChat />
-        </Button>
-      </MyTooltip>
       <form
         ref={formRef}
         onSubmit={handleSubmit}
@@ -87,12 +73,15 @@ export function PromptInput({
       >
         {/*prompt input text box and uploaded files*/}
         <div className=" col items-start">
+          {/*show uploaded files*/}
           <ShowUploadedFiles
             files={files}
             handleDeleteFile={handleDeleteFile}
           />
+          {/*prompt input text box*/}
           <PromptInputTextBox />
         </div>
+        {/*buttons like send, save, upload, prompt library*/}
         <div className="flex items-end gap-3">
           {/*upload button that when click on it open modal*/}
           <UploadDialog
@@ -100,15 +89,13 @@ export function PromptInput({
             open={openUploadDialog}
             key={String(openUploadDialog)}
           >
-            <MyTooltip title={chatDictionary.upload_button_label}>
-              <Button
-                variant="ghost"
-                className="mt-2.5 h-6 w-6 p-0 text-muted-foreground-light hover:text-muted-foreground-light"
-                onClick={() => setOpenUploadDialog(true)}
-              >
-                <FiUpload className="h-full w-full" />
-              </Button>
-            </MyTooltip>
+            <Button
+              variant="ghost"
+              className="mt-2.5 h-6 w-6 p-0 text-muted-foreground-light hover:text-muted-foreground-light"
+              onClick={() => setOpenUploadDialog(true)}
+            >
+              <FiUpload className="h-full w-full" />
+            </Button>
           </UploadDialog>
           {/*prompt library button*/}
           <PromptLibraryDialog />
@@ -130,6 +117,7 @@ export function PromptInput({
               <Button
                 variant="ghost"
                 className="h-8 w-8 rounded-full bg-primary-dark p-[10px] text-white hover:bg-primary-dark   lg:h-12 lg:w-12 "
+                type="submit"
               >
                 <Send />
               </Button>

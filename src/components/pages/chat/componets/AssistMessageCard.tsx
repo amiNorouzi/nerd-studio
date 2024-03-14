@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "@/components/user";
 import { MyTooltip } from "@/components/shared";
+import { useChatStore } from "@/stores/zustand/chat-store";
 import {
   useCopyTextInClipBoard,
   useGetDictionary,
@@ -32,8 +33,12 @@ interface IProps {
   role: string;
 }
 
-export function AssistMessageCard({ timeLine, prompt, image, name }: IProps) {
+export function AssistMessageCard(props: IProps) {
+  const { timeLine, prompt, image, name } = props;
   const [promptIndexToShow, setPromptIndexToShow] = useState(0);
+  const setHighlightOpen = useChatStore.use.setOpenHighlightBox();
+  const setSelectedMessageForHighlight =
+    useChatStore.use.setSelectedMessageForHighlight();
   const { handleToggleSpeak, isSpeaking } = useTextToSpeech(
     prompt[promptIndexToShow],
   );
@@ -41,6 +46,12 @@ export function AssistMessageCard({ timeLine, prompt, image, name }: IProps) {
   const {
     page: { chat },
   } = useGetDictionary();
+
+  function handleClickHighlight() {
+    setSelectedMessageForHighlight(props);
+    setHighlightOpen(true);
+  }
+
   return (
     <div className="flex flex-col  items-start gap-2 lg:flex-row  lg:gap-4 lg:pe-[67px]">
       {/*user image*/}
@@ -136,7 +147,11 @@ export function AssistMessageCard({ timeLine, prompt, image, name }: IProps) {
                 </Button>
               </MyTooltip>
               <MyTooltip title={chat.highlight_button_label}>
-                <Button className="fit p-0" variant="ghost">
+                <Button
+                  className="fit p-0"
+                  variant="ghost"
+                  onClick={handleClickHighlight}
+                >
                   <Highlight />
                 </Button>
               </MyTooltip>

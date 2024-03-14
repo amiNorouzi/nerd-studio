@@ -7,13 +7,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { UploadZone } from "@/components/shared";
+import { MyTooltip, UploadZone } from "@/components/shared";
 import { useGetDictionary } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import { ShowUploadedFiles } from "./ShowUploadedFiles";
 import { useChatStore } from "@/stores/zustand/chat-store";
-import type { StateSetterType } from "@/services/types";
 import { useHandleUpload } from "@/components/pages/chat/hooks";
+import type { StateSetterType } from "@/services/types";
 
 interface IProps {
   children: React.ReactNode;
@@ -41,7 +41,9 @@ export function UploadDialog({ children, open, setOpen }: IProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <MyTooltip title={chat.upload_button_label}>
+        <DialogTrigger asChild>{children}</DialogTrigger>
+      </MyTooltip>
       <DialogContent className="flex h-full max-h-[400px] w-full  max-w-[704px] flex-col justify-start  gap-3 divide-y  p-0">
         <DialogHeader className="m-0 p-6 pb-0">
           <DialogTitle className="flex gap-2 text-2xl font-medium">
@@ -50,6 +52,7 @@ export function UploadDialog({ children, open, setOpen }: IProps) {
           </DialogTitle>
         </DialogHeader>
         <div className="flex flex-1 flex-col justify-between p-9 pt-3">
+          {/*upload zone and show uploaded files*/}
           <ShowUploadedFiles
             files={documentFiles}
             handleDeleteFile={handleDeleteFile}
