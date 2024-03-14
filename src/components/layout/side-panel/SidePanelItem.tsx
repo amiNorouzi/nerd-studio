@@ -9,7 +9,7 @@ import { cn, getHslColorByVar } from "@/lib/utils";
 import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
 
 import type { AppIconType } from "@/components/svg-icons/AppsIcons";
-import { IconType, IconBase } from "react-icons";
+import { IconType } from "react-icons";
 
 interface IProps {
   title: string;
@@ -41,7 +41,7 @@ const renderIcon = (
       className={cn(
         "text-muted-foreground",
         isOpenSidePanel ? "h-5 w-5" : "h-6 w-6",
-        isActive && (isOpenSidePanel ? "text-primary" : "text-foreground"),
+        isActive && "text-primary",
       )}
     />
   );
@@ -65,13 +65,16 @@ const SidePanelItem = ({ title, to, icon }: IProps) => {
         fontSize: "13px",
         fontWeight: 500,
         "&>a": {
+          justifyContent: isOpenSidePanel ? "start" : "center",
           transition: "all 300ms",
-          borderColor: getHslColorByVar("--border"),
-          borderLeft: isActive && isOpenSidePanel ? "4px solid" : "none",
-          borderLeftColor:
-            isActive && isOpenSidePanel
-              ? getHslColorByVar("--primary")
-              : getHslColorByVar("--border"),
+          borderColor: "transparent",
+          borderLeft: "3px solid transparent",
+          "&>.ps-menu-label": {
+            display: isOpenSidePanel ? "flex" : "none",
+          },
+          borderLeftColor: isActive
+            ? getHslColorByVar("--primary")
+            : "transparent",
         },
       }}
     >

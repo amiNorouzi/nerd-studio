@@ -1,10 +1,10 @@
 version: '3.8'
 services:
   app:
-    image: nerd-studio
+    image: nerd_studio
     build:
       context: ./
-      target: dev
+      target: production
       dockerfile: Dockerfile
     volumes:
       - .:/app

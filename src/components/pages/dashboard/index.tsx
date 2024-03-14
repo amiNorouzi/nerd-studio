@@ -36,10 +36,10 @@ async function DashboardPage({ lang }: { lang: Locale }) {
       <SpacesHeader>
         <h1 className="ms-2 text-[15px] font-semibold">{header_title}</h1>
       </SpacesHeader>
-      <div className=" col max-h-page h-fit w-full gap-4 overflow-y-auto bg-main-background p-3">
+      <div className=" col max-h-page h-fit w-full gap-4 overflow-y-auto bg-main-background p-4 xl:gap-5 xl:p-6">
         <div
-          className="flex h-fit w-full grid-cols-4 flex-col gap-4
-         lg:grid lg:h-[calc(100vh+200px)] lg:grid-rows-8 xl:h-screen xl:grid-rows-7"
+          className="flex h-fit w-full grid-cols-4 flex-col gap-4 lg:grid
+         lg:h-[calc(100vh+200px)] lg:grid-rows-8 xl:h-screen xl:grid-rows-7 xl:gap-6"
         >
           <Show>
             <Show.When isTrue={activePlan}>
@@ -50,7 +50,7 @@ async function DashboardPage({ lang }: { lang: Locale }) {
             </Show.Else>
           </Show>
           <DashboardHero />
-          <div className="col w-full gap-4 max-lg:h-fit lg:col-span-1 lg:row-span-8 lg:grid lg:grid-rows-8 xl:row-span-7">
+          <div className="col w-full gap-4 max-lg:h-fit lg:col-span-1 lg:row-span-8 lg:grid lg:grid-rows-8 xl:row-span-7 xl:gap-6">
             <Show>
               <Show.When isTrue={activePlan}>
                 <PlanRemainingSection />
@@ -66,7 +66,7 @@ async function DashboardPage({ lang }: { lang: Locale }) {
           <ImagesSection />
         </div>
 
-        <div className="flex flex-col gap-4 lg:flex-row">
+        <div className="flex flex-col gap-4 lg:flex-row xl:gap-6">
           <PieChartSection />
           <ChartsSection />
         </div>

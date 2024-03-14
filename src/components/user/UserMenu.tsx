@@ -3,7 +3,6 @@ import { signOut, useSession } from "next-auth/react";
 
 import {
   MdOutlineManageAccounts,
-  MdOutlineNotifications,
   MdOutlineRoomPreferences,
 } from "react-icons/md";
 import { RiLogoutCircleRLine } from "react-icons/ri";
@@ -24,7 +23,9 @@ import { useUiStore } from "@/stores/zustand/ui-store";
 
 import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
 import { cn } from "@/lib/utils";
-import { MinimalButton } from "@/components/shared";
+import { MinimalButton, Show } from "@/components/shared";
+import { PiDiscordLogo } from "react-icons/pi";
+import { UserBalanceIcon } from "@/components/svg-icons";
 
 /**
  * a hover card used in bottom of side panel
@@ -32,7 +33,6 @@ import { MinimalButton } from "@/components/shared";
  * by click open user panel dialog
  * @constructor
  */
-
 export function UserMenu() {
   const setHovered = useUiStore.use.setIsHoverOnSidePanel();
   const setUserPanelActiveMenu = useUiStore.use.setUserPanelActiveMenu();
@@ -64,6 +64,7 @@ export function UserMenu() {
     }
   };
 
+  const hasPlan = false;
   return (
     <div
       className={cn(
@@ -73,7 +74,7 @@ export function UserMenu() {
     >
       <HoverCard openDelay={100} closeDelay={0}>
         <HoverCardTrigger asChild>
-          <div>
+          <div className="relative">
             {/*
               on hover open user menu and on click open user panel dialog
             */}
@@ -81,8 +82,11 @@ export function UserMenu() {
               imageSrc={session?.user?.image || ""}
               name={session?.user?.name || ""}
               onClick={() => handleOpenAccountDialog()}
-              className="border-gradiant hover-border-gradiant z-50 cursor-pointer"
+              className="border-gradiant hover-border-gradiant cursor-pointer"
             />
+            <RenderIf isTrue={!isOpenSidePanel}>
+              <div className="absolute -end-0.5 bottom-1 z-20 h-2.5 w-2.5 rounded-full border border-background bg-red-500" />
+            </RenderIf>
           </div>
         </HoverCardTrigger>
         <HoverCardContent
@@ -107,8 +111,8 @@ export function UserMenu() {
           {/*user menu items*/}
           <UserMenuItem
             onClick={() => {}}
-            title={userMenuDictionary.notification_label}
-            icon={MdOutlineNotifications}
+            title={userMenuDictionary.community_label}
+            icon={PiDiscordLogo}
           />
           <UserMenuItem
             onClick={() => handleOpenAccountDialog("account")}
@@ -133,16 +137,30 @@ export function UserMenu() {
             <p className="max-w-[18ch] overflow-hidden text-ellipsis text-nowrap capitalize">
               {session?.user?.name || "User"}
             </p>
-            <span className="text-xs font-light text-muted-foreground">
-              Free
-            </span>
+            <Show>
+              <Show.When isTrue={hasPlan}>
+                <div className="row gap-1 text-xs text-muted-foreground">
+                  <UserBalanceIcon className="h-4 w-4 fill-muted-foreground" />
+                  67.66
+                </div>
+              </Show.When>
+
+              <Show.Else>
+                <span className="text-xs font-light text-muted-foreground">
+                  {userMenuDictionary.free_plan_label}
+                </span>
+              </Show.Else>
+            </Show>
           </div>
 
-          <MinimalButton
-            Icon={TbBell}
-            title="Notification"
-            iconClassname="h-5 w-5"
-          />
+          <div className="relative">
+            <MinimalButton
+              Icon={TbBell}
+              title={userMenuDictionary.notification_label}
+              iconClassname="h-5 w-5 text-muted-foreground"
+            />
+            <div className="absolute end-0.5 top-0.5 z-20 h-2 w-2 rounded-full border border-background bg-red-500" />
+          </div>
         </div>
       </RenderIf>
 

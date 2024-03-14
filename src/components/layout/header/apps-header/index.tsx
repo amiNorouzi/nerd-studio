@@ -16,6 +16,7 @@ export function AppsHeader(props: AppType) {
   const {
     components: { apps_header },
   } = useGetDictionary();
+
   return (
     <div className="flex flex-1 items-center justify-between">
       <div>

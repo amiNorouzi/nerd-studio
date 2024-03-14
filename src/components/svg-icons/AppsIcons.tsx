@@ -16,7 +16,7 @@ export function GrammarIcon({
 }: IAppIconProps) {
   const pathClassName = cn(
     "stroke-muted-foreground",
-    isActive && (hasTitle ? "stroke-primary" : "stroke-foreground"),
+    isActive && "stroke-primary",
   );
   return (
     <svg

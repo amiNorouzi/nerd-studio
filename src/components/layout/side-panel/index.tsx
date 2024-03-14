@@ -102,45 +102,23 @@ export function SidePanel() {
 
         <Menu
           rootStyles={{
-            padding: isOpen ? "0" : "4px 12px",
+            padding: "10px 0",
           }}
           menuItemStyles={{
-            root: { margin: isOpen ? "0" : "5px auto" },
             button: ({ active }) => ({
-              background:
-                active && isOpen
-                  ? `linear-gradient(90deg, ${getHslColorByVar("--primary-light")}, transparent)`
-                  : "transparent",
+              background: active
+                ? `linear-gradient(90deg, ${getHslColorByVar("--primary-light")}, transparent)`
+                : "transparent",
               color: active
                 ? getHslColorByVar("--foreground")
                 : getHslColorByVar("--muted-foreground"),
-              margin: "0 auto",
-              borderRadius: isOpen ? "0" : "50%",
               display: "flex",
               justifyContent: isOpen ? "start" : "center",
               alignItems: "center",
-              padding: isOpen ? "1px 10px" : "2px",
-              gap: isOpen ? "1px" : "0",
-              height: "40px",
-              width: isOpen ? "100%" : "40px",
+              padding: isOpen ? "1px 10px" : "1px 4px 1px 0px",
+              height: "45px",
+              width: "100%",
               zIndex: 1,
-              position: "relative",
-              "&:after": {
-                content: '""',
-                display: active && !isOpen ? "block" : "none",
-                position: "absolute",
-                top: "-1px",
-                left: "-1px",
-                right: "-1px",
-                bottom: "-1px",
-                borderRadius: "50px",
-                border: "2px solid transparent",
-                background: "linear-gradient(#3d73eb,#de8fff) border-box",
-                WebkitMask:
-                  "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)",
-                WebkitMaskComposite: "destination-out",
-                maskComposite: "exclude",
-              },
               "&:hover": {
                 backgroundColor: "var(--hover)",
               },

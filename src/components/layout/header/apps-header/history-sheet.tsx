@@ -27,7 +27,7 @@ export function HistorySheet({ children }: IProps) {
         className="gap-1"
         onClick={() => setHistoryIsOpen(!isHistoryOpen)}
       >
-        <TbHistory />
+        <TbHistory size={16} />
         {components.apps_header.history}
       </Button>
       {/* </SheetTrigger>*/}

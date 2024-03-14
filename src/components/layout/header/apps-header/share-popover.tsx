@@ -21,7 +21,7 @@ export function SharePopover({ children }: IProps) {
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="  gap-1 ">
-          <TbShare /> <span>{components.apps_header.share}</span>
+          <TbShare size={16} /> <span>{components.apps_header.share}</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent

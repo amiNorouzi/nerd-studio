@@ -319,9 +319,11 @@
     "user": {
       "menu": {
         "notification_label": "Notifications",
+        "community_label": "Community",
         "account_label": "Account Settings",
         "preferences_label": "Preferences",
-        "logout_label": "Logout"
+        "logout_label": "Logout",
+        "free_plan_label": "Free"
       },
       "panel": {
         "account_items_title": "Account",
