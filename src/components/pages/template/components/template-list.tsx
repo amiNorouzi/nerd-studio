@@ -1,9 +1,57 @@
 "use client";
-import { useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
 import { TemplateCard } from "./template-card";
-import { categories } from "./constant";
+import { Button } from "@/components/ui/button";
+import { useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { categories } from "./constant";
+import { useGetDictionary } from "@/hooks";
+
+interface TemplateListWithShowMoreProps {
+  category: string;
+}
+const ITEMS_TO_SHOW = 5;
+
+function getFilteredItems(category: string, showMore: boolean) {
+  return mockTemplateData
+    .filter(item => item.category === category)
+    .slice(0, showMore ? Infinity : ITEMS_TO_SHOW);
+}
+
+function TemplateListWithShowMore({ category }: TemplateListWithShowMoreProps) {
+  const {
+    page: { template },
+  } = useGetDictionary();
+  const [showMore, setShowMore] = useState(false);
+  const items = getFilteredItems(category, showMore);
+  const showMoreButton =
+    getFilteredItems(category, true).length > ITEMS_TO_SHOW;
+  return (
+    <div key={category} className="mb-10 flex flex-col gap-2">
+      <div className="flex justify-between">
+        <h3 className="text-base font-semibold text-muted-foreground">
+          {category}:
+        </h3>
+        <Button
+          variant="muted"
+          className={cn(
+            "invisible h-[28px] w-[128px] text-sm text-primary",
+            showMoreButton && "visible",
+          )}
+          onClick={() => setShowMore(!showMore)}
+        >
+          {showMore ? template.show_less : template.show_more}
+        </Button>
+      </div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        {items.map(item => (
+          <TemplateCard key={item.id} {...item} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function TemplateList() {
   const searchParams = useSearchParams();
 
@@ -17,18 +65,7 @@ export function TemplateList() {
       return categories
         .filter(category => category !== "All Template")
         .map(category => (
-          <div key={category} className="mb-10 flex flex-col gap-2">
-            <h3 className="text-base font-semibold text-muted-foreground">
-              {category}:
-            </h3>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {mockTemplateData
-                .filter(item => item.category === category)
-                .map(item => (
-                  <TemplateCard key={item.id} {...item} />
-                ))}
-            </div>
-          </div>
+          <TemplateListWithShowMore key={category} category={category} />
         ));
     }
     return mockTemplateData
@@ -40,7 +77,7 @@ export function TemplateList() {
     <div
       className={cn(
         selectedTemplate !== "All Template" &&
-          "grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+          "grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
       )}
     >
       {items}
@@ -52,6 +89,186 @@ export function TemplateList() {
 const mockTemplateData = [
   {
     id: "1",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "111",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "122",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "144",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "133",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "155",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "166",
     icon: "/images/artist.png",
     favorite: false,
     title: "Ad Headlines",

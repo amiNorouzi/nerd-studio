@@ -1,17 +1,35 @@
-import SpacesHeader from "@/components/layout/header/SpacesHeader";
+"use client";
 import {
   BannerWithSearch,
   Categories,
   SetSearchParamProvider,
 } from "@/components/shared";
-import { TemplateList } from "./components";
-import { getDictionary } from "@/lib/dictionary";
+import {
+  AdvancedAndCustomButtons,
+  TemplateList,
+  AdvancedPrompt,
+  MyCustomPrompt,
+} from "./components";
+import RenderIf from "@/components/shared/RenderIf";
 
+import { useCustomSearchParams } from "@/hooks";
 import { categories } from "./components/constant";
+import { cn } from "@/lib/utils";
 import type { LangParams } from "@/services/types";
 
-export async function TemplatePage({ lang }: LangParams["params"]) {
-  const language = await getDictionary(lang);
+const content = {
+  ADVANCE: AdvancedPrompt,
+  "MY PROMPT": MyCustomPrompt,
+  default: TemplateList,
+} as const;
+export function TemplatePage({ lang }: LangParams["params"]) {
+  const [searchParams] = useCustomSearchParams();
+  const isTemplateContentHasValue = !!searchParams.get("template-content");
+  const Content =
+    content[
+      (searchParams.get("template-content") as keyof typeof content) ??
+        "default"
+    ];
 
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param
@@ -27,18 +45,29 @@ export async function TemplatePage({ lang }: LangParams["params"]) {
 
         <div
           id="app-store-main"
-          className="col max-h-page bg-image h-[var(--main-height)] w-full gap-4 overflow-y-auto p-2 md:p-4 lg:gap-6 lg:p-6"
+          className="col max-h-page h-[var(--main-height)] w-full gap-4 overflow-y-auto bg-white p-2 md:p-4 lg:gap-6 lg:p-6"
         >
           {/*this section used for search in list*/}
-          <BannerWithSearch name={"template-search"} />
-          {/*this section show categories and set selected category in url search param*/}
-          <Categories
-            name={"select-template-category"}
-            //TODO:this props must be replaced with data from api
-            categories={categories}
-          />
-          {/*this section show list of template cards*/}
-          <TemplateList />
+          <RenderIf isTrue={!isTemplateContentHasValue}>
+            <BannerWithSearch name={"template-search"} />
+          </RenderIf>
+          <div
+            className={cn(
+              "flex items-center justify-between",
+              isTemplateContentHasValue && "border-b pb-4",
+            )}
+          >
+            {/*this section show categories and set selected category in url search param*/}
+            <Categories
+              name={"select-template-category"}
+              //TODO:this props must be replaced with data from api
+              categories={categories}
+            />
+
+            <AdvancedAndCustomButtons />
+          </div>
+          {/*this section show Content*/}
+          <Content />
         </div>
       </div>
     </SetSearchParamProvider>

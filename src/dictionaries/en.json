@@ -211,7 +211,16 @@
     "template": {
       "template_button_label": "Generate",
       "text_input_placeholder": "paste your text that you wish to rewrite or improve ...",
-      "prompt": "prompt:"
+      "prompt": "prompt:",
+      "my_prompt": "MY PROMPT",
+      "advance": "ADVANCE",
+      "show_more": "SEE MORE",
+      "show_less": "SEE LESS",
+      "use_app": "USE APP",
+      "close": "Close",
+      "child_category": "Child Category",
+      "content_topic": "Content Topic",
+      "task": "Task"
     },
     "code": {
       "page_title": "Code",
