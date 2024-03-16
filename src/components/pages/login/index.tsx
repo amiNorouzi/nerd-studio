@@ -9,6 +9,7 @@ import { FormField, GoogleSignInButton } from "@/components/shared";
 
 import { cn } from "@/lib/utils";
 import { useGetDictionary } from "@/hooks";
+import { signIn } from "next-auth/react";
 
 interface FormTypes {
   userName: string;
@@ -31,10 +32,21 @@ export function LoginPage() {
     page: { login, signup },
     components: { form },
   } = useGetDictionary();
+
+  const handleLogin = async (data: FormTypes) => {
+    await signIn("login-credentials", {
+      redirect: false,
+      fullName: null,
+      email: data.userName,
+      password: data.password,
+      callbackUrl: "/",
+    });
+  };
+
   return (
     <section className=" z-50 flex w-full flex-col items-center justify-center gap-8 p-3">
       <form
-        onSubmit={handleSubmit(data => console.log(data))}
+        onSubmit={handleSubmit(handleLogin)}
         className="flex h-fit w-full max-w-[480px] flex-col gap-5 rounded bg-white p-5 shadow-2xl sm:px-16 sm:py-10"
       >
         <h2 className="text-center text-lg font-bold">{login.welcome}</h2>

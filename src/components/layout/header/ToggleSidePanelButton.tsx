@@ -1,14 +1,12 @@
 "use client";
+import { TbMenu2 } from "react-icons/tb";
+
 import { Button } from "@/components/ui/button";
 import { useUiStore } from "@/stores/zustand/ui-store";
-import { cn } from "@/lib/utils";
-import { RiMenuUnfoldLine } from "react-icons/ri";
-import { TbMenu2 } from "react-icons/tb";
 
 //used in header for open side  and close panel
 
 export function ToggleSidePanelButton() {
-  const isSidePanelOpen = useUiStore.use.isSidePanelOpen(); //side panel open state
   const toggleIsSidePanelOpen = useUiStore.use.toggleIsSidePanelOpen(); //side panel toggle open state handler
 
   return (

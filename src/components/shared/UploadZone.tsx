@@ -32,6 +32,16 @@ export function UploadZone({
     components: { upload_pdf },
   } = useGetDictionary();
 
+  /**
+   * This is a callback function that handles the drop event of the file upload.
+   * It accepts an array of File objects, which represent the files that were dropped into the upload zone.
+   * For each file, it creates a new FileReader object and reads the file as a data URL.
+   * When the file is fully loaded, it logs the base64 encoded file data.
+   * The function is wrapped in a useCallback hook to prevent unnecessary re-renders.
+   *
+   * @callback
+   * @param {File[]} acceptedFiles - The files that were dropped into the upload zone.
+   */
   const onDrop = useCallback((acceptedFiles: File[]) => {
     console.log(acceptedFiles);
     setDocumentFiles(acceptedFiles);

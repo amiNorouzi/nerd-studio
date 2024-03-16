@@ -2,8 +2,8 @@ import Image from "next/image";
 
 import { signIn } from "next-auth/react";
 export function GoogleSignInButton() {
-  const handleClick = () => {
-    signIn("google");
+  const handleClick = async () => {
+    await signIn("google");
   };
 
   return (

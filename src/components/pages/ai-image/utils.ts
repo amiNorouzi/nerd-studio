@@ -4,9 +4,15 @@ import { jsPDF } from "jspdf";
 const rImageType = /data:(image\/.+);base64,/;
 
 /**
- * Convert base64 to blob
- * @param data base64 string
- * @param toType image ext
+ * This function converts a base64 string to a Blob object.
+ * It first extracts the MIME type from the base64 string and stores it in a variable.
+ * The base64 string is then decoded and converted to a raw string.
+ * The raw string is converted to a Uint8Array, with each character's char code being an element in the array.
+ * A Blob object is then created from the Uint8Array, with the MIME type being either the extracted MIME type or a provided MIME type.
+ *
+ * @param {string} data - The base64 string to be converted to a Blob.
+ * @param {string} [toType] - The MIME type to be used for the Blob. If not provided, the MIME type is extracted from the base64 string.
+ * @returns {Blob} The Blob object created from the base64 string.
  */
 export function base64ToBlob(data: string, toType?: string) {
   let mimeString = "";
@@ -29,9 +35,16 @@ export function base64ToBlob(data: string, toType?: string) {
 }
 
 /**
- * Convert base64 to file
- * @param dataUrl base64 string
- * @param filename image name
+ * This function converts a data URL to a File object.
+ * It first splits the data URL into two parts: the MIME type and the base64 encoded data.
+ * The MIME type is extracted from the first part of the split data URL.
+ * The base64 encoded data is decoded and converted to a raw string.
+ * The raw string is converted to a Uint8Array, with each character's char code being an element in the array.
+ * A File object is then created from the Uint8Array, with the filename and MIME type provided.
+ *
+ * @param {string} dataUrl - The data URL to be converted to a File.
+ * @param {string} filename - The name to be used for the File.
+ * @returns {File} The File object created from the data URL.
  */
 export function dataURLtoFile(dataUrl: string, filename: string) {
   let arr = dataUrl.split(","),
@@ -47,10 +60,19 @@ export function dataURLtoFile(dataUrl: string, filename: string) {
 }
 
 /**
- * Download image
- * @param fileName image name
- * @param image base64 string
- * @param ext image ext
+ * This function downloads an image in the specified format.
+ * If the format is 'pdf', it creates a new Image object and sets its source to the base64 encoded image data.
+ * When the image is fully loaded, it creates a new canvas element and draws the image on it.
+ * The canvas is then converted to a data URL representing the canvas's image data.
+ * A new PDF document is created, and the image is added to the document.
+ * The PDF document is then saved and the download is initiated.
+ * If the format is not 'pdf', it uses the FileSaver library to save the base64 encoded image data as a Blob object.
+ * The Blob object is then downloaded in the specified format, or 'jpg' if no format is specified.
+ *
+ * @param {string} fileName - The name to be used for the downloaded file.
+ * @param {string} image - The base64 encoded image data to be downloaded.
+ * @param {"png" | "jpg" | "pdf" | "webp"} [ext] - The format to be used for the downloaded file. If not provided, 'jpg' is used.
+ * @returns {Promise<void>} A Promise that resolves when the download is initiated.
  */
 export async function downloadImage(
   fileName: string,

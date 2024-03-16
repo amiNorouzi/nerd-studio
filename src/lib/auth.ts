@@ -10,19 +10,53 @@ export const authConfig = {
     }),
     CredentialsProvider({
       // The name to display on the signin form (e.g. "Sign in with...")
-      name: "Credentials",
-      // `credentials` is used to generate a form on the signin page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
+      name: "credentials",
+      id: "login-credentials",
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "Email" },
-        password: { label: "Password", type: "password" },
+        email: {},
+        password: {},
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
+        console.log("login", { credentials });
         // Add logic here to look up the user from the credentials supplied
         //TODO: Implement API logic here
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+        //data from login
+        const user = {
+          id: "1",
+          name: "name",
+          email: "email",
+        };
+
+        if (user) {
+          // Any object returned will be saved in `user` property of the JWT
+          return user;
+        } else {
+          // If you return null then an error will be displayed advising the user to check their details.
+          return null;
+
+          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+        }
+      },
+    }),
+    CredentialsProvider({
+      // The name to display on the signin form (e.g. "Sign in with...")
+      name: "credentials",
+      id: "signup-credentials",
+      credentials: {
+        email: {},
+        password: {},
+        fullName: {},
+      },
+      async authorize(credentials) {
+        console.log("signup", { credentials });
+        // Add logic here to look up the user from the credentials supplied
+        //TODO: Implement API logic here
+        //data from signup
+        const user = {
+          id: "1",
+          name: "name",
+          email: "email",
+        };
 
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
@@ -37,14 +71,65 @@ export const authConfig = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      // console.log({token, user})
-      return { ...token, ...user };
+    async signIn({ account, profile }) {
+      if (account?.provider.includes("credentials")) return true;
+      console.log("data in signin callback: ", {
+        account,
+        profile,
+      });
+      // first axios request to ascertain if our user exists in our custom DB
+      //TODO: check user exist with api
+      // const response = await axios.post(
+      //     "http://localhost:9000/v1/auth/userExists",
+      //     { email: profile.email }
+      // );
+
+      // if (response && response.data?.value === true){
+      const res = true;
+      if (res) {
+        // user exists return true passing control to the next callback
+        return true;
+      } else {
+        // second axios call which creates a new user in our database
+        //TODO: signup user with api
+
+        // const data = {
+        //   firstName: profile.given_name,
+        //   lastName: profile.family_name,
+        //   email: profile.email,
+        //   profileUrl: profile.picture,
+        // };
+        // const response = await axios.post(
+        //     "http://localhost:9000/v1/auth/signup",
+        //     data
+        // );
+        // return true thereby passing control to the next callback
+        return true;
+      }
+    },
+    async jwt({ token, user, account }) {
+      console.log("data in jwt callback: ", { user, token, account });
+      if (account) {
+        // call the signToken function which returns a JWT token
+        //TODO: get jwt tokens
+        // const token = await SignToken(user?.email as string);
+        // token.userToken = token;
+        token.accessToken = "accessToken";
+        token.refreshToken = "refreshToken";
+        token.exp = 1712997999;
+      }
+      // the token object is passed done to the session call back for persistence
+      return token;
     },
 
     async session({ session, token }) {
+      console.log("data in session: ", { session, token });
       // console.log({tokenInSession: token})
-      session.user = token as any;
+      const { picture, ...rest } = token;
+      session.user = {
+        ...(rest as any),
+        image: picture,
+      };
       return session;
     },
   },

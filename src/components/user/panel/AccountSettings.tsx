@@ -1,17 +1,16 @@
 "use client";
-import { ReactNode, useRef } from "react";
+import { useRef } from "react";
+
+import { useSession } from "next-auth/react";
 
 import { UserAvatar } from "@/components/user";
-
-import { useGetDictionary } from "@/hooks";
-
-import type { ChildrenProps } from "@/services/types";
-import { useSession } from "next-auth/react";
 import ChangePasswordDialog from "./ChangePasswordDialog";
 import ChangeUsernameDialog from "./ChangeUsernameDialog";
 import ChangeEmailDialog from "./ChangeEmailDialog";
 import { DeleteAlertDialog, SettingItem } from "@/components/shared";
 import { Button } from "@/components/ui/button";
+
+import { useGetDictionary } from "@/hooks";
 
 /**
  * AccountSettings component show the account settings on user panel

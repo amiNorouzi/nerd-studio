@@ -21,10 +21,11 @@ import {
 
 import { cn } from "@/lib/utils";
 import { useGetDictionary } from "@/hooks";
+import { signIn } from "next-auth/react";
 
 interface FormTypes {
   fullName: string;
-  Email: string;
+  email: string;
   password: string;
   acceptReceiveEmail: boolean;
   acceptPolicy: boolean;
@@ -39,7 +40,7 @@ export function Form() {
   const form = useForm<FormTypes>({
     defaultValues: {
       fullName: "",
-      Email: "",
+      email: "",
       password: "",
       acceptPolicy: false,
       acceptReceiveEmail: false,
@@ -52,11 +53,21 @@ export function Form() {
     formState: { errors },
   } = form;
 
+  const handleSignup = async (data: FormTypes) => {
+    await signIn("signup-credentials", {
+      redirect: false,
+      fullName: data.fullName,
+      email: data.email,
+      password: data.password,
+      callbackUrl: "/",
+    });
+  };
+
   return (
     <section className="z-50 flex w-full  flex-col items-center justify-center gap-8 p-3">
       <FormProvider {...form}>
         <form
-          onSubmit={handleSubmit(data => console.log(data))}
+          onSubmit={handleSubmit(handleSignup)}
           className="flex h-fit w-full max-w-[480px] flex-col gap-5 rounded bg-white p-5 shadow-2xl sm:px-16 sm:py-10"
         >
           <h2 className="text-center text-lg font-bold">
@@ -93,7 +104,7 @@ export function Form() {
             <FormField
               control={control}
               id="Email"
-              name="Email"
+              name="email"
               type="text"
               className="relative"
               inputClass="ps-8 h-[40px]"
@@ -103,7 +114,7 @@ export function Form() {
               <CiMail
                 className={cn(
                   "absolute start-2 top-[20px] -translate-y-1/2 text-muted-foreground",
-                  errors.Email && "text-destructive",
+                  errors.email && "text-destructive",
                 )}
                 size={20}
               />
