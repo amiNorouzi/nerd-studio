@@ -1,6 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { loginApi, signupApi } from "@/services/authentication-services";
 
 export const authConfig = {
   providers: [
@@ -17,19 +18,21 @@ export const authConfig = {
         password: {},
       },
       async authorize(credentials) {
-        console.log("login", { credentials });
-        // Add logic here to look up the user from the credentials supplied
-        //TODO: Implement API logic here
-        //data from login
-        const user = {
-          id: "1",
-          name: "name",
-          email: "email",
-        };
+        const { data } = await loginApi({
+          email: credentials!.email,
+          password: credentials!.password,
+        });
+        console.log(data);
 
-        if (user) {
+        if (data) {
           // Any object returned will be saved in `user` property of the JWT
-          return user;
+          return {
+            id: "1",
+            name: "name",
+            email: credentials!.email,
+            accessToken: data.access_token,
+            refreshToken: data.refresh_token,
+          };
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;
@@ -48,24 +51,31 @@ export const authConfig = {
         fullName: {},
       },
       async authorize(credentials) {
-        console.log("signup", { credentials });
-        // Add logic here to look up the user from the credentials supplied
-        //TODO: Implement API logic here
-        //data from signup
-        const user = {
-          id: "1",
-          name: "name",
-          email: "email",
-        };
-
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user;
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
-          return null;
-
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+        try {
+          // Add logic here to look up the user from the credentials supplied
+          const { data } = await signupApi({
+            email: credentials!.email,
+            fullName: credentials!.fullName,
+            password: credentials!.password,
+          });
+          //data from signup
+          console.log(data);
+          if (data) {
+            // Any object returned will be saved in `user` property of the JWT
+            return {
+              id: "1",
+              name: credentials!.fullName,
+              email: credentials!.email,
+              accessToken: data.access_token,
+              refreshToken: data.refresh_token,
+            };
+          } else {
+            // If you return null then an error will be displayed advising the user to check their details.
+            return null;
+            // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+          }
+        } catch (e) {
+          throw e;
         }
       },
     }),

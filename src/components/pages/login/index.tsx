@@ -12,7 +12,7 @@ import { useGetDictionary } from "@/hooks";
 import { signIn } from "next-auth/react";
 
 interface FormTypes {
-  userName: string;
+  email: string;
   password: string;
 }
 export function LoginPage() {
@@ -22,7 +22,7 @@ export function LoginPage() {
     formState: { errors },
   } = useForm<FormTypes>({
     defaultValues: {
-      userName: "",
+      email: "",
       password: "",
     },
   });
@@ -37,7 +37,7 @@ export function LoginPage() {
     await signIn("login-credentials", {
       redirect: false,
       fullName: null,
-      email: data.userName,
+      email: data.email,
       password: data.password,
       callbackUrl: "/",
     });
@@ -51,23 +51,23 @@ export function LoginPage() {
       >
         <h2 className="text-center text-lg font-bold">{login.welcome}</h2>
         <div className="grid grid-cols-1 items-start gap-2">
-          <Label htmlFor="userName">{common.user_name}</Label>
+          <Label htmlFor="email">{login.email_label}</Label>
 
           <FormField
             control={control}
             autoFocus
-            id="userName"
-            name="userName"
-            type="text"
+            id="email"
+            name="email"
+            type="email"
             className="relative"
             inputClass="ps-8 h-[40px]"
-            placeholder={login.user_name_placeholder}
-            rules={{ required: login.user_name_error_message }}
+            placeholder={login.email_placeholder}
+            rules={{ required: login.email_error_message }}
           >
             <CiMail
               className={cn(
                 "absolute start-2 top-[20px] -translate-y-1/2 text-muted-foreground",
-                errors.userName && "text-destructive",
+                errors.email && "text-destructive",
               )}
               size={20}
             />

@@ -1,4 +1,4 @@
-FROM node:20-alpine AS base
+FROM node:18-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -27,16 +27,7 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN --mount=type=secret,id=GOOGLE_CLIENT_ID \
-  --mount=type=secret,id=GOOGLE_CLIENT_SECRET \
-  --mount=type=secret,id=NEXTAUTH_SECRET \
-  --mount=type=secret,id=NEXTAUTH_URL \
-  --mount=type=secret,id=NEXT_PUBLIC_API_URL \
-  export GOOGLE_CLIENT_ID=$(cat /run/secrets/GOOGLE_CLIENT_ID) && \
-  export GOOGLE_CLIENT_SECRET=$(cat /run/secrets/GOOGLE_CLIENT_SECRET) && \
-  export NEXTAUTH_SECRET=$(cat /run/secrets/NEXTAUTH_SECRET) && \
-  export NEXTAUTH_URL=$(cat /run/secrets/NEXTAUTH_URLT) && \
-  export NEXT_PUBLIC_API_URL=$(cat /run/secrets/NEXT_PUBLIC_API_URL) && \
+RUN \
   if [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
   elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \

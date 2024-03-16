@@ -93,3 +93,8 @@ export interface CodeHistoryItem {
   engine: string;
   engineIcon: string;
 }
+
+export interface AuthReturn {
+  refresh_token: string;
+  access_token: string;
+}
