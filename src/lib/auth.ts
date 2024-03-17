@@ -18,6 +18,7 @@ export const authConfig = {
         password: {},
       },
       async authorize(credentials) {
+        if (!credentials?.email || !credentials.password) return null;
         const { data } = await loginApi({
           email: credentials!.email,
           password: credentials!.password,
@@ -52,7 +53,14 @@ export const authConfig = {
       },
       async authorize(credentials) {
         try {
+          console.log(credentials);
           // Add logic here to look up the user from the credentials supplied
+          if (
+            !credentials?.email ||
+            !credentials.password ||
+            !credentials.fullName
+          )
+            return null;
           const { data } = await signupApi({
             email: credentials!.email,
             fullName: credentials!.fullName,
@@ -75,6 +83,7 @@ export const authConfig = {
             // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
           }
         } catch (e) {
+          console.log(e);
           throw e;
         }
       },
