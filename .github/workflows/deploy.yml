@@ -1,0 +1,21 @@
+name: Deploy Docker Container
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Free up port 3000
+        run: |
+          sudo lsof -i :3000 -t | xargs --no-run-if-empty sudo kill -9
+
+      - name: Build and Run Docker container
+        run: |
+          docker build -t myapp .
+          docker run -d -p 3000:3000 myapp
+
+      # Add other steps as necessary

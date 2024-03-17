@@ -1,0 +1,339 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 20% 99%;
+    --foreground: 0 0% 9%;
+    --active-bg: #9372ee20;
+    --bg-overlay: #ffffff64;
+    --bg-main: 0 0% 97%;
+
+    --card: 0 0% 99%;
+    --card-foreground: 220 43% 11%;
+
+    --popover: 240 20% 98%;
+    --popover-foreground: 220 43% 11%;
+
+    --primary: 256 78% 69%;
+    --primary-dark: 256 71% 51%;
+    --primary-light: 256 79% 96%;
+    --primary-foreground: 189 100% 97%;
+
+    --secondary: 274 100% 97%;
+    --secondary-foreground: 256 71% 51%;
+
+    --muted: 0 0% 97%;
+    --muted-dark: 0 0% 94%;
+    --muted-foreground: 0 0% 45%;
+    --muted-foreground-light: 231 5% 74%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 335 100% 38%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 17% 93%;
+    --input: 220 17% 93%;
+    --ring: 220 17% 93%;
+    --hover: #00000010;
+
+    --radius: 0.5rem;
+    --bacgroud-image: url("/images/backgrounds/light-background-image.svg");
+
+    --apps-header-height: 3.5rem;
+    --apps-main-height: calc(100dvh - 3.5rem);
+    --header-height: 3rem;
+    --main-height: calc(100dvh - 3rem);
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --active-bg: #9372ee20;
+    --bg-overlay: #ffffff64;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --bacgroud-image: url("/images/backgrounds/dark-background-image.svg");
+  }
+}
+
+/****************************************** tailwind custom classes *************************************/
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .row {
+    @apply flex items-center;
+  }
+
+  .col {
+    @apply flex flex-col;
+  }
+
+  .h-apps-header {
+    height: var(--apps-header-height);
+  }
+  .h-header {
+    height: var(--header-height);
+  }
+  .max-h-apps-page {
+    max-height: var(--apps-main-height);
+  }
+  .max-h-page {
+    max-height: var(--main-height);
+  }
+
+  .spacing-row {
+    @apply flex items-center justify-between;
+  }
+
+  .centered-row {
+    @apply flex items-center justify-center;
+  }
+
+  .centered-col {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  .fit {
+    @apply h-fit w-fit;
+  }
+
+  .center-position {
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+}
+
+@layer components {
+  .vr {
+    @apply mx-1 h-full w-[1px] bg-border;
+  }
+
+  .hr {
+    @apply my-1 h-[1px] bg-border;
+  }
+
+  .error {
+    @apply ml-2 text-xs text-red-600;
+  }
+  .border-b-tab {
+    @apply !rounded-none border-b-2 border-transparent !bg-transparent !pb-2 text-sm
+    text-muted-foreground hover:text-primary data-[state=active]:border-primary
+    data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none;
+  }
+}
+
+/****************************************** default css *************************************/
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 300ms !important;
+  overflow: hidden;
+}
+
+button,
+a,
+p {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+input,
+textarea {
+  @apply font-normal placeholder:font-normal placeholder:text-muted-foreground;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px !important;
+  height: 4px !important;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 grey !important;
+  border-radius: 10px !important;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #cccdcf !important;
+  border-radius: 7px !important;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a4a4 !important;
+}
+
+/*input[type="search"]::-webkit-search-cancel-button {*/
+/*  display: inline-block;*/
+/*  width: 10px;*/
+/*  height: 10px;*/
+/*}*/
+
+/****************************************** html elements style *************************************/
+
+/****************************************** global custom class and styling *************************************/
+.balance:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 8px;
+  z-index: 0;
+  background: linear-gradient(
+    60deg,
+    rgba(61, 115, 235, 0.08) 13.4%,
+    rgba(222, 143, 255, 0.08) 86.6%
+  );
+}
+
+.hide-svg svg {
+  display: none;
+}
+
+.bg-gradiant,
+.border-gradiant {
+  position: relative;
+}
+.border-gradiant.hover-border-gradiant {
+  @apply transition-all duration-200 after:opacity-0;
+}
+
+.hover-border-gradiant:hover::after {
+  @apply opacity-100;
+}
+
+.border-gradiant::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(#3d73eb, #de8fff) border-box;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+}
+
+.text-gradiant {
+  display: flex;
+  align-items: baseline;
+  background: linear-gradient(60deg, #4d84ff 13.4%, #de8fff 86.6%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+.hidden-accordion-icon svg {
+  display: none;
+}
+
+.bg-gradiant {
+  background: linear-gradient(
+    60deg,
+    rgba(77, 132, 255, 0.08) 13.4%,
+    rgba(222, 143, 255, 0.08) 86.6%
+  );
+}
+
+.cart-arrow:after {
+  content: "";
+  @apply absolute -bottom-1.5 right-1/2 h-3 w-3 translate-x-1/2 rotate-45 bg-popover;
+}
+
+.bg-image {
+  background-image: var(--bacgroud-image);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dashboard-hero {
+  background-image: url("/images/backgrounds/dashboard-hero-background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.app-store-hero {
+  background-image: linear-gradient(60deg, #3d73eb 13.4%, #de8fff 86.6%);
+}
+
+.app-store-hero:before,
+.app-store-hero:after {
+  content: "";
+  @apply pointer-events-none absolute inset-0;
+}
+
+.app-store-hero:before {
+  background: url("/images/backgrounds/app-store-hero-dot-baclground.svg")
+    no-repeat 50%;
+}
+
+.app-store-hero:after {
+  background: url("/images/backgrounds/app-store-hero-baclground.svg") no-repeat
+    50%;
+}
+
+.bg-linearGradient {
+  background: linear-gradient(89.33deg, #4d84ff 1.8%, #de8fff 94.53%);
+}
+
+.formats > span {
+  @apply rounded-md border border-primary bg-primary-light px-2 py-1 text-center text-xs uppercase;
+}
+
+.promptInputFormShadow {
+  box-shadow: 0px 12px 36px 0px rgba(101, 77, 132, 0.25);
+}
