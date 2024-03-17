@@ -16,7 +16,7 @@ jobs:
       - name: Copy Project and Build
         run: |
           # Build the Docker image
-          docker build -t nerd-studio-front .
+          # docker build -t nerd-studio-front .
           # Run the Docker container
           # docker run -p 3000:3000 nerd-studio-front
           docker compose up --build -d
