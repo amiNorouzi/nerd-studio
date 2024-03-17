@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import React, { useRef } from "react";
 
 import { useResizeObserver } from "usehooks-ts";
 import { IoIosMore } from "react-icons/io";
@@ -13,10 +13,12 @@ import {
 } from "@/components/ui/hover-card";
 import RenderIf from "@/components/shared/RenderIf";
 import { useCustomSearchParams } from "@/hooks";
+import { cn } from "@/lib/utils";
 
-interface IProps {
+interface IProps extends React.ComponentPropsWithoutRef<"nav"> {
   name: string;
   categories: string[];
+  onChangeTabValue?: (v: string) => void;
 }
 
 /**
@@ -25,7 +27,13 @@ interface IProps {
  * if items is get space more than available width of container, will show more button
  * @constructor
  */
-export function Categories({ name, categories }: IProps) {
+export function Categories({
+  name,
+  categories,
+  onChangeTabValue,
+  className,
+  ...navProps
+}: IProps) {
   const [searchParams, setSearchParams] = useCustomSearchParams();
   // get container ref for calculate width
   const ref = useRef<HTMLDivElement>(null);
@@ -34,21 +42,29 @@ export function Categories({ name, categories }: IProps) {
     ref,
     box: "border-box",
   });
+  console.log("category width: ", width);
 
   /**
-   * average tab size is 85px
+   * average tab size is 110px
    * calculate max item that can be shown in container by container width / average tab size
    */
-  const maxItem = Math.floor(width / 85);
+  const maxItem = Math.floor(width / 110);
+
+  function handleSelect(v: string) {
+    if (onChangeTabValue) {
+      onChangeTabValue(v);
+    }
+    setSearchParams(name, v);
+  }
 
   return (
-    <nav className="w-full max-w-full" ref={ref}>
+    <nav className={cn("w-full max-w-full", className)} ref={ref} {...navProps}>
       <Tabs
         defaultValue={searchParams.get(name) ?? categories[0]}
         className="h-full w-full"
-        onValueChange={v => setSearchParams(name, v)}
+        onValueChange={handleSelect}
       >
-        <TabsList className="row w-full justify-start gap-2  bg-transparent p-0">
+        <TabsList className="row w-full justify-start gap-2 bg-transparent p-0">
           {categories.slice(0, maxItem).map(category => (
             <TabsTrigger
               key={category}
@@ -75,6 +91,7 @@ export function Categories({ name, categories }: IProps) {
                     key={category}
                     variant="ghost"
                     className="row h-fit w-full justify-start px-2.5 py-2 text-foreground/70 hover:bg-hover focus-visible:ring-offset-0"
+                    onClick={() => handleSelect(category)}
                   >
                     {category}
                   </Button>

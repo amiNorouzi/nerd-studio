@@ -39,9 +39,11 @@ export interface TemplateState {
     prompt: string;
     inputs: Input[];
   };
+  templateTab: "default" | "Advance" | "My Prompt";
 }
 export interface TemplateAction {
   setCurrentTemplate: (v: TemplateState["currentTemplate"]) => void;
+  setTemplatePageContent: (v: TemplateState["templateTab"]) => void;
 }
 
 //engine

@@ -1,7 +1,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { mockData } from "./constant";
 import type { StateSetterType } from "@/services/types";
+import { mockData } from "./constant";
 
 interface ChildCategoryItemProps {
   id: number;
@@ -10,7 +10,7 @@ interface ChildCategoryItemProps {
   selectedItem: number;
   handleSelectItem: (v: number) => void;
 }
-function ChildCategoryItem({
+function ChildCategoryItems({
   title,
   id,
   description,
@@ -44,22 +44,22 @@ function ChildCategoryItem({
     </div>
   );
 }
-interface ListOfChildCategoryItemsProps {
-  selectedCategoryChildItemId: number;
-  setSelectedCategoryChildItemId: StateSetterType<number>;
+interface ListOfChildCategoryProps {
+  selectedTopicChildItemId: number;
+  setSelectedTopicChildItemId: StateSetterType<number>;
 }
-export function ListOfChildCategoryItems({
-  selectedCategoryChildItemId,
-  setSelectedCategoryChildItemId,
-}: ListOfChildCategoryItemsProps) {
+export function AdvancedChildCategory({
+  selectedTopicChildItemId,
+  setSelectedTopicChildItemId,
+}: ListOfChildCategoryProps) {
   return (
     <div className="grid grid-cols-1 items-center justify-center gap-x-8 gap-y-3 rounded-xl border p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
       {mockData.map(item => (
-        <ChildCategoryItem
+        <ChildCategoryItems
           key={item.id}
           {...item}
-          selectedItem={selectedCategoryChildItemId}
-          handleSelectItem={setSelectedCategoryChildItemId}
+          selectedItem={selectedTopicChildItemId}
+          handleSelectItem={setSelectedTopicChildItemId}
         />
       ))}
     </div>

@@ -10,7 +10,7 @@ interface ChildCategoryItemProps {
   selectedItem: number;
   handleSelectItem: (v: number) => void;
 }
-function TopicItem({
+function ContentTopicCategoryItems({
   title,
   id,
   description,
@@ -44,22 +44,22 @@ function TopicItem({
     </div>
   );
 }
-interface ListOfContentTopicProps {
-  selectedTopicChildItemId: number;
-  setSelectedTopicChildItemId: StateSetterType<number>;
+interface ListOfContentTopic {
+  selectedContentTopicItemId: number;
+  setSelectedContentTopicItemId: StateSetterType<number>;
 }
-export function ListOfContentTopic({
-  selectedTopicChildItemId,
-  setSelectedTopicChildItemId,
-}: ListOfContentTopicProps) {
+export function AdvancedContentTopic({
+  selectedContentTopicItemId,
+  setSelectedContentTopicItemId,
+}: ListOfContentTopic) {
   return (
     <div className="grid grid-cols-1 items-center justify-center gap-x-8 gap-y-3 rounded-xl border p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
       {mockData.map(item => (
-        <TopicItem
+        <ContentTopicCategoryItems
           key={item.id}
           {...item}
-          selectedItem={selectedTopicChildItemId}
-          handleSelectItem={setSelectedTopicChildItemId}
+          selectedItem={selectedContentTopicItemId}
+          handleSelectItem={setSelectedContentTopicItemId}
         />
       ))}
     </div>

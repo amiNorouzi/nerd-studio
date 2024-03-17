@@ -1,5 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import {
   TbCheck,
@@ -7,43 +9,100 @@ import {
   TbChevronsLeft,
   TbSearch,
 } from "@/components/svg-icons";
-import { ListOfChildCategoryItems } from "./list-of-child-category";
-import { ListOfContentTopic } from "./list-of-content-topic";
 import RenderIf from "@/components/shared/RenderIf";
+import { AdvancedParentCategory } from "./advanced-parent-category";
+import { AdvancedChildCategory } from "./advanced-child-category";
+import { AdvancedContentTopic } from "./advanced-content-topic";
+import { Separator } from "@/components/ui/separator";
 
+import { useTemplateStore } from "@/stores/zustand/template-store";
+import { useMediaQuery } from "usehooks-ts";
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
+
 import { cn } from "@/lib/utils";
+
 import type { StateSetterType } from "@/services/types";
+import type { TemplateState } from "@/stores/zustand/types";
 
 interface StepBoxProps {
   step: number;
   completed: boolean;
   title: string;
+  active: boolean;
 }
-function StepBox({ step, completed, title }: StepBoxProps) {
+function StepBox({ step, completed, title, active }: StepBoxProps) {
+  const iconWrapper = useRef<HTMLDivElement>(null);
   return (
-    <div className="col items-center justify-center gap-[21px]">
-      <div
-        className={cn(
-          "bg-linearGradient flex h-14 w-14 items-center justify-center rounded-lg p-2",
-          completed && "bg-[#ECFDF3]",
-        )}
-      >
+    <div className="flex items-start justify-start ">
+      <div className="col items-center justify-start gap-[21px]">
         <div
-          className="flex items-center justify-center rounded-full  bg-white p-1 text-center  text-xl font-bold"
-          style={{ color: "bg-linearGradient" }}
-        >
-          {completed ? (
-            <TbCheck className="h-6 w-6 text-[#027A48]  opacity-100" />
-          ) : (
-            <span className="gradient-text h-6 w-6">{step + 1}</span>
+          ref={iconWrapper}
+          className={cn(
+            "flex size-14 items-center justify-center rounded-lg bg-muted p-2",
+            active && "bg-linearGradient",
+            completed && "bg-[#ECFDF3]",
           )}
+        >
+          <div className="flex items-center justify-center rounded-full  bg-white p-1 text-center  text-xl font-bold shadow">
+            {completed ? (
+              <TbCheck className="size-6 text-[#027A48]" />
+            ) : (
+              <span
+                className={cn(
+                  "size-6 text-muted-foreground-light",
+                  active && "gradient-text ",
+                )}
+              >
+                {step + 1}
+              </span>
+            )}
+          </div>
         </div>
+        <h4
+          className={cn(
+            "text-center text-base font-medium",
+            !completed && !active && "text-muted-foreground-light",
+          )}
+        >
+          {title}
+        </h4>
       </div>
-      <h4 className="text-base font-medium">{title}</h4>
+
+      <Separator
+        className={cn(step === 2 && "invisible")}
+        style={{
+          marginTop: `${(iconWrapper.current?.offsetHeight ?? 0) / 2}px`,
+        }}
+        orientation="horizontal"
+      />
     </div>
   );
 }
+
+interface ListOfStepBoxesProps {
+  stepper: number;
+}
+export function ListOfStepBoxes({ stepper }: ListOfStepBoxesProps) {
+  const {
+    page: { template },
+  } = useGetDictionary();
+  return (
+    <div>
+      <div className="grid grid-cols-3 place-content-center gap-16">
+        {Object.keys(steps).map(step => (
+          <StepBox
+            key={step}
+            step={Number(step)}
+            completed={Number(step) < stepper}
+            active={Number(step) === stepper}
+            title={template[stepsTitle[step as keyof typeof steps]]}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function SearchBox() {
   const [searchParams, setSearchParams] = useCustomSearchParams();
   const {
@@ -69,110 +128,143 @@ interface FooterButtonsProps {
   stepper: number;
   setStepper: StateSetterType<number>;
   handleReset: () => void;
+  selectedTemplate: TemplateState["currentTemplate"];
 }
 function FooterButtons({
   stepper,
   setStepper,
   handleReset,
+  selectedTemplate,
 }: FooterButtonsProps) {
+  /**
+   * use this function to set selected template in store and use it in selected template page
+   */
+  const setCurrentTemplate = useTemplateStore.use.setCurrentTemplate();
+  const {
+    page: { template },
+  } = useGetDictionary();
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   return (
-    <div
-      className={cn(
-        "flex w-full justify-between",
-        stepper === 0 && "justify-center",
-      )}
-    >
-      <RenderIf isTrue={stepper > 0}>
-        <Button
-          onClick={() => setStepper(v => v - 1)}
-          className={cn("items-center gap-2", buttonsSize)}
+    <div className="col sticky bottom-1 w-full gap-2 sm:relative sm:bottom-0">
+      {/*show prompt button(show on mobile size)*/}
+      <RenderIf isTrue={stepper === 2 && !isDesktop}>
+        <Link
+          href={`/template/${selectedTemplate.id}`}
+          onClick={() => setCurrentTemplate(selectedTemplate)}
+          className="w-full"
         >
-          <TbChevronsLeft />
-          BACK STEP
-        </Button>
-      </RenderIf>
-      <RenderIf isTrue={stepper < 2}>
-        <Button
-          onClick={() => setStepper(v => v + 1)}
-          className={cn("items-center gap-2", buttonsSize)}
-        >
-          NEXT STEP
-          <TbChevronsRight />
-        </Button>
-      </RenderIf>
-      <RenderIf isTrue={stepper === 2}>
-        <div className="flex gap-6">
-          <Button
-            onClick={handleReset}
-            variant="secondary"
-            className={cn("text-primary-dark", buttonsSize)}
-          >
-            RESET
+          <Button className="h-14 w-full rounded-xl">
+            {template.show_prompt_label_button}
           </Button>
-          <Button
-            onClick={() => console.log("finish")}
-            className={cn(buttonsSize)}
-          >
-            FINISH
-          </Button>
-        </div>
+        </Link>
       </RenderIf>
+      <div
+        className={cn(
+          "flex w-full flex-nowrap justify-between gap-2",
+          stepper === 0 && "justify-center",
+        )}
+      >
+        {/*back step button*/}
+        <RenderIf isTrue={stepper > 0}>
+          <Button
+            onClick={() => setStepper(v => v - 1)}
+            variant="muted"
+            className={cn(
+              "h-14 items-center gap-2 rounded-xl text-primary-dark max-sm:basis-1/2 sm:w-44",
+              stepper === 1 && "max-sm:basis-1/3",
+            )}
+          >
+            <TbChevronsLeft />
+            {template.back_step_label_button}
+          </Button>
+        </RenderIf>
+        {/*next step button*/}
+        <RenderIf isTrue={stepper < 2}>
+          <Button
+            onClick={() => setStepper(v => v + 1)}
+            className="h-14 items-center gap-2 rounded-xl max-sm:w-full max-sm:basis-2/3 max-sm:only:basis-full sm:w-44"
+          >
+            {template.next_step_label_button}
+            <TbChevronsRight />
+          </Button>
+        </RenderIf>
+        {/*reset and show prompt(show on desktop width) buttons*/}
+        <RenderIf isTrue={stepper === 2}>
+          <div className="flex gap-6 max-sm:basis-1/2">
+            <Button
+              onClick={handleReset}
+              variant="secondary"
+              className="h-14 w-full rounded-xl text-primary-dark sm:w-44"
+            >
+              {template.reset_label_button}
+            </Button>
+            <RenderIf isTrue={isDesktop}>
+              <Link
+                href={`/template/${selectedTemplate.id}`}
+                onClick={() => setCurrentTemplate(selectedTemplate)}
+              >
+                <Button className="h-14 w-44 rounded-xl">
+                  {template.show_prompt_label_button}
+                </Button>
+              </Link>
+            </RenderIf>
+          </div>
+        </RenderIf>
+      </div>
     </div>
   );
 }
 
 const steps = {
-  "0": ListOfChildCategoryItems,
-  "1": ListOfContentTopic,
-  "2": () => <div>task</div>,
+  "0": AdvancedParentCategory,
+  "1": AdvancedChildCategory,
+  "2": AdvancedContentTopic,
 } as const;
 const stepsTitle = {
-  "0": "child_category",
-  "1": "content_topic",
-  "2": "task",
+  "0": "parent_category",
+  "1": "child_category",
+  "2": "content_topic",
 } as const;
-const buttonsSize = "w-[11.25rem] h-[3.5rem] rounded-xl ";
 
 export function AdvancedPrompt() {
-  const [selectedCategoryChildItemId, setSelectedCategoryChildItemId] =
+  const [selectedCategoryParentItemId, setSelectedCategoryParentItemId] =
     useState(-1);
   const [selectedTopicChildItemId, setSelectedTopicChildItemId] = useState(-1);
+  const [selectedContentTopicItemId, setSelectedContentTopicItemId] =
+    useState(-1);
   const [stepper, setStepper] = useState(0);
   const Content = steps[String(stepper) as keyof typeof steps];
   const {
     page: { template },
   } = useGetDictionary();
-
+  const currentTemplate = useTemplateStore.use.currentTemplate();
   function handleReset() {
-    setSelectedCategoryChildItemId(-1);
+    setSelectedCategoryParentItemId(-1);
     setSelectedTopicChildItemId(-1);
     setStepper(0);
   }
   return (
-    <div className="col h-full w-full items-center gap-6">
-      <div>
-        <div className="grid grid-cols-3 items-start gap-16">
-          {Object.keys(steps).map(step => (
-            <StepBox
-              key={step}
-              step={Number(step)}
-              completed={Number(step) < stepper}
-              title={template[stepsTitle[step as keyof typeof steps]]}
-            />
-          ))}
-        </div>
-      </div>
-      <SearchBox />
+    <div className="col h-fit w-full flex-1 items-center gap-6 ">
+      <ListOfStepBoxes stepper={stepper} />
+      <RenderIf isTrue={stepper > 0}>
+        <SearchBox />
+      </RenderIf>
       <Content
-        selectedCategoryChildItemId={selectedCategoryChildItemId}
-        setSelectedCategoryChildItemId={setSelectedCategoryChildItemId}
+        //these props are for parent category
+        selectedCategoryParentItemId={selectedCategoryParentItemId}
+        setSelectedCategoryParentItemId={setSelectedCategoryParentItemId}
+        //these props are for child category
         selectedTopicChildItemId={selectedTopicChildItemId}
         setSelectedTopicChildItemId={setSelectedTopicChildItemId}
+        //these props are for content topic
+        selectedContentTopicItemId={selectedContentTopicItemId}
+        setSelectedContentTopicItemId={setSelectedContentTopicItemId}
       />
       <FooterButtons
         stepper={stepper}
         setStepper={setStepper}
         handleReset={handleReset}
+        selectedTemplate={currentTemplate}
       />
     </div>
   );

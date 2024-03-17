@@ -30,7 +30,7 @@ const titles = [
   "Music",
   "News",
 ];
-export const mockData = Array.from({ length: 15 }, (_, i) => ({
+export const mockData = Array.from({ length: 25 }, (_, i) => ({
   id: i,
   title: titles[Math.floor(Math.random() * titles.length)],
   description:

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { categories } from "./constant";
-import { useGetDictionary } from "@/hooks";
+import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 
 interface TemplateListWithShowMoreProps {
   category: string;
@@ -52,13 +52,18 @@ function TemplateListWithShowMore({ category }: TemplateListWithShowMoreProps) {
   );
 }
 
+/**
+ * list of template cards
+ * @constructor
+ */
 export function TemplateList() {
-  const searchParams = useSearchParams();
+  const [searchParams] = useCustomSearchParams();
 
   // selected template that read from search param that Categories component set it in url
   const selectedTemplate =
     searchParams.get("select-template-category") ?? "All Template";
 
+  console.log("selected template: ", selectedTemplate);
   // generate and memoized list of template cards
   const items = useMemo(() => {
     if (selectedTemplate === "All Template") {
