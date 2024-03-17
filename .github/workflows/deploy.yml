@@ -1,22 +1,21 @@
-name: Stage
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-  workflow_dispatch:
+name: Deploy Docker Container
+
+on: [push]
+
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
-      - name: Pulling ...
-        uses: actions/checkout@v3
-        with:
-          clean: false
-      - name: Copy Project and Build
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Free up port 3000
         run: |
-          # Build the Docker image
-          # docker build -t nerd-studio-front .
-          # Run the Docker container
-          # docker run -p 3000:3000 nerd-studio-front
-          docker compose up --build -d
+          sudo lsof -i :3000 -t | xargs --no-run-if-empty sudo kill -9
+
+      - name: Build and Run Docker container
+        run: |
+          docker build -t myapp .
+          docker run -d -p 3000:3000 myapp
+
+      # Add other steps as necessary
