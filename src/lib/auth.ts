@@ -1,7 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { loginApi, signupApi } from "@/services/authentication-services";
+// import CredentialsProvider from "next-auth/providers/credentials";
+// import { loginApi, signupApi } from "@/services/authentication-services";
 
 export const authConfig = {
   providers: [
@@ -9,85 +9,86 @@ export const authConfig = {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-    CredentialsProvider({
-      // The name to display on the signin form (e.g. "Sign in with...")
-      name: "credentials",
-      id: "login-credentials",
-      credentials: {
-        email: {},
-        password: {},
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) return null;
-        const { data } = await loginApi({
-          email: credentials!.email,
-          password: credentials!.password,
-        });
-        console.log(data);
-
-        if (data) {
-          // Any object returned will be saved in `user` property of the JWT
-          return {
-            id: "1",
-            name: "name",
-            email: credentials!.email,
-            accessToken: data.access_token,
-            refreshToken: data.refresh_token,
-          };
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
-          return null;
-
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-        }
-      },
-    }),
-    CredentialsProvider({
-      // The name to display on the signin form (e.g. "Sign in with...")
-      name: "credentials",
-      id: "signup-credentials",
-      credentials: {
-        email: {},
-        password: {},
-        fullName: {},
-      },
-      async authorize(credentials) {
-        try {
-          console.log(credentials);
-          // Add logic here to look up the user from the credentials supplied
-          if (
-            !credentials?.email ||
-            !credentials.password ||
-            !credentials.fullName
-          )
-            return null;
-          const { data } = await signupApi({
-            email: credentials!.email,
-            fullName: credentials!.fullName,
-            password: credentials!.password,
-          });
-          //data from signup
-          console.log(data);
-          if (data) {
-            // Any object returned will be saved in `user` property of the JWT
-            return {
-              id: "1",
-              name: credentials!.fullName,
-              email: credentials!.email,
-              accessToken: data.access_token,
-              refreshToken: data.refresh_token,
-            };
-          } else {
-            // If you return null then an error will be displayed advising the user to check their details.
-            return null;
-            // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-          }
-        } catch (e) {
-          console.log(e);
-          throw e;
-        }
-      },
-    }),
+    // CredentialsProvider({
+    //   // The name to display on the signin form (e.g. "Sign in with...")
+    //   name: "credentials",
+    //   id: "login-credentials",
+    //   credentials: {
+    //     email: {},
+    //     password: {},
+    //   },
+    //   async authorize(credentials) {
+    //     console.log("login: ", credentials);
+    //     if (!credentials?.email || !credentials.password) return null;
+    //     const { data } = await loginApi({
+    //       email: credentials!.email,
+    //       password: credentials!.password,
+    //     });
+    //     console.log(data);
+    //
+    //     if (data) {
+    //       // Any object returned will be saved in `user` property of the JWT
+    //       return {
+    //         id: "1",
+    //         name: "name",
+    //         email: credentials!.email,
+    //         accessToken: data.access_token,
+    //         refreshToken: data.refresh_token,
+    //       };
+    //     } else {
+    //       // If you return null then an error will be displayed advising the user to check their details.
+    //       return null;
+    //
+    //       // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+    //     }
+    //   },
+    // }),
+    // CredentialsProvider({
+    //   // The name to display on the signin form (e.g. "Sign in with...")
+    //   name: "credentials",
+    //   id: "signup-credentials",
+    //   credentials: {
+    //     email: {},
+    //     password: {},
+    //     fullName: {},
+    //   },
+    //   async authorize(credentials) {
+    //     try {
+    //       console.log(credentials);
+    //       // Add logic here to look up the user from the credentials supplied
+    //       if (
+    //         !credentials?.email ||
+    //         !credentials.password ||
+    //         !credentials.fullName
+    //       )
+    //         return null;
+    //       const { data } = await signupApi({
+    //         email: credentials!.email,
+    //         fullName: credentials!.fullName,
+    //         password: credentials!.password,
+    //       });
+    //       //data from signup
+    //       console.log(data);
+    //       if (data) {
+    //         // Any object returned will be saved in `user` property of the JWT
+    //         return {
+    //           id: "1",
+    //           name: credentials!.fullName,
+    //           email: credentials!.email,
+    //           accessToken: data.access_token,
+    //           refreshToken: data.refresh_token,
+    //         };
+    //       } else {
+    //         // If you return null then an error will be displayed advising the user to check their details.
+    //         return null;
+    //         // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+    //       }
+    //     } catch (e) {
+    //       console.log(e);
+    //       throw e;
+    //     }
+    //   },
+    // }),
   ],
   callbacks: {
     async signIn({ account, profile }) {
