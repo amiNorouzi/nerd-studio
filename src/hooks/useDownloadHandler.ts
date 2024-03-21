@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { useReactToPrint } from "react-to-print";
 import { convertInnerHtmlToDocx } from "@/lib/convertInnerHtmlToDocx";

@@ -48,6 +48,7 @@ export function PromptInputTextBox() {
           />
         </Button>
       </MyTooltip>
+      {/*text area*/}
       <textarea
         className="max-h-40 w-full resize-none rounded-xl border-none bg-transparent py-2.5 placeholder:font-normal placeholder:text-muted-foreground-light focus:outline-none"
         placeholder={chatDictionary.prompt_input_placeholder}

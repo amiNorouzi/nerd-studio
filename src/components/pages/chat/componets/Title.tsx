@@ -1,11 +1,12 @@
 import { OpenAiBrand } from "@/components/svg-icons";
 import type { Locale } from "../../../../../i18n.config";
 import { getDictionary } from "@/lib/dictionary";
+import { useGetDictionary } from "@/hooks";
 
-export async function Title({ lang }: { lang: Locale }) {
+export function Title({ lang }: { lang: Locale }) {
   const {
     page: { chat },
-  } = await getDictionary(lang);
+  } = useGetDictionary();
   return (
     <div className="flex flex-col items-center justify-center gap-3">
       <div className="flex items-center justify-center gap-3">

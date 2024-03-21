@@ -24,6 +24,7 @@ interface IProps {
   contentClass?: string;
   responseTab?: boolean;
   arrow?: boolean;
+  children: React.ReactNode;
 }
 
 /**
@@ -36,7 +37,7 @@ interface IProps {
  * @param children
  * @constructor
  */
-export const MyTooltip: FC<ChildrenProps<IProps>> = ({
+export const MyTooltip = ({
   title,
   side = "top",
   delayDuration = 100,
@@ -46,7 +47,7 @@ export const MyTooltip: FC<ChildrenProps<IProps>> = ({
   contentClass,
   responseTab,
   arrow = true,
-}) => {
+}: IProps) => {
   const { editorAndFooterButtonsWrapperRef } = useEditorContext();
   return (
     <TooltipProvider delayDuration={delayDuration}>

@@ -122,10 +122,10 @@
       "form_rewrite_button": "ReWrite",
       "text_input_placeholder": "paste your text that you wish to rewrite or improve ...",
       "text_label": "Text",
-        "tone_label": "Tone",
-        "style_label": "Style",
-        "Url_label": "URL Website",
-        "tags": "Tags"
+      "tone_label": "Tone",
+      "style_label": "Style",
+      "Url_label": "URL Website",
+      "tags": "Tags"
     },
     "chat": {
       "prompt_library_title": "Library Prompt",
@@ -149,19 +149,22 @@
       "description_nerd_welcome": "I can answer any question and you can easily trust me.Our chats stay between us. We never share your data for marketing.",
       "chatHero_title": "According to your needs, I can do anything for you.",
       "chat_setting_title": "To start the chat, you can guide me to display the best result",
-      "chat_setting_select_engine_title":"Choose Conversation Style",
+      "chat_setting_select_engine_title": "Choose Conversation Style",
       "chat_setting_tools_title": "Conversation Tools",
       "upload_zone_placeholder": "Select your Document that you want ",
       "upload_zone_description": "(File Document / 5MB & 10Doc Max)",
       "chat_tools_webAccess_label": "Web Access",
-        "chat_tools_painter_label": "Painter",
+      "chat_tools_painter_label": "Painter",
       "stop_response_button_label": "Stop Responding",
       "chat_tools_button_label": "Tools",
       "upload_button_label": "Upload File",
-      "delete_history_item" : "Delete history item",
-      "delete_history_description" : "Are you sure you want to delete this item?",
+      "delete_history_item": "Delete history item",
+      "delete_history_description": "Are you sure you want to delete this item?",
       "delete": "Delete",
-    "cancel": "Cancel"
+      "cancel": "Cancel",
+      "generate_button_label": "Generate",
+      "generate_all_button_label": "All Generate",
+      "highlight": "Highlight"
     },
     "image": {
       "empty_result_message": "Start Generating",
@@ -217,7 +220,20 @@
     "template": {
       "template_button_label": "Generate",
       "text_input_placeholder": "paste your text that you wish to rewrite or improve ...",
-      "prompt": "prompt:"
+      "prompt": "prompt:",
+      "my_prompt": "My Prompt",
+      "advance": "Advance",
+      "show_more": "See more",
+      "show_less": "See less",
+      "use_app": "USE APP",
+      "close": "Close",
+      "child_category": "Child Category",
+      "parent_category": "Parent category",
+      "content_topic": "Content Topic",
+      "back_step_label_button": "Back Step",
+      "next_step_label_button": "Next Step",
+      "reset_label_button": "Reset",
+      "show_prompt_label_button": "Show Prompt"
     },
     "code": {
       "page_title": "Code",
@@ -233,7 +249,7 @@
       "output_language_select_label": "Language output in",
       "code_language_select_label": "Language",
       "generate_button_label": "Generate",
-     "engine_select_label": "Engine",
+      "engine_select_label": "Engine",
       "code_convert_from_language_label": "From language",
       "code_convert_to_language_label": "To language",
       "code_convert_code_input_label": "Code to convert",
@@ -288,8 +304,8 @@
     "full_screen": "Full Screen",
     "download": "Download",
     "url_website": "URL Website",
-"search_placeholder": "Search ...",
-"no_result_message": "No results found."
+    "search_placeholder": "Search ...",
+    "no_result_message": "No results found."
   },
   "components": {
     "confirm_email": {
@@ -311,9 +327,9 @@
     },
     "history_items": {
       "delete_title": "Delete history item",
-        "delete_description": "Are you sure you want to delete this item?",
+      "delete_description": "Are you sure you want to delete this item?",
       "cancel": "Cancel",
-        "delete": "Delete"
+      "delete": "Delete"
     },
     "apps_header": {
       "not_found": "Not Found",
@@ -524,9 +540,9 @@
     "select_engine": {
       "engine_setting": "Engine Setting",
       "temperature": "Temperature",
-        "top": "Top",
+      "top": "Top",
       "frequency_penalty": "Frequency Penalty",
-        "presence_penalty": "Presence Penalty",
+      "presence_penalty": "Presence Penalty",
       "select_an_option": "Select an option",
       "engines": "Engines"
     }

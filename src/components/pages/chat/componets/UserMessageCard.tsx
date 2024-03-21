@@ -109,9 +109,11 @@ export function UserMessageCard({ timeLine, prompt, image, name }: IProps) {
               </div>
             ) : (
               <>
+                {/*timeline that will be replaced with real data and reformat*/}
                 <span className="me-auto text-xs text-muted-foreground-light">
                   {timeLine}
                 </span>
+                {/*action buttons like:copy, save, edit*/}
                 <div className="grid grid-cols-3 items-center gap-3 rounded-lg bg-muted p-2">
                   <MyTooltip title={chat.copy_button_label}>
                     <Button

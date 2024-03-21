@@ -93,10 +93,16 @@ function DeletePopOver({ item }: DeletePopoverProps) {
   );
 }
 
+/**
+ * this component is for history items
+ * @constructor
+ */
 export function HistoryItems() {
   const selectedHistoryItem = useChatStore.use.selectedHistoryItem();
   const setSelectedHistoryItem = useChatStore.use.setSelectHistoryItem();
   const isItemSelected = (id: string) => selectedHistoryItem?.id === id;
+
+  // list of history items
   const items = listOfHistoryItem.map(item => (
     <div
       key={item.id}
@@ -156,7 +162,7 @@ export function HistoryItems() {
               key={index}
               className="relative h-12 w-12 self-center overflow-hidden  rounded-lg"
             >
-              <Image src={file} alt={file} fill />
+              <Image src={file} alt={file} fill sizes="100%" />
             </div>
           ))}
         </div>
