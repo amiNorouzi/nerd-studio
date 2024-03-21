@@ -34,15 +34,8 @@ const useErrorToast = () => {
           return showError(error.message);
         }
       }
-      if (error.response.data.message.indexOf("logout#") !== -1) {
-        showError(
-          error.response.data.message.slice(
-            error.response.data.message.indexOf("logout#") + 7,
-          ),
-        );
-      } else {
-        showError(error.response.data.message);
-      }
+
+      showError(error.response.data.detail);
     }
   };
 

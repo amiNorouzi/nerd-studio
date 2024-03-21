@@ -98,3 +98,11 @@ export interface AuthReturn {
   refresh_token: string;
   access_token: string;
 }
+
+export interface User {
+  username: string;
+  email: string;
+  sub: string;
+  iat: number;
+  exp: number;
+}

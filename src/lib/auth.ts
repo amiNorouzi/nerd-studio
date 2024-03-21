@@ -1,7 +1,11 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-// import CredentialsProvider from "next-auth/providers/credentials";
-// import { loginApi, signupApi } from "@/services/authentication-services";
+
+import CredentialsProvider from "next-auth/providers/credentials";
+import { loginApi, signupConfirmApi } from "@/services/authentication-services";
+import { jwtDecode } from "jwt-decode";
+import { isAxiosError } from "axios";
+import { User } from "@/services/types";
 
 export const authConfig = {
   providers: [
@@ -9,86 +13,88 @@ export const authConfig = {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-    // CredentialsProvider({
-    //   // The name to display on the signin form (e.g. "Sign in with...")
-    //   name: "credentials",
-    //   id: "login-credentials",
-    //   credentials: {
-    //     email: {},
-    //     password: {},
-    //   },
-    //   async authorize(credentials) {
-    //     console.log("login: ", credentials);
-    //     if (!credentials?.email || !credentials.password) return null;
-    //     const { data } = await loginApi({
-    //       email: credentials!.email,
-    //       password: credentials!.password,
-    //     });
-    //     console.log(data);
-    //
-    //     if (data) {
-    //       // Any object returned will be saved in `user` property of the JWT
-    //       return {
-    //         id: "1",
-    //         name: "name",
-    //         email: credentials!.email,
-    //         accessToken: data.access_token,
-    //         refreshToken: data.refresh_token,
-    //       };
-    //     } else {
-    //       // If you return null then an error will be displayed advising the user to check their details.
-    //       return null;
-    //
-    //       // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-    //     }
-    //   },
-    // }),
-    // CredentialsProvider({
-    //   // The name to display on the signin form (e.g. "Sign in with...")
-    //   name: "credentials",
-    //   id: "signup-credentials",
-    //   credentials: {
-    //     email: {},
-    //     password: {},
-    //     fullName: {},
-    //   },
-    //   async authorize(credentials) {
-    //     try {
-    //       console.log(credentials);
-    //       // Add logic here to look up the user from the credentials supplied
-    //       if (
-    //         !credentials?.email ||
-    //         !credentials.password ||
-    //         !credentials.fullName
-    //       )
-    //         return null;
-    //       const { data } = await signupApi({
-    //         email: credentials!.email,
-    //         fullName: credentials!.fullName,
-    //         password: credentials!.password,
-    //       });
-    //       //data from signup
-    //       console.log(data);
-    //       if (data) {
-    //         // Any object returned will be saved in `user` property of the JWT
-    //         return {
-    //           id: "1",
-    //           name: credentials!.fullName,
-    //           email: credentials!.email,
-    //           accessToken: data.access_token,
-    //           refreshToken: data.refresh_token,
-    //         };
-    //       } else {
-    //         // If you return null then an error will be displayed advising the user to check their details.
-    //         return null;
-    //         // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-    //       }
-    //     } catch (e) {
-    //       console.log(e);
-    //       throw e;
-    //     }
-    //   },
-    // }),
+    CredentialsProvider({
+      // The name to display on the signin form (e.g. "Sign in with...")
+      name: "credentials",
+      id: "login-credentials",
+      credentials: {
+        email: {},
+        password: {},
+      },
+      async authorize(credentials) {
+        try {
+          if (!credentials?.email || !credentials.password) return null;
+          const { data } = await loginApi({
+            email: credentials.email,
+            password: credentials.password,
+          });
+          const user = jwtDecode(data.access_token) as User;
+
+          if (user) {
+            // Any object returned will be saved in `user` property of the JWT
+            return {
+              id: user.sub,
+              name: user.username,
+              email: user.email,
+              accessToken: data.access_token,
+              refreshToken: data.refresh_token,
+            };
+          } else {
+            // If you return null then an error will be displayed advising the user to check their details.
+            return null;
+            // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+          }
+        } catch (e) {
+          if (isAxiosError(e)) {
+            console.log(e?.response?.data);
+            throw new Error(e?.response?.data.detail);
+          }
+          throw new Error("Failed to login user");
+        }
+      },
+    }),
+    CredentialsProvider({
+      // The name to display on the signin form (e.g. "Sign in with...")
+      name: "credentials",
+      id: "signup-confirm-credentials",
+      credentials: {
+        email: {},
+        token: {},
+      },
+      async authorize(credentials) {
+        try {
+          // Add logic here to look up the user from the credentials supplied
+          if (!credentials?.email || !credentials.token) return null;
+          const { data } = await signupConfirmApi({
+            email: credentials.email,
+            token: credentials.token,
+          });
+          //data from signup
+          const user = jwtDecode(data.access_token) as User;
+
+          if (user) {
+            // Any object returned will be saved in `user` property of the JWT
+            return {
+              id: user.sub,
+              name: user.username,
+              email: user.email,
+              accessToken: data.access_token,
+              refreshToken: data.refresh_token,
+            };
+          } else {
+            // If you return null then an error will be displayed advising the user to check their details.
+            return null;
+            // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+          }
+        } catch (e) {
+          if (isAxiosError(e)) {
+            console.log(e?.response?.data);
+            throw new Error(e?.response?.data.detail);
+          }
+          throw new Error("Failed to sign up user");
+        }
+      },
+    }),
   ],
   callbacks: {
     async signIn({ account, profile }) {
@@ -128,23 +134,20 @@ export const authConfig = {
       }
     },
     async jwt({ token, user, account }) {
-      console.log("data in jwt callback: ", { user, token, account });
-      if (account) {
-        // call the signToken function which returns a JWT token
-        //TODO: get jwt tokens
-        // const token = await SignToken(user?.email as string);
-        // token.userToken = token;
-        token.accessToken = "accessToken";
-        token.refreshToken = "refreshToken";
-        token.exp = 1712997999;
+      if (user && account) {
+        if (account.type === "credentials") {
+          token.accessToken = user.accessToken;
+          token.refreshToken = user.refreshToken;
+        } else {
+          token.accessToken = account.accessToken;
+          token.refreshToken = account.refreshToken;
+        }
       }
       // the token object is passed done to the session call back for persistence
       return token;
     },
 
-    async session({ session, token }) {
-      console.log("data in session: ", { session, token });
-      // console.log({tokenInSession: token})
+    async session({ session, token, user }) {
       const { picture, ...rest } = token;
       session.user = {
         ...(rest as any),
