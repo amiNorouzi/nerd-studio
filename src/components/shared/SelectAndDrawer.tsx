@@ -1,5 +1,5 @@
 "use client";
-import { memo, useState } from "react";
+import { memo, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import {
   BsCheck2 as Check,
@@ -83,8 +83,8 @@ function CommandSelectItems({
           {items.map(item => (
             <CommandItem
               key={item.id}
-              value={item.id}
-              onSelect={handleSelectItem}
+              value={item.value}
+              onSelect={v => handleSelectItem(item.id)}
               className={cn(
                 "flex-row-reverse justify-between px-2 text-xsm",
                 value.value.toLowerCase() === item.value.toLowerCase() &&
@@ -174,6 +174,7 @@ function UserSelectAndDrawer(props: IProps) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
+  const popoverButtonRef = useRef<HTMLButtonElement | null>(null);
   // this function check if items list is list of string
   function isListOfString(arr: Items[]) {
     return (
@@ -198,8 +199,8 @@ function UserSelectAndDrawer(props: IProps) {
   ////////////////////////////////*//////////////////////////////////////////////////
 
   const buttonContent = value
-    ? items.find(item => item.value.toLowerCase() === value.value.toLowerCase())
-        ?.value
+    ? items.find(item => item.id.toLowerCase() === value.id.toLowerCase())
+        ?.value ?? "Select an option"
     : "Select an option";
 
   if (!isDesktop)
@@ -261,6 +262,7 @@ function UserSelectAndDrawer(props: IProps) {
             "w-full justify-between bg-muted px-3 py-2 hover:border-primary-light hover:text-foreground aria-expanded:border-primary",
             buttonStyle,
           )}
+          ref={popoverButtonRef}
         >
           <div className="flex justify-start gap-2">
             {/*if image is valid then show it*/}
@@ -280,7 +282,11 @@ function UserSelectAndDrawer(props: IProps) {
           {/*</span>*/}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0" align="start">
+      <PopoverContent
+        className="w-full p-0"
+        style={{ width: popoverButtonRef.current?.offsetWidth }}
+        align="start"
+      >
         <CommandSelectItems
           {...props}
           items={items}

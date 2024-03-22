@@ -10,7 +10,7 @@ import { AssistMessageCard } from "@/components/pages/chat/componets/AssistMessa
  * @constructor
  */
 
-export async function ChatList() {
+export function ChatList() {
   const { data: session } = useSession();
   return (
     <div className="col  w-full max-w-4xl flex-grow gap-6 pb-6 ">
@@ -18,16 +18,11 @@ export async function ChatList() {
         const image = session?.user?.image ?? item[0].image;
         const name = session?.user?.name ?? item[0].name;
         return (
-          <>
-            <UserMessageCard
-              key={item[0].id}
-              {...item[0]}
-              image={image}
-              name={name}
-            />
+          <div key={item[0].id + item[1].id} className="grid grid-cols-1 gap-6">
+            <UserMessageCard {...item[0]} image={image} name={name} />
 
-            <AssistMessageCard key={item[1].id} {...item[1]} />
-          </>
+            <AssistMessageCard {...item[1]} />
+          </div>
         );
       })}
     </div>

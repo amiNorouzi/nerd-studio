@@ -9,6 +9,7 @@ type StoreType = TemplateState & TemplateAction;
 
 const initialState = {
   currentTemplate: {},
+  templateTab: "default",
 } as TemplateState;
 
 const useTemplate = create<StoreType>()(
@@ -18,6 +19,10 @@ const useTemplate = create<StoreType>()(
       setCurrentTemplate: v =>
         set(state => {
           state.currentTemplate = v;
+        }),
+      setTemplatePageContent: v =>
+        set(state => {
+          state.templateTab = v;
         }),
     })),
     { name: "template", store: "template" },

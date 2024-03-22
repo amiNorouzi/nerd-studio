@@ -29,13 +29,13 @@ export function ChatSettings() {
       <SelectEngine titleStyle="hidden" className="w-full max-w-[200px]" />
       {/*chat tools that shows in popover*/}
       <Popover>
-        <PopoverTrigger>
-          <MyTooltip title={chat.chat_tools_button_label}>
+        <MyTooltip title={chat.chat_tools_button_label}>
+          <PopoverTrigger asChild>
             <Button className="fit p-0" variant="ghost">
               <Tools />
             </Button>
-          </MyTooltip>
-        </PopoverTrigger>
+          </PopoverTrigger>
+        </MyTooltip>
         <PopoverContent
           className="w-full max-w-72 p-0"
           side="top"

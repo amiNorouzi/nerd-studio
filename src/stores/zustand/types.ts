@@ -39,9 +39,11 @@ export interface TemplateState {
     prompt: string;
     inputs: Input[];
   };
+  templateTab: "default" | "Advance" | "My Prompt";
 }
 export interface TemplateAction {
   setCurrentTemplate: (v: TemplateState["currentTemplate"]) => void;
+  setTemplatePageContent: (v: TemplateState["templateTab"]) => void;
 }
 
 //engine
@@ -87,6 +89,14 @@ export interface HistoryAction {
 }
 
 //chat
+export interface messageForHighlight {
+  id: string;
+  prompt: string[];
+  image: string;
+  timeLine: string;
+  name: string;
+  role: string;
+}
 export interface ChatHistoryItem {
   id: string;
   title: string;
@@ -102,6 +112,8 @@ export interface ChatState {
   chatTextBoxValue: string;
   selectedHistoryItem: ChatHistoryItem | null;
   historyList: ChatHistoryItem[];
+  selectedMessageForHighlight: messageForHighlight | null;
+  openHighlightBox: boolean;
 }
 export interface ChatAction {
   setFiles: (v: File[]) => void;
@@ -109,4 +121,6 @@ export interface ChatAction {
   setChatTextBoxValue: (v: string) => void;
   setSelectHistoryItem: (v: ChatHistoryItem) => void;
   setHistoryList: (v: ChatHistoryItem[]) => void;
+  setSelectedMessageForHighlight: (v: messageForHighlight) => void;
+  setOpenHighlightBox: (v: boolean) => void;
 }

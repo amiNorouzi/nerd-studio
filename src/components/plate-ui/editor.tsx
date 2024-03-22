@@ -84,7 +84,7 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
           readOnly={disabled ?? readOnly}
           aria-disabled={disabled}
           {...props}
-          ref={contentRef}
+          // ref={contentRef}
         />
       </div>
     );

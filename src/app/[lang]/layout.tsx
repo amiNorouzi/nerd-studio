@@ -2,10 +2,11 @@ import React from "react";
 import type { Metadata } from "next";
 
 import { Providers } from "@/components/providers";
+import { Toaster } from "@/components/ui/toaster";
+import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
 
 import { i18n, type Locale } from "../../../i18n.config";
 
-import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
 import "../globals.css";
 import "../theme.css";
 
@@ -34,6 +35,7 @@ export default async function RootLayout({
         <NextAuthProvider>
           <Providers>{children}</Providers>
         </NextAuthProvider>
+        <Toaster />
       </body>
     </html>
   );
