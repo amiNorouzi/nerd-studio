@@ -1,14 +1,9 @@
-version: '3.8'
+version: "3"
+
 services:
-  app:
-    image: nerd-studio-front
+  nerd-studio:
     build:
-      context: ./
-      target: dev
-      dockerfile: Dockerfile
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/.next
+      context: .
+      dockerfile: ./Dockerfile
     ports:
-        - "3000:3000"
+      - "3003:3000"
