@@ -16,7 +16,7 @@ export function AdvancedAndCustomButtons() {
       {buttons.map(button => (
         <Button
           key={button}
-          className="h-[50px] rounded-lg px-4 py-2"
+          className="h-[40px] rounded-lg px-4 py-2"
           onClick={() => handleClick(template[button])}
         >
           {template[button]}
@@ -26,5 +26,5 @@ export function AdvancedAndCustomButtons() {
   );
 }
 
-const buttons = ["my_prompt", "advance"] as const;
+const buttons = ["advance"] as const;
 type ButtonsType = typeof buttons;

@@ -20,11 +20,22 @@ import { forgotPassApi } from "@/services/authentication-services";
 interface FormTypes {
   email: string;
 }
+/**
+ * `ForgetPassPage` is a React component that handles the password reset process.
+ * It uses the `react-hook-form` for form handling and validation, and `useState` for local state management.
+ *
+ * @returns {JSX.Element} The rendered password reset page.
+ */
 export function ForgetPassPage() {
+  // Use `useState` to manage the state of email confirmation for showing the email confirmation message.
   const [showEmailConfirmation, setShowEmailConfirmation] = useState(false);
 
+  // Use the custom hook `useErrorToast` to get the `showFetchError` function.
   const { showFetchError } = useErrorToast();
+  // Use the custom hook `useSuccessToast` to get the `showSuccess` function.
   const { showSuccess } = useSuccessToast();
+
+  // Use `useForm` from `react-hook-form` to manage the form state and validation.
   const {
     control,
     handleSubmit,
@@ -36,21 +47,37 @@ export function ForgetPassPage() {
     },
   });
 
+  // Use `useGetDictionary` to get the localized strings for the page.
   const {
     page: { login, forget_pass },
     components: { form },
   } = useGetDictionary();
 
+  /**
+   * `handleForgotPass` is an async function that handles the password reset process.
+   * It takes the form data as an argument, sends a request to the password reset API,
+   * and updates the email confirmation state based on the response.
+   *
+   * @param {FormTypes} data - The form data.
+   */
   const handleForgotPass = async (data: FormTypes) => {
     try {
+      // Send a request to the password reset API with the form data.
       await forgotPassApi(data);
+
+      // If the request is successful, update the email confirmation state to true
+      // and show a success message.
       setShowEmailConfirmation(true);
       showSuccess("Reset password link sent to your email");
     } catch (e) {
       console.log(e);
+
+      // If the request fails, show an error message.
       showFetchError(e);
     }
   };
+
+  // Render the password reset page.
 
   return (
     <>

@@ -12,11 +12,9 @@ import {
 } from "./components";
 import RenderIf from "@/components/shared/RenderIf";
 
-import { useCustomSearchParams } from "@/hooks";
 import { categories } from "./components/constant";
 import { cn } from "@/lib/utils";
 import type { LangParams } from "@/services/types";
-import { useState } from "react";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 
 const content = {
@@ -25,7 +23,6 @@ const content = {
   default: TemplateList,
 } as const;
 export function TemplatePage({ lang }: LangParams["params"]) {
-  const [searchParams, setSearchParams] = useCustomSearchParams();
   const templateTab = useTemplateStore.use.templateTab();
   const setTemplatePageContent = useTemplateStore.use.setTemplatePageContent();
   const Content = content[templateTab];

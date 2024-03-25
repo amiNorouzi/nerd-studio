@@ -38,11 +38,10 @@ export function Categories({
   // get container ref for calculate width
   const ref = useRef<HTMLDivElement>(null);
   //calculate width of container
-  const { width = 0, height = 0 } = useResizeObserver({
+  const { width = 0 } = useResizeObserver({
     ref,
     box: "border-box",
   });
-  console.log("category width: ", width);
 
   /**
    * average tab size is 110px
@@ -69,7 +68,7 @@ export function Categories({
             <TabsTrigger
               key={category}
               value={category}
-              className="h-[50px] rounded-lg bg-muted px-4 py-2 text-sm text-muted-foreground hover:text-primary data-[state=active]:bg-primary-light data-[state=active]:text-primary"
+              className="h-[40px] rounded-lg bg-muted px-4 py-2 text-muted-foreground hover:text-primary data-[state=active]:bg-primary-light data-[state=active]:text-primary"
             >
               {category}
             </TabsTrigger>

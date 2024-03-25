@@ -30,3 +30,4 @@ export { SemicircleProgressBar } from "./SemicircleProgressBar";
 export { HistoryInfo } from "./HistoryInfo";
 export { TooltipForUploadedFile } from "./TooltipForUploadedFile";
 export { AudioPlayer } from "./AudioPlayer";
+export { ToggleAdvance } from "./ToggleAdvance";

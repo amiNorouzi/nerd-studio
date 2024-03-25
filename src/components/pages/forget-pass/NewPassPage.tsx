@@ -26,12 +26,30 @@ interface IProps {
   token: string;
 }
 
+/**
+ * `NewPassPage` is a React component that handles the password reset process.
+ * It uses the `react-hook-form` for form handling and validation, and `useState` for local state management.
+ * It also uses a custom hook `useErrorToast` to display error messages.
+ * It uses `useGetDictionary` to get the localized strings for the page.
+ *
+ * @param {Object} props - The props object.
+ * @param {string} props.email - The email of the user from search params.
+ * @param {string} props.token - The token for password reset from search params.
+ *
+ * @returns {JSX.Element} The rendered password reset page.
+ */
 export function NewPassPage({ email, token }: IProps) {
+  // Use `useState` to manage the state of password visibility.
   const [showPass, setShowPass] = useState(false);
   const [showConfPass, setShowConfPass] = useState(false);
 
+  // Use the custom hook `useErrorToast` to get the `showFetchError` function.
   const { showFetchError } = useErrorToast();
+
+  // Use `useRouter` from `next/navigation` to navigate between pages.
   const router = useRouter();
+
+  // Use `useForm` from `react-hook-form` to manage the form state and validation.
   const {
     control,
     handleSubmit,
@@ -43,25 +61,38 @@ export function NewPassPage({ email, token }: IProps) {
     },
   });
 
+  // Use `useGetDictionary` to get the localized strings for the page.
   const {
     common: { save_label },
     page: { forget_pass: dictionary },
     components: { form },
   } = useGetDictionary();
 
+  /**
+   * `handleSetNewPass` is an async function that handles the password reset process.
+   * It takes the form data as an argument, sends a request to the password reset API,
+   * and navigates to the login page if the request is successful.
+   *
+   * @param {FormTypes} data - The form data.
+   */
   const handleSetNewPass = async (data: FormTypes) => {
     try {
+      // Send a request to the password reset API with the form data, email, and token.
       await setNewPassApi({
         ...data,
         token,
         email,
       });
+
+      // If the request is successful, navigate to the login page.
       router.push("/login");
     } catch (e) {
+      // If the request fails, show an error message.
       showFetchError(e);
     }
   };
 
+  // Render the password reset page.
   return (
     <section className=" z-50 flex w-full flex-col items-center justify-center gap-8 p-3">
       <form
