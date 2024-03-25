@@ -28,6 +28,29 @@ export interface Input {
   title: string;
   placeHolder: string;
 }
+
+export type CustomTemplateInputType =
+  | "text"
+  | "textarea"
+  // | "date"
+  | "select"
+  | "number"
+  | "list";
+export interface CustomTemplateInput {
+  id: string;
+  name: string;
+  description: string;
+  placeholder?: string;
+  defaultValue?: string;
+  order: number;
+  type: CustomTemplateInputType;
+  options: {
+    id: string;
+    value: string;
+  }[];
+  isAdvance: boolean;
+}
+
 export interface TemplateState {
   currentTemplate: {
     id: string;
@@ -39,11 +62,51 @@ export interface TemplateState {
     prompt: string;
     inputs: Input[];
   };
-  templateTab: "default" | "Advance" | "My Prompt";
+  templateTab: "default" | "Advance";
+  customTemplateInputs: CustomTemplateInput[];
+  customTemplateDetails: {
+    name: string;
+    description: string;
+    category: string;
+    icon: string;
+    template: string;
+  };
 }
 export interface TemplateAction {
   setCurrentTemplate: (v: TemplateState["currentTemplate"]) => void;
   setTemplatePageContent: (v: TemplateState["templateTab"]) => void;
+  setCustomTemplateInputs: (
+    v: CustomTemplateInput | CustomTemplateInput[],
+  ) => void;
+  addCustomTemplateOption: (
+    id: string,
+    v: {
+      id: string;
+      value: string;
+    },
+  ) => void;
+  setCustomTemplateInputValue: (
+    id: string,
+    key: "name" | "description" | "placeholder" | "defaultValue",
+    v: string,
+  ) => void;
+  setCustomTemplateInputType: (
+    id: string,
+    type: CustomTemplateInputType,
+  ) => void;
+  deleteCustomTemplateInput: (id: string) => void;
+  toggleCustomTemplateInputAdvance: (id: string) => void;
+  changeCustomTemplateInputOptionValue: (
+    id: string,
+    optionId: string,
+    value: string,
+  ) => void;
+  deleteCustomTemplateInputOption: (id: string, optionId: string) => void;
+  resetCustomTemplate: () => void;
+  setCustomTemplateDetails: (
+    key: "name" | "description" | "category" | "icon" | "template",
+    v: string,
+  ) => void;
 }
 
 //engine

@@ -1,11 +1,10 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+
 import { TemplateCard } from "./template-card";
-import { Button } from "@/components/ui/button";
-import { useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { categories } from "./constant";
-import { useCustomSearchParams, useGetDictionary } from "@/hooks";
+import { useCustomSearchParams } from "@/hooks";
 
 interface TemplateListWithShowMoreProps {
   category: string;
@@ -19,31 +18,16 @@ function getFilteredItems(category: string, showMore: boolean) {
 }
 
 function TemplateListWithShowMore({ category }: TemplateListWithShowMoreProps) {
-  const {
-    page: { template },
-  } = useGetDictionary();
-  const [showMore, setShowMore] = useState(false);
-  const items = getFilteredItems(category, showMore);
-  const showMoreButton =
-    getFilteredItems(category, true).length > ITEMS_TO_SHOW;
+  const items = getFilteredItems(category, true);
+
   return (
     <div key={category} className="mb-10 flex flex-col gap-2">
       <div className="flex justify-between">
         <h3 className="text-base font-semibold text-muted-foreground">
           {category}:
         </h3>
-        <Button
-          variant="muted"
-          className={cn(
-            "invisible h-[28px] w-[128px] text-sm text-primary",
-            showMoreButton && "visible",
-          )}
-          onClick={() => setShowMore(!showMore)}
-        >
-          {showMore ? template.show_less : template.show_more}
-        </Button>
       </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {items.map(item => (
           <TemplateCard key={item.id} {...item} />
         ))}
@@ -63,7 +47,6 @@ export function TemplateList() {
   const selectedTemplate =
     searchParams.get("select-template-category") ?? "All Template";
 
-  console.log("selected template: ", selectedTemplate);
   // generate and memoized list of template cards
   const items = useMemo(() => {
     if (selectedTemplate === "All Template") {

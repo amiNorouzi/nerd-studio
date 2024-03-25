@@ -33,7 +33,7 @@ export function BannerWithSearch({ name }: IProps) {
        */}
       <div
         ref={setInputWrapper}
-        className="row absolute bottom-0 left-1/2 h-fit w-full min-w-60 max-w-lg -translate-x-1/2 rounded-md bg-background p-0.5 shadow-2xl"
+        className="row absolute bottom-0 left-1/2 h-fit w-full min-w-60 max-w-sm -translate-x-1/2 rounded-md bg-background p-0.5 shadow-2xl sm:max-w-md md:max-w-lg"
       >
         <Button variant="ghost">
           <FiSearch size="1rem" className="me-1" />

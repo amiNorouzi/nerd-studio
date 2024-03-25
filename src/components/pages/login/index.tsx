@@ -1,7 +1,12 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { CiMail, CiLock } from "react-icons/ci";
+import { TbEye, TbEyeClosed } from "react-icons/tb";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -11,25 +16,39 @@ import {
   MinimalButton,
 } from "@/components/shared";
 
-import { cn } from "@/lib/utils";
 import { useGetDictionary } from "@/hooks";
-import { signIn } from "next-auth/react";
 import useErrorToast from "@/hooks/useErrorToast";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { TbEye, TbEyeClosed } from "react-icons/tb";
 import useSuccessToast from "@/hooks/useSuccessToast";
+
+import { cn } from "@/lib/utils";
 
 interface FormTypes {
   email: string;
   password: string;
 }
+
+/**
+ * `LoginPage` is a React component that handles the login process.
+ * It uses the `react-hook-form` for form handling and validation, and `useState` for local state management.
+ * It also uses custom hooks `useErrorToast` and `useSuccessToast` to display error and success messages respectively.
+ * It uses `useRouter` from `next/navigation` to navigate between pages.
+ * It uses `useGetDictionary` to get the localized strings for the page.
+ *
+ * @returns {JSX.Element} The rendered login page.
+ */
 export function LoginPage() {
+  // Use `useState` to manage the state of password visibility.
   const [showPass, setShowPass] = useState(false);
 
+  // Use the custom hook `useErrorToast` to get the `showError` function.
   const { showError } = useErrorToast();
+  // Use the custom hook `useSuccessToast` to get the `showSuccess` function.
   const { showSuccess } = useSuccessToast();
+
+  // Use `useRouter` from `next/navigation` to navigate between pages.
   const router = useRouter();
+
+  // Use `useForm` from `react-hook-form` to manage the form state and validation.
   const {
     control,
     handleSubmit,
@@ -41,12 +60,20 @@ export function LoginPage() {
     },
   });
 
+  // Use `useGetDictionary` to get the localized strings for the page.
   const {
     common,
     page: { login, signup },
     components: { form },
   } = useGetDictionary();
 
+  /**
+   * `handleLogin` is an async function that handles the login process.
+   * It takes the form data as an argument, sends a request to the login API,
+   * and navigates to the home page if the request is successful.
+   *
+   * @param {FormTypes} data - The form data.
+   */
   const handleLogin = async (data: FormTypes) => {
     const res = await signIn("login-credentials", {
       redirect: false,
@@ -65,6 +92,7 @@ export function LoginPage() {
     }
   };
 
+  // Render the login page.
   return (
     <section className=" z-50 flex w-full flex-col items-center justify-center gap-8 p-3">
       <form

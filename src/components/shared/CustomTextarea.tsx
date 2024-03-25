@@ -15,7 +15,8 @@ import {
 
 import { cn } from "@/lib/utils";
 
-interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface ICustomTextareaProps
+  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   maxLength?: number;
   rootClassName?: string;
   setValue: (value: string) => void;
@@ -44,7 +45,7 @@ export function CustomTextarea({
   rows = 8,
   renderMoreActions,
   ...props
-}: IProps) {
+}: ICustomTextareaProps) {
   const {
     common: { copy },
     components: { custom_textarea: dictionary },

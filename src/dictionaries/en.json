@@ -1,6 +1,34 @@
 {
   "dir": "ltr",
   "page": {
+    "custom_template": {
+      "page_title": "Custom Template",
+      "page_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+      "preview_title": "Preview",
+      "prompt_title": "Prompt",
+      "prompt_name_label": "Prompt Name",
+      "prompt_description_label": "Prompt Description",
+      "prompt_category_label": "Prompt Category",
+      "prompt_icon_label": "Prompt Icon",
+      "prompt_template_label": "Prompt Template",
+      "inputs_label": "Input",
+      "reset_button_label": "Reset",
+      "create_button_label": "Creat template",
+      "name_input_placeholder": "Label Name",
+      "description_input_placeholder": "Write Description",
+      "placeholder_label": "Placeholder",
+      "default_value_label": "Default Value",
+      "options_label": "Choice Options",
+      "list_options_label": "Text List Options",
+      "input_type": "Single Line Text",
+      "textarea_type": "Long Text",
+      "date_type": "Date",
+      "select_type": "Single Select",
+      "number_type": "Number",
+      "list_type": "Text List",
+      "to_advance_label": "Collapsible to Advanced settings",
+      "generate_button_label": "Generate"
+    },
     "login": {
       "signup": "Sign up",
       "footer_description": "This site is protected by reCAPTCHA and the Google ",
@@ -12,7 +40,6 @@
       "forget_pass": "Forget Password!",
       "login": "Log In",
       "welcome": "Welcome back!"
-
     },
     "signup": {
       "login": "Login",
@@ -189,8 +216,6 @@
       "upscale_image_send_label": "Send to image upscale",
       "draw_mask_button_label": "Draw Mask",
       "upscale_button_label": "Upscale",
-      "advance_settings_title": "Advance",
-      "advance_settings_descriptions": "More access for more accurate results",
       "brush_size_label": "Size",
       "undo_button_label": "Undo",
       "save_button_label": "Save",
@@ -292,6 +317,7 @@
     "search": "Search",
     "auto": "Auto",
     "delete_label": "Delete",
+    "settings_label": "Settings",
     "nerd_studio": "Nerd Studio",
     "privacy_policy": "Privacy Policy",
     "terms_of_service": "Terms of Service",
@@ -308,6 +334,10 @@
     "no_result_message": "No results found."
   },
   "components": {
+    "toggle_Advance": {
+      "advance_settings_title": "Advance",
+      "advance_settings_descriptions": "More access for more accurate results"
+    },
     "confirm_email": {
       "title": "Email Confirmation",
       "description_part1": "We have sent email to",
@@ -348,7 +378,9 @@
       "share_link_for_credits": "Share link to earn more credits.",
       "Learn_more": "Learn more",
       "copy": "Copy link",
-      "copied": "Copied"
+      "copied": "Copied",
+      "crate_template_button_label": "Create Custom Template",
+      "back_to_library_button_label": "Back to Library"
     },
     "user": {
       "menu": {

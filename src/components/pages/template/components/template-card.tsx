@@ -49,15 +49,14 @@ function InfoDialog({ template, open, onOpenChange }: InfoDialogProps) {
       <DialogContent className="max-h-[80dvh] overflow-y-auto sm:max-w-[500px]">
         <DialogHeader>
           <div className="flex flex-row items-start gap-3">
-            <div className="relative aspect-square size-7 overflow-hidden rounded">
-              <Image
-                src={template?.icon ?? ""}
-                alt={template?.icon ?? ""}
-                fill
-                sizes="100%"
-                priority
-              />
-            </div>
+            <Image
+              src={template?.icon ?? ""}
+              alt={template?.icon ?? ""}
+              width={50}
+              height={50}
+              priority
+              className="h-12 w-12 rounded-lg"
+            />
             <div>
               <DialogTitle className="text-lg">{title}</DialogTitle>
               <DialogDescription>{description}</DialogDescription>
@@ -66,8 +65,7 @@ function InfoDialog({ template, open, onOpenChange }: InfoDialogProps) {
         </DialogHeader>
         <div className="flex w-full flex-col items-start gap-5">
           <div className="flex flex-col gap-2">
-            <span className="text-base font-semibold"> {template.prompt}</span>
-            <div className="rounded bg-muted-foreground p-4 text-start text-sm text-muted">
+            <div className=" rounded-lg  border bg-muted p-4 text-start text-sm text-muted-foreground">
               {prompt}
             </div>
           </div>
@@ -124,27 +122,22 @@ export function TemplateCard(props: TemplateState["currentTemplate"]) {
   return (
     <div
       data-fav={favTemp}
-      className=" grid w-full cursor-pointer  grid-cols-4 gap-2 rounded-[21px] border  bg-background p-4 transition-all duration-300 hover:scale-105 hover:shadow-card-hover data-[fav=true]:border-primary data-[fav=true]:bg-primary-light sm:flex sm:flex-col sm:gap-3"
+      className="col max-h-48 w-full cursor-pointer gap-2.5 rounded-[21px]  border bg-background p-4
+      transition-all duration-300 hover:scale-105 hover:shadow-card-hover data-[fav=true]:border-primary data-[fav=true]:bg-primary-light "
     >
-      {/* this is icon of template */}
-      <div className="relative col-span-1 aspect-square  sm:mb-5 sm:aspect-video">
+      <div className="row gap-2.5">
         <Image
           src={icon}
           alt={title}
-          fill
-          sizes="100%"
-          className="rounded-xl"
+          width={80}
+          height={80}
+          className="h-14 w-14 rounded-xl"
         />
-      </div>
-      {/* this is title and category of template and favorite icon and description and action buttons*/}
-
-      {/* this is title and category of template and favorite icon*/}
-      <div className="col-span-3 flex justify-between  ">
-        <div className="col">
+        <div className="col flex-grow">
           <h3 className="text-base font-bold">{title}</h3>
           <p className="text-sm font-bold text-primary">{category}</p>
         </div>
-        {/* this is favorite icon and when click on it show a modal*/}
+
         <FavoriteButtonAndDialog
           open={open}
           setOpen={setOpen}
@@ -165,17 +158,17 @@ export function TemplateCard(props: TemplateState["currentTemplate"]) {
       </div>
 
       {/* this is description of template */}
-      <p className="col-span-4 line-clamp-2 text-sm font-normal text-muted-foreground sm:mb-1">
+      <p className="line-clamp-2 font-normal text-muted-foreground sm:mb-1">
         {description}
       </p>
 
       {/*info and link Button to templateID*/}
-      <div className="col-span-4 flex  justify-between">
+      <div className="spacing-row">
         <Link
           href={`/template/${id}`}
           onClick={() => setCurrentTemplate(props)}
         >
-          <Button className="h-[2.25rem] w-[7.5rem]">{template.use_app}</Button>
+          <Button size="sm">{template.use_app}</Button>
         </Link>
         {/* this is info icon and when click on it show a modal information*/}
         <InfoDialog

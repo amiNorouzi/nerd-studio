@@ -1,14 +1,15 @@
 import React from "react";
-import { dirInLocalStorage } from "@/stores/browser-storage";
+
+import { TbShare } from "react-icons/tb";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
 import { Button } from "@/components/ui/button";
+
 import { useGetDictionary } from "@/hooks";
-import { TbShare } from "react-icons/tb";
+import { dirInLocalStorage } from "@/stores/browser-storage";
 
 interface IProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export function SharePopover({ children }: IProps) {
   const dir = dirInLocalStorage.get().dir ?? "ltr";
   const popoverPaddingFromEdge = dir === "ltr" ? { right: 20 } : { left: 20 };
   const { components } = useGetDictionary();
+
   return (
     <Popover>
       <PopoverTrigger asChild>

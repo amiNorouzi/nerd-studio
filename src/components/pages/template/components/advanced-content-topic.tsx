@@ -1,67 +1,248 @@
-import { Checkbox } from "@/components/ui/checkbox";
-import { cn } from "@/lib/utils";
-import type { StateSetterType } from "@/services/types";
-import { mockData } from "./constant";
+import { TemplateCard } from "@/components/pages/template/components/template-card";
 
-interface ChildCategoryItemProps {
-  id: number;
-  title: string;
-  description: string;
-  selectedItem: number;
-  handleSelectItem: (v: number) => void;
-}
-function ContentTopicCategoryItems({
-  title,
-  id,
-  description,
-  selectedItem,
-  handleSelectItem,
-}: ChildCategoryItemProps) {
-  const isItemSelected = selectedItem === id;
+export function AdvancedContentTopic() {
   return (
-    <div
-      onClick={() => handleSelectItem(id)}
-      className={cn(
-        "flex cursor-pointer items-start gap-3 rounded-lg border p-4 transition-all hover:scale-110",
-        isItemSelected && "border-primary bg-primary-light text-primary",
-      )}
-    >
-      <Checkbox
-        checked={isItemSelected}
-        className="border-muted-foreground data-[state=checked]:border-primary-dark data-[state=checked]:bg-transparent data-[state=checked]:text-primary-dark "
-      />
-      <div className="col">
-        <h4
-          className={cn(
-            "text-base font-medium",
-            isItemSelected && "text-primary-dark",
-          )}
-        >
-          {title}
-        </h4>
-        <p className="line-clamp-2 text-muted-foreground">{description}</p>
-      </div>
-    </div>
-  );
-}
-interface ListOfContentTopic {
-  selectedContentTopicItemId: number;
-  setSelectedContentTopicItemId: StateSetterType<number>;
-}
-export function AdvancedContentTopic({
-  selectedContentTopicItemId,
-  setSelectedContentTopicItemId,
-}: ListOfContentTopic) {
-  return (
-    <div className="grid grid-cols-1 items-center justify-center gap-x-8 gap-y-3 rounded-xl border p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+    <div className="grid w-full grid-cols-1 items-center justify-center gap-x-8 gap-y-3 rounded-xl border p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
       {mockData.map(item => (
-        <ContentTopicCategoryItems
-          key={item.id}
-          {...item}
-          selectedItem={selectedContentTopicItemId}
-          handleSelectItem={setSelectedContentTopicItemId}
-        />
+        <TemplateCard key={item.id} {...item} />
       ))}
     </div>
   );
 }
+
+const mockData = [
+  {
+    id: "1",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "111",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "122",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "144",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "133",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "155",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "166",
+    icon: "/images/artist.png",
+    favorite: false,
+    title: "Ad Headlines",
+    description: "Write an attention grabbing ad headlines",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    inputs: [
+      {
+        pId: "1",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "1",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+      {
+        pId: "1",
+        id: "3",
+        title: "label three",
+        placeHolder: "placeholder three",
+      },
+    ],
+  },
+  {
+    id: "12",
+    icon: "/images/gpt.jpeg",
+    favorite: false,
+    title: "Clickbait Titles",
+    description: "Clickbait Titles",
+    category: "Ads",
+    prompt:
+      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+    inputs: [
+      {
+        pId: "12",
+        id: "1",
+        title: "label one",
+        placeHolder: "placeholder one",
+      },
+      {
+        pId: "12",
+        id: "2",
+        title: "label two",
+        placeHolder: "placeholder two",
+      },
+    ],
+  },
+];

@@ -67,7 +67,7 @@ function CommonSettings({ submitButtonTitle }: IProps) {
 
   return (
     <>
-      {/*i want select*/}
+      {/*I want select*/}
       <Box>
         <Label>{codeDictionary.want_select_label}</Label>
         <SelectAndDrawer

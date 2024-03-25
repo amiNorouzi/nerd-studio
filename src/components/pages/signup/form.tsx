@@ -28,14 +28,27 @@ import { useSignup } from "./hooks/useSignup";
 import ConfirmEmailMessage from "@/components/shared/ConfirmEmailMessage";
 import { TbEye, TbEyeClosed } from "react-icons/tb";
 
+/**
+ * `Form` is a React component that handles the signup process.
+ * It uses the `react-hook-form` for form handling and validation, and `useState` for local state management.
+ * It also uses a custom hook `useSignup` to handle the signup process and manage the email confirmation state.
+ * It uses `useGetDictionary` to get the localized strings for the page.
+ *
+ * @returns {JSX.Element} The rendered signup form.
+ */
 export function Form() {
+  // Use `useState` to manage the state of password visibility.
   const [showPass, setShowPass] = useState(false);
 
+  // Use `useGetDictionary` to get the localized strings for the page.
   const {
     components: { form: formLang },
     page: { signup },
     common,
   } = useGetDictionary();
+
+  // Use the custom hook `useSignup` to get the form methods, the signup handler function,
+  // the function to set the email confirmation state, and the email confirmation state.
   const {
     form,
     handleSignup,
@@ -43,6 +56,7 @@ export function Form() {
     showEmailConfirmation,
   } = useSignup();
 
+  // Use `useForm` from `react-hook-form` to manage the form state and validation.
   const {
     control,
     handleSubmit,
@@ -50,6 +64,7 @@ export function Form() {
     getValues,
   } = form;
 
+  // Render the signup form.
   return (
     <>
       <section
