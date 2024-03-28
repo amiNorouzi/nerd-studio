@@ -1,80 +1,55 @@
-import { Checkbox } from "@/components/ui/checkbox";
-import { cn } from "@/lib/utils";
-import { mockData } from "./constant";
-import type { StateSetterType } from "@/services/types";
+"use client";
+import { useQuery } from "@tanstack/react-query";
+
 import { SelectAndDrawer } from "@/components/shared";
 
-interface ChildCategoryItemProps {
-  id: number;
-  title: string;
-  description: string;
-  selectedItem: number;
-  handleSelectItem: (v: number) => void;
-}
-function ParentCategoryItems({
-  title,
-  id,
-  description,
-  selectedItem,
-  handleSelectItem,
-}: ChildCategoryItemProps) {
-  const isItemSelected = selectedItem === id;
-  return (
-    <div
-      onClick={() => handleSelectItem(id)}
-      className={cn(
-        "flex cursor-pointer items-start gap-3 rounded-lg border p-4 transition-all hover:scale-110",
-        isItemSelected && "border-primary bg-primary-light text-primary",
-      )}
-    >
-      <Checkbox
-        checked={isItemSelected}
-        className="border-muted-foreground data-[state=checked]:border-primary-dark data-[state=checked]:bg-transparent data-[state=checked]:text-primary-dark "
-      />
-      <div className="col">
-        <h4
-          className={cn(
-            "text-base font-medium",
-            isItemSelected && "text-primary-dark",
-          )}
-        >
-          {title}
-        </h4>
-        <p className="line-clamp-2 text-muted-foreground">{description}</p>
-      </div>
-    </div>
-  );
-}
+import { useAxiosFetcher } from "@/hooks/useAxiosFetcher";
+import type { StateSetterType } from "@/services/types";
+import type { CategoryItem } from "@/components/pages/template/types";
+
 interface AdvancedParentCategoryProps {
-  selectedCategoryParentItemId: number;
-  setSelectedCategoryParentItemId: StateSetterType<number>;
+  selectedParentCategoryId: number;
+  setSelectedParentCategoryId: StateSetterType<number>;
 }
-function getData<
-  T extends { id: number; title: string; description: string }[],
->(data: T) {
+
+function getData(data: CategoryItem[]) {
   return data.map(item => ({
     ...item,
-    value: item.title,
+    value: item.name,
     id: String(item.id),
   }));
 }
+
 export function AdvancedParentCategory({
-  selectedCategoryParentItemId,
-  setSelectedCategoryParentItemId,
+  selectedParentCategoryId,
+  setSelectedParentCategoryId,
 }: AdvancedParentCategoryProps) {
-  const data = getData(mockData);
+  const { axiosFetch } = useAxiosFetcher();
+
+  const { data } = useQuery({
+    queryKey: ["template-parent-categories"],
+    queryFn: () =>
+      axiosFetch<CategoryItem[]>({
+        url: "/templates/parent_categories/",
+      }),
+  });
+
+  const categories = !!data ? getData(data) : [];
+
   function handleSelect(id: string) {
-    setSelectedCategoryParentItemId(Number(id));
+    setSelectedParentCategoryId(Number(id));
   }
-  const value = data.find(
-    item => item.id === String(selectedCategoryParentItemId),
+
+  const value = categories.find(
+    item => item.id === String(selectedParentCategoryId),
   ) ?? { id: "-1", title: "", description: "", value: "" };
+
   return (
     <div className="flex size-full  items-start justify-center rounded-xl border p-6">
       <SelectAndDrawer
         value={value}
         setValue={handleSelect}
-        items={data}
+        items={categories}
         isSelect={false}
         buttonStyle="max-w-2xl"
       />

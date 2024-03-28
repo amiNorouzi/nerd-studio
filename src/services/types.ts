@@ -5,13 +5,6 @@ export type ChildrenProps<P extends any = {}> = P & {
   children: ReactNode | ReactNode[];
 };
 
-export interface ModalProps {
-  isOpen: boolean;
-  handleClose: () => void;
-  handleOpen?: () => void;
-  handleToggle?: () => void;
-}
-
 export interface PlanFeatureItem {
   id: string;
   title: string;
@@ -105,4 +98,17 @@ export interface User {
   sub: string;
   iat: number;
   exp: number;
+}
+
+export interface TemplateItem {
+  id: number;
+  topic: string;
+  task: string;
+  prompt: string;
+  params: { [index: string]: string };
+}
+
+export interface TemplateCategoryItem {
+  category_name: string;
+  templates: TemplateItem[];
 }

@@ -59,9 +59,10 @@ export function Categories({
   return (
     <nav className={cn("w-full max-w-full", className)} ref={ref} {...navProps}>
       <Tabs
-        defaultValue={searchParams.get(name) ?? categories[0]}
+        defaultValue={categories[0]}
         className="h-full w-full"
         onValueChange={handleSelect}
+        value={searchParams.get(name) || ""}
       >
         <TabsList className="row w-full justify-start gap-2 bg-transparent p-0">
           {categories.slice(0, maxItem).map(category => (

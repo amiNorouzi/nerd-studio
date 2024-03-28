@@ -48,8 +48,6 @@ export function useCustomSearchParams(
     // or const query = `${'?'.repeat(search.length && 1)}${search}`;
     const query = search ? `?${search}` : "";
 
-    console.log("search: ", search);
-    console.log("query: ", query);
     if (replace) {
       router.replace(`${pathname}${query}`);
     } else {

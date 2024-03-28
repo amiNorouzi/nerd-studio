@@ -1,15 +1,6 @@
-import { isAxiosError } from "axios";
+import { getSession } from "next-auth/react";
 
-const clearAuthData = async () => {};
-
-const getToken = async () => {
-  return {
-    data: {
-      accessToken: "",
-      refreshToken: "",
-    },
-  };
-};
+import axiosClient from "@/services/axios-client";
 
 //check if refresh token request has been made
 let isCalled = false;
@@ -42,28 +33,33 @@ export const refreshExpiredTokenClosure = () => {
   };
 };
 
+/**
+ * `refreshToken` is an asynchronous function that handles the refreshing of an expired token.
+ * It uses the `getSession` function from `next-auth/react` to get the current session,
+ * and the `post` method from `axiosClient` to make a POST request to the refresh token API.
+ *
+ * The function first checks if there is a current session.
+ * If there is no current session, it returns `null`.
+ * If there is a current session, it makes a POST request to the refresh token API with the refresh token from the current session.
+ * If the request is successful, it returns the new access token.
+ * If the request fails, it logs the error and does not return anything.
+ *
+ * @returns {Promise<string|null>} A promise that resolves to the new access token if the request is successful, or `null` if there is no current session.
+ */
 const refreshToken = async () => {
+  const session = await getSession();
+  if (!session) return null;
+
   try {
-    const { data } = await getToken();
-    console.log("Data in refresh token: ", data);
-    if (data) {
-      const token = data?.accessToken;
-      localStorage.setItem("token", token);
-      localStorage.setItem("refresh", data.refreshToken);
-      return {
-        token,
-      };
-    } else {
-      await clearAuthData();
-    }
+    const { data } = await axiosClient.post<{ access_token: string }>(
+      "/v1/api/auth/refresh/",
+      {
+        refresh_token: session.user.refreshToken,
+      },
+    );
+
+    return data.access_token;
   } catch (e) {
-    if (isAxiosError(e)) {
-      console.log(`error in refresh token: ${e.request.url}: `, e);
-      console.log(
-        "error message in refresh token: ",
-        e?.response?.data?.message,
-      );
-    }
-    await clearAuthData();
+    console.log("error in refresh token api", e);
   }
 };

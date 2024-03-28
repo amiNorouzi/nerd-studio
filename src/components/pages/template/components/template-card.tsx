@@ -20,12 +20,16 @@ import { useGetDictionary } from "@/hooks";
 import { useMediaQuery } from "usehooks-ts";
 
 import type { TemplateState } from "@/stores/zustand/types";
-import type { StateSetterType } from "@/services/types";
+import type {
+  StateSetterType,
+  TemplateCategoryItem,
+  TemplateItem,
+} from "@/services/types";
 
 interface InfoDialogProps {
   open: boolean;
   onOpenChange: StateSetterType<boolean>;
-  template: TemplateState["currentTemplate"];
+  template: TemplateItem;
 }
 
 /**
@@ -35,7 +39,6 @@ interface InfoDialogProps {
  * @param onOpenChange set open or close modal
  */
 function InfoDialog({ template, open, onOpenChange }: InfoDialogProps) {
-  const { prompt, description, title, inputs, category, icon } = template;
   const {
     page: { template: templateDictionary },
   } = useGetDictionary();
@@ -50,29 +53,29 @@ function InfoDialog({ template, open, onOpenChange }: InfoDialogProps) {
         <DialogHeader>
           <div className="flex flex-row items-start gap-3">
             <Image
-              src={template?.icon ?? ""}
-              alt={template?.icon ?? ""}
+              src="/images/gpt.jpeg"
+              alt={template.topic}
               width={50}
               height={50}
               priority
               className="h-12 w-12 rounded-lg"
             />
             <div>
-              <DialogTitle className="text-lg">{title}</DialogTitle>
-              <DialogDescription>{description}</DialogDescription>
+              <DialogTitle className="text-lg">{template.topic}</DialogTitle>
+              <DialogDescription>{template.task}</DialogDescription>
             </div>
           </div>
         </DialogHeader>
         <div className="flex w-full flex-col items-start gap-5">
           <div className="flex flex-col gap-2">
             <div className=" rounded-lg  border bg-muted p-4 text-start text-sm text-muted-foreground">
-              {prompt}
+              {template.prompt}
             </div>
           </div>
           <div className="flex flex-col items-start gap-2">
-            {inputs.map(input => (
-              <div key={input.id} className="flex justify-start gap-2 text-sm">
-                {input.title}: {input.placeHolder}
+            {Object.keys(template.params).map(input => (
+              <div key={input} className="flex justify-start gap-2 text-sm">
+                {input}: {template.params[input]}
               </div>
             ))}
           </div>
@@ -97,14 +100,21 @@ const startIcon = {
   fav: TbStarFilled,
   notFav: TbStar,
 } as const;
-export function TemplateCard(props: TemplateState["currentTemplate"]) {
-  const { icon, favorite, id, description, title, category } = props;
+export function TemplateCard({
+  template,
+  category,
+}: {
+  template: TemplateItem;
+  category: string;
+}) {
+  const { prompt, id, task, topic, params } = template;
   const [openInfo, setOpenInfo] = useState(false);
+  const isFavorite = false;
 
   const [open, setOpen] = useState(false);
-  const [favTemp, setFavTemp] = useState(favorite);
+  const [favTemp, setFavTemp] = useState(isFavorite);
   const {
-    page: { template },
+    page: { template: dictionary },
   } = useGetDictionary();
   const isDesktop = useMediaQuery("(min-width: 768px)"); // check if the device is desktop
 
@@ -127,14 +137,14 @@ export function TemplateCard(props: TemplateState["currentTemplate"]) {
     >
       <div className="row gap-2.5">
         <Image
-          src={icon}
-          alt={title}
+          src="/images/gpt.jpeg"
+          alt={topic}
           width={80}
           height={80}
           className="h-14 w-14 rounded-xl"
         />
         <div className="col flex-grow">
-          <h3 className="text-base font-bold">{title}</h3>
+          <h3 className="text-base font-bold">{topic}</h3>
           <p className="text-sm font-bold text-primary">{category}</p>
         </div>
 
@@ -159,20 +169,20 @@ export function TemplateCard(props: TemplateState["currentTemplate"]) {
 
       {/* this is description of template */}
       <p className="line-clamp-2 font-normal text-muted-foreground sm:mb-1">
-        {description}
+        {task}
       </p>
 
       {/*info and link Button to templateID*/}
       <div className="spacing-row">
         <Link
           href={`/template/${id}`}
-          onClick={() => setCurrentTemplate(props)}
+          // onClick={() => setCurrentTemplate(template)}
         >
-          <Button size="sm">{template.use_app}</Button>
+          <Button size="sm">{dictionary.use_app}</Button>
         </Link>
         {/* this is info icon and when click on it show a modal information*/}
         <InfoDialog
-          template={props}
+          template={template}
           onOpenChange={setOpenInfo}
           open={openInfo}
         />

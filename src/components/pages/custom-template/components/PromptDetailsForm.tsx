@@ -64,12 +64,15 @@ export function PromptDetailsForm() {
         />
       </Box>
 
-      <CustomTextarea
-        rootClassName="col-span-2"
-        setValue={val => setCustomTemplateDetails("template", val)}
-        value={customTemplateDetails.template}
-        maxLength={4000}
-      />
+      <div className="col col-span-2 gap-2">
+        <Label>{dictionary.prompt_template_label}</Label>
+        <CustomTextarea
+          rootClassName="col-span-2"
+          setValue={val => setCustomTemplateDetails("template", val)}
+          value={customTemplateDetails.template}
+          maxLength={4000}
+        />
+      </div>
     </div>
   );
 }

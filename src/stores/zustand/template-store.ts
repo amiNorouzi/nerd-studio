@@ -4,14 +4,12 @@ import { immer } from "zustand/middleware/immer";
 import { createSelectors } from "@/stores/zustand/createSelectors";
 
 import type { TemplateAction, TemplateState } from "./types";
-import { value } from "@/components/shared/run-tab-for-app/editor-section-components/constants";
 
 type StoreType = TemplateState & TemplateAction;
 
 //@ts-ignore
 const initialState = {
   currentTemplate: {},
-  templateTab: "default",
   customTemplateInputs: [],
   customTemplateDetails: {
     name: "",
@@ -22,6 +20,33 @@ const initialState = {
   },
 } as TemplateState;
 
+/**
+ * `useTemplate` is a Zustand store that manages the state and actions related to templates.
+ * It uses the `create` function from `zustand` to create the store,
+ * the `devtools` middleware from `zustand` for Redux DevTools support,
+ * and the `immer` middleware from `zustand` for immutability.
+ * It also uses the `createSelectors` function to create selectors for the store.
+ *
+ * The store has the following state:
+ * - `currentTemplate`: The current template.
+ * - `customTemplateInputs`: The inputs for the custom template.
+ * - `customTemplateDetails`: The details of the custom template.
+ *
+ * The store has the following actions:
+ * - `setCurrentTemplate`: Sets the current template.
+ * - `setCustomTemplateInputs`: Sets the inputs for the custom template.
+ * - `addCustomTemplateOption`: Adds an option to a custom template input.
+ * - `setCustomTemplateInputValue`: Sets the value of a custom template input.
+ * - `setCustomTemplateInputType`: Sets the type of custom template input.
+ * - `deleteCustomTemplateInput`: Deletes a custom template input.
+ * - `toggleCustomTemplateInputAdvance`: Toggles the advance setting of a custom template input.
+ * - `changeCustomTemplateInputOptionValue`: Changes the value of a custom template input option.
+ * - `deleteCustomTemplateInputOption`: Deletes a custom template input option.
+ * - `resetCustomTemplate`: Resets the custom template.
+ * - `setCustomTemplateDetails`: Sets the details of the custom template.
+ *
+ * @returns {StoreType} The Zustand store.
+ */
 const useTemplate = create<StoreType>()(
   devtools(
     immer(set => ({
@@ -29,10 +54,6 @@ const useTemplate = create<StoreType>()(
       setCurrentTemplate: v =>
         set(state => {
           state.currentTemplate = v;
-        }),
-      setTemplatePageContent: v =>
-        set(state => {
-          state.templateTab = v;
         }),
       setCustomTemplateInputs: v =>
         set(state => {
@@ -119,4 +140,10 @@ const useTemplate = create<StoreType>()(
   ),
 );
 
+/**
+ * `useTemplateStore` is a function that creates selectors for the `useTemplate` store.
+ * It uses the `createSelectors` function to create the selectors.
+ *
+ * @returns {StoreType} The Zustand store with selectors.
+ */
 export const useTemplateStore = createSelectors(useTemplate);

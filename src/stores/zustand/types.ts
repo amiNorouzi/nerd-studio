@@ -62,7 +62,6 @@ export interface TemplateState {
     prompt: string;
     inputs: Input[];
   };
-  templateTab: "default" | "Advance";
   customTemplateInputs: CustomTemplateInput[];
   customTemplateDetails: {
     name: string;
@@ -74,7 +73,6 @@ export interface TemplateState {
 }
 export interface TemplateAction {
   setCurrentTemplate: (v: TemplateState["currentTemplate"]) => void;
-  setTemplatePageContent: (v: TemplateState["templateTab"]) => void;
   setCustomTemplateInputs: (
     v: CustomTemplateInput | CustomTemplateInput[],
   ) => void;

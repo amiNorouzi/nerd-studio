@@ -4,32 +4,31 @@ import {
   Categories,
   SetSearchParamProvider,
 } from "@/components/shared";
-import {
-  AdvancedAndCustomButtons,
-  TemplateList,
-  AdvancedPrompt,
-  MyCustomPrompt,
-} from "./components";
+import { AdvancedButton, TemplateList, AdvancedPrompt } from "./components";
 import RenderIf from "@/components/shared/RenderIf";
 
-import { categories } from "./components/constant";
+import { useCustomSearchParams } from "@/hooks";
+
 import { cn } from "@/lib/utils";
-import type { LangParams } from "@/services/types";
-import { useTemplateStore } from "@/stores/zustand/template-store";
+
+import { ALL_PROMPT_TITLE } from "./constants";
+import type { TemplateCategoryItem } from "@/services/types";
 
 const content = {
-  Advance: AdvancedPrompt,
-  "My Prompt": MyCustomPrompt,
+  advance: AdvancedPrompt,
   default: TemplateList,
 } as const;
-export function TemplatePage({ lang }: LangParams["params"]) {
-  const templateTab = useTemplateStore.use.templateTab();
-  const setTemplatePageContent = useTemplateStore.use.setTemplatePageContent();
+export async function TemplatePage({
+  templates,
+}: {
+  templates: TemplateCategoryItem[];
+}) {
+  const [searchParams] = useCustomSearchParams();
+  const selectedTemplate =
+    searchParams.get("select-template-category") ?? ALL_PROMPT_TITLE;
+  const templateTab = selectedTemplate == "advance" ? "advance" : "default";
   const Content = content[templateTab];
   const isDefaultContent = templateTab === "default";
-  function onChangeTabValue(v: string) {
-    setTemplatePageContent("default");
-  }
 
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param
@@ -37,12 +36,11 @@ export function TemplatePage({ lang }: LangParams["params"]) {
    *  and everywhere that needs to know app name
    */
   return (
-    <SetSearchParamProvider appName={"app"} appSearchParamValue={"template"}>
+    <SetSearchParamProvider
+      appName={"app"}
+      appSearchParamValue={"prompt_library"}
+    >
       <div className="h-full w-full">
-        {/*<SpacesHeader>*/}
-        {/*  <h1 className="ms-2 text-[15px] font-semibold">Template</h1>*/}
-        {/*</SpacesHeader>*/}
-
         <div
           id="app-store-main"
           className="col max-h-page h-[var(--main-height)]  w-full gap-4 overflow-y-auto bg-white p-2 md:p-4 lg:gap-6 lg:p-6"
@@ -59,23 +57,22 @@ export function TemplatePage({ lang }: LangParams["params"]) {
           >
             {/*this section show categories and set selected category in url search param*/}
             <Categories
-              name={"select-template-category"}
-              onChangeTabValue={onChangeTabValue}
-              //TODO:this props must be replaced with data from api
-              categories={categories}
-              // className="w-fit max-w-fit"
+              name="select-template-category"
+              categories={[
+                ALL_PROMPT_TITLE,
+                ...templates.map(t => t.category_name),
+              ]}
             />
 
             {/* advance and my prompt button that change the content by set template-content in query param in url*/}
-            <AdvancedAndCustomButtons />
+            <AdvancedButton />
           </div>
           {/**
            *this section show Content
            * TemplateList
            * AdvancedPrompt
-           * MyCustomPrompt
            */}
-          <Content />
+          <Content templates={templates} />
         </div>
       </div>
     </SetSearchParamProvider>

@@ -231,11 +231,9 @@ const stepsTitle = {
 } as const;
 
 export function AdvancedPrompt() {
-  const [selectedCategoryParentItemId, setSelectedCategoryParentItemId] =
-    useState(-1);
-  const [selectedTopicChildItemId, setSelectedTopicChildItemId] = useState(-1);
-  const [selectedContentTopicItemId, setSelectedContentTopicItemId] =
-    useState(-1);
+  const [selectedParentCategoryId, setSelectedParentCategoryId] = useState(-1);
+  const [selectedChildCategoryId, setSelectedChildCategoryId] = useState(-1);
+  const [selectedChildItemName, setSelectedChildItemName] = useState("");
   const [stepper, setStepper] = useState(0);
   const Content = steps[String(stepper) as keyof typeof steps];
   const {
@@ -244,8 +242,8 @@ export function AdvancedPrompt() {
   const currentTemplate = useTemplateStore.use.currentTemplate();
 
   function handleReset() {
-    setSelectedCategoryParentItemId(-1);
-    setSelectedTopicChildItemId(-1);
+    setSelectedParentCategoryId(-1);
+    setSelectedChildCategoryId(-1);
     setStepper(0);
   }
 
@@ -256,12 +254,12 @@ export function AdvancedPrompt() {
         <SearchBox />
       </RenderIf>
       <Content
-        //these props are for parent category
-        selectedCategoryParentItemId={selectedCategoryParentItemId}
-        setSelectedCategoryParentItemId={setSelectedCategoryParentItemId}
-        //these props are for child category
-        selectedTopicChildItemId={selectedTopicChildItemId}
-        setSelectedTopicChildItemId={setSelectedTopicChildItemId}
+        setSelectedParentCategoryId={setSelectedParentCategoryId}
+        selectedParentCategoryId={selectedParentCategoryId}
+        selectedChildCategoryId={selectedChildCategoryId}
+        setSelectedChildCategoryId={setSelectedChildCategoryId}
+        selectedChildItemName={selectedChildItemName}
+        setSelectedChildItemName={setSelectedChildItemName}
       />
       <FooterButtons
         stepper={stepper}
