@@ -1,4 +1,3 @@
-import {useUserProfile} from '@/services/users';
 import {useEffect, useRef, useState} from 'react';
 
 type EventChanelParams = {
@@ -28,7 +27,7 @@ export function useEventChanel({onMessage, eventName}: EventChanelParams) {
 }
 
 const eventChanelService = {
-    useUserProfile,
+    useEventChanel,
 };
 
 export default eventChanelService;
