@@ -31,8 +31,34 @@ export function useGenerateTranslate() {
     });
 }
 
+type PDFConvertorResponse = {
+    text: string
+}
+
+export function usePDFConvertor() {
+    return useMutation({
+        async mutationFn(pdf: File) {
+            const formData = new FormData();
+            formData.append('file', pdf);
+            const {data} = await axiosClient.post<PDFConvertorResponse>(
+                '/translates/convert_pdf_to_text/',
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                },
+            );
+
+            return data.text;
+        },
+    });
+}
+
+
 const translateService = {
     useGenerateTranslate,
+    usePDFConvertor,
 };
 
 export default translateService;
