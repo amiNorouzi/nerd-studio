@@ -1,29 +1,34 @@
-"use client";
-import { useSearchParams } from "next/navigation";
+'use client';
+import {useSearchParams} from 'next/navigation';
 import {
-  OptionsSelectBoxes,
-  SubmitButtonSelectEngine,
-  TextBox,
-  SelectTranslateLanguages,
-  Upload,
-} from "./form-section-components";
-import { RenderImageOrIcon } from "@/components/shared";
+    OptionsSelectBoxes,
+    SelectTranslateLanguages,
+    SubmitButtonSelectEngine,
+    TextBox,
+    Upload,
+} from './form-section-components';
+import {RenderImageOrIcon} from '@/components/shared';
 
-import { useGetDictionary } from "@/hooks";
-import { apps } from "@/constants/side-panel";
-import type { ParamsType } from "@/services/types";
-import { useState } from "react";
+import {useGetDictionary} from '@/hooks';
+import {apps} from '@/constants/side-panel';
+import type {ParamsType} from '@/services/types';
+import {useState} from 'react';
 
 interface IProps {
   params: ParamsType;
+    onUpload: (files: File[]) => void;
+    value?: string;
+    onTextAreaChange?: (value: string) => void;
+    onSubmit: () => void;
 }
 
 /**
  * translate form section
  * @param params
+ * @param onUpload
  * @constructor
  */
-export function TranslateFormSection({ params }: IProps) {
+export function TranslateFormSection({params, onUpload, value, onTextAreaChange, onSubmit}: IProps) {
   const {
     page: { translate },
   } = useGetDictionary();
@@ -36,7 +41,12 @@ export function TranslateFormSection({ params }: IProps) {
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
 
-  return (
+    const onSelectFiles = (files: File[]) => {
+        onUpload(files);
+        setFiles(files);
+    };
+
+    return (
     <div className="col-span-12 flex h-fit flex-col gap-9 overflow-y-auto bg-card p-4  lg:col-span-6 lg:h-full  lg:max-h-full xl:col-span-4">
       <div className="flex justify-between">
         <div className="flex items-center justify-start gap-3">
@@ -47,10 +57,14 @@ export function TranslateFormSection({ params }: IProps) {
       {/*select language from/to for translate*/}
       <SelectTranslateLanguages />
       {/*text area and pdf upload and url input*/}
-      <TextBox mainTextAreaPlaceholder={translate.text_input_placeholder} />
+        <TextBox
+            mainTextAreaPlaceholder={translate.text_input_placeholder}
+            value={value}
+            onChange={onTextAreaChange}
+        />
       {/*upload pdf and url input*/}
       <Upload
-        setFiles={setFiles}
+          setFiles={onSelectFiles}
         setUserUrl={setUrl}
         files={files}
         userUrl={url}
@@ -59,7 +73,10 @@ export function TranslateFormSection({ params }: IProps) {
       {/*option section like response lang or creativity,...*/}
       <OptionsSelectBoxes hiddenSelectResponseLang />
       {/*submit button and select engine with setting*/}
-      <SubmitButtonSelectEngine buttonContent={translate.submit_button_label} />
+      <SubmitButtonSelectEngine
+          onClick={onSubmit}
+          buttonContent={translate.submit_button_label}
+      />
     </div>
   );
 }

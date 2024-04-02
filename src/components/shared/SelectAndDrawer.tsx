@@ -125,7 +125,7 @@ function SelectComponent({
   items: objectItem[];
   value: objectItem;
 }) {
-  console.log(value);
+
   return (
     <Select value={value.id} onValueChange={setValue}>
       <SelectTrigger

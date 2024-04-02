@@ -1,19 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React from 'react';
 
-import { Label } from "@/components/ui/label";
-import { CustomTextarea } from "@/components/shared";
-import RenderIf from "../../RenderIf";
+import {Label} from '@/components/ui/label';
+import {CustomTextarea} from '@/components/shared';
+import RenderIf from '../../RenderIf';
 
-import { useGetDictionary } from "@/hooks";
+import {useCustomSearchParams, useGetDictionary} from '@/hooks';
 
-import type { TemplateState } from "@/stores/zustand/types";
+import type {TemplateState} from '@/stores/zustand/types';
+import {useDebounce} from '@/hooks/useDebounce';
 
 interface IProps {
   template?: TemplateState["currentTemplate"];
   mainTextAreaPlaceholder: string;
   hideToggle?: boolean;
   label?: string;
+    value?: string;
+    onChange?: (value: string) => void;
 }
 
 /**
@@ -22,12 +25,22 @@ interface IProps {
  */
 export function MainTextArea({
   mainTextAreaPlaceholder,
+                                 value,
+                                 onChange,
   label,
 }: Omit<IProps, "template">) {
-  const { common } = useGetDictionary();
-  const [textareaValue, setTextAreaValue] = useState("");
+    const {common} = useGetDictionary();
+    const [, setSearchParams] = useCustomSearchParams();
 
-  return (
+    const handelOnChange = (text: string) => {
+        onChange?.(text);
+    };
+
+    useDebounce(() => {
+        setSearchParams('text', value);
+    }, value, 500);
+
+    return (
     <div className="grid gap-2">
       <div className="relative grid h-full w-full gap-2">
         <Label htmlFor="textbox" className="text-sm font-medium">
@@ -36,8 +49,8 @@ export function MainTextArea({
 
         {/*text area*/}
         <CustomTextarea
-          setValue={setTextAreaValue}
-          value={textareaValue}
+            setValue={handelOnChange}
+            value={value}
           maxLength={400}
           placeholder={mainTextAreaPlaceholder}
         />
@@ -56,6 +69,8 @@ export function TextBox({
   mainTextAreaPlaceholder,
   hideToggle,
   label,
+                            value,
+                            onChange,
 }: IProps) {
   const listOfText = template?.inputs ?? [];
 
@@ -65,6 +80,8 @@ export function TextBox({
         mainTextAreaPlaceholder={mainTextAreaPlaceholder}
         hideToggle={hideToggle}
         label={label}
+        value={value}
+        onChange={onChange}
       />
       <RenderIf isTrue={listOfText.length !== 0}>
         {listOfText.map(item => (
