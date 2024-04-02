@@ -36,7 +36,6 @@ export function useCustomSearchParams(
     value?: string,
     replace: boolean = true,
   ) {
-    // console.log("selected in setSearchparam: ", value, " ", key);
 
     if (!value) {
       current.delete(key);
@@ -48,8 +47,6 @@ export function useCustomSearchParams(
     // or const query = `${'?'.repeat(search.length && 1)}${search}`;
     const query = search ? `?${search}` : "";
 
-    console.log("search: ", search);
-    console.log("query: ", query);
     if (replace) {
       router.replace(`${pathname}${query}`);
     } else {
