@@ -13,7 +13,7 @@ type Props = {
  * @param children
  * @constructor
  */
-export function EditorSection({children, onChange, value}: Props) {
+export default function EditorSection({children, onChange, value}: Props) {
   return (
     <div
       className={cn(
