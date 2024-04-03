@@ -5,11 +5,11 @@ type AIWritersParams = {
     prompt: string
 } & Omit<OpenAiCompletionSchemaInput, 'stream' | 'messages'>
 
-export function useAIWriters() {
+export function useAIWriter() {
     return useMutation({
         mutationFn: async ({prompt, temperature, max_tokens, model}: AIWritersParams) => {
             const {data} = await axiosClient.post<unknown, any, OpenAiCompletionSchemaInput>(
-                '/ai_writers/generate_AI_writer',
+                '/ai_writers/generate_AI_writer/',
                 {
                     model,
                     messages: [
@@ -29,8 +29,8 @@ export function useAIWriters() {
     });
 }
 
-const aIWritersService = {
-    useAIWriters,
+const aIWriterService = {
+    useAIWriter,
 };
 
-export default aIWritersService;
+export default aIWriterService;
