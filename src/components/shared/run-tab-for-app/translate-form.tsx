@@ -13,12 +13,12 @@ import {useGetDictionary} from '@/hooks';
 import {apps} from '@/constants/side-panel';
 import type {ParamsType} from '@/services/types';
 import {useState} from 'react';
+import {usePDFConvertor} from '@/services/translate';
 
 interface IProps {
   params: ParamsType;
-    onUpload: (files: File[]) => void;
-    value?: string;
-    onTextAreaChange?: (value: string) => void;
+    value: string;
+    onTextAreaChange: (value: string) => void;
     onSubmit: () => void;
 }
 
@@ -28,7 +28,7 @@ interface IProps {
  * @param onUpload
  * @constructor
  */
-export function TranslateFormSection({params, onUpload, value, onTextAreaChange, onSubmit}: IProps) {
+export default function TranslateFormSection({params, value, onTextAreaChange, onSubmit}: IProps) {
   const {
     page: { translate },
   } = useGetDictionary();
@@ -40,10 +40,14 @@ export function TranslateFormSection({params, onUpload, value, onTextAreaChange,
   const app = apps.find(
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
-
+  const {mutateAsync: covertPDF} = usePDFConvertor();
+  const covertToText = async (files: File[]) => {
+    const text = await covertPDF(files[0]);
+    onTextAreaChange?.(text);
+  };
     const onSelectFiles = (files: File[]) => {
-        onUpload(files);
         setFiles(files);
+        covertToText(files);
     };
 
     return (
@@ -64,7 +68,7 @@ export function TranslateFormSection({params, onUpload, value, onTextAreaChange,
         />
       {/*upload pdf and url input*/}
       <Upload
-          setFiles={onSelectFiles}
+        setFiles={onSelectFiles}
         setUserUrl={setUrl}
         files={files}
         userUrl={url}

@@ -17,9 +17,8 @@ interface IProps {
 export default function TranslatePage({params}: IProps) {
     const searchParams = useSearchParams();
     const translation = useEventChanel({
-        eventName: 'message',
+        eventName: 'translate',
     });
-    const {mutateAsync: covertPDF} = usePDFConvertor();
     const {mutate: generateTranslate} = useGenerateTranslate();
     const [text, setText] = useState('');
     const handleGenerate = () => {
@@ -35,17 +34,11 @@ export default function TranslatePage({params}: IProps) {
         }
     };
 
-    const covertToText = async (files: File[]) => {
-        const text = await covertPDF(files[0]);
-        setText(text);
-    };
-
     return (
         <SetSearchParamProvider appName="app" appSearchParamValue="Translate">
             <Run>
                 <Run.TranslateForm
                     params={params}
-                    onUpload={covertToText}
                     onTextAreaChange={setText}
                     value={text}
                     onSubmit={handleGenerate}
