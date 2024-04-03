@@ -7,7 +7,7 @@ import {
   usePlateStore,
 } from "@udecode/plate-common";
 
-import { Icons } from "@/components/icons";
+import { Icons, iconVariants } from "@/components/icons";
 
 import {
   DropdownMenu,
@@ -31,13 +31,17 @@ export function ModeDropdownMenu(props: DropdownMenuProps) {
   const item: any = {
     editing: (
       <>
-        <Icons.editing className="mr-2 h-5 w-5" />
+        <Icons.editing
+          className={iconVariants({ size: "md", variant: "menuItem" })}
+        />
         <span className="hidden lg:inline">Editing</span>
       </>
     ),
     viewing: (
       <>
-        <Icons.viewing className="mr-2 h-5 w-5" />
+        <Icons.viewing
+          className={iconVariants({ size: "md", variant: "menuItem" })}
+        />
         <span className="hidden lg:inline">Viewing</span>
       </>
     ),

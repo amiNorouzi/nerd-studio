@@ -23,10 +23,10 @@ const buttonVariants = cva(
           "bg-muted text-primary hover:bg-muted-dark active:bg-muted-dark disabled:opacity-100",
       },
       size: {
-        default: "h-10 px-4 py-2",
+        default: "h-9 px-4 py-2",
         sm: "h-8 rounded-lg px-3",
-        lg: "h-11 rounded-lg px-8",
-        icon: "h-10 w-10",
+        lg: "h-10 rounded-lg px-8",
+        icon: "h-9 w-9",
       },
     },
     defaultVariants: {

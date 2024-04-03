@@ -18,7 +18,7 @@ import { UserMenuItem } from "./UserMenuItem";
 
 import { useTheme } from "@/hooks/useTheme";
 import { useGetDictionary } from "@/hooks";
-import { TbBell } from "react-icons/tb";
+import { TbBell, TbLogout2 } from "react-icons/tb";
 import { useUiStore } from "@/stores/zustand/ui-store";
 
 import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
@@ -127,7 +127,7 @@ export function UserMenu() {
           <UserMenuItem
             onClick={() => signOut()}
             title={userMenuDictionary.logout_label}
-            icon={RiLogoutCircleRLine}
+            icon={TbLogout2}
           />
         </HoverCardContent>
       </HoverCard>

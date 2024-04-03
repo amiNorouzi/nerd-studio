@@ -10,6 +10,7 @@ import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheck
 
 import type { AppIconType } from "@/components/svg-icons/AppsIcons";
 import { IconType } from "react-icons";
+import { iconVariants } from "@/constants/variants";
 
 interface IProps {
   title: string;
@@ -40,7 +41,7 @@ const renderIcon = (
     <Icon
       className={cn(
         "text-muted-foreground",
-        isOpenSidePanel ? "h-5 w-5" : "h-6 w-6",
+        iconVariants({ size: isOpenSidePanel ? "md" : "lg" }),
         isActive && "text-primary",
       )}
     />

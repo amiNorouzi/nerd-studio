@@ -43,6 +43,7 @@ import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { cn } from "@/lib/utils";
 
 import type { StateSetterType } from "@/services/types";
+import { iconVariants } from "@/constants/variants";
 
 type EnginesType = keyof typeof enginesImage;
 interface IProps {
@@ -166,7 +167,9 @@ function SettingPopover({ engine }: SettingPopoverProps) {
         className="absolute end-7 top-1/2 -translate-y-1/2"
       >
         <Button variant="ghost" size="icon" onClick={() => setOpen(true)}>
-          <Setting className="hover:bg-transparent" />
+          <Setting
+            className={cn(iconVariants({ size: "md" }), "hover:bg-transparent")}
+          />
         </Button>
       </PopoverTrigger>
 
@@ -380,14 +383,11 @@ export function SelectEngine({
   } = useGetDictionary();
   return (
     <div
-      className={cn("flex flex-col justify-center gap-2", className)}
+      className={cn("flex flex-col justify-center gap-1", className)}
       {...divProps}
     >
       <span
-        className={cn(
-          "m-0 flex items-baseline gap-2 text-sm font-normal",
-          titleStyle,
-        )}
+        className={cn("m-0 flex items-baseline gap-2 font-normal", titleStyle)}
       >
         {title ?? select_engine.engines}
       </span>

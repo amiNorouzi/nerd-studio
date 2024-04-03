@@ -32,20 +32,16 @@ export function MainTextArea({
   const [textareaValue, setTextAreaValue] = useState("");
 
   return (
-    <div className="grid w-full gap-2">
-      <div className="relative grid h-full w-full gap-2">
-        <Label htmlFor="textbox" className="text-sm font-medium">
-          {label ?? common.form_textarea_label}
-        </Label>
+    <div className="col relative w-full gap-1.5">
+      <Label htmlFor="textbox">{label ?? common.form_textarea_label}</Label>
 
-        {/*text area*/}
-        <CustomTextarea
-          setValue={setTextAreaValue}
-          value={textareaValue}
-          maxLength={400}
-          placeholder={mainTextAreaPlaceholder}
-        />
-      </div>
+      {/*text area*/}
+      <CustomTextarea
+        setValue={setTextAreaValue}
+        value={textareaValue}
+        maxLength={4000}
+        placeholder={mainTextAreaPlaceholder}
+      />
     </div>
   );
 }

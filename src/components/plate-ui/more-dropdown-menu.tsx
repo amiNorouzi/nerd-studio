@@ -3,7 +3,7 @@ import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { MARK_SUBSCRIPT, MARK_SUPERSCRIPT } from "@udecode/plate-basic-marks";
 import { focusEditor, toggleMark, useEditorRef } from "@udecode/plate-common";
 
-import { Icons } from "@/components/icons";
+import { Icons, iconVariants } from "@/components/icons";
 
 import {
   DropdownMenu,
@@ -13,6 +13,7 @@ import {
   useOpenState,
 } from "./dropdown-menu";
 import { ToolbarButton } from "./toolbar";
+import { cn } from "@/lib/utils";
 
 export function MoreDropdownMenu(props: DropdownMenuProps) {
   const editor = useEditorRef();
@@ -22,7 +23,7 @@ export function MoreDropdownMenu(props: DropdownMenuProps) {
     <DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
         <ToolbarButton pressed={openState.open} tooltip="Insert">
-          <Icons.more />
+          <Icons.more className={iconVariants({ size: "md" })} />
         </ToolbarButton>
       </DropdownMenuTrigger>
 
@@ -39,7 +40,9 @@ export function MoreDropdownMenu(props: DropdownMenuProps) {
             focusEditor(editor);
           }}
         >
-          <Icons.superscript className="mr-2 h-5 w-5" />
+          <Icons.superscript
+            className={cn(iconVariants({ size: "md" }), "mr-2")}
+          />
           Superscript
           {/* (⌘+,) */}
         </DropdownMenuItem>
@@ -52,7 +55,9 @@ export function MoreDropdownMenu(props: DropdownMenuProps) {
             focusEditor(editor);
           }}
         >
-          <Icons.subscript className="mr-2 h-5 w-5" />
+          <Icons.subscript
+            className={cn(iconVariants({ size: "md" }), "mr-2")}
+          />
           Subscript
           {/* (⌘+.) */}
         </DropdownMenuItem>

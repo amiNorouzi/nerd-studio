@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { iconVariants } from "@/constants/variants";
 
 interface IProps {
   file: File;
@@ -37,11 +38,11 @@ export function TooltipForUploadedFile({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger className="h-fit">
-          <div className="relative flex   flex-col  items-center justify-center   truncate">
+          <div className="relative flex  h-full  flex-col items-center  justify-center truncate rounded-lg border p-2">
             {file.type === "application/pdf" ? (
-              <FaRegFilePdf size={50} />
+              <FaRegFilePdf size={30} className="text-muted-foreground" />
             ) : (
-              <AiOutlineFileWord size={50} />
+              <AiOutlineFileWord size={30} className="text-muted-foreground" />
             )}
 
             {/*show file*/}
@@ -49,11 +50,16 @@ export function TooltipForUploadedFile({
               <Button
                 variant="ghost"
                 className={cn(
-                  "fit z-10 !h-7 !w-7  rounded-full bg-[#98989860]  p-1 text-primary hover:bg-muted hover:text-primary-dark",
+                  "fit z-10 !h-6 !w-6  rounded-full bg-[#98989860]  p-0.5 text-primary hover:bg-muted hover:text-primary-dark",
                 )}
                 onClick={e => handleDeleteFiles(e, index)}
               >
-                <MdDeleteOutline className={cn("h-5 w-5 text-destructive")} />
+                <MdDeleteOutline
+                  className={cn(
+                    iconVariants({ size: "sm" }),
+                    "text-destructive",
+                  )}
+                />
               </Button>
             </div>
           </div>

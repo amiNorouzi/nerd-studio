@@ -91,7 +91,7 @@ export function CustomTextarea({
 
       {/*textarea*/}
       <textarea
-        rows={8}
+        rows={6}
         className={cn(
           "mb-0 w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
           className,
