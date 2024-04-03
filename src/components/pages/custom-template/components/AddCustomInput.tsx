@@ -19,7 +19,7 @@ import {
   reorder,
 } from "@/components/pages/custom-template/utils";
 import { RxDragHandleDots2 } from "react-icons/rx";
-import { CustomTemplateInput } from "@/stores/zustand/types";
+import { TemplateInput } from "@/stores/zustand/types";
 import RenderIf from "@/components/shared/RenderIf";
 
 export function AddCustomInput() {
@@ -59,7 +59,7 @@ export function AddCustomInput() {
     });
   };
 
-  const renderInputs = (inputs: CustomTemplateInput[]) => {
+  const renderInputs = (inputs: TemplateInput[]) => {
     return (
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable" direction="vertical">

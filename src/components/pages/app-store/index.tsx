@@ -35,11 +35,13 @@ async function AppStorePage({ lang }: { lang: Locale }) {
       </SpacesHeader>
       <div
         id="app-store-main"
-        className="col max-h-page bg-image h-[var(--main-height)] w-full gap-4 overflow-y-auto p-2 md:p-4 lg:gap-6 lg:p-6"
+        className="col max-h-page h-[var(--main-height)] w-full gap-4 overflow-y-auto bg-background"
       >
         <BannerWithSearch name={"app-store-search"} />
-        <Categories name={"select-apps-category"} categories={categories} />
-        <AppsList />
+        <div className="col gap-4 p-2 md:p-4 lg:gap-6 lg:p-6">
+          <Categories name={"select-apps-category"} categories={categories} />
+          <AppsList />
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 
 import useErrorToast from "./useErrorToast";
@@ -45,7 +45,7 @@ const refreshExpiredToken = refreshExpiredTokenClosure();
 export function useAxiosFetcher() {
   const controller = useRef<AbortController>();
   const { showFetchError } = useErrorToast();
-  const { update, data: session } = useSession();
+  const { update } = useSession();
 
   /**
    * `axiosFetch` is an asynchronous function that makes an `axios` request with the provided configuration and data.
@@ -89,22 +89,23 @@ export function useAxiosFetcher() {
           //refresh access token with the refresh token
           const token = await refreshExpiredToken();
           // if token is returned update the session and retry the request
+          console.log("token returned from refresh token api: ", token);
           if (token) {
+            const session = await getSession();
             await update({
               ...session,
               user: {
                 ...session!.user,
-                accessToken: token,
               },
             });
             console.log("data in private axios: ", token);
             // add the new token to the request header
             axiosInstance.interceptors.request.use(config => {
-              config.headers["Authorization"] = token;
+              config.headers["Authorization"] = `Bearer ${token}`;
               return config;
             });
             // retry the request
-            prevRequest.headers["Authorization"] = token;
+            prevRequest.headers["Authorization"] = `Bearer ${token}`;
             return axiosInstance(prevRequest);
           } else {
             // if token is not returned sign out the user
@@ -119,7 +120,7 @@ export function useAxiosFetcher() {
     );
 
     // Abort the previous request.
-    abortRequest();
+    // abortRequest();
 
     // Create a new AbortController instance and get the signal.
     controller.current = new AbortController();

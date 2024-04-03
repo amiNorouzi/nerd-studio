@@ -19,6 +19,8 @@ interface IProps extends React.ComponentPropsWithoutRef<"nav"> {
   name: string;
   categories: string[];
   onChangeTabValue?: (v: string) => void;
+  defaultValue?: string;
+  value?: string;
 }
 
 /**
@@ -32,6 +34,8 @@ export function Categories({
   categories,
   onChangeTabValue,
   className,
+  defaultValue,
+  value,
   ...navProps
 }: IProps) {
   const [searchParams, setSearchParams] = useCustomSearchParams();
@@ -47,22 +51,26 @@ export function Categories({
    * average tab size is 110px
    * calculate max item that can be shown in container by container width / average tab size
    */
-  const maxItem = Math.floor(width / 110);
+  const maxItem = Math.floor(width / 130);
 
   function handleSelect(v: string) {
     if (onChangeTabValue) {
       onChangeTabValue(v);
+    } else {
+      setSearchParams(name, v);
     }
-    setSearchParams(name, v);
   }
 
   return (
     <nav className={cn("w-full max-w-full", className)} ref={ref} {...navProps}>
       <Tabs
-        defaultValue={categories[0]}
         className="h-full w-full"
         onValueChange={handleSelect}
-        value={searchParams.get(name) || ""}
+        value={
+          value
+            ? value
+            : searchParams.get(name) || defaultValue || categories[0]
+        }
       >
         <TabsList className="row w-full justify-start gap-2 bg-transparent p-0">
           {categories.slice(0, maxItem).map(category => (
@@ -85,12 +93,12 @@ export function Categories({
                   <IoIosMore size="1rem" />
                 </Button>
               </HoverCardTrigger>
-              <HoverCardContent side="bottom" className="col max-w-36 p-1">
+              <HoverCardContent side="bottom" className="col max-w-40 p-1">
                 {categories.slice(maxItem).map(category => (
                   <Button
                     key={category}
                     variant="ghost"
-                    className="row h-fit w-full justify-start px-2.5 py-2 text-foreground/70 hover:bg-hover focus-visible:ring-offset-0"
+                    className="row h-fit w-full justify-start px-2.5 py-2 capitalize text-foreground/70 hover:bg-hover focus-visible:ring-offset-0"
                     onClick={() => handleSelect(category)}
                   >
                     {category}

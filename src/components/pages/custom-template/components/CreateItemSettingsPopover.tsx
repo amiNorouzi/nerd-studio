@@ -14,10 +14,7 @@ import { Switch } from "@/components/ui/switch";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 import { useGetDictionary } from "@/hooks";
 
-import type {
-  CustomTemplateInput,
-  CustomTemplateInputType,
-} from "@/stores/zustand/types";
+import type { TemplateInput, TemplateInputType } from "@/stores/zustand/types";
 import RenderIf from "@/components/shared/RenderIf";
 import ImageAction from "@/components/pages/ai-image/components/ImageAction";
 import { ResponsivePopover, Show } from "@/components/shared";
@@ -28,9 +25,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { inputTypes } from "@/constants/custom-template";
+import { inputTypes } from "@/constants/template";
 
-function CreateItemSettingsPopover({ item }: { item: CustomTemplateInput }) {
+function CreateItemSettingsPopover({ item }: { item: TemplateInput }) {
   const {
     page: { custom_template: dictionary },
   } = useGetDictionary();

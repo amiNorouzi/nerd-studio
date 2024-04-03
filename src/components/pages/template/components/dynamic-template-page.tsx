@@ -1,4 +1,6 @@
 "use client";
+import { useQuery } from "@tanstack/react-query";
+
 import {
   HistoryBox,
   HistoryItems,
@@ -6,9 +8,13 @@ import {
   SetSearchParamProvider,
   HistoryInfo,
 } from "@/components/shared";
+import type { CategoryItem } from "@/components/pages/template/types";
 import { HistoryInfoContent } from "./history-info-content";
+
 import { useTemplateStore } from "@/stores/zustand/template-store";
 import { useGetDictionary } from "@/hooks";
+import { useAxiosFetcher } from "@/hooks/useAxiosFetcher";
+
 import type { SCRPropsType } from "@/services/types";
 
 export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {

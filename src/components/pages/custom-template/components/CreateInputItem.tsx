@@ -14,19 +14,16 @@ import { Button } from "@/components/ui/button";
 import { useGetDictionary } from "@/hooks";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 
-import { inputTypes } from "@/constants/custom-template";
+import { inputTypes } from "@/constants/template";
 
-import type {
-  CustomTemplateInput,
-  CustomTemplateInputType,
-} from "@/stores/zustand/types";
+import type { TemplateInput, TemplateInputType } from "@/stores/zustand/types";
 import CreateItemSettingsPopover from "@/components/pages/custom-template/components/CreateItemSettingsPopover";
 
 function CreateInputItem({
   item,
   order,
 }: {
-  item: CustomTemplateInput;
+  item: TemplateInput;
   order: number;
 }) {
   const {
@@ -58,7 +55,7 @@ function CreateInputItem({
           defaultValue={inputTypes[0].type}
           value={item.type}
           onValueChange={val =>
-            setCustomTemplateInputType(item.id, val as CustomTemplateInputType)
+            setCustomTemplateInputType(item.id, val as TemplateInputType)
           }
         >
           <SelectTrigger className="col-span-8 md:col-span-2">

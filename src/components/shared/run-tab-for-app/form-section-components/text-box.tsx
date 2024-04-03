@@ -1,16 +1,20 @@
 "use client";
 import React, { useState } from "react";
 
+import { v4 as uuidv4 } from "uuid";
+
 import { Label } from "@/components/ui/label";
-import { CustomTextarea } from "@/components/shared";
+import { CustomTextarea, DescriptionHoverCard } from "@/components/shared";
 import RenderIf from "../../RenderIf";
 
 import { useGetDictionary } from "@/hooks";
 
-import type { TemplateState } from "@/stores/zustand/types";
+import type { TemplateItem } from "@/services/types";
+import { inputComponents } from "@/constants/template";
+import { cn } from "@/lib/utils";
 
 interface IProps {
-  template?: TemplateState["currentTemplate"];
+  template?: TemplateItem;
   mainTextAreaPlaceholder: string;
   hideToggle?: boolean;
   label?: string;
@@ -28,7 +32,7 @@ export function MainTextArea({
   const [textareaValue, setTextAreaValue] = useState("");
 
   return (
-    <div className="grid gap-2">
+    <div className="grid w-full gap-2">
       <div className="relative grid h-full w-full gap-2">
         <Label htmlFor="textbox" className="text-sm font-medium">
           {label ?? common.form_textarea_label}
@@ -57,35 +61,52 @@ export function TextBox({
   hideToggle,
   label,
 }: IProps) {
-  const listOfText = template?.inputs ?? [];
+  const inputs = Array.isArray(template?.params)
+    ? template?.params?.map((item, index) => ({
+        type: item.type,
+        id: uuidv4(),
+        defaultValue: "",
+        description: item.description,
+        name: item.label,
+        order: index + 1,
+        placeholder: item.placeholder,
+        options: item.options
+          ? item.options.map(option => ({
+              id: uuidv4(),
+              value: option,
+            }))
+          : [],
+        isAdvance: false,
+      })) || []
+    : [];
 
   return (
-    <div className="mt-1 grid gap-2">
+    <div className="col mt-1 w-full gap-2">
       <MainTextArea
         mainTextAreaPlaceholder={mainTextAreaPlaceholder}
         hideToggle={hideToggle}
         label={label}
       />
-      <RenderIf isTrue={listOfText.length !== 0}>
-        {listOfText.map(item => (
-          <div key={item.id}>
-            <Label htmlFor={item.id} className="text-xsm font-semibold">
-              {item.title}
-            </Label>
-            <div className="relative h-full w-full">
-              <textarea
-                name={item.title}
-                id={item.id}
-                rows={1}
-                className="w-full rounded-lg border bg-muted p-2 outline-none ring-0"
-                placeholder={item.placeHolder}
-              />
-              {/*<div className="absolute bottom-2 start-2 flex justify-start">*/}
-              {/*  <Button variant="ghost"><></Button>*/}
-              {/*</div>*/}
+      <RenderIf isTrue={inputs.length !== 0}>
+        {inputs.map(item => {
+          const Components = inputComponents[item.type];
+
+          return (
+            <div
+              className={cn("col col-span-2 gap-2")}
+              key={item.id}
+              data-isLast={item.order === inputs.length}
+            >
+              <div className="row w-full gap-2">
+                <Label>{item.name}</Label>
+                <RenderIf isTrue={!!item.description}>
+                  <DescriptionHoverCard description={item.description} />
+                </RenderIf>
+              </div>
+              <Components {...item} onChangeValue={() => {}} />
             </div>
-          </div>
-        ))}
+          );
+        })}
       </RenderIf>
     </div>
   );

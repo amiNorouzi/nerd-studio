@@ -18,16 +18,16 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 
-import type { CustomTemplateInput } from "@/stores/zustand/types";
+import type { TemplateInput } from "@/stores/zustand/types";
 
 type ChangeValue = { onChangeValue: (val: string | number) => void };
 type InputProps = InputHTMLAttributes<HTMLInputElement> &
-  CustomTemplateInput &
+  TemplateInput &
   ChangeValue;
 type TextAreaProps = InputHTMLAttributes<HTMLTextAreaElement> &
-  CustomTemplateInput &
+  TemplateInput &
   ChangeValue;
-type SingleSelectProps = SelectProps & CustomTemplateInput & ChangeValue;
+type SingleSelectProps = SelectProps & TemplateInput & ChangeValue;
 
 export function TextInput({
   placeholder,

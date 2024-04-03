@@ -52,7 +52,7 @@ const refreshToken = async () => {
 
   try {
     const { data } = await axiosClient.post<{ access_token: string }>(
-      "/v1/api/auth/refresh/",
+      "/auth/refresh/",
       {
         refresh_token: session.user.refreshToken,
       },

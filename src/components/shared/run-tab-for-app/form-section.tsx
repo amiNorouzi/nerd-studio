@@ -13,15 +13,14 @@ import {
   RenderImageOrIcon,
 } from "@/components/shared";
 import { FaRegStar, FaStar } from "react-icons/fa6";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { apps } from "@/constants/side-panel";
-import type { ParamsType } from "@/services/types";
-import type { TemplateState } from "@/stores/zustand/types";
+import type { ParamsType, TemplateItem } from "@/services/types";
 
 interface IProps {
   params: ParamsType;
-  template?: TemplateState["currentTemplate"];
+  template?: TemplateItem;
   buttonContent: string;
   mainTextAreaPlaceholder: string;
 }
@@ -46,10 +45,11 @@ export function FormSection({
   /** these states used when user select a template
    * these states are for favorite icon and open modal to show message for add or remove from favorites
    * */
-  const [favTemp, setFavTemp] = useState(template?.favorite ?? false);
+  const [favTemp, setFavTemp] = useState(false);
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const [url, setUrl] = useState<string>("");
+  const pathname = usePathname();
 
   // get app name from url
   const searchParams = useSearchParams();
@@ -58,7 +58,8 @@ export function FormSection({
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
 
-  const icon = template?.icon ?? app?.icon;
+  // const icon = template?.icon ?? app?.icon;
+  const icon = "/images/gpt.jpeg";
 
   // here we select favorite icon if we select a template
   const cardIcon = favTemp ? "fav" : "notFav";
@@ -69,7 +70,7 @@ export function FormSection({
         <div className="flex items-center justify-start gap-3">
           {icon && <RenderImageOrIcon icon={icon} />}
           <h3 className="text-base font-semibold">
-            {template?.title ?? app?.title}
+            {template?.topic ?? app?.title}
           </h3>
         </div>
 
@@ -99,19 +100,21 @@ export function FormSection({
       <p
         className={cn("text-xsm text-muted-foreground", !template && "hidden")}
       >
-        {template?.description}
+        {template?.task}
       </p>
+
       <TextBox
         template={template}
         mainTextAreaPlaceholder={mainTextAreaPlaceholder}
       />
-
-      <Upload
-        setFiles={setFiles}
-        setUserUrl={setUrl}
-        files={files}
-        userUrl={url}
-      />
+      <RenderIf isTrue={!pathname.includes("template")}>
+        <Upload
+          setFiles={setFiles}
+          setUserUrl={setUrl}
+          files={files}
+          userUrl={url}
+        />
+      </RenderIf>
       <OptionsSelectBoxes />
       <SubmitButtonSelectEngine buttonContent={buttonContent} />
     </div>

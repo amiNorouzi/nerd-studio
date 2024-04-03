@@ -20,7 +20,7 @@ export function AdvancedContentTopic({
 
   const { data } = useQuery({
     queryKey: [
-      "template-child-categories",
+      "template-advance-topics",
       selectedParentCategoryId,
       selectedChildCategoryId,
     ],
@@ -34,13 +34,13 @@ export function AdvancedContentTopic({
 
   return (
     <div className="grid w-full grid-cols-1 items-center justify-center gap-x-8 gap-y-3 rounded-xl border p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-      {/*{data?.map(item => (*/}
-      {/*  <TemplateCard*/}
-      {/*    key={item.id}*/}
-      {/*    template={item}*/}
-      {/*    category={selectedChildItemName}*/}
-      {/*  />*/}
-      {/*))}*/}
+      {data?.map(item => (
+        <TemplateCard
+          key={item.id}
+          template={item}
+          category={selectedChildItemName}
+        />
+      ))}
     </div>
   );
 }
