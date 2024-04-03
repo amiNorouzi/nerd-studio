@@ -9,7 +9,7 @@ import { useParams, usePathname } from "next/navigation";
 function CreateTemplateButton() {
   const {
     components: {
-      apps_header: { crate_template_button_label },
+      apps_header: { create_prompt_button_label },
     },
   } = useGetDictionary();
   const pathname = usePathname();
@@ -19,7 +19,7 @@ function CreateTemplateButton() {
 
   return (
     <Link href="/template/custom-template/create">
-      <Button size="sm">{crate_template_button_label}</Button>
+      <Button size="sm">{create_prompt_button_label}</Button>
     </Link>
   );
 }

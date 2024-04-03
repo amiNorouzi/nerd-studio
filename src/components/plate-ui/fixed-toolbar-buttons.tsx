@@ -44,7 +44,7 @@ export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
   const readOnly = useEditorReadOnly();
 
   return (
-    <div className="w-full overflow-hidden print:opacity-0">
+    <div className="w-full overflow-hidden px-3 print:opacity-0">
       <div
         className="flex flex-wrap "
         style={{
@@ -64,26 +64,26 @@ export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
 
             <ToolbarGroup>
               <MarkToolbarButton tooltip="Bold (⌘+B)" nodeType={MARK_BOLD}>
-                <Icons.bold />
+                <Icons.bold className={iconVariants({ size: "md" })} />
               </MarkToolbarButton>
               <MarkToolbarButton tooltip="Italic (⌘+I)" nodeType={MARK_ITALIC}>
-                <Icons.italic />
+                <Icons.italic className={iconVariants({ size: "md" })} />
               </MarkToolbarButton>
               <MarkToolbarButton
                 tooltip="Underline (⌘+U)"
                 nodeType={MARK_UNDERLINE}
               >
-                <Icons.underline />
+                <Icons.underline className={iconVariants({ size: "md" })} />
               </MarkToolbarButton>
 
               <MarkToolbarButton
                 tooltip="Strikethrough (⌘+⇧+M)"
                 nodeType={MARK_STRIKETHROUGH}
               >
-                <Icons.strikethrough />
+                <Icons.strikethrough className={iconVariants({ size: "md" })} />
               </MarkToolbarButton>
               <MarkToolbarButton tooltip="Code (⌘+E)" nodeType={MARK_CODE}>
-                <Icons.code />
+                <Icons.code className={iconVariants({ size: "md" })} />
               </MarkToolbarButton>
               <AlignDropdownMenu />
               <LineHeightDropdownMenu />
@@ -95,13 +95,17 @@ export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
             </ToolbarGroup>
             <ToolbarGroup>
               <ColorDropdownMenu nodeType={MARK_COLOR} tooltip="Text Color">
-                <Icons.color className={iconVariants({ variant: "toolbar" })} />
+                <Icons.color
+                  className={iconVariants({ variant: "toolbar", size: "md" })}
+                />
               </ColorDropdownMenu>
               <ColorDropdownMenu
                 nodeType={MARK_BG_COLOR}
                 tooltip="Highlight Color"
               >
-                <Icons.bg className={iconVariants({ variant: "toolbar" })} />
+                <Icons.bg
+                  className={iconVariants({ variant: "toolbar", size: "md" })}
+                />
               </ColorDropdownMenu>
             </ToolbarGroup>
             <ToolbarGroup>

@@ -31,3 +31,12 @@ export function setNewPassApi(data: {
 }) {
   return axiosClient.post("/auth/set-new-password/", data);
 }
+
+export function oAuthLoginApi(data: {
+  email: string;
+  name: string;
+  user_id: string;
+  picture: string;
+}) {
+  return axiosClient.post<AuthReturn>("/auth/oauth/google/", data);
+}

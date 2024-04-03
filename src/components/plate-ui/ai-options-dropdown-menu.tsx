@@ -42,7 +42,7 @@ export function AiOptionsDropdownMenu(props: DropdownMenuProps) {
           isDropdown
           className=""
         >
-          <TbPencilStar />
+          <TbPencilStar className="h-4.5 w-4.5" />
         </ToolbarButton>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

@@ -82,7 +82,6 @@
   --ring: 236 15% 18%;
   --hover: #ffffff10;
 
-  --bacgroud-image: url("/images/backgrounds/dark-background-image.svg");
 }
 
 .theme-grey {
@@ -106,7 +105,6 @@
   --ring: 0 0% 21%;
   --hover: #ffffff10;
 
-  --bacgroud-image: url("/images/dark-background-image.svg");
 }
 
 .theme-darkblue {
@@ -130,7 +128,6 @@
   --ring: 214 16% 20%;
   --hover: #ffffff10;
 
-  --bacgroud-image: url("/images/backgrounds/dark-background-image.svg");
 }
 
 .theme-light-brown {
@@ -154,5 +151,4 @@
   --ring: 41 24% 87%;
   --hover: #00000010;
 
-  --bacgroud-image: url("/images/backgrounds/light-background-image.svg");
 }

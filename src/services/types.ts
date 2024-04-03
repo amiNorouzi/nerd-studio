@@ -1,16 +1,10 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { Locale } from "../../i18n.config";
+import { TemplateInputType } from "@/stores/zustand/types";
 
 export type ChildrenProps<P extends any = {}> = P & {
   children: ReactNode | ReactNode[];
 };
-
-export interface ModalProps {
-  isOpen: boolean;
-  handleClose: () => void;
-  handleOpen?: () => void;
-  handleToggle?: () => void;
-}
 
 export interface PlanFeatureItem {
   id: string;
@@ -105,4 +99,23 @@ export interface User {
   sub: string;
   iat: number;
   exp: number;
+}
+export interface TemplateParamsItem {
+  type: TemplateInputType;
+  label: string;
+  description: string;
+  placeholder: string;
+  options: string[];
+}
+export interface TemplateItem {
+  id: number;
+  topic: string;
+  task: string;
+  prompt: string;
+  params: TemplateParamsItem[];
+}
+
+export interface TemplateCategoryItem {
+  category_name: string;
+  templates: TemplateItem[];
 }

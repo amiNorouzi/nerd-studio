@@ -9,8 +9,10 @@ import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 //hero component with search box init used in app store
 interface IProps {
   name: string;
+  onChangeText?: (text: string) => void;
+  value?: string;
 }
-export function BannerWithSearch({ name }: IProps) {
+export function BannerWithSearch({ name, onChangeText, value }: IProps) {
   const {
     common: { search },
   } = useGetDictionary();
@@ -27,7 +29,7 @@ export function BannerWithSearch({ name }: IProps) {
         paddingBottom: (inputWrapperRef?.clientHeight ?? 0) / 2,
       }}
     >
-      <section className="centered-col app-store-hero relative h-[131px] min-h-[131px] w-full rounded-lg px-6"></section>
+      <section className="centered-col app-store-hero relative h-[131px] min-h-[131px] w-full px-6"></section>
       {/*
        * search box with search icon and input
        */}
@@ -42,8 +44,12 @@ export function BannerWithSearch({ name }: IProps) {
           className="h-full w-full border-none bg-transparent px-2 font-normal focus:outline-0 focus:ring-0"
           type="search"
           placeholder={search}
-          value={searchParams.get(name) ?? ""}
-          onChange={e => setSearchParams(name, e.target.value)}
+          value={value ? value : searchParams.get(name) ?? ""}
+          onChange={e =>
+            onChangeText
+              ? onChangeText(e.target.value)
+              : setSearchParams(name, e.target.value)
+          }
         />
       </div>
     </div>

@@ -51,6 +51,7 @@ interface IProps {
   isSelect?: boolean;
   label?: string;
   buttonStyle?: string;
+  itemClassName?: string;
 }
 interface SelectPropsType extends IProps {
   onOpenChange: StateSetterType<boolean>;
@@ -64,6 +65,7 @@ function CommandSelectItems({
   value,
   onOpenChange,
   showSearch = true,
+  itemClassName,
 }: SelectPropsType) {
   function handleSelectItem(item: string) {
     setValue(item);
@@ -89,6 +91,7 @@ function CommandSelectItems({
                 "flex-row-reverse justify-between px-2 text-xsm",
                 value.value.toLowerCase() === item.value.toLowerCase() &&
                   "bg-primary-light  aria-selected:bg-primary-light ",
+                itemClassName,
               )}
             >
               <Check
@@ -121,11 +124,11 @@ function SelectComponent({
   value,
   label,
   buttonStyle,
+  itemClassName,
 }: Omit<IProps, "showSearch" | "isSelect" | "items"> & {
   items: objectItem[];
   value: objectItem;
 }) {
-  console.log(value);
   return (
     <Select value={value.id} onValueChange={setValue}>
       <SelectTrigger
@@ -144,6 +147,7 @@ function SelectComponent({
                 "flex-row-reverse justify-between px-2 text-xsm",
                 value.value.toLowerCase() === item.value.toLowerCase() &&
                   "bg-primary-light focus:bg-primary-light",
+                itemClassName,
               )}
             >
               <div className="flex justify-start gap-2">

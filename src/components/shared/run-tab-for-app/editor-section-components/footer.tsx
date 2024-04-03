@@ -25,22 +25,24 @@ export function EditorSectionFooter() {
   } = useGetDictionary();
   const items = useMemo(() => {
     return characterValueItems.map(item => (
-      <SelectItem key={item} value={item} className="text-xsm">
-        {`${editor_section[item]} ${numberOfTextContent(item.split("_").pop() as WordType, editorTextContentValue)}`}
+      <SelectItem
+        key={item}
+        value={item}
+        className="flex flex-row-reverse justify-between gap-4 px-2 text-start"
+      >
+        {`${editor_section[item]}   ${numberOfTextContent(item.split("_").pop() as WordType, editorTextContentValue)}`}
       </SelectItem>
     ));
   }, [editorTextContentValue]);
 
   return (
-    <div className="h-14">
-      <Select value={value} onValueChange={setValue}>
-        <SelectTrigger className=" h-[42px] w-[200px] border-none">
-          <SelectValue placeholder="Select an option" className="text-xsm" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>{items}</SelectGroup>
-        </SelectContent>
-      </Select>
-    </div>
+    <Select value={value} onValueChange={setValue}>
+      <SelectTrigger className="row ms-2.5 mt-3.5 h-8 w-fit gap-2 border-none ">
+        <SelectValue placeholder="Select an option" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>{items}</SelectGroup>
+      </SelectContent>
+    </Select>
   );
 }

@@ -4,7 +4,7 @@ import {
   useEmojiDropdownMenuState,
 } from "@udecode/plate-emoji";
 
-import { Icons } from "@/components/icons";
+import { Icons, iconVariants } from "@/components/icons";
 
 import { emojiCategoryIcons, emojiSearchIcons } from "./emoji-icons";
 import { EmojiPicker } from "./emoji-picker";
@@ -26,7 +26,7 @@ export function EmojiDropdownMenu({
     <EmojiToolbarDropdown
       control={
         <ToolbarButton pressed={isOpen} isDropdown tooltip="Emoji" {...props}>
-          <Icons.emoji />
+          <Icons.emoji className={iconVariants({ size: "md" })} />
         </ToolbarButton>
       }
       isOpen={isOpen}

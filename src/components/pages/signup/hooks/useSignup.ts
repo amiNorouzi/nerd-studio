@@ -49,6 +49,11 @@ export function useSignup() {
    */
   const handleSignup = async (data: FormTypes) => {
     const { password, email, fullName } = data;
+    console.log({
+      password,
+      email,
+      username: fullName,
+    });
     try {
       // Send a request to the signup API with the form data.
       const { data } = await signupApi({

@@ -86,7 +86,7 @@ const ToolbarButton = withTooltip(
                 variant,
                 size,
               }),
-              isDropdown && "my-1 justify-between pr-1",
+              isDropdown && "my-1 justify-between bg-muted pr-1",
               className,
             )}
             value={pressed ? "single" : ""}

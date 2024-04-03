@@ -14,15 +14,18 @@ import { Button } from "@/components/ui/button";
 import { useGetDictionary } from "@/hooks";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 
-import { inputTypes } from "@/constants/custom-template";
+import { inputTypes } from "@/constants/template";
 
-import type {
-  CustomTemplateInput,
-  CustomTemplateInputType,
-} from "@/stores/zustand/types";
+import type { TemplateInput, TemplateInputType } from "@/stores/zustand/types";
 import CreateItemSettingsPopover from "@/components/pages/custom-template/components/CreateItemSettingsPopover";
 
-function CreateInputItem({ item }: { item: CustomTemplateInput }) {
+function CreateInputItem({
+  item,
+  order,
+}: {
+  item: TemplateInput;
+  order: number;
+}) {
   const {
     page: { custom_template: dictionary },
   } = useGetDictionary();
@@ -36,7 +39,7 @@ function CreateInputItem({ item }: { item: CustomTemplateInput }) {
   return (
     <div className="flex w-full items-start  gap-2 md:items-center">
       <div className="centered-col h-7 w-7 rounded-lg border bg-muted-dark text-sm font-semibold md:h-10 md:w-10">
-        {item.order}
+        {order}
       </div>
       <div className="grid w-full grid-cols-8 gap-4 rounded-lg border p-4 md:border-none md:p-0">
         <Input
@@ -52,7 +55,7 @@ function CreateInputItem({ item }: { item: CustomTemplateInput }) {
           defaultValue={inputTypes[0].type}
           value={item.type}
           onValueChange={val =>
-            setCustomTemplateInputType(item.id, val as CustomTemplateInputType)
+            setCustomTemplateInputType(item.id, val as TemplateInputType)
           }
         >
           <SelectTrigger className="col-span-8 md:col-span-2">

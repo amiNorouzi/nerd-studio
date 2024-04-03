@@ -29,8 +29,8 @@ export function SelectResponseLang() {
     components: { form_section },
   } = useGetDictionary();
   return (
-    <div className="flex flex-col gap-3">
-      <span className="text-sm font-normal">{form_section.form_language}</span>
+    <div className="flex flex-col gap-1">
+      <span className="font-normal">{form_section.form_language}</span>
       <ResponseLang />
     </div>
   );

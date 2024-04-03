@@ -1,3 +1,5 @@
+import { TemplateItem } from "@/services/types";
+
 export interface IUiState {
   isSidePanelOpen: boolean;
   isHoverOnSidePanel: boolean;
@@ -21,29 +23,21 @@ export interface EditorActions {
   setEditorValue: (v: any, textContent: string) => void;
 }
 
-//template
-export interface Input {
-  pId: string;
-  id: string;
-  title: string;
-  placeHolder: string;
-}
-
-export type CustomTemplateInputType =
+export type TemplateInputType =
   | "text"
   | "textarea"
   // | "date"
   | "select"
   | "number"
   | "list";
-export interface CustomTemplateInput {
+export interface TemplateInput {
   id: string;
   name: string;
   description: string;
   placeholder?: string;
   defaultValue?: string;
   order: number;
-  type: CustomTemplateInputType;
+  type: TemplateInputType;
   options: {
     id: string;
     value: string;
@@ -52,18 +46,8 @@ export interface CustomTemplateInput {
 }
 
 export interface TemplateState {
-  currentTemplate: {
-    id: string;
-    icon: string;
-    favorite: boolean;
-    title: string;
-    description: string;
-    category: string;
-    prompt: string;
-    inputs: Input[];
-  };
-  templateTab: "default" | "Advance";
-  customTemplateInputs: CustomTemplateInput[];
+  currentTemplate: TemplateItem;
+  customTemplateInputs: TemplateInput[];
   customTemplateDetails: {
     name: string;
     description: string;
@@ -73,11 +57,8 @@ export interface TemplateState {
   };
 }
 export interface TemplateAction {
-  setCurrentTemplate: (v: TemplateState["currentTemplate"]) => void;
-  setTemplatePageContent: (v: TemplateState["templateTab"]) => void;
-  setCustomTemplateInputs: (
-    v: CustomTemplateInput | CustomTemplateInput[],
-  ) => void;
+  setCurrentTemplate: (v: TemplateItem) => void;
+  setCustomTemplateInputs: (v: TemplateInput | TemplateInput[]) => void;
   addCustomTemplateOption: (
     id: string,
     v: {
@@ -90,10 +71,7 @@ export interface TemplateAction {
     key: "name" | "description" | "placeholder" | "defaultValue",
     v: string,
   ) => void;
-  setCustomTemplateInputType: (
-    id: string,
-    type: CustomTemplateInputType,
-  ) => void;
+  setCustomTemplateInputType: (id: string, type: TemplateInputType) => void;
   deleteCustomTemplateInput: (id: string) => void;
   toggleCustomTemplateInputAdvance: (id: string) => void;
   changeCustomTemplateInputOptionValue: (

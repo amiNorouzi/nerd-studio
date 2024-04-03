@@ -1,6 +1,5 @@
 "use client";
 import { useRef, useState } from "react";
-import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,13 +9,10 @@ import {
   TbSearch,
 } from "@/components/svg-icons";
 import RenderIf from "@/components/shared/RenderIf";
-import { AdvancedParentCategory } from "./advanced-parent-category";
-import { AdvancedChildCategory } from "./advanced-child-category";
+import { AdvancedCategory } from "./advanced-category";
 import { AdvancedContentTopic } from "./advanced-content-topic";
-import { Separator } from "@/components/ui/separator";
 
 import { useTemplateStore } from "@/stores/zustand/template-store";
-import { useMediaQuery } from "usehooks-ts";
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 
 import { cn } from "@/lib/utils";
@@ -62,7 +58,7 @@ function StepBox({ completed, title, active, ...rest }: StepBoxProps) {
         </div>
         <h4
           className={cn(
-            " text-center text-xs font-medium md:text-sm lg:text-base",
+            " text-center text-sm",
             !completed && !active && "text-muted-foreground-light",
           )}
         >
@@ -76,8 +72,8 @@ function StepBox({ completed, title, active, ...rest }: StepBoxProps) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={cn(
-          "-mx-4 w-24 sm:w-32 md:w-48",
-          step === 3 && "hidden",
+          "-me-3 w-40 sm:w-48 md:w-52",
+          step === 2 && "hidden",
           step === 1 ? "-mt-4" : "mb-5 mt-auto -scale-y-100",
         )}
       >
@@ -112,18 +108,16 @@ export function ListOfStepBoxes({ stepper }: ListOfStepBoxesProps) {
     page: { template },
   } = useGetDictionary();
   return (
-    <div>
-      <div className="row">
-        {Object.keys(steps).map(step => (
-          <StepBox
-            key={step}
-            step={Number(step)}
-            completed={Number(step) < stepper}
-            active={Number(step) === stepper}
-            title={template[stepsTitle[step as keyof typeof steps]]}
-          />
-        ))}
-      </div>
+    <div className="row w-full justify-center">
+      {Object.keys(steps).map(step => (
+        <StepBox
+          key={step}
+          step={Number(step)}
+          completed={Number(step) < stepper}
+          active={Number(step) === stepper}
+          title={template[stepsTitle[step as keyof typeof steps]]}
+        />
+      ))}
     </div>
   );
 }
@@ -134,7 +128,7 @@ function SearchBox() {
     common: { search },
   } = useGetDictionary();
   return (
-    <div className="row h-fit w-full min-w-60 max-w-lg rounded-md  bg-background bg-popover p-0.5 shadow-2xl">
+    <div className="row h-fit w-full min-w-60 max-w-lg rounded-md  bg-background p-0.5 shadow-2xl">
       <Button variant="ghost">
         <TbSearch size="1rem" className="me-1" />
       </Button>
@@ -153,23 +147,19 @@ interface FooterButtonsProps {
   stepper: number;
   setStepper: StateSetterType<number>;
   handleReset: () => void;
-  selectedTemplate: TemplateState["currentTemplate"];
+  isDisabledNext: boolean;
 }
 
 function FooterButtons({
   stepper,
   setStepper,
   handleReset,
-  selectedTemplate,
+  isDisabledNext,
 }: FooterButtonsProps) {
-  /**
-   * use this function to set selected template in store and use it in selected template page
-   */
-  const setCurrentTemplate = useTemplateStore.use.setCurrentTemplate();
   const {
     page: { template },
   } = useGetDictionary();
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+
   return (
     <div className="col sticky bottom-1 w-full gap-2 bg-background sm:relative">
       <div
@@ -193,8 +183,9 @@ function FooterButtons({
           </Button>
         </RenderIf>
         {/*next step button*/}
-        <RenderIf isTrue={stepper < 2}>
+        <RenderIf isTrue={stepper < Object.keys(steps).length - 1}>
           <Button
+            disabled={isDisabledNext}
             onClick={() => setStepper(v => v + 1)}
             className="items-center gap-2 rounded-xl max-sm:w-full max-sm:basis-2/3 max-sm:only:basis-full sm:w-44"
           >
@@ -203,7 +194,7 @@ function FooterButtons({
           </Button>
         </RenderIf>
         {/*reset and show prompt(show on desktop width) buttons*/}
-        <RenderIf isTrue={stepper === 2}>
+        <RenderIf isTrue={stepper === 1}>
           <div className="flex gap-6 max-sm:basis-1/2">
             <Button
               onClick={handleReset}
@@ -220,54 +211,46 @@ function FooterButtons({
 }
 
 const steps = {
-  "0": AdvancedParentCategory,
-  "1": AdvancedChildCategory,
-  "2": AdvancedContentTopic,
+  "0": AdvancedCategory,
+  "1": AdvancedContentTopic,
 } as const;
 const stepsTitle = {
-  "0": "parent_category",
-  "1": "child_category",
-  "2": "content_topic",
+  "0": "category",
+  "1": "content_topic",
 } as const;
 
 export function AdvancedPrompt() {
-  const [selectedCategoryParentItemId, setSelectedCategoryParentItemId] =
-    useState(-1);
-  const [selectedTopicChildItemId, setSelectedTopicChildItemId] = useState(-1);
-  const [selectedContentTopicItemId, setSelectedContentTopicItemId] =
-    useState(-1);
+  const [selectedParentCategoryId, setSelectedParentCategoryId] = useState(-1);
+  const [selectedChildCategoryId, setSelectedChildCategoryId] = useState(-1);
+  const [selectedChildItemName, setSelectedChildItemName] = useState("");
   const [stepper, setStepper] = useState(0);
   const Content = steps[String(stepper) as keyof typeof steps];
-  const {
-    page: { template },
-  } = useGetDictionary();
-  const currentTemplate = useTemplateStore.use.currentTemplate();
 
   function handleReset() {
-    setSelectedCategoryParentItemId(-1);
-    setSelectedTopicChildItemId(-1);
+    setSelectedParentCategoryId(-1);
+    setSelectedChildCategoryId(-1);
     setStepper(0);
   }
 
   return (
-    <div className="col h-fit w-full flex-1 items-center gap-6 ">
+    <div className="col h-fit w-full flex-1 items-center gap-6">
       <ListOfStepBoxes stepper={stepper} />
       <RenderIf isTrue={stepper > 0}>
         <SearchBox />
       </RenderIf>
       <Content
-        //these props are for parent category
-        selectedCategoryParentItemId={selectedCategoryParentItemId}
-        setSelectedCategoryParentItemId={setSelectedCategoryParentItemId}
-        //these props are for child category
-        selectedTopicChildItemId={selectedTopicChildItemId}
-        setSelectedTopicChildItemId={setSelectedTopicChildItemId}
+        setSelectedParentCategoryId={setSelectedParentCategoryId}
+        selectedParentCategoryId={selectedParentCategoryId}
+        selectedChildCategoryId={selectedChildCategoryId}
+        setSelectedChildCategoryId={setSelectedChildCategoryId}
+        selectedChildItemName={selectedChildItemName}
+        setSelectedChildItemName={setSelectedChildItemName}
       />
       <FooterButtons
         stepper={stepper}
         setStepper={setStepper}
         handleReset={handleReset}
-        selectedTemplate={currentTemplate}
+        isDisabledNext={selectedChildCategoryId < 0}
       />
     </div>
   );

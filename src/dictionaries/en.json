@@ -27,7 +27,8 @@
       "number_type": "Number",
       "list_type": "Text List",
       "to_advance_label": "Collapsible to Advanced settings",
-      "generate_button_label": "Generate"
+      "generate_button_label": "Generate",
+      "advance_inputs_label": "Toggle Advance"
     },
     "login": {
       "signup": "Sign up",
@@ -250,10 +251,11 @@
       "advance": "Advance",
       "show_more": "See more",
       "show_less": "See less",
-      "use_app": "USE APP",
+      "use_app": "Use Prompt",
       "close": "Close",
       "child_category": "Child Category",
-      "parent_category": "Parent category",
+      "parent_category": "Parent Category",
+      "category": "Categories",
       "content_topic": "Content Topic",
       "back_step_label_button": "Back Step",
       "next_step_label_button": "Next Step",
@@ -369,7 +371,7 @@
       "chat": "Chat",
       "code": "Code",
       "images": "Images",
-      "template": "Template",
+      "prompt_library": "Prompt Library",
       "run": "Run",
       "info": "Info",
       "history": "History",
@@ -379,7 +381,7 @@
       "Learn_more": "Learn more",
       "copy": "Copy link",
       "copied": "Copied",
-      "crate_template_button_label": "Create Custom Template",
+      "create_prompt_button_label": "Create Custom Prompt",
       "back_to_library_button_label": "Back to Library"
     },
     "user": {

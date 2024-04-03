@@ -3,16 +3,16 @@
 import { useTemplateStore } from "@/stores/zustand/template-store";
 import RenderIf from "@/components/shared/RenderIf";
 import { DescriptionHoverCard, ToggleAdvance } from "@/components/shared";
-import { inputComponents } from "@/constants/custom-template";
+import { inputComponents } from "@/constants/template";
 import { Label } from "@/components/ui/label";
-import { CustomTemplateInput } from "@/stores/zustand/types";
+import { TemplateInput } from "@/stores/zustand/types";
 import { cn } from "@/lib/utils";
 
 export function PreviewForm() {
   const customTemplateInputs = useTemplateStore.use.customTemplateInputs();
 
   const renderComponents = (
-    components: CustomTemplateInput[],
+    components: TemplateInput[],
     itemClassName?: string,
   ) => {
     return components.map(input => {

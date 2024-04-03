@@ -2,6 +2,20 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 /**
+ * This function generates a range of numbers from the start value to the end value (inclusive).
+ * It uses the Array from method to create an array with a length equal to the difference between the end and start values plus 1.
+ * The second argument to Array from is a map function that returns the current index, effectively filling the array with numbers from 0 to the length of the array.
+ * The result is an array of numbers from the start value to the end value.
+ *
+ * @param {number} start - The start value of the range.
+ * @param {number} end - The end value of the range.
+ * @returns {number[]} An array of numbers from the start value to the end value.
+ */
+export function range(start: number, end: number) {
+  return Array.from({ length: end - start + 1 }, (_, i) => i);
+}
+
+/**
  * This function merges a list of class names into a single string.
  * It uses the clsx library to combine the class names, and then uses the tailwind-merge library to merge the resulting class names.
  * The function takes a rest parameter, allowing for any number of arguments to be passed.
