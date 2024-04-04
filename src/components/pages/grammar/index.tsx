@@ -1,3 +1,4 @@
+"use client";
 import {
   HistoryBox,
   HistoryItems,
@@ -21,7 +22,7 @@ export function GrammarPage({ params }: IProps) {
     <SetSearchParamProvider appName="app" appSearchParamValue="Grammar">
       <Run>
         <Run.GrammarForm params={params} />
-        <Run.Editor>
+        <Run.Editor value="" onChange={() => {}}>
           <HistoryBox>
             <HistoryItems appName="Grammar" />
           </HistoryBox>

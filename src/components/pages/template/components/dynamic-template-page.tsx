@@ -33,12 +33,14 @@ export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
     <SetSearchParamProvider appName="app" appSearchParamValue="template">
       <Run>
         <Run.Form
+          value=""
+          onSubmit={() => {}}
           params={params}
           template={template}
           buttonContent={templatePage.template_button_label}
           mainTextAreaPlaceholder={templatePage.text_input_placeholder}
         />
-        <Run.Editor>
+        <Run.Editor value="" onChange={() => {}}>
           <HistoryBox>
             <HistoryItems appName="template" />
           </HistoryBox>
