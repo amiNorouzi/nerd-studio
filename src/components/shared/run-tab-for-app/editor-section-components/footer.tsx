@@ -37,7 +37,7 @@ export function EditorSectionFooter() {
 
   return (
     <Select value={value} onValueChange={setValue}>
-      <SelectTrigger className="row ms-2.5 mt-3.5 h-8 w-fit gap-2 border-none ">
+      <SelectTrigger className="row ms-3 mt-3.5 h-8 w-fit gap-2 border-none ">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>
       <SelectContent>

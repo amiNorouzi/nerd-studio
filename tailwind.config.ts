@@ -99,6 +99,10 @@ module.exports = {
       },
       spacing: {
         "4.5": "18px",
+        "label-space": "var(--spacing-form-label)",
+        "form-padding": "var(--spacing-form-padding)",
+        "form-gap": "var(--spacing-form-gap)",
+        element: "var(--spacing-element-height)",
       },
     },
   },

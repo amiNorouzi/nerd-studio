@@ -6,6 +6,7 @@
   :root {
     --background: 240 20% 99%;
     --foreground: 0 0% 9%;
+    --foreground-dark: 0 0% 9%;
     --active-bg: #9372ee20;
     --bg-overlay: #ffffff64;
     --bg-main: 0 0% 97%;
@@ -46,6 +47,11 @@
     --apps-main-height: calc(100dvh - 3.5rem);
     --header-height: 3rem;
     --main-height: calc(100dvh - 3rem);
+
+    --spacing-form-label: 8px;
+    --spacing-form-padding: 24px;
+    --spacing-form-gap: 18px;
+    --spacing-element-height: 36px;
   }
 
   .dark {
@@ -132,6 +138,15 @@
 
   .center-position {
     @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+  .element-height {
+    @apply h-element
+  }
+  .form-padding {
+    @apply p-form-padding
+  }
+  .form-gap {
+    @apply gap-form-gap
   }
 }
 

@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { SelectAndDrawer } from "@/components/shared";
 import { statuses } from "./contants";
+import { Label } from "@/components/ui/label";
 
 /**
  * this component is for select response language that comes from AI
@@ -29,8 +30,8 @@ export function SelectResponseLang() {
     components: { form_section },
   } = useGetDictionary();
   return (
-    <div className="flex flex-col gap-1">
-      <span className="font-normal">{form_section.form_language}</span>
+    <div className="gap-label-space flex flex-col">
+      <Label>{form_section.form_language}</Label>
       <ResponseLang />
     </div>
   );

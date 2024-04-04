@@ -148,7 +148,7 @@
     },
     "ReWrite": {
       "form_rewrite_button": "ReWrite",
-      "text_input_placeholder": "paste your text that you wish to rewrite or improve ...",
+      "text_input_placeholder": "Paste your text that you wish to rewrite or improve ...",
       "text_label": "Text",
       "tone_label": "Tone",
       "style_label": "Style",
@@ -200,7 +200,7 @@
       "history_title": "History",
       "page_title": "Images",
       "prompt_title": "Create an image from text prompt",
-      "prompt_placeholder": "paste your text that you wish to rewrite or improve ...",
+      "prompt_placeholder": "Paste your text that you wish to rewrite or improve ...",
       "text_to_image_tab_label": "Text to Image",
       "image_to_image_tab_label": "Image to Image",
       "multi_prompt_tab_label": "Multi Prompting",
@@ -209,7 +209,7 @@
       "style_label": "Style",
       "generated_count_message": "Image",
       "generate_label": "Generate",
-      "engines_label": "Engines",
+      "engines_label": "Model",
       "max_upload_size_message": "(PNG Images / 5MB Max)",
       "upload_zone_message": "Drag and drop your images here, or click to select files",
       "text_to_image_send_label": "Send to text to image",
@@ -234,7 +234,7 @@
       "submit_button_label": "AI Translate",
       "text_language_label": "Text Language",
       "translate_language_label": "Translation Language",
-      "text_input_placeholder": "paste your text that you wish to translate ...",
+      "text_input_placeholder": "Paste your text that you wish to translate ...",
       "text_language": "Text Language",
       "translation_language": "Translation Language",
       "text_label": "Text",
@@ -245,7 +245,7 @@
     },
     "template": {
       "template_button_label": "Generate",
-      "text_input_placeholder": "paste your text that you wish to rewrite or improve ...",
+      "text_input_placeholder": "Paste your text that you wish to rewrite or improve ...",
       "prompt": "prompt:",
       "my_prompt": "My Prompt",
       "advance": "Advance",
@@ -276,7 +276,7 @@
       "output_language_select_label": "Language output in",
       "code_language_select_label": "Language",
       "generate_button_label": "Generate",
-      "engine_select_label": "Engine",
+      "engine_select_label": "Model",
       "code_convert_from_language_label": "From language",
       "code_convert_to_language_label": "To language",
       "code_convert_code_input_label": "Code to convert",
@@ -506,7 +506,7 @@
       "finish_button_label": "Finish"
     },
     "engine_select": {
-      "search_placeholder": "Search Engine...",
+      "search_placeholder": "Search Model...",
       "select_message": "Select an engine",
       "no_result_message": "No results found."
     },
@@ -522,13 +522,13 @@
       "form_tone_description": "Set result tone of the text as needed",
       "form_advanced": "Advanced",
       "form_advanced_description": "More access for more accurate results",
-      "form_textarea_placeholder": "paste your text that you wish to rewrite or improve ...",
+      "form_textarea_placeholder": "Paste your text that you wish to rewrite or improve ...",
       "form_upload": "Upload",
       "form_url_website": "URL Website",
       "form_save": "Save",
       "form_error": "Error",
       "form_grammar_textarea_label": "Include your text here to check",
-      "form_grammar_textarea_placeholder": "paste your text that you wish to Grammar ..."
+      "form_grammar_textarea_placeholder": "Paste your text that you wish to Grammar ..."
     },
     "editor_section": {
       "editor_header_copy_text_without_style": "Copy Text without style",
@@ -572,13 +572,14 @@
       "upload_size_error_message": "File size is more than 5MB"
     },
     "select_engine": {
-      "engine_setting": "Engine Setting",
+      "engine_setting": "Model Setting",
       "temperature": "Temperature",
       "top": "Top",
       "frequency_penalty": "Frequency Penalty",
       "presence_penalty": "Presence Penalty",
       "select_an_option": "Select an option",
-      "engines": "Engines"
+      "engine_label": "Model",
+      "engines": "Models"
     }
   }
 }

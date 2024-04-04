@@ -114,7 +114,7 @@ function PlateEditorResponse({
                 contentRef: contentRef,
               })}
               size="md"
-              className="mx-auto max-w-4xl"
+              className="mx-auto max-w-[850px]"
             />
 
             <FloatingToolbar>

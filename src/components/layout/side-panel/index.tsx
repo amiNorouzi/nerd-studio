@@ -116,7 +116,7 @@ export function SidePanel() {
               justifyContent: isOpen ? "start" : "center",
               alignItems: "center",
               padding: isOpen ? "1px 10px" : "1px 4px 1px 0px",
-              height: "36px",
+              height: "var(--spacing-element-height)",
               width: "100%",
               zIndex: 1,
               "&:hover": {
