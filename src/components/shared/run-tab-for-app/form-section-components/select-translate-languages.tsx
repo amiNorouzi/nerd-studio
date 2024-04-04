@@ -25,7 +25,7 @@ export function SelectTranslateLanguages() {
   return (
     <div className="grid grid-cols-1 items-start gap-x-5 gap-y-9  sm:grid-cols-2">
       {/*select text language*/}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         <span className="m-0 flex items-baseline gap-2 text-sm font-normal">
           {translate.text_language_label}
         </span>
@@ -37,7 +37,7 @@ export function SelectTranslateLanguages() {
         />
       </div>
       {/*select translate language*/}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         <span className="m-0 flex items-baseline gap-2 text-sm font-normal">
           {translate.translate_language_label}
         </span>

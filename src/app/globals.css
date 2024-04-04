@@ -46,6 +46,13 @@
     --apps-main-height: calc(100dvh - 3.5rem);
     --header-height: 3rem;
     --main-height: calc(100dvh - 3rem);
+
+    --spacing-form-label: 4px;
+    --spacing-form-padding: 24px;
+    --spacing-form-gap: 18px;
+    --spacing-element-height: 36px;
+    --font-size-label: 14px;
+    --font-wight-label: 500;
   }
 
   .dark {

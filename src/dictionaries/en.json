@@ -209,7 +209,7 @@
       "style_label": "Style",
       "generated_count_message": "Image",
       "generate_label": "Generate",
-      "engines_label": "Engines",
+      "engines_label": "Model",
       "max_upload_size_message": "(PNG Images / 5MB Max)",
       "upload_zone_message": "Drag and drop your images here, or click to select files",
       "text_to_image_send_label": "Send to text to image",
@@ -276,7 +276,7 @@
       "output_language_select_label": "Language output in",
       "code_language_select_label": "Language",
       "generate_button_label": "Generate",
-      "engine_select_label": "Engine",
+      "engine_select_label": "Model",
       "code_convert_from_language_label": "From language",
       "code_convert_to_language_label": "To language",
       "code_convert_code_input_label": "Code to convert",
@@ -506,7 +506,7 @@
       "finish_button_label": "Finish"
     },
     "engine_select": {
-      "search_placeholder": "Search Engine...",
+      "search_placeholder": "Search Model...",
       "select_message": "Select an engine",
       "no_result_message": "No results found."
     },
@@ -572,13 +572,14 @@
       "upload_size_error_message": "File size is more than 5MB"
     },
     "select_engine": {
-      "engine_setting": "Engine Setting",
+      "engine_setting": "Model Setting",
       "temperature": "Temperature",
       "top": "Top",
       "frequency_penalty": "Frequency Penalty",
       "presence_penalty": "Presence Penalty",
       "select_an_option": "Select an option",
-      "engines": "Engines"
+      "engine_label": "Model",
+      "engines": "Models"
     }
   }
 }

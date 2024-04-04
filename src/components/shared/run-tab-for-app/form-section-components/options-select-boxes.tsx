@@ -166,10 +166,8 @@ export function OptionsSelectBoxes({
               onCheckedChange={setOpen}
             />
             <Label htmlFor="collapse-trigger" className="flex flex-col">
-              <span className="text-base font-medium">
-                {form_section.form_advanced}
-              </span>
-              <span className="font-normal text-muted-foreground">
+              <span className=" font-medium">{form_section.form_advanced}</span>
+              <span className="text-xs font-normal text-muted-foreground">
                 {form_section.form_advanced_description}
               </span>
             </Label>

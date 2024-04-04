@@ -24,6 +24,10 @@ module.exports = {
     extend: {
       fontSize: {
         xsm: ["13px", "20px"],
+        label: "var(--font-size-label)",
+      },
+      fontWeight: {
+        label: "var(--font-wight-label)",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -99,6 +103,10 @@ module.exports = {
       },
       spacing: {
         "4.5": "18px",
+        "label-space": "var(--spacing-form-label)",
+        "form-padding": "var(--spacing-form-padding)",
+        "form-gap": "var(--spacing-form-gap)",
+        element: "var(--spacing-element-height)",
       },
     },
   },

@@ -66,7 +66,6 @@ export const languages = [
   {
     id: "en",
     value: "English",
-    image: "/images/gpt.jpeg",
   },
   {
     id: "pr",

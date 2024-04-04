@@ -271,7 +271,7 @@ function UserSelectAndDrawer(props: IProps) {
           <div className="flex justify-start gap-2">
             {/*if image is valid then show it*/}
 
-            {value.image && (
+            {!!value.image && (
               <div className="relative h-5 w-5  overflow-hidden rounded-full">
                 <Image src={value.image} alt={value.value} fill />
               </div>

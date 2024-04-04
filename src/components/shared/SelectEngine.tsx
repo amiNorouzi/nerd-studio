@@ -44,6 +44,7 @@ import { cn } from "@/lib/utils";
 
 import type { StateSetterType } from "@/services/types";
 import { iconVariants } from "@/constants/variants";
+import { Label } from "@/components/ui/label";
 
 type EnginesType = keyof typeof enginesImage;
 interface IProps {
@@ -383,14 +384,12 @@ export function SelectEngine({
   } = useGetDictionary();
   return (
     <div
-      className={cn("flex flex-col justify-center gap-1", className)}
+      className={cn("flex flex-col justify-center gap-2", className)}
       {...divProps}
     >
-      <span
-        className={cn("m-0 flex items-baseline gap-2 font-normal", titleStyle)}
-      >
-        {title ?? select_engine.engines}
-      </span>
+      <Label className={cn(titleStyle)}>
+        {title ?? select_engine.engine_label}
+      </Label>
 
       <SelectEngineDropDown buttonStyle={buttonStyle} />
     </div>
