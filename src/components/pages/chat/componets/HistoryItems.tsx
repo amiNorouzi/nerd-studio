@@ -162,7 +162,7 @@ export function HistoryItems() {
               key={index}
               className="relative h-12 w-12 self-center overflow-hidden  rounded-lg"
             >
-              <Image src={file} alt={file} fill sizes="100%" />
+              <Image src={file} alt={file} fill  sizes="100%" />
             </div>
           ))}
         </div>

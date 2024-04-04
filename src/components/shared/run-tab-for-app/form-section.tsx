@@ -13,9 +13,9 @@ import type {TemplateState} from '@/stores/zustand/types';
 import {usePDFConvertor} from '@/services/translate';
 
 interface IProps {
-  params: ParamsType;
-  template?: TemplateState["currentTemplate"];
-  buttonContent: string;
+    params: ParamsType;
+    template?: TemplateState["currentTemplate"];
+    buttonContent: string;
     mainTextAreaPlaceholder: string;
     onTextAreaChange?: (value: string) => void;
     value: string;
@@ -24,8 +24,8 @@ interface IProps {
 }
 
 const startIcon = {
-  fav: FaStar,
-  notFav: FaRegStar,
+    fav: FaStar,
+    notFav: FaRegStar,
 } as const;
 
 /**
@@ -36,27 +36,27 @@ const startIcon = {
  * @constructor
  */
 export default function FormSection({
-  template,
-  buttonContent,
-  mainTextAreaPlaceholder,
-  onTextAreaChange,
-  onSubmit,
-  value,
-                            }: IProps) {
-  /** these states used when user select a template
-   * these states are for favorite icon and open modal to show message for add or remove from favorites
-   * */
-  const [favTemp, setFavTemp] = useState(template?.favorite ?? false);
-  const [open, setOpen] = useState(false);
-  const [files, setFiles] = useState<File[]>([]);
-  const [url, setUrl] = useState<string>("");
+                                        template,
+                                        buttonContent,
+                                        mainTextAreaPlaceholder,
+                                        onTextAreaChange,
+                                        onSubmit,
+                                        value,
+                                    }: IProps) {
+    /** these states used when user select a template
+     * these states are for favorite icon and open modal to show message for add or remove from favorites
+     * */
+    const [favTemp, setFavTemp] = useState(template?.favorite ?? false);
+    const [open, setOpen] = useState(false);
+    const [files, setFiles] = useState<File[]>([]);
+    const [url, setUrl] = useState<string>("");
 
-  // get app name from url
-  const searchParams = useSearchParams();
-  const appName = searchParams.get("app");
-  const app = apps.find(
-    app => app.title.toLowerCase() === appName?.toLowerCase(),
-  );
+    // get app name from url
+    const searchParams = useSearchParams();
+    const appName = searchParams.get("app");
+    const app = apps.find(
+        app => app.title.toLowerCase() === appName?.toLowerCase(),
+    );
 
     const {mutateAsync: covertPDF} = usePDFConvertor();
     const covertToText = async (files: File[]) => {
@@ -75,6 +75,7 @@ export default function FormSection({
   const ButtonIcon = startIcon[cardIcon];
 
   return (
+      <>
     <div className="col-span-12 flex h-fit flex-col gap-9 overflow-y-auto bg-background p-4 lg:col-span-6 lg:h-full  lg:max-h-full xl:col-span-4">
       <div className="flex justify-between">
         <div className="flex items-center justify-start gap-3">
@@ -131,5 +132,6 @@ export default function FormSection({
             buttonContent={buttonContent}
         />
     </div>
+      </>
   );
 }

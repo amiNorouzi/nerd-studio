@@ -16,6 +16,8 @@ import { useGetDictionary } from "@/hooks";
 
 import { getHslColorByVar } from "@/lib/utils";
 import { docs } from "@/constants/dashboard";
+import Yaxis from "@/components/shared/Xaxis";
+import Xaxis from "@/components/shared/Xaxis";
 
 //chart data
 //TODO: replace with real data from api
@@ -101,8 +103,10 @@ export function ChartsSection() {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
+            <Xaxis/>
+            <Yaxis/>
+            {/*<XAxis key="XX"/>*/}
+            {/*<YAxis key="YY"/>*/}
             <Tooltip
               contentStyle={{
                 borderRadius: "0.5rem",

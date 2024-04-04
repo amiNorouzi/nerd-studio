@@ -50,6 +50,7 @@ export function SidePanel() {
 
   return (
     <>
+      <div>
       <Sidebar
         collapsed={collapsed}
         collapsedWidth={isMobile ? "0" : isHoverOnSidePanel ? "240px" : "68px"}
@@ -143,6 +144,7 @@ export function SidePanel() {
           </div>
         </Menu>
       </Sidebar>
+      </div>
       <UserPanel />
     </>
   );
