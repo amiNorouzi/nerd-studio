@@ -1,5 +1,6 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import {type ClassValue, clsx} from 'clsx';
+import {twMerge} from 'tailwind-merge';
+import {languages} from '@/components/shared/run-tab-for-app/form-section-components/contants';
 
 /**
  * This function generates a range of numbers from the start value to the end value (inclusive).
@@ -104,3 +105,10 @@ export function separateNumber(number: string) {
     return 0;
   }
 }
+
+export const getLangById = (id: string) =>
+    languages.find(
+        item => item.id.toLowerCase() === id.toLowerCase(),
+    );
+
+export const isBrowser = () => typeof window !== 'undefined';

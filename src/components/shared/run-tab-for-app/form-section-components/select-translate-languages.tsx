@@ -1,28 +1,35 @@
 import { useState } from "react";
+
 import { SelectAndDrawer } from "@/components/shared";
-import { useGetDictionary } from "@/hooks";
-import { languages } from "./contants";
 import { Label } from "@/components/ui/label";
+
+import {useCustomSearchParams, useGetDictionary} from '@/hooks';
+
+import { languages } from "./contants";
+import {getLangById} from '@/lib/utils';
 
 /**
  * this component is for select translate languages
  * @constructor
  */
 export function SelectTranslateLanguages() {
+  const [searchParams, setSearchParams] = useCustomSearchParams();
+  const txLang = searchParams.get('txLang') ?? languages[0].id;
+  const trLang = searchParams.get('trLang') ?? languages[1].id;
   const [value, setValue] = useState({
-    fromLang: languages[0],
-    toLang: languages[0],
+    txLang: getLangById(txLang),
+    trLang: getLangById(trLang),
   });
   const {
     page: { translate },
   } = useGetDictionary();
   function setLanguage(id: string, name: string) {
-    const item = languages.find(
-      item => item.id.toLowerCase() === id.toLowerCase(),
-    );
+    const item = getLangById(id);
     if (!item) return;
     setValue(prev => ({ ...prev, [name]: item }));
+    setSearchParams(name, id);
   }
+
   return (
     <div className="form-gap grid grid-cols-1 items-start sm:grid-cols-2">
       {/*select text language*/}
@@ -30,8 +37,8 @@ export function SelectTranslateLanguages() {
         <Label>{translate.text_language_label}</Label>
 
         <SelectAndDrawer
-          value={value.fromLang}
-          setValue={v => setLanguage(v, "fromLang")}
+            value={value.txLang as any}
+            setValue={v => setLanguage(v, 'txLang')}
           items={languages}
         />
       </div>
@@ -40,8 +47,8 @@ export function SelectTranslateLanguages() {
         <Label>{translate.translate_language_label}</Label>
 
         <SelectAndDrawer
-          value={value.toLang}
-          setValue={v => setLanguage(v, "toLang")}
+            value={value.trLang as any}
+            setValue={v => setLanguage(v, 'trLang')}
           items={languages}
         />
       </div>

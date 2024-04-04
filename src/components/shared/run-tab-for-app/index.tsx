@@ -1,8 +1,8 @@
 import React from "react";
-import { EditorSection } from "./editor-section";
-import { FormSection } from "./form-section";
-import { TranslateFormSection } from "./translate-form";
-import { GrammarFormSection } from "./grammar-form";
+import EditorSection from "./editor-section";
+import FormSection from "./form-section";
+import TranslateFormSection from "./translate-form";
+import GrammarFormSection from "./grammar-form";
 import { cn } from "@/lib/utils";
 
 interface IProps extends React.ComponentPropsWithoutRef<"div"> {

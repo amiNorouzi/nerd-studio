@@ -36,7 +36,6 @@ export function useCustomSearchParams(
     value?: string,
     replace: boolean = true,
   ) {
-    // console.log("selected in setSearchparam: ", value, " ", key);
 
     if (!value) {
       current.delete(key);

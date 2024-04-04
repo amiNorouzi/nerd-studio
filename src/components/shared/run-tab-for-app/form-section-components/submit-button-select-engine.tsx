@@ -1,18 +1,23 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { SelectEngine } from "@/components/shared";
+import {Button} from '@/components/ui/button';
+import {SelectEngine} from '@/components/shared';
 
 interface IProps {
   buttonContent: string;
+  onClick(): void;
 }
 
-export function SubmitButtonSelectEngine({ buttonContent }: IProps) {
+export function SubmitButtonSelectEngine({ buttonContent ,onClick}: IProps) {
   return (
     <div className="sticky bottom-0 mt-auto grid grid-cols-1 items-end gap-5 sm:grid-cols-2">
       {/*show engine select box*/}
       <SelectEngine />
       {/*submit button*/}
-      <Button>{buttonContent}</Button>
+        <Button
+            onClick={onClick}
+        >
+            {buttonContent}
+        </Button>
     </div>
   );
 }

@@ -23,7 +23,7 @@ interface IProps {
  * @param params
  * @constructor
  */
-export function GrammarFormSection({ params }: IProps) {
+export default function GrammarFormSection({ params }: IProps) {
   const {
     page: { translate },
   } = useGetDictionary();
@@ -44,7 +44,10 @@ export function GrammarFormSection({ params }: IProps) {
       {/*text area and pdf upload and url input*/}
       <GrammarTextBox value={value} setValue={setValue} maxLength={4000} />
       {/*submit button and select engine with setting*/}
-      <SubmitButtonSelectEngine buttonContent={"Improving"} />
+      <SubmitButtonSelectEngine
+          onClick={() =>{}}
+          buttonContent={"Improving"}
+      />
     </div>
   );
 }

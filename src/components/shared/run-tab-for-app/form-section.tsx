@@ -17,12 +17,18 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType, TemplateItem } from "@/services/types";
+import {usePDFConvertor} from '@/services/translate';
+
 
 interface IProps {
   params: ParamsType;
   template?: TemplateItem;
   buttonContent: string;
-  mainTextAreaPlaceholder: string;
+    mainTextAreaPlaceholder: string;
+    onTextAreaChange?: (value: string) => void;
+    value: string;
+
+    onSubmit(): void;
 }
 
 const startIcon = {
@@ -37,11 +43,14 @@ const startIcon = {
  * @param mainTextAreaPlaceholder
  * @constructor
  */
-export function FormSection({
+export default function FormSection({
   template,
   buttonContent,
   mainTextAreaPlaceholder,
-}: IProps) {
+  onTextAreaChange,
+  onSubmit,
+  value,
+                            }: IProps) {
   /** these states used when user select a template
    * these states are for favorite icon and open modal to show message for add or remove from favorites
    * */
@@ -58,12 +67,23 @@ export function FormSection({
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
 
+    const {mutateAsync: covertPDF} = usePDFConvertor();
+    const covertToText = async (files: File[]) => {
+        const text = await covertPDF(files[0]);
+        onTextAreaChange?.(text);
+    };
+
+    const onSelectFiles = (files: File[]) => {
+        setFiles(files);
+        covertToText(files);
+    };
   // const icon = template?.icon ?? app?.icon;
   const icon = "/images/gpt.jpeg";
 
   // here we select favorite icon if we select a template
   const cardIcon = favTemp ? "fav" : "notFav";
   const ButtonIcon = startIcon[cardIcon];
+
   return (
     <div
       className="form-gap form-padding col-span-12 flex h-fit flex-col overflow-y-auto
@@ -110,14 +130,17 @@ export function FormSection({
       />
       <RenderIf isTrue={!pathname.includes("template")}>
         <Upload
-          setFiles={setFiles}
+          setFiles={onSelectFiles}
           setUserUrl={setUrl}
           files={files}
           userUrl={url}
         />
       </RenderIf>
       <OptionsSelectBoxes />
-      <SubmitButtonSelectEngine buttonContent={buttonContent} />
+        <SubmitButtonSelectEngine
+            onClick={onSubmit}
+            buttonContent={buttonContent}
+        />
     </div>
   );
 }
