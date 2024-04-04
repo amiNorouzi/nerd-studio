@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SelectAndDrawer } from "@/components/shared";
 import { useGetDictionary } from "@/hooks";
 import { languages } from "./contants";
+import { Label } from "@/components/ui/label";
 
 /**
  * this component is for select translate languages
@@ -23,12 +24,10 @@ export function SelectTranslateLanguages() {
     setValue(prev => ({ ...prev, [name]: item }));
   }
   return (
-    <div className="grid grid-cols-1 items-start gap-x-5 gap-y-9  sm:grid-cols-2">
+    <div className="form-gap grid grid-cols-1 items-start sm:grid-cols-2">
       {/*select text language*/}
-      <div className="flex flex-col gap-2">
-        <span className="m-0 flex items-baseline gap-2 text-sm font-normal">
-          {translate.text_language_label}
-        </span>
+      <div className="gap-label-space flex flex-col">
+        <Label>{translate.text_language_label}</Label>
 
         <SelectAndDrawer
           value={value.fromLang}
@@ -37,10 +36,8 @@ export function SelectTranslateLanguages() {
         />
       </div>
       {/*select translate language*/}
-      <div className="flex flex-col gap-2">
-        <span className="m-0 flex items-baseline gap-2 text-sm font-normal">
-          {translate.translate_language_label}
-        </span>
+      <div className="gap-label-space flex flex-col">
+        <Label>{translate.translate_language_label}</Label>
 
         <SelectAndDrawer
           value={value.toLang}

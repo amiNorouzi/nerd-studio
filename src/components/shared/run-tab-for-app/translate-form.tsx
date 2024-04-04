@@ -37,7 +37,7 @@ export function TranslateFormSection({ params }: IProps) {
   );
 
   return (
-    <div className="col-span-12 flex h-fit flex-col gap-9 overflow-y-auto bg-card p-4  lg:col-span-6 lg:h-full  lg:max-h-full xl:col-span-4">
+    <div className="form-gap form-padding col-span-12 flex h-fit flex-col overflow-y-auto bg-background lg:col-span-6 lg:h-full lg:max-h-full xl:col-span-4">
       {/*select language from/to for translate*/}
       <SelectTranslateLanguages />
       {/*text area and pdf upload and url input*/}

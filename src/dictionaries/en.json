@@ -148,7 +148,7 @@
     },
     "ReWrite": {
       "form_rewrite_button": "ReWrite",
-      "text_input_placeholder": "paste your text that you wish to rewrite or improve ...",
+      "text_input_placeholder": "Paste your text that you wish to rewrite or improve ...",
       "text_label": "Text",
       "tone_label": "Tone",
       "style_label": "Style",

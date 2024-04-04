@@ -86,7 +86,7 @@ export function Upload(props: IProps) {
           variant="muted"
           className={cn(
             "gap-2 text-sm text-muted-foreground transition-all duration-300",
-            !isFileOrUrlValid && "-me-0.5 -mt-10 ",
+            !isFileOrUrlValid && "-me-0.5 -mt-9 ",
           )}
         >
           <TbUpload

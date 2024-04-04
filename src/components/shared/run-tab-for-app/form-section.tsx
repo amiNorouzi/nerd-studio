@@ -65,7 +65,10 @@ export function FormSection({
   const cardIcon = favTemp ? "fav" : "notFav";
   const ButtonIcon = startIcon[cardIcon];
   return (
-    <div className="col-span-12 flex h-fit flex-col gap-6 overflow-y-auto bg-background  lg:col-span-6 lg:h-full lg:max-h-full  xl:col-span-4 xl:p-6">
+    <div
+      className="form-gap form-padding col-span-12 flex h-fit flex-col overflow-y-auto
+    bg-background lg:col-span-6 lg:h-full lg:max-h-full xl:col-span-4"
+    >
       <RenderIf isTrue={!!template}>
         <div className="flex justify-between">
           <div className="flex items-center justify-start gap-3">

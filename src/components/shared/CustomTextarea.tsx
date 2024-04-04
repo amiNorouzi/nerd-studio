@@ -70,7 +70,7 @@ export function CustomTextarea({
       {isRecording ? (
         <button
           onClick={handleToggleRecording}
-          className=" absolute start-1.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
+          className=" absolute start-1.5 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
         >
           <svg
             className="h-12 w-12 "
@@ -84,7 +84,7 @@ export function CustomTextarea({
         <MinimalButton
           Icon={TbMicrophone}
           title={dictionary.voice_button_label}
-          className="absolute start-1.5 top-2.5"
+          className="absolute start-1.5 top-0.5"
           onClick={handleToggleRecording}
         />
       )}
@@ -103,7 +103,7 @@ export function CustomTextarea({
       />
 
       {/*action buttons*/}
-      <div className="row absolute bottom-8 end-4 gap-1">
+      <div className="row absolute bottom-6 end-3.5 gap-1">
         <MinimalButton
           Icon={TbTrash}
           title={dictionary.clear_button_label}
@@ -137,7 +137,7 @@ export function CustomTextarea({
         {!!renderMoreActions && renderMoreActions()}
       </div>
       {/*character count*/}
-      <span className="text-xs text-muted-foreground">
+      <span className="ps-1 text-xs text-muted-foreground">
         {value?.toString().length}/{maxLength}
       </span>
     </div>

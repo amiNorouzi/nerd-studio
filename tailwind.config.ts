@@ -24,10 +24,6 @@ module.exports = {
     extend: {
       fontSize: {
         xsm: ["13px", "20px"],
-        label: "var(--font-size-label)",
-      },
-      fontWeight: {
-        label: "var(--font-wight-label)",
       },
       colors: {
         border: "hsl(var(--border))",

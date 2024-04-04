@@ -32,7 +32,7 @@ export function MainTextArea({
   const [textareaValue, setTextAreaValue] = useState("");
 
   return (
-    <div className="col relative w-full gap-1.5">
+    <div className="col gap-label-space relative w-full">
       <Label htmlFor="textbox">{label ?? common.form_textarea_label}</Label>
 
       {/*text area*/}
