@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { useParams, usePathname } from "next/navigation";
 
@@ -16,6 +16,8 @@ import useMobileSize from "@/hooks/useMobileSize";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
 import { apps } from "@/constants/side-panel";
+import { dirInLocalStorage } from "@/stores/browser-storage";
+import useOutsideClick from "@/hooks/useOutSideClick";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
@@ -38,19 +40,30 @@ export function SidePanel() {
 
   //need to add padding to main because sidebar go over it on fixed position
   useEffect(() => {
+    const dir = dirInLocalStorage.get().dir;
     const main = document.getElementById("main");
     if (collapsed && !isMobile) {
-      main!.style.paddingLeft = "68px";
+      if (dir === "ltr") {
+        main!.style.paddingLeft = "68px";
+      } else {
+        main!.style.paddingRight = "68px";
+      }
     } else {
       main!.style.paddingLeft = "0px";
+      main!.style.paddingRight = "0px";
     }
-  }, [collapsed, isMobile]);
+  }, [collapsed, isMobile, lang]);
+
+  //Handel outsideClick in mobile
+  const sidebarRef = useRef<HTMLHtmlElement>(null);
+  useOutsideClick(sidebarRef, isMobile, setIsSidePanelOpen);
 
   const isOpen = !collapsed || isHoverOnSidePanel;
 
   return (
     <>
       <Sidebar
+        ref={sidebarRef}
         collapsed={collapsed}
         collapsedWidth={isMobile ? "0" : isHoverOnSidePanel ? "240px" : "68px"}
         width="240px"
