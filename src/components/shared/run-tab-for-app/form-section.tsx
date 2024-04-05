@@ -9,6 +9,7 @@ import {
 import RenderIf from "@/components/shared/RenderIf";
 import { Button } from "@/components/ui/button";
 import {
+  DescriptionHoverCard,
   FavoriteButtonAndDialog,
   RenderImageOrIcon,
 } from "@/components/shared";
@@ -17,18 +18,19 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType, TemplateItem } from "@/services/types";
-import {usePDFConvertor} from '@/services/translate';
-
+import { usePDFConvertor } from "@/services/translate";
+import { iconVariants } from "@/constants/variants";
+import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
 
 interface IProps {
   params: ParamsType;
   template?: TemplateItem;
   buttonContent: string;
-    mainTextAreaPlaceholder: string;
-    onTextAreaChange?: (value: string) => void;
-    value: string;
+  mainTextAreaPlaceholder: string;
+  onTextAreaChange?: (value: string) => void;
+  value: string;
 
-    onSubmit(): void;
+  onSubmit(): void;
 }
 
 const startIcon = {
@@ -50,7 +52,7 @@ export default function FormSection({
   onTextAreaChange,
   onSubmit,
   value,
-                            }: IProps) {
+}: IProps) {
   /** these states used when user select a template
    * these states are for favorite icon and open modal to show message for add or remove from favorites
    * */
@@ -67,16 +69,16 @@ export default function FormSection({
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
 
-    const {mutateAsync: covertPDF} = usePDFConvertor();
-    const covertToText = async (files: File[]) => {
-        const text = await covertPDF(files[0]);
-        onTextAreaChange?.(text);
-    };
+  const { mutateAsync: covertPDF } = usePDFConvertor();
+  const covertToText = async (files: File[]) => {
+    const text = await covertPDF(files[0]);
+    onTextAreaChange?.(text);
+  };
 
-    const onSelectFiles = (files: File[]) => {
-        setFiles(files);
-        covertToText(files);
-    };
+  const onSelectFiles = (files: File[]) => {
+    setFiles(files);
+    covertToText(files);
+  };
   // const icon = template?.icon ?? app?.icon;
   const icon = "/images/gpt.jpeg";
 
@@ -85,15 +87,15 @@ export default function FormSection({
   const ButtonIcon = startIcon[cardIcon];
 
   return (
-    <div
-      className="form-gap form-padding col-span-12 flex h-fit flex-col overflow-y-auto
-    bg-background lg:col-span-6 lg:h-full lg:max-h-full xl:col-span-4"
-    >
+    <FormWrapper>
       <RenderIf isTrue={!!template}>
-        <div className="flex justify-between">
-          <div className="flex items-center justify-start gap-3">
+        <div className="flex w-full justify-between gap-2">
+          <div className="flex w-full items-center justify-start gap-2">
             {icon && <RenderImageOrIcon icon={icon} />}
-            <h3 className="text-base font-semibold">{template?.topic}</h3>
+            <h3 className="max-w-full text-ellipsis text-nowrap">
+              {template?.topic}
+            </h3>
+            <DescriptionHoverCard description={template?.task || ""} />
           </div>
 
           {/*this is for when use select a template that show icon title and fav icon in form section*/}
@@ -111,22 +113,23 @@ export default function FormSection({
               }}
             >
               <ButtonIcon
-                className="bg- h-5 w-5 "
+                className={iconVariants({ size: "md" })}
                 color="hsl(var(--primary))"
               />
             </Button>
           </FavoriteButtonAndDialog>
         </div>
       </RenderIf>
-      <p
-        className={cn("text-xsm text-muted-foreground", !template && "hidden")}
-      >
-        {template?.task}
-      </p>
+      {/*<p*/}
+      {/*  className={cn("text-xsm text-muted-foreground", !template && "hidden")}*/}
+      {/*>*/}
+      {/*  {template?.task}*/}
+      {/*</p>*/}
 
       <TextBox
         template={template}
         mainTextAreaPlaceholder={mainTextAreaPlaceholder}
+        value={value}
       />
       <RenderIf isTrue={!pathname.includes("template")}>
         <Upload
@@ -137,10 +140,10 @@ export default function FormSection({
         />
       </RenderIf>
       <OptionsSelectBoxes />
-        <SubmitButtonSelectEngine
-            onClick={onSubmit}
-            buttonContent={buttonContent}
-        />
-    </div>
+      <SubmitButtonSelectEngine
+        onClick={onSubmit}
+        buttonContent={buttonContent}
+      />
+    </FormWrapper>
   );
 }

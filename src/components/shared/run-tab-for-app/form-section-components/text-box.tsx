@@ -6,8 +6,8 @@ import { Label } from "@/components/ui/label";
 import { CustomTextarea, DescriptionHoverCard } from "@/components/shared";
 import RenderIf from "../../RenderIf";
 
-import {useCustomSearchParams, useGetDictionary} from '@/hooks';
-import {useDebounce} from '@/hooks/useDebounce';
+import { useCustomSearchParams, useGetDictionary } from "@/hooks";
+import { useDebounce } from "@/hooks/useDebounce";
 
 import type { TemplateItem } from "@/services/types";
 import { inputComponents } from "@/constants/template";
@@ -18,8 +18,8 @@ interface IProps {
   mainTextAreaPlaceholder: string;
   hideToggle?: boolean;
   label?: string;
-    value?: string;
-    onChange?: (value: string) => void;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 /**
@@ -28,32 +28,36 @@ interface IProps {
  */
 export function MainTextArea({
   mainTextAreaPlaceholder,
-                                 value,
-                                 onChange,
+  value,
+  onChange,
   label,
 }: Omit<IProps, "template">) {
-    const {common} = useGetDictionary();
-    const [, setSearchParams] = useCustomSearchParams();
+  const { common } = useGetDictionary();
+  const [, setSearchParams] = useCustomSearchParams();
 
-    const handelOnChange = (text: string) => {
-        onChange?.(text);
-    };
+  const handelOnChange = (text: string) => {
+    onChange?.(text);
+  };
 
-    useDebounce(() => {
-        setSearchParams('text', value);
-    }, value, 500);
+  useDebounce(
+    () => {
+      setSearchParams("text", value);
+    },
+    value,
+    500,
+  );
 
   return (
     <div className="col gap-label-space relative w-full">
       <Label htmlFor="textbox">{label ?? common.form_textarea_label}</Label>
 
-        {/*text area*/}
-        <CustomTextarea
-            setValue={handelOnChange}
-            value={value}
-          maxLength={400}
-          placeholder={mainTextAreaPlaceholder}
-        />
+      {/*text area*/}
+      <CustomTextarea
+        setValue={handelOnChange}
+        value={value}
+        maxLength={4000}
+        placeholder={mainTextAreaPlaceholder}
+      />
     </div>
   );
 }
@@ -68,8 +72,8 @@ export function TextBox({
   mainTextAreaPlaceholder,
   hideToggle,
   label,
-                            value,
-                            onChange,
+  value,
+  onChange,
 }: IProps) {
   const inputs = Array.isArray(template?.params)
     ? template?.params?.map((item, index) => ({
@@ -100,25 +104,27 @@ export function TextBox({
         onChange={onChange}
       />
       <RenderIf isTrue={inputs.length !== 0}>
-        {inputs.map(item => {
-          const Components = inputComponents[item.type];
+        <div className="col form-gap mt-2">
+          {inputs.map(item => {
+            const Components = inputComponents[item.type];
 
-          return (
-            <div
-              className={cn("col col-span-2 gap-2")}
-              key={item.id}
-              data-isLast={item.order === inputs.length}
-            >
-              <div className="row w-full gap-2">
-                <Label>{item.name}</Label>
-                <RenderIf isTrue={!!item.description}>
-                  <DescriptionHoverCard description={item.description} />
-                </RenderIf>
+            return (
+              <div
+                className={cn("col col-span-2 gap-2")}
+                key={item.id}
+                data-isLast={item.order === inputs.length}
+              >
+                <div className="row gap-label-space w-full">
+                  <Label>{item.name}</Label>
+                  <RenderIf isTrue={!!item.description}>
+                    <DescriptionHoverCard description={item.description} />
+                  </RenderIf>
+                </div>
+                <Components {...item} onChangeValue={() => {}} />
               </div>
-              <Components {...item} onChangeValue={() => {}} />
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </RenderIf>
     </div>
   );

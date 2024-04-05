@@ -17,10 +17,13 @@ export interface EditorState {
   isEditorChange: boolean;
   editorValue: any;
   editorTextContent: string;
+  isFullScreen: boolean;
 }
 export interface EditorActions {
   setEditorChange: () => void;
   setEditorValue: (v: any, textContent: string) => void;
+  toggleFullScreen: () => void;
+  setIsFullScreen: (val: boolean) => void;
 }
 
 export type TemplateInputType =

@@ -122,7 +122,11 @@ export function TemplatePage() {
                    * TemplateList
                    * AdvancedPrompt
                    */}
-                  <Content templates={templates} searchText={searchText} />
+                  <Content
+                    templates={templates}
+                    searchText={searchText}
+                    selectedTab={tab}
+                  />
                 </>
               </Show.Else>
             </Show>

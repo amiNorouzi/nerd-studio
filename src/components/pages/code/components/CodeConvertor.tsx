@@ -24,21 +24,21 @@ function CodeConvertor() {
   const [code, setCode] = useState("");
 
   return (
-    <div className="grid grid-cols-2 gap-4 xl:gap-7">
+    <div className="form-gap grid grid-cols-2">
       {/* from language select */}
-      <div className="col col-span-2 gap-2 sm:col-span-1">
+      <div className="col col-span-2 gap-label-space sm:col-span-1">
         <Label>{codeDictionary.code_convert_from_language_label}</Label>
         <CodeLanguageSelect setCurrentLanguage={setFromLanguage} />
       </div>
 
       {/* to language select */}
-      <div className="col col-span-2 gap-2 sm:col-span-1">
+      <div className="col col-span-2 gap-label-space sm:col-span-1">
         <Label>{codeDictionary.code_convert_to_language_label}</Label>
         <CodeLanguageSelect setCurrentLanguage={setToLanguage} />
       </div>
 
       {/* code input */}
-      <div className="col col-span-2 gap-2">
+      <div className="col col-span-2 gap-label-space">
         <Label>{codeDictionary.code_convert_code_input_label}</Label>
         <CodeEditor
           value={code}

@@ -5,6 +5,7 @@ import { useGetDictionary } from "@/hooks";
 import { useParams, usePathname } from "next/navigation";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { TbHistory } from "react-icons/tb";
+import { iconVariants } from "@/constants/variants";
 
 interface IProps {
   children: React.ReactNode;
@@ -26,10 +27,10 @@ export function HistorySheet({ children }: IProps) {
       <Button
         variant="outline"
         size="sm"
-        className="gap-1"
+        className="gap-1.5"
         onClick={() => setHistoryIsOpen(!isHistoryOpen)}
       >
-        <TbHistory size={16} />
+        <TbHistory className={iconVariants({ size: "sm" })} />
         {components.apps_header.history}
       </Button>
       {/* </SheetTrigger>*/}

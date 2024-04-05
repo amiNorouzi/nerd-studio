@@ -26,7 +26,7 @@ export function Run({
     </div>
   );
 }
-Run.Form = FormSection;
 Run.Editor = EditorSection;
+Run.Form = FormSection;
 Run.TranslateForm = TranslateFormSection;
 Run.GrammarForm = GrammarFormSection;

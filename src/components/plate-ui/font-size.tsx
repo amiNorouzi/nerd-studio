@@ -21,7 +21,6 @@ import {
 import { ToolbarButton } from "./toolbar";
 
 import { useEditorStore } from "@/stores/zustand/editor-slice";
-import { Transforms } from "slate";
 
 const items = {
   "extra small": "12px",

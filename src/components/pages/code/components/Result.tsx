@@ -34,13 +34,13 @@ export function hexToRGBa(hex: string, alpha: number) {
   }, []);
 
   return (
-    <section className="col col-span-2 mt-7 gap-2 border-t py-4">
+    <section className="col col-span-2 mt-7 gap-label-space border-t py-4">
       {/* code editor for show result code*/}
       <Label>{codeDictionary.result_label}</Label>
       <CodeEditor
         value={code}
         setValue={setCode}
-        rootClassName="mb-5"
+        rootClassName="mb-3"
         language={outputLanguage}
       />
 

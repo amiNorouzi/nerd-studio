@@ -13,6 +13,7 @@ import { useGetDictionary } from "@/hooks";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
 import { useState } from "react";
+import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
 
 interface IProps {
   params: ParamsType;
@@ -37,17 +38,14 @@ export default function GrammarFormSection({ params }: IProps) {
 
   const [value, setValue] = useState("");
   return (
-    <div
-      className="form-gap form-padding col-span-12 flex h-fit flex-col
-    overflow-y-auto bg-background lg:col-span-6 lg:h-full lg:max-h-full xl:col-span-4"
-    >
+    <FormWrapper>
       {/*text area and pdf upload and url input*/}
       <GrammarTextBox value={value} setValue={setValue} maxLength={4000} />
       {/*submit button and select engine with setting*/}
       <SubmitButtonSelectEngine
-          onClick={() =>{}}
-          buttonContent={"Improving"}
+        onClick={() => {}}
+        buttonContent={"Improving"}
       />
-    </div>
+    </FormWrapper>
   );
 }

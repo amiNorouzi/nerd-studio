@@ -10,6 +10,7 @@ const initialState: EditorState = {
   isEditorChange: false,
   editorValue: null,
   editorTextContent: "",
+  isFullScreen: false,
 };
 const useEditor = create<EditorState & EditorActions>()(
   devtools(
@@ -23,6 +24,14 @@ const useEditor = create<EditorState & EditorActions>()(
         set(state => {
           state.editorValue = v;
           state.editorTextContent = textContent;
+        }),
+      toggleFullScreen: () =>
+        set(state => {
+          state.isFullScreen = !state.isFullScreen;
+        }),
+      setIsFullScreen: val =>
+        set(state => {
+          state.isFullScreen = val;
         }),
     })),
     { name: "editor", store: "editor" },

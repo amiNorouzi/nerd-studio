@@ -42,7 +42,7 @@ export function MainSection() {
         <div className="col h-full w-full md:min-w-[380px] md:overflow-y-auto lg:min-w-[500px]">
           {/*feature title*/}
           <div className="hidden w-full lg:flex">
-            <h1 className="text-gradiant mx-auto p-3 text-center text-2xl font-bold xl:p-5 xl:text-4xl">
+            <h1 className="text-gradiant mx-auto px-3 pt-3 text-center text-2xl font-bold xl:text-3xl">
               {codeDictionary[titleKey!]}
             </h1>
           </div>
@@ -52,7 +52,7 @@ export function MainSection() {
         */}
           <div
             className={cn(
-              "px-4 py-7",
+              "px-4 py-form-padding",
               isHistoryOpen ? " md:px-6 xl:px-9" : " md:px-8 xl:px-24",
             )}
           >

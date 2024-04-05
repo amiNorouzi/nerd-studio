@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { IoMdClose, IoIosSearch } from "react-icons/io";
-import { TbHistory } from "react-icons/tb";
+import { IoMdClose } from "react-icons/io";
+import { TbHistory, TbSearch } from "react-icons/tb";
 import { useMediaQuery } from "usehooks-ts";
 
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import { useHistoryStore } from "@/stores/zustand/history-store";
 
 import { cn } from "@/lib/utils";
 import { useGetDictionary } from "@/hooks";
+import { iconVariants } from "@/constants/variants";
 
 interface IProps extends React.ComponentPropsWithoutRef<"div"> {
   children: React.ReactNode;
@@ -39,7 +40,7 @@ export function HistoryBox({ children, className, ...props }: IProps) {
       <div className="sticky top-0 flex w-full flex-col gap-4 bg-muted">
         <div className=" flex w-full items-center justify-between border-b py-1.5">
           <div className="flex items-center justify-start gap-1 text-sm font-medium text-primary">
-            <TbHistory size={20} />
+            <TbHistory className={iconVariants({ size: "md" })} />
             {history_box.history_title}
           </div>
           <div>
@@ -52,8 +53,8 @@ export function HistoryBox({ children, className, ...props }: IProps) {
             </Button>
           </div>
         </div>
-        <div className="flex h-[44px] w-full items-center justify-center gap-1 rounded-lg bg-white p-2">
-          <IoIosSearch size={20} />
+        <div className="flex h-element w-full items-center justify-center gap-1.5 rounded-lg bg-white p-2">
+          <TbSearch className={iconVariants({ size: "md" })} />
           <Input
             value={searchValue}
             onChange={e => setSearch(e.target.value)}

@@ -24,7 +24,9 @@ export default async function RootLayout({
       <div
         id="main"
         className="flex h-full w-full flex-col overflow-x-hidden"
-        style={{ paddingLeft: "68px" }}
+        style={{
+          paddingLeft: "68px",
+        }}
       >
         <Suspense>
           <main className="h-full w-full">{children}</main>

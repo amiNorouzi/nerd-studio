@@ -1,24 +1,25 @@
-'use client';
-import {useSearchParams} from 'next/navigation';
+"use client";
+import { useSearchParams } from "next/navigation";
 import {
-    OptionsSelectBoxes,
-    SelectTranslateLanguages,
-    SubmitButtonSelectEngine,
-    TextBox,
-    Upload,
-} from './form-section-components';
+  OptionsSelectBoxes,
+  SelectTranslateLanguages,
+  SubmitButtonSelectEngine,
+  TextBox,
+  Upload,
+} from "./form-section-components";
 
-import {useGetDictionary} from '@/hooks';
-import {apps} from '@/constants/side-panel';
-import type {ParamsType} from '@/services/types';
-import {useState} from 'react';
-import {usePDFConvertor} from '@/services/translate';
+import { useGetDictionary } from "@/hooks";
+import { apps } from "@/constants/side-panel";
+import type { ParamsType } from "@/services/types";
+import { useState } from "react";
+import { usePDFConvertor } from "@/services/translate";
+import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
 
 interface IProps {
   params: ParamsType;
-    value: string;
-    onTextAreaChange: (value: string) => void;
-    onSubmit: () => void;
+  value: string;
+  onTextAreaChange: (value: string) => void;
+  onSubmit: () => void;
 }
 
 /**
@@ -27,7 +28,12 @@ interface IProps {
  * @param onUpload
  * @constructor
  */
-export default function TranslateFormSection({params, value, onTextAreaChange, onSubmit}: IProps) {
+export default function TranslateFormSection({
+  params,
+  value,
+  onTextAreaChange,
+  onSubmit,
+}: IProps) {
   const {
     page: { translate },
   } = useGetDictionary();
@@ -39,26 +45,26 @@ export default function TranslateFormSection({params, value, onTextAreaChange, o
   const app = apps.find(
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
-  const {mutateAsync: covertPDF} = usePDFConvertor();
+  const { mutateAsync: covertPDF } = usePDFConvertor();
   const covertToText = async (files: File[]) => {
     const text = await covertPDF(files[0]);
     onTextAreaChange?.(text);
   };
-    const onSelectFiles = (files: File[]) => {
-        setFiles(files);
-        covertToText(files);
-    };
+  const onSelectFiles = (files: File[]) => {
+    setFiles(files);
+    covertToText(files);
+  };
 
   return (
-    <div className="form-gap form-padding col-span-12 flex h-fit flex-col overflow-y-auto bg-background lg:col-span-6 lg:h-full lg:max-h-full xl:col-span-4">
+    <FormWrapper>
       {/*select language from/to for translate*/}
       <SelectTranslateLanguages />
       {/*text area and pdf upload and url input*/}
-        <TextBox
-            mainTextAreaPlaceholder={translate.text_input_placeholder}
-            value={value}
-            onChange={onTextAreaChange}
-        />
+      <TextBox
+        mainTextAreaPlaceholder={translate.text_input_placeholder}
+        value={value}
+        onChange={onTextAreaChange}
+      />
       {/*upload pdf and url input*/}
       <Upload
         setFiles={onSelectFiles}
@@ -71,9 +77,9 @@ export default function TranslateFormSection({params, value, onTextAreaChange, o
       <OptionsSelectBoxes hiddenSelectResponseLang />
       {/*submit button and select engine with setting*/}
       <SubmitButtonSelectEngine
-          onClick={onSubmit}
-          buttonContent={translate.submit_button_label}
+        onClick={onSubmit}
+        buttonContent={translate.submit_button_label}
       />
-    </div>
+    </FormWrapper>
   );
 }

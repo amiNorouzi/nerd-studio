@@ -536,10 +536,11 @@
       "editor_header_copy_html": "Copy Html",
       "editor_header_down_pdf": "PDF",
       "editor_header_down_word": "MS Word",
-      "editor_footer_total_word": "Total Word:",
-      "editor_footer_total_char": "Total Char:",
-      "editor_footer_total_sentence": "Total Sentence:",
-      "editor_footer_total_token": "Total Token:"
+      "editor_footer_total_word": "Total Word: ",
+      "editor_footer_total_char": "Total Char: ",
+      "editor_footer_total_sentence": "Total Sentence: ",
+      "editor_footer_total_token": "Total Token: ",
+      "editor_footer_placeholder": "Select an option"
     },
     "form": {
       "full_name": "Full Name",
