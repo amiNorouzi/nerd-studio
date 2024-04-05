@@ -129,7 +129,6 @@ function SelectComponent({
   items: objectItem[];
   value: objectItem;
 }) {
-
   return (
     <Select value={value.id} onValueChange={setValue}>
       <SelectTrigger
@@ -139,13 +138,13 @@ function SelectComponent({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel className="text-xsm font-semibold">{label}</SelectLabel>
+          <SelectLabel>{label}</SelectLabel>
           {items.map(item => (
             <SelectItem
               key={item.id}
               value={item.id}
               className={cn(
-                "flex-row-reverse justify-between px-2 text-xsm",
+                "flex-row-reverse justify-between px-2 ",
                 value.value.toLowerCase() === item.value.toLowerCase() &&
                   "bg-primary-light focus:bg-primary-light",
                 itemClassName,

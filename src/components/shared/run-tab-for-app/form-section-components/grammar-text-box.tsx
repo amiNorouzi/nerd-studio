@@ -65,7 +65,7 @@ export function GrammarTextBox({
         <MinimalButton
           Icon={PiMicrophone}
           title={dictionary.voice_button_label}
-          className="absolute start-1.5 top-0.5"
+          className="absolute start-1.5 top-2"
         />
 
         {/*textarea*/}
@@ -82,7 +82,7 @@ export function GrammarTextBox({
         />
 
         {/*404 Error*/}
-        <div className="absolute bottom-8 start-4 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
+        <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
           <ErrorIcon />
           <span className="font-sans text-xs text-muted-foreground-light">
             {form_section.form_error}
@@ -90,7 +90,7 @@ export function GrammarTextBox({
         </div>
 
         {/*action buttons*/}
-        <div className="row absolute bottom-6 end-3.5 gap-1">
+        <div className="row absolute bottom-3 end-3.5 gap-1">
           <MinimalButton
             Icon={MdDeleteOutline}
             title={dictionary.clear_button_label}

@@ -32,7 +32,7 @@ export const ToolbarSeparator = withCn(
 
 const toolbarButtonVariants = cva(
   cn(
-    "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+    "inline-flex items-center justify-center rounded-md  ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
     "[&_svg:not([data-icon])]:h-5 [&_svg:not([data-icon])]:w-5",
   ),
   {
@@ -86,7 +86,7 @@ const ToolbarButton = withTooltip(
                 variant,
                 size,
               }),
-              isDropdown && "my-1 justify-between bg-muted pr-1",
+              isDropdown && "my-1 justify-between bg-muted pe-1",
               className,
             )}
             value={pressed ? "single" : ""}
@@ -96,7 +96,7 @@ const ToolbarButton = withTooltip(
               <>
                 <div className="flex flex-1">{children}</div>
                 <div>
-                  <Icons.arrowDown className="ml-0.5 h-4 w-4" data-icon />
+                  <Icons.arrowDown className="ms-1 h-4 w-4" data-icon />
                 </div>
               </>
             ) : (

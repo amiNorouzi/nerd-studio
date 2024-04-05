@@ -95,10 +95,10 @@ function CommonSettings() {
   const isMobile = useMediaQuery("(max-width: 1024px)");
 
   return (
-    <div className="row mb-2 gap-4 lg:mb-3 xl:mb-5">
+    <div className="row gap-form-gap">
       {/*resolution select*/}
-      <div className="col w-full">
-        <Label className="mb-2">Resolution</Label>
+      <div className="col gap-label-space w-full">
+        <Label>Resolution</Label>
         <SelectAndDrawer
           value={selectedResolution}
           setValue={setSelectedResolution}
@@ -111,8 +111,8 @@ function CommonSettings() {
         won't render in upscale
       */}
       <RenderIf isTrue={currentTab !== "image-upscale"}>
-        <div className="col w-full">
-          <Label className="mb-2">Style</Label>
+        <div className="col gap-label-space w-full">
+          <Label>Style</Label>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -138,7 +138,7 @@ function CommonSettings() {
                   <Button
                     variant="muted"
                     className={cn(
-                      "col h-full w-full gap-1 border p-1.5 text-[10px] text-foreground hover:border-muted-dark",
+                      "col !h-fit w-full gap-1 border p-1.5 text-[10px] text-foreground hover:border-muted-dark",
                       currentStyle === item.title &&
                         "border-primary bg-primary-light",
                     )}
@@ -150,7 +150,7 @@ function CommonSettings() {
                       alt={item.title}
                       width={80}
                       height={80}
-                      className="aspect-square h-full rounded-lg"
+                      className="aspect-square w-full rounded-lg"
                     />
                     {item.title}
                   </Button>

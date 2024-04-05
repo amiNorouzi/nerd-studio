@@ -19,6 +19,8 @@ import { downloadDropdownItems, value } from "./constants";
 import { Save } from "@/components/svg-icons/Save";
 import { SelectAndDrawer } from "@/components/shared";
 import { iconVariants } from "@/constants/variants";
+import { useEditorStore } from "@/stores/zustand/editor-slice";
+import { RiFullscreenExitFill, RiFullscreenFill } from "react-icons/ri";
 
 function InputAndSelectSpace() {
   const [selectValue, setSelectValue] = useState(value[0]);
@@ -54,6 +56,9 @@ function DownloadAndSaveButtons() {
   } = useGetDictionary();
   const { handleCopyAction, handleDownLoadAction } =
     useHandleCopyAndDownloadAction();
+  const isFullScreen = useEditorStore.use.isFullScreen();
+  const toggleFullScreen = useEditorStore.use.toggleFullScreen();
+
   const dropdownItems = useMemo(
     () =>
       downloadDropdownItems.map(item => (
@@ -74,19 +79,32 @@ function DownloadAndSaveButtons() {
   );
   return (
     <div className="flex gap-2">
+      <Button
+        variant="muted"
+        size="icon"
+        className=" text-muted-foreground"
+        onClick={toggleFullScreen}
+      >
+        {isFullScreen ? (
+          <RiFullscreenExitFill className={iconVariants({ size: "md" })} />
+        ) : (
+          <RiFullscreenFill className={iconVariants({ size: "md" })} />
+        )}
+      </Button>
+
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="fit group bg-muted p-2">
+          <Button variant="muted" size="icon" className="text-muted-foreground">
             <DownloadIcon className={iconVariants({ size: "md" })} />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-full">
+        <DropdownMenuContent className="w-full" align="end" alignOffset={-40}>
           <DropdownMenuGroup>{dropdownItems}</DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
 
       {/*save button*/}
-      <Button variant="ghost" className="fit group bg-muted p-2">
+      <Button variant="muted" className="text-muted-foreground" size="icon">
         <Save className={iconVariants({ size: "md" })} />
       </Button>
     </div>
@@ -95,7 +113,7 @@ function DownloadAndSaveButtons() {
 
 export function EditorSectionHeader() {
   return (
-    <div className="flex flex-col  justify-between gap-2 p-5 sm:flex-row">
+    <div className="flex flex-col  justify-between gap-2 px-4 pb-1 pt-4 sm:flex-row">
       <InputAndSelectSpace />
       <DownloadAndSaveButtons />
     </div>

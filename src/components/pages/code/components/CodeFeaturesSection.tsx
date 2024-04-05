@@ -94,11 +94,6 @@ export function CodeFeaturesSection() {
 
   return (
     <section className="relative col-span-12 h-fit overflow-y-auto bg-background md:col-span-3 md:h-full md:max-h-full">
-      {/*page header*/}
-      <h1 className="row gap-2 border-b px-4 py-2.5 text-xl">
-        <TbCode size="1.5rem" />
-        {codeDictionary.page_title}
-      </h1>
       {/*features list*/}
       {isDesktop ? renderForDesktop() : renderForMobile()}
     </section>

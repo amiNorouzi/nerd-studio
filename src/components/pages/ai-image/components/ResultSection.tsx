@@ -13,10 +13,11 @@ import { Button } from "@/components/ui/button";
 import { useGetDictionary } from "@/hooks";
 import useImageTabs from "../hooks/useImageTabs";
 
-import { isEmpty } from "@/lib/utils";
+import { cn, isEmpty } from "@/lib/utils";
 
 import type { HistoryItem } from "@/services/types";
 import { Show } from "@/components/shared";
+import { iconVariants } from "@/constants/variants";
 
 //list of images
 //TODO: replace with real data
@@ -82,7 +83,12 @@ export function ResultSection() {
           <>
             <div className="col h-full w-full">
               <div className="row gap-2.5 border-b px-4 py-2.5">
-                <Generate classname="w-4 h-4" />
+                <Generate
+                  classname={cn(
+                    iconVariants({ size: "sm" }),
+                    "fill-muted-foreground",
+                  )}
+                />
                 <h2 className="font-bold">{imageDictionary.generate_label}</h2>
                 <p className="overflow-hidden text-ellipsis text-nowrap font-normal lg:max-w-72 xl:max-w-full">
                   Draw the man in the picture as a warrior fighting a demon

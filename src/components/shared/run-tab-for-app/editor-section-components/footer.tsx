@@ -20,7 +20,6 @@ export function EditorSectionFooter() {
   const editorTextContentValue = useEditorStore.use.editorTextContent();
   const [value, setValue] = useState<string>(characterValueItems[0]);
   const {
-    page: { ReWrite },
     components: { editor_section },
   } = useGetDictionary();
   const items = useMemo(() => {
@@ -37,8 +36,8 @@ export function EditorSectionFooter() {
 
   return (
     <Select value={value} onValueChange={setValue}>
-      <SelectTrigger className="row ms-3 mt-3.5 h-8 w-fit gap-2 border-none ">
-        <SelectValue placeholder="Select an option" />
+      <SelectTrigger className="row absolute bottom-2 start-2 h-7 w-fit gap-2 border-none text-xs font-normal ">
+        <SelectValue placeholder={editor_section.editor_footer_placeholder} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>{items}</SelectGroup>

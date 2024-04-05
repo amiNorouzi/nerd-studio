@@ -13,8 +13,8 @@ import { Input } from "@/components/ui/input";
 function AdvanceSettings() {
   return (
     <ToggleAdvance>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div className="col gap-2">
+      <div className="form-gap grid grid-cols-1 md:grid-cols-2">
+        <div className="col gap-label-space">
           <Label className="row flex-nowrap gap-2">
             Sampler
             <DescriptionHoverCard description="Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you." />
@@ -22,7 +22,7 @@ function AdvanceSettings() {
           <SelectAndDrawer value="DDIM" setValue={() => []} items={[]} />
         </div>
 
-        <div className="col gap-2">
+        <div className="col gap-label-space">
           <Label className="row flex-nowrap gap-2">
             Clip Guidance Preset
             <DescriptionHoverCard description="CLIP Guidance is a technique that uses the CLIP neural network to guide the generation of images to be more in-line with" />
@@ -30,12 +30,12 @@ function AdvanceSettings() {
           <SelectAndDrawer value="None" setValue={() => []} items={[]} />
         </div>
 
-        <div className="col gap-2">
+        <div className="col gap-label-space">
           <Label className="eow flex-nowrap gap-2">Artist Name</Label>
           <SelectAndDrawer value="None" setValue={() => []} items={[]} />
         </div>
 
-        <div className="col gap-2">
+        <div className="col gap-label-space">
           <Label htmlFor="numOfResult" className="row flex-nowrap gap-2 ">
             Number of images
             <DescriptionHoverCard description="Number of images to generate, maximim is 10" />

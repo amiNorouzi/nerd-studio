@@ -14,7 +14,7 @@ export const TooltipContent = withCn(
   withProps(TooltipPrimitive.Content, {
     sideOffset: 4,
   }),
-  "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md",
+  "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-xs text-popover-foreground shadow-md",
 );
 
 export function withTooltip<

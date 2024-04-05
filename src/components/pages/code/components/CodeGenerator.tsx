@@ -22,15 +22,15 @@ function CodeGenerator() {
   } = useGetDictionary();
 
   return (
-    <div className="grid grid-cols-2 gap-4 xl:gap-7">
+    <div className="form-gap grid grid-cols-2">
       {/*code language input*/}
-      <div className="col col-span-2 gap-2">
+      <div className="col col-span-2 gap-label-space">
         <Label>{codeDictionary.code_language_select_label}</Label>
         <CodeLanguageSelect setCurrentLanguage={setCurrentLanguage} />
       </div>
 
       {/*code explanation input*/}
-      <div className="col col-span-2 gap-2">
+      <div className="col col-span-2 gap-label-space">
         <Label htmlFor="generate-code-textarea">
           {codeDictionary.generate_code_textarea_label}
         </Label>

@@ -42,7 +42,7 @@ export function CustomTextarea({
   className,
   setValue,
   rootClassName,
-  rows = 8,
+  rows = 6,
   renderMoreActions,
   ...props
 }: ICustomTextareaProps) {
@@ -65,12 +65,12 @@ export function CustomTextarea({
   } = useTextToSpeech(value as string);
 
   return (
-    <div className={cn("relative w-full", rootClassName)}>
+    <div className={cn("col relative w-full", rootClassName)}>
       {/*voice input*/}
       {isRecording ? (
         <button
           onClick={handleToggleRecording}
-          className=" absolute start-1.5 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
+          className=" absolute start-1.5 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
         >
           <svg
             className="h-12 w-12 "
@@ -84,14 +84,14 @@ export function CustomTextarea({
         <MinimalButton
           Icon={TbMicrophone}
           title={dictionary.voice_button_label}
-          className="absolute start-1.5 top-0.5"
+          className="absolute start-1.5 top-2"
           onClick={handleToggleRecording}
         />
       )}
 
       {/*textarea*/}
       <textarea
-        rows={6}
+        rows={rows}
         className={cn(
           "mb-0 w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
           className,
@@ -137,7 +137,7 @@ export function CustomTextarea({
         {!!renderMoreActions && renderMoreActions()}
       </div>
       {/*character count*/}
-      <span className="ps-1 text-xs text-muted-foreground">
+      <span className="mt-0.5 ps-1 text-xs text-muted-foreground">
         {value?.toString().length}/{maxLength}
       </span>
     </div>

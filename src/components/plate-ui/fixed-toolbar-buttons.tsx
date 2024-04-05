@@ -35,6 +35,8 @@ import { FontFamily } from "./font-family";
 import { LineHeightDropdownMenu } from "./line-height-dropdown-menu";
 import { AiModal } from "@/components/plate-ui/ai-modal";
 import { AiOptionsDropdownMenu } from "@/components/plate-ui/ai-options-dropdown-menu";
+import { useEditorStore } from "@/stores/zustand/editor-slice";
+import { cn } from "@/lib/utils";
 
 interface IProps {
   isReadOnly?: boolean;
@@ -42,9 +44,10 @@ interface IProps {
 
 export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
   const readOnly = useEditorReadOnly();
+  const isFullScreen = useEditorStore.use.isFullScreen();
 
   return (
-    <div className="w-full overflow-hidden px-3 print:opacity-0">
+    <div className="w-full overflow-hidden px-3 pb-3 print:opacity-0">
       <div
         className="flex flex-wrap "
         style={{
@@ -61,8 +64,8 @@ export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
               <FontSize />
               <FontFamily />
             </ToolbarGroup>
-
-            <ToolbarGroup>
+            {/*<div className="flex-grow" />*/}
+            <ToolbarGroup noSeparator className={cn(isFullScreen && "ms-auto")}>
               <MarkToolbarButton tooltip="Bold (⌘+B)" nodeType={MARK_BOLD}>
                 <Icons.bold className={iconVariants({ size: "md" })} />
               </MarkToolbarButton>
@@ -120,7 +123,7 @@ export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
           </>
         )}
 
-        <div className="grow" />
+        <div className={cn(!isFullScreen && "ms-auto")} />
 
         {!isReadOnly && (
           <ToolbarGroup noSeparator>

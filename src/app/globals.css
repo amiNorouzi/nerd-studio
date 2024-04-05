@@ -133,14 +133,14 @@
   }
 
   .fit {
-    @apply h-fit w-fit;
+    @apply !h-fit w-fit;
   }
 
   .center-position {
     @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
   }
   .element-height {
-    @apply h-element
+    @apply h-element;
   }
   .form-padding {
     @apply p-form-padding

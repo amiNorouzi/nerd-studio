@@ -19,7 +19,7 @@ function PromptTextArea() {
   const [value, setValue] = useState("");
 
   return (
-    <>
+    <div className="col gap-label-space">
       {/*label*/}
       <Label htmlFor="image-prompt-teaxtarea">
         {imageDictionary.prompt_title}
@@ -31,9 +31,8 @@ function PromptTextArea() {
         maxLength={4000}
         setValue={setValue}
         value={value}
-        rootClassName=" mb-2 lg:mb-3 xl:mb-5"
       />
-    </>
+    </div>
   );
 }
 

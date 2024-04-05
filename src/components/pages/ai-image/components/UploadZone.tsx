@@ -77,8 +77,8 @@ function UploadZone() {
     <>
       <div
         {...getRootProps()}
-        className="mb-2 flex h-[160px] w-full gap-2 rounded-xl border
-         bg-background p-2 transition-all duration-300 hover:bg-hover lg:mb-3 xl:mb-5"
+        className="flex h-32 w-full gap-2 rounded-xl border
+         bg-background p-2 transition-all duration-300 hover:bg-hover "
       >
         {/*
             thumbnail of the uploaded image

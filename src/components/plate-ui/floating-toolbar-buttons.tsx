@@ -8,7 +8,7 @@ import {
 } from "@udecode/plate-basic-marks";
 import { useEditorReadOnly } from "@udecode/plate-common";
 
-import { Icons } from "@/components/icons";
+import { Icons, iconVariants } from "@/components/icons";
 import { CommentToolbarButton } from "./comment-toolbar-button";
 import { LinkToolbarButton } from "./link-toolbar-button";
 
@@ -26,16 +26,16 @@ export function FloatingToolbarButtons() {
           <TurnIntoDropdownMenu />
 
           <MarkToolbarButton nodeType={MARK_BOLD} tooltip="Bold (⌘+B)">
-            <Icons.bold />
+            <Icons.bold className={iconVariants({ size: "md" })} />
           </MarkToolbarButton>
           <MarkToolbarButton nodeType={MARK_ITALIC} tooltip="Italic (⌘+I)">
-            <Icons.italic />
+            <Icons.italic className={iconVariants({ size: "md" })} />
           </MarkToolbarButton>
           <MarkToolbarButton
             nodeType={MARK_UNDERLINE}
             tooltip="Underline (⌘+U)"
           >
-            <Icons.underline />
+            <Icons.underline className={iconVariants({ size: "md" })} />
           </MarkToolbarButton>
           <MarkToolbarButton
             nodeType={MARK_STRIKETHROUGH}
@@ -44,7 +44,7 @@ export function FloatingToolbarButtons() {
             <Icons.strikethrough />
           </MarkToolbarButton>
           <MarkToolbarButton nodeType={MARK_CODE} tooltip="Code (⌘+E)">
-            <Icons.code />
+            <Icons.code className={iconVariants({ size: "md" })} />
           </MarkToolbarButton>
 
           <LinkToolbarButton />

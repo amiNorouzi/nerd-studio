@@ -59,7 +59,7 @@ function ImageHistoryItem({
         <p className="text-[10px] font-normal text-muted-foreground-light">
           {history.imageCount} {imageDictionary.generated_count_message}
         </p>
-        <div className="mt-auto flex items-end justify-end">
+        <div className="mt-auto flex items-end justify-end ">
           <MinimalButton
             Icon={TbBookmark}
             title={save_label}
