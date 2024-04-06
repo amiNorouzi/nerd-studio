@@ -8,7 +8,7 @@ import {
   Upload,
 } from "./form-section-components";
 
-import { useGetDictionary } from "@/hooks";
+import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
 import { useState } from "react";
@@ -39,7 +39,7 @@ export default function TranslateFormSection({
   } = useGetDictionary();
   const [files, setFiles] = useState<File[]>([]);
   const [url, setUrl] = useState<string>("");
-  const searchParams = useSearchParams();
+  const [searchParams] = useCustomSearchParams();
   const appName = searchParams.get("app");
   // find app info from apps constant that we had set in search url params in SetSearchParamProvider
   const app = apps.find(
