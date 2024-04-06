@@ -29,7 +29,7 @@ export function MinimalButton({
     <MyTooltip title={title}>
       <Button
         variant="ghost"
-        className={cn("fit p-0.5", className)}
+        className={cn("fit p-0.5 text-muted-foreground", className)}
         {...otherProps}
       >
         <Icon className={cn(iconVariants({ size: "sm" }), iconClassname)} />

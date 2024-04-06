@@ -64,7 +64,7 @@ const SidePanelItem = ({ title, to, icon }: IProps) => {
       rootStyles={{
         color: getHslColorByVar("--foreground"),
         fontSize: "13px",
-        fontWeight: 500,
+        fontWeight: 400,
         "&>a": {
           justifyContent: isOpenSidePanel ? "start" : "center",
           transition: "all 300ms",

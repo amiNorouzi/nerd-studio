@@ -27,7 +27,7 @@ function NumberOfResults() {
     components: { form_section },
   } = useGetDictionary();
   return (
-    <div className=" gap-label-space mt-1 flex flex-col ">
+    <div className=" mt-1 flex flex-col gap-label-space ">
       <Label htmlFor="numOfResult" className="flex flex-nowrap gap-1">
         {form_section.form_num_of_results}
         <DescriptionHoverCard
@@ -40,6 +40,7 @@ function NumberOfResults() {
         value={searchParams.get("numOfResults") ?? "1"}
         onChange={e => setSearchParams("numOfResults", e.target.value)}
         min={1}
+        className="px-3"
       />
     </div>
   );
@@ -85,7 +86,7 @@ function Selects({
   }
 
   return (
-    <div className="gap-label-space flex flex-col">
+    <div className="flex flex-col gap-label-space">
       <Label className="row m-0 gap-1">
         {
           form_section[
