@@ -33,7 +33,7 @@ export function UserMenuItem({ title, onClick, icon, classNames }: IItemProps) {
       onClick={onClick}
     >
       <RenderIf isTrue={!!icon}>
-        <Icon className="mr-2 h-5 w-5" />
+        <Icon className="me-2 h-5 w-5" />
       </RenderIf>
       <span className="w-full text-start font-normal capitalize">{title} </span>
     </Button>

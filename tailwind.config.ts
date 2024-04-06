@@ -107,6 +107,7 @@ module.exports = {
     },
   },
   plugins: [
+    require("tailwindcss-rtl"),
     require("tailwindcss-animate"),
     //@ts-ignore
     plugin(function ({ matchUtilities, theme }) {

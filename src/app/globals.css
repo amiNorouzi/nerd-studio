@@ -340,3 +340,7 @@ textarea {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.main-padding {
+  @apply ps-[68px]
+}

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { useParams, usePathname } from "next/navigation";
 
@@ -16,6 +16,8 @@ import useMobileSize from "@/hooks/useMobileSize";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
 import { apps } from "@/constants/side-panel";
+import { dirInLocalStorage } from "@/stores/browser-storage";
+import useOutsideClick from "@/hooks/useOutSideClick";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
@@ -30,6 +32,8 @@ export function SidePanel() {
   const setIsHoverOnSidePanel = useUiStore.use.setIsHoverOnSidePanel();
   const setIsSidePanelOpen = useUiStore.use.setIsSidePanelOpen();
   const collapsed = !isSidePanelOpen;
+  const dir = dirInLocalStorage.get().dir ?? "ltr";
+  const isLtr = dir === "ltr";
 
   const isMainHeader =
     pathname === `/${lang}` ||
@@ -40,17 +44,22 @@ export function SidePanel() {
   useEffect(() => {
     const main = document.getElementById("main");
     if (collapsed && !isMobile) {
-      main!.style.paddingLeft = "68px";
+      main!.classList.add("main-padding");
     } else {
-      main!.style.paddingLeft = "0px";
+      main!.classList.remove("main-padding");
     }
-  }, [collapsed, isMobile]);
+  }, [collapsed, isMobile, lang]);
+
+  //Handel outsideClick in mobile
+  const sidebarRef = useRef<HTMLHtmlElement>(null);
+  useOutsideClick(sidebarRef, isMobile, setIsSidePanelOpen);
 
   const isOpen = !collapsed || isHoverOnSidePanel;
 
   return (
     <>
       <Sidebar
+        ref={sidebarRef}
         collapsed={collapsed}
         collapsedWidth={isMobile ? "0" : isHoverOnSidePanel ? "240px" : "68px"}
         width="240px"
@@ -58,8 +67,9 @@ export function SidePanel() {
         backgroundColor={getHslColorByVar("--background")}
         rootStyles={{
           overflow: "hidden",
-          borderRightWidth: "1px",
-          borderRightColor: getHslColorByVar("--border"),
+          borderRightWidth: isLtr ? "1px" : 0,
+          borderLeftWidth: isLtr ? 0 : "1px",
+          borderColor: getHslColorByVar("--border"),
           position: isMobile || collapsed ? "fixed" : "sticky",
           top: 0,
           bottom: 0,
