@@ -15,35 +15,32 @@ export function ChatSettingAndUpload() {
   } = useGetDictionary();
 
   return (
-    <div className="col w-full items-center gap-3  ">
-      <span className="text-center text-sm text-muted-foreground lg:text-base">
+    <div className="col w-full items-center gap-3">
+      <span className="text-center text-sm text-muted-foreground">
         {chat.chat_setting_title}
       </span>
-      <div className="grid w-full grid-cols-1 gap-9 rounded-3xl bg-muted px-9 py-6 lg:grid-cols-12">
+      <div className="form-gap grid w-full grid-cols-1 rounded-xl bg-muted p-4.5 lg:grid-cols-12">
         {/*upload*/}
         <div className="lg:col-span-5">
           <UploadZone
             documentFiles={files}
             setDocumentFiles={addFiles}
-            className="mb-0 bg-white lg:mb-0 xl:mb-0"
+            className="mb-0 h-[120px] bg-background lg:mb-0 xl:mb-0"
             placeholder={chat.upload_zone_placeholder}
             description={chat.upload_zone_description}
           />
         </div>
         {/*engine setting*/}
-        <div className="col items-start gap-3 lg:col-span-4 lg:pe-9">
+        <div className="col items-start lg:col-span-4">
           <SelectEngine
             className="w-full"
             buttonStyle="bg-white"
             title={chat.chat_setting_select_engine_title}
-            titleStyle="text-sm font-medium"
           />
         </div>
         {/*search options*/}
-        <div className="col items-start gap-3 lg:col-span-3 lg:pe-9">
-          <span className="text-sm font-medium">
-            {chat.chat_setting_tools_title}
-          </span>
+        <div className="col items-start gap-label-space lg:col-span-3">
+          <Label>{chat.chat_setting_tools_title}</Label>
           <ChatTools />
         </div>
       </div>

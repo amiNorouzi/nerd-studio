@@ -10,7 +10,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { DownloadIcon } from "@/components/svg-icons";
 
 import { useGetDictionary } from "@/hooks";
 import { useHandleCopyAndDownloadAction } from "./useHandleCopyAndDownloadAction";
@@ -21,6 +20,7 @@ import { SelectAndDrawer } from "@/components/shared";
 import { iconVariants } from "@/constants/variants";
 import { useEditorStore } from "@/stores/zustand/editor-slice";
 import { RiFullscreenExitFill, RiFullscreenFill } from "react-icons/ri";
+import { TbDownload } from "react-icons/tb";
 
 function InputAndSelectSpace() {
   const [selectValue, setSelectValue] = useState(value[0]);
@@ -95,7 +95,7 @@ function DownloadAndSaveButtons() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="muted" size="icon" className="text-muted-foreground">
-            <DownloadIcon className={iconVariants({ size: "md" })} />
+            <TbDownload className={iconVariants({ size: "md" })} />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-full" align="end" alignOffset={-40}>

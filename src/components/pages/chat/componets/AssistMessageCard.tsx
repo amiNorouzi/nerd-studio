@@ -1,21 +1,22 @@
 "use client";
 
 import { useState } from "react";
+
 import {
-  Bookmark,
-  ChevronLeft,
-  ChevronRight,
-  Copy,
-  Highlight,
-  Reload,
-  Speaker,
-  Stop,
-  ThumbDown,
-  ThumbUp,
-} from "@/components/svg-icons";
+  TbBookmarks,
+  TbChevronLeft,
+  TbChevronRight,
+  TbHighlight,
+  TbReload,
+  TbThumbDown,
+  TbThumbUp,
+  TbVolume,
+} from "react-icons/tb";
+import { LuCopy, LuCopyCheck } from "react-icons/lu";
+
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "@/components/user";
-import { MyTooltip } from "@/components/shared";
+import { MinimalButton, MyTooltip } from "@/components/shared";
 import { useChatStore } from "@/stores/zustand/chat-store";
 import {
   useCopyTextInClipBoard,
@@ -23,6 +24,7 @@ import {
   useTextToSpeech,
 } from "@/hooks";
 import { cn } from "@/lib/utils";
+import { iconVariants } from "@/constants/variants";
 
 interface IProps {
   image: string;
@@ -53,12 +55,12 @@ export function AssistMessageCard(props: IProps) {
   }
 
   return (
-    <div className="flex flex-col  items-start gap-2 lg:flex-row  lg:gap-4 lg:pe-[67px]">
-      {/*user image*/}
+    <div className="col gap-1 lg:flex-row  lg:pe-10">
+      {/*assist image*/}
       <UserAvatar
-        imageSrc={image ?? "/images/logo.png"}
+        imageSrc={image}
         name={name ?? ""}
-        className="h-[37px] w-[37px] lg:h-[51px] lg:w-[51px]"
+        className="h-6 w-6"
         fallbackClassname="text-xs"
       />
 
@@ -70,112 +72,70 @@ export function AssistMessageCard(props: IProps) {
             <MyTooltip title={chat.speak_button_label}>
               <Button
                 className={cn(
-                  "fit   p-0 transition-all ",
+                  "fit p-0 transition-all",
                   isSpeaking &&
                     "scale-110  rounded-full bg-white p-2 shadow shadow-primary",
                 )}
                 variant="ghost"
                 onClick={handleToggleSpeak}
               >
-                <Speaker
+                <TbVolume
                   className={cn(
-                    " fill-muted-foreground-light transition-all",
-                    isSpeaking && "fill-primary-dark",
+                    "text-muted-foreground transition-all",
+                    isSpeaking && "text-primary-dark",
+                    iconVariants({ size: "md" }),
                   )}
                 />
               </Button>
             </MyTooltip>
-            <p className="text-sm lg:text-lg">{prompt[promptIndexToShow]}</p>
+            <p className="-mt-0.5">{prompt[promptIndexToShow]}</p>
           </div>
           {/* footer icon and time*/}
-          <div className="flex flex-row-reverse ">
-            <div className="ms-auto flex items-center gap-3">
-              <Button
-                className={cn("fit group p-0 active:bg-primary-light")}
-                variant="ghost"
-              >
-                <ThumbUp
-                  className={cn(
-                    "fill-muted-foreground-light group-active:fill-primary-dark",
-                  )}
-                />
-              </Button>
-              <Button
-                className={cn("fit group p-0 active:bg-primary-light")}
-                variant="ghost"
-              >
-                <ThumbDown
-                  className={cn(
-                    "fill-muted-foreground-light group-active:fill-primary-dark",
-                  )}
-                />
-              </Button>
+          <div className="flex flex-row-reverse items-end ">
+            <div className="ms-auto flex items-end gap-2">
+              <MinimalButton
+                Icon={TbThumbUp}
+                iconClassname="group-active:text-primary-dark"
+              />
+              <MinimalButton
+                Icon={TbThumbDown}
+                iconClassname="group-active:text-primary-dark"
+              />
               <span className=" text-xs text-muted-foreground-light">
                 {timeLine}
               </span>
             </div>
-            <div className="grid grid-cols-4 items-center gap-3 rounded-lg bg-white p-2">
-              <MyTooltip title={chat.retry_button_label}>
-                <Button className="fit p-0" variant="ghost">
-                  <Reload />
-                </Button>
-              </MyTooltip>
-              <MyTooltip title={chat.copy_button_label}>
-                <Button
-                  className={cn("fit p-0", isCopy && "bg-primary-light")}
-                  variant="ghost"
-                  onClick={() => handleCopy(prompt[promptIndexToShow])}
-                >
-                  <Copy
-                    className={cn(
-                      "fill-muted-foreground-light",
-                      isCopy && "fill-primary-dark",
-                    )}
-                  />
-                </Button>
-              </MyTooltip>
-              <MyTooltip title={chat.copy_button_label}>
-                <Button
-                  className={cn("fit group p-0 active:bg-primary-light")}
-                  variant="ghost"
-                >
-                  <Bookmark
-                    className={cn(
-                      "fill-muted-foreground-light group-active:fill-primary-dark",
-                    )}
-                  />
-                </Button>
-              </MyTooltip>
-              <MyTooltip title={chat.highlight_button_label}>
-                <Button
-                  className="fit p-0"
-                  variant="ghost"
-                  onClick={handleClickHighlight}
-                >
-                  <Highlight />
-                </Button>
-              </MyTooltip>
+            <div className="grid grid-cols-4 items-center gap-2 rounded-lg bg-background px-2 py-1">
+              <MinimalButton Icon={TbReload} title={chat.retry_button_label} />
+              <MinimalButton
+                Icon={isCopy ? LuCopyCheck : LuCopy}
+                title={chat.copy_button_label}
+                onClick={() => handleCopy(prompt[promptIndexToShow])}
+              />
+              <MinimalButton
+                Icon={TbBookmarks}
+                title={chat.save_button_label}
+              />
+              <MinimalButton
+                Icon={TbHighlight}
+                title={chat.highlight_button_label}
+                onClick={handleClickHighlight}
+              />
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <Button
-            className="fit p-0"
-            variant="ghost"
+        <div className="row mt-0.5 gap-2 text-muted-foreground">
+          <MinimalButton
+            Icon={TbChevronLeft}
             onClick={() => setPromptIndexToShow(v => v - 1)}
             disabled={promptIndexToShow === 0}
-          >
-            <ChevronLeft />
-          </Button>
-          <span className="text-sm text-muted-foreground-light">{`${promptIndexToShow + 1}/${prompt.length}`}</span>
-          <Button
-            className="fit p-0"
-            variant="ghost"
-            onClick={() => setPromptIndexToShow(v => v + 1)}
+          />
+          <span className="text-muted-foreground-light">{`${promptIndexToShow + 1}/${prompt.length}`}</span>
+          <MinimalButton
+            Icon={TbChevronRight}
             disabled={promptIndexToShow === prompt.length - 1}
-          >
-            <ChevronRight />
-          </Button>
+            onClick={() => setPromptIndexToShow(v => v + 1)}
+          />
         </div>
       </div>
     </div>

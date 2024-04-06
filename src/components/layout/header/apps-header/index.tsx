@@ -21,8 +21,13 @@ export function AppsHeader(props: AppType) {
   return (
     <div className="flex flex-1 items-center justify-between">
       <div>
-        <h6 className="text-[18px] font-semibold">{apps_header[appTitle]}</h6>
-        <Link href="/workspace" className="text-muted-foreground">
+        <h6 className="hidden text-[18px] font-semibold md:block">
+          {apps_header[appTitle]}
+        </h6>
+        <Link
+          href="/workspace"
+          className="hidden text-muted-foreground md:block"
+        >
           My WorkSpace
         </Link>
       </div>
@@ -32,9 +37,7 @@ export function AppsHeader(props: AppType) {
       <div className="flex gap-2">
         <CreateTemplateButton />
         {/*history button that when click on it ,Sheet open and show history content*/}
-        <HistorySheet>
-          <div>this is content</div>
-        </HistorySheet>
+        <HistorySheet />
         {/*share button and share popover that contains share link in social media and copy*/}
         <SharePopover>
           <SharePopoverContent />

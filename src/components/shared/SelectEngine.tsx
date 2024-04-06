@@ -35,7 +35,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { SliderWithTooltip } from "@/components/shared/SliderWithTooltip";
-import { Setting } from "@/components/svg-icons";
 
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
@@ -45,6 +44,7 @@ import { cn } from "@/lib/utils";
 import type { StateSetterType } from "@/services/types";
 import { iconVariants } from "@/constants/variants";
 import { Label } from "@/components/ui/label";
+import { TbSettings } from "react-icons/tb";
 
 type EnginesType = keyof typeof enginesImage;
 interface IProps {
@@ -168,8 +168,8 @@ function SettingPopover({ engine }: SettingPopoverProps) {
         className="absolute end-7 top-1/2 -translate-y-1/2"
       >
         <Button variant="ghost" size="icon" onClick={() => setOpen(true)}>
-          <Setting
-            className={cn(iconVariants({ size: "md" }), "hover:bg-transparent")}
+          <TbSettings
+            className={cn(iconVariants({ size: "sm" }), "hover:bg-transparent")}
           />
         </Button>
       </PopoverTrigger>
@@ -181,8 +181,8 @@ function SettingPopover({ engine }: SettingPopoverProps) {
         <div className="grid grid-cols-1 space-y-3">
           <div className="flex justify-between">
             <div className="flex items-center justify-between gap-2">
-              <Setting height={30} width={30} />
-              <h4 className="text-xl font-medium">
+              <TbSettings className={iconVariants({ size: "lg" })} />
+              <h4 className="text-base font-medium">
                 {select_engine.engine_setting}
               </h4>
             </div>

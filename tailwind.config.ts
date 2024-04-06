@@ -72,6 +72,7 @@ module.exports = {
         "card-hover":
           "0px 0px 4px rgba(40,41,61,0.02),0px 2px 24px rgba(40,41,61,0.08)",
         "dashboard-card": "0px 12px 12px 0px rgba(79, 73, 85, 0.08);",
+        mic: "0px 0px 1px rgba(40,41,61,0.02),0px 1px 8px rgba(40,41,61,0.08)",
       },
       borderRadius: {
         lg: "var(--radius)",

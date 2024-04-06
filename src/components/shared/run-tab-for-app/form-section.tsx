@@ -130,6 +130,7 @@ export default function FormSection({
         template={template}
         mainTextAreaPlaceholder={mainTextAreaPlaceholder}
         value={value}
+        onChange={onTextAreaChange}
       />
       <RenderIf isTrue={!pathname.includes("template")}>
         <Upload

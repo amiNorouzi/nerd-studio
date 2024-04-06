@@ -23,9 +23,11 @@ export function SharePopover({ children }: IProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-1.5">
+        <Button variant="outline" className="px-2.5 md:px-4">
           <TbShare className={iconVariants({ size: "sm" })} />{" "}
-          <span>{components.apps_header.share}</span>
+          <span className="ms-1.5 hidden md:block">
+            {components.apps_header.share}
+          </span>
         </Button>
       </PopoverTrigger>
       <PopoverContent

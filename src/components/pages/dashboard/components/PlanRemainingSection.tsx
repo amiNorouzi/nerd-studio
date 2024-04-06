@@ -1,5 +1,4 @@
 "use client";
-import { RemainingPlan } from "@/components/svg-icons";
 import { Button } from "@/components/ui/button";
 import { SemicircleProgressBar } from "@/components/shared";
 

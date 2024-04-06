@@ -1,6 +1,10 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
+
 import { useMediaQuery } from "usehooks-ts";
 import {
+  TbChevronLeft,
+  TbChevronRight,
+  TbX,
   TbHighlight,
   TbWand,
   TbBrandFacebook,
@@ -11,12 +15,10 @@ import {
   TbBrandInstagram,
   TbBrandTiktok,
   TbEdit,
-  TbCopy,
   TbReload,
-  Close,
-  ChevronLeft,
-  ChevronRight,
-} from "@/components/svg-icons";
+} from "react-icons/tb";
+import { LuCopy, LuCopyCheck } from "react-icons/lu";
+
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -24,8 +26,12 @@ import RenderIf from "@/components/shared/RenderIf";
 
 import { useChatStore } from "@/stores/zustand/chat-store";
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
+
 import { cn } from "@/lib/utils";
+import { iconVariants } from "@/constants/variants";
+
 import type { IconType } from "react-icons";
+import { MinimalButton } from "@/components/shared";
 
 interface HighlightContentHeaderProps {
   handleClickToggleCheckAll: () => void;
@@ -66,7 +72,7 @@ export function HighlightContentHeader({
         className="p-0"
         onClick={() => setOpenHighLight(false)}
       >
-        <Close />
+        <TbX className={iconVariants({ size: "md" })} />
       </Button>
     </div>
   );
@@ -96,9 +102,9 @@ export function HighlightGeneratedContent({
   const selectedHighlightItem = useChatStore.use.selectedMessageForHighlight();
   const [handleCopy, isCopy] = useCopyTextInClipBoard();
   return (
-    <div className="grid gap-3">
-      <div className="flex justify-between">
-        <span className="text-sm text-muted-foreground">{item}</span>
+    <div className="grid gap-2">
+      <div className="mt-2 flex justify-between">
+        <span className="text-sm text-muted-foreground ">{item}</span>
         <div className="flex items-center gap-2 text-muted-foreground">
           <Button
             className="fit p-0"
@@ -106,7 +112,7 @@ export function HighlightGeneratedContent({
             onClick={() => setPromptIndexToShow(v => v - 1)}
             disabled={promptIndexToShow === 0}
           >
-            <ChevronLeft />
+            <TbChevronLeft className={iconVariants({ size: "md" })} />
           </Button>
           <span className="text-sm text-muted-foreground-light">{`${promptIndexToShow + 1}/${selectedHighlightItem?.prompt.length}`}</span>
           <Button
@@ -117,7 +123,7 @@ export function HighlightGeneratedContent({
               promptIndexToShow === selectedHighlightItem!.prompt.length - 1
             }
           >
-            <ChevronRight />
+            <TbChevronRight className={iconVariants({ size: "md" })} />
           </Button>
         </div>
       </div>
@@ -128,29 +134,15 @@ export function HighlightGeneratedContent({
           className="mb-0 w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 focus:border-primary "
           disabled={!editable}
         />
-        <div className="absolute bottom-5 end-5 flex w-fit gap-1   text-muted-foreground">
-          <Button variant="ghost" className="h-fit w-fit bg-muted p-0">
-            <TbReload size="1.2rem" />
-          </Button>
-          <Button
-            variant="ghost"
-            className="h-fit w-fit bg-muted p-0"
-            onClick={() => setEditable(v => !v)}
-          >
-            <TbEdit size="1.2rem" />
-          </Button>
-          <Button
-            variant="ghost"
-            className={cn(
-              "h-fit w-fit bg-muted p-0 ",
-              isCopy && "text-primary-dark",
-            )}
+        <div className="absolute bottom-2 end-3 flex w-fit gap-1 rounded-lg bg-background text-muted-foreground">
+          <MinimalButton Icon={TbReload} />
+          <MinimalButton Icon={TbEdit} onClick={() => setEditable(v => !v)} />
+          <MinimalButton
+            Icon={isCopy ? LuCopyCheck : LuCopy}
             onClick={() =>
               handleCopy(selectedHighlightItem?.prompt[promptIndexToShow] ?? "")
             }
-          >
-            <TbCopy size="1.2rem" />
-          </Button>
+          />
         </div>
       </div>
     </div>
@@ -349,9 +341,9 @@ export function HighlightContent() {
         checkAll={checkAll || isAnyItemSelect}
         handleClickToggleCheckAll={handleClickToggleCheckAll}
       />
-      <div className="grid gap-6 px-9 pt-6">
+      <div className="grid gap-2 px-9 pt-6">
         {/*meta and summary*/}
-        <div className="grid gap-6">
+        <div className="grid gap-2">
           {listOfOptionsComponent.map(item => (
             <HighlightOptionItemContent
               key={item}
@@ -362,7 +354,9 @@ export function HighlightContent() {
               isGenerate={generate}
             />
           ))}
-          <span className="text-base text-muted-foreground">Social Media</span>
+          <span className="mt-2 text-base text-muted-foreground">
+            Social Media
+          </span>
           {listOfSocialMediaComponent.map(({ Icon, title }) => (
             <HighlightSocialMediaItemContent
               key={title}

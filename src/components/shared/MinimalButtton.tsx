@@ -26,8 +26,9 @@ export function MinimalButton({
   ...otherProps
 }: IButtonProps) {
   return (
-    <MyTooltip title={title}>
+    <MyTooltip title={title} contentClass={cn(!title && "hidden")}>
       <Button
+        type="button"
         variant="ghost"
         className={cn("fit p-0.5 text-muted-foreground", className)}
         {...otherProps}

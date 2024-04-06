@@ -41,14 +41,14 @@ export function MainTextArea({
 
   useDebounce(
     () => {
-      setSearchParams("text", value);
+      value && setSearchParams("text", value);
     },
     value,
     500,
   );
 
   return (
-    <div className="col gap-label-space relative w-full">
+    <div className="col relative w-full gap-label-space">
       <Label htmlFor="textbox">{label ?? common.form_textarea_label}</Label>
 
       {/*text area*/}
@@ -114,7 +114,7 @@ export function TextBox({
                 key={item.id}
                 data-isLast={item.order === inputs.length}
               >
-                <div className="row gap-label-space w-full">
+                <div className="row w-full gap-label-space">
                   <Label>{item.name}</Label>
                   <RenderIf isTrue={!!item.description}>
                     <DescriptionHoverCard description={item.description} />

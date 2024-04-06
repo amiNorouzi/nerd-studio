@@ -13,13 +13,16 @@ import { AssistMessageCard } from "@/components/pages/chat/componets/AssistMessa
 export function ChatList() {
   const { data: session } = useSession();
   return (
-    <div className="col  w-full max-w-4xl flex-grow gap-6 pb-6 ">
+    <div className="col w-full max-w-[760px] flex-grow gap-6 pb-6 ">
       {data.map(item => {
-        const image = session?.user?.image ?? item[0].image;
+        const image = session?.user?.image;
         const name = session?.user?.name ?? item[0].name;
         return (
-          <div key={item[0].id + item[1].id} className="grid grid-cols-1 gap-6">
-            <UserMessageCard {...item[0]} image={image} name={name} />
+          <div
+            key={item[0].id + item[1].id}
+            className="mx-auto grid max-w-3xl grid-cols-1 gap-6"
+          >
+            <UserMessageCard {...item[0]} image={image || ""} name={name} />
 
             <AssistMessageCard {...item[1]} />
           </div>
