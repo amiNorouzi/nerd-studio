@@ -27,7 +27,7 @@ interface IProps {
   template?: TemplateItem;
   buttonContent: string;
   mainTextAreaPlaceholder: string;
-  onTextAreaChange?: (value: string) => void;
+  onTextAreaChange(value: string): void;
   value: string;
 
   onSubmit(): void;
@@ -72,7 +72,7 @@ export default function FormSection({
   const { mutateAsync: covertPDF } = usePDFConvertor();
   const covertToText = async (files: File[]) => {
     const text = await covertPDF(files[0]);
-    onTextAreaChange?.(text);
+    onTextAreaChange(text);
   };
 
   const onSelectFiles = (files: File[]) => {
@@ -129,6 +129,7 @@ export default function FormSection({
       <TextBox
         template={template}
         mainTextAreaPlaceholder={mainTextAreaPlaceholder}
+        onChange={onTextAreaChange}
         value={value}
       />
       <RenderIf isTrue={!pathname.includes("template")}>
