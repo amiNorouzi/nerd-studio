@@ -131,7 +131,6 @@ export default function FormSection({
         mainTextAreaPlaceholder={mainTextAreaPlaceholder}
         onChange={onTextAreaChange}
         value={value}
-        onChange={onTextAreaChange}
       />
       <RenderIf isTrue={!pathname.includes("template")}>
         <Upload

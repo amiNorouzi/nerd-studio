@@ -35,6 +35,7 @@ export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
         <Run.Form
           value=""
           onSubmit={() => {}}
+          onTextAreaChange={() => {}}
           params={params}
           template={template}
           buttonContent={templatePage.template_button_label}
