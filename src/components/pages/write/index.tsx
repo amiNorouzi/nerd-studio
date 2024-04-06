@@ -6,16 +6,17 @@ import {
   Run,
   SetSearchParamProvider,
 } from "@/components/shared";
+import { getDictionary } from "@/lib/dictionary";
 import { HistoryInfoContent } from "./history-info-content";
 import type { SCRPropsType } from "@/services/types";
 import { useEventChanel } from "@/services/events-chanel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAIWriter } from "@/services/ai-writer";
 import { useGetDictionary } from "@/hooks";
 
 export function WritePage({ params }: SCRPropsType) {
   const {
-    page: { ReWrite: reWrite },
+    page: { ReWrite },
   } = useGetDictionary();
 
   /**
@@ -25,7 +26,7 @@ export function WritePage({ params }: SCRPropsType) {
    */
 
   const generatedText = useEventChanel({
-    eventName: "message",
+    eventName: "ai_writer",
   });
   const { mutate: generate } = useAIWriter();
   const [prompt, setPrompt] = useState("");
@@ -48,8 +49,8 @@ export function WritePage({ params }: SCRPropsType) {
           onTextAreaChange={setPrompt}
           value={prompt}
           onSubmit={handleGenerate}
-          buttonContent={reWrite?.form_rewrite_button}
-          mainTextAreaPlaceholder={reWrite?.text_input_placeholder}
+          buttonContent={ReWrite.form_rewrite_button}
+          mainTextAreaPlaceholder={ReWrite.text_input_placeholder}
         />
         <Run.Editor value={generatedText} onChange={() => {}}>
           <HistoryBox>
