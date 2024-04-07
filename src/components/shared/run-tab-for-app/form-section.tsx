@@ -14,9 +14,7 @@ import {
   RenderImageOrIcon,
 } from "@/components/shared";
 import { FaRegStar, FaStar } from "react-icons/fa6";
-import { usePathname, useSearchParams } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { apps } from "@/constants/side-panel";
+import { usePathname } from "next/navigation";
 import type { ParamsType, TemplateItem } from "@/services/types";
 import { usePDFConvertor } from "@/services/translate";
 import { iconVariants } from "@/constants/variants";
@@ -61,13 +59,6 @@ export default function FormSection({
   const [files, setFiles] = useState<File[]>([]);
   const [url, setUrl] = useState<string>("");
   const pathname = usePathname();
-
-  // get app name from url
-  const searchParams = useSearchParams();
-  const appName = searchParams.get("app");
-  const app = apps.find(
-    app => app.title.toLowerCase() === appName?.toLowerCase(),
-  );
 
   const { mutateAsync: covertPDF } = usePDFConvertor();
   const covertToText = async (files: File[]) => {
@@ -120,11 +111,6 @@ export default function FormSection({
           </FavoriteButtonAndDialog>
         </div>
       </RenderIf>
-      {/*<p*/}
-      {/*  className={cn("text-xsm text-muted-foreground", !template && "hidden")}*/}
-      {/*>*/}
-      {/*  {template?.task}*/}
-      {/*</p>*/}
 
       <TextBox
         template={template}

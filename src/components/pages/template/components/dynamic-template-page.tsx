@@ -28,14 +28,17 @@ export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
    *  value of it used in apps Header in  layout or form-section
    *  and everywhere that needs to know app name
    */
+  const currentTemplatePrompt = useTemplateStore.use.currentTemplatePrompt();
+  const setCurrentTemplatePrompt =
+    useTemplateStore.use.setCurrentTemplatePrompt();
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="template">
       <Run>
         <Run.Form
-          value=""
+          value={currentTemplatePrompt}
+          onTextAreaChange={setCurrentTemplatePrompt}
           onSubmit={() => {}}
-          onTextAreaChange={() => {}}
           params={params}
           template={template}
           buttonContent={templatePage.template_button_label}

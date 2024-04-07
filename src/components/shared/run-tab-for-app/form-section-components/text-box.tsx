@@ -3,15 +3,17 @@
 import { v4 as uuidv4 } from "uuid";
 
 import { Label } from "@/components/ui/label";
-import { CustomTextarea, DescriptionHoverCard } from "@/components/shared";
+import { CustomTextarea, DynamicInputsList } from "@/components/shared";
 import RenderIf from "../../RenderIf";
 
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { useDebounce } from "@/hooks/useDebounce";
 
 import type { TemplateItem } from "@/services/types";
-import { inputComponents } from "@/constants/template";
-import { cn } from "@/lib/utils";
+
+import { useTemplateStore } from "@/stores/zustand/template-store";
+import { DynamicInput } from "@/stores/zustand/types";
+import React from "react";
 
 interface IProps {
   template?: TemplateItem;
@@ -62,6 +64,20 @@ export function MainTextArea({
   );
 }
 
+const TemplateInputs = ({ inputs }: { inputs: DynamicInput[] }) => {
+  const currentTemplateInputs = useTemplateStore.use.currentTemplateInputs();
+  const changeCurrentTemplateInputs =
+    useTemplateStore.use.changeCurrentTemplateInputs();
+  return (
+    <DynamicInputsList
+      components={inputs}
+      itemClassName="col-span-1 sm:col-span-2"
+      getValue={key => currentTemplateInputs[key]}
+      changeValue={(key, val) => changeCurrentTemplateInputs(key, val)}
+    />
+  );
+};
+
 /**
  * this component show text area , url input and upload pdf and if template props is valid show more inputs
  * @param template , if template is valid show another inputs(for templates placeholder)
@@ -75,7 +91,7 @@ export function TextBox({
   value,
   onChange,
 }: IProps) {
-  const inputs = Array.isArray(template?.params)
+  const inputs: DynamicInput[] = Array.isArray(template?.params)
     ? template?.params?.map((item, index) => ({
         type: item.type,
         id: uuidv4(),
@@ -91,6 +107,7 @@ export function TextBox({
             }))
           : [],
         isAdvance: false,
+        fieldKey: item.label.toLowerCase().replaceAll(" ", "_"),
       })) || []
     : [];
 
@@ -104,27 +121,7 @@ export function TextBox({
         onChange={onChange}
       />
       <RenderIf isTrue={inputs.length !== 0}>
-        <div className="col form-gap mt-2">
-          {inputs.map(item => {
-            const Components = inputComponents[item.type];
-
-            return (
-              <div
-                className={cn("col col-span-2 gap-2")}
-                key={item.id}
-                data-isLast={item.order === inputs.length}
-              >
-                <div className="row w-full gap-label-space">
-                  <Label>{item.name}</Label>
-                  <RenderIf isTrue={!!item.description}>
-                    <DescriptionHoverCard description={item.description} />
-                  </RenderIf>
-                </div>
-                <Components {...item} onChangeValue={() => {}} />
-              </div>
-            );
-          })}
-        </div>
+        <TemplateInputs inputs={inputs} />
       </RenderIf>
     </div>
   );

@@ -19,7 +19,7 @@ import {
   reorder,
 } from "@/components/pages/custom-template/utils";
 import { RxDragHandleDots2 } from "react-icons/rx";
-import { TemplateInput } from "@/stores/zustand/types";
+import { DynamicInput } from "@/stores/zustand/types";
 import RenderIf from "@/components/shared/RenderIf";
 
 export function AddCustomInput() {
@@ -56,10 +56,11 @@ export function AddCustomInput() {
       type: "text",
       options: [],
       isAdvance: false,
+      fieldKey: "",
     });
   };
 
-  const renderInputs = (inputs: TemplateInput[]) => {
+  const renderInputs = (inputs: DynamicInput[]) => {
     return (
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable" direction="vertical">
@@ -109,7 +110,7 @@ export function AddCustomInput() {
         {dictionary.inputs_label}
         <Button
           variant="secondary"
-          className="h-7 w-7 rounded-full p-0.5 "
+          className="!h-7 w-7 rounded-full p-0.5 "
           onClick={handleAdd}
         >
           <TbPlus size={15} />

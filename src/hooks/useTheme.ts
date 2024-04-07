@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { themeConfigStorage } from "@/stores/browser-storage";
 import type { Theme, PrimaryColor } from "@/stores/browser-storage/types";
 import { checkWindowValidity } from "@/lib/auth-storage";
+import { useUiStore } from "@/stores/zustand/ui-store";
 
 interface IChangeThemeInput {
   themeClass?: Theme;
@@ -29,7 +30,8 @@ export function useTheme() {
   const [activePrimaryColor, setActivePrimaryColor] =
     useState<PrimaryColor>("default");
   //current selected theme
-  const [activeTheme, setActiveTheme] = useState<Theme>("default");
+  const activeTheme = useUiStore.use.activeTheme();
+  const setActiveTheme = useUiStore.use.setActiveTheme();
 
   //first get user prev selected on page load to set
   useEffect(() => {

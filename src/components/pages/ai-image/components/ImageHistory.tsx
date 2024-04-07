@@ -63,7 +63,7 @@ function ImageHistory({
         <div className="w-ful bg-backgroundl relative">
           <Input
             type="search"
-            className=" w-full bg-background ps-7 font-light"
+            className=" w-full bg-background ps-8 font-light"
             placeholder={search}
           />
           <TbSearch

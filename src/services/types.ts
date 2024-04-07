@@ -119,3 +119,24 @@ export interface TemplateCategoryItem {
   category_name: string;
   templates: TemplateItem[];
 }
+
+export interface ModelParamsItem {
+  enum: string[];
+  show: "true" | "false";
+  type: "select" | "text" | "number";
+  label: string;
+  default: string;
+  is_advance: "true" | "false";
+  description_i18key: string;
+  maximum: number;
+  minimum: number;
+}
+export interface ModelItem {
+  model: string;
+  url: {
+    name: string;
+    url: string;
+  };
+  params: { [index: string]: ModelParamsItem };
+  is_active: boolean;
+}

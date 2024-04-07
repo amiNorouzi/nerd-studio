@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 import { useGetDictionary } from "@/hooks";
 
-import type { TemplateInput, TemplateInputType } from "@/stores/zustand/types";
+import type { DynamicInput, TemplateInputType } from "@/stores/zustand/types";
 import RenderIf from "@/components/shared/RenderIf";
 import { ResponsivePopover, Show } from "@/components/shared";
 import {
@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/select";
 import { iconVariants } from "@/constants/variants";
 
-function CreateItemSettingsPopover({ item }: { item: TemplateInput }) {
+function CreateItemSettingsPopover({ item }: { item: DynamicInput }) {
   const {
     page: { custom_template: dictionary },
   } = useGetDictionary();

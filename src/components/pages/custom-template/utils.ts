@@ -1,11 +1,11 @@
-import type { TemplateInput } from "@/stores/zustand/types";
+import type { DynamicInput } from "@/stores/zustand/types";
 import { getHslColorByVar } from "@/lib/utils";
 
 export const reorder = (
-  list: TemplateInput[],
+  list: DynamicInput[],
   startIndex: number,
   endIndex: number,
-): TemplateInput[] => {
+): DynamicInput[] => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);

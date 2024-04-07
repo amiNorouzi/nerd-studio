@@ -60,7 +60,7 @@ export const themes = [
   {
     id: "2",
     image: "theme_light_brown.338becab.png",
-    key: "theme-light-brown",
+    key: "theme-brown-light",
   },
   {
     id: "3",
@@ -70,11 +70,11 @@ export const themes = [
   {
     id: "4",
     image: "theme_grey.f104bea6.png",
-    key: "theme-grey",
+    key: "theme-grey-dark",
   },
   {
     id: "5",
     image: "theme_dark_blue.ec3ef6b5.png",
-    key: "theme-darkblue",
+    key: "theme-blue-dark",
   },
 ];

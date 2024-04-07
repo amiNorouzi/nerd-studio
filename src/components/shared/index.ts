@@ -31,3 +31,4 @@ export { HistoryInfo } from "./HistoryInfo";
 export { TooltipForUploadedFile } from "./TooltipForUploadedFile";
 export { AudioPlayer } from "./AudioPlayer";
 export { ToggleAdvance } from "./ToggleAdvance";
+export { DynamicInputsList } from "./DynamicInputsList";

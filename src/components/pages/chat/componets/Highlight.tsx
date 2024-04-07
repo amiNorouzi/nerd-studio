@@ -134,7 +134,7 @@ export function HighlightGeneratedContent({
           className="mb-0 w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 focus:border-primary "
           disabled={!editable}
         />
-        <div className="absolute bottom-2 end-3 flex w-fit gap-1 rounded-lg bg-background text-muted-foreground">
+        <div className="absolute bottom-2 end-3 flex w-fit gap-1 rounded-lg bg-background px-1 py-0.5 text-muted-foreground">
           <MinimalButton Icon={TbReload} />
           <MinimalButton Icon={TbEdit} onClick={() => setEditable(v => !v)} />
           <MinimalButton
@@ -177,7 +177,7 @@ export function HighlightOptionItemContent({
     <div
       key={item}
       className={cn(
-        "flex min-h-[44px] cursor-pointer items-center gap-2 overflow-hidden rounded-lg border border-white bg-muted ps-2",
+        "flex min-h-[44px] cursor-pointer items-center gap-2 overflow-hidden rounded-lg border bg-muted ps-2",
         itemChecked && " border-primary bg-primary-light text-primary-dark",
       )}
       onClick={e => handleClickCheck(e, item)}
@@ -192,11 +192,11 @@ export function HighlightOptionItemContent({
       <span className="me-auto text-sm">{item}</span>
       <RenderIf isTrue={!isAnyItemSelect}>
         <Button
-          className="h-full gap-1 rounded-none px-4 py-2 text-xs text-primary"
+          className="!h-full gap-1 rounded-none px-4 py-2 text-xs text-primary"
           variant="secondary"
           onClick={handleGenerate}
         >
-          <TbWand className="h-4 w-4" />
+          <TbWand className={iconVariants({ size: "sm" })} />
           {chat.generate_button_label}
         </Button>
       </RenderIf>
@@ -235,7 +235,7 @@ export function HighlightSocialMediaItemContent({
     <div
       key={item}
       className={cn(
-        "flex min-h-[44px] cursor-pointer items-center gap-2 overflow-hidden rounded-lg border border-white bg-muted ps-2",
+        "flex min-h-[44px] cursor-pointer items-center gap-2 overflow-hidden rounded-lg border bg-muted py-0 ps-2",
         itemChecked && " border-primary bg-primary-light text-primary-dark",
       )}
       onClick={e => handleClickCheck(e, item)}
@@ -252,11 +252,11 @@ export function HighlightSocialMediaItemContent({
         />
       ) : (
         <Button
-          className="h-full gap-1 rounded-none px-4 py-2 text-xs text-primary"
+          className="!h-full gap-1 rounded-none px-4 py-2 text-xs text-primary"
           variant="secondary"
           onClick={handleGenerate}
         >
-          <TbWand className="h-4 w-4" />
+          <TbWand className={iconVariants({ size: "sm" })} />
           {chat.generate_button_label}
         </Button>
       )}
@@ -387,7 +387,7 @@ export function Highlight({ children, className, ...props }: IProps) {
     return (
       <div
         className={cn(
-          "flex h-full w-0 max-w-0 basis-0 flex-col items-center  justify-start   gap-4 divide-y bg-white opacity-0 transition-all duration-300",
+          "flex h-full w-0 max-w-0 basis-0 flex-col items-center  justify-start   gap-4 divide-y bg-background opacity-0 transition-all duration-300",
           openHighlightBox &&
             " w-full  max-w-[400px] basis-3/4  border-s  pt-0 opacity-100 xl:basis-1/2",
           className,
@@ -404,7 +404,7 @@ export function Highlight({ children, className, ...props }: IProps) {
 
   return (
     <Drawer open={openHighlightBox} onOpenChange={setOpenHighLightBox}>
-      <DrawerContent className="max-h-[90dvh] gap-2 bg-white p-2">
+      <DrawerContent className="max-h-[90dvh] gap-2 p-2">
         {children}
       </DrawerContent>
     </Drawer>

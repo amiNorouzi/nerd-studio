@@ -13,11 +13,12 @@ import { Button } from "@/components/ui/button";
 
 import { useUiStore } from "@/stores/zustand/ui-store";
 import useMobileSize from "@/hooks/useMobileSize";
+import { useTheme } from "@/hooks/useTheme";
+import useOutsideClick from "@/hooks/useOutSideClick";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
 import { apps } from "@/constants/side-panel";
 import { dirInLocalStorage } from "@/stores/browser-storage";
-import useOutsideClick from "@/hooks/useOutSideClick";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
@@ -34,6 +35,7 @@ export function SidePanel() {
   const collapsed = !isSidePanelOpen;
   const dir = dirInLocalStorage.get().dir ?? "ltr";
   const isLtr = dir === "ltr";
+  const { activeTheme } = useTheme();
 
   const isMainHeader =
     pathname === `/${lang}` ||
@@ -117,7 +119,7 @@ export function SidePanel() {
           menuItemStyles={{
             button: ({ active }) => ({
               background: active
-                ? `linear-gradient(90deg, ${getHslColorByVar("--primary-light")}, transparent)`
+                ? `linear-gradient(90deg, ${getHslColorByVar(activeTheme.includes("-dark") ? "--primary-dark" : "--primary-light")}, transparent)`
                 : "transparent",
               color: active
                 ? getHslColorByVar("--foreground")

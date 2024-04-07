@@ -101,7 +101,7 @@ export function HistoryItems() {
     <div
       key={item.id}
       className={cn(
-        "flex w-full cursor-pointer flex-col gap-3 rounded-lg border bg-white p-2 transition-all hover:bg-muted-dark",
+        "flex w-full cursor-pointer flex-col gap-3 rounded-lg border bg-background p-2 transition-all hover:bg-muted-dark",
         isItemSelected(item.id) &&
           "border-primary bg-primary-light hover:bg-primary-light",
       )}

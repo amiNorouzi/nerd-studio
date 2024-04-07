@@ -59,9 +59,6 @@ export default function ChatPage({ lang }: { lang: Locale }) {
   const [chatList, setChatList] = useState(false);
   const isChatListValid = chatList ? "chatList" : "options";
   const Content = chatContent[isChatListValid];
-  const {
-    page: { chat: chatDictionary },
-  } = useGetDictionary();
 
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param

@@ -45,4 +45,5 @@ export const inputComponents = {
   textarea: LongTextInput,
   select: SingleSelect,
   list: TextListInputs,
+  choice: TextListInputs,
 } as const;

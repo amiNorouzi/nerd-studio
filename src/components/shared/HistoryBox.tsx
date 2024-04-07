@@ -53,14 +53,14 @@ export function HistoryBox({ children, className, ...props }: IProps) {
             </Button>
           </div>
         </div>
-        <div className="flex h-element w-full items-center justify-center gap-1.5 rounded-lg bg-white p-2">
+        <div className="flex h-element w-full items-center justify-center gap-1.5 rounded-lg bg-background p-2">
           <TbSearch className={iconVariants({ size: "md" })} />
           <Input
             value={searchValue}
             onChange={e => setSearch(e.target.value)}
             type="search"
             placeholder={history_box.history_search_placeholder}
-            className="border-none bg-white px-0 outline-none ring-0"
+            className="border-none bg-background px-0 outline-none ring-0"
           />
         </div>
       </div>

@@ -18,27 +18,29 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 
-import type { TemplateInput } from "@/stores/zustand/types";
+import type { DynamicInput } from "@/stores/zustand/types";
 
 type ChangeValue = { onChangeValue: (val: string | number) => void };
 type InputProps = InputHTMLAttributes<HTMLInputElement> &
-  TemplateInput &
+  DynamicInput &
   ChangeValue;
 type TextAreaProps = InputHTMLAttributes<HTMLTextAreaElement> &
-  TemplateInput &
+  DynamicInput &
   ChangeValue;
-type SingleSelectProps = SelectProps & TemplateInput & ChangeValue;
+type SingleSelectProps = SelectProps & DynamicInput & ChangeValue;
 
 export function TextInput({
   placeholder,
   defaultValue,
   onChangeValue,
+  value,
   ...otherProps
 }: InputProps) {
   return (
     <Input
       placeholder={placeholder}
       defaultValue={defaultValue}
+      value={value}
       {...otherProps}
       onChange={e => onChangeValue(e.target.value)}
     />

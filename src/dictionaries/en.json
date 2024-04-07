@@ -582,5 +582,37 @@
       "engine_label": "Model",
       "engines": "Models"
     }
+  },
+  "api_keys": {
+    "sd_txt_to_img_seed_description": "Random noise seed. Use 0 for a random seed.",
+    "sd_txt_to_img_step_description": "Number of diffusion steps to run.",
+    "sd_txt_to_img_width_description": "Width of the image to generate, in pixels, in an increment divisible by 64.",
+    "sd_txt_to_img_extras_description": "Extra parameters for the text to image model.",
+    "sd_txt_to_img_height_description": "Height of the image to generate, in pixels, in an increment divisible by 64.",
+    "sd_txt_to_img_sampler_description": "The sampler to use for the diffusion process.",
+    "sd_txt_to_img_samples_description": "Number of samples to generate.",
+    "sd_txt_to_img_cfg_scale_description": "The scale of the config file.",
+    "sd_txt_to_img_style_preset_description": "The style preset to use for the image.",
+    "sd_txt_to_img_clip_guidance_preset_description": "The clip guidance preset to use for the image.",
+    "sd_txt_to_img_dimentions_description": "The dimensions of the image to generate.",
+
+    "sd_txt_to_img_seed_label": "Seed",
+    "sd_txt_to_img_step_label": "Steps",
+    "sd_txt_to_img_width_label": "Width",
+    "sd_txt_to_img_extras_label": "Extra Parameters",
+    "sd_txt_to_img_height_label": "Height",
+    "sd_txt_to_img_sampler_label": "Sampler",
+    "sd_txt_to_img_samples_label": "Samples",
+    "sd_txt_to_img_cfg_scale_label": "CFG Scale",
+    "sd_txt_to_img_style_preset_label": "Style Preset",
+    "sd_txt_to_img_clip_guidance_preset_label": "Clip Guidance Preset",
+    "sd_txt_to_img_dimentions_label": "Dimensions",
+
+    "dall_e_dimentions_description": "The dimensions of the image to generate.",
+    "dall_e_quality_description": "Quality of picture.",
+    "dall_e_n_description": "Number of images to generate.",
+    "dall_e_dimentions_label": "Dimensions",
+    "dall_e_quality_label": "Quality",
+    "dall_e_n_label": "Number of images"
   }
 }
