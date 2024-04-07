@@ -10,11 +10,12 @@ export function useEventChanel({ onMessage, eventName }: EventChanelParams) {
   const [message, setMessage] = useState("");
   const eventSource = useRef<EventSource>();
   const { data: session } = useSession();
+  const uuid = session?.user.sub;
 
   useEffect(() => {
-    if (!eventSource.current) {
+    if (!eventSource.current && uuid) {
       eventSource.current = new EventSource(
-        `http://5.78.55.161:8000/events/${session?.user.sub}`,
+        `http://5.78.55.161:8000/events/${uuid}`,
       );
       eventSource.current.addEventListener(eventName, event => {
         if (event.data) {
@@ -24,7 +25,7 @@ export function useEventChanel({ onMessage, eventName }: EventChanelParams) {
         }
       });
     }
-  }, [eventName, onMessage]);
+  }, [eventName, onMessage, uuid]);
 
   return message;
 }
