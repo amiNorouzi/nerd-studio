@@ -12,6 +12,8 @@ export function PreviewForm() {
     <div className="grid grid-cols-2 gap-5 p-4 lg:p-7">
       <DynamicInputsList
         components={customTemplateInputs.filter(i => !i.isAdvance)}
+        changeValue={() => {}}
+        getValue={() => ""}
       />
       <RenderIf isTrue={customTemplateInputs.some(i => i.isAdvance)}>
         <ToggleAdvance className="col-span-2" contentClassName="col-span-2">
@@ -19,6 +21,8 @@ export function PreviewForm() {
             <DynamicInputsList
               components={customTemplateInputs.filter(i => i.isAdvance)}
               itemClassName="col-span-1 data-[isLast=true]:odd:col-span-2"
+              changeValue={() => {}}
+              getValue={() => ""}
             />
           </div>
         </ToggleAdvance>
