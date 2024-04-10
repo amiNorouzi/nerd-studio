@@ -10,11 +10,13 @@ import { cn } from "@/lib/utils";
 import type { IconType } from "react-icons";
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
 import { ErrorIcon } from "@/components/svg-icons";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
   iconClassname?: string;
 }
+
 const MinimalButton = ({
   className,
   title,
@@ -36,7 +38,7 @@ const MinimalButton = ({
 interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   maxLength?: number;
   rootClassName?: string;
-  setValue: (value: string) => void;
+  onTextAreaChange: (value: string) => void;
   renderMoreActions?: () => JSX.Element;
 }
 
@@ -44,7 +46,8 @@ export function GrammarTextBox({
   maxLength,
   value,
   className,
-  setValue,
+  onTextAreaChange,
+  onSubmit,
   rootClassName,
   renderMoreActions,
   ...props
@@ -54,7 +57,6 @@ export function GrammarTextBox({
   } = useGetDictionary();
   //for copy value
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
-
   return (
     <div className="col gap-label-space">
       <Label htmlFor="gramer-textbox" className={cn("text-sm font-medium")}>
@@ -75,7 +77,7 @@ export function GrammarTextBox({
             "mb-0 w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
           )}
           value={value}
-          onChange={e => setValue?.(e.target.value)}
+          onChange={e => onTextAreaChange?.(e.target.value)}
           maxLength={maxLength}
           placeholder={form_section.form_grammar_textarea_placeholder}
           {...props}
@@ -94,7 +96,7 @@ export function GrammarTextBox({
           <MinimalButton
             Icon={MdDeleteOutline}
             title={dictionary.clear_button_label}
-            onClick={() => setValue("")}
+            onClick={() => onTextAreaChange("")}
           />
           <MinimalButton
             Icon={HiOutlineSpeakerWave}

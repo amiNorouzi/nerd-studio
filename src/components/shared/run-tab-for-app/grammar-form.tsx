@@ -17,6 +17,9 @@ import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
 
 interface IProps {
   params: ParamsType;
+  value: string;
+  onTextAreaChange: (value: string) => void;
+  onSubmit: () => void;
 }
 
 /**
@@ -24,7 +27,12 @@ interface IProps {
  * @param params
  * @constructor
  */
-export default function GrammarFormSection({ params }: IProps) {
+export default function GrammarFormSection({
+  params,
+  value,
+  onTextAreaChange,
+  onSubmit,
+}: IProps) {
   const {
     page: { translate },
   } = useGetDictionary();
@@ -36,14 +44,18 @@ export default function GrammarFormSection({ params }: IProps) {
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
 
-  const [value, setValue] = useState("");
   return (
     <FormWrapper>
       {/*text area and pdf upload and url input*/}
-      <GrammarTextBox value={value} setValue={setValue} maxLength={4000} />
+
+      <GrammarTextBox
+        value={value}
+        onTextAreaChange={onTextAreaChange}
+        maxLength={4000}
+      />
       {/*submit button and select engine with setting*/}
       <SubmitButtonSelectEngine
-        onClick={() => {}}
+        onClick={onSubmit}
         buttonContent={"Improving"}
       />
     </FormWrapper>
