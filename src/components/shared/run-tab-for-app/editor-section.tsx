@@ -32,7 +32,7 @@ export default function EditorSection({ children, onChange, value }: Props) {
   return (
     <div
       className={cn(
-        " col-span-12 flex h-fit overflow-hidden bg-card transition-all duration-300",
+        " col-span-12 flex h-fit overflow-hidden bg-transparent transition-all duration-300",
         isFullScreen
           ? "col-span-12 h-full"
           : " p-4 lg:col-span-6 lg:h-full xl:col-span-8",
@@ -40,7 +40,7 @@ export default function EditorSection({ children, onChange, value }: Props) {
     >
       <div
         className={cn(
-          "flex h-fit w-full divide-x  overflow-hidden rounded-xl border shadow-2xl lg:h-full",
+          "flex h-fit w-full divide-x overflow-hidden rounded-xl border bg-background shadow-2xl lg:h-full",
           isFullScreen && "h-full rounded-none border-none shadow-none",
         )}
       >

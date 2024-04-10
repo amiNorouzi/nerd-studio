@@ -328,9 +328,9 @@ function SelectEngineDropDown({ buttonStyle }: { buttonStyle?: ClassValue }) {
     <Select value={engine} onValueChange={handleSelect}>
       <div className="relative">
         <SelectTrigger
-          className={cn("m-0 w-full !text-xsm text-black", buttonStyle)}
+          className={cn("m-0 w-full !text-xsm text-foreground", buttonStyle)}
         >
-          <SelectValue placeholder="Select an option" className="!text-xsm" />
+          <SelectValue placeholder="Select an option" />
         </SelectTrigger>
         <SettingPopover engine={engine} />
       </div>

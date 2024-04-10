@@ -14,16 +14,16 @@ import { Button } from "@/components/ui/button";
 import { useGetDictionary } from "@/hooks";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 
-import { inputTypes } from "@/constants/template";
+import { inputTypes } from "@/constants/dynamic-inputs";
 
-import type { TemplateInput, TemplateInputType } from "@/stores/zustand/types";
+import type { DynamicInput, TemplateInputType } from "@/stores/zustand/types";
 import CreateItemSettingsPopover from "@/components/pages/custom-template/components/CreateItemSettingsPopover";
 
 function CreateInputItem({
   item,
   order,
 }: {
-  item: TemplateInput;
+  item: DynamicInput;
   order: number;
 }) {
   const {

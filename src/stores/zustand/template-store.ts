@@ -18,6 +18,8 @@ const initialState = {
     icon: "",
     template: "",
   },
+  currentTemplateInputs: {},
+  currentTemplatePrompt: "",
 } as TemplateState;
 
 /**
@@ -134,6 +136,18 @@ const useTemplate = create<StoreType>()(
       setCustomTemplateDetails: (key, v) =>
         set(state => {
           state.customTemplateDetails[key] = v;
+        }),
+      changeCurrentTemplateInputs: (key, val) =>
+        set(state => {
+          state.currentTemplateInputs[key] = val;
+        }),
+      resetCurrentTemplateInputs: () =>
+        set(state => {
+          state.currentTemplateInputs = {};
+        }),
+      setCurrentTemplatePrompt: val =>
+        set(state => {
+          state.currentTemplatePrompt = val;
         }),
     })),
     { name: "template", store: "template" },

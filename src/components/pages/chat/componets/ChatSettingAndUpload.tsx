@@ -34,7 +34,7 @@ export function ChatSettingAndUpload() {
         <div className="col items-start lg:col-span-4">
           <SelectEngine
             className="w-full"
-            buttonStyle="bg-white"
+            buttonStyle="bg-background"
             title={chat.chat_setting_select_engine_title}
           />
         </div>

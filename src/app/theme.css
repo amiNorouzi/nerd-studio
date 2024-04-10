@@ -65,6 +65,7 @@
   --background: 234 17% 12%;
   --foreground: 208 14% 79%;
   --bg-overlay: #00000064;
+  --bg-main: 234 17% 15%;
 
   --card: 234 17% 12%;
   --card-foreground: 208 14% 79%;
@@ -84,10 +85,11 @@
 
 }
 
-.theme-grey {
+.theme-grey-dark {
   --background: 0 0% 14%;
   --foreground: 0 0% 79%;
   --bg-overlay: #00000064;
+  --bg-main: 0 0% 17%;
 
   --card: 0 0% 14%;
   --card-foreground: 0 0% 79%;
@@ -107,10 +109,11 @@
 
 }
 
-.theme-darkblue {
+.theme-blue-dark {
   --background: 215 15% 16%;
   --foreground: 0 0% 79%;
   --bg-overlay: #00000064;
+  --bg-main: 215 15% 18%;
 
   --card: 215 15% 16%;
   --card-foreground: 0 0% 79%;
@@ -130,10 +133,11 @@
 
 }
 
-.theme-light-brown {
+.theme-brown-light {
   --background: 43 60% 94%;
   --foreground: 220 43% 11%;
   --bg-overlay: #ffffff64;
+  --bg-main: 43 60% 93%;
 
   --card: 43 60% 94%;
   --card-foreground: 220 43% 11%;

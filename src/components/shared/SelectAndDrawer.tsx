@@ -131,9 +131,7 @@ function SelectComponent({
 }) {
   return (
     <Select value={value.id} onValueChange={setValue}>
-      <SelectTrigger
-        className={cn("m-0 w-full !text-xsm text-black", buttonStyle)}
-      >
+      <SelectTrigger className={cn("m-0 w-full text-foreground", buttonStyle)}>
         <SelectValue placeholder="Select an option" className="!text-xsm" />
       </SelectTrigger>
       <SelectContent>

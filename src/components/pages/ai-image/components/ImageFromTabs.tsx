@@ -20,7 +20,7 @@ function ImageFromTabs() {
       className=" sticky top-0 z-10 w-full"
       onValueChange={v => setTab(v as TabsType)}
     >
-      <TabsList className=" grid h-10 w-full grid-cols-3 gap-1 overflow-hidden border-b bg-muted pb-0">
+      <TabsList className=" grid h-10 w-full grid-cols-3 gap-1 overflow-hidden rounded-none border-b bg-muted px-0 pb-0">
         <TabsTrigger value="text-to-image" className="border-b-tab h-full ">
           {imageDictionary.text_to_image_tab_label}
         </TabsTrigger>
