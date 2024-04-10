@@ -1,21 +1,20 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
-
 import {
   HistoryBox,
+  HistoryInfo,
   HistoryItems,
   Run,
   SetSearchParamProvider,
-  HistoryInfo,
 } from "@/components/shared";
-import type { CategoryItem } from "@/components/pages/template/types";
 import { HistoryInfoContent } from "./history-info-content";
 
 import { useTemplateStore } from "@/stores/zustand/template-store";
 import { useGetDictionary } from "@/hooks";
-import { useAxiosFetcher } from "@/hooks/useAxiosFetcher";
 
 import type { SCRPropsType } from "@/services/types";
+import { useGenerateTemplate } from "@/services/templates";
+import { useEventChanel } from "@/services/events-chanel";
+import { useState } from "react";
 
 export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
   // pass template to Form component to used its data to show and change it
@@ -28,23 +27,34 @@ export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
    *  value of it used in apps Header in  layout or form-section
    *  and everywhere that needs to know app name
    */
-  const currentTemplatePrompt = useTemplateStore.use.currentTemplatePrompt();
-  const setCurrentTemplatePrompt =
-    useTemplateStore.use.setCurrentTemplatePrompt();
+
+  const { mutate: generateTemplate } = useGenerateTemplate();
+  const generatedTemplate = useEventChanel({ eventName: "template" });
+  const [prompt, setPrompt] = useState(template.prompt);
+  const handleGenerate = () => {
+    if (prompt) {
+      generateTemplate({
+        prompt,
+        model: "gpt-3.5-turbo-0125",
+        temperature: 0.1,
+        max_tokens: 1000,
+      });
+    }
+  };
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="template">
       <Run>
         <Run.Form
-          value={currentTemplatePrompt}
-          onTextAreaChange={setCurrentTemplatePrompt}
-          onSubmit={() => {}}
+          value={prompt}
+          onSubmit={handleGenerate}
+          onTextAreaChange={setPrompt}
           params={params}
           template={template}
           buttonContent={templatePage.template_button_label}
           mainTextAreaPlaceholder={templatePage.text_input_placeholder}
         />
-        <Run.Editor value="" onChange={() => {}}>
+        <Run.Editor value={generatedTemplate} onChange={() => {}}>
           <HistoryBox>
             <HistoryItems appName="template" />
           </HistoryBox>

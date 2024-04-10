@@ -12,6 +12,8 @@ import { cn } from "@/lib/utils";
 
 interface IProps {
   submitButtonTitle: string;
+
+  onSubmit(): void;
 }
 
 const Box = (props: ChildrenProps) => {
@@ -34,7 +36,7 @@ const Box = (props: ChildrenProps) => {
  * @param submitButtonTitle - title of submit button
  * @constructor
  */
-function CommonSettings({ submitButtonTitle }: IProps) {
+function CommonSettings({ submitButtonTitle, onSubmit }: IProps) {
   const [activeEngine, setActiveEngine] = useState("1");
   const {
     page: { code: codeDictionary },
@@ -66,7 +68,7 @@ function CommonSettings({ submitButtonTitle }: IProps) {
       <SelectEngine className="col-span-2 sm:col-span-1" />
 
       {/*submit button*/}
-      <Button className="col-span-2 mt-auto sm:col-span-1">
+      <Button onClick={onSubmit} className="col-span-2 mt-auto sm:col-span-1">
         {submitButtonTitle}
       </Button>
     </>

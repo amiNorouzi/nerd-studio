@@ -8,30 +8,23 @@ import { useGetDictionary } from "@/hooks";
 
 interface IProps {
   outputLanguage?: string;
+  generatedCode: string;
 }
 
 /**
  * Result component contains the code snippet and explanation box
  * @param outputLanguage - The language of the code snippet
+ * @param generatedCode
  * @constructor
  */
-function Result({ outputLanguage }: IProps) {
+function Result({ outputLanguage, generatedCode }: IProps) {
   const {
     page: { code: codeDictionary },
   } = useGetDictionary();
   const [code, setCode] = useState("");
-
   useEffect(() => {
-    setCode(`//convert hex colors to rgba colors
-export function hexToRGBa(hex: string, alpha: number) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    const a = alpha || 1;
-
-    return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
-}`);
-  }, []);
+    setCode(generatedCode);
+  }, [generatedCode]);
 
   return (
     <section className="col col-span-2 mt-7 gap-label-space border-t py-4">
