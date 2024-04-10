@@ -8,6 +8,8 @@ import CodeEditor from "./CodeEditor";
 import Result from "./Result";
 
 import { useGetDictionary } from "@/hooks";
+import { useCodeExplainer } from "@/services/code-generator";
+import { useEventChanel } from "@/services/events-chanel";
 
 /**
  * code explainer feature
@@ -22,6 +24,20 @@ function CodeExplainer() {
   const {
     page: { code: codeDictionary },
   } = useGetDictionary();
+
+  const { mutate } = useCodeExplainer();
+  const generatedCode = useEventChanel({ eventName: "code" });
+
+  const handleGenerate = () => {
+    mutate({
+      code,
+      language: currentLanguage,
+      info: additionalInfo,
+      model: "gpt-3.5-turbo-0125",
+      temperature: 0.1,
+      max_tokens: 100,
+    });
+  };
 
   return (
     <div className="form-gap grid grid-cols-2">
@@ -58,10 +74,11 @@ function CodeExplainer() {
 
       {/*common settings for all features of code*/}
       <CommonSettings
+        onSubmit={handleGenerate}
         submitButtonTitle={codeDictionary.explainer_button_label}
       />
 
-      <Result outputLanguage={currentLanguage} />
+      <Result generatedCode={generatedCode} outputLanguage={currentLanguage} />
     </div>
   );
 }
