@@ -29,13 +29,15 @@ export interface EditorActions {
   setIsFullScreen: (val: boolean) => void;
 }
 
-export type TemplateInputType =
+export type DynamicInputType =
   | "text"
   | "textarea"
   // | "date"
   | "select"
   | "number"
-  | "list";
+  | "list"
+  | "range";
+
 export interface DynamicInput {
   id: string;
   name: string;
@@ -43,13 +45,16 @@ export interface DynamicInput {
   placeholder?: string;
   defaultValue?: string;
   order: number;
-  type: TemplateInputType;
+  type: DynamicInputType;
   options: {
     id: string;
     value: string;
   }[];
   isAdvance: boolean;
   fieldKey: string;
+  min?: number;
+  max?: number;
+  step?: number;
 }
 
 export interface TemplateState {
@@ -80,7 +85,7 @@ export interface TemplateAction {
     key: "name" | "description" | "placeholder" | "defaultValue",
     v: string,
   ) => void;
-  setCustomTemplateInputType: (id: string, type: TemplateInputType) => void;
+  setCustomTemplateInputType: (id: string, type: DynamicInputType) => void;
   deleteCustomTemplateInput: (id: string) => void;
   toggleCustomTemplateInputAdvance: (id: string) => void;
   changeCustomTemplateInputOptionValue: (
@@ -184,14 +189,23 @@ export interface AiImageState {
     image_to_image: { [key: string]: string | number };
     image_upscale: { [key: string]: string | number };
   };
+  generatedImages: {
+    text_to_image: string[];
+    image_to_image: string[];
+    image_upscale: string[];
+  };
 }
 
-type ImageTab = "text_to_image" | "image_to_image" | "image_upscale";
+export type ImageModelType =
+  | "text_to_image"
+  | "image_to_image"
+  | "image_upscale";
 export interface AiImageAction {
   changeInputValue: (
-    tab: ImageTab,
+    tab: ImageModelType,
     key: string,
     value: string | number,
   ) => void;
-  resetInputValue: (tab: ImageTab) => void;
+  resetInputValue: (tab: ImageModelType) => void;
+  setGeneratedImages: (tab: ImageModelType, images: string[]) => void;
 }

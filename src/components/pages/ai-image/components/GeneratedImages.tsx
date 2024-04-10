@@ -15,9 +15,11 @@ import ImageAction from "./ImageAction";
 
 import { useGetDictionary } from "@/hooks";
 
-import { cn } from "@/lib/utils";
+import { cn, isEmpty } from "@/lib/utils";
 import ImageDownloader from "@/components/pages/ai-image/components/ImageDownloader";
 import useImageTabs from "@/components/pages/ai-image/hooks/useImageTabs";
+import { useAiImageStore } from "@/stores/zustand/ai-image-store";
+import EmptyResult from "@/components/pages/ai-image/components/EmptyResult";
 
 //for send selected image to other tabs to use
 const sendActions = [
@@ -47,6 +49,9 @@ function GeneratedImages({ images }: { images: string[] }) {
     common: { share, save_label },
     page: { image: imageDictionary },
   } = useGetDictionary();
+
+  console.log({ images });
+  if (isEmpty(images)) return <EmptyResult />;
 
   return (
     <div className="flex h-full w-fit flex-col gap-2 rounded-2xl bg-primary-light/60 p-4 max-xl:items-center max-xl:justify-center lg:p-5 xl:h-fit xl:flex-row xl:p-9">

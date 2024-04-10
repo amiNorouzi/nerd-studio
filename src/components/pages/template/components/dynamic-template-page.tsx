@@ -15,7 +15,6 @@ import type { SCRPropsType } from "@/services/types";
 import { useGenerateTemplate } from "@/services/templates";
 import { useEventChanel } from "@/services/events-chanel";
 import { useState } from "react";
-import { log } from "node:util";
 
 export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
   // pass template to Form component to used its data to show and change it

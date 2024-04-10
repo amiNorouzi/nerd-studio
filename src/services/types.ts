@@ -1,6 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { Locale } from "../../i18n.config";
-import { TemplateInputType } from "@/stores/zustand/types";
+import { DynamicInputType } from "@/stores/zustand/types";
 
 export type ChildrenProps<P extends any = {}> = P & {
   children: ReactNode | ReactNode[];
@@ -101,7 +101,7 @@ export interface User {
   exp: number;
 }
 export interface TemplateParamsItem {
-  type: TemplateInputType;
+  type: DynamicInputType;
   label: string;
   description: string;
   placeholder: string;
@@ -123,13 +123,14 @@ export interface TemplateCategoryItem {
 export interface ModelParamsItem {
   enum: string[];
   show: "true" | "false";
-  type: "select" | "text" | "number";
+  type: "select" | "text" | "number" | "range";
   label: string;
   default: string;
   is_advance: "true" | "false";
   description_i18key: string;
   maximum: number;
   minimum: number;
+  step?: number;
 }
 export interface ModelItem {
   model: string;

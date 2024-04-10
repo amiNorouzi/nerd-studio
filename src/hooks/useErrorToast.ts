@@ -35,7 +35,7 @@ const useErrorToast = () => {
         }
       }
 
-      showError(error.response.data.detail);
+      showError(error.response.data.detail.toString());
     }
   };
 

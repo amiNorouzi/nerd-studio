@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 import { useGetDictionary } from "@/hooks";
 
-import type { DynamicInput, TemplateInputType } from "@/stores/zustand/types";
+import type { DynamicInput, DynamicInputType } from "@/stores/zustand/types";
 import RenderIf from "@/components/shared/RenderIf";
 import { ResponsivePopover, Show } from "@/components/shared";
 import {
