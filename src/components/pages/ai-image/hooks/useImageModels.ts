@@ -1,43 +1,30 @@
 import { useEffect, useState } from "react";
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 
 import { useAxiosFetcher } from "@/hooks/useAxiosFetcher";
 import useImageTabs from "./useImageTabs";
 
-import { isEmpty } from "@/lib/utils";
-
-import type { ModelItem } from "@/services/types";
-import type { CategoryItem } from "@/components/pages/template/types";
-import type { DynamicInput } from "@/stores/zustand/types";
 import { useGetDictionary } from "@/hooks";
 import { useAiImageStore } from "@/stores/zustand/ai-image-store";
+import { useGetImageModels } from "@/services/ai-image";
+import { isEmpty } from "@/lib/utils";
 
-type ImageModelType = "text_to_image" | "image_to_image" | "image_upscale";
+import type { CategoryItem } from "@/components/pages/template/types";
+import type { DynamicInput, ImageModelType } from "@/stores/zustand/types";
 
 function useImageModels() {
   const [activeModel, setActiveModel] = useState("");
   const [activeModelUrl, setActiveModelUrl] = useState("");
   const { axiosFetch } = useAxiosFetcher();
-  const { currentTab } = useImageTabs();
-  const currentModelType = currentTab.replaceAll("-", "_") as ImageModelType;
+  const { currentModelType } = useImageTabs();
   const queryClient = useQueryClient();
   const { api_keys } = useGetDictionary();
   const changeInputValue = useAiImageStore.use.changeInputValue();
   const resetInputValue = useAiImageStore.use.resetInputValue();
 
-  const { data = [], isLoading } = useQuery({
-    queryKey: ["engines", currentModelType],
-    queryFn: () =>
-      axiosFetch<ModelItem[]>({
-        url: `/engines/?app_type=${currentModelType}`,
-        method: "post",
-      }),
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-  });
+  const { data = [], isPending } = useGetImageModels(currentModelType);
 
   useEffect(() => {
     const tabToPrefetch = ["image_to_image", "image_upscale"];
@@ -105,6 +92,9 @@ function useImageModels() {
         : [],
       isAdvance: item.is_advance === "true",
       fieldKey: key,
+      ...(!!item.minimum && { min: item.minimum }),
+      ...(!!item.maximum && { max: item.maximum }),
+      ...(!!item.step && { step: item.step }),
     };
   });
 
@@ -115,7 +105,7 @@ function useImageModels() {
     models,
     activeModel,
     setActiveModel,
-    isLoading,
+    isLoading: isPending,
     advanceInputs,
     basicInputs,
     activeModelUrl,

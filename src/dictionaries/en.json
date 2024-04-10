@@ -228,7 +228,9 @@
       "download_ext_label": "Save As",
       "download_ext_description": "Select the file type and download.",
       "download_input_placeholder": "Your file name",
-      "information_title": "Information"
+      "information_title": "Information",
+      "empty_prompt_error": "Prompt is required",
+      "empty_image_error": "Image must be provided"
     },
     "translate": {
       "submit_button_label": "AI Translate",
@@ -613,6 +615,18 @@
     "dall_e_n_description": "Number of images to generate.",
     "dall_e_dimentions_label": "Dimensions",
     "dall_e_quality_label": "Quality",
-    "dall_e_n_label": "Number of images"
+    "dall_e_n_label": "Number of images",
+
+    "sd_txt_to_img_image_strength_label": "Image Strength",
+    "sd_txt_to_img_mask_image_label": "Mask Image",
+    "sd_text_to_img_mask_source_label": "Mask Source",
+    "sd_txt_to_img_upscale_by_label": "Upscale By",
+    "sd_txt_to_img_upscale_value_value_label": "Upscale Value",
+
+    "sd_txt_to_img_image_strength_description": "How much influence the image has on the diffusion process.",
+    "sd_txt_to_img_mask_image_description": "Mask that allows for influence over which pixels are eligible for diffusion and at what strength. Must be the same dimensions as the init_image",
+    "sd_txt_to_img_mask_source_description": "The source of the mask image",
+    "sd_txt_to_img_upscale_by_description": "The dimension to upscale the image by",
+    "sd_txt_to_img_upscale_value_description": "The value to upscale the image to. Must be between 512 and 4096"
   }
 }

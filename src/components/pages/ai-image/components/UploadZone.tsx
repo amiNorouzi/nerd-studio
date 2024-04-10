@@ -14,6 +14,8 @@ import { Button } from "@/components/ui/button";
 import { useGetDictionary } from "@/hooks";
 import useImageTabs from "@/components/pages/ai-image/hooks/useImageTabs";
 import { FaRegTrashCan } from "react-icons/fa6";
+import useInputValue from "@/components/pages/ai-image/hooks/useInputValue";
+import { TbTrash } from "react-icons/tb";
 
 /**
  * drop zone upload component
@@ -26,10 +28,10 @@ function UploadZone() {
     page: { image: imageDictionary },
   } = useGetDictionary();
   const [uploadedImage, setUploadedImage] = useState("");
-  const [maskImage, setMaskImage] = useState("");
   const [openMaskDialog, setOpenMaskDialog] = useState(false);
 
   const { currentTab } = useImageTabs();
+  const { getValue, changeValue } = useInputValue();
 
   /**
    * onDrop for drop zone
@@ -41,12 +43,13 @@ function UploadZone() {
         // Do whatever you want with the file contents
         const image = reader.result as string;
         setUploadedImage(image);
-        setMaskImage("");
+        changeValue("mask", "");
         // const info = await getImageInfo(file, image)
         // const imageData = {
         //     image,
         //     info
         // }
+        changeValue("image", image);
       };
       reader.readAsDataURL(file);
     });
@@ -98,7 +101,9 @@ function UploadZone() {
                   show user that mask drawn on the image
                   render if maskImage is not empty
               */}
-              <RenderIf isTrue={maskImage !== ""}>
+              <RenderIf
+                isTrue={!!getValue("mask") && currentTab === "image-to-image"}
+              >
                 <div className="fit group absolute end-0.5 top-0.5 z-20 rounded-md bg-muted-dark/80 p-1">
                   <PiPaintBrushLight size="1rem" />
                   <Button
@@ -106,7 +111,7 @@ function UploadZone() {
                     className="fit absolute inset-0 p-1 opacity-0 transition-all duration-100 hover:bg-transparent group-hover:opacity-100"
                     onClick={e => {
                       e.stopPropagation();
-                      setMaskImage("");
+                      changeValue("mask", "");
                     }}
                   >
                     <IoCloseSharp size="1rem" className="text-destructive" />
@@ -117,9 +122,9 @@ function UploadZone() {
                 {/*delete image button*/}
                 <ImageAction
                   title={delete_label}
-                  Icon={FaRegTrashCan}
-                  iconClassname="text-destructive"
-                  className="!h-7 !w-7 p-2"
+                  Icon={TbTrash}
+                  iconClassname="text-destructive !h-4 !w-4"
+                  className="!fit p-1"
                   onClick={e => {
                     e.stopPropagation();
                     setUploadedImage("");
@@ -163,8 +168,6 @@ function UploadZone() {
       <DrawMaskDialog
         open={openMaskDialog}
         setOpen={setOpenMaskDialog}
-        maskImage={maskImage}
-        setMaskImage={setMaskImage}
         imageSrc={uploadedImage}
         canvasDimensions={{ width: 500, height: 500 }}
       />

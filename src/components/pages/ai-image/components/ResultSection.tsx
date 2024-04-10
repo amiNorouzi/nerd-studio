@@ -18,18 +18,8 @@ import { cn, isEmpty } from "@/lib/utils";
 import type { HistoryItem } from "@/services/types";
 import { Show } from "@/components/shared";
 import { iconVariants } from "@/constants/variants";
-
-//list of images
-//TODO: replace with real data
-const images: string[] = [
-  "/images/generateds/1.webp",
-  "/images/generateds/2.webp",
-  "/images/generateds/3.webp",
-  "/images/generateds/4.webp",
-  "/images/generateds/5.webp",
-  "/images/generateds/6.webp",
-  "/images/generateds/7.webp",
-];
+import { useAiImageStore } from "@/stores/zustand/ai-image-store";
+import { ImageModelType } from "@/stores/zustand/types";
 
 //list of history
 //TODO: replace with real data
@@ -70,6 +60,10 @@ export function ResultSection() {
   const [isOpenMobileImageHistory, setIsOpenMobileImageHistory] =
     useState(false);
   const { currentTab, tabs } = useImageTabs();
+  const images =
+    useAiImageStore.use.generatedImages()[
+      currentTab.replaceAll("-", "_") as ImageModelType
+    ];
 
   return (
     <section className="col-span-12 h-full overflow-hidden p-3 lg:col-span-8  lg:p-5 ">
@@ -77,7 +71,7 @@ export function ResultSection() {
         {/*
           if there is no generated images or history, show the empty result
         */}
-        {isEmpty(images) && isEmpty(history) ? (
+        {isEmpty(images) && isEmpty(histories) ? (
           <EmptyResult />
         ) : (
           <>
@@ -90,9 +84,7 @@ export function ResultSection() {
                   )}
                 />
                 <h2 className="font-bold">{imageDictionary.generate_label}</h2>
-                <p className="overflow-hidden text-ellipsis text-nowrap font-normal lg:max-w-72 xl:max-w-full">
-                  Draw the man in the picture as a warrior fighting a demon
-                </p>
+                <p className="overflow-hidden text-ellipsis text-nowrap font-normal lg:max-w-72 xl:max-w-full"></p>
                 <Button
                   variant="ghost"
                   className="fit ms-auto p-1 md:hidden"

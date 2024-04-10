@@ -113,7 +113,7 @@ function CommandSelectEngines({
  * @param props
  * @constructor
  */
-function EngineSelectComponent(props: IProps) {
+function EngineSelect(props: IProps) {
   const {
     components: {
       engine_select: { select_message },
@@ -132,7 +132,7 @@ function EngineSelectComponent(props: IProps) {
     <Button
       variant="outline"
       className={cn(
-        "w-full gap-2 bg-muted hover:border-primary-light aria-expanded:border-primary aria-expanded:bg-background",
+        "gird w-full grid-cols-9 gap-2 bg-muted px-3 hover:border-primary-light aria-expanded:border-primary aria-expanded:bg-background",
         triggerClassName,
       )}
     >
@@ -140,13 +140,15 @@ function EngineSelectComponent(props: IProps) {
       <UserAvatar
         imageSrc={currentValue?.image || ""}
         name={currentValue?.name || ""}
-        className="h-5 w-5"
+        className="col-span-1 h-5 w-5"
         fallbackClassname="text-xs"
       />
-      {currentValue?.name || select_message}
+      <span className="col-span-7 w-full max-w-full overflow-hidden text-ellipsis text-start">
+        {currentValue?.name || select_message}
+      </span>
       <span
         data-open={open}
-        className="ms-auto transition-all duration-200 data-[open=false]:rotate-180"
+        className="col-span-1 ms-auto transition-all duration-200 data-[open=false]:rotate-180"
       >
         <LuChevronDown className="h-4 w-4 opacity-50" />
       </span>
@@ -178,4 +180,4 @@ function EngineSelectComponent(props: IProps) {
     </Popover>
   );
 }
-export const EngineSelect = memo(EngineSelectComponent);
+export default memo(EngineSelect);

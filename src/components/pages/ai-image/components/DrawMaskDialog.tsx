@@ -42,10 +42,9 @@ import { Label } from "@/components/ui/label";
 import { useGetDictionary } from "@/hooks";
 
 import type { StateSetterType } from "@/services/types";
+import useInputValue from "@/components/pages/ai-image/hooks/useInputValue";
 
 interface IProps {
-  maskImage: string;
-  setMaskImage: Dispatch<SetStateAction<string>>;
   imageSrc: string;
   open: boolean;
   setOpen: StateSetterType<boolean>;
@@ -58,7 +57,6 @@ interface IProps {
 /**
  * used for image to image tab in  image generate
  * draw a mask on uploaded image with brush for mask image
- * @param setMaskImage set mask after save
  * @param isMobileSize for check if mobile size render bottom sheet else popover
  * @param canvasDimensions width and height of canvas changed by size of device
  * @param imageSrc image to draw mask for it
@@ -67,7 +65,6 @@ interface IProps {
  * @constructor
  */
 const DrawMaskDialog: FC<IProps> = ({
-  setMaskImage,
   canvasDimensions,
   imageSrc,
   open,
@@ -83,6 +80,7 @@ const DrawMaskDialog: FC<IProps> = ({
   const [savaData, setSavaData] = useState(""); //current changes that set after close dialog
   const [isLoaded, setIsLoaded] = useState(false); //need for check if component load draw saved data
   const isMobile = useMobileSize();
+  const { getValue, changeValue } = useInputValue();
 
   useEffect(() => {
     if (open) {
@@ -123,7 +121,7 @@ const DrawMaskDialog: FC<IProps> = ({
   const handleSave = () => {
     // @ts-ignore
     const maskData = canvasRef.current!.getDataURL();
-    setMaskImage(maskData);
+    changeValue("mask", maskData);
     setOpen(false);
   };
 

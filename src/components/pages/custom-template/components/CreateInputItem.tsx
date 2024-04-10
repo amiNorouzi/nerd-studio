@@ -16,7 +16,7 @@ import { useTemplateStore } from "@/stores/zustand/template-store";
 
 import { inputTypes } from "@/constants/dynamic-inputs";
 
-import type { DynamicInput, TemplateInputType } from "@/stores/zustand/types";
+import type { DynamicInput, DynamicInputType } from "@/stores/zustand/types";
 import CreateItemSettingsPopover from "@/components/pages/custom-template/components/CreateItemSettingsPopover";
 
 function CreateInputItem({
@@ -55,7 +55,7 @@ function CreateInputItem({
           defaultValue={inputTypes[0].type}
           value={item.type}
           onValueChange={val =>
-            setCustomTemplateInputType(item.id, val as TemplateInputType)
+            setCustomTemplateInputType(item.id, val as DynamicInputType)
           }
         >
           <SelectTrigger className="col-span-8 md:col-span-2">

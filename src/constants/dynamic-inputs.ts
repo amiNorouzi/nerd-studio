@@ -4,6 +4,7 @@ import {
   SingleSelect,
   TextInput,
   TextListInputs,
+  Range,
 } from "@/components/pages/custom-template/components/inputs-components";
 
 export const inputTypes = [
@@ -46,4 +47,5 @@ export const inputComponents = {
   select: SingleSelect,
   list: TextListInputs,
   choice: TextListInputs,
+  range: Range,
 } as const;

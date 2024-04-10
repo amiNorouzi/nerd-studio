@@ -13,6 +13,11 @@ const initialState = {
     image_to_image: {},
     image_upscale: {},
   },
+  generatedImages: {
+    text_to_image: [],
+    image_to_image: [],
+    image_upscale: [],
+  },
 } as AiImageState;
 
 const useAiImage = create<StoreType>()(
@@ -25,7 +30,13 @@ const useAiImage = create<StoreType>()(
         }),
       resetInputValue: tab =>
         set(state => {
-          state.inputs[tab] = {};
+          state.inputs[tab] = {
+            text: state.inputs[tab].text || "",
+          };
+        }),
+      setGeneratedImages: (tab, images) =>
+        set(state => {
+          state.generatedImages[tab] = images;
         }),
     })),
     { name: "image", store: "image" },
