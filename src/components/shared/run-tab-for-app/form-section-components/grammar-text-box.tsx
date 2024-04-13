@@ -10,13 +10,12 @@ import { cn } from "@/lib/utils";
 import type { IconType } from "react-icons";
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
 import { ErrorIcon } from "@/components/svg-icons";
-import { useDebounce } from "@/hooks/useDebounce";
+import GrtammerInputDiv from "@/components/pages/grammar/InputDiv";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
   iconClassname?: string;
 }
-
 const MinimalButton = ({
   className,
   title,
@@ -71,17 +70,15 @@ export function GrammarTextBox({
         />
 
         {/*textarea*/}
-        <textarea
-          rows={8}
+        {/* <div
+          contentEditable={true}
           className={cn(
-            "mb-0 w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
+            "mb-0 h-[400px] w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
           )}
-          value={value}
-          onChange={e => onTextAreaChange?.(e.target.value)}
-          maxLength={maxLength}
-          placeholder={form_section.form_grammar_textarea_placeholder}
-          {...props}
-        />
+          onInput={handleInput}
+          spellCheck={false}
+        /> */}
+        <GrtammerInputDiv />
 
         {/*404 Error*/}
         <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
@@ -92,7 +89,7 @@ export function GrammarTextBox({
         </div>
 
         {/*action buttons*/}
-        <div className="row absolute bottom-3 end-3.5 gap-1">
+        <div className="row absolute bottom-3 end-3.5 gap-1 bg-white">
           <MinimalButton
             Icon={MdDeleteOutline}
             title={dictionary.clear_button_label}
