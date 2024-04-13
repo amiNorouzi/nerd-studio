@@ -21,10 +21,11 @@ import { ChatHero } from "@/components/pages/chat/componets/ChatHero";
 import RenderIf from "@/components/shared/RenderIf";
 import type { Locale } from "../../../../i18n.config";
 import { Button } from "@/components/ui/button";
-import { NewChat } from "@/components/svg-icons";
 import { useGetDictionary } from "@/hooks";
 import type { StateSetterType } from "@/services/types";
 import { useChatStore } from "@/stores/zustand/chat-store";
+import { TbMessagePlus } from "react-icons/tb";
+import { iconVariants } from "@/constants/variants";
 
 const chatContent = {
   chatList: ChatList,
@@ -43,10 +44,11 @@ function NewChatButton({
     <MyTooltip title={chatDictionary.new_chat_button_label}>
       <Button
         variant="ghost"
-        className="h-8 w-8 rounded-full bg-primary-dark p-[10px] text-white hover:bg-primary-dark lg:h-12  lg:w-12 "
+        className="w-element rounded-full bg-primary-dark
+         p-1 text-white hover:bg-primary-dark"
         onClick={() => setChatList(v => !v)}
       >
-        <NewChat />
+        <TbMessagePlus className={iconVariants({ size: "md" })} />
       </Button>
     </MyTooltip>
   );
@@ -57,9 +59,6 @@ export default function ChatPage({ lang }: { lang: Locale }) {
   const [chatList, setChatList] = useState(false);
   const isChatListValid = chatList ? "chatList" : "options";
   const Content = chatContent[isChatListValid];
-  const {
-    page: { chat: chatDictionary },
-  } = useGetDictionary();
 
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param
@@ -68,7 +67,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
    */
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="chat">
-      <div className="max-h-page flex h-full w-full overflow-hidden bg-white p-0">
+      <div className="max-h-apps-page flex h-full w-full overflow-hidden bg-background p-0">
         <div className="col mx-auto h-full w-full items-center overflow-y-auto p-2 lg:p-4">
           {/* chat list or chat option*/}
           <Content>
@@ -80,12 +79,13 @@ export default function ChatPage({ lang }: { lang: Locale }) {
 
           {/*stop response button*/}
           <StopResponseButton className="sticky bottom-1/4 " />
+
           {/* chat settings and prompt input*/}
-          <div className="sticky bottom-0 w-full max-w-4xl lg:mb-[67px]">
+          <div className="col sticky bottom-0 w-full max-w-[760px] gap-1.5 ">
             <RenderIf isTrue={isChatListValid === "chatList"}>
               <ChatSettings />
             </RenderIf>
-            <div className="flex w-full items-start gap-4">
+            <div className="flex w-full items-start gap-2">
               {/*new chat button*/}
               <NewChatButton setChatList={setChatList} />
               {/*prompt input (text box)*/}

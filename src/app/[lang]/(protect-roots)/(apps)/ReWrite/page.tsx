@@ -3,9 +3,5 @@ import { WritePage } from "@/components/pages/write";
 import type { SCRPropsType } from "@/services/types";
 
 export default function Write({ searchParams, params }: SCRPropsType) {
-  return (
-    <Suspense>
-      <WritePage searchParams={searchParams} params={params} />
-    </Suspense>
-  );
+  return <WritePage searchParams={searchParams} params={params} />;
 }

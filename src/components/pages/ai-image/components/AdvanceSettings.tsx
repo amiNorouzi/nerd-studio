@@ -1,47 +1,23 @@
-import {
-  DescriptionHoverCard,
-  SelectAndDrawer,
-  ToggleAdvance,
-} from "@/components/shared";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { DynamicInputsList, ToggleAdvance } from "@/components/shared";
+
+import type { DynamicInput } from "@/stores/zustand/types";
+import useInputValue from "@/components/pages/ai-image/hooks/useInputValue";
 
 /**
  * some settings in collapsible div that open and close by switch
  * @constructor
  */
-function AdvanceSettings() {
+function AdvanceSettings({ settings }: { settings: DynamicInput[] }) {
+  const { getValue, changeValue } = useInputValue();
   return (
     <ToggleAdvance>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div className="col gap-2">
-          <Label className="row flex-nowrap gap-2">
-            Sampler
-            <DescriptionHoverCard description="Which sampler to use for the diffusion process. If this value is omitted we'll automatically select an appropriate sampler for you." />
-          </Label>
-          <SelectAndDrawer value="DDIM" setValue={() => []} items={[]} />
-        </div>
-
-        <div className="col gap-2">
-          <Label className="row flex-nowrap gap-2">
-            Clip Guidance Preset
-            <DescriptionHoverCard description="CLIP Guidance is a technique that uses the CLIP neural network to guide the generation of images to be more in-line with" />
-          </Label>
-          <SelectAndDrawer value="None" setValue={() => []} items={[]} />
-        </div>
-
-        <div className="col gap-2">
-          <Label className="eow flex-nowrap gap-2">Artist Name</Label>
-          <SelectAndDrawer value="None" setValue={() => []} items={[]} />
-        </div>
-
-        <div className="col gap-2">
-          <Label htmlFor="numOfResult" className="row flex-nowrap gap-2 ">
-            Number of images
-            <DescriptionHoverCard description="Number of images to generate, maximim is 10" />
-          </Label>
-          <Input type="number" id="numOfResult" min={1} max={10} />
-        </div>
+      <div className="form-gap grid grid-cols-1 sm:grid-cols-2">
+        <DynamicInputsList
+          components={settings}
+          itemClassName="col-span-1 sm:data-[isLast=true]:odd:col-span-2"
+          getValue={getValue}
+          changeValue={changeValue}
+        />
       </div>
     </ToggleAdvance>
   );

@@ -16,6 +16,7 @@ import useCodeFeatures from "../hooks/useCodeFeatures";
 
 import { features } from "@/constants/code";
 import { cn } from "@/lib/utils";
+import { useUiStore } from "@/stores/zustand/ui-store";
 
 /**
  * list of AI code page feature
@@ -33,6 +34,7 @@ export function CodeFeaturesSection() {
   // get the current feature from the search params
   const { currentFeature, setFeature } = useCodeFeatures();
   const isDesktop = useMediaQuery("(min-width: 768px)"); // check if the device is desktop
+  const activeTheme = useUiStore.use.activeTheme();
 
   const renderForDesktop = () => (
     <div className="col h-fit gap-4 p-4 xl:p-7">
@@ -41,7 +43,7 @@ export function CodeFeaturesSection() {
           className={cn(
             "col cursor-pointer rounded-lg border bg-muted px-3 py-2 transition-all duration-300 hover:bg-muted-dark xl:px-4",
             currentFeature === item.key &&
-              "border-primary shadow-xl shadow-primary-light", // highlight the selected feature
+              `border-primary shadow-lg ${activeTheme.includes("-dark") ? "!shadow-primary-dark" : "!shadow-primary-light"}`, // highlight the selected feature
           )}
           key={item.id}
           onClick={() => setFeature(item.key)}
@@ -94,11 +96,6 @@ export function CodeFeaturesSection() {
 
   return (
     <section className="relative col-span-12 h-fit overflow-y-auto bg-background md:col-span-3 md:h-full md:max-h-full">
-      {/*page header*/}
-      <h1 className="row gap-2 border-b px-4 py-2.5 text-xl">
-        <TbCode size="1.5rem" />
-        {codeDictionary.page_title}
-      </h1>
       {/*features list*/}
       {isDesktop ? renderForDesktop() : renderForMobile()}
     </section>

@@ -35,6 +35,8 @@ import { FontFamily } from "./font-family";
 import { LineHeightDropdownMenu } from "./line-height-dropdown-menu";
 import { AiModal } from "@/components/plate-ui/ai-modal";
 import { AiOptionsDropdownMenu } from "@/components/plate-ui/ai-options-dropdown-menu";
+import { useEditorStore } from "@/stores/zustand/editor-slice";
+import { cn } from "@/lib/utils";
 
 interface IProps {
   isReadOnly?: boolean;
@@ -42,9 +44,10 @@ interface IProps {
 
 export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
   const readOnly = useEditorReadOnly();
+  const isFullScreen = useEditorStore.use.isFullScreen();
 
   return (
-    <div className="w-full overflow-hidden print:opacity-0">
+    <div className="w-full overflow-hidden px-3 pb-3 print:opacity-0">
       <div
         className="flex flex-wrap "
         style={{
@@ -61,29 +64,29 @@ export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
               <FontSize />
               <FontFamily />
             </ToolbarGroup>
-
-            <ToolbarGroup>
+            {/*<div className="flex-grow" />*/}
+            <ToolbarGroup noSeparator className={cn(isFullScreen && "ms-auto")}>
               <MarkToolbarButton tooltip="Bold (⌘+B)" nodeType={MARK_BOLD}>
-                <Icons.bold />
+                <Icons.bold className={iconVariants({ size: "md" })} />
               </MarkToolbarButton>
               <MarkToolbarButton tooltip="Italic (⌘+I)" nodeType={MARK_ITALIC}>
-                <Icons.italic />
+                <Icons.italic className={iconVariants({ size: "md" })} />
               </MarkToolbarButton>
               <MarkToolbarButton
                 tooltip="Underline (⌘+U)"
                 nodeType={MARK_UNDERLINE}
               >
-                <Icons.underline />
+                <Icons.underline className={iconVariants({ size: "md" })} />
               </MarkToolbarButton>
 
               <MarkToolbarButton
                 tooltip="Strikethrough (⌘+⇧+M)"
                 nodeType={MARK_STRIKETHROUGH}
               >
-                <Icons.strikethrough />
+                <Icons.strikethrough className={iconVariants({ size: "md" })} />
               </MarkToolbarButton>
               <MarkToolbarButton tooltip="Code (⌘+E)" nodeType={MARK_CODE}>
-                <Icons.code />
+                <Icons.code className={iconVariants({ size: "md" })} />
               </MarkToolbarButton>
               <AlignDropdownMenu />
               <LineHeightDropdownMenu />
@@ -95,13 +98,17 @@ export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
             </ToolbarGroup>
             <ToolbarGroup>
               <ColorDropdownMenu nodeType={MARK_COLOR} tooltip="Text Color">
-                <Icons.color className={iconVariants({ variant: "toolbar" })} />
+                <Icons.color
+                  className={iconVariants({ variant: "toolbar", size: "md" })}
+                />
               </ColorDropdownMenu>
               <ColorDropdownMenu
                 nodeType={MARK_BG_COLOR}
                 tooltip="Highlight Color"
               >
-                <Icons.bg className={iconVariants({ variant: "toolbar" })} />
+                <Icons.bg
+                  className={iconVariants({ variant: "toolbar", size: "md" })}
+                />
               </ColorDropdownMenu>
             </ToolbarGroup>
             <ToolbarGroup>
@@ -116,7 +123,7 @@ export function FixedToolbarButtons({ isReadOnly = false }: IProps) {
           </>
         )}
 
-        <div className="grow" />
+        <div className={cn(!isFullScreen && "ms-auto")} />
 
         {!isReadOnly && (
           <ToolbarGroup noSeparator>

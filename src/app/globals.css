@@ -6,6 +6,7 @@
   :root {
     --background: 240 20% 99%;
     --foreground: 0 0% 9%;
+    --foreground-dark: 0 0% 9%;
     --active-bg: #9372ee20;
     --bg-overlay: #ffffff64;
     --bg-main: 0 0% 97%;
@@ -41,12 +42,16 @@
     --hover: #00000010;
 
     --radius: 0.5rem;
-    --bacgroud-image: url("/images/backgrounds/light-background-image.svg");
 
     --apps-header-height: 3.5rem;
     --apps-main-height: calc(100dvh - 3.5rem);
     --header-height: 3rem;
     --main-height: calc(100dvh - 3rem);
+
+    --spacing-form-label: 8px;
+    --spacing-form-padding: 24px;
+    --spacing-form-gap: 18px;
+    --spacing-element-height: 36px;
   }
 
   .dark {
@@ -79,8 +84,6 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-
-    --bacgroud-image: url("/images/backgrounds/dark-background-image.svg");
   }
 }
 
@@ -130,11 +133,20 @@
   }
 
   .fit {
-    @apply h-fit w-fit;
+    @apply !h-fit w-fit;
   }
 
   .center-position {
     @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+  .element-height {
+    @apply h-element;
+  }
+  .form-padding {
+    @apply p-form-padding
+  }
+  .form-gap {
+    @apply gap-form-gap
   }
 }
 
@@ -163,7 +175,7 @@ body {
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji";
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
   transition: background-color 300ms !important;
   overflow: hidden;
 }
@@ -172,7 +184,7 @@ button,
 a,
 p {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 input,
@@ -292,12 +304,6 @@ textarea {
   @apply absolute -bottom-1.5 right-1/2 h-3 w-3 translate-x-1/2 rotate-45 bg-popover;
 }
 
-.bg-image {
-  background-image: var(--bacgroud-image);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
 
 .dashboard-hero {
   background-image: url("/images/backgrounds/dashboard-hero-background.png");
@@ -307,7 +313,7 @@ textarea {
 }
 
 .app-store-hero {
-  background-image: linear-gradient(60deg, #3d73eb 13.4%, #de8fff 86.6%);
+  background: url("/images/backgrounds/seach-box-banner.png")
 }
 
 .app-store-hero:before,
@@ -316,15 +322,6 @@ textarea {
   @apply pointer-events-none absolute inset-0;
 }
 
-.app-store-hero:before {
-  background: url("/images/backgrounds/app-store-hero-dot-baclground.svg")
-    no-repeat 50%;
-}
-
-.app-store-hero:after {
-  background: url("/images/backgrounds/app-store-hero-baclground.svg") no-repeat
-    50%;
-}
 
 .bg-linearGradient {
   background: linear-gradient(89.33deg, #4d84ff 1.8%, #de8fff 94.53%);
@@ -342,4 +339,8 @@ textarea {
   background: linear-gradient(89.33deg, #4d84ff 1.8%, #de8fff 94.53%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.main-padding {
+  @apply ps-[68px]
 }

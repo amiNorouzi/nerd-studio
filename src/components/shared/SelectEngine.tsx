@@ -35,7 +35,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { SliderWithTooltip } from "@/components/shared/SliderWithTooltip";
-import { Setting } from "@/components/svg-icons";
 
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
@@ -43,6 +42,9 @@ import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { cn } from "@/lib/utils";
 
 import type { StateSetterType } from "@/services/types";
+import { iconVariants } from "@/constants/variants";
+import { Label } from "@/components/ui/label";
+import { TbSettings } from "react-icons/tb";
 
 type EnginesType = keyof typeof enginesImage;
 interface IProps {
@@ -166,7 +168,9 @@ function SettingPopover({ engine }: SettingPopoverProps) {
         className="absolute end-7 top-1/2 -translate-y-1/2"
       >
         <Button variant="ghost" size="icon" onClick={() => setOpen(true)}>
-          <Setting className="hover:bg-transparent" />
+          <TbSettings
+            className={cn(iconVariants({ size: "sm" }), "hover:bg-transparent")}
+          />
         </Button>
       </PopoverTrigger>
 
@@ -177,8 +181,8 @@ function SettingPopover({ engine }: SettingPopoverProps) {
         <div className="grid grid-cols-1 space-y-3">
           <div className="flex justify-between">
             <div className="flex items-center justify-between gap-2">
-              <Setting height={30} width={30} />
-              <h4 className="text-xl font-medium">
+              <TbSettings className={iconVariants({ size: "lg" })} />
+              <h4 className="text-base font-medium">
                 {select_engine.engine_setting}
               </h4>
             </div>
@@ -324,9 +328,9 @@ function SelectEngineDropDown({ buttonStyle }: { buttonStyle?: ClassValue }) {
     <Select value={engine} onValueChange={handleSelect}>
       <div className="relative">
         <SelectTrigger
-          className={cn("m-0 w-full !text-xsm text-black", buttonStyle)}
+          className={cn("m-0 w-full !text-xsm text-foreground", buttonStyle)}
         >
-          <SelectValue placeholder="Select an option" className="!text-xsm" />
+          <SelectValue placeholder="Select an option" />
         </SelectTrigger>
         <SettingPopover engine={engine} />
       </div>
@@ -383,14 +387,9 @@ export function SelectEngine({
       className={cn("flex flex-col justify-center gap-2", className)}
       {...divProps}
     >
-      <span
-        className={cn(
-          "m-0 flex items-baseline gap-2 text-sm font-normal",
-          titleStyle,
-        )}
-      >
-        {title ?? select_engine.engines}
-      </span>
+      <Label className={cn(titleStyle)}>
+        {title ?? select_engine.engine_label}
+      </Label>
 
       <SelectEngineDropDown buttonStyle={buttonStyle} />
     </div>

@@ -1,11 +1,16 @@
 import React, { useRef } from "react";
+
+import { TbMicrophone } from "react-icons/tb";
+
 import { MyTooltip } from "@/components/shared";
 import { Button } from "@/components/ui/button";
-import { Mic } from "@/components/svg-icons";
-import { useChatStore } from "@/stores/zustand/chat-store";
+
 import { useGetDictionary, useSpeechToText } from "@/hooks";
 import useAutosizeTextArea from "@/hooks/useAutosizeTextArea";
+
+import { useChatStore } from "@/stores/zustand/chat-store";
 import { cn } from "@/lib/utils";
+import { iconVariants } from "@/constants/variants";
 
 /**
  * this component is for prompt input text box and microphone button
@@ -32,18 +37,20 @@ export function PromptInputTextBox() {
       {/*voice input button*/}
       <MyTooltip title={chatDictionary.voice_input_button_label}>
         <Button
+          type="button"
           variant="ghost"
           className={cn(
-            "fit  mt-2.5 p-0 transition-all",
+            "fit me-0.5 mt-2.5 p-0 transition-all",
             isRecording &&
-              "scale-110  rounded-full bg-white p-2 shadow shadow-primary",
+              "shadow-mic me-2 mt-1 scale-110 rounded-full bg-white p-1.5 !shadow-primary",
           )}
           onClick={handleToggleRecording}
         >
-          <Mic
+          <TbMicrophone
             className={cn(
-              "h-5 w-5 fill-muted-foreground-light transition-all",
-              isRecording && "fill-primary-dark",
+              "text-muted-foreground transition-all",
+              isRecording && "text-primary-dark",
+              iconVariants({ size: "md" }),
             )}
           />
         </Button>

@@ -6,7 +6,7 @@ import {
   useIndentListToolbarButtonState,
 } from "@udecode/plate-indent-list";
 
-import { Icons } from "@/components/icons";
+import { Icons, iconVariants } from "@/components/icons";
 
 import { ToolbarButton } from "./toolbar";
 
@@ -27,7 +27,11 @@ export const IndentListToolbarButton = withRef<
       }
       {...props}
     >
-      {nodeType === ListStyleType.Disc ? <Icons.ul /> : <Icons.ol />}
+      {nodeType === ListStyleType.Disc ? (
+        <Icons.ul className={iconVariants({ size: "md" })} />
+      ) : (
+        <Icons.ol className={iconVariants({ size: "md" })} />
+      )}
     </ToolbarButton>
   );
 });

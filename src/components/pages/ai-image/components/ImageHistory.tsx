@@ -1,6 +1,5 @@
 "use client";
 
-import { FiSearch } from "react-icons/fi";
 import { useMediaQuery } from "usehooks-ts";
 
 import ImageHistoryItem from "./ImageHistoryItem";
@@ -10,9 +9,11 @@ import { Input } from "@/components/ui/input";
 import { useGetDictionary } from "@/hooks";
 
 import type { HistoryItem, StateSetterType } from "@/services/types";
-import { TbHistory } from "react-icons/tb";
+import { TbHistory, TbSearch } from "react-icons/tb";
 import React, { useState } from "react";
 import ImageHistoryInfo from "@/components/pages/ai-image/components/ImageHistoryInfo";
+import { iconVariants } from "@/constants/variants";
+import { cn } from "@/lib/utils";
 
 interface IProps {
   histories: HistoryItem[];
@@ -54,20 +55,22 @@ function ImageHistory({
   const renderMain = () => (
     <>
       <h3 className="row mb-2 gap-1 border-b px-4 py-2.5 font-semibold text-primary">
-        <TbHistory size={20} />
+        <TbHistory className={iconVariants({ size: "md" })} />
         {imageDictionary.history_title}
       </h3>
       <div className="col gap-2 p-5 md:p-2">
         {/*search input*/}
-        <div className="relative w-full">
+        <div className="w-ful bg-backgroundl relative">
           <Input
             type="search"
-            className=" w-full bg-muted ps-7 font-light"
+            className=" w-full bg-background ps-8 font-light"
             placeholder={search}
           />
-          <FiSearch
-            size="1rem"
-            className="absolute start-2 top-1/2 -translate-y-1/2"
+          <TbSearch
+            className={cn(
+              "absolute start-2 top-1/2 -translate-y-1/2",
+              iconVariants({ size: "md" }),
+            )}
           />
         </div>
         {histories?.map(history => (

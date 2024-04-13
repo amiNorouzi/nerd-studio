@@ -1,8 +1,11 @@
-import React from "react";
+import { TbPlayerStopFilled } from "react-icons/tb";
+
 import { Button, ButtonProps } from "@/components/ui/button";
-import { Stop } from "@/components/svg-icons";
-import { cn } from "@/lib/utils";
+
 import { useGetDictionary } from "@/hooks";
+
+import { cn } from "@/lib/utils";
+import { iconVariants } from "@/constants/variants";
 
 interface IProps extends ButtonProps {}
 
@@ -18,15 +21,17 @@ export function StopResponseButton({ className, ...props }: IProps) {
   } = useGetDictionary();
   return (
     <Button
-      variant="ghost"
-      className={cn(
-        "items-center gap-3 rounded-xl bg-primary-light p-4 text-base text-primary hover:text-primary-dark",
-        className,
-      )}
+      variant="secondary"
+      className={cn("items-center gap-2 shadow-2xl", className)}
       onClick={() => console.log("stop responding")}
       {...props}
     >
-      <Stop className="fill-primary stroke-primary" />
+      <TbPlayerStopFilled
+        className={cn(
+          "fill-primary stroke-primary",
+          iconVariants({ size: "md" }),
+        )}
+      />
       {chat.stop_response_button_label}
     </Button>
   );

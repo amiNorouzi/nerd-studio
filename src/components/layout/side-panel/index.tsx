@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { useParams, usePathname } from "next/navigation";
 
@@ -13,9 +13,12 @@ import { Button } from "@/components/ui/button";
 
 import { useUiStore } from "@/stores/zustand/ui-store";
 import useMobileSize from "@/hooks/useMobileSize";
+import { useTheme } from "@/hooks/useTheme";
+import useOutsideClick from "@/hooks/useOutSideClick";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
 import { apps } from "@/constants/side-panel";
+import { dirInLocalStorage } from "@/stores/browser-storage";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
@@ -30,6 +33,9 @@ export function SidePanel() {
   const setIsHoverOnSidePanel = useUiStore.use.setIsHoverOnSidePanel();
   const setIsSidePanelOpen = useUiStore.use.setIsSidePanelOpen();
   const collapsed = !isSidePanelOpen;
+  const dir = dirInLocalStorage.get().dir ?? "ltr";
+  const isLtr = dir === "ltr";
+  const { activeTheme } = useTheme();
 
   const isMainHeader =
     pathname === `/${lang}` ||
@@ -40,11 +46,15 @@ export function SidePanel() {
   useEffect(() => {
     const main = document.getElementById("main");
     if (collapsed && !isMobile) {
-      main!.style.paddingLeft = "68px";
+      main!.classList.add("main-padding");
     } else {
-      main!.style.paddingLeft = "0px";
+      main!.classList.remove("main-padding");
     }
-  }, [collapsed, isMobile]);
+  }, [collapsed, isMobile, lang]);
+
+  //Handel outsideClick in mobile
+  const sidebarRef = useRef<HTMLHtmlElement>(null);
+  useOutsideClick(sidebarRef, isMobile, setIsSidePanelOpen);
 
   const isOpen = !collapsed || isHoverOnSidePanel;
 
@@ -52,6 +62,7 @@ export function SidePanel() {
     <>
       <div>
       <Sidebar
+        ref={sidebarRef}
         collapsed={collapsed}
         collapsedWidth={isMobile ? "0" : isHoverOnSidePanel ? "240px" : "68px"}
         width="240px"
@@ -59,8 +70,9 @@ export function SidePanel() {
         backgroundColor={getHslColorByVar("--background")}
         rootStyles={{
           overflow: "hidden",
-          borderRightWidth: "1px",
-          borderRightColor: getHslColorByVar("--border"),
+          borderRightWidth: isLtr ? "1px" : 0,
+          borderLeftWidth: isLtr ? 0 : "1px",
+          borderColor: getHslColorByVar("--border"),
           position: isMobile || collapsed ? "fixed" : "sticky",
           top: 0,
           bottom: 0,
@@ -108,7 +120,7 @@ export function SidePanel() {
           menuItemStyles={{
             button: ({ active }) => ({
               background: active
-                ? `linear-gradient(90deg, ${getHslColorByVar("--primary-light")}, transparent)`
+                ? `linear-gradient(90deg, ${getHslColorByVar(activeTheme.includes("-dark") ? "--primary-dark" : "--primary-light")}, transparent)`
                 : "transparent",
               color: active
                 ? getHslColorByVar("--foreground")
@@ -117,7 +129,7 @@ export function SidePanel() {
               justifyContent: isOpen ? "start" : "center",
               alignItems: "center",
               padding: isOpen ? "1px 10px" : "1px 4px 1px 0px",
-              height: "45px",
+              height: "var(--spacing-element-height)",
               width: "100%",
               zIndex: 1,
               "&:hover": {

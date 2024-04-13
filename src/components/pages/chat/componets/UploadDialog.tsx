@@ -44,14 +44,13 @@ export function UploadDialog({ children, open, setOpen }: IProps) {
       <MyTooltip title={chat.upload_button_label}>
         <DialogTrigger asChild>{children}</DialogTrigger>
       </MyTooltip>
-      <DialogContent className="flex h-full max-h-[400px] w-full  max-w-[704px] flex-col justify-start  gap-3 divide-y  p-0">
+      <DialogContent className="flex h-full max-h-[320px] w-full  max-w-xl flex-col justify-start  gap-3 divide-y  p-0">
         <DialogHeader className="m-0 p-6 pb-0">
-          <DialogTitle className="flex gap-2 text-2xl font-medium">
-            <FiUpload size={35} />
+          <DialogTitle className="flex gap-2 font-medium">
             {chat.upload_label}
           </DialogTitle>
         </DialogHeader>
-        <div className="flex flex-1 flex-col justify-between p-9 pt-3">
+        <div className="form-padding flex flex-1 flex-col justify-between pt-3">
           {/*upload zone and show uploaded files*/}
           <ShowUploadedFiles
             files={documentFiles}
@@ -67,7 +66,7 @@ export function UploadDialog({ children, open, setOpen }: IProps) {
           </ShowUploadedFiles>
 
           <div className="flex w-full justify-end">
-            <Button className="w-full lg:w-1/2" onClick={handleSaveButton}>
+            <Button className="px-9" onClick={handleSaveButton}>
               {chat.save_button_label}
             </Button>
           </div>

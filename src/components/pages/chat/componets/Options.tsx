@@ -6,7 +6,7 @@ interface IProps extends React.ComponentPropsWithoutRef<"div"> {
 export function Options({ children, className, ...divProps }: IProps) {
   return (
     <div
-      className={cn("col flex-grow items-center gap-9", className)}
+      className={cn("col form-gap flex-grow items-center", className)}
       {...divProps}
     >
       {children}

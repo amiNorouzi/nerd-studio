@@ -9,6 +9,7 @@ export function useGetDictionary() {
   const [dictionary, setDictionary] = useState(defaultLang);
   useEffect(() => {
     const fetchDictionary = async () =>
+      //@ts-ignore
       setDictionary(await getDictionary(lang as Locale));
 
     fetchDictionary();

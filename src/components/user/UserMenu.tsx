@@ -5,7 +5,6 @@ import {
   MdOutlineManageAccounts,
   MdOutlineRoomPreferences,
 } from "react-icons/md";
-import { RiLogoutCircleRLine } from "react-icons/ri";
 
 import {
   HoverCard,
@@ -15,10 +14,8 @@ import {
 import RenderIf from "@/components/shared/RenderIf";
 import { UserAvatar } from "@/components/user/UserAvatar";
 import { UserMenuItem } from "./UserMenuItem";
-
-import { useTheme } from "@/hooks/useTheme";
 import { useGetDictionary } from "@/hooks";
-import { TbBell } from "react-icons/tb";
+import { TbBell, TbLogout2 } from "react-icons/tb";
 import { useUiStore } from "@/stores/zustand/ui-store";
 
 import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
@@ -38,7 +35,6 @@ export function UserMenu() {
   const setUserPanelActiveMenu = useUiStore.use.setUserPanelActiveMenu();
   const setOpenUserPanelDialog = useUiStore.use.setOpenUserPanelDialog();
 
-  useTheme(); //for apply prev selected theme in first load
   const isOpenSidePanel = useCheckSidePanelOpen();
 
   const {
@@ -127,7 +123,7 @@ export function UserMenu() {
           <UserMenuItem
             onClick={() => signOut()}
             title={userMenuDictionary.logout_label}
-            icon={RiLogoutCircleRLine}
+            icon={TbLogout2}
           />
         </HoverCardContent>
       </HoverCard>

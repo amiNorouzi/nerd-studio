@@ -41,7 +41,7 @@ export const apps = [
   {
     id: "5",
     i18Key: "",
-    title: "Template",
+    title: "Prompt Library",
     route: "/template",
     icon: TbBooks,
   },

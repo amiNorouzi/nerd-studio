@@ -69,7 +69,7 @@ export function ChartsSection() {
       <div className="flex h-80 w-full flex-col gap-3">
         {/*title*/}
         <div className="row mb-3 gap-2 border-b">
-          <TbWriting className="mb-2 h-9 w-9 rounded-lg bg-primary-light p-1.5 text-primary" />
+          <TbWriting className="mb-2 h-9 w-9 min-w-9 rounded-lg bg-primary-light p-1.5 text-primary" />
 
           <div className="pb-2 max-sm:hidden">
             <h2 className="whitespace-nowrap">

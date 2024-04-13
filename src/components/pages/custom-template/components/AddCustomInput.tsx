@@ -19,6 +19,8 @@ import {
   reorder,
 } from "@/components/pages/custom-template/utils";
 import { RxDragHandleDots2 } from "react-icons/rx";
+import { DynamicInput } from "@/stores/zustand/types";
+import RenderIf from "@/components/shared/RenderIf";
 
 export function AddCustomInput() {
   const customTemplateInputs = useTemplateStore.use.customTemplateInputs();
@@ -54,21 +56,12 @@ export function AddCustomInput() {
       type: "text",
       options: [],
       isAdvance: false,
+      fieldKey: "",
     });
   };
 
-  return (
-    <div className="col px-4 pb-4 lg:px-7 lg:pb-7 xl:px-9 xl:pb-9">
-      <div className="row mb-2 gap-2 text-base font-bold">
-        {dictionary.inputs_label}
-        <Button
-          variant="secondary"
-          className="h-7 w-7 rounded-full p-0.5 "
-          onClick={handleAdd}
-        >
-          <TbPlus size={15} />
-        </Button>
-      </div>
+  const renderInputs = (inputs: DynamicInput[]) => {
+    return (
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable" direction="vertical">
           {(provided, snapshot) => (
@@ -78,7 +71,7 @@ export function AddCustomInput() {
               style={getListStyle(snapshot.isDraggingOver)}
               {...provided.droppableProps}
             >
-              {customTemplateInputs.map((input, index) => (
+              {inputs.map((input, index) => (
                 <Draggable key={input.id} draggableId={input.id} index={index}>
                   {(provided, snapshot) => (
                     <div
@@ -99,7 +92,7 @@ export function AddCustomInput() {
                       >
                         <RxDragHandleDots2 size={20} />
                       </div>
-                      <CreateInputItem item={input} />
+                      <CreateInputItem item={input} order={index + 1} />
                     </div>
                   )}
                 </Draggable>
@@ -108,6 +101,29 @@ export function AddCustomInput() {
           )}
         </Droppable>
       </DragDropContext>
+    );
+  };
+
+  return (
+    <div className="col px-4 pb-4 lg:px-7 lg:pb-7 xl:px-9 xl:pb-9">
+      <div className="row mb-2 gap-2 text-base font-bold">
+        {dictionary.inputs_label}
+        <Button
+          variant="secondary"
+          className="!h-7 w-7 rounded-full p-0.5 "
+          onClick={handleAdd}
+        >
+          <TbPlus size={15} />
+        </Button>
+      </div>
+      {renderInputs(customTemplateInputs.filter(input => !input.isAdvance))}
+
+      <RenderIf isTrue={customTemplateInputs.some(input => input.isAdvance)}>
+        <p className="mb-2 mt-5 border-b py-2 text-base font-bold">
+          {dictionary.advance_inputs_label}
+        </p>
+        {renderInputs(customTemplateInputs.filter(input => input.isAdvance))}
+      </RenderIf>
     </div>
   );
 }

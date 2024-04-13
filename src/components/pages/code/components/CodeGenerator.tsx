@@ -7,6 +7,8 @@ import CodeLanguageSelect from "./CodeLanguageSelect";
 import Result from "./Result";
 
 import { useGetDictionary } from "@/hooks";
+import { useGenerateCode } from "@/services/code-generator";
+import { useEventChanel } from "@/services/events-chanel";
 
 /**
  * generate code by explanation feature
@@ -20,17 +22,29 @@ function CodeGenerator() {
   const {
     page: { code: codeDictionary },
   } = useGetDictionary();
+  const { mutate } = useGenerateCode();
+  const generatedCode = useEventChanel({ eventName: "code" });
+  const [prompt, setPrompt] = useState("");
 
+  const handleGenerate = () => {
+    mutate({
+      prompt,
+      language: currentLanguage,
+      model: "gpt-3.5-turbo-0125",
+      temperature: 0.1,
+      max_tokens: 100,
+    });
+  };
   return (
-    <div className="grid grid-cols-2 gap-4 xl:gap-7">
+    <div className="form-gap grid grid-cols-2">
       {/*code language input*/}
-      <div className="col col-span-2 gap-2">
+      <div className="col col-span-2 gap-label-space">
         <Label>{codeDictionary.code_language_select_label}</Label>
         <CodeLanguageSelect setCurrentLanguage={setCurrentLanguage} />
       </div>
 
       {/*code explanation input*/}
-      <div className="col col-span-2 gap-2">
+      <div className="col col-span-2 gap-label-space">
         <Label htmlFor="generate-code-textarea">
           {codeDictionary.generate_code_textarea_label}
         </Label>
@@ -45,10 +59,11 @@ function CodeGenerator() {
 
       {/*common settings for all features of code*/}
       <CommonSettings
+        onSubmit={handleGenerate}
         submitButtonTitle={codeDictionary.generate_button_label}
       />
 
-      <Result outputLanguage={currentLanguage} />
+      <Result generatedCode={generatedCode} outputLanguage={currentLanguage} />
     </div>
   );
 }

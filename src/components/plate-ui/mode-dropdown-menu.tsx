@@ -7,7 +7,7 @@ import {
   usePlateStore,
 } from "@udecode/plate-common";
 
-import { Icons } from "@/components/icons";
+import { Icons, iconVariants } from "@/components/icons";
 
 import {
   DropdownMenu,
@@ -31,13 +31,17 @@ export function ModeDropdownMenu(props: DropdownMenuProps) {
   const item: any = {
     editing: (
       <>
-        <Icons.editing className="mr-2 h-5 w-5" />
+        <Icons.editing
+          className={iconVariants({ size: "sm", variant: "menuItem" })}
+        />
         <span className="hidden lg:inline">Editing</span>
       </>
     ),
     viewing: (
       <>
-        <Icons.viewing className="mr-2 h-5 w-5" />
+        <Icons.viewing
+          className={iconVariants({ size: "sm", variant: "menuItem" })}
+        />
         <span className="hidden lg:inline">Viewing</span>
       </>
     ),
@@ -50,7 +54,7 @@ export function ModeDropdownMenu(props: DropdownMenuProps) {
           pressed={openState.open}
           tooltip="Editing mode"
           isDropdown
-          className="min-w-[auto] lg:min-w-[130px]"
+          className="h-element min-w-[auto] lg:min-w-[130px]"
         >
           {item[value]}
         </ToolbarButton>

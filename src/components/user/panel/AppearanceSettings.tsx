@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import type { PrimaryColor, Theme } from "@/stores/browser-storage/types";
 
 import { primaryColors, themes } from "@/constants/theme";
+import { iconVariants } from "@/constants/variants";
 
 /**
  * Appearance settings panel in user panel dialog
@@ -61,8 +62,7 @@ export default function AppearanceSettings() {
         {primaryColors.map(primary => (
           <Button
             variant="ghost"
-            size="icon"
-            className="rounded-full"
+            className="centered-col w-element rounded-full p-2"
             style={{ backgroundColor: primary.color }}
             key={primary.id}
             onClick={() =>
@@ -72,7 +72,7 @@ export default function AppearanceSettings() {
             }
           >
             <RenderIf isTrue={primary.key === activePrimaryColor}>
-              <BsCheck2 size="1.5rem" />
+              <BsCheck2 className={iconVariants({ size: "md" })} />
             </RenderIf>
           </Button>
         ))}

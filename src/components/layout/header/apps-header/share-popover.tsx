@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
 import { dirInLocalStorage } from "@/stores/browser-storage";
+import { iconVariants } from "@/constants/variants";
 
 interface IProps {
   children: React.ReactNode;
@@ -22,8 +23,11 @@ export function SharePopover({ children }: IProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="  gap-1 ">
-          <TbShare size={16} /> <span>{components.apps_header.share}</span>
+        <Button variant="outline" className="px-2.5 md:px-4">
+          <TbShare className={iconVariants({ size: "sm" })} />{" "}
+          <span className="ms-1.5 hidden md:block">
+            {components.apps_header.share}
+          </span>
         </Button>
       </PopoverTrigger>
       <PopoverContent

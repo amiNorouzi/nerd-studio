@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { FiUpload } from "react-icons/fi";
 import { AiOutlineLink } from "react-icons/ai";
 import { TooltipForUploadedFile } from "../../TooltipForUploadedFile";
 import { DialogForUpload } from "./dialog-for-upload";
@@ -9,6 +8,8 @@ import { DialogForUpload } from "./dialog-for-upload";
 import { useGetDictionary } from "@/hooks";
 import { useHandleUpload } from "./useHandleUpload";
 import { cn } from "@/lib/utils";
+import { TbUpload } from "react-icons/tb";
+import { iconVariants } from "@/constants/variants";
 
 interface IProps {
   setFiles: (files: File[]) => void;
@@ -49,11 +50,11 @@ export function Upload(props: IProps) {
     (fileType === "file" && files.length > 0) ||
     (fileType === "url" && userUrl);
   return (
-    <div>
+    <>
       <div
         className={cn(
-          "flex items-start justify-between p-3",
-          isFileOrUrlValid && "border",
+          "flex items-start justify-between rounded-lg",
+          isFileOrUrlValid && "-mt-3 border p-2",
         )}
       >
         <div className="flex flex-wrap gap-1">
@@ -83,9 +84,17 @@ export function Upload(props: IProps) {
         <Button
           onClick={handleTriggerOpenButton}
           variant="muted"
-          className="gap-2 text-sm text-muted-foreground"
+          className={cn(
+            "gap-2 text-sm text-muted-foreground transition-all duration-300",
+            !isFileOrUrlValid && "-me-0.5 -mt-[31px] ",
+          )}
         >
-          <FiUpload className="stroke-muted-foreground" size={20} />
+          <TbUpload
+            className={cn(
+              iconVariants({ size: "md" }),
+              "stroke-muted-foreground",
+            )}
+          />
           {form_section.form_upload}
         </Button>
       </div>
@@ -99,6 +108,6 @@ export function Upload(props: IProps) {
         url={url}
         setUrl={setUrl}
       />
-    </div>
+    </>
   );
 }

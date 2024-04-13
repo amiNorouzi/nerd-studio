@@ -14,7 +14,7 @@ function EmptyResult() {
     <div className="centered-col h-full w-full gap-2 pb-32">
       {/*icon*/}
       <div className="centered-col h-20 w-20 rounded-full border border-primary-light bg-primary-light/60 shadow-card-hover">
-        <Generate />
+        <Generate classname="h-8 w-8 fill-muted-foreground-light" />
       </div>
       <h2 className="text-3xl text-muted-foreground">
         {imageDictionary.empty_result_message}

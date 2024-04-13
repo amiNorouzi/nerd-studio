@@ -27,11 +27,8 @@ function NumberOfResults() {
     components: { form_section },
   } = useGetDictionary();
   return (
-    <div className=" mt-1 flex flex-col gap-3 ">
-      <Label
-        htmlFor="numOfResult"
-        className="flex flex-nowrap gap-2 text-sm font-normal"
-      >
+    <div className=" mt-1 flex flex-col gap-label-space ">
+      <Label htmlFor="numOfResult" className="flex flex-nowrap gap-1">
         {form_section.form_num_of_results}
         <DescriptionHoverCard
           description={form_section.form_num_of_results_desc}
@@ -43,6 +40,7 @@ function NumberOfResults() {
         value={searchParams.get("numOfResults") ?? "1"}
         onChange={e => setSearchParams("numOfResults", e.target.value)}
         min={1}
+        className="px-3"
       />
     </div>
   );
@@ -88,8 +86,8 @@ function Selects({
   }
 
   return (
-    <div className="flex flex-col gap-3">
-      <span className="m-0 flex items-baseline gap-2 text-sm font-normal">
+    <div className="flex flex-col gap-label-space">
+      <Label className="row m-0 gap-1">
         {
           form_section[
             resolveKey(keyInSearchParam as keyof typeof selectValues)
@@ -106,7 +104,7 @@ function Selects({
             }
           />
         )}
-      </span>
+      </Label>
 
       <SelectAndDrawer
         value={searchParams.get(keyInSearchParam) ?? value[0]}
@@ -148,47 +146,45 @@ export function OptionsSelectBoxes({
     components: { form_section },
   } = useGetDictionary();
   return (
-    <Collapsible open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger asChild>
-        <div
-          className={cn(
-            "mb-9 flex items-start justify-start gap-3",
-            // hiddenSelectResponseLang && "mb-0",
-          )}
-        >
-          <Switch
-            id="collapse-trigger"
-            checked={open}
-            onCheckedChange={setOpen}
-          />
-          <Label htmlFor="collapse-trigger" className="flex flex-col gap-0.5">
-            <span className="text-base font-medium">
-              {form_section.form_advanced}
-            </span>
-            <span className="text-base font-normal text-muted-foreground">
-              {form_section.form_advanced_description}
-            </span>
-          </Label>
-        </div>
-      </CollapsibleTrigger>
-      <div
-        data-state={open}
-        className="grid grid-cols-1 gap-y-9 data-[state=false]:gap-0"
-      >
-        {/*show language select box*/}
-        <RenderIf isTrue={!hiddenSelectResponseLang}>
-          <div className="grid grid-cols-1 items-start gap-x-5 gap-y-3 sm:grid-cols-2">
-            <SelectResponseLang />
+    <>
+      <RenderIf isTrue={!hiddenSelectResponseLang}>
+        <SelectResponseLang />
+      </RenderIf>
+      <Collapsible open={open} onOpenChange={setOpen}>
+        <CollapsibleTrigger asChild>
+          <div
+            className={cn(
+              "row mb-form-gap gap-3",
+              // hiddenSelectResponseLang && "mb-0",
+            )}
+          >
+            <Switch
+              id="collapse-trigger"
+              checked={open}
+              onCheckedChange={setOpen}
+            />
+            <Label htmlFor="collapse-trigger" className="flex flex-col">
+              <span className=" font-medium">{form_section.form_advanced}</span>
+              <span className="text-xs font-normal text-muted-foreground">
+                {form_section.form_advanced_description}
+              </span>
+            </Label>
           </div>
-        </RenderIf>
-        <CollapsibleContent className="grid grid-cols-1 items-start gap-x-5 gap-y-9  sm:grid-cols-2">
-          {/*show list of select box options(creativity,tone,...)*/}
-          <ListOfSelectBox />
+        </CollapsibleTrigger>
+        <div
+          data-state={open}
+          className="grid grid-cols-1 gap-y-9 data-[state=false]:gap-0"
+        >
+          {/*show language select box*/}
+          <CollapsibleContent className="form-gap grid grid-cols-1 items-start sm:grid-cols-2">
+            {/*show list of select box options(creativity,tone,...)*/}
+            <ListOfSelectBox />
 
-          {/*show input type number for determine number of results*/}
-          <NumberOfResults />
-        </CollapsibleContent>
-      </div>
-    </Collapsible>
+            {/*show input type number for determine number of results*/}
+            <NumberOfResults />
+          </CollapsibleContent>
+        </div>
+      </Collapsible>
+    </>
   );
 }

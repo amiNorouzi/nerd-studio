@@ -1,5 +1,5 @@
 "use client";
-import { InputHTMLAttributes } from "react";
+import React, { ComponentPropsWithoutRef, InputHTMLAttributes } from "react";
 
 import { TbPlus, TbTrash } from "react-icons/tb";
 import type { SelectProps } from "@radix-ui/react-select";
@@ -18,27 +18,34 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 
-import type { CustomTemplateInput } from "@/stores/zustand/types";
+import type { DynamicInput } from "@/stores/zustand/types";
+import { Slider } from "@/components/ui/slider";
+import { Root } from "@radix-ui/react-slider";
 
 type ChangeValue = { onChangeValue: (val: string | number) => void };
 type InputProps = InputHTMLAttributes<HTMLInputElement> &
-  CustomTemplateInput &
+  DynamicInput &
   ChangeValue;
 type TextAreaProps = InputHTMLAttributes<HTMLTextAreaElement> &
-  CustomTemplateInput &
+  DynamicInput &
   ChangeValue;
-type SingleSelectProps = SelectProps & CustomTemplateInput & ChangeValue;
+type SingleSelectProps = SelectProps & DynamicInput & ChangeValue;
+type RangeProps = ComponentPropsWithoutRef<typeof Root> &
+  DynamicInput &
+  ChangeValue;
 
 export function TextInput({
   placeholder,
   defaultValue,
   onChangeValue,
+  value,
   ...otherProps
 }: InputProps) {
   return (
     <Input
       placeholder={placeholder}
       defaultValue={defaultValue}
+      value={value}
       {...otherProps}
       onChange={e => onChangeValue(e.target.value)}
     />
@@ -101,7 +108,7 @@ export function SingleSelect({
       <SelectTrigger className="col-span-8 md:col-span-2">
         <SelectValue placeholder={placeholder} {...otherProps} />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="max-h-[40dvh]">
         {options.map(item => (
           <SelectItem key={item.id} value={item.value}>
             {item.value}
@@ -160,5 +167,26 @@ export function TextListInputs({
         <TbPlus size={15} />{" "}
       </Button>
     </div>
+  );
+}
+
+export function Range({
+  defaultValue,
+  onChangeValue,
+  min,
+  max,
+  step,
+  value,
+  ...otherProps
+}: RangeProps) {
+  return (
+    <Slider
+      value={[Number(value)]}
+      min={min}
+      max={max}
+      step={step}
+      {...otherProps}
+      onValueChange={val => onChangeValue(val[0])}
+    />
   );
 }

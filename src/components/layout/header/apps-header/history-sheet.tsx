@@ -5,11 +5,9 @@ import { useGetDictionary } from "@/hooks";
 import { useParams, usePathname } from "next/navigation";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { TbHistory } from "react-icons/tb";
+import { iconVariants } from "@/constants/variants";
 
-interface IProps {
-  children: React.ReactNode;
-}
-export function HistorySheet({ children }: IProps) {
+export function HistorySheet() {
   const { components } = useGetDictionary();
   const pathname = usePathname();
   const { lang } = useParams();
@@ -21,33 +19,16 @@ export function HistorySheet({ children }: IProps) {
 
   return (
     <>
-      {/*<Sheet>*/}
-      {/*  <SheetTrigger asChild>*/}
       <Button
         variant="outline"
-        size="sm"
-        className="gap-1"
         onClick={() => setHistoryIsOpen(!isHistoryOpen)}
+        className="px-2.5 md:px-4"
       >
-        <TbHistory size={16} />
-        {components.apps_header.history}
+        <TbHistory className={iconVariants({ size: "sm" })} />
+        <span className="ms-1.5 hidden md:block">
+          {components.apps_header.history}
+        </span>
       </Button>
-      {/* </SheetTrigger>*/}
-      {/*<SheetContent className="w-full max-w-[400px] sm:max-w-[600px]">*/}
-      {/*  <SheetHeader>*/}
-      {/*    <SheetTitle>{components.apps_header.history}</SheetTitle>*/}
-      {/*    <SheetDescription></SheetDescription>*/}
-      {/*  </SheetHeader>*/}
-      {/*  {children}*/}
-
-      {/*<SheetFooter>*/}
-      {/*  <SheetClose asChild>*/}
-      {/*    <Button type="submit">Save changes</Button>*/}
-      {/*  </SheetClose>*/}
-      {/*</SheetFooter>*/}
-
-      {/*  </SheetContent>*/}
-      {/*</Sheet>*/}
     </>
   );
 }

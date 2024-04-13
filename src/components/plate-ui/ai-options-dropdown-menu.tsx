@@ -1,5 +1,4 @@
 import { getSelectionText, useEditorRef } from "@udecode/plate-common";
-import { TbPencilStar } from "react-icons/tb";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +15,8 @@ import {
 import { ToolbarButton } from "@/components/plate-ui/toolbar";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { type BaseEditor, Transforms } from "slate";
+import { Generate } from "@/components/svg-icons";
+import { cn } from "@/lib/utils";
 
 export function AiOptionsDropdownMenu(props: DropdownMenuProps) {
   const openState = useOpenState();
@@ -42,7 +43,7 @@ export function AiOptionsDropdownMenu(props: DropdownMenuProps) {
           isDropdown
           className=""
         >
-          <TbPencilStar />
+          <Generate classname={cn("!h-3.5 !w-3.5", "!fill-foreground")} />
         </ToolbarButton>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

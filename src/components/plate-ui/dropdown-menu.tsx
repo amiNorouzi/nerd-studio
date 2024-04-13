@@ -32,7 +32,7 @@ export const DropdownMenuSubTrigger = withRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",
+      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 outline-none focus:bg-accent data-[state=open]:bg-accent",
       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "pl-8",
       className,
@@ -72,7 +72,7 @@ export const DropdownMenuContent = withRef<
 
 const menuItemVariants = cva(
   cn(
-    "relative flex h-9 cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors",
+    "relative flex h-9 cursor-pointer select-none items-center rounded-sm px-2 py-1.5 outline-none transition-colors",
     "focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
   ),
   {
@@ -96,13 +96,13 @@ export const DropdownMenuCheckboxItem = withRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      "relative flex select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex select-none items-center rounded-sm py-1.5 pl-8 pr-2 outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       "cursor-pointer",
       className,
     )}
     {...props}
   >
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+    <span className="absolute end-2 flex h-3.5 w-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
         <Icons.check className="h-4 w-4" />
       </DropdownMenuPrimitive.ItemIndicator>
@@ -120,8 +120,8 @@ export const DropdownMenuRadioItem = withRef<
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
-      "relative flex select-none items-center rounded-sm pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      "h-9 cursor-pointer px-2 data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground",
+      "relative flex select-none items-center rounded-sm pl-8 pr-2 outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "h-element cursor-pointer px-2 data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground",
       className,
     )}
     {...props}
@@ -138,7 +138,7 @@ export const DropdownMenuRadioItem = withRef<
 ));
 
 const dropdownMenuLabelVariants = cva(
-  cn("select-none px-2 py-1.5 text-sm font-semibold"),
+  cn("select-none px-2 py-1.5 font-semibold"),
   {
     variants: {
       inset: {
