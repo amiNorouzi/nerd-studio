@@ -7,12 +7,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Books } from "@/components/svg-icons";
 import { MyTooltip } from "@/components/shared/myTooltip";
 import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
 import { promptLibrary } from "@/constants/chat";
+import { cn } from "@/lib/utils";
+import { iconVariants } from "@/components/icons";
+import { TbBooks } from "react-icons/tb";
 
 /**
  * component for prompt library dialog
@@ -33,7 +35,12 @@ export function PromptLibraryDialog() {
             variant="ghost"
             className="fit group rounded  p-0 active:bg-primary-dark"
           >
-            <Books className="fill-muted-foreground-light group-active:fill-white" />
+            <TbBooks
+              className={cn(
+                "text-muted-foreground group-active:text-white",
+                iconVariants({ size: "sm" }),
+              )}
+            />
           </Button>
         </DialogTrigger>
       </MyTooltip>

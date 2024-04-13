@@ -20,27 +20,28 @@ export function EditorSectionFooter() {
   const editorTextContentValue = useEditorStore.use.editorTextContent();
   const [value, setValue] = useState<string>(characterValueItems[0]);
   const {
-    page: { ReWrite },
     components: { editor_section },
   } = useGetDictionary();
   const items = useMemo(() => {
     return characterValueItems.map(item => (
-      <SelectItem key={item} value={item} className="text-xsm">
-        {`${editor_section[item]} ${numberOfTextContent(item.split("_").pop() as WordType, editorTextContentValue)}`}
+      <SelectItem
+        key={item}
+        value={item}
+        className="flex flex-row-reverse justify-between gap-4 px-2 text-start"
+      >
+        {`${editor_section[item]}   ${numberOfTextContent(item.split("_").pop() as WordType, editorTextContentValue)}`}
       </SelectItem>
     ));
   }, [editorTextContentValue]);
 
   return (
-    <div className="h-14">
-      <Select value={value} onValueChange={setValue}>
-        <SelectTrigger className=" h-[42px] w-[200px] border-none">
-          <SelectValue placeholder="Select an option" className="text-xsm" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>{items}</SelectGroup>
-        </SelectContent>
-      </Select>
-    </div>
+    <Select value={value} onValueChange={setValue}>
+      <SelectTrigger className="row absolute bottom-2 start-2 h-7 w-fit gap-2 border-none text-xs font-normal ">
+        <SelectValue placeholder={editor_section.editor_footer_placeholder} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>{items}</SelectGroup>
+      </SelectContent>
+    </Select>
   );
 }

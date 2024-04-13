@@ -1,11 +1,11 @@
 "use client";
 import React, { useRef, useState, KeyboardEvent, FormEvent } from "react";
-import { FiUpload } from "react-icons/fi";
+
+import { TbBookmarks, TbSend, TbUpload } from "react-icons/tb";
 
 import { Button } from "@/components/ui/button";
 
 import { MyTooltip } from "@/components/shared/myTooltip";
-import { DoubleBookMark, NewChat, Send } from "@/components/svg-icons";
 import { PromptLibraryDialog } from "./PromptLibraryDialog";
 import { UploadDialog } from "./UploadDialog";
 import { ShowUploadedFiles } from "./ShowUploadedFiles";
@@ -15,7 +15,8 @@ import useErrorToast from "@/hooks/useErrorToast";
 import { useGetDictionary } from "@/hooks";
 import { useChatStore } from "@/stores/zustand/chat-store";
 
-import type { StateSetterType } from "@/services/types";
+import { iconVariants } from "@/constants/variants";
+import { MinimalButton } from "@/components/shared";
 /**
  * Prompt input component used in chat page
  * contains a textarea and send button nad some tools for input
@@ -69,7 +70,7 @@ export function PromptInput() {
         ref={formRef}
         onSubmit={handleSubmit}
         onKeyDown={handleKeyDown}
-        className="promptInputFormShadow col mx-auto h-fit w-full  rounded-lg border  border-primary-dark bg-primary-light p-2 lg:px-4 lg:py-3"
+        className="promptInputFormShadow col mx-auto h-fit w-full  rounded-lg border  border-primary-dark bg-primary-light p-2 lg:px-4 lg:py-2.5"
       >
         {/*prompt input text box and uploaded files*/}
         <div className=" col items-start">
@@ -82,33 +83,27 @@ export function PromptInput() {
           <PromptInputTextBox />
         </div>
         {/*buttons like send, save, upload, prompt library*/}
-        <div className="flex items-end gap-3">
+        <div className="flex items-end gap-1">
           {/*upload button that when click on it open modal*/}
           <UploadDialog
             setOpen={setOpenUploadDialog}
             open={openUploadDialog}
             key={String(openUploadDialog)}
           >
-            <Button
-              variant="ghost"
-              className="mt-2.5 h-6 w-6 p-0 text-muted-foreground-light hover:text-muted-foreground-light"
+            <MinimalButton
+              title="Upload"
+              Icon={TbUpload}
               onClick={() => setOpenUploadDialog(true)}
-            >
-              <FiUpload className="h-full w-full" />
-            </Button>
+            />
           </UploadDialog>
           {/*prompt library button*/}
           <PromptLibraryDialog />
           {/*save button*/}
-          <MyTooltip title={chatDictionary.saves_label}>
-            <Button
-              variant="ghost"
-              className="fit  group mt-2.5 rounded p-0 active:bg-primary-dark "
-            >
-              <DoubleBookMark className="fill-muted-foreground-light group-active:fill-white" />
-            </Button>
-          </MyTooltip>
-
+          <MinimalButton
+            Icon={TbBookmarks}
+            title={chatDictionary.saves_label}
+            className="-mb-0.5"
+          />
           <div className="row ms-auto gap-2">
             {/*words counter*/}
             <p className="text-xs font-light text-muted-foreground">{`${prompt.length}/4000`}</p>
@@ -116,10 +111,10 @@ export function PromptInput() {
             <MyTooltip title={chatDictionary.send_button_label}>
               <Button
                 variant="ghost"
-                className="h-8 w-8 rounded-full bg-primary-dark p-[10px] text-white hover:bg-primary-dark   lg:h-12 lg:w-12 "
+                className="w-element rounded-full bg-primary-dark p-1 text-white hover:bg-primary-dark   "
                 type="submit"
               >
-                <Send />
+                <TbSend className={iconVariants({ size: "md" })} />
               </Button>
             </MyTooltip>
           </div>

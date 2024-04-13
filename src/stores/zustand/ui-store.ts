@@ -5,6 +5,7 @@ import { immer } from "zustand/middleware/immer";
 import { createSelectors } from "./createSelectors";
 import type { IUiState } from "@/stores/zustand/types";
 import { accountSettingsItems } from "@/constants/user-panel";
+import { Theme } from "@/stores/browser-storage/types";
 
 const initialState = {
   isSidePanelOpen: false,
@@ -12,6 +13,7 @@ const initialState = {
   isOpenImageHistory: false,
   openUserPanelDialog: false,
   userPanelActiveMenu: accountSettingsItems[0].key,
+  activeTheme: "default" as Theme,
 };
 
 //for all the ui related states like open dialogs
@@ -39,6 +41,11 @@ export const useUi = create<IUiState>()(
       setUserPanelActiveMenu: (val: string) => {
         set(state => {
           state.userPanelActiveMenu = val;
+        });
+      },
+      setActiveTheme: val => {
+        set(state => {
+          state.activeTheme = val;
         });
       },
     })),

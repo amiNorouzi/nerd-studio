@@ -1,11 +1,6 @@
-import { TbDownload, TbPlus, TbSettings, TbTrash } from "react-icons/tb";
+import { TbPlus, TbSettings, TbTrash } from "react-icons/tb";
 import { v4 as uuidv4 } from "uuid";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -14,12 +9,8 @@ import { Switch } from "@/components/ui/switch";
 import { useTemplateStore } from "@/stores/zustand/template-store";
 import { useGetDictionary } from "@/hooks";
 
-import type {
-  CustomTemplateInput,
-  CustomTemplateInputType,
-} from "@/stores/zustand/types";
+import type { DynamicInput, DynamicInputType } from "@/stores/zustand/types";
 import RenderIf from "@/components/shared/RenderIf";
-import ImageAction from "@/components/pages/ai-image/components/ImageAction";
 import { ResponsivePopover, Show } from "@/components/shared";
 import {
   Select,
@@ -28,9 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { inputTypes } from "@/constants/custom-template";
+import { iconVariants } from "@/constants/variants";
 
-function CreateItemSettingsPopover({ item }: { item: CustomTemplateInput }) {
+function CreateItemSettingsPopover({ item }: { item: DynamicInput }) {
   const {
     page: { custom_template: dictionary },
   } = useGetDictionary();
@@ -60,7 +51,7 @@ function CreateItemSettingsPopover({ item }: { item: CustomTemplateInput }) {
           className="w-10 rounded-full p-1 data-[state=open]:bg-primary data-[state=open]:text-white"
           variant="secondary"
         >
-          <TbSettings size={20} />
+          <TbSettings className={iconVariants({ size: "md" })} />
         </Button>
       }
       drawerContentProps={{

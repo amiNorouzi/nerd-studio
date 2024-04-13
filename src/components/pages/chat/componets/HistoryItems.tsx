@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { FaRegTrashCan } from "react-icons/fa6";
+
+import { TbBookmarks, TbPin, TbTrash } from "react-icons/tb";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -8,8 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Bookmark, Pin } from "@/components/svg-icons";
-import { AudioPlayer } from "@/components/shared";
+import { AudioPlayer, MinimalButton } from "@/components/shared";
 
 import { useChatStore } from "@/stores/zustand/chat-store";
 import { cn } from "@/lib/utils";
@@ -38,23 +38,17 @@ function DeletePopOver({ item }: DeletePopoverProps) {
     <Popover open={open} onOpenChange={setOpen}>
       {/*delete popover button to open popover*/}
       <PopoverTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-fit w-fit p-1 transition-all hover:scale-110"
-          onClick={e => {
-            e.stopPropagation();
-            setOpen(true);
-            console.log("deleted itemId: ", item.id);
-          }}
-        >
-          <FaRegTrashCan
-            className={cn(
-              "fill-muted-foreground-light",
-              isItemSelected(item.id) && "fill-destructive",
-            )}
+        <div>
+          <MinimalButton
+            Icon={TbTrash}
+            iconClassname={isItemSelected(item.id) ? "text-destructive" : ""}
+            onClick={e => {
+              e.stopPropagation();
+              setOpen(true);
+              console.log("deleted itemId: ", item.id);
+            }}
           />
-        </Button>
+        </div>
       </PopoverTrigger>
       <PopoverContent
         className="flex w-80 flex-col gap-4"
@@ -107,7 +101,7 @@ export function HistoryItems() {
     <div
       key={item.id}
       className={cn(
-        "flex w-full cursor-pointer flex-col gap-3 rounded-lg border bg-white p-2 transition-all hover:bg-muted-dark",
+        "flex w-full cursor-pointer flex-col gap-3 rounded-lg border bg-background p-2 transition-all hover:bg-muted-dark",
         isItemSelected(item.id) &&
           "border-primary bg-primary-light hover:bg-primary-light",
       )}
@@ -118,34 +112,18 @@ export function HistoryItems() {
         <span className=" text-muted-foreground">{item.title}</span>
         {/*delete and bookmark buttons*/}
         <div className="flex items-center gap-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            className=" h-fit w-fit p-1 transition-all hover:scale-110"
-          >
-            <Pin
-              className={cn(
-                "h-5 w-5 fill-muted-foreground-light",
-                isItemSelected(item.id) && "fill-primary",
-              )}
-            />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className=" h-fit w-fit p-1 transition-all hover:scale-110"
-          >
-            <Bookmark
-              className={cn(
-                "h-5   w-5 fill-muted-foreground-light",
-                isItemSelected(item.id) && "fill-primary",
-              )}
-              onClick={e => {
-                e.stopPropagation();
-                console.log("bookmark itemId: ", item.id);
-              }}
-            />
-          </Button>
+          <MinimalButton
+            Icon={TbPin}
+            iconClassname={isItemSelected(item.id) ? "text-primary" : ""}
+          />
+          <MinimalButton
+            Icon={TbBookmarks}
+            iconClassname={isItemSelected(item.id) ? "text-primary" : ""}
+            onClick={e => {
+              e.stopPropagation();
+              console.log("bookmark itemId: ", item.id);
+            }}
+          />
           <DeletePopOver item={item} />
         </div>
       </div>

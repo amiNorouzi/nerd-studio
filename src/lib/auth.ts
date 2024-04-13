@@ -1,11 +1,16 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-
-import CredentialsProvider from "next-auth/providers/credentials";
-import { loginApi, signupConfirmApi } from "@/services/authentication-services";
 import { jwtDecode } from "jwt-decode";
 import { isAxiosError } from "axios";
-import { User } from "@/services/types";
+import CredentialsProvider from "next-auth/providers/credentials";
+
+import {
+  loginApi,
+  oAuthLoginApi,
+  signupConfirmApi,
+} from "@/services/authentication-services";
+
+import type { User } from "@/services/types";
 
 export const authConfig = {
   providers: [
@@ -97,57 +102,35 @@ export const authConfig = {
     }),
   ],
   callbacks: {
-    async signIn({ account, profile }) {
-      if (account?.provider.includes("credentials")) return true;
-      console.log("data in signin callback: ", {
-        account,
-        profile,
-      });
-      // first axios request to ascertain if our user exists in our custom DB
-      //TODO: check user exist with api
-      // const response = await axios.post(
-      //     "http://localhost:9000/v1/auth/userExists",
-      //     { email: profile.email }
-      // );
-
-      // if (response && response.data?.value === true){
-      const res = true;
-      if (res) {
-        // user exists return true passing control to the next callback
-        return true;
-      } else {
-        // second axios call which creates a new user in our database
-        //TODO: signup user with api
-
-        // const data = {
-        //   firstName: profile.given_name,
-        //   lastName: profile.family_name,
-        //   email: profile.email,
-        //   profileUrl: profile.picture,
-        // };
-        // const response = await axios.post(
-        //     "http://localhost:9000/v1/auth/signup",
-        //     data
-        // );
-        // return true thereby passing control to the next callback
-        return true;
-      }
-    },
     async jwt({ token, user, account }) {
       if (user && account) {
+        //get tokens from passed user in credentials login
         if (account.type === "credentials") {
           token.accessToken = user.accessToken;
           token.refreshToken = user.refreshToken;
         } else {
-          token.accessToken = account.accessToken;
-          token.refreshToken = account.refreshToken;
+          //in oAuth login fetch tokens with api
+          if (user) {
+            try {
+              const { data } = await oAuthLoginApi({
+                email: user.email!,
+                name: user.name!,
+                user_id: user.id,
+                picture: user.image || "",
+              });
+              token.accessToken = data.access_token;
+              token.refreshToken = data.refresh_token;
+            } catch (e) {
+              console.log(e);
+            }
+          }
         }
       }
       // the token object is passed done to the session call back for persistence
       return token;
     },
 
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       const { picture, ...rest } = token;
       session.user = {
         ...(rest as any),

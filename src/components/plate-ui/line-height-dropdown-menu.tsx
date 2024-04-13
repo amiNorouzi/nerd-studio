@@ -5,7 +5,7 @@ import {
   useLineHeightDropdownMenuState,
 } from "@udecode/plate-line-height";
 
-import { Icons } from "@/components/icons";
+import { Icons, iconVariants } from "@/components/icons";
 
 import {
   DropdownMenu,
@@ -30,7 +30,7 @@ export function LineHeightDropdownMenu({ ...props }: DropdownMenuProps) {
           tooltip="Line height"
           isDropdown
         >
-          <Icons.lineHeight />
+          <Icons.lineHeight className={iconVariants({ size: "md" })} />
         </ToolbarButton>
       </DropdownMenuTrigger>
 

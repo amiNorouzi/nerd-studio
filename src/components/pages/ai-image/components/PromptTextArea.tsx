@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
 
 import { Label } from "@/components/ui/label";
 import { CustomTextarea } from "@/components/shared";
 
 import { useGetDictionary } from "@/hooks";
+import useInputValue from "@/components/pages/ai-image/hooks/useInputValue";
 
 /**
  * Prompt textarea component
@@ -16,24 +16,23 @@ function PromptTextArea() {
   const {
     page: { image: imageDictionary },
   } = useGetDictionary();
-  const [value, setValue] = useState("");
+  const { getValue, changeValue } = useInputValue();
 
   return (
-    <>
+    <div className="col gap-label-space">
       {/*label*/}
       <Label htmlFor="image-prompt-teaxtarea">
         {imageDictionary.prompt_title}
       </Label>
       <CustomTextarea
-        name="promptTextbox"
+        name="text"
         id="image-prompt-teaxtarea"
         placeholder={imageDictionary.prompt_placeholder}
         maxLength={4000}
-        setValue={setValue}
-        value={value}
-        rootClassName=" mb-2 lg:mb-3 xl:mb-5"
+        value={String(getValue("text") || "")}
+        setValue={val => changeValue("text", val)}
       />
-    </>
+    </div>
   );
 }
 

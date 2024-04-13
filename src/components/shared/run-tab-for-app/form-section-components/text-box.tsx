@@ -1,22 +1,27 @@
 "use client";
-import React from 'react';
 
-import {Label} from '@/components/ui/label';
-import {CustomTextarea} from '@/components/shared';
-import RenderIf from '../../RenderIf';
+import { v4 as uuidv4 } from "uuid";
 
-import {useCustomSearchParams, useGetDictionary} from '@/hooks';
+import { Label } from "@/components/ui/label";
+import { CustomTextarea, DynamicInputsList } from "@/components/shared";
+import RenderIf from "../../RenderIf";
 
-import type {TemplateState} from '@/stores/zustand/types';
-import {useDebounce} from '@/hooks/useDebounce';
+import { useCustomSearchParams, useGetDictionary } from "@/hooks";
+import { useDebounce } from "@/hooks/useDebounce";
+
+import type { TemplateItem } from "@/services/types";
+
+import { useTemplateStore } from "@/stores/zustand/template-store";
+import { DynamicInput } from "@/stores/zustand/types";
+import React from "react";
 
 interface IProps {
-  template?: TemplateState["currentTemplate"];
+  template?: TemplateItem;
   mainTextAreaPlaceholder: string;
   hideToggle?: boolean;
   label?: string;
-    value?: string;
-    onChange?: (value: string) => void;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 /**
@@ -25,39 +30,53 @@ interface IProps {
  */
 export function MainTextArea({
   mainTextAreaPlaceholder,
-                                 value,
-                                 onChange,
+  value,
+  onChange,
   label,
 }: Omit<IProps, "template">) {
-    const {common} = useGetDictionary();
-    const [, setSearchParams] = useCustomSearchParams();
+  const { common } = useGetDictionary();
+  const [, setSearchParams] = useCustomSearchParams();
 
-    const handelOnChange = (text: string) => {
-        onChange?.(text);
-    };
+  const handelOnChange = (text: string) => {
+    onChange?.(text);
+  };
 
-    useDebounce(() => {
-        setSearchParams('text', value);
-    }, value, 500);
+  useDebounce(
+    () => {
+      value && setSearchParams("text", value);
+    },
+    value,
+    500,
+  );
 
-    return (
-    <div className="grid gap-2">
-      <div className="relative grid h-full w-full gap-2">
-        <Label htmlFor="textbox" className="text-sm font-medium">
-          {label ?? common.form_textarea_label}
-        </Label>
+  return (
+    <div className="col relative w-full gap-label-space">
+      <Label htmlFor="textbox">{label ?? common.form_textarea_label}</Label>
 
-        {/*text area*/}
-        <CustomTextarea
-            setValue={handelOnChange}
-            value={value}
-          maxLength={400}
-          placeholder={mainTextAreaPlaceholder}
-        />
-      </div>
+      {/*text area*/}
+      <CustomTextarea
+        setValue={handelOnChange}
+        value={value}
+        maxLength={4000}
+        placeholder={mainTextAreaPlaceholder}
+      />
     </div>
   );
 }
+
+const TemplateInputs = ({ inputs }: { inputs: DynamicInput[] }) => {
+  const currentTemplateInputs = useTemplateStore.use.currentTemplateInputs();
+  const changeCurrentTemplateInputs =
+    useTemplateStore.use.changeCurrentTemplateInputs();
+  return (
+    <DynamicInputsList
+      components={inputs}
+      itemClassName="col-span-1 sm:col-span-2"
+      getValue={key => currentTemplateInputs[key]}
+      changeValue={(key, val) => changeCurrentTemplateInputs(key, val)}
+    />
+  );
+};
 
 /**
  * this component show text area , url input and upload pdf and if template props is valid show more inputs
@@ -69,13 +88,31 @@ export function TextBox({
   mainTextAreaPlaceholder,
   hideToggle,
   label,
-                            value,
-                            onChange,
+  value,
+  onChange,
 }: IProps) {
-  const listOfText = template?.inputs ?? [];
+  const inputs: DynamicInput[] = Array.isArray(template?.params)
+    ? template?.params?.map((item, index) => ({
+        type: item.type,
+        id: uuidv4(),
+        defaultValue: "",
+        description: item.description,
+        name: item.label,
+        order: index + 1,
+        placeholder: item.placeholder,
+        options: item.options
+          ? item.options.map(option => ({
+              id: uuidv4(),
+              value: option,
+            }))
+          : [],
+        isAdvance: false,
+        fieldKey: item.label.toLowerCase().replaceAll(" ", "_"),
+      })) || []
+    : [];
 
   return (
-    <div className="mt-1 grid gap-2">
+    <div className="col mt-1 w-full gap-2">
       <MainTextArea
         mainTextAreaPlaceholder={mainTextAreaPlaceholder}
         hideToggle={hideToggle}
@@ -83,26 +120,8 @@ export function TextBox({
         value={value}
         onChange={onChange}
       />
-      <RenderIf isTrue={listOfText.length !== 0}>
-        {listOfText.map(item => (
-          <div key={item.id}>
-            <Label htmlFor={item.id} className="text-xsm font-semibold">
-              {item.title}
-            </Label>
-            <div className="relative h-full w-full">
-              <textarea
-                name={item.title}
-                id={item.id}
-                rows={1}
-                className="w-full rounded-lg border bg-muted p-2 outline-none ring-0"
-                placeholder={item.placeHolder}
-              />
-              {/*<div className="absolute bottom-2 start-2 flex justify-start">*/}
-              {/*  <Button variant="ghost"><></Button>*/}
-              {/*</div>*/}
-            </div>
-          </div>
-        ))}
+      <RenderIf isTrue={inputs.length !== 0}>
+        <TemplateInputs inputs={inputs} />
       </RenderIf>
     </div>
   );

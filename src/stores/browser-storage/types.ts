@@ -12,10 +12,10 @@ export type PrimaryColor =
 
 export type Theme =
   | "default"
-  | "theme-light-brown"
+  | "theme-brown-light"
   | "theme-dark"
-  | "theme-grey"
-  | "theme-darkblue";
+  | "theme--dark"
+  | "theme-blue-dark";
 
 export interface IThemeConfig {
   primaryColor: PrimaryColor;

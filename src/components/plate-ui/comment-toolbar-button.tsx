@@ -3,7 +3,7 @@
 import React from "react";
 import { useCommentAddButton } from "@udecode/plate-comments";
 
-import { Icons } from "@/components/icons";
+import { Icons, iconVariants } from "@/components/icons";
 
 import { ToolbarButton } from "./toolbar";
 
@@ -14,7 +14,7 @@ export function CommentToolbarButton() {
 
   return (
     <ToolbarButton tooltip="Comment (⌘+⇧+M)" {...props}>
-      <Icons.commentAdd />
+      <Icons.commentAdd className={iconVariants({ size: "md" })} />
     </ToolbarButton>
   );
 }

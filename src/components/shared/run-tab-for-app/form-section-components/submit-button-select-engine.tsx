@@ -9,7 +9,7 @@ interface IProps {
 
 export function SubmitButtonSelectEngine({ buttonContent ,onClick}: IProps) {
   return (
-    <div className="grid grid-cols-1 items-end gap-5 sm:grid-cols-2">
+    <div className="sticky bottom-0 mt-auto grid grid-cols-1 items-end gap-5 sm:grid-cols-2">
       {/*show engine select box*/}
       <SelectEngine />
       {/*submit button*/}

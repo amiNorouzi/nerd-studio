@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 import { Label } from "@/components/ui/label";
-import { EngineSelect, SelectAndDrawer } from "@/components/shared";
+import { SelectAndDrawer, SelectEngine } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
@@ -10,33 +10,10 @@ import { useHistoryStore } from "@/stores/zustand/history-store";
 import { ChildrenProps } from "@/services/types";
 import { cn } from "@/lib/utils";
 
-//list of engines
-//TODO: replace with real engines data from api
-const engines = [
-  {
-    id: "1",
-    name: "GPT-3",
-    image: "/images/gpt.jpeg",
-  },
-  {
-    id: "2",
-    name: "GPT-4",
-    image: "/images/gpt.jpeg",
-  },
-  {
-    id: "3",
-    name: "Gemni",
-    image: "/images/gemni.jpeg",
-  },
-  {
-    id: "4",
-    name: "Clouds",
-    image: "/images/cloude.png",
-  },
-];
-
 interface IProps {
   submitButtonTitle: string;
+
+  onSubmit(): void;
 }
 
 const Box = (props: ChildrenProps) => {
@@ -44,7 +21,7 @@ const Box = (props: ChildrenProps) => {
   return (
     <div
       className={cn(
-        "col col-span-2 gap-2",
+        "col col-span-2 gap-label-space",
         isHistoryOpen ? "lg:col-span-1" : " sm:col-span-1",
       )}
     >
@@ -59,7 +36,7 @@ const Box = (props: ChildrenProps) => {
  * @param submitButtonTitle - title of submit button
  * @constructor
  */
-function CommonSettings({ submitButtonTitle }: IProps) {
+function CommonSettings({ submitButtonTitle, onSubmit }: IProps) {
   const [activeEngine, setActiveEngine] = useState("1");
   const {
     page: { code: codeDictionary },
@@ -88,17 +65,10 @@ function CommonSettings({ submitButtonTitle }: IProps) {
       </Box>
 
       {/*engines select*/}
-      <div className="col col-span-2 gap-2 sm:col-span-1">
-        <Label>{codeDictionary.engine_select_label}</Label>
-        <EngineSelect
-          value={activeEngine}
-          setValue={setActiveEngine}
-          engines={engines}
-        />
-      </div>
+      <SelectEngine className="col-span-2 sm:col-span-1" />
 
       {/*submit button*/}
-      <Button className="col-span-2 mt-auto sm:col-span-1">
+      <Button onClick={onSubmit} className="col-span-2 mt-auto sm:col-span-1">
         {submitButtonTitle}
       </Button>
     </>

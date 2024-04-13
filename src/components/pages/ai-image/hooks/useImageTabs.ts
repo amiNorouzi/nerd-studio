@@ -1,4 +1,5 @@
 import { useCustomSearchParams } from "@/hooks";
+import type { ImageModelType } from "@/stores/zustand/types";
 
 const tabs = {
   textToImage: "text-to-image",
@@ -13,6 +14,7 @@ export type TabsType = keyof typeof tabs;
 function useImageTabs() {
   const [searchParams, setSearchParams] = useCustomSearchParams(); //for check current tab
   const currentTab = searchParams.get("feature") || "text-to-image"; //current tab set in tabs component,
+  const currentModelType = currentTab.replaceAll("-", "_") as ImageModelType;
 
   const setTab = (tab: TabsType) => {
     setSearchParams("feature", tab);
@@ -22,6 +24,7 @@ function useImageTabs() {
     currentTab,
     setTab,
     tabs,
+    currentModelType,
   };
 }
 

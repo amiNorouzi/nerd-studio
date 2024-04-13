@@ -38,9 +38,7 @@ export function ToggleAdvance({
   // Render the `ToggleAdvance` component.
   return (
     <>
-      <div
-        className={cn("mb-5 flex items-start justify-start gap-2", className)}
-      >
+      <div className={cn(" flex items-start justify-start gap-2", className)}>
         {/* The `Switch` component for the toggle switch. */}
         <Switch
           id="collapse-trigger"
@@ -48,9 +46,11 @@ export function ToggleAdvance({
           onCheckedChange={setOpen}
         />
         {/* The `Label` component for the label of the switch. */}
-        <Label htmlFor="collapse-trigger" className="flex flex-col gap-1">
-          <span>{dictionary.advance_settings_title}</span>
-          <span className="text-muted-foreground">
+        <Label htmlFor="collapse-trigger" className="flex flex-col">
+          <Label className="text-xsm">
+            {dictionary.advance_settings_title}
+          </Label>
+          <span className="text-xs text-muted-foreground">
             {dictionary.advance_settings_descriptions}
           </span>
         </Label>

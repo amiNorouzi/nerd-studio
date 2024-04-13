@@ -1,5 +1,5 @@
 import { useEditorRef } from "@udecode/plate-common";
-import { Icons } from "../icons";
+import { Icons, iconVariants } from "../icons";
 import { Button } from "./button";
 
 export function UndoRedoComponent() {
@@ -20,7 +20,7 @@ export function UndoRedoComponent() {
         size="xs"
         onClick={handleUndo}
       >
-        <Icons.undo size={18} />
+        <Icons.undo className={iconVariants({ size: "md" })} />
       </Button>
       <Button
         variant="ghost"
@@ -28,7 +28,7 @@ export function UndoRedoComponent() {
         size="xs"
         onClick={handleRedo}
       >
-        <Icons.redo size={18} />
+        <Icons.redo className={iconVariants({ size: "md" })} />
       </Button>
     </div>
   );

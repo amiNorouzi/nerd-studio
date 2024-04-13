@@ -9,8 +9,8 @@ export const headerContent = {
     image: {
       title: "images",
     },
-    template: {
-      title: "template",
+    prompt_library: {
+      title: "prompt_library",
     },
     code: {
       title: "code",

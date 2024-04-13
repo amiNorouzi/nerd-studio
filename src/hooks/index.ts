@@ -7,3 +7,4 @@ export * from "./useFullScreenElement";
 export * from "./useCopyTextInClipBoard";
 export * from "./useSpeechToText";
 export * from "./useTextToSpeech";
+export * from "./useOutSideClick";

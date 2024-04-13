@@ -8,6 +8,8 @@ import CodeEditor from "./CodeEditor";
 import Result from "./Result";
 
 import { useGetDictionary } from "@/hooks";
+import { useCodeExplainer } from "@/services/code-generator";
+import { useEventChanel } from "@/services/events-chanel";
 
 /**
  * code explainer feature
@@ -23,16 +25,30 @@ function CodeExplainer() {
     page: { code: codeDictionary },
   } = useGetDictionary();
 
+  const { mutate } = useCodeExplainer();
+  const generatedCode = useEventChanel({ eventName: "code" });
+
+  const handleGenerate = () => {
+    mutate({
+      code,
+      language: currentLanguage,
+      info: additionalInfo,
+      model: "gpt-3.5-turbo-0125",
+      temperature: 0.1,
+      max_tokens: 100,
+    });
+  };
+
   return (
-    <div className="grid grid-cols-2 gap-4 xl:gap-7">
+    <div className="form-gap grid grid-cols-2">
       {/* input code language */}
-      <div className="col col-span-2 gap-2">
+      <div className="col col-span-2 gap-label-space">
         <Label>{codeDictionary.code_language_select_label}</Label>
         <CodeLanguageSelect setCurrentLanguage={setCurrentLanguage} />
       </div>
 
       {/* input additional info */}
-      <div className="col col-span-2 gap-2">
+      <div className="col col-span-2 gap-label-space">
         <Label htmlFor="code-explain-additional-info">
           {codeDictionary.explainer_additional_textarea_label}
         </Label>
@@ -47,7 +63,7 @@ function CodeExplainer() {
       </div>
 
       {/* input code */}
-      <div className="col col-span-2 gap-2">
+      <div className="col col-span-2 gap-label-space">
         <Label>{codeDictionary.explainer_code_input_label}</Label>
         <CodeEditor
           value={code}
@@ -58,10 +74,11 @@ function CodeExplainer() {
 
       {/*common settings for all features of code*/}
       <CommonSettings
+        onSubmit={handleGenerate}
         submitButtonTitle={codeDictionary.explainer_button_label}
       />
 
-      <Result outputLanguage={currentLanguage} />
+      <Result generatedCode={generatedCode} outputLanguage={currentLanguage} />
     </div>
   );
 }

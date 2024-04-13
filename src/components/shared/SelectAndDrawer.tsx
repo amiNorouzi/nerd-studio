@@ -51,6 +51,7 @@ interface IProps {
   isSelect?: boolean;
   label?: string;
   buttonStyle?: string;
+  itemClassName?: string;
 }
 interface SelectPropsType extends IProps {
   onOpenChange: StateSetterType<boolean>;
@@ -64,6 +65,7 @@ function CommandSelectItems({
   value,
   onOpenChange,
   showSearch = true,
+  itemClassName,
 }: SelectPropsType) {
   function handleSelectItem(item: string) {
     setValue(item);
@@ -89,6 +91,7 @@ function CommandSelectItems({
                 "flex-row-reverse justify-between px-2 text-xsm",
                 value.value.toLowerCase() === item.value.toLowerCase() &&
                   "bg-primary-light  aria-selected:bg-primary-light ",
+                itemClassName,
               )}
             >
               <Check
@@ -121,29 +124,28 @@ function SelectComponent({
   value,
   label,
   buttonStyle,
+  itemClassName,
 }: Omit<IProps, "showSearch" | "isSelect" | "items"> & {
   items: objectItem[];
   value: objectItem;
 }) {
-
   return (
     <Select value={value.id} onValueChange={setValue}>
-      <SelectTrigger
-        className={cn("m-0 w-full !text-xsm text-black", buttonStyle)}
-      >
+      <SelectTrigger className={cn("m-0 w-full text-foreground", buttonStyle)}>
         <SelectValue placeholder="Select an option" className="!text-xsm" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel className="text-xsm font-semibold">{label}</SelectLabel>
+          <SelectLabel>{label}</SelectLabel>
           {items.map(item => (
             <SelectItem
               key={item.id}
               value={item.id}
               className={cn(
-                "flex-row-reverse justify-between px-2 text-xsm",
+                "flex-row-reverse justify-between px-2 ",
                 value.value.toLowerCase() === item.value.toLowerCase() &&
                   "bg-primary-light focus:bg-primary-light",
+                itemClassName,
               )}
             >
               <div className="flex justify-start gap-2">
@@ -267,7 +269,7 @@ function UserSelectAndDrawer(props: IProps) {
           <div className="flex justify-start gap-2">
             {/*if image is valid then show it*/}
 
-            {value.image && (
+            {!!value.image && (
               <div className="relative h-5 w-5  overflow-hidden rounded-full">
                 <Image src={value.image} alt={value.value} fill />
               </div>

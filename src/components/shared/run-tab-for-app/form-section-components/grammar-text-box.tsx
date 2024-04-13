@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import type { IconType } from "react-icons";
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
 import { ErrorIcon } from "@/components/svg-icons";
+import GrtammerInputDiv from "@/components/pages/grammar/InputDiv";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
@@ -36,7 +37,7 @@ const MinimalButton = ({
 interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   maxLength?: number;
   rootClassName?: string;
-  setValue: (value: string) => void;
+  onTextAreaChange: (value: string) => void;
   renderMoreActions?: () => JSX.Element;
 }
 
@@ -44,7 +45,8 @@ export function GrammarTextBox({
   maxLength,
   value,
   className,
-  setValue,
+  onTextAreaChange,
+  onSubmit,
   rootClassName,
   renderMoreActions,
   ...props
@@ -54,68 +56,61 @@ export function GrammarTextBox({
   } = useGetDictionary();
   //for copy value
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
-
   return (
-    <div className="grid gap-2">
-      <div className="flex flex-row items-end justify-between">
-        <Label htmlFor="textbox" className={cn("text-sm font-medium")}>
-          {form_section.form_grammar_textarea_label}
-        </Label>
-      </div>
-      <div className="relative grid h-full w-full gap-2">
-        <div className="relative w-full">
-          {/*voice input*/}
-          <MinimalButton
-            Icon={PiMicrophone}
-            title={dictionary.voice_button_label}
-            className="absolute start-1.5 top-2.5"
-          />
+    <div className="col gap-label-space">
+      <Label htmlFor="gramer-textbox" className={cn("text-sm font-medium")}>
+        {form_section.form_grammar_textarea_label}
+      </Label>
+      <div className="relative h-fit w-full">
+        {/*voice input*/}
+        <MinimalButton
+          Icon={PiMicrophone}
+          title={dictionary.voice_button_label}
+          className="absolute start-1.5 top-2"
+        />
 
-          {/*textarea*/}
-          <textarea
-            rows={8}
-            className={cn(
-              "mb-0 w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
-            )}
-            value={value}
-            onChange={e => setValue?.(e.target.value)}
-            maxLength={maxLength}
-            placeholder={form_section.form_grammar_textarea_placeholder}
-            {...props}
-          />
+        {/*textarea*/}
+        {/* <div
+          contentEditable={true}
+          className={cn(
+            "mb-0 h-[400px] w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
+          )}
+          onInput={handleInput}
+          spellCheck={false}
+        /> */}
+        <GrtammerInputDiv />
 
-          {/*404 Error*/}
-          <div className="absolute bottom-8 start-4 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
-            <ErrorIcon />
-            <span className="font-sans text-xs text-muted-foreground-light">
-              {form_section.form_error}
-            </span>
-          </div>
-
-          {/*action buttons*/}
-          <div className="row absolute bottom-8 end-4 gap-1">
-            <MinimalButton
-              Icon={MdDeleteOutline}
-              title={dictionary.clear_button_label}
-              onClick={() => setValue("")}
-            />
-            <MinimalButton
-              Icon={HiOutlineSpeakerWave}
-              title={dictionary.speak_button_label}
-            />
-            <MinimalButton
-              Icon={isCopied ? LuCopyCheck : LuCopy}
-              title={dictionary.copy_button_label}
-              onClick={() => handleCopy(value!.toString())}
-            />
-            {!!renderMoreActions && renderMoreActions()}
-          </div>
-          {/*character count*/}
-          <span className="text-xs text-muted-foreground">
-            {value?.toString().length}/{maxLength}
+        {/*404 Error*/}
+        <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
+          <ErrorIcon />
+          <span className="font-sans text-xs text-muted-foreground-light">
+            {form_section.form_error}
           </span>
         </div>
+
+        {/*action buttons*/}
+        <div className="row absolute bottom-3 end-3.5 gap-1 bg-white">
+          <MinimalButton
+            Icon={MdDeleteOutline}
+            title={dictionary.clear_button_label}
+            onClick={() => onTextAreaChange("")}
+          />
+          <MinimalButton
+            Icon={HiOutlineSpeakerWave}
+            title={dictionary.speak_button_label}
+          />
+          <MinimalButton
+            Icon={isCopied ? LuCopyCheck : LuCopy}
+            title={dictionary.copy_button_label}
+            onClick={() => handleCopy(value!.toString())}
+          />
+          {!!renderMoreActions && renderMoreActions()}
+        </div>
       </div>
+      {/*character count*/}
+      <span className="-mt-2 ps-1 text-xs text-muted-foreground">
+        {value?.toString().length}/{maxLength}
+      </span>
     </div>
   );
 }

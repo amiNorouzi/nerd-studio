@@ -8,16 +8,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { DownloadIcon, Share } from "@/components/svg-icons";
 
 import { useGetDictionary } from "@/hooks";
 import { useHandleCopyAndDownloadAction } from "./useHandleCopyAndDownloadAction";
@@ -25,6 +17,10 @@ import { useHandleCopyAndDownloadAction } from "./useHandleCopyAndDownloadAction
 import { downloadDropdownItems, value } from "./constants";
 import { Save } from "@/components/svg-icons/Save";
 import { SelectAndDrawer } from "@/components/shared";
+import { iconVariants } from "@/constants/variants";
+import { useEditorStore } from "@/stores/zustand/editor-slice";
+import { RiFullscreenExitFill, RiFullscreenFill } from "react-icons/ri";
+import { TbDownload } from "react-icons/tb";
 
 function InputAndSelectSpace() {
   const [selectValue, setSelectValue] = useState(value[0]);
@@ -47,7 +43,8 @@ function InputAndSelectSpace() {
         value={selectValue}
         setValue={setSelectValue}
         items={value}
-        buttonStyle="w-full max-w-[230px] px-6 py-1"
+        buttonStyle="w-full max-w-[230px] px-6 py-1 capitalize"
+        itemClassName="capitalize"
       />
     </div>
   );
@@ -59,6 +56,9 @@ function DownloadAndSaveButtons() {
   } = useGetDictionary();
   const { handleCopyAction, handleDownLoadAction } =
     useHandleCopyAndDownloadAction();
+  const isFullScreen = useEditorStore.use.isFullScreen();
+  const toggleFullScreen = useEditorStore.use.toggleFullScreen();
+
   const dropdownItems = useMemo(
     () =>
       downloadDropdownItems.map(item => (
@@ -79,23 +79,33 @@ function DownloadAndSaveButtons() {
   );
   return (
     <div className="flex gap-2">
+      <Button
+        variant="muted"
+        size="icon"
+        className=" text-muted-foreground"
+        onClick={toggleFullScreen}
+      >
+        {isFullScreen ? (
+          <RiFullscreenExitFill className={iconVariants({ size: "md" })} />
+        ) : (
+          <RiFullscreenFill className={iconVariants({ size: "md" })} />
+        )}
+      </Button>
+
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="group h-[42px] w-[42px] bg-muted p-0"
-          >
-            <DownloadIcon />
+          <Button variant="muted" size="icon" className="text-muted-foreground">
+            <TbDownload className={iconVariants({ size: "md" })} />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-full">
+        <DropdownMenuContent className="w-full" align="end" alignOffset={-40}>
           <DropdownMenuGroup>{dropdownItems}</DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
 
       {/*save button*/}
-      <Button variant="ghost" className="group h-[42px] w-[42px] bg-muted p-0">
-        <Save />
+      <Button variant="muted" className="text-muted-foreground" size="icon">
+        <Save className={iconVariants({ size: "md" })} />
       </Button>
     </div>
   );
@@ -103,7 +113,7 @@ function DownloadAndSaveButtons() {
 
 export function EditorSectionHeader() {
   return (
-    <div className="flex flex-col  justify-between gap-2 p-5 sm:flex-row">
+    <div className="flex flex-col  justify-between gap-2 px-4 pb-1 pt-4 sm:flex-row">
       <InputAndSelectSpace />
       <DownloadAndSaveButtons />
     </div>

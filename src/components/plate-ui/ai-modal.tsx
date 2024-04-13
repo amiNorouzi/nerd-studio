@@ -12,6 +12,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { type BaseEditor, Transforms } from "slate";
+import { AiICon } from "@/components/svg-icons";
+import { iconVariants } from "@/constants/variants";
+import { cn } from "@/lib/utils";
 
 export function AiModal() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -26,7 +29,11 @@ export function AiModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="h-fit w-fit p-2">AI</Button>
+        <Button variant="muted" className="h-fit w-fit p-2">
+          <AiICon
+            className={cn(iconVariants({ size: "md" }), "stroke-foreground")}
+          />
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

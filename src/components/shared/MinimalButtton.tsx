@@ -2,6 +2,7 @@ import { Button, ButtonProps } from "@/components/ui/button";
 import type { IconType } from "react-icons";
 import { MyTooltip } from "@/components/shared/myTooltip";
 import { cn } from "@/lib/utils";
+import { iconVariants } from "@/constants/variants";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
@@ -25,13 +26,14 @@ export function MinimalButton({
   ...otherProps
 }: IButtonProps) {
   return (
-    <MyTooltip title={title}>
+    <MyTooltip title={title} contentClass={cn(!title && "hidden")}>
       <Button
+        type="button"
         variant="ghost"
-        className={cn("fit p-0.5", className)}
+        className={cn("fit p-0.5 text-muted-foreground", className)}
         {...otherProps}
       >
-        <Icon size="1rem" className={iconClassname} />
+        <Icon className={cn(iconVariants({ size: "sm" }), iconClassname)} />
       </Button>
     </MyTooltip>
   );

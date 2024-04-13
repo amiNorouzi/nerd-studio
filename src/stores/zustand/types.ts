@@ -1,3 +1,6 @@
+import { TemplateItem } from "@/services/types";
+import { Theme } from "@/stores/browser-storage/types";
+
 export interface IUiState {
   isSidePanelOpen: boolean;
   isHoverOnSidePanel: boolean;
@@ -8,6 +11,8 @@ export interface IUiState {
   setOpenUserPanelDialog: (val: boolean) => void;
   userPanelActiveMenu: string;
   setUserPanelActiveMenu: (val: string) => void;
+  activeTheme: Theme;
+  setActiveTheme: (val: Theme) => void;
 }
 
 //editor
@@ -15,55 +20,48 @@ export interface EditorState {
   isEditorChange: boolean;
   editorValue: any;
   editorTextContent: string;
+  isFullScreen: boolean;
 }
 export interface EditorActions {
   setEditorChange: () => void;
   setEditorValue: (v: any, textContent: string) => void;
+  toggleFullScreen: () => void;
+  setIsFullScreen: (val: boolean) => void;
 }
 
-//template
-export interface Input {
-  pId: string;
-  id: string;
-  title: string;
-  placeHolder: string;
-}
-
-export type CustomTemplateInputType =
+export type DynamicInputType =
   | "text"
   | "textarea"
   // | "date"
   | "select"
   | "number"
-  | "list";
-export interface CustomTemplateInput {
+  | "list"
+  | "range";
+
+export interface DynamicInput {
   id: string;
   name: string;
   description: string;
   placeholder?: string;
   defaultValue?: string;
   order: number;
-  type: CustomTemplateInputType;
+  type: DynamicInputType;
   options: {
     id: string;
     value: string;
   }[];
   isAdvance: boolean;
+  fieldKey: string;
+  min?: number;
+  max?: number;
+  step?: number;
 }
 
 export interface TemplateState {
-  currentTemplate: {
-    id: string;
-    icon: string;
-    favorite: boolean;
-    title: string;
-    description: string;
-    category: string;
-    prompt: string;
-    inputs: Input[];
-  };
-  templateTab: "default" | "Advance";
-  customTemplateInputs: CustomTemplateInput[];
+  currentTemplate: TemplateItem;
+  customTemplateInputs: DynamicInput[];
+  currentTemplateInputs: { [key: string]: string | number };
+  currentTemplatePrompt: string;
   customTemplateDetails: {
     name: string;
     description: string;
@@ -73,11 +71,8 @@ export interface TemplateState {
   };
 }
 export interface TemplateAction {
-  setCurrentTemplate: (v: TemplateState["currentTemplate"]) => void;
-  setTemplatePageContent: (v: TemplateState["templateTab"]) => void;
-  setCustomTemplateInputs: (
-    v: CustomTemplateInput | CustomTemplateInput[],
-  ) => void;
+  setCurrentTemplate: (v: TemplateItem) => void;
+  setCustomTemplateInputs: (v: DynamicInput | DynamicInput[]) => void;
   addCustomTemplateOption: (
     id: string,
     v: {
@@ -90,10 +85,7 @@ export interface TemplateAction {
     key: "name" | "description" | "placeholder" | "defaultValue",
     v: string,
   ) => void;
-  setCustomTemplateInputType: (
-    id: string,
-    type: CustomTemplateInputType,
-  ) => void;
+  setCustomTemplateInputType: (id: string, type: DynamicInputType) => void;
   deleteCustomTemplateInput: (id: string) => void;
   toggleCustomTemplateInputAdvance: (id: string) => void;
   changeCustomTemplateInputOptionValue: (
@@ -107,6 +99,9 @@ export interface TemplateAction {
     key: "name" | "description" | "category" | "icon" | "template",
     v: string,
   ) => void;
+  changeCurrentTemplateInputs: (key: string, val: string | number) => void;
+  resetCurrentTemplateInputs: () => void;
+  setCurrentTemplatePrompt: (val: string) => void;
 }
 
 //engine
@@ -186,4 +181,31 @@ export interface ChatAction {
   setHistoryList: (v: ChatHistoryItem[]) => void;
   setSelectedMessageForHighlight: (v: messageForHighlight) => void;
   setOpenHighlightBox: (v: boolean) => void;
+}
+
+export interface AiImageState {
+  inputs: {
+    text_to_image: { [key: string]: string | number };
+    image_to_image: { [key: string]: string | number };
+    image_upscale: { [key: string]: string | number };
+  };
+  generatedImages: {
+    text_to_image: string[];
+    image_to_image: string[];
+    image_upscale: string[];
+  };
+}
+
+export type ImageModelType =
+  | "text_to_image"
+  | "image_to_image"
+  | "image_upscale";
+export interface AiImageAction {
+  changeInputValue: (
+    tab: ImageModelType,
+    key: string,
+    value: string | number,
+  ) => void;
+  resetInputValue: (tab: ImageModelType) => void;
+  setGeneratedImages: (tab: ImageModelType, images: string[]) => void;
 }

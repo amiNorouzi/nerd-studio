@@ -9,6 +9,7 @@ import { i18n, type Locale } from "../../../i18n.config";
 
 import "../globals.css";
 import "../theme.css";
+import { langDir } from "@/lib/dictionary";
 
 export const metadata: Metadata = {
   title: {
@@ -30,7 +31,7 @@ export default async function RootLayout({
   params: { lang: Locale };
 }>) {
   return (
-    <html lang={params.lang} dir="ltr">
+    <html lang={params.lang} dir={langDir[params.lang]}>
       <body suppressHydrationWarning className="h-dvh w-dvw">
         <NextAuthProvider>
           <Providers>{children}</Providers>

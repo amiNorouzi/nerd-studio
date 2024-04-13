@@ -6,6 +6,7 @@ import { Button, ButtonProps } from "@/components/ui/button";
 import { MyTooltip } from "@/components/shared/myTooltip";
 
 import { cn } from "@/lib/utils";
+import { iconVariants } from "@/constants/variants";
 
 interface IActionButtonProps extends ButtonProps {
   title: string;
@@ -39,7 +40,7 @@ function ImageAction({
         )}
         {...otherProps}
       >
-        <Icon className={cn("h-5 w-5", iconClassname)} />
+        <Icon className={cn(iconVariants({ size: "md" }), iconClassname)} />
       </Button>
     </MyTooltip>
   );

@@ -15,7 +15,7 @@ import {
 import { ELEMENT_H1, ELEMENT_H2, ELEMENT_H3 } from "@udecode/plate-heading";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 
-import { Icons } from "@/components/icons";
+import { Icons, iconVariants } from "@/components/icons";
 
 import {
   DropdownMenu,
@@ -27,6 +27,7 @@ import {
   useOpenState,
 } from "./dropdown-menu";
 import { ToolbarButton } from "./toolbar";
+import { cn } from "@/lib/utils";
 
 const items = [
   {
@@ -108,7 +109,9 @@ export function TurnIntoDropdownMenu(props: DropdownMenuProps) {
           isDropdown
           className="lg:min-w-[130px]"
         >
-          <SelectedItemIcon className="h-5 w-5 lg:hidden" />
+          <SelectedItemIcon
+            className={cn(iconVariants({ size: "md" }), "lg:hidden")}
+          />
           <span className="max-lg:hidden">{selectedItemLabel}</span>
         </ToolbarButton>
       </DropdownMenuTrigger>
@@ -143,7 +146,9 @@ export function TurnIntoDropdownMenu(props: DropdownMenuProps) {
               value={itemValue}
               className="min-w-[180px]"
             >
-              <Icon className="mr-2 h-5 w-5" />
+              <Icon
+                className={iconVariants({ size: "md", variant: "menuItem" })}
+              />
               {label}
             </DropdownMenuRadioItem>
           ))}

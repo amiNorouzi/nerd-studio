@@ -15,7 +15,9 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1366px",
+        "3xl": "1440px",
+        "4xl": "",
       },
     },
 
@@ -70,6 +72,7 @@ module.exports = {
         "card-hover":
           "0px 0px 4px rgba(40,41,61,0.02),0px 2px 24px rgba(40,41,61,0.08)",
         "dashboard-card": "0px 12px 12px 0px rgba(79, 73, 85, 0.08);",
+        mic: "0px 0px 1px rgba(40,41,61,0.02),0px 1px 8px rgba(40,41,61,0.08)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -95,9 +98,17 @@ module.exports = {
         DEFAULT: "0 2px 4px var(--tw-shadow-color)",
         lg: "0 8px 16px var(--tw-shadow-color)",
       },
+      spacing: {
+        "4.5": "18px",
+        "label-space": "var(--spacing-form-label)",
+        "form-padding": "var(--spacing-form-padding)",
+        "form-gap": "var(--spacing-form-gap)",
+        element: "var(--spacing-element-height)",
+      },
     },
   },
   plugins: [
+    require("tailwindcss-rtl"),
     require("tailwindcss-animate"),
     //@ts-ignore
     plugin(function ({ matchUtilities, theme }) {

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { TbFileUpload } from "react-icons/tb";
 import { AiOutlineLink } from "react-icons/ai";
-import { FiUpload } from "react-icons/fi";
 
 import {
   Dialog,
@@ -58,33 +57,30 @@ export function DialogForUpload({
     setDocumentFiles(filterList);
   }
 
+  const tabClass =
+    "flex gap-2 rounded-none pb-3 text-muted-foreground shadow-none data-[state=active]:border-b data-[state=active]:border-primary\n" +
+    "data-[state=active]:text-primary  data-[state=active]:shadow-none";
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="flex h-full max-h-[433px] w-full  max-w-[704px] flex-col  justify-start gap-3 p-0">
-        <DialogHeader className="m-0 p-6">
-          <DialogTitle className="flex gap-2 text-2xl font-medium">
-            <FiUpload size={35} />
+      <DialogContent className="flex h-full max-h-[420px] w-full  max-w-xl flex-col  justify-start gap-3 p-0">
+        <DialogHeader className="m-0 p-4">
+          <DialogTitle className="flex gap-2 text-lg font-medium">
             {form_section.form_upload}
           </DialogTitle>
         </DialogHeader>
-        <div className="flex flex-1 flex-col">
+        <div className="flex h-full flex-1 flex-col">
           <Tabs
             value={tab}
             onValueChange={setTab}
             className="h-full w-full flex-1  justify-between"
           >
-            <TabsList className="flex w-full justify-start gap-5   bg-muted">
-              <TabsTrigger
-                value="document"
-                className=" flex gap-2 rounded-none text-muted-foreground shadow-none data-[state=active]:border-b data-[state=active]:border-primary data-[state=active]:bg-primary-light data-[state=active]:text-primary  data-[state=active]:shadow-none"
-              >
+            <TabsList className="flex w-full justify-start gap-3 border-b bg-transparent px-4 py-0">
+              <TabsTrigger value="document" className={tabClass}>
                 <TbFileUpload size={20} />
                 {form_section.form_upload}
               </TabsTrigger>
-              <TabsTrigger
-                value="url"
-                className="flex gap-2 rounded-none text-muted-foreground shadow-none data-[state=active]:border-b data-[state=active]:border-primary data-[state=active]:bg-primary-light data-[state=active]:text-primary  data-[state=active]:shadow-none"
-              >
+              <TabsTrigger value="url" className={tabClass}>
                 <AiOutlineLink size={20} />
                 {form_section.form_url_website}
               </TabsTrigger>
@@ -115,7 +111,7 @@ export function DialogForUpload({
               value="url"
               className="flex w-full items-center justify-center  "
             >
-              <div className="grid w-full gap-3 p-6">
+              <div className="grid w-full gap-1.5 p-6">
                 <Label htmlFor="urlInput">{common.url_website}</Label>
                 <Input
                   type="url"
@@ -129,7 +125,7 @@ export function DialogForUpload({
           </Tabs>
 
           <div className="flex w-full justify-end p-6">
-            <Button className="w-1/2" onClick={() => handleSave(tab)}>
+            <Button className="w-fit px-9" onClick={() => handleSave(tab)}>
               {form_section.form_save}
             </Button>
           </div>
