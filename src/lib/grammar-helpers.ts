@@ -1,4 +1,4 @@
-import { WordCordinates } from "@/components/pages/grammar/InputDiv";
+import { WordCoordinates } from "@/components/pages/grammar/InputDiv";
 import { Dispatch, ReactHTMLElement, RefObject, SetStateAction } from "react";
 
 //replace a nth repeated word in a string with other words
@@ -25,7 +25,7 @@ export function replaceNthOccurrence(
 export const calculateWordCoordinates = (
   ref: RefObject<HTMLDivElement>,
   spellCorrection: { wrong: string; correct: string[] }[],
-  setWordsCoordinates: Dispatch<SetStateAction<WordCordinates[]>>,
+  setWordsCoordinates: Dispatch<SetStateAction<WordCoordinates[]>>,
 ) => {
   const editableDiv = ref.current;
 
@@ -113,22 +113,22 @@ function findTextNodeAndOffset(container: any, index: number) {
 
 //check if the word is hovered or not
 export const WordIsHovered = (
-  item: WordCordinates,
-  mouseCordination:
+  item: WordCoordinates,
+  mouseCoordination:
     | {
         x: number;
         y: number;
       }
     | undefined,
 ) => {
-  if (!mouseCordination) return;
+  if (!mouseCoordination) return;
   const XinRange =
-    item.coordinates.x < mouseCordination.x &&
-    mouseCordination.x < item.coordinates.x + item.coordinates.width;
+    item.coordinates.x < mouseCoordination.x &&
+    mouseCoordination.x < item.coordinates.x + item.coordinates.width;
 
   const YinRange =
-    item.coordinates.y < mouseCordination.y &&
-    mouseCordination.y < item.coordinates.y + item.coordinates.height;
+    item.coordinates.y < mouseCoordination.y &&
+    mouseCoordination.y < item.coordinates.y + item.coordinates.height;
 
   // console.log("XinRange && YinRange", XinRange, YinRange);
   if (XinRange && YinRange) return true;
@@ -179,30 +179,7 @@ export const spellCorrection: { wrong: string; correct: string[] }[] = [
   { wrong: "beleive", correct: ["believe"] },
 ];
 
-//handle mouse movement in the editablediv
-export const handleMouseMove = (
-  e: React.MouseEvent,
-  divRef: RefObject<HTMLDivElement>,
-  setMouseCordination: (
-    value: SetStateAction<
-      | {
-          x: number;
-          y: number;
-        }
-      | undefined
-    >,
-  ) => void,
-) => {
-  if (!divRef.current) return;
-
-  const divOffset = divRef.current.getBoundingClientRect();
-  // For X coordinate, no adjustment is needed unless the div also scrolls horizontally
-  const relativeX = e.clientX - divOffset.left;
-
-  // Adjust Y coordinate by adding the scrollTop value of the div to account for scrolling
-  const scrollTop = divRef.current.scrollTop;
-  const relativeY = e.clientY - divOffset.top + scrollTop;
-
-  const coordinates = { x: relativeX, y: relativeY };
-  setMouseCordination(coordinates);
+//split string with space
+export const splitTextFunction = (text: string) => {
+  return text.split(" ");
 };

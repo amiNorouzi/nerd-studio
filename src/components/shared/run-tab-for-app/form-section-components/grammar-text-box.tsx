@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import type { IconType } from "react-icons";
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
 import { ErrorIcon } from "@/components/svg-icons";
-import GrtammerInputDiv from "@/components/pages/grammar/InputDiv";
+import GammerInputDiv from "@/components/pages/grammar/InputDiv";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
@@ -39,7 +39,6 @@ interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   rootClassName?: string;
   setValue: (value: string) => void;
   renderMoreActions?: () => JSX.Element;
-  handleInput: () => void;
 }
 
 export function GrammarTextBox({
@@ -47,7 +46,6 @@ export function GrammarTextBox({
   value,
   className,
   setValue,
-  handleInput,
   rootClassName,
   renderMoreActions,
   ...props
@@ -80,7 +78,7 @@ export function GrammarTextBox({
           onInput={handleInput}
           spellCheck={false}
         /> */}
-        <GrtammerInputDiv />
+        <GammerInputDiv />
 
         {/*404 Error*/}
         <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
