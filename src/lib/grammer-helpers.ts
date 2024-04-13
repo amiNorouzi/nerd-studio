@@ -22,13 +22,90 @@ export function replaceNthOccurrence(
 
 // calculate width , height , x,y of each words
 
+// export const calculateWordCoordinates = (
+//   ref: RefObject<HTMLDivElement>,
+//   spellCorrection: { wrong: string; correct: string[] }[],
+//   setWordsCoordinates: Dispatch<SetStateAction<WordCordinates[]>>,
+// ) => {
+//   const editableDiv = ref.current;
+//   //return if there is no ref is null
+
+//   if (!editableDiv || !editableDiv.childNodes.length) {
+//     console.warn("Editable div is empty or does not contain text nodes.");
+//     return [];
+//   }
+
+//   const textContent = editableDiv.textContent || "";
+//   const regex = /(\S+|\s+)/g;
+//   const tokens = textContent.match(regex) || [];
+//   const words = tokens.filter(token => /\S/.test(token));
+//   const wordCoordinates = [];
+
+//   if (words.length === 0) {
+//     console.warn("No words to calculate coordinates for.");
+//     return [];
+//   }
+
+//   // Scroll positions
+//   const scrollLeft = editableDiv.scrollLeft;
+//   const scrollTop = editableDiv.scrollTop;
+
+//   let currentIndex = 0;
+//   for (let i = 0; i < words.length; i++) {
+//     const word = words[i];
+//     // Find the corresponding text node and character offset for the current word
+//     let { textNode, startOffset } = findTextNodeAndOffset(
+//       editableDiv,
+//       currentIndex,
+//     );
+
+//     if (!textNode) {
+//       console.warn("Could not find a text node for word calculation.");
+//       break; // Exit if we cannot find a text node
+//     }
+
+//     const range = document.createRange();
+//     try {
+//       const start = startOffset;
+//       const end = start + word.length;
+//       currentIndex = end + (tokens[i * 2 + 1] ? tokens[i * 2 + 1].length : 0);
+
+//       range.setStart(textNode, start);
+//       range.setEnd(textNode, end);
+
+//       const { x, y, width, height } = range.getBoundingClientRect();
+//       const relativeX =
+//         x - editableDiv.getBoundingClientRect().left + scrollLeft;
+//       const relativeY = y - editableDiv.getBoundingClientRect().top + scrollTop;
+//       //   console.log("----------------------scrollTop---------------", scrollTop);
+//       wordCoordinates.push({
+//         word,
+//         coordinates: { x: relativeX, y: relativeY, width, height },
+//       });
+//     } catch (error) {
+//       console.error("Error calculating coordinates for a word");
+//     } finally {
+//       range.detach(); // Clean up the range
+//     }
+//   }
+
+//   // Filtering and setting coordinates remains unchanged
+//   const filteredWordsByWrong = wordCoordinates.filter(item => {
+//     const misspelled = spellCorrection.map(word =>
+//       word.wrong === item.word ? 1 : 0,
+//     );
+//     return misspelled.includes(1);
+//   });
+//   setWordsCoordinates(filteredWordsByWrong);
+//   return wordCoordinates;
+// };
+
 export const calculateWordCoordinates = (
   ref: RefObject<HTMLDivElement>,
   spellCorrection: { wrong: string; correct: string[] }[],
   setWordsCoordinates: Dispatch<SetStateAction<WordCordinates[]>>,
 ) => {
   const editableDiv = ref.current;
-  //return if there is no ref is null
 
   if (!editableDiv || !editableDiv.childNodes.length) {
     console.warn("Editable div is empty or does not contain text nodes.");
@@ -38,63 +115,60 @@ export const calculateWordCoordinates = (
   const textContent = editableDiv.textContent || "";
   const regex = /(\S+|\s+)/g;
   const tokens = textContent.match(regex) || [];
-  const words = tokens.filter(token => /\S/.test(token));
-  const wordCoordinates = [];
 
-  if (words.length === 0) {
-    console.warn("No words to calculate coordinates for.");
+  if (tokens.length === 0) {
+    console.warn("No tokens to calculate coordinates for.");
     return [];
   }
 
-  // Scroll positions
   const scrollLeft = editableDiv.scrollLeft;
   const scrollTop = editableDiv.scrollTop;
 
   let currentIndex = 0;
-  for (let i = 0; i < words.length; i++) {
-    const word = words[i];
-    // Find the corresponding text node and character offset for the current word
-    let { textNode, startOffset } = findTextNodeAndOffset(
-      editableDiv,
-      currentIndex,
-    );
+  const wordCoordinates: any = [];
 
-    if (!textNode) {
-      console.warn("Could not find a text node for word calculation.");
-      break; // Exit if we cannot find a text node
+  tokens.forEach((token, i) => {
+    if (/\S/.test(token)) {
+      // Process only if the token is not just spaces
+      let { textNode, startOffset } = findTextNodeAndOffset(
+        editableDiv,
+        currentIndex,
+      );
+
+      if (!textNode) {
+        console.warn("Could not find a text node for word calculation.");
+        return; // Continue with the next token
+      }
+
+      const range = document.createRange();
+      try {
+        range.setStart(textNode, startOffset);
+        range.setEnd(textNode, startOffset + token.length);
+
+        const { x, y, width, height } = range.getBoundingClientRect();
+        const relativeX =
+          x - editableDiv.getBoundingClientRect().left + scrollLeft;
+        const relativeY =
+          y - editableDiv.getBoundingClientRect().top + scrollTop;
+
+        wordCoordinates.push({
+          word: token,
+          coordinates: { x: relativeX, y: relativeY, width, height },
+        });
+      } catch (error) {
+        console.error("Error calculating coordinates for a word", error);
+      } finally {
+        range.detach(); // Clean up the range
+      }
     }
+    currentIndex += token.length; // Increment currentIndex by the length of the token (including spaces)
+  });
 
-    const range = document.createRange();
-    try {
-      const start = startOffset;
-      const end = start + word.length;
-      currentIndex = end + (tokens[i * 2 + 1] ? tokens[i * 2 + 1].length : 0);
-
-      range.setStart(textNode, start);
-      range.setEnd(textNode, end);
-
-      const { x, y, width, height } = range.getBoundingClientRect();
-      const relativeX =
-        x - editableDiv.getBoundingClientRect().left + scrollLeft;
-      const relativeY = y - editableDiv.getBoundingClientRect().top + scrollTop;
-      //   console.log("----------------------scrollTop---------------", scrollTop);
-      wordCoordinates.push({
-        word,
-        coordinates: { x: relativeX, y: relativeY, width, height },
-      });
-    } catch (error) {
-      console.error("Error calculating coordinates for a word");
-    } finally {
-      range.detach(); // Clean up the range
-    }
-  }
-
-  // Filtering and setting coordinates remains unchanged
   const filteredWordsByWrong = wordCoordinates.filter(item => {
-    const misspelled = spellCorrection.map(word =>
-      word.wrong === item.word ? 1 : 0,
+    const misspelled = spellCorrection.some(
+      correction => correction.wrong === item.word,
     );
-    return misspelled.includes(1);
+    return misspelled;
   });
   setWordsCoordinates(filteredWordsByWrong);
   return wordCoordinates;
