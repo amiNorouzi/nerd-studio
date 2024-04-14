@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import type { IconType } from "react-icons";
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
 import { ErrorIcon } from "@/components/svg-icons";
-import GammerInputDiv from "@/components/pages/grammar/InputDiv";
+import GrammarInputDiv from "@/components/pages/grammar/InputDiv";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
@@ -78,7 +78,7 @@ export function GrammarTextBox({
           onInput={handleInput}
           spellCheck={false}
         /> */}
-        <GammerInputDiv />
+        <GrammarInputDiv onTextChange={setValue} />
 
         {/*404 Error*/}
         <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">

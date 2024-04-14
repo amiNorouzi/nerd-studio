@@ -18,7 +18,11 @@ export interface WordCoordinates {
   };
 }
 
-function GammerInputDiv() {
+interface Props {
+  onTextChange: (value: string) => void;
+}
+
+function GrammarInputDiv({ onTextChange }: Props) {
   const divRef = useRef<HTMLDivElement>(null);
   const optionDivRef = useRef(null);
   const mistakeMarkerRef = useRef(null);
@@ -26,6 +30,7 @@ function GammerInputDiv() {
   const [wordsCoordinates, setWordsCoordinates] = useState<WordCoordinates[]>(
     [],
   );
+
   const [mouseCoordination, setMouseCoordination] = useState<{
     x: number;
     y: number;
@@ -35,6 +40,7 @@ function GammerInputDiv() {
   //split input with space
   const handleInput = (event: React.FormEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
+    onTextChange(target.innerText);
     const splicedText = splitTextFunction(target.innerText);
     setInputText(splicedText);
   };
@@ -117,7 +123,7 @@ function GammerInputDiv() {
 
         {/* wrong words section */}
 
-        {inputText.length > 1 && (
+        {inputText && inputText.length > 1 && (
           <MistakeMarker
             MainRef={mistakeMarkerRef}
             correctHandler={correctHandler}
@@ -134,4 +140,4 @@ function GammerInputDiv() {
   );
 }
 
-export default GammerInputDiv;
+export default GrammarInputDiv;

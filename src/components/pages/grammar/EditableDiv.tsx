@@ -8,7 +8,7 @@ interface Props {
   handleScroll: () => void;
 }
 
-export default function EditabelDiv({
+export default function EditableDiv({
   handleInput,
   handleMouseMove,
   divRef,
