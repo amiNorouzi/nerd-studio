@@ -35,7 +35,7 @@ export default function OptionsSection({
       key={item.word}
       style={{
         top:
-          mouseCoordination!?.y - inputScroll! < 290
+          mouseCoordination!?.y - inputScroll! < 90
             ? `${item.coordinates.y + item.coordinates.height - inputScroll!}px`
             : `${
                 item.coordinates.y +

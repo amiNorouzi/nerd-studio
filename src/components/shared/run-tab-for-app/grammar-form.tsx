@@ -47,16 +47,18 @@ export default function GrammarFormSection({
   return (
     <FormWrapper>
       {/*text area and pdf upload and url input*/}
-      <GrammarTextBox
-        value={value}
-        setValue={onTextAreaChange}
-        maxLength={4000}
-      />
-      {/*submit button and select engine with setting*/}
-      <SubmitButtonSelectEngine
-        onClick={onSubmit}
-        buttonContent={"Improving"}
-      />
+      <div className="col form-gap">
+        <GrammarTextBox
+          value={value}
+          setValue={onTextAreaChange}
+          maxLength={4000}
+        />
+        {/*submit button and select engine with setting*/}
+        <SubmitButtonSelectEngine
+          onClick={onSubmit}
+          buttonContent={"Rewrite"}
+        />
+      </div>
     </FormWrapper>
   );
 }

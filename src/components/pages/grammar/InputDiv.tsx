@@ -108,7 +108,7 @@ function GrammarInputDiv({ onTextChange }: Props) {
   }, []); // Ensure this runs only once on mount
 
   return (
-    <div className="relative h-[400px] w-full overflow-hidden ">
+    <div className="relative h-[200px] w-full overflow-hidden ">
       <div className="relative h-full  w-full cursor-text ">
         {/* input field */}
 

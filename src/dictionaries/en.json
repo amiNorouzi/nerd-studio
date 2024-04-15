@@ -292,7 +292,8 @@
       "select_language_placeholder": "Select Language..."
     },
     "grammar": {
-      "history_info_textarea_label": "Include your text here to check"
+      "history_info_textarea_label": "Include your text here to check",
+      "grammar_language_label": "Language"
     }
   },
   "common": {
@@ -529,7 +530,7 @@
       "form_url_website": "URL Website",
       "form_save": "Save",
       "form_error": "Error",
-      "form_grammar_textarea_label": "Include your text here to check",
+      "form_grammar_textarea_label": "Target Text",
       "form_grammar_textarea_placeholder": "Paste your text that you wish to Grammar ..."
     },
     "editor_section": {

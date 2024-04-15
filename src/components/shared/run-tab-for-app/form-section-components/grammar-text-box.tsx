@@ -11,6 +11,8 @@ import type { IconType } from "react-icons";
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
 import { ErrorIcon } from "@/components/svg-icons";
 import GrammarInputDiv from "@/components/pages/grammar/InputDiv";
+import { SelectGrammarLanguage } from "./select-grammar-language";
+import { OptionsSelectBoxes } from "./options-select-boxes";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
@@ -57,20 +59,21 @@ export function GrammarTextBox({
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
 
   return (
-    <div className="col gap-label-space">
-      <Label htmlFor="gramer-textbox" className={cn("text-sm font-medium")}>
-        {form_section.form_grammar_textarea_label}
-      </Label>
-      <div className="relative h-fit w-full">
-        {/*voice input*/}
-        <MinimalButton
-          Icon={PiMicrophone}
-          title={dictionary.voice_button_label}
-          className="absolute start-1.5 top-2"
-        />
+    <div className="col form-gap">
+      <div className="col gap-label-space">
+        <Label htmlFor="gramer-textbox" className={cn("text-sm font-medium")}>
+          {form_section.form_grammar_textarea_label}
+        </Label>
+        <div className="relative h-fit w-full ">
+          {/*voice input*/}
+          <MinimalButton
+            Icon={PiMicrophone}
+            title={dictionary.voice_button_label}
+            className="absolute start-1.5 top-2"
+          />
 
-        {/*textarea*/}
-        {/* <div
+          {/*textarea*/}
+          {/* <div
           contentEditable={true}
           className={cn(
             "mb-0 h-[400px] w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
@@ -78,39 +81,43 @@ export function GrammarTextBox({
           onInput={handleInput}
           spellCheck={false}
         /> */}
-        <GrammarInputDiv onTextChange={setValue} />
+          <GrammarInputDiv onTextChange={setValue} />
 
-        {/*404 Error*/}
-        <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
-          <ErrorIcon />
-          <span className="font-sans text-xs text-muted-foreground-light">
-            {form_section.form_error}
-          </span>
+          {/*404 Error*/}
+          <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
+            <ErrorIcon />
+            <span className="font-sans text-xs text-muted-foreground-light">
+              {form_section.form_error}
+            </span>
+          </div>
+
+          {/*action buttons*/}
+          <div className="row absolute bottom-3 end-3.5 gap-1 bg-white">
+            <MinimalButton
+              Icon={MdDeleteOutline}
+              title={dictionary.clear_button_label}
+              onClick={() => setValue("")}
+            />
+            <MinimalButton
+              Icon={HiOutlineSpeakerWave}
+              title={dictionary.speak_button_label}
+            />
+            <MinimalButton
+              Icon={isCopied ? LuCopyCheck : LuCopy}
+              title={dictionary.copy_button_label}
+              onClick={() => handleCopy(value!.toString())}
+            />
+            {!!renderMoreActions && renderMoreActions()}
+          </div>
         </div>
 
-        {/*action buttons*/}
-        <div className="row absolute bottom-3 end-3.5 gap-1 bg-white">
-          <MinimalButton
-            Icon={MdDeleteOutline}
-            title={dictionary.clear_button_label}
-            onClick={() => setValue("")}
-          />
-          <MinimalButton
-            Icon={HiOutlineSpeakerWave}
-            title={dictionary.speak_button_label}
-          />
-          <MinimalButton
-            Icon={isCopied ? LuCopyCheck : LuCopy}
-            title={dictionary.copy_button_label}
-            onClick={() => handleCopy(value!.toString())}
-          />
-          {!!renderMoreActions && renderMoreActions()}
-        </div>
+        {/*character count*/}
+        <span className="-mt-2 ps-1 text-xs text-muted-foreground">
+          {value?.toString().length}/{maxLength}
+        </span>
       </div>
-      {/*character count*/}
-      <span className="-mt-2 ps-1 text-xs text-muted-foreground">
-        {value?.toString().length}/{maxLength}
-      </span>
+      <SelectGrammarLanguage />
+      <OptionsSelectBoxes hiddenSelectResponseLang />
     </div>
   );
 }
