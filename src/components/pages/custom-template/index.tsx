@@ -17,6 +17,7 @@ async function CustomTemplatePage({ lang }: { lang: Locale }) {
     page: { custom_template: dictionary },
   } = await getDictionary(lang);
   return (
+      <>
     <div className="max-h-apps-page grid h-fit grid-cols-12 overflow-y-auto bg-background lg:h-full lg:overflow-hidden">
       <section className="col lg:max-h-apps-page col-span-12 h-fit lg:col-span-8 lg:h-full lg:overflow-y-auto">
         <div className="col items-center gap-2 border-b px-4 py-3 text-center lg:px-9">
@@ -45,6 +46,7 @@ async function CustomTemplatePage({ lang }: { lang: Locale }) {
         </div>
       </section>
     </div>
+      </>
   );
 }
 
