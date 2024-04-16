@@ -2,20 +2,19 @@ import React, { useMemo, useState } from "react";
 
 import { useMediaQuery } from "usehooks-ts";
 import {
-  TbChevronLeft,
-  TbChevronRight,
-  TbX,
-  TbHighlight,
-  TbWand,
   TbBrandFacebook,
-  TbBrandYoutube,
+  TbBrandInstagram,
   TbBrandLinkedin,
   TbBrandTelegram,
-  TbBrandWhatsapp,
-  TbBrandInstagram,
   TbBrandTiktok,
+  TbBrandWhatsapp,
+  TbBrandYoutube,
+  TbChevronLeft,
+  TbChevronRight,
   TbEdit,
   TbReload,
+  TbWand,
+  TbX,
 } from "react-icons/tb";
 import { LuCopy, LuCopyCheck } from "react-icons/lu";
 
@@ -49,16 +48,12 @@ export function HighlightContentHeader({
   handleClickToggleCheckAll,
   checkAll,
 }: HighlightContentHeaderProps) {
-  const setOpenHighLight = useChatStore.use.setOpenHighlightBox();
+  const setHighlightIsOpen = useHighlightStore.use.setHighlightIsOpen();
   const {
     page: { chat },
   } = useGetDictionary();
   return (
-    <div className="flex gap-2 p-3">
-      <div className="me-auto flex items-center gap-2 text-primary">
-        <TbHighlight className="h-6 w-6" />
-        <span className="text-sm font-medium">{chat.highlight}</span>
-      </div>
+    <div className="flex justify-between p-4.5">
       <Button
         className="gap-1 px-4 py-2 text-xs text-primary"
         variant="muted"
@@ -70,8 +65,8 @@ export function HighlightContentHeader({
 
       <Button
         variant="ghost"
-        className="p-0"
-        onClick={() => setOpenHighLight(false)}
+        className="h-fit w-fit p-2"
+        onClick={() => setHighlightIsOpen(false)}
       >
         <TbX className={iconVariants({ size: "md" })} />
       </Button>
@@ -121,7 +116,8 @@ export function HighlightGeneratedContent({
             variant="ghost"
             onClick={() => setPromptIndexToShow(v => v + 1)}
             disabled={
-              promptIndexToShow === selectedHighlightItem!.prompt.length - 1
+              promptIndexToShow === selectedHighlightItem?.prompt.length ??
+              0 - 1
             }
           >
             <TbChevronRight className={iconVariants({ size: "md" })} />
@@ -178,7 +174,7 @@ export function HighlightOptionItemContent({
     <div
       key={item}
       className={cn(
-        "flex min-h-[44px] cursor-pointer items-center gap-2 overflow-hidden rounded-lg border bg-muted ps-2",
+        "flex h-9 cursor-pointer items-center gap-2 overflow-hidden rounded-lg border bg-muted ps-2",
         itemChecked && " border-primary bg-primary-light text-primary-dark",
       )}
       onClick={e => handleClickCheck(e, item)}
@@ -236,7 +232,7 @@ export function HighlightSocialMediaItemContent({
     <div
       key={item}
       className={cn(
-        "flex min-h-[44px] cursor-pointer items-center gap-2 overflow-hidden rounded-lg border bg-muted py-0 ps-2",
+        "flex h-9 cursor-pointer items-center gap-2 overflow-hidden rounded-lg border bg-muted py-0 ps-2",
         itemChecked && " border-primary bg-primary-light text-primary-dark",
       )}
       onClick={e => handleClickCheck(e, item)}
@@ -342,7 +338,7 @@ export function HighlightContent() {
         checkAll={checkAll || isAnyItemSelect}
         handleClickToggleCheckAll={handleClickToggleCheckAll}
       />
-      <div className="grid gap-2 px-9 pt-6">
+      <div className="grid gap-2 p-4.5 pt-6">
         <div className="grid gap-2">
           {listOfOptionsComponent.map(item => (
             <HighlightOptionItemContent

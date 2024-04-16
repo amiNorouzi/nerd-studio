@@ -191,8 +191,7 @@
       "delete": "Delete",
       "cancel": "Cancel",
       "generate_button_label": "Generate",
-      "generate_all_button_label": "All Generate",
-      "highlight": "Highlight"
+      "generate_all_button_label": "All Generate"
     },
     "image": {
       "empty_result_message": "Start Generating",
