@@ -68,6 +68,8 @@ import {
   PenTool,
   Copy,
   CopyCheckIcon,
+  Star,
+  Info,
 } from "lucide-react";
 
 import type { LucideIcon } from "lucide-react";
@@ -238,6 +240,8 @@ export const Icons = {
   viewing: Eye,
   copy: Copy,
   copyCheck: CopyCheckIcon,
+  star: Star,
+  info: Info,
   // www
   gitHub: (props: LucideProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>

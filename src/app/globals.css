@@ -360,7 +360,7 @@ padding: {
   @apply  px-[16px] md:px-[30px] lg:px-[40px] xl:px-[80px] 2xl:px-[100px]
 }
 .padding-y{
-  @apply py-6  lg:py-[120px]
+  @apply py-6  lg:py-[60px]
 }
 .nav-bg{
   background: #FFFFFF7F;
@@ -394,7 +394,7 @@ padding: {
 
 /*---------Fonts ---------*/
 .text-title{
-  @apply text-lg font-normal leading-normal xl:text-[48px] lg:font-medium
+  @apply text-lg font-normal leading-normal md:text-2xl lg:text-4xl xl:text-[48px] lg:font-medium
 }
 .sub-title{
   @apply text-xs font-normal leading-[18px] text-[#747474] lg:text-lg

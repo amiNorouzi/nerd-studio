@@ -15,7 +15,7 @@ const Hero = () => {
       <Absolute className="hero-absolute-right absolute right-0 top-16 z-10  hidden size-[250px] rounded-full lg:inline-block" />
       <Absolute className="hero-absolute-bottom absolute bottom-0 left-[40%] z-10  hidden size-[250px] rounded-full lg:inline-block" />
 
-      <div className="padding-x z-20 flex grid-cols-2 flex-col  justify-around gap-x-14 pb-12 md:grid md:items-start  lg:items-center lg:pb-[100px]  xl:gap-x-[90px] ">
+      <div className="padding-x z-20 flex grid-cols-2 flex-col  justify-around gap-x-14 pb-12 md:grid md:items-start  lg:items-center lg:pb-[60px]  xl:gap-x-[90px] ">
         {/*COL LEFT*/}
         <div className="z-30 flex  w-full flex-col items-center justify-center  pt-[84px] md:items-start lg:pt-[100px]">
           {/*Title*/}
@@ -35,7 +35,9 @@ const Hero = () => {
           {/*Sub Title A*/}
           <div className=" z-30 mb-9 mt-3 sm:mx-auto sm:w-5/6 md:mx-0 lg:mb-[20px] xl:w-full">
             <span
-              className={"text-xs leading-7  lg:leading-10 xl:text-[18px] "}
+              className={
+                "text-center text-xs leading-7  md:text-start lg:text-sm lg:leading-10 xl:text-[18px] "
+              }
             >
               <span className="flex xl:hidden">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
