@@ -16,6 +16,7 @@ import { useHistories } from "@/services/history";
 interface IProps {
   params: ParamsType;
 }
+
 export function GrammarPage({ params }: IProps) {
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param
@@ -29,11 +30,6 @@ export function GrammarPage({ params }: IProps) {
   const [text, setText] = useState("");
   const { data } = useHistories({ pageNumber: 1 });
 
-  // const { mutate: mutateHistory, data } = useHistories();
-
-  // useEffect(() => {
-  //   mutateHistory({ pageNumber: 1 });
-  // }, []);
   const handleGenerate = () => {
     if (text) {
       generateGrammar({

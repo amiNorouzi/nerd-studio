@@ -14,7 +14,7 @@ export const apps = [
     id: "1",
     i18Key: "",
     title: "Dashboard",
-    route: "/",
+    route: "/dashboard",
     icon: TbLayoutDashboard,
   },
   {

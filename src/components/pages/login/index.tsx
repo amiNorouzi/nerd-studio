@@ -79,12 +79,12 @@ export function LoginPage() {
       redirect: false,
       email: data.email,
       password: data.password,
-      callbackUrl: "/",
+      callbackUrl: "/dashboard",
     });
 
     if (!!res) {
       if (res.ok) {
-        router.push("/");
+        router.push("/dashboard");
         showSuccess("Logged in successfully");
       } else {
         showError(res.error!);

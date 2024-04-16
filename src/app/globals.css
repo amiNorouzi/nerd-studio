@@ -177,7 +177,6 @@ body {
   font-size: 13px;
   font-weight: 400;
   transition: background-color 300ms !important;
-  overflow: hidden;
 }
 
 button,

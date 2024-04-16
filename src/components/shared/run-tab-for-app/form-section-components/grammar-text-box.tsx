@@ -39,7 +39,7 @@ const MinimalButton = ({
 interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   maxLength?: number;
   rootClassName?: string;
-  setValue: (value: string) => void;
+  onTextAreaChange: (value: string) => void;
   renderMoreActions?: () => JSX.Element;
 }
 
@@ -47,7 +47,8 @@ export function GrammarTextBox({
   maxLength,
   value,
   className,
-  setValue,
+  onTextAreaChange,
+  onSubmit,
   rootClassName,
   renderMoreActions,
   ...props
@@ -81,7 +82,7 @@ export function GrammarTextBox({
           onInput={handleInput}
           spellCheck={false}
         /> */}
-          <GrammarInputDiv onTextChange={setValue} value={value} />
+          <GrammarInputDiv onTextChange={onTextAreaChange} value={value} />
 
           {/*404 Error*/}
           <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
@@ -96,7 +97,7 @@ export function GrammarTextBox({
             <MinimalButton
               Icon={MdDeleteOutline}
               title={dictionary.clear_button_label}
-              onClick={() => setValue("")}
+              onClick={() => onTextAreaChange("")}
             />
             <MinimalButton
               Icon={HiOutlineSpeakerWave}

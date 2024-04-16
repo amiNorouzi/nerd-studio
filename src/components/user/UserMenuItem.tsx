@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button";
 import RenderIf from "@/components/shared/RenderIf";
 
 import { cn } from "@/lib/utils";
+import { LucideIcon } from "lucide-react";
 
 interface IItemProps {
   title: string;
-  icon: IconType;
+  icon: IconType | LucideIcon;
   onClick?: () => void;
   classNames?: string;
 }

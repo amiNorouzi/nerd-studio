@@ -1,10 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 
-interface GrammarParams
-  extends Omit<OpenAiCompletionSchemaInput, "stream" | "messages"> {
+type GrammarGenerateParams = {
   text: string;
-}
+} & Omit<OpenAiCompletionSchemaInput, "stream" | "messages">;
 
 export function useGenerateGrammar() {
   return useMutation({
@@ -14,7 +13,7 @@ export function useGenerateGrammar() {
       temperature,
       model,
       top_p,
-    }: GrammarParams) => {
+    }: GrammarGenerateParams) => {
       const { data } = await axiosClient.post<
         unknown,
         any,

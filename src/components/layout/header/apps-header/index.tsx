@@ -1,8 +1,5 @@
 import React from "react";
 import Link from "next/link";
-
-import { SharePopover } from "./share-popover";
-import { SharePopoverContent } from "./share-popover-content";
 import { HistorySheet } from "./history-sheet";
 import { TabButtons } from "@/components/layout/header/apps-header/tabs-buttons";
 
@@ -38,10 +35,6 @@ export function AppsHeader(props: AppType) {
         <CreateTemplateButton />
         {/*history button that when click on it ,Sheet open and show history content*/}
         <HistorySheet />
-        {/*share button and share popover that contains share link in social media and copy*/}
-        <SharePopover>
-          <SharePopoverContent />
-        </SharePopover>
       </div>
     </div>
   );

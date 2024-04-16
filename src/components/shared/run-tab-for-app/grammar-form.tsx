@@ -19,8 +19,8 @@ import { HistoryInfoContent } from "@/components/pages/grammar/history-info-cont
 
 interface IProps {
   params: ParamsType;
-  onTextAreaChange: (value: string) => void;
-  onSubmit: () => void;
+  onTextAreaChange (value: string) :void;
+  onSubmit () : void;
   value: string;
 }
 
@@ -55,7 +55,7 @@ export default function GrammarFormSection({
         <div className={`col form-gap  `}>
           <GrammarTextBox
             value={value}
-            setValue={onTextAreaChange}
+            onTextAreaChange={onTextAreaChange}
             maxLength={4000}
           />
           {/*submit button and select engine with setting*/}

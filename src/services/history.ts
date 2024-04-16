@@ -8,23 +8,15 @@ type HistoriesParams = {
 export function useHistories({ pageNumber }: HistoriesParams) {
   const { data } = useQuery({
     queryKey: ["history"],
-    queryFn: async () => {
+    async queryFn(){
       const { data } = await axiosClient.get<History>(
         "/histories/" + "?" + pageNumber,
       );
+
       return data;
     },
   });
 
-  //   return useMutation({
-  //     mutationFn: async ({ pageNumber }: HistoriesParams) => {
-  //       const { data } = await axiosClient.get<History>(
-  //         "/histories/" + "?" + pageNumber,
-  //       );
-
-  //       return data;
-  //     },
-  //   });
   return { data };
 }
 

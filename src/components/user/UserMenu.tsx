@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { MinimalButton, Show } from "@/components/shared";
 import { PiDiscordLogo } from "react-icons/pi";
 import { UserBalanceIcon } from "@/components/svg-icons";
+import { ShareIcon } from "lucide-react";
 
 /**
  * a hover card used in bottom of side panel
@@ -119,6 +120,10 @@ export function UserMenu() {
             onClick={() => handleOpenAccountDialog("appearance")}
             title={userMenuDictionary.preferences_label}
             icon={MdOutlineRoomPreferences}
+          />
+          <UserMenuItem
+            title={userMenuDictionary.share_and_invite_label}
+            icon={ShareIcon}
           />
           <UserMenuItem
             onClick={() => signOut()}
