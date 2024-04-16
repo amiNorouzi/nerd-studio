@@ -32,7 +32,7 @@ export default function MistakeMarker({
 }: Props) {
   return (
     <>
-      {wordsCoordinates.length > 0 && (
+      {wordsCoordinates && wordsCoordinates.length > 0 && (
         <div
           ref={MainRef}
           id="mistakeMarker"

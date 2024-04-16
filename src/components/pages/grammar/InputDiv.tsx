@@ -8,6 +8,9 @@ import {
 import { useEffect, useRef, useState } from "react";
 import EditableDiv from "./EditableDiv";
 import MistakeMarker from "./MistakeMarker";
+import { useGetDictionary, useSpeechToText } from "@/hooks";
+import { MinimalButton } from "@/components/shared";
+import { TbMicrophone } from "react-icons/tb";
 
 export interface WordCoordinates {
   word: string;
@@ -40,7 +43,7 @@ function GrammarInputDiv({ onTextChange, defaultValue, value }: Props) {
   }>();
   const [inputScroll, setInputScroll] = useState<number>();
 
-  //handle cleaning the div by clicking the trash icon
+  // handle cleaning the div by clicking the trash icon
   useEffect(() => {
     if (!value && divRef.current) {
       divRef.current.innerHTML = "";
@@ -53,7 +56,7 @@ function GrammarInputDiv({ onTextChange, defaultValue, value }: Props) {
     if (defaultValue && divRef.current) {
       divRef.current.innerHTML = defaultValue;
     }
-  });
+  }, [defaultValue]);
 
   //split input with space
   const handleInput = (event: React.FormEvent<HTMLDivElement>) => {
@@ -125,6 +128,16 @@ function GrammarInputDiv({ onTextChange, defaultValue, value }: Props) {
     }
   }, []); // Ensure this runs only once on mount
 
+  const { handleToggleRecording, isRecording } = useSpeechToText({
+    transcript: value as string,
+    setTranscript: onTextChange,
+  });
+
+  const {
+    common: { copy },
+    components: { custom_textarea: dictionary },
+  } = useGetDictionary();
+
   return (
     <div className="relative h-[156px] w-full overflow-hidden ">
       <div className="relative h-full  w-full cursor-text ">
@@ -136,10 +149,33 @@ function GrammarInputDiv({ onTextChange, defaultValue, value }: Props) {
           handleMouseMove={handleMouseMove}
           handleScroll={handleScroll}
         />
+        {isRecording ? (
+          <button
+            onClick={handleToggleRecording}
+            className=" absolute start-1.5 top-4 flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
+          >
+            <svg
+              className="h-12 w-12 "
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path fill="white" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+            </svg>
+          </button>
+        ) : (
+          <MinimalButton
+            Icon={TbMicrophone}
+            title={dictionary.voice_button_label}
+            className="absolute start-1.5 top-4"
+            onClick={handleToggleRecording}
+          />
+        )}
         {divRef.current && divRef.current.innerText.length === 0 && (
-          <p className="pointer-events-none absolute left-8 top-4 text-gray-300">
-            enter your text that you wish to correct
-          </p>
+          <>
+            <p className="pointer-events-none absolute left-[30px] top-4 text-gray-500">
+              enter your text that you wish to correct
+            </p>
+          </>
         )}
         {/* input field */}
 

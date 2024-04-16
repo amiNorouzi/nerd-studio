@@ -123,14 +123,11 @@ export interface FormSectionAction {
 //history
 
 export interface HistoryItem {
-  id: string;
-  title: string;
-  date: string;
-  description?: string;
-  question: string;
-  engine: string;
-  engineIcon: string;
-  feature?: string;
+  id: number;
+  answer_text: string;
+  uuid: string;
+  app_type: string;
+  created_at: string;
 }
 export interface HistoryState {
   isHistoryOpen: boolean;

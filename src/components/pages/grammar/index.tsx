@@ -29,6 +29,7 @@ export function GrammarPage({ params }: IProps) {
   const { mutate: generateGrammar } = useGenerateGrammar();
   const [text, setText] = useState("");
   const { data } = useHistories({ pageNumber: 1 });
+  console.log("text send to server", text);
 
   const handleGenerate = () => {
     if (text) {
@@ -51,7 +52,7 @@ export function GrammarPage({ params }: IProps) {
           value={text}
           onSubmit={handleGenerate}
         />
-        <Run.Editor value={grammar} onChange={() => {}}>
+        <Run.Editor value={grammar ? grammar : ""} onChange={() => {}}>
           <HistoryBox>
             <HistoryItems appName="Grammar" historyItems={data} />
           </HistoryBox>

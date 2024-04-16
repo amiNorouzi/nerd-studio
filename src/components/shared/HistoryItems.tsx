@@ -29,7 +29,7 @@ function DeletePopOver({ item }: DeletePopoverProps) {
   const {
     components: { history_items },
   } = useGetDictionary();
-  const isItemSelected = (id: string) => selectedHistoryItem?.id === id;
+  const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -113,60 +113,63 @@ export function HistoryItems({ appName, historyItems }: IProps) {
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const setHistoryInfoOpen = useHistoryStore.use.setHistoryInfoOpen();
-  const isItemSelected = (id: string) => selectedHistoryItem?.id === id;
+  const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
 
   //fetch history
 
   const items =
     historyItems &&
-    historyItems.answers.map(item => (
-      <div
-        key={item.id}
-        className={cn(
-          "flex w-full cursor-pointer flex-col gap-3 rounded-lg border p-2 transition-all hover:bg-muted-dark",
-          isItemSelected(item.id.toString()) &&
-            "border-primary bg-primary-light hover:bg-primary-light",
-        )}
-        onClick={() => {
-          // setSelectHistoryItem(item);
-          setHistoryInfoOpen(true);
-        }}
-      >
-        {/*title and delete and bookmark button*/}
-        <div className="flex w-full items-center justify-between">
-          <span className=" truncate text-muted-foreground">
-            {item.answer_text}
-          </span>
-          {/*delete and bookmark buttons*/}
-          <div className="flex items-center gap-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              className=" h-fit w-fit p-1 transition-all hover:scale-110"
-            >
-              <FaRegBookmark
-                className={cn(
-                  "fill-muted-foreground-light",
-                  isItemSelected(item.id.toString()) && "fill-primary",
-                )}
-                onClick={e => {
-                  e.stopPropagation();
-                  console.log("bookmark itemId: ", item.id);
-                }}
-              />
-            </Button>
-            {/* <DeletePopOver item={item} /> */}
+    historyItems.answers &&
+    historyItems.answers
+      .filter(item => item.app_type === "grammar")
+      .map(item => (
+        <div
+          key={item.id}
+          className={cn(
+            "flex w-full cursor-pointer flex-col gap-3 rounded-lg border p-2 transition-all hover:bg-muted-dark",
+            isItemSelected(item.id) &&
+              "border-primary bg-primary-light hover:bg-primary-light",
+          )}
+          onClick={() => {
+            setSelectHistoryItem(item);
+            setHistoryInfoOpen(true);
+          }}
+        >
+          {/*title and delete and bookmark button*/}
+          <div className="flex w-full items-center justify-between">
+            <span className=" truncate text-muted-foreground">
+              {item.answer_text}
+            </span>
+            {/*delete and bookmark buttons*/}
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                className=" h-fit w-fit p-1 transition-all hover:scale-110"
+              >
+                <FaRegBookmark
+                  className={cn(
+                    "fill-muted-foreground-light",
+                    isItemSelected(item.id) && "fill-primary",
+                  )}
+                  onClick={e => {
+                    e.stopPropagation();
+                    console.log("bookmark itemId: ", item.id);
+                  }}
+                />
+              </Button>
+              <DeletePopOver item={item} />
+            </div>
           </div>
+          {/*data and Text & upload*/}
+          <div className="flex w-full items-center justify-start gap-8 text-muted-foreground-light">
+            <span>48 Min ago</span>
+            <span>Text & Upload doc</span>
+          </div>
+          {/*description*/}
+          <p className="line-clamp-2">{item.answer_text}</p>
         </div>
-        {/*data and Text & upload*/}
-        <div className="flex w-full items-center justify-start gap-8 text-muted-foreground-light">
-          <span>48 Min ago</span>
-          <span>Text & Upload doc</span>
-        </div>
-        {/*description*/}
-        <p className="line-clamp-2">{item.answer_text}</p>
-      </div>
-    ));
+      ));
 
   return (
     <div className="flex w-full flex-col items-center justify-start gap-3 overflow-y-auto">

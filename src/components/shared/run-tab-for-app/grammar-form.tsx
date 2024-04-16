@@ -19,8 +19,8 @@ import { HistoryInfoContent } from "@/components/pages/grammar/history-info-cont
 
 interface IProps {
   params: ParamsType;
-  onTextAreaChange (value: string) :void;
-  onSubmit () : void;
+  onTextAreaChange(value: string): void;
+  onSubmit(): void;
   value: string;
 }
 
