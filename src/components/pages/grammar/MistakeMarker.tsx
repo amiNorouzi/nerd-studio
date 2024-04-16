@@ -1,11 +1,12 @@
 import React, { MutableRefObject } from "react";
-import { WordCordinates } from "./InputDiv";
-import { WordIsHovered } from "@/lib/grammer-helpers";
+import { WordCoordinates } from "./InputDiv";
+import { WordIsHovered } from "@/lib/grammar-helpers";
+import OptionsSection from "./OptionsSection";
 
 interface Props {
-  wordsCordinates: WordCordinates[];
-  Mainref: MutableRefObject<null>;
-  mouseCordination:
+  wordsCoordinates: WordCoordinates[];
+  MainRef: MutableRefObject<null>;
+  mouseCoordination:
     | {
         x: number;
         y: number;
@@ -21,9 +22,9 @@ interface Props {
 }
 
 export default function MistakeMarker({
-  wordsCordinates,
-  Mainref,
-  mouseCordination,
+  wordsCoordinates: wordsCoordinates,
+  MainRef,
+  mouseCoordination: mouseCoordination,
   inputScroll,
   spellCorrection,
   optionDivRef,
@@ -31,22 +32,22 @@ export default function MistakeMarker({
 }: Props) {
   return (
     <>
-      {wordsCordinates.length > 0 && (
+      {wordsCoordinates && wordsCoordinates.length > 0 && (
         <div
-          ref={Mainref}
-          id="mistakedMarker"
+          ref={MainRef}
+          id="mistakeMarker"
           style={{
-            height: wordsCordinates[wordsCordinates.length - 1].coordinates.y
-              ? `${wordsCordinates[wordsCordinates.length - 1].coordinates.y}px`
+            height: wordsCoordinates[wordsCoordinates.length - 1].coordinates.y
+              ? `${wordsCoordinates[wordsCoordinates.length - 1].coordinates.y}px`
               : "auto",
           }}
           className="overflow-y-auto"
         >
-          {wordsCordinates.map((item, index) => {
+          {wordsCoordinates.map((item, index) => {
             return (
               <>
                 <div
-                  key={index}
+                  key={item.word + "underline"}
                   style={{
                     top: `${item.coordinates.y - inputScroll!}px`,
                     left: `${item.coordinates.x}px`,
@@ -56,58 +57,23 @@ export default function MistakeMarker({
                     zIndex: 0,
                   }}
                   className={`absolute h-full ${
-                    WordIsHovered(item, mouseCordination) &&
+                    WordIsHovered(item, mouseCoordination) &&
                     "bg-gray-400 opacity-30 "
                   }  pointer-events-none border-b-[2px] border-b-red-500 `}
                 ></div>
-                <div
-                  ref={optionDivRef}
-                  key={index + "hello"}
-                  style={{
-                    top:
-                      mouseCordination!?.y - inputScroll! < 290
-                        ? `${
-                            item.coordinates.y +
-                            item.coordinates.height -
-                            inputScroll!
-                          }px`
-                        : `${
-                            item.coordinates.y +
-                            item.coordinates.height -
-                            inputScroll! -
-                            117
-                          }px`,
-                    left:
-                      item.coordinates!?.x < 55
-                        ? `${item.coordinates.x}px`
-                        : `${item.coordinates.x - 50}px`,
-                    width: `${100}px`,
-                    height: "100px",
 
-                    zIndex: 100000,
-                  }}
-                  className={`absolute ${
-                    !WordIsHovered(item, mouseCordination) && "hidden"
-                  }  rounded-lg border bg-white shadow-lg
-                    
-                     `}
-                >
-                  {spellCorrection
-                    .filter(spellItem => spellItem.wrong === item.word)[0]
-                    .correct.map(correct => {
-                      return (
-                        <button
-                          key={correct}
-                          onClick={() =>
-                            correctHandler(item.word, correct, index)
-                          }
-                          className="w-full rounded-lg px-2 transition-all hover:bg-gray-300"
-                        >
-                          {correct}
-                        </button>
-                      );
-                    })}
-                </div>
+                {/* options section */}
+                <OptionsSection
+                  correctHandler={correctHandler}
+                  index={index}
+                  inputScroll={inputScroll}
+                  item={item}
+                  mouseCoordination={mouseCoordination}
+                  optionDivRef={optionDivRef}
+                  spellCorrection={spellCorrection}
+                  key={item.word}
+                />
+                {/* options section */}
               </>
             );
           })}

@@ -1,20 +1,23 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 
 type HistoriesParams = {
   pageNumber: number;
 };
 
-export function useHistories() {
-  return useMutation({
-    mutationFn: async ({ pageNumber }: HistoriesParams) => {
+export function useHistories({ pageNumber }: HistoriesParams) {
+  const { data } = useQuery({
+    queryKey: ["history"],
+    async queryFn(){
       const { data } = await axiosClient.get<History>(
-        "/histories/" + pageNumber,
+        "/histories/" + "?" + pageNumber,
       );
 
       return data;
     },
   });
+
+  return { data };
 }
 
 type HistoryVersionParams = {

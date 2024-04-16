@@ -1,14 +1,18 @@
+"use client";
 import {
   calculateWordCoordinates,
   replaceNthOccurrence,
   spellCorrection,
-} from "@/lib/grammer-helpers";
-import { cn } from "@/lib/utils";
+  splitTextFunction,
+} from "@/lib/grammar-helpers";
 import { useEffect, useRef, useState } from "react";
-import EditabelDiv from "./EditabelDiv";
+import EditableDiv from "./EditableDiv";
 import MistakeMarker from "./MistakeMarker";
+import { useGetDictionary, useSpeechToText } from "@/hooks";
+import { MinimalButton } from "@/components/shared";
+import { TbMicrophone } from "react-icons/tb";
 
-export interface WordCordinates {
+export interface WordCoordinates {
   word: string;
   coordinates: {
     height: number;
@@ -18,27 +22,48 @@ export interface WordCordinates {
   };
 }
 
-const splitedTextFunction = (text: string) => {
-  return text.split(" ");
-};
+interface Props {
+  onTextChange: (value: string) => void;
+  defaultValue?: string;
+  value?: string | number | readonly string[] | undefined;
+}
 
-function GrtammerInputDiv() {
+function GrammarInputDiv({ onTextChange, defaultValue, value }: Props) {
   const divRef = useRef<HTMLDivElement>(null);
   const optionDivRef = useRef(null);
-  const mistakedMarkerRef = useRef(null);
+  const mistakeMarkerRef = useRef(null);
   const [inputText, setInputText] = useState<string[]>([]);
-  const [wordsCordinates, setWordsCordinates] = useState<WordCordinates[]>([]);
-  const [mouseCordination, setMouseCordination] = useState<{
+  const [wordsCoordinates, setWordsCoordinates] = useState<WordCoordinates[]>(
+    [],
+  );
+
+  const [mouseCoordination, setMouseCoordination] = useState<{
     x: number;
     y: number;
   }>();
   const [inputScroll, setInputScroll] = useState<number>();
 
+  // handle cleaning the div by clicking the trash icon
+  useEffect(() => {
+    if (!value && divRef.current) {
+      divRef.current.innerHTML = "";
+      setWordsCoordinates([]);
+    }
+  }, [value]);
+
+  //set the default value if existed
+  useEffect(() => {
+    if (defaultValue && divRef.current) {
+      divRef.current.innerHTML = defaultValue;
+    }
+  }, [defaultValue]);
+
   //split input with space
   const handleInput = (event: React.FormEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
-    const splitedText = splitedTextFunction(target.innerText);
-    setInputText(splitedText);
+    onTextChange(target.innerText);
+    const splicedText = splitTextFunction(target.innerText);
+    setInputText(splicedText);
   };
 
   // Calculate the mouse position relative to the div's position
@@ -55,19 +80,19 @@ function GrtammerInputDiv() {
     const relativeY = e.clientY - divOffset.top + scrollTop;
 
     const coordinates = { x: relativeX, y: relativeY };
-    setMouseCordination(coordinates);
+    setMouseCoordination(coordinates);
   };
 
-  // calculate words cordinates every time the input text is changed
+  // calculate words coordinates every time the input text is changed
   useEffect(() => {
-    calculateWordCoordinates(divRef, spellCorrection, setWordsCordinates);
+    calculateWordCoordinates(divRef, spellCorrection, setWordsCoordinates);
     handleScroll();
   }, [inputText]);
 
-  // calculate the cordinates each time the input text is changed
+  // calculate the coordinates each time the input text is changed
   useEffect(() => {
     // Optionally, you can recalculate when the content changes or on specific events
-    calculateWordCoordinates(divRef, spellCorrection, setWordsCordinates);
+    calculateWordCoordinates(divRef, spellCorrection, setWordsCoordinates);
     // console.log("input text is changes", inputText);
   }, [inputText]);
 
@@ -75,19 +100,19 @@ function GrtammerInputDiv() {
   const correctHandler = (word: string, correct: string, index: number) => {
     if (!divRef.current) return;
     let count = 0;
-    wordsCordinates.forEach((item, itemIndex) => {
+    wordsCoordinates.forEach((item, itemIndex) => {
       if (itemIndex <= index) item.word === word && count++;
     });
     const diveText = divRef.current.innerText;
 
-    const correctIinnerText = replaceNthOccurrence(
+    const correctInnerText = replaceNthOccurrence(
       diveText,
       word,
       correct,
       count,
     );
-    divRef.current.innerHTML = correctIinnerText;
-    calculateWordCoordinates(divRef, spellCorrection, setWordsCordinates);
+    divRef.current.innerHTML = correctInnerText;
+    calculateWordCoordinates(divRef, spellCorrection, setWordsCoordinates);
   };
 
   //handling inputDiv scroll to adjust the mistakeMarker div
@@ -103,31 +128,68 @@ function GrtammerInputDiv() {
     }
   }, []); // Ensure this runs only once on mount
 
+  const { handleToggleRecording, isRecording } = useSpeechToText({
+    transcript: value as string,
+    setTranscript: onTextChange,
+  });
+
+  const {
+    common: { copy },
+    components: { custom_textarea: dictionary },
+  } = useGetDictionary();
+
   return (
-    <div className="relative h-[400px] w-full overflow-hidden ">
+    <div className="relative h-[156px] w-full overflow-hidden ">
       <div className="relative h-full  w-full cursor-text ">
         {/* input field */}
 
-        <EditabelDiv
+        <EditableDiv
           divRef={divRef}
           handleInput={handleInput}
           handleMouseMove={handleMouseMove}
           handleScroll={handleScroll}
         />
-
+        {isRecording ? (
+          <button
+            onClick={handleToggleRecording}
+            className=" absolute start-1.5 top-4 flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
+          >
+            <svg
+              className="h-12 w-12 "
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path fill="white" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+            </svg>
+          </button>
+        ) : (
+          <MinimalButton
+            Icon={TbMicrophone}
+            title={dictionary.voice_button_label}
+            className="absolute start-1.5 top-4"
+            onClick={handleToggleRecording}
+          />
+        )}
+        {divRef.current && divRef.current.innerText.length === 0 && (
+          <>
+            <p className="pointer-events-none absolute left-[30px] top-4 text-gray-500">
+              enter your text that you wish to correct
+            </p>
+          </>
+        )}
         {/* input field */}
 
         {/* wrong words section */}
 
-        {inputText.length > 1 && (
+        {inputText && inputText.length > 1 && (
           <MistakeMarker
-            Mainref={mistakedMarkerRef}
+            MainRef={mistakeMarkerRef}
             correctHandler={correctHandler}
             inputScroll={inputScroll}
-            mouseCordination={mouseCordination}
+            mouseCoordination={mouseCoordination}
             optionDivRef={optionDivRef}
             spellCorrection={spellCorrection}
-            wordsCordinates={wordsCordinates}
+            wordsCoordinates={wordsCoordinates}
           />
         )}
         {/* wrong words section */}
@@ -136,4 +198,4 @@ function GrtammerInputDiv() {
   );
 }
 
-export default GrtammerInputDiv;
+export default GrammarInputDiv;

@@ -4,16 +4,13 @@ import {
   HistoryItems,
   Run,
   SetSearchParamProvider,
-  HistoryInfo,
 } from "@/components/shared";
-import { HistoryInfoContent } from "./history-info-content";
 import type { ParamsType } from "@/services/types";
-import { useGenerateTranslate } from "@/services/translate";
-import { useGenerateGrammar } from "@/services/grammar";
-import React, { useEffect, useState } from "react";
-import { useDebounce } from "@/hooks/useDebounce";
 import { useEventChanel } from "@/services/events-chanel";
+import { useGenerateGrammar } from "@/services/grammar";
+import React, { useState } from "react";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
+import { useHistories } from "@/services/history";
 
 interface IProps {
   params: ParamsType;
@@ -25,24 +22,22 @@ export function GrammarPage({ params }: IProps) {
    *  value of it used in apps Header in  layout or form-section
    *  and everywhere that needs to know app name
    */
-  const Grammar = useEventChanel({
+  const grammar = useEventChanel({
     eventName: "grammar",
   });
-
-  /**=================================
-   * this state for get textarea Value*/
-  const [text, setText] = useState("");
-
-  /**==================
-   * Handle submit form*/
   const { mutate: generateGrammar } = useGenerateGrammar();
+  const [text, setText] = useState("");
+  const { data } = useHistories({ pageNumber: 1 });
+  console.log("text send to server", text);
+
   const handleGenerate = () => {
     if (text) {
       generateGrammar({
         text,
         model: "gpt-3.5-turbo-0125",
-        temperature: 0.5,
-        max_tokens: 64,
+        temperature: 0.1,
+        max_tokens: 100,
+        top_p: 1,
       });
     }
   };
@@ -52,26 +47,21 @@ export function GrammarPage({ params }: IProps) {
       <Run>
         <Run.GrammarForm
           params={params}
-          value={text}
           onTextAreaChange={setText}
+          value={text}
           onSubmit={handleGenerate}
         />
-        <Run.Editor
-          value={Grammar}
-          onChange={e => {
-            setText(e);
-          }}
-        >
+        <Run.Editor value={grammar ? grammar : ""} onChange={() => {}}>
           <HistoryBox>
-            <HistoryItems appName="Grammar" />
+            <HistoryItems appName="Grammar" historyItems={data} />
           </HistoryBox>
           <Highlight>
             <HighlightContent />
           </Highlight>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
-          <HistoryInfo>
+          {/* <HistoryInfo>
             <HistoryInfoContent />
-          </HistoryInfo>
+          </HistoryInfo> */}
         </Run.Editor>
       </Run>
     </SetSearchParamProvider>
