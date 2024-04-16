@@ -377,12 +377,6 @@
       "run": "Run",
       "info": "Info",
       "history": "History",
-      "share": "Share",
-      "share_link": "Share link",
-      "share_link_for_credits": "Share link to earn more credits.",
-      "Learn_more": "Learn more",
-      "copy": "Copy link",
-      "copied": "Copied",
       "create_prompt_button_label": "Create Custom Prompt",
       "back_to_library_button_label": "Back to Library"
     },
@@ -393,7 +387,13 @@
         "account_label": "Account Settings",
         "preferences_label": "Preferences",
         "logout_label": "Logout",
-        "free_plan_label": "Free"
+        "free_plan_label": "Free",
+        "share_and_invite_label": "Share & Invite",
+        "share_link": "Share link",
+        "share_link_for_credits": "Share link to earn more credits.",
+        "Learn_more": "Learn more",
+        "copy": "Copy link",
+        "copied": "Copied"
       },
       "panel": {
         "account_items_title": "Account",
