@@ -177,6 +177,7 @@ body {
   font-size: 13px;
   font-weight: 400;
   transition: background-color 300ms !important;
+  /*overflow: hidden;*/
 }
 
 button,
@@ -343,3 +344,63 @@ textarea {
 .main-padding {
   @apply ps-[68px]
 }
+/***=======================================================================
+**===================(landing) styles write by hazhir========================
+===========================================================================
+
+padding: {
+      "land-sm": "16px",
+      "land-md": "30px",
+      "land-lg": "50px",
+      "land-xl": "100px",
+      "land-2xl": "150px",
+    },
+ */
+.padding-x{
+  @apply  px-[16px] md:px-[30px] lg:px-[40px] xl:px-[80px] 2xl:px-[100px]
+}
+.padding-y{
+  @apply py-6  lg:py-[60px]
+}
+.nav-bg{
+  background: #FFFFFF7F;
+}
+.bg-hero{
+  background-image: url("/images/backgrounds/Hero-Landing-image.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bg-hero-filter{
+  background: rgba(194, 194, 194, 0.50);
+  backdrop-filter: blur(4px);
+}
+.hero-absolute-left{
+  border-radius: 408px;
+  background:  linear-gradient(114deg, #4D84FF 0%, #DE8FFF 100%);
+  filter: blur(100px);
+}
+.hero-absolute-right{
+  border-radius: 374px;
+  background:  linear-gradient(114deg, #9D7AFF 0%, #52D5FF 100%);
+  filter: blur(125px);
+}
+.hero-absolute-bottom{
+  border-radius: 308px;
+  background:  linear-gradient(114deg, #4D84FF 0%, #DE8FFF 100%);
+  filter: blur(120px);
+}
+
+
+
+/*---------Fonts ---------*/
+.text-title{
+  @apply text-lg font-normal leading-normal md:text-2xl lg:text-4xl xl:text-[48px] lg:font-medium
+}
+.sub-title{
+  @apply text-xs font-normal leading-[18px] text-[#747474] lg:text-lg
+}
+.sub-title-color{
+  @apply text-[#747474]
+}
+
+
