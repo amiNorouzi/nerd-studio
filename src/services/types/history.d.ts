@@ -9,3 +9,14 @@ interface Answer {
   app_type: string;
   created_at: string;
 }
+
+interface HistoryVersion {
+  answer: Answer;
+  versions: Version[];
+}
+
+interface Version {
+  id: number;
+  answer_text: string;
+  created_at: string;
+}
