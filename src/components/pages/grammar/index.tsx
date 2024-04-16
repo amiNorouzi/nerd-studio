@@ -10,7 +10,8 @@ import { HistoryInfoContent } from "./history-info-content";
 import type { ParamsType } from "@/services/types";
 import { useEventChanel } from "@/services/events-chanel";
 import { useGenerateGrammar } from "@/services/grammar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useHistories } from "@/services/history";
 
 interface IProps {
   params: ParamsType;
@@ -26,7 +27,13 @@ export function GrammarPage({ params }: IProps) {
   });
   const { mutate: generateGrammar } = useGenerateGrammar();
   const [text, setText] = useState("");
+  const { data } = useHistories({ pageNumber: 1 });
 
+  // const { mutate: mutateHistory, data } = useHistories();
+
+  // useEffect(() => {
+  //   mutateHistory({ pageNumber: 1 });
+  // }, []);
   const handleGenerate = () => {
     if (text) {
       generateGrammar({
@@ -50,12 +57,12 @@ export function GrammarPage({ params }: IProps) {
         />
         <Run.Editor value={grammar} onChange={() => {}}>
           <HistoryBox>
-            <HistoryItems appName="Grammar" />
+            <HistoryItems appName="Grammar" historyItems={data} />
           </HistoryBox>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
-          <HistoryInfo>
+          {/* <HistoryInfo>
             <HistoryInfoContent />
-          </HistoryInfo>
+          </HistoryInfo> */}
         </Run.Editor>
       </Run>
     </SetSearchParamProvider>

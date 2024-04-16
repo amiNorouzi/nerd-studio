@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { MinimalButton } from "@/components/shared";
 import { HiOutlineSpeakerWave } from "react-icons/hi2";
@@ -9,8 +9,31 @@ import {
   useGetDictionary,
   useTextToSpeech,
 } from "@/hooks";
+import { cn } from "@/lib/utils";
+import { SelectGrammarLanguage } from "@/components/shared/run-tab-for-app/form-section-components/select-grammar-language";
+import GrammarInputDiv from "./InputDiv";
 
-export function HistoryInfoContent() {
+interface DivWrapperProps extends React.ComponentPropsWithoutRef<"div"> {
+  children: React.ReactNode;
+}
+function DivWrapper({ children, className, ...otherProps }: DivWrapperProps) {
+  return (
+    <div
+      className={cn(
+        "flex h-10 items-center justify-start rounded-md border border-black px-4 py-1",
+        className,
+      )}
+      {...otherProps}
+    >
+      {children}
+    </div>
+  );
+}
+export function HistoryInfoContent({
+  onTextAreaChange,
+}: {
+  onTextAreaChange: (value: string) => void;
+}) {
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
   const { handlePlaySpeak, handleStopSpeak, isSpeaking } = useTextToSpeech(
@@ -19,20 +42,28 @@ export function HistoryInfoContent() {
   const {
     common: { copy },
     components: { custom_textarea: dictionary },
-    page: { grammar },
+    page: { grammar, translate },
   } = useGetDictionary();
+  useEffect(() => {
+    onTextAreaChange(selectedHistoryItem?.question as string);
+  }, [onTextAreaChange, selectedHistoryItem]);
   return (
-    <div className="grid gap-9 ">
+    <div className="form-gap grid ">
+      {/* show selected language*/}
+
+      <SelectGrammarLanguage />
+
       {/* show prompt and inputs*/}
-      <div className="grid items-start gap-3">
-        <span>{grammar.history_info_textarea_label}</span>
+      <div className="grid items-start gap-label-space">
+        <span className={cn("text-sm font-medium")}>
+          {translate.text_label}
+        </span>
         <div className="relative">
-          <textarea
-            defaultValue={selectedHistoryItem?.question}
-            className="w-full  rounded-md border border-black px-4 py-1 pb-8"
-            rows={8}
-            disabled
+          <GrammarInputDiv
+            onTextChange={onTextAreaChange}
+            defaultValue={selectedHistoryItem?.question as string}
           />
+
           <div className="row  absolute bottom-4 end-4 gap-1 bg-white">
             {isSpeaking ? (
               <button
@@ -62,10 +93,26 @@ export function HistoryInfoContent() {
           </div>
         </div>
       </div>
+      {/*show options*/}
+      <div className="grid grid-cols-2 gap-16">
+        <div className="grid items-start gap-label-space">
+          <span className={cn("text-sm font-medium")}>
+            {translate.tone_label}
+          </span>
+          <DivWrapper>1024 x 1024px</DivWrapper>
+        </div>
+        <div className="grid items-start gap-label-space">
+          <span className={cn("text-sm font-medium")}>
+            {translate.style_label}
+          </span>
+          <DivWrapper>Anime</DivWrapper>
+        </div>
+      </div>
+      {/*show url or file*/}
 
       {/*show tags*/}
-      <div className="grid items-start gap-3">
-        <span>Tags</span>
+      <div className="grid items-start gap-label-space">
+        <span className={cn("text-sm font-medium")}>{translate.tags}</span>
         <div className="flex flex-wrap gap-1">
           {tags.map(tag => (
             <span
@@ -82,15 +129,11 @@ export function HistoryInfoContent() {
 }
 
 const tags = [
-  "tag1",
-  "tag2",
-  "tag3",
-  "tag4",
-  "tag5",
   "Email",
   "Message",
   "Phone",
   "Comment",
   "Twitter",
   "Blog Post",
+  "Outline",
 ];

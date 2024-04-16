@@ -30,7 +30,6 @@ export const calculateWordCoordinates = (
   const editableDiv = ref.current;
 
   if (!editableDiv || !editableDiv.childNodes.length) {
-    console.warn("Editable div is empty or does not contain text nodes.");
     return [];
   }
 
@@ -39,7 +38,6 @@ export const calculateWordCoordinates = (
   const tokens = textContent.match(regex) || [];
 
   if (tokens.length === 0) {
-    console.warn("No tokens to calculate coordinates for.");
     return [];
   }
 
@@ -78,7 +76,6 @@ export const calculateWordCoordinates = (
           coordinates: { x: relativeX, y: relativeY, width, height },
         });
       } catch (error) {
-        console.error("Error calculating coordinates for a word", error);
       } finally {
         range.detach(); // Clean up the range
       }
@@ -86,12 +83,14 @@ export const calculateWordCoordinates = (
     currentIndex += token.length; // Increment currentIndex by the length of the token (including spaces)
   });
 
-  const filteredWordsByWrong = wordCoordinates.filter(item => {
-    const misspelled = spellCorrection.some(
-      correction => correction.wrong === item.word,
-    );
-    return misspelled;
-  });
+  const filteredWordsByWrong = wordCoordinates.filter(
+    (item: { word: string }) => {
+      const misspelled = spellCorrection.some(
+        correction => correction.wrong === item.word,
+      );
+      return misspelled;
+    },
+  );
   setWordsCoordinates(filteredWordsByWrong);
   return wordCoordinates;
 };

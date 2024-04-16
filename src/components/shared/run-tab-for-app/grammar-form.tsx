@@ -14,6 +14,8 @@ import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
 import { useState } from "react";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
+import { useHistoryStore } from "@/stores/zustand/history-store";
+import { HistoryInfoContent } from "@/components/pages/grammar/history-info-content";
 
 interface IProps {
   params: ParamsType;
@@ -36,6 +38,7 @@ export default function GrammarFormSection({
   const {
     page: { translate },
   } = useGetDictionary();
+  const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
 
   const searchParams = useSearchParams();
   const appName = searchParams.get("app");
@@ -43,22 +46,34 @@ export default function GrammarFormSection({
   const app = apps.find(
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
+  const open = useHistoryStore.use.isHistoryInfoOpen();
 
   return (
     <FormWrapper>
       {/*text area and pdf upload and url input*/}
-      <div className="col form-gap">
-        <GrammarTextBox
-          value={value}
-          setValue={onTextAreaChange}
-          maxLength={4000}
-        />
-        {/*submit button and select engine with setting*/}
-        <SubmitButtonSelectEngine
-          onClick={onSubmit}
-          buttonContent={"Rewrite"}
-        />
-      </div>
+      {!open && (
+        <div className={`col form-gap  `}>
+          <GrammarTextBox
+            value={value}
+            setValue={onTextAreaChange}
+            maxLength={4000}
+          />
+          {/*submit button and select engine with setting*/}
+          <SubmitButtonSelectEngine
+            onClick={onSubmit}
+            buttonContent={"Rewrite"}
+          />
+        </div>
+      )}
+      {open && (
+        <div className="col form-gap">
+          <HistoryInfoContent onTextAreaChange={onTextAreaChange} />
+          <SubmitButtonSelectEngine
+            onClick={onSubmit}
+            buttonContent={"Edit Prompt"}
+          />
+        </div>
+      )}
     </FormWrapper>
   );
 }

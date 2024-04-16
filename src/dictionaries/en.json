@@ -293,7 +293,8 @@
     },
     "grammar": {
       "history_info_textarea_label": "Include your text here to check",
-      "grammar_language_label": "Language"
+      "grammar_language_label": "Language",
+      "text_input_placeholder": "Paste your text that you wish to rewrite or improve ..."
     }
   },
   "common": {

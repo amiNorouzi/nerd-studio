@@ -32,23 +32,20 @@ export default function OptionsSection({
   return (
     <div
       ref={optionDivRef}
-      key={item.word}
+      key={item.word + Math.random().toString()}
       style={{
         top:
-          mouseCoordination!?.y - inputScroll! < 90
+          item.coordinates.y - inputScroll! < 100
             ? `${item.coordinates.y + item.coordinates.height - inputScroll!}px`
             : `${
-                item.coordinates.y +
-                item.coordinates.height -
-                inputScroll! -
-                117
+                item.coordinates.y + item.coordinates.height - inputScroll! - 70
               }px`,
         left:
           item.coordinates!?.x < 55
             ? `${item.coordinates.x}px`
             : `${item.coordinates.x - 50}px`,
-        width: `${100}px`,
-        height: "100px",
+        width: `${70}px`,
+        height: "60px",
 
         zIndex: 100000,
       }}

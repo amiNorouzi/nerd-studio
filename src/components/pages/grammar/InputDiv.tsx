@@ -1,3 +1,4 @@
+"use client";
 import {
   calculateWordCoordinates,
   replaceNthOccurrence,
@@ -20,9 +21,11 @@ export interface WordCoordinates {
 
 interface Props {
   onTextChange: (value: string) => void;
+  defaultValue?: string;
+  value?: string | number | readonly string[] | undefined;
 }
 
-function GrammarInputDiv({ onTextChange }: Props) {
+function GrammarInputDiv({ onTextChange, defaultValue, value }: Props) {
   const divRef = useRef<HTMLDivElement>(null);
   const optionDivRef = useRef(null);
   const mistakeMarkerRef = useRef(null);
@@ -36,6 +39,21 @@ function GrammarInputDiv({ onTextChange }: Props) {
     y: number;
   }>();
   const [inputScroll, setInputScroll] = useState<number>();
+
+  //handle cleaning the div by clicking the trash icon
+  useEffect(() => {
+    if (!value && divRef.current) {
+      divRef.current.innerHTML = "";
+      setWordsCoordinates([]);
+    }
+  }, [value]);
+
+  //set the default value if existed
+  useEffect(() => {
+    if (defaultValue && divRef.current) {
+      divRef.current.innerHTML = defaultValue;
+    }
+  });
 
   //split input with space
   const handleInput = (event: React.FormEvent<HTMLDivElement>) => {
@@ -108,7 +126,7 @@ function GrammarInputDiv({ onTextChange }: Props) {
   }, []); // Ensure this runs only once on mount
 
   return (
-    <div className="relative h-[200px] w-full overflow-hidden ">
+    <div className="relative h-[156px] w-full overflow-hidden ">
       <div className="relative h-full  w-full cursor-text ">
         {/* input field */}
 
@@ -118,7 +136,11 @@ function GrammarInputDiv({ onTextChange }: Props) {
           handleMouseMove={handleMouseMove}
           handleScroll={handleScroll}
         />
-
+        {divRef.current && divRef.current.innerText.length === 0 && (
+          <p className="pointer-events-none absolute left-8 top-4 text-gray-300">
+            enter your text that you wish to correct
+          </p>
+        )}
         {/* input field */}
 
         {/* wrong words section */}

@@ -60,7 +60,7 @@ export function GrammarTextBox({
 
   return (
     <div className="col form-gap">
-      <div className="col gap-label-space">
+      <div className="col h-[200px] gap-label-space">
         <Label htmlFor="gramer-textbox" className={cn("text-sm font-medium")}>
           {form_section.form_grammar_textarea_label}
         </Label>
@@ -81,7 +81,7 @@ export function GrammarTextBox({
           onInput={handleInput}
           spellCheck={false}
         /> */}
-          <GrammarInputDiv onTextChange={setValue} />
+          <GrammarInputDiv onTextChange={setValue} value={value} />
 
           {/*404 Error*/}
           <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
