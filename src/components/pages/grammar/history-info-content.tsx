@@ -37,15 +37,16 @@ export function HistoryInfoContent({
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
   const { handlePlaySpeak, handleStopSpeak, isSpeaking } = useTextToSpeech(
-    selectedHistoryItem?.question ?? "",
+    selectedHistoryItem?.answer_text ?? "",
   );
+
   const {
     common: { copy },
     components: { custom_textarea: dictionary },
     page: { grammar, translate },
   } = useGetDictionary();
   useEffect(() => {
-    onTextAreaChange(selectedHistoryItem?.question as string);
+    onTextAreaChange(selectedHistoryItem?.answer_text as string);
   }, [onTextAreaChange, selectedHistoryItem]);
   return (
     <div className="form-gap grid ">
@@ -61,7 +62,7 @@ export function HistoryInfoContent({
         <div className="relative">
           <GrammarInputDiv
             onTextChange={onTextAreaChange}
-            defaultValue={selectedHistoryItem?.question as string}
+            defaultValue={selectedHistoryItem?.answer_text}
           />
 
           <div className="row  absolute bottom-4 end-4 gap-1 bg-white">
@@ -88,7 +89,7 @@ export function HistoryInfoContent({
             <MinimalButton
               Icon={isCopied ? LuCopyCheck : LuCopy}
               title={copy}
-              onClick={() => handleCopy(selectedHistoryItem?.question ?? "")}
+              onClick={() => handleCopy(selectedHistoryItem?.answer_text ?? "")}
             />
           </div>
         </div>
