@@ -12,9 +12,15 @@ import { useGetDictionary } from "@/hooks";
 import { dirInLocalStorage } from "@/stores/browser-storage";
 import { iconVariants } from "@/constants/variants";
 
+//todo: this component should be deleted
 interface IProps {
   children: React.ReactNode;
 }
+
+/**
+ * don't use this component
+ * @deprecated
+ */
 export function SharePopover({ children }: IProps) {
   const dir = dirInLocalStorage.get().dir ?? "ltr";
   const popoverPaddingFromEdge = dir === "ltr" ? { right: 20 } : { left: 20 };
@@ -26,7 +32,7 @@ export function SharePopover({ children }: IProps) {
         <Button variant="outline" className="px-2.5 md:px-4">
           <TbShare className={iconVariants({ size: "sm" })} />{" "}
           <span className="ms-1.5 hidden md:block">
-            {components.apps_header.share}
+            {components.user.menu.share_and_invite_label}
           </span>
         </Button>
       </PopoverTrigger>
