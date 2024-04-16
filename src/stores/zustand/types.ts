@@ -128,6 +128,13 @@ export interface HistoryItem {
   uuid: string;
   app_type: string;
   created_at: string;
+  title: string;
+  date: string;
+  description?: string;
+  question: string;
+  engine: string;
+  engineIcon: string;
+  feature?: string;
 }
 export interface HistoryState {
   isHistoryOpen: boolean;

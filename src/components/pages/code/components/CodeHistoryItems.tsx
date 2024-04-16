@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 
 import { useGetDictionary } from "@/hooks";
 
-function DeletePopOver({ itemId }: { itemId: string }) {
+function DeletePopOver({ itemId }: { itemId: number }) {
   const {
     common: { delete_label },
   } = useGetDictionary();
@@ -27,7 +27,7 @@ function DeletePopOver({ itemId }: { itemId: string }) {
 
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
 
-  const isItemSelected = (id: string) => selectedHistoryItem?.id === id;
+  const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -39,7 +39,6 @@ function DeletePopOver({ itemId }: { itemId: string }) {
             onClick={e => {
               e.stopPropagation();
               setOpen(true);
-              console.log("deleted itemId: ", itemId);
             }}
             iconClassname={cn(
               "text-muted-foreground-light",
@@ -99,7 +98,7 @@ function CodeHistoryItems({ appName }: IProps) {
     return () => resetHistory();
   }, []);
 
-  const isItemSelected = (id: string) => selectedHistoryItem?.id === id;
+  const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
 
   const items = listOfHistoryItem.map(item => (
     <div
@@ -110,7 +109,7 @@ function CodeHistoryItems({ appName }: IProps) {
           "border-primary bg-primary-light hover:bg-primary-light",
       )}
       onClick={() => {
-        setSelectedHistoryItem(item);
+        setSelectedHistoryItem(item as any);
         setOpenInfo(true);
       }}
     >
@@ -172,7 +171,7 @@ const engines = {
 const listOfHistoryItem = Array.from({ length: 20 }, (v, i) => {
   const engine = randomEngine();
   return {
-    id: String(i + 1),
+    id: i + 1,
     title: "history " + String(i + 1),
     date: "48 Min ago",
     feature: "Convert & Explanation",

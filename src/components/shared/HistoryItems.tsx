@@ -131,7 +131,7 @@ export function HistoryItems({ appName, historyItems }: IProps) {
               "border-primary bg-primary-light hover:bg-primary-light",
           )}
           onClick={() => {
-            setSelectHistoryItem(item);
+            setSelectHistoryItem(item as any);
             setHistoryInfoOpen(true);
           }}
         >
@@ -158,7 +158,7 @@ export function HistoryItems({ appName, historyItems }: IProps) {
                   }}
                 />
               </Button>
-              <DeletePopOver item={item} />
+              <DeletePopOver item={item as any} />
             </div>
           </div>
           {/*data and Text & upload*/}
