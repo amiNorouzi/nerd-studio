@@ -6,6 +6,7 @@ import { TabButtons } from "@/components/layout/header/apps-header/tabs-buttons"
 import { useGetDictionary } from "@/hooks";
 import { headerContent } from "@/constants/header-content";
 import CreateTemplateButton from "@/components/layout/header/apps-header/create-temlplate-button";
+import HighlightSheet from "@/components/layout/header/apps-header/highlight-sheet";
 
 type HeaderContentType = typeof headerContent;
 type AppType = HeaderContentType["apps"][keyof HeaderContentType["apps"]];
@@ -33,6 +34,7 @@ export function AppsHeader(props: AppType) {
 
       <div className="flex gap-2">
         <CreateTemplateButton />
+        <HighlightSheet />
         {/*history button that when click on it ,Sheet open and show history content*/}
         <HistorySheet />
       </div>
