@@ -33,8 +33,30 @@ export function useHistoryVersion() {
   });
 }
 
+type HistoryVUpdateParams = {
+  answerUuid: string;
+  answer_text: string;
+};
+
+export function useHistoryUpdate() {
+  return useMutation({
+    mutationFn: async ({ answerUuid, answer_text }: HistoryVUpdateParams) => {
+      const { data } = await axiosClient.put<Version>(
+        "/histories/update" + answerUuid,
+        {
+          answer_text,
+        },
+      );
+
+      return data;
+    },
+  });
+}
+
 const historyService = {
   useHistories,
+  useHistoryVersion,
+  useHistoryUpdate,
 };
 
 export default historyService;
