@@ -9,8 +9,6 @@ import {
   ChatSettingAndUpload,
   StopResponseButton,
   HistoryItems,
-  Highlight,
-  HighlightContent,
 } from "./componets";
 import {
   HistoryBox,
@@ -26,6 +24,7 @@ import type { StateSetterType } from "@/services/types";
 import { useChatStore } from "@/stores/zustand/chat-store";
 import { TbMessagePlus } from "react-icons/tb";
 import { iconVariants } from "@/constants/variants";
+import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 
 const chatContent = {
   chatList: ChatList,

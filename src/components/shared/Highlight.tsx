@@ -31,7 +31,8 @@ import { cn } from "@/lib/utils";
 import { iconVariants } from "@/constants/variants";
 
 import type { IconType } from "react-icons";
-import { MinimalButton } from "@/components/shared";
+import { MinimalButton } from "@/components/shared/index";
+import useHighlightStore from "@/stores/zustand/highlight-store";
 
 interface HighlightContentHeaderProps {
   handleClickToggleCheckAll: () => void;
@@ -342,7 +343,6 @@ export function HighlightContent() {
         handleClickToggleCheckAll={handleClickToggleCheckAll}
       />
       <div className="grid gap-2 px-9 pt-6">
-        {/*meta and summary*/}
         <div className="grid gap-2">
           {listOfOptionsComponent.map(item => (
             <HighlightOptionItemContent
@@ -379,8 +379,8 @@ interface IProps extends React.ComponentPropsWithoutRef<"div"> {
 }
 
 export function Highlight({ children, className, ...props }: IProps) {
-  const openHighlightBox = useChatStore.use.openHighlightBox();
-  const setOpenHighLightBox = useChatStore.use.setOpenHighlightBox();
+  const isOpenHighlightBox = useHighlightStore.use.isHighlightOpen();
+  const setOpenHighLightBox = useHighlightStore.use.setHighlightIsOpen();
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
@@ -388,7 +388,7 @@ export function Highlight({ children, className, ...props }: IProps) {
       <div
         className={cn(
           "flex h-full w-0 max-w-0 basis-0 flex-col items-center  justify-start   gap-4 divide-y bg-background opacity-0 transition-all duration-300",
-          openHighlightBox &&
+          isOpenHighlightBox &&
             " w-full  max-w-[400px] basis-3/4  border-s  pt-0 opacity-100 xl:basis-1/2",
           className,
         )}
@@ -403,7 +403,7 @@ export function Highlight({ children, className, ...props }: IProps) {
   }
 
   return (
-    <Drawer open={openHighlightBox} onOpenChange={setOpenHighLightBox}>
+    <Drawer open={isOpenHighlightBox} onOpenChange={setOpenHighLightBox}>
       <DrawerContent className="max-h-[90dvh] gap-2 p-2">
         {children}
       </DrawerContent>

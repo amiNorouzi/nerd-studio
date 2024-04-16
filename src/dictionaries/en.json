@@ -377,6 +377,7 @@
       "run": "Run",
       "info": "Info",
       "history": "History",
+      "highlight": "Highlight",
       "create_prompt_button_label": "Create Custom Prompt",
       "back_to_library_button_label": "Back to Library"
     },
