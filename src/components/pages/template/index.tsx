@@ -9,13 +9,11 @@ import {
 } from "@/components/shared";
 import {
   AdvancedButton,
-  TemplateList,
   AdvancedPrompt,
+  TemplateList,
   TemplateListSkeleton,
 } from "./components";
 import RenderIf from "@/components/shared/RenderIf";
-
-import { useCustomSearchParams } from "@/hooks";
 
 import { cn } from "@/lib/utils";
 
@@ -24,8 +22,8 @@ import {
   tabsType,
   TEMPLATE_TAB_PARAMS_KEY,
 } from "./constants";
-import type { TemplateCategoryItem } from "@/services/types";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTemplate, useTemplateParentCategories } from "@/services/templates";
+import { useQueryClient } from "@tanstack/react-query";
 import { useAxiosFetcher } from "@/hooks/useAxiosFetcher";
 import { CategoryItem } from "@/components/pages/template/types";
 
@@ -35,37 +33,25 @@ const content = {
 } as const;
 export function TemplatePage() {
   const [tab, setTab] = useState(ALL_PROMPT_TITLE);
-  const { axiosFetch } = useAxiosFetcher();
-  const queryClient = useQueryClient();
-  const [searchParams] = useCustomSearchParams();
   const templateTab =
     tab == tabsType.advance ? tabsType.advance : tabsType.default;
   const Content = content[templateTab];
   const isDefaultContent = templateTab === tabsType.default;
   const [searchText, setSearchText] = useState("");
+  const { templates, isLoading } = useTemplate();
 
-  const { data: templates = [], isLoading } = useQuery({
-    queryKey: ["all-templates"],
-    queryFn: () =>
-      axiosFetch<TemplateCategoryItem[]>({
-        url: "/templates/public/",
-      }),
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    staleTime: 120000,
-    refetchInterval: 120000,
-    refetchOnReconnect: false,
-  });
-
-  useEffect(() => {
-    queryClient.prefetchQuery({
-      queryKey: ["template-parent-categories"],
-      queryFn: () =>
-        axiosFetch<CategoryItem[]>({
-          url: "/templates/parent_categories/",
-        }),
-    });
-  }, []);
+  // const queryClient = useQueryClient();
+  // const { axiosFetch } = useAxiosFetcher();
+  //
+  // useEffect(() => {
+  //   queryClient.prefetchQuery({
+  //     queryKey: ["template-parent-categories"],
+  //     queryFn: () =>
+  //       axiosFetch<CategoryItem[]>({
+  //         url: "/templates/parent_categories/",
+  //       }),
+  //   });
+  // }, []);
 
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param
