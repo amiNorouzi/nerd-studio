@@ -38,6 +38,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#ide config
+#idea config
 .idea
-.vscode
