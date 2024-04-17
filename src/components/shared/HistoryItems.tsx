@@ -114,6 +114,7 @@ export function HistoryItems({ appName, historyItems }: IProps) {
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const setHistoryInfoOpen = useHistoryStore.use.setHistoryInfoOpen();
   const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
+  const setGrammarHistoryIsOpen = useHistoryStore.use.setGrammarHistoryIsOpen();
 
   //fetch history
 
@@ -132,7 +133,7 @@ export function HistoryItems({ appName, historyItems }: IProps) {
           )}
           onClick={() => {
             setSelectHistoryItem(item);
-            setHistoryInfoOpen(true);
+            setGrammarHistoryIsOpen(true);
           }}
         >
           {/*title and delete and bookmark button*/}

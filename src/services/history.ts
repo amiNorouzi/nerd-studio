@@ -8,7 +8,7 @@ type HistoriesParams = {
 export function useHistories({ pageNumber }: HistoriesParams) {
   const { data } = useQuery({
     queryKey: ["history"],
-    async queryFn(){
+    async queryFn() {
       const { data } = await axiosClient.get<History>(
         "/histories/" + "?" + pageNumber,
       );
@@ -49,6 +49,17 @@ export function useHistoryUpdate() {
         {
           answer_text,
         },
+      );
+
+      return data;
+    },
+  });
+}
+export function useHistoryDelete() {
+  return useMutation({
+    mutationFn: async ({ answerUuid }: { answerUuid: string }) => {
+      const { data } = await axiosClient.delete<Version>(
+        "/histories/delete" + answerUuid,
       );
 
       return data;

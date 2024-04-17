@@ -131,12 +131,15 @@ export interface HistoryItem {
 }
 export interface HistoryState {
   isHistoryOpen: boolean;
+  isGrammarHistoryOpen: boolean;
+
   historySearch: string;
   isHistoryInfoOpen: boolean;
   selectedHistoryItem: HistoryItem | null;
 }
 export interface HistoryAction {
   setHistoryIsOpen: (v: boolean) => void;
+  setGrammarHistoryIsOpen: (v: boolean) => void;
   setHistorySearch: (v: string) => void;
   setSelectHistoryItem: (v: HistoryItem) => void;
   resetHistory: () => void;

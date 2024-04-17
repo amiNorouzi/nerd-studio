@@ -29,7 +29,6 @@ export function GrammarPage({ params }: IProps) {
   const { mutate: generateGrammar } = useGenerateGrammar();
   const [text, setText] = useState("");
   const { data } = useHistories({ pageNumber: 1 });
-  console.log("text send to server", text);
 
   const handleGenerate = () => {
     if (text) {
@@ -39,9 +38,13 @@ export function GrammarPage({ params }: IProps) {
         temperature: 0.1,
         max_tokens: 100,
         top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
       });
     }
   };
+  console.log("text is ", text);
+  console.log("grammar is ", grammar);
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="Grammar">
@@ -52,7 +55,8 @@ export function GrammarPage({ params }: IProps) {
           value={text}
           onSubmit={handleGenerate}
         />
-        <Run.Editor value={grammar ? grammar : ""} onChange={() => {}}>
+
+        <Run.Editor value={grammar} onChange={() => {}}>
           <HistoryBox>
             <HistoryItems appName="Grammar" historyItems={data} />
           </HistoryBox>

@@ -37,7 +37,7 @@ export const calculateWordCoordinates = (
   const regex = /(\S+|\s+)/g;
   const tokens = textContent.match(regex) || [];
 
-  if (tokens.length === 0) {
+  if (tokens && tokens.length === 0) {
     return [];
   }
 
@@ -76,11 +76,12 @@ export const calculateWordCoordinates = (
           coordinates: { x: relativeX, y: relativeY, width, height },
         });
       } catch (error) {
+        console.log("error is", error);
       } finally {
         range.detach(); // Clean up the range
       }
     }
-    currentIndex += token.length; // Increment currentIndex by the length of the token (including spaces)
+    currentIndex += token ? token.length : 0; // Increment currentIndex by the length of the token (including spaces)
   });
 
   const filteredWordsByWrong = wordCoordinates.filter(
@@ -99,7 +100,7 @@ export const calculateWordCoordinates = (
 function findTextNodeAndOffset(container: any, index: number) {
   let currentOffset = 0;
   for (const node of container.childNodes) {
-    if (node.nodeType === Node.TEXT_NODE) {
+    if (node && node.nodeType === Node.TEXT_NODE) {
       const nextOffset = currentOffset + node.length;
       if (index < nextOffset) {
         return { textNode: node, startOffset: index - currentOffset };

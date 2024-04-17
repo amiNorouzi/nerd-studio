@@ -8,7 +8,7 @@
     --foreground: 0 0% 9%;
     --foreground-dark: 0 0% 9%;
     --active-bg: #9372ee20;
-    --bg-overlay: #ffffff64;
+    --bg-overlay: #c2c2c280;
     --bg-main: 0 0% 97%;
 
     --card: 0 0% 99%;
@@ -143,10 +143,10 @@
     @apply h-element;
   }
   .form-padding {
-    @apply p-form-padding
+    @apply p-form-padding;
   }
   .form-gap {
-    @apply gap-form-gap
+    @apply gap-form-gap;
   }
 }
 
@@ -303,7 +303,6 @@ textarea {
   @apply absolute -bottom-1.5 right-1/2 h-3 w-3 translate-x-1/2 rotate-45 bg-popover;
 }
 
-
 .dashboard-hero {
   background-image: url("/images/backgrounds/dashboard-hero-background.png");
   background-size: cover;
@@ -312,7 +311,7 @@ textarea {
 }
 
 .app-store-hero {
-  background: url("/images/backgrounds/seach-box-banner.png")
+  background: url("/images/backgrounds/seach-box-banner.png");
 }
 
 .app-store-hero:before,
@@ -320,7 +319,6 @@ textarea {
   content: "";
   @apply pointer-events-none absolute inset-0;
 }
-
 
 .bg-linearGradient {
   background: linear-gradient(89.33deg, #4d84ff 1.8%, #de8fff 94.53%);
@@ -341,5 +339,5 @@ textarea {
 }
 
 .main-padding {
-  @apply ps-[68px]
+  @apply ps-[68px];
 }

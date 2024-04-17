@@ -46,12 +46,12 @@ export default function GrammarFormSection({
   const app = apps.find(
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
-  const open = useHistoryStore.use.isHistoryInfoOpen();
-
+  // const open = useHistoryStore.use.isHistoryInfoOpen();
+  const isGrammarHistoryOpen = useHistoryStore.use.isGrammarHistoryOpen();
   return (
     <FormWrapper>
       {/*text area and pdf upload and url input*/}
-      {!open && (
+      {!isGrammarHistoryOpen && (
         <div className={`col form-gap  `}>
           <GrammarTextBox
             value={value}
@@ -65,7 +65,7 @@ export default function GrammarFormSection({
           />
         </div>
       )}
-      {open && (
+      {isGrammarHistoryOpen && (
         <div className="col form-gap">
           <HistoryInfoContent onTextAreaChange={onTextAreaChange} />
           <SubmitButtonSelectEngine

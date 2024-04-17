@@ -13,6 +13,8 @@ export function useGenerateGrammar() {
       temperature,
       model,
       top_p,
+      frequency_penalty,
+      presence_penalty,
     }: GrammarGenerateParams) => {
       const { data } = await axiosClient.post<
         unknown,
@@ -26,6 +28,8 @@ export function useGenerateGrammar() {
             content: `grammar errors of: "${text}"`,
           },
         ],
+        frequency_penalty,
+        presence_penalty,
         temperature,
         max_tokens,
         stream: true,

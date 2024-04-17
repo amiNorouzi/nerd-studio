@@ -46,6 +46,15 @@ import { iconVariants } from "@/constants/variants";
 import { Label } from "@/components/ui/label";
 import { TbSettings } from "react-icons/tb";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 type EnginesType = keyof typeof enginesImage;
 interface IProps {
   value: string;
@@ -162,8 +171,8 @@ function SettingPopover({ engine }: SettingPopoverProps) {
   const engineSettingValue = engineSetting[engine];
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
+    <Dialog>
+      <DialogTrigger
         asChild
         className="absolute end-7 top-1/2 -translate-y-1/2"
       >
@@ -172,12 +181,9 @@ function SettingPopover({ engine }: SettingPopoverProps) {
             className={cn(iconVariants({ size: "sm" }), "hover:bg-transparent")}
           />
         </Button>
-      </PopoverTrigger>
+      </DialogTrigger>
 
-      <PopoverContent
-        className="z-40 flex w-96 flex-col gap-6"
-        ref={contentRef}
-      >
+      <DialogContent>
         <div className="grid grid-cols-1 space-y-3">
           <div className="flex justify-between">
             <div className="flex items-center justify-between gap-2">
@@ -185,15 +191,6 @@ function SettingPopover({ engine }: SettingPopoverProps) {
               <h4 className="text-base font-medium">
                 {select_engine.engine_setting}
               </h4>
-            </div>
-            <div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setOpen(false)}
-              >
-                <IoMdClose size={20} />
-              </Button>
             </div>
           </div>
           <hr className="bg-muted" />
@@ -253,9 +250,19 @@ function SettingPopover({ engine }: SettingPopoverProps) {
               value={[engineSettingValue.top]}
             />
           </div>
+          <DialogFooter>
+            <Button
+              type="submit"
+              className="text-[ #9373EE; ]
+bg-[#F9F1FF]"
+            >
+              Cancel{" "}
+            </Button>
+            <Button type="submit">Save </Button>
+          </DialogFooter>
         </div>
-      </PopoverContent>
-    </Popover>
+      </DialogContent>
+    </Dialog>
   );
 }
 
