@@ -19,14 +19,14 @@ export default async function RootLayout({
   if (!session) return redirect("/signup");
 
   return (
-    <div className="flex h-dvh w-dvw">
+    <div className="flex h-dvh w-dvw ">
       <SidePanel />
       <div
         id="main"
         className="main-padding flex h-full w-full flex-col overflow-x-hidden"
       >
         <Suspense>
-          <main className="h-full w-full">{children}</main>
+          <main className="h-full w-full overflow-x-hidden">{children}</main>
           <SignupQuestions />
         </Suspense>
       </div>

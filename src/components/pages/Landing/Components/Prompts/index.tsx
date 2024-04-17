@@ -32,12 +32,12 @@ const PromptsSection = () => {
         ))}
       </div>
 
-      <div className="flex grid-cols-3 flex-col gap-6 md:grid lg:grid-cols-4  lg:justify-between lg:gap-y-6 2xl:grid-cols-4">
+      <div className="flex grid-cols-3 flex-col gap-6 rounded-3xl bg-transparent p-0 md:grid lg:grid-cols-4 lg:justify-between lg:gap-y-6  lg:bg-[#F9F6FF] lg:p-6 2xl:grid-cols-4">
         {/*Cards*/}
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
           <div
             key={num}
-            className="flex w-full flex-col rounded-xl border-[0.5px] border-[#EFEFEF] p-4 md:w-fit lg:max-w-[260px]"
+            className="flex w-full flex-col rounded-xl border-[0.5px] border-[#EFEFEF] bg-white p-4 md:w-fit lg:max-w-[260px]"
           >
             {/*image & title & Icons*/}
             <div className="mb-0 flex flex-row items-start gap-y-0 md:mb-2 md:flex-col md:justify-center md:gap-y-6">

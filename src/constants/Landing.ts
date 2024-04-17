@@ -73,6 +73,7 @@ interface BtnFeature {
   id: string;
   icon: IconType;
 }
+
 export const btnFeature: BtnFeature[] = [
   {
     name: "Rewrite",
@@ -103,5 +104,78 @@ export const btnFeature: BtnFeature[] = [
     name: "Code",
     id: "89cd;kb56",
     icon: TbCode,
+  },
+];
+
+export const openAiLogo = [
+  {
+    nameAI: "DALL·E",
+    image: "openAl.png",
+    id: "chs;c40c56",
+  },
+  {
+    nameAI: "PaLM",
+    image: "image2.png",
+    id: "chs;c4c-56",
+  },
+  {
+    nameAI: "Gemini",
+    image: "gemini.png",
+    id: "chs;c;56",
+  },
+  {
+    nameAI: "GPT-3.5 & GPT-4",
+    image: "chatGpt.png",
+    id: "ch#grc56",
+  },
+  {
+    nameAI: "Stable Diffusion",
+    image: "image1.png",
+    id: "chs;c4c!56",
+  },
+  {
+    nameAI: "PaLM",
+    image: "image2.png",
+    id: "chs;c4c-56",
+  },
+  {
+    nameAI: "Gemini",
+    image: "gemini.png",
+    id: "chs;c;56",
+  },
+  {
+    nameAI: "GPT-3.5 & GPT-4",
+    image: "chatGpt.png",
+    id: "ch#grc56",
+  },
+  {
+    nameAI: "GPT-3.5 & GPT-4",
+    image: "chatGpt.png",
+    id: "ch#grc56",
+  },
+  {
+    nameAI: "Stable Diffusion",
+    image: "image1.png",
+    id: "chs;c4c!56",
+  },
+  {
+    nameAI: "Gemini",
+    image: "gemini.png",
+    id: "chs;c;56",
+  },
+  {
+    nameAI: "GPT-3.5 & GPT-4",
+    image: "chatGpt.png",
+    id: "ch#grc56",
+  },
+  {
+    nameAI: "GPT-3.5 & GPT-4",
+    image: "chatGpt.png",
+    id: "ch#grc56",
+  },
+  {
+    nameAI: "Stable Diffusion",
+    image: "image1.png",
+    id: "chs;c4c!56",
   },
 ];
