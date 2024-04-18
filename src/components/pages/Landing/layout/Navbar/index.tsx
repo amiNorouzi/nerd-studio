@@ -8,9 +8,15 @@ const Navbar = () => {
     <div
       className={`padding-x nav-bg fixed left-0 top-0  z-[999] flex w-full flex-row items-center justify-between py-3 `}
     >
-      <div className="flex flex-row items-center gap-x-3">
-        {/*<NerdStudioIcon className={"size-[36px] lg:size-[44px]"} />*/}
-        <span className="max-md::text-2xl font-sans text-[18px] font-medium md:font-bold ">
+      <div className="flex flex-row items-center gap-x-2 lg:gap-x-3">
+        <Image
+          src={"/images/landing/nerdStudio.svg"}
+          alt={"nerdStudio"}
+          height={46}
+          width={48}
+          className="h-[36px] w-[38px] lg:h-[46px] lg:w-[48px] "
+        />
+        <span className="font-sans  text-lg font-medium md:text-2xl md:font-bold ">
           Nerd Studio
         </span>
       </div>

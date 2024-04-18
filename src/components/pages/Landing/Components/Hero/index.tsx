@@ -88,7 +88,7 @@ const Hero = () => {
                 Start Chat
               </Button>
             </div>
-            <div className=" hidden flex-row items-center text-base text-[#747474] lg:flex ">
+            <div className=" sub-title-color hidden flex-row items-center text-base lg:flex ">
               <div className="flex flex-row">
                 {starsArray.map(index => (
                   <Star key={index} className={"size-[24px]"} />

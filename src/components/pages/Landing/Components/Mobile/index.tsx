@@ -58,7 +58,7 @@ const Mobile = () => {
             alt="Phone"
             width={312}
             height={565}
-            className="md:-right-0/4 -mt-12 inline-block w-full md:absolute md:w-[312px] lg:-mt-28  xl:-mt-24 xl:h-[600px]  "
+            className="md:-right-0/4 -mt-12 inline-block max-sm:max-w-[260px] md:absolute md:w-[312px] lg:-mt-28  xl:-mt-24 xl:h-[600px] xl:w-[320px]  "
           />
         </div>
       </div>

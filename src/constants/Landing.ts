@@ -111,7 +111,27 @@ export const openAiLogo = [
   {
     nameAI: "DALL·E",
     image: "openAl.png",
-    id: "chs;c40c56",
+    id: "chs;as+vc40c56",
+  },
+  {
+    nameAI: "PaLM",
+    image: "image2.png",
+    id: "chs;c4FMKc-56",
+  },
+  {
+    nameAI: "Gemini",
+    image: "gemini.png",
+    id: "chWAZAa6r;56",
+  },
+  {
+    nameAI: "GPT-3.5 & GPT-4",
+    image: "chatGpt.png",
+    id: "ch#grc56",
+  },
+  {
+    nameAI: "Stable Diffusion",
+    image: "image1.png",
+    id: "ch4d5h56",
   },
   {
     nameAI: "PaLM",
@@ -126,56 +146,36 @@ export const openAiLogo = [
   {
     nameAI: "GPT-3.5 & GPT-4",
     image: "chatGpt.png",
-    id: "ch#grc56",
+    id: "ch#grQZOc56",
+  },
+  {
+    nameAI: "GPT-3.5 & GPT-4",
+    image: "chatGpt.png",
+    id: "ch#asv6==grc56",
   },
   {
     nameAI: "Stable Diffusion",
     image: "image1.png",
-    id: "chs;c4c!56",
-  },
-  {
-    nameAI: "PaLM",
-    image: "image2.png",
-    id: "chs;c4c-56",
+    id: "chs;c4XM.c!56",
   },
   {
     nameAI: "Gemini",
     image: "gemini.png",
-    id: "chs;c;56",
+    id: "chDasv46SV;56",
   },
   {
     nameAI: "GPT-3.5 & GPT-4",
     image: "chatGpt.png",
-    id: "ch#grc56",
+    id: "ch#grZAW66f",
   },
   {
     nameAI: "GPT-3.5 & GPT-4",
     image: "chatGpt.png",
-    id: "ch#grc56",
+    id: "ch#gevqePPbqerc56",
   },
   {
     nameAI: "Stable Diffusion",
     image: "image1.png",
-    id: "chs;c4c!56",
-  },
-  {
-    nameAI: "Gemini",
-    image: "gemini.png",
-    id: "chs;c;56",
-  },
-  {
-    nameAI: "GPT-3.5 & GPT-4",
-    image: "chatGpt.png",
-    id: "ch#grc56",
-  },
-  {
-    nameAI: "GPT-3.5 & GPT-4",
-    image: "chatGpt.png",
-    id: "ch#grc56",
-  },
-  {
-    nameAI: "Stable Diffusion",
-    image: "image1.png",
-    id: "chs;c4c!56",
+    id: "chs;c4avtc!56",
   },
 ];

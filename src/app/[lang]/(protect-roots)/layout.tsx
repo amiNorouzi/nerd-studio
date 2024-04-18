@@ -21,12 +21,9 @@ export default async function RootLayout({
   return (
     <div className="flex h-dvh w-dvw ">
       <SidePanel />
-      <div
-        id="main"
-        className="main-padding flex h-full w-full flex-col overflow-x-hidden"
-      >
+      <div id="main" className="main-padding flex h-full w-full flex-col ">
         <Suspense>
-          <main className="h-full w-full overflow-x-hidden">{children}</main>
+          <main className="h-full w-full">{children}</main>
           <SignupQuestions />
         </Suspense>
       </div>

@@ -94,7 +94,7 @@
     }
 
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground ;
     }
 }
 
@@ -184,7 +184,7 @@ body {
     font-size: 13px;
     font-weight: 400;
     transition: background-color 300ms !important;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 
 button,
@@ -369,7 +369,7 @@ padding: {
 }
 
 .padding-y {
-    @apply py-6  lg:py-[60px]
+    @apply py-6  lg:py-[60px] 2xl:py-[120px]
 }
 
 .nav-bg {
@@ -425,14 +425,19 @@ padding: {
 
 .embla__container {
     display: flex;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.00) 0%, #FFF 100%);
 }
 
 .embla__slide {
-    flex: 0 0 20%;
-    min-width: 0;
-    margin-right: 10px;
+    flex: 0 0 15%;
+    min-width: 70px;
+    margin-right: 0;
+
 }
 
 .bg-downloads {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), linear-gradient(114deg, #9D7AFF 0%, #52D5FF 100%);
+}
+.gradient-gpts{
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.00) 0%, #FFF 100%);
 }
