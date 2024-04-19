@@ -65,9 +65,9 @@ export function SidePanel() {
           ref={sidebarRef}
           collapsed={collapsed}
           collapsedWidth={
-            isMobile ? "0" : isHoverOnSidePanel ? "240px" : "68px"
+            isMobile ? "0" : isHoverOnSidePanel ? "180px" : "60px"
           }
-          width="240px"
+          width="180px"
           transitionDuration={500}
           backgroundColor={getHslColorByVar("--background")}
           rootStyles={{
@@ -91,18 +91,17 @@ export function SidePanel() {
               "row gap-2.5 border-b py-2",
               !collapsed || isHoverOnSidePanel
                 ? "px-4 "
-                : "!w-full overflow-hidden px-3",
+                : "!w-full overflow-hidden px-4",
               isMainHeader ? "h-header" : "h-apps-header",
             )}
           >
             <Image
               src="/images/logo.png"
               alt="nerd logo"
-              width={50}
-              height={40}
-              className={isOpen ? "w-9 md:w-10" : "me-4 w-11"}
+              width={24}
+              height={24}
             />
-            <h1 className="text-gradiant whitespace-nowrap text-lg font-bold md:text-xl">
+            <h1 className="text-gradiant whitespace-nowrap text-lg font-bold">
               Nerd Studio
             </h1>
 

@@ -58,7 +58,6 @@ export default function FormSection({
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const [url, setUrl] = useState<string>("");
-  const pathname = usePathname();
 
   const { mutateAsync: covertPDF } = usePDFConvertor();
   const covertToText = async (files: File[]) => {
@@ -118,14 +117,6 @@ export default function FormSection({
         onChange={onTextAreaChange}
         value={value}
       />
-      <RenderIf isTrue={!pathname.includes("template")}>
-        <Upload
-          setFiles={onSelectFiles}
-          setUserUrl={setUrl}
-          files={files}
-          userUrl={url}
-        />
-      </RenderIf>
       <OptionsSelectBoxes />
       <SubmitButtonSelectEngine
         onClick={onSubmit}

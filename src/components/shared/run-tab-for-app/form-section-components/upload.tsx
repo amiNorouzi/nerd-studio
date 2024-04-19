@@ -53,7 +53,7 @@ export function Upload(props: IProps) {
     <>
       <div
         className={cn(
-          "flex items-start justify-between rounded-lg",
+          "absolute bottom-6 start-3.5 flex items-start justify-between rounded-lg",
           isFileOrUrlValid && "-mt-3 border p-2",
         )}
       >
@@ -73,6 +73,7 @@ export function Upload(props: IProps) {
               {userUrl}
               <Button
                 variant="ghost"
+                size={"sm"}
                 className="h-3 w-3 p-1 opacity-0 transition-opacity group-hover:opacity-100"
                 onClick={handleDeleteUrl}
               >
@@ -85,13 +86,13 @@ export function Upload(props: IProps) {
           onClick={handleTriggerOpenButton}
           variant="muted"
           className={cn(
-            "gap-2 text-sm text-muted-foreground transition-all duration-300",
+            "gap-2 bg-muted-dark text-muted-foreground transition-all duration-300",
             !isFileOrUrlValid && "-me-0.5 -mt-[31px] ",
           )}
         >
           <TbUpload
             className={cn(
-              iconVariants({ size: "md" }),
+              iconVariants({ size: "sm" }),
               "stroke-muted-foreground",
             )}
           />

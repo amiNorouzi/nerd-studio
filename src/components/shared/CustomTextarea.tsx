@@ -14,6 +14,9 @@ import {
 } from "@/hooks";
 
 import { cn } from "@/lib/utils";
+import { Upload } from "@/components/shared/run-tab-for-app/form-section-components";
+import RenderIf from "@/components/shared/RenderIf";
+import { usePathname } from "next/navigation";
 
 export interface ICustomTextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -63,6 +66,7 @@ export function CustomTextarea({
     isPaused,
     isSpeaking,
   } = useTextToSpeech(value as string);
+  const pathname = usePathname();
 
   return (
     <div className={cn("col relative w-full", rootClassName)}>
@@ -70,10 +74,10 @@ export function CustomTextarea({
       {isRecording ? (
         <button
           onClick={handleToggleRecording}
-          className=" absolute start-1.5 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
+          className="absolute start-1.5 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
         >
           <svg
-            className="h-12 w-12 "
+            className="h-3.5 w-3.5 "
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -103,7 +107,15 @@ export function CustomTextarea({
       />
 
       {/*action buttons*/}
-      <div className="row absolute bottom-6 end-3.5 gap-1">
+      <RenderIf isTrue={!pathname.includes("template")}>
+        <Upload
+          setFiles={() => {}}
+          setUserUrl={() => {}}
+          files={[]}
+          userUrl={"url"}
+        />
+      </RenderIf>
+      <div className="row absolute bottom-6 end-3.5 h-5 gap-1">
         <MinimalButton
           Icon={TbTrash}
           title={dictionary.clear_button_label}
@@ -137,7 +149,7 @@ export function CustomTextarea({
         {!!renderMoreActions && renderMoreActions()}
       </div>
       {/*character count*/}
-      <span className="mt-0.5 ps-1 text-xs text-muted-foreground">
+      <span className="mt-0.5 ps-1 text-muted-foreground">
         {value?.toString().length}/{maxLength}
       </span>
     </div>
