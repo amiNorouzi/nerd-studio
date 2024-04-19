@@ -12,6 +12,8 @@ import Mobile from "@/components/pages/Landing/Components/Mobile";
 import Gpts from "@/components/pages/Landing/Components/Gpts";
 import Footer from "@/components/pages/Landing/layout/Footer";
 import Comments from "@/components/pages/Landing/Components/comments";
+import Services from "@/components/pages/Landing/Components/Services";
+import MapWorld from "@/components/pages/Landing/Components/MapWorld";
 
 // @ts-ignore
 const Landing = ({ lang }) => {
@@ -22,9 +24,11 @@ const Landing = ({ lang }) => {
         <Hero />
         <Steps />
         <Features />
+        <Services />
         <PromptsSection />
         <CustomPrompt />
         <Mobile />
+        <MapWorld />
         <Gpts />
         <Comments />
         <DownloadApp />

@@ -4,8 +4,8 @@ import { openAiLogo } from "@/constants/Landing";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 interface T {
-  children: React.ReactNode;
-  arrayForMap: object[];
+  children?: React.ReactNode;
+  arrayForMap?: object[];
 }
 const Carousel = ({}: T) => {
   Autoplay.globalOptions = { delay: 2000 };

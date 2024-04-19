@@ -444,3 +444,16 @@ padding: {
 .gradient-gpts{
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.00) 0%, #FFF 100%);
 }
+
+.bg-services{
+    background-image: url("/images/landing/bg-services.jpg");
+    color: #d0d4d6;
+}
+
+
+
+.embla__slide__comment {
+    flex: 0 0 50%;
+    min-width: 0;
+    margin-right: 24px;
+}
