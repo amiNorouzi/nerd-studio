@@ -7,14 +7,12 @@ EXPOSE 3000
 
 # Build stage
 FROM base as builder
-RUN npm install -g yarn
 COPY . .
 RUN yarn install --frozen-lockfile && yarn build
 
 # Production stage
 FROM base as production
 ENV NODE_ENV=production
-RUN npm install -g yarn
 RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
 USER nextjs
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
@@ -26,6 +24,5 @@ CMD ["yarn", "start"]
 # Development stage
 FROM base as dev
 ENV NODE_ENV=development
-RUN npm install -g yarn
 COPY . .
 CMD ["yarn", "dev"]
