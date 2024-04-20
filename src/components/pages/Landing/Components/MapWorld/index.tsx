@@ -31,26 +31,28 @@ const MapWorld = () => {
         }
       />
 
-      <div className="flex w-full items-center justify-center ">
-        <ComposableMap>
-          <Geographies geography={geo}>
-            {({ geographies }) =>
-              geographies.map(geo => (
-                <Geography
-                  style={{
-                    pressed: {
-                      fill: "rgba(238,68,34,0.01)",
-                    },
-                  }}
-                  fill="#DDE0E4"
-                  key={geo.rsmKey}
-                  geography={geo}
-                  name={geo.name}
-                />
-              ))
-            }
-          </Geographies>
-        </ComposableMap>
+      <div className="flex flex-1 justify-center">
+        <div className="flex w-full items-center justify-center ">
+          <ComposableMap>
+            <Geographies geography={geo}>
+              {({ geographies }) =>
+                geographies.map(geo => (
+                  <Geography
+                    style={{
+                      pressed: {
+                        fill: "rgba(238,68,34,0.01)",
+                      },
+                    }}
+                    fill="#DDE0E4"
+                    key={geo.rsmKey}
+                    geography={geo}
+                    name={geo.name}
+                  />
+                ))
+              }
+            </Geographies>
+          </ComposableMap>
+        </div>
       </div>
     </div>
   );

@@ -365,11 +365,11 @@ padding: {
     },
  */
 .padding-x {
-    @apply px-[16px] md:px-[30px] lg:px-[40px] xl:px-[80px] 2xl:px-[100px]
+    @apply px-[16px] md:px-[30px] lg:px-[40px] xl:px-[80px] 2xl:px-[90px]
 }
 
 .padding-y {
-    @apply py-6  lg:py-[60px] 2xl:py-[120px]
+    @apply py-6  lg:py-[30px] 2xl:py-[60px] min-[1920px]:py-[120px]
 }
 
 .nav-bg {
@@ -411,7 +411,7 @@ padding: {
 
 /*---------Fonts ---------*/
 .text-title {
-    @apply text-lg font-normal leading-normal md:text-2xl lg:text-4xl xl:text-[48px] lg:font-medium
+    @apply text-lg font-normal leading-normal md:text-2xl lg:text-3xl xl:font-bold  2xl:text-4xl min-[1920px]:text-5xl md:font-medium
 }
 
 .sub-title {
@@ -457,3 +457,6 @@ padding: {
     min-width: 0;
     margin-right: 24px;
 }
+
+
+
