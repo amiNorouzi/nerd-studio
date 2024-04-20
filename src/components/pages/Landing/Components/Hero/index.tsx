@@ -19,7 +19,7 @@ const Hero = () => {
         {/*COL LEFT*/}
         <div className="z-30 flex  w-full flex-col items-center justify-center  pt-[84px] md:items-start lg:pt-[100px]">
           {/*Title*/}
-          <h1 className=" text-xl font-bold leading-[45px] min-[375px]:text-2xl lg:mb-[25px]  lg:text-3xl  lg:leading-[55px] 2xl:text-5xl 2xl:leading-[89px] ">
+          <h1 className=" text-xl font-bold leading-[45px] min-[375px]:text-2xl lg:mb-[25px]  lg:text-3xl  lg:leading-[55px] 2xl:text-4xl 2xl:leading-[89px] ">
             <span className="">
               Lorem Ipsum is simply and
               <br />
@@ -36,26 +36,26 @@ const Hero = () => {
           <div className=" z-30 mb-9 mt-3 sm:mx-auto sm:w-5/6 md:mx-0 lg:mb-[20px] xl:w-full">
             <span
               className={
-                "text-center text-xs leading-7  md:text-start lg:text-sm lg:leading-10 xl:text-[18px] "
+                "text-center text-xs leading-7  md:text-start lg:text-sm lg:leading-normal xl:text-[18px] "
               }
             >
-              <span className="flex xl:hidden">
+              <span className="sub-title-color flex xl:hidden">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry text of the printing and typesetting industryLorem
                 Ipsum is simply dummy
               </span>
-              <span className="hidden xl:flex">
+              <span className="sub-title-color hidden xl:flex">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry Lorem Ipsum is simply dummy text of the printing and
                 typesetting industryLorem Ipsum is simply dummy text of the
                 printing and typesetting industryLorem Ipsum is simply dummy
-                text of the printing and typesetting{" "}
+                text of the printing and typesetting
               </span>
             </span>
           </div>
 
           {/*Rewards B*/}
-          <div className="z-30 mb-9 flex  flex-row justify-center gap-4 min-[375px]:gap-[18px] md:max-w-[645px] lg:mb-[76px]  lg:justify-between xl:gap-x-12">
+          <div className="z-30 mb-9 flex  flex-row justify-center gap-4 min-[375px]:gap-[18px] md:max-w-[645px] lg:mb-[70px]  lg:justify-between xl:gap-x-12">
             {rewards.map(item => (
               <div
                 key={item.id}
@@ -88,7 +88,7 @@ const Hero = () => {
                 Start Chat
               </Button>
             </div>
-            <div className=" hidden flex-row items-center text-base text-[#747474] lg:flex ">
+            <div className=" sub-title-color hidden flex-row items-center text-base lg:flex ">
               <div className="flex flex-row">
                 {starsArray.map(index => (
                   <Star key={index} className={"size-[24px]"} />
