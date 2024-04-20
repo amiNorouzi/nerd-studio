@@ -1,15 +1,13 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
-
 import { SelectAndDrawer, Show } from "@/components/shared";
-
-import { useAxiosFetcher } from "@/hooks/useAxiosFetcher";
 import type { StateSetterType } from "@/services/types";
-import type { CategoryItem } from "@/components/pages/template/types";
-import RenderIf from "@/components/shared/RenderIf";
 import { Label } from "@/components/ui/label";
 import { useGetDictionary } from "@/hooks";
 import AdvanceCategorySkeleton from "@/components/pages/template/components/advance-category-skeleton";
+import {
+  useChildCategories,
+  useTemplateParentCategories,
+} from "@/services/templates";
 
 interface AdvancedParentCategoryProps {
   selectedParentCategoryId: number;
@@ -17,14 +15,6 @@ interface AdvancedParentCategoryProps {
   setSelectedChildCategoryId: StateSetterType<number>;
   setSelectedChildItemName: StateSetterType<string>;
   selectedChildCategoryId: number;
-}
-
-function getData(data: CategoryItem[]) {
-  return data.map(item => ({
-    ...item,
-    value: item.name,
-    id: String(item.id),
-  }));
 }
 
 export function AdvancedCategory({
@@ -37,29 +27,10 @@ export function AdvancedCategory({
   const {
     page: { template: dictionary },
   } = useGetDictionary();
-  const { axiosFetch } = useAxiosFetcher();
-
-  const { data } = useQuery({
-    queryKey: ["template-parent-categories"],
-    queryFn: () =>
-      axiosFetch<CategoryItem[]>({
-        url: "/templates/parent_categories/",
-      }),
-  });
-
-  const { data: childCategoriesData, isLoading } = useQuery({
-    queryKey: ["template-child-categories", selectedParentCategoryId],
-    queryFn: () =>
-      axiosFetch<CategoryItem[]>({
-        url: `/templates/child_categories/${selectedParentCategoryId}/child/`,
-      }),
-    enabled: !!selectedParentCategoryId,
-  });
-
-  const categories = !!data ? getData(data) : [];
-  const childCategories = !!childCategoriesData
-    ? getData(childCategoriesData)
-    : [];
+  const categories = useTemplateParentCategories();
+  const { childCategories, isLoading } = useChildCategories(
+    selectedParentCategoryId,
+  );
 
   function handleSelect(id: string) {
     setSelectedChildCategoryId(-1);
@@ -99,7 +70,7 @@ export function AdvancedCategory({
           <Show.When isTrue={isLoading && !!selectedParentCategoryId}>
             <AdvanceCategorySkeleton />
           </Show.When>
-          <Show.When isTrue={!isLoading && !!childCategoriesData}>
+          <Show.When isTrue={!isLoading && childCategories.length > 0}>
             <>
               <Label>{dictionary.child_category}</Label>
               <SelectAndDrawer

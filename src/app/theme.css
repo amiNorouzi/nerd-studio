@@ -73,8 +73,8 @@
   --popover: 229 17% 18%;
   --popover-foreground: 208 14% 79%;
 
-  --muted: 234 10% 19%;
-  --muted-dark: 234 10% 16%;
+  --muted: #F8F8F8;
+  --muted-dark: #EFEFEF;
   --muted-foreground: 212 7% 52%;
   --muted-foreground-light: 212 7% 60%;
 

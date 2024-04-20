@@ -30,7 +30,7 @@ export function MinimalButton({
       <Button
         type="button"
         variant="ghost"
-        className={cn("fit p-0.5 text-muted-foreground", className)}
+        className={cn("!h-5 w-5 p-0.5 text-muted-foreground", className)}
         {...otherProps}
       >
         <Icon className={cn(iconVariants({ size: "sm" }), iconClassname)} />

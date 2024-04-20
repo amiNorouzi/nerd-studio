@@ -4,13 +4,12 @@ import {
   HistoryItems,
   Run,
   SetSearchParamProvider,
-  HistoryInfo,
 } from "@/components/shared";
-import { HistoryInfoContent } from "./history-info-content";
 import type { ParamsType } from "@/services/types";
 import { useEventChanel } from "@/services/events-chanel";
 import { useGenerateGrammar } from "@/services/grammar";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 import { useHistories } from "@/services/history";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { useEditorStore } from "@/stores/zustand/editor-slice";
@@ -70,6 +69,9 @@ export function GrammarPage({ params }: IProps) {
           <HistoryBox>
             <HistoryItems appName="Grammar" historyItems={data} />
           </HistoryBox>
+          <Highlight>
+            <HighlightContent />
+          </Highlight>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           {/* <HistoryInfo>
             <HistoryInfoContent />

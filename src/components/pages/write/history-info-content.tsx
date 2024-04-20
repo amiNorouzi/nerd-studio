@@ -31,7 +31,7 @@ export function HistoryInfoContent() {
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
   const { handlePlaySpeak, handleStopSpeak, isSpeaking } = useTextToSpeech(
-    selectedHistoryItem?.question ?? "",
+    selectedHistoryItem?.answer_text ?? "",
   );
   const {
     common: { copy },
@@ -45,7 +45,7 @@ export function HistoryInfoContent() {
         <span>{ReWrite.text_label}</span>
         <div className="relative">
           <textarea
-            defaultValue={selectedHistoryItem?.question}
+            defaultValue={selectedHistoryItem?.answer_text}
             className="w-full  rounded-md border border-black px-4 py-1 pb-8"
             rows={8}
             disabled
@@ -74,7 +74,7 @@ export function HistoryInfoContent() {
             <MinimalButton
               Icon={isCopied ? LuCopyCheck : LuCopy}
               title={copy}
-              onClick={() => handleCopy(selectedHistoryItem?.question ?? "")}
+              onClick={() => handleCopy(selectedHistoryItem?.answer_text ?? "")}
             />
           </div>
         </div>

@@ -6,13 +6,13 @@ import {
   Run,
   SetSearchParamProvider,
 } from "@/components/shared";
-import { getDictionary } from "@/lib/dictionary";
 import { HistoryInfoContent } from "./history-info-content";
 import type { SCRPropsType } from "@/services/types";
 import { useEventChanel } from "@/services/events-chanel";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAIWriter } from "@/services/ai-writer";
 import { useGetDictionary } from "@/hooks";
+import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 
 export function WritePage({ params }: SCRPropsType) {
   const {
@@ -56,6 +56,10 @@ export function WritePage({ params }: SCRPropsType) {
           <HistoryBox>
             <HistoryItems appName="ReWrite" />
           </HistoryBox>
+
+          <Highlight>
+            <HighlightContent />
+          </Highlight>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           <HistoryInfo>
             <HistoryInfoContent />

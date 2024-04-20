@@ -1,4 +1,3 @@
-import { AppsIcons } from "@/components/svg-icons";
 import {
   TbBooks,
   TbCamera,
@@ -7,6 +6,7 @@ import {
   TbLayoutDashboard,
   TbMessages,
   TbWriting,
+  TbTextGrammar,
 } from "react-icons/tb";
 
 export const apps = [
@@ -27,43 +27,43 @@ export const apps = [
   {
     id: "3",
     i18Key: "",
-    title: "Images",
-    route: "/image",
-    icon: TbCamera,
-  },
-  {
-    id: "4",
-    i18Key: "",
     title: "ReWrite",
     route: "/ReWrite",
     icon: TbWriting,
   },
   {
+    id: "4",
+    i18Key: "",
+    title: "Images",
+    route: "/image",
+    icon: TbCamera,
+  },
+  {
     id: "5",
-    i18Key: "",
-    title: "Prompt Library",
-    route: "/template",
-    icon: TbBooks,
-  },
-  {
-    id: "6",
-    i18Key: "",
-    title: "Code",
-    route: "/code",
-    icon: TbCode,
-  },
-  {
-    id: "7",
     i18Key: "",
     title: "Translate",
     route: "/translate",
     icon: TbLanguage,
   },
   {
-    id: "8",
+    id: "6",
     i18Key: "",
     title: "Grammar",
     route: "/grammar",
-    icon: AppsIcons.GrammarIcon,
+    icon: TbTextGrammar,
+  },
+  {
+    id: "7",
+    i18Key: "",
+    title: "Code",
+    route: "/code",
+    icon: TbCode,
+  },
+  {
+    id: "8",
+    i18Key: "",
+    title: "Prompt Library",
+    route: "/template",
+    icon: TbBooks,
   },
 ] as const;

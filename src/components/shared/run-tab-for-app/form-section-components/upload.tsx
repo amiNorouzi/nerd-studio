@@ -73,6 +73,7 @@ export function Upload(props: IProps) {
               {userUrl}
               <Button
                 variant="ghost"
+                size={"sm"}
                 className="h-3 w-3 p-1 opacity-0 transition-opacity group-hover:opacity-100"
                 onClick={handleDeleteUrl}
               >
@@ -91,7 +92,7 @@ export function Upload(props: IProps) {
         >
           <TbUpload
             className={cn(
-              iconVariants({ size: "md" }),
+              iconVariants({ size: "sm" }),
               "stroke-muted-foreground",
             )}
           />

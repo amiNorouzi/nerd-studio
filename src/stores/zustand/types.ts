@@ -128,6 +128,13 @@ export interface HistoryItem {
   uuid: string;
   app_type: string;
   created_at: string;
+  title: string;
+  date: string;
+  description?: string;
+  question: string;
+  engine: string;
+  engineIcon: string;
+  feature?: string;
 }
 export interface HistoryState {
   isHistoryOpen: boolean;
@@ -137,6 +144,9 @@ export interface HistoryState {
   isHistoryInfoOpen: boolean;
   selectedHistoryItem: HistoryItem | null;
 }
+export interface HighlightState {
+  isHighlightOpen: boolean;
+}
 export interface HistoryAction {
   setHistoryIsOpen: (v: boolean) => void;
   setGrammarHistoryIsOpen: (v: boolean) => void;
@@ -144,6 +154,9 @@ export interface HistoryAction {
   setSelectHistoryItem: (v: HistoryItem) => void;
   resetHistory: () => void;
   setHistoryInfoOpen: (v: boolean) => void;
+}
+export interface HighlightAction {
+  setHighlightIsOpen(isOpen: boolean): void;
 }
 
 //chat

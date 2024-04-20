@@ -23,7 +23,7 @@ module.exports = {
 
     extend: {
       fontSize: {
-        xsm: ["13px", "20px"],
+        sm: ["12px", "18px"],
       },
       colors: {
         border: "hsl(var(--border))",

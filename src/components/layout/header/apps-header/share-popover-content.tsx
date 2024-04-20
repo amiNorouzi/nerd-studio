@@ -11,12 +11,12 @@ import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
 import { useLocation } from "@/hooks/useLocation";
 function SocialMediaSection() {
   const {
-    components: { apps_header },
+    components: { user },
   } = useGetDictionary();
   return (
     <div className="flex flex-wrap items-center justify-between">
       {/* share in social media*/}
-      <span className="text-base">{apps_header.share_link_for_credits}</span>
+      <span className="text-base">{user.menu.share_link_for_credits}</span>
       <SocialMedias />
     </div>
   );
@@ -26,11 +26,13 @@ function CopyLinkSection() {
   const location = useLocation();
   const [handleCopy, isCopy] = useCopyTextInClipBoard(2000);
   const {
-    components: { apps_header },
+    components: {
+      user: { menu },
+    },
   } = useGetDictionary();
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-sm">{apps_header.share_link}</span>
+      <span className="text-sm">{menu.share_link}</span>
       <div className="flex w-full justify-center">
         <input
           readOnly
@@ -43,7 +45,7 @@ function CopyLinkSection() {
           onClick={() => handleCopy(location?.href ?? "")}
           className="h-full rounded-s-none text-sm"
         >
-          {isCopy ? apps_header.copied : apps_header.copy}
+          {isCopy ? menu.copied : menu.copy}
         </Button>
       </div>
     </div>
@@ -52,18 +54,20 @@ function CopyLinkSection() {
 
 function Description() {
   const {
-    components: { apps_header },
+    components: {
+      user: { menu },
+    },
   } = useGetDictionary();
   return (
     <div className="bg-gradiant text-gradiant rounded px-3 py-2">
       <span className="text-gradiant text-sm">
-        {apps_header.share_link_for_credits}
+        {menu.share_link_for_credits}
       </span>
 
       <HoverCard openDelay={200} closeDelay={100}>
         <HoverCardTrigger className="text-gradiant h-fit p-0 text-sm underline">
           {" "}
-          {apps_header.Learn_more}
+          {menu.Learn_more}
         </HoverCardTrigger>
 
         <HoverCardContent

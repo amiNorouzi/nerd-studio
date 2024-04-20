@@ -7,4 +7,3 @@ export { Title } from "./Title";
 export { ChatSettingAndUpload } from "./ChatSettingAndUpload";
 export { StopResponseButton } from "./StopResponseButton";
 export { HistoryItems } from "./HistoryItems";
-export { Highlight, HighlightContent } from "./Highlight";
