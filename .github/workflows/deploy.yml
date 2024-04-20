@@ -12,4 +12,4 @@ jobs:
 
       - name: Build and Run Docker container
         run: |
-          docker compose up --build -d
+          docker compose -f docker/production/docker-compose.yml build
