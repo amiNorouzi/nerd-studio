@@ -31,7 +31,6 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV NEXT_SHARP_PATH=/app/node_modules/sharp
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
