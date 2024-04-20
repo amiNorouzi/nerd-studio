@@ -61,13 +61,13 @@ const Hero = () => {
                 key={item.id}
                 className="flex size-[100px] flex-col  items-center justify-center rounded-full bg-white shadow-md max-[375px]:size-[90px]  xl:size-[155px]"
               >
-                <Image
-                  src={`/images/hero/${item.img}`}
-                  width={60}
-                  height={60}
-                  alt={item.img}
-                  className="size-[36px] xl:size-[55px]"
-                />
+                {/*<Image*/}
+                {/*  src={`/images/hero/${item.img}`}*/}
+                {/*  width={60}*/}
+                {/*  height={60}*/}
+                {/*  alt={item.img}*/}
+                {/*  className="size-[36px] xl:size-[55px]"*/}
+                {/*/>*/}
                 <span className="text-[10px] font-medium xl:text-base">
                   {item.title}
                 </span>
