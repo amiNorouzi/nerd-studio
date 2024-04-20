@@ -13,3 +13,4 @@ jobs:
       - name: Build and Run Docker container
         run: |
           docker compose -f docker/production/docker-compose.yml build
+          docker-compose -f docker/production/docker-compose.yml up
