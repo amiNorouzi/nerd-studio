@@ -13,5 +13,3 @@ jobs:
       - name: Build and Run Docker container
         run: |
           docker compose up --build -d
-
-      # Add other steps as necessary
