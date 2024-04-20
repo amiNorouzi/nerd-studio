@@ -13,9 +13,8 @@ RUN yarn install
 # Copy the rest of the application
 COPY . .
 
-RUN npm install -g npm@10.5.2
 # Build the Next.js application
-RUN npm run build
+RUN yarn run build
 
 # Expose the port Next.js runs on
 EXPOSE 3000
