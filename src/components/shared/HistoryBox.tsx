@@ -37,11 +37,23 @@ export function HistoryBox({ children, className, ...props }: IProps) {
   const header = (
     <>
       {/*header and search section*/}
-      <div className="sticky top-0 flex w-full flex-col gap-4 bg-muted">
-        <div className=" flex w-full items-center justify-between border-b py-1.5">
+      <div className="sticky top-0 flex w-full flex-col gap-4 bg-muted  pt-4">
+        {/* <div className=" flex w-full items-center justify-between border-b py-1.5">
           <div className="flex items-center justify-start gap-1 text-sm font-medium text-primary">
             <TbHistory className={iconVariants({ size: "md" })} />
             {history_box.history_title}
+          </div>
+        </div> */}
+        <div className="flex  h-[44px] w-full items-center justify-center gap-1.5 rounded-lg  p-2">
+          <div className="flex h-[44px] w-full items-center justify-center gap-1.5 rounded-lg bg-background p-2">
+            <TbSearch className="text-[20px] font-[800] text-[#747474]" />
+            <Input
+              value={searchValue}
+              onChange={e => setSearch(e.target.value)}
+              type="search"
+              placeholder={history_box.history_search_placeholder}
+              className="border-none bg-background px-0 outline-none ring-0"
+            />
           </div>
           <div>
             <Button
@@ -49,19 +61,9 @@ export function HistoryBox({ children, className, ...props }: IProps) {
               variant="ghost"
               className="fit p-1"
             >
-              <IoMdClose size={20} />
+              <IoMdClose className="text-[#747474]" size={20} />
             </Button>
           </div>
-        </div>
-        <div className="flex h-element w-full items-center justify-center gap-1.5 rounded-lg bg-background p-2">
-          <TbSearch className={iconVariants({ size: "md" })} />
-          <Input
-            value={searchValue}
-            onChange={e => setSearch(e.target.value)}
-            type="search"
-            placeholder={history_box.history_search_placeholder}
-            className="border-none bg-background px-0 outline-none ring-0"
-          />
         </div>
       </div>
     </>
@@ -72,7 +74,7 @@ export function HistoryBox({ children, className, ...props }: IProps) {
         className={cn(
           "flex h-full w-0 max-w-0 basis-0 flex-col items-center  justify-start   gap-4 divide-y bg-muted opacity-0 transition-all duration-300",
           isHistoryOpen &&
-            " w-fit max-w-[300px] basis-3/4  p-3 pt-0 opacity-100 xl:basis-1/2 ",
+            " w-fit max-w-[300px] basis-3/4  p-[18px] pt-0 opacity-100 xl:basis-1/2 ",
           className,
         )}
         {...props}
@@ -88,7 +90,7 @@ export function HistoryBox({ children, className, ...props }: IProps) {
 
   return (
     <Drawer open={isHistoryOpen} onOpenChange={setHistoryIsOpen}>
-      <DrawerContent className="max-h-[90dvh] gap-2 bg-muted p-2">
+      <DrawerContent className="max-h-[90dvh] gap-2 bg-muted p-2 ">
         {header}
         {children}
       </DrawerContent>

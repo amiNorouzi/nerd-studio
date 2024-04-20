@@ -12,6 +12,8 @@ import { useEventChanel } from "@/services/events-chanel";
 import { useGenerateGrammar } from "@/services/grammar";
 import { useEffect, useState } from "react";
 import { useHistories } from "@/services/history";
+import { useHistoryStore } from "@/stores/zustand/history-store";
+import { useEditorStore } from "@/stores/zustand/editor-slice";
 
 interface IProps {
   params: ParamsType;
@@ -28,7 +30,17 @@ export function GrammarPage({ params }: IProps) {
   });
   const { mutate: generateGrammar } = useGenerateGrammar();
   const [text, setText] = useState("");
+  const [textInput, setTextInput] = useState("");
   const { data } = useHistories({ pageNumber: 1 });
+  const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
+  useEffect(() => {
+    if (selectedHistoryItem) {
+      setTextInput(selectedHistoryItem.answer_text);
+    }
+    if (grammar) {
+      setTextInput(prev => prev + grammar);
+    }
+  }, [grammar, selectedHistoryItem]);
 
   const handleGenerate = () => {
     if (text) {
@@ -43,8 +55,6 @@ export function GrammarPage({ params }: IProps) {
       });
     }
   };
-  console.log("text is ", text);
-  console.log("grammar is ", grammar);
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="Grammar">
@@ -56,7 +66,7 @@ export function GrammarPage({ params }: IProps) {
           onSubmit={handleGenerate}
         />
 
-        <Run.Editor value={grammar} onChange={() => {}}>
+        <Run.Editor value={textInput ? textInput : ""} onChange={setTextInput}>
           <HistoryBox>
             <HistoryItems appName="Grammar" historyItems={data} />
           </HistoryBox>

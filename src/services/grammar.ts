@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 
 type GrammarGenerateParams = {
@@ -6,6 +6,8 @@ type GrammarGenerateParams = {
 } & Omit<OpenAiCompletionSchemaInput, "stream" | "messages">;
 
 export function useGenerateGrammar() {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async ({
       text,
@@ -37,6 +39,10 @@ export function useGenerateGrammar() {
       });
 
       return data;
+    },
+    onSuccess: () => {
+      // @ts-ignore
+      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
     },
   });
 }

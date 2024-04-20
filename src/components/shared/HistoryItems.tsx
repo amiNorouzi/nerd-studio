@@ -7,12 +7,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { HiArrowLongRight } from "react-icons/hi2";
 
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { cn } from "@/lib/utils";
 import type { HistoryItem } from "@/stores/zustand/types";
 import { useGetDictionary } from "@/hooks";
-import { useHistories } from "@/services/history";
+import { useHistories, useHistoryDelete } from "@/services/history";
+import { BsPinAngle, BsPinAngleFill } from "react-icons/bs";
 
 interface DeletePopoverProps {
   item: HistoryItem;
@@ -26,11 +28,12 @@ interface DeletePopoverProps {
 function DeletePopOver({ item }: DeletePopoverProps) {
   const [open, setOpen] = useState(false);
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
+
   const {
     components: { history_items },
   } = useGetDictionary();
   const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
-
+  const { mutate } = useHistoryDelete();
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -77,6 +80,8 @@ function DeletePopOver({ item }: DeletePopoverProps) {
             variant="outline"
             className="border bg-inherit text-destructive hover:border-destructive hover:bg-inherit hover:text-destructive"
             onClick={e => {
+              mutate({ answerUuid: item.uuid });
+
               e.stopPropagation();
               setOpen(false);
             }}
@@ -127,9 +132,9 @@ export function HistoryItems({ appName, historyItems }: IProps) {
         <div
           key={item.id}
           className={cn(
-            "flex w-full cursor-pointer flex-col gap-3 rounded-lg border p-2 transition-all hover:bg-muted-dark",
+            "flex w-full cursor-pointer flex-col gap-3 rounded-lg border bg-white p-2 transition-all hover:bg-muted-dark",
             isItemSelected(item.id) &&
-              "border-primary bg-primary-light hover:bg-primary-light",
+              " bg-primary-light hover:bg-primary-light",
           )}
           onClick={() => {
             setSelectHistoryItem(item);
@@ -138,11 +143,28 @@ export function HistoryItems({ appName, historyItems }: IProps) {
         >
           {/*title and delete and bookmark button*/}
           <div className="flex w-full items-center justify-between">
-            <span className=" truncate text-muted-foreground">
+            <span
+              className={cn(
+                " w-[115px] truncate font-[400]",
+                isItemSelected(item.id) && " text-primary",
+              )}
+            >
               {item.answer_text}
             </span>
             {/*delete and bookmark buttons*/}
             <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                className=" h-fit w-fit p-1 transition-all hover:scale-110"
+              >
+                <BsPinAngle
+                  className={cn(
+                    "fill-muted-foreground-light",
+                    isItemSelected(item.id) && "fill-primary",
+                  )}
+                />
+              </Button>
               <Button
                 variant="ghost"
                 size="icon"
@@ -159,16 +181,27 @@ export function HistoryItems({ appName, historyItems }: IProps) {
                   }}
                 />
               </Button>
+
               <DeletePopOver item={item} />
             </div>
           </div>
           {/*data and Text & upload*/}
-          <div className="flex w-full items-center justify-start gap-8 text-muted-foreground-light">
+          {/* <div className="flex w-full items-center justify-start gap-8 text-muted-foreground-light">
             <span>48 Min ago</span>
             <span>Text & Upload doc</span>
-          </div>
+          </div> */}
           {/*description*/}
-          <p className="line-clamp-2">{item.answer_text}</p>
+          <div className="line-clamp-2 flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center">
+              <p className="mx-1 text-[#B9BAC0]"> Spell </p>
+              <HiArrowLongRight className="text-[#B9BAC0]" />{" "}
+              <p className="mx-1 "> Your </p>
+            </div>
+            <div>
+              {" "}
+              <span className="text-[#B9BAC0]">48 Min ago</span>
+            </div>
+          </div>
         </div>
       ));
 

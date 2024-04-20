@@ -1,4 +1,4 @@
-import React, { TextareaHTMLAttributes } from "react";
+import React, { TextareaHTMLAttributes, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { PiMicrophone } from "react-icons/pi";
@@ -13,6 +13,8 @@ import { ErrorIcon } from "@/components/svg-icons";
 import GrammarInputDiv from "@/components/pages/grammar/InputDiv";
 import { SelectGrammarLanguage } from "./select-grammar-language";
 import { OptionsSelectBoxes } from "./options-select-boxes";
+import { usePDFConvertor } from "@/services/translate";
+import { Upload } from "./upload";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
@@ -59,6 +61,19 @@ export function GrammarTextBox({
   //for copy value
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
 
+  //for upload file
+  const [url, setUrl] = useState<string>("");
+  const [files, setFiles] = useState<File[]>([]);
+  const { mutateAsync: covertPDF } = usePDFConvertor();
+
+  const covertToText = async (files: File[]) => {
+    const text = await covertPDF(files[0]);
+    onTextAreaChange?.(text);
+  };
+  const onSelectFiles = (files: File[]) => {
+    setFiles(files);
+    covertToText(files);
+  };
   return (
     <div className="col form-gap">
       <div className="col h-[200px] gap-label-space">
@@ -85,31 +100,46 @@ export function GrammarTextBox({
           <GrammarInputDiv onTextChange={onTextAreaChange} value={value} />
 
           {/*404 Error*/}
-          <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
-            <ErrorIcon />
-            <span className="font-sans text-xs text-muted-foreground-light">
-              {form_section.form_error}
-            </span>
-          </div>
+          {value && value.toString().length > 0 && (
+            <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
+              <ErrorIcon />
+              <span className="font-sans text-xs text-muted-foreground-light">
+                {form_section.form_error}
+              </span>
+            </div>
+          )}
+
+          {value?.toString().length === 0 && (
+            <div className="absolute bottom-0 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px]  p-[10px] text-muted-foreground">
+              <Upload
+                setFiles={onSelectFiles}
+                setUserUrl={setUrl}
+                files={files}
+                userUrl={url}
+              />
+            </div>
+          )}
 
           {/*action buttons*/}
-          <div className="row absolute bottom-3 end-3.5 gap-1 bg-white">
-            <MinimalButton
-              Icon={MdDeleteOutline}
-              title={dictionary.clear_button_label}
-              onClick={() => onTextAreaChange("")}
-            />
-            <MinimalButton
-              Icon={HiOutlineSpeakerWave}
-              title={dictionary.speak_button_label}
-            />
-            <MinimalButton
-              Icon={isCopied ? LuCopyCheck : LuCopy}
-              title={dictionary.copy_button_label}
-              onClick={() => handleCopy(value!.toString())}
-            />
-            {!!renderMoreActions && renderMoreActions()}
-          </div>
+          {value && value.toString().length > 0 && (
+            <div className="row absolute bottom-3 end-3.5 gap-1 bg-white">
+              <MinimalButton
+                Icon={MdDeleteOutline}
+                title={dictionary.clear_button_label}
+                onClick={() => onTextAreaChange("")}
+              />
+              <MinimalButton
+                Icon={HiOutlineSpeakerWave}
+                title={dictionary.speak_button_label}
+              />
+              <MinimalButton
+                Icon={isCopied ? LuCopyCheck : LuCopy}
+                title={dictionary.copy_button_label}
+                onClick={() => handleCopy(value!.toString())}
+              />
+              {!!renderMoreActions && renderMoreActions()}
+            </div>
+          )}
         </div>
 
         {/*character count*/}
