@@ -24,5 +24,6 @@ CMD ["yarn", "start"]
 # Development stage
 FROM base as dev
 ENV NODE_ENV=development
+RUN yarn install --frozen-lockfile
 COPY . .
 CMD ["yarn", "dev"]
