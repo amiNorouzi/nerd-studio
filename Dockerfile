@@ -1,29 +1,34 @@
-# Use a smaller base image like Alpine
-FROM node:18-alpine as base
-RUN apk add --no-cache g++ make python3
+# Stage 1: Build the application
+FROM node:18-alpine as build
+
+# Install dependencies
 WORKDIR /app
-COPY package*.json ./
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production=false
+
+# Copy the rest of the application code
+COPY . .
+
+# Build the application
+RUN yarn build
+
+# Stage 2: Production image
+FROM node:18-alpine as production
+
+# Install only production dependencies
+WORKDIR /app
+COPY --from=build /app/package.json /app/yarn.lock ./
+RUN yarn install --frozen-lockfile --production=true
+
+# Copy built files and production dependencies
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+
+# Set environment variables
+ENV NODE_ENV=production
+
+# Expose the port
 EXPOSE 3000
 
-# Build stage
-FROM base as builder
-COPY . .
-RUN yarn install --frozen-lockfile && yarn build
-
-# Production stage
-FROM base as production
-ENV NODE_ENV=production
-RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
-USER nextjs
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/public ./public
+# Run the application
 CMD ["yarn", "start"]
-
-# Development stage
-FROM base as dev
-ENV NODE_ENV=development
-RUN yarn install --frozen-lockfile
-COPY . .
-CMD ["yarn", "dev"]
