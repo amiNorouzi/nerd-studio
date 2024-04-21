@@ -32,7 +32,7 @@ const Carousel = ({}: T) => {
                 alt={logo.nameAI}
                 width={120}
                 height={120}
-                className="mb-6 size-[36px] md:size-[50px] lg:size-[80px] 2xl:size-[90px]"
+                className="mb-6 size-[36px] md:size-[50px] lg:size-[80px] 2xl:size-[60px]"
               />
               <span className="lg:text text-xs">{logo.nameAI}</span>
             </div>

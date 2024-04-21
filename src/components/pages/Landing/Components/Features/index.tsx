@@ -23,7 +23,7 @@ const Features = () => {
           {btnFeature.map(name => (
             <Button
               variant="secondary"
-              className=" h-[80px] w-full  gap-x-2 bg-[#F8F8F8] px-3 py-[34px] text-sm  font-medium leading-[18px] text-[#747474] xl:text-base"
+              className=" h-[80px] w-full  gap-x-2 bg-[#F8F8F8] px-3 py-[25px] text-sm  font-medium leading-[18px] text-[#747474] xl:text-base"
               key={name.id}
             >
               <name.icon width={36} height={36} />

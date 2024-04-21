@@ -4,6 +4,7 @@ import { NavigationMenuDropDown } from "@/components/pages/Landing/common/navbar
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,9 +38,11 @@ const Navbar = () => {
         <NavigationMenuDropDown />
       </div>
       <div>
-        <Button className="hidden px-9 py-[19px]  lg:flex">
-          Get Start For free
-        </Button>
+        <Link href="dashboard">
+          <Button className="hidden px-9 py-[19px]  lg:flex">
+            Get Start For free
+          </Button>
+        </Link>
         {/*TODO:convert this image to svg tag
          */}
         <Image
