@@ -58,7 +58,7 @@ export function DialogForUpload({
   }
 
   const tabClass =
-    "flex gap-2 rounded-none pb-3 text-muted-foreground shadow-none data-[state=active]:border-b data-[state=active]:border-primary\n" +
+    "flex  gap-2 rounded-none pb-3 text-muted-foreground shadow-none data-[state=active]:border-b data-[state=active]:border-primary\n" +
     "data-[state=active]:text-primary  data-[state=active]:shadow-none";
 
   return (

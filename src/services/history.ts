@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 
 type HistoriesParams = {
@@ -8,7 +8,7 @@ type HistoriesParams = {
 export function useHistories({ pageNumber }: HistoriesParams) {
   const { data } = useQuery({
     queryKey: ["history"],
-    async queryFn(){
+    async queryFn() {
       const { data } = await axiosClient.get<History>(
         "/histories/" + "?" + pageNumber,
       );
@@ -52,6 +52,23 @@ export function useHistoryUpdate() {
       );
 
       return data;
+    },
+  });
+}
+export function useHistoryDelete() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ answerUuid }: { answerUuid: string }) => {
+      const { data } = await axiosClient.delete<Version>(
+        "/histories/delete" + "/" + answerUuid,
+      );
+
+      return data;
+    },
+    onSuccess: () => {
+      // @ts-ignore
+
+      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
     },
   });
 }

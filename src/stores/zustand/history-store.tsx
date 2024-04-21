@@ -9,6 +9,7 @@ const initialState = {
   historySearch: "",
   selectedHistoryItem: null,
   isHistoryInfoOpen: false,
+  isGrammarHistoryOpen: false,
 } as HistoryState;
 
 const useHistory = create<HistoryState & HistoryAction>()(
@@ -18,6 +19,10 @@ const useHistory = create<HistoryState & HistoryAction>()(
       setHistoryIsOpen: v =>
         set(state => {
           state.isHistoryOpen = v;
+        }),
+      setGrammarHistoryIsOpen: v =>
+        set(state => {
+          state.isGrammarHistoryOpen = v;
         }),
       setHistorySearch: v =>
         set(state => {

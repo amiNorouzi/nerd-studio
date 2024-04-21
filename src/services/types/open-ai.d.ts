@@ -5,6 +5,8 @@ interface OpenAiCompletionSchemaInput {
   max_tokens: number;
   stream: boolean;
   top_p?: number;
+  frequency_penalty: number;
+  presence_penalty: number;
 }
 
 interface OpenAiMessage {

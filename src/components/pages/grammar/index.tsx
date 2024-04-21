@@ -8,9 +8,11 @@ import {
 import type { ParamsType } from "@/services/types";
 import { useEventChanel } from "@/services/events-chanel";
 import { useGenerateGrammar } from "@/services/grammar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 import { useHistories } from "@/services/history";
+import { useHistoryStore } from "@/stores/zustand/history-store";
+import { useEditorStore } from "@/stores/zustand/editor-slice";
 
 interface IProps {
   params: ParamsType;
@@ -27,8 +29,20 @@ export function GrammarPage({ params }: IProps) {
   });
   const { mutate: generateGrammar } = useGenerateGrammar();
   const [text, setText] = useState("");
+  // const [textInput, setTextInput] = useState("");
   const { data } = useHistories({ pageNumber: 1 });
-  console.log("text send to server", text);
+  const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
+  const textInput = selectedHistoryItem
+    ? selectedHistoryItem.answer_text + grammar
+    : grammar;
+  // useEffect(() => {
+  //   if (selectedHistoryItem) {
+  //     setTextInput(selectedHistoryItem.answer_text);
+  //   }
+  //   if (grammar) {
+  //     setTextInput(prev => prev + grammar);
+  //   }
+  // }, [grammar, selectedHistoryItem]);
 
   const handleGenerate = () => {
     if (text) {
@@ -38,6 +52,8 @@ export function GrammarPage({ params }: IProps) {
         temperature: 0.1,
         max_tokens: 100,
         top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
       });
     }
   };
@@ -51,13 +67,14 @@ export function GrammarPage({ params }: IProps) {
           value={text}
           onSubmit={handleGenerate}
         />
-        <Run.Editor value={grammar ? grammar : ""} onChange={() => {}}>
-          <HistoryBox>
-            <HistoryItems appName="Grammar" historyItems={data} />
-          </HistoryBox>
+
+        <Run.Editor value={textInput ? textInput : ""} onChange={() => {}}>
           <Highlight>
             <HighlightContent />
           </Highlight>
+          <HistoryBox>
+            <HistoryItems appName="Grammar" historyItems={data} />
+          </HistoryBox>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           {/* <HistoryInfo>
             <HistoryInfoContent />

@@ -24,11 +24,10 @@ export interface WordCoordinates {
 
 interface Props {
   onTextChange: (value: string) => void;
-  defaultValue?: string;
   value?: string | number | readonly string[] | undefined;
 }
 
-function GrammarInputDiv({ onTextChange, defaultValue, value }: Props) {
+function GrammarInputDiv({ onTextChange, value }: Props) {
   const divRef = useRef<HTMLDivElement>(null);
   const optionDivRef = useRef(null);
   const mistakeMarkerRef = useRef(null);
@@ -52,11 +51,6 @@ function GrammarInputDiv({ onTextChange, defaultValue, value }: Props) {
   }, [value]);
 
   //set the default value if existed
-  useEffect(() => {
-    if (defaultValue && divRef.current) {
-      divRef.current.innerHTML = defaultValue;
-    }
-  }, [defaultValue]);
 
   //split input with space
   const handleInput = (event: React.FormEvent<HTMLDivElement>) => {

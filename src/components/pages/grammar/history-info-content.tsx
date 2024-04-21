@@ -60,10 +60,7 @@ export function HistoryInfoContent({
           {translate.text_label}
         </span>
         <div className="relative">
-          <GrammarInputDiv
-            onTextChange={onTextAreaChange}
-            defaultValue={selectedHistoryItem?.answer_text}
-          />
+          <GrammarInputDiv onTextChange={onTextAreaChange} />
 
           <div className="row  absolute bottom-4 end-4 gap-1 bg-white">
             {isSpeaking ? (

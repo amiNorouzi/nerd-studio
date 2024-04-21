@@ -32,19 +32,20 @@ export default function EditorSection({ children, onChange, value }: Props) {
   return (
     <div
       className={cn(
-        " col-span-12 flex h-fit overflow-hidden bg-transparent transition-all duration-300",
+        " form-gap col-span-12 flex h-fit overflow-hidden bg-white  transition-all duration-300",
         isFullScreen
           ? "col-span-12 h-full"
-          : " p-4 lg:col-span-6 lg:h-full xl:col-span-8",
+          : "  lg:col-span-6 lg:h-full xl:col-span-8 ",
       )}
     >
       <div
         className={cn(
-          "flex h-fit w-full divide-x overflow-hidden rounded-xl border bg-background shadow-2xl lg:h-full",
+          " m-[18px] mr-[6px]  flex h-fit w-full divide-x overflow-hidden rounded-xl border  bg-background shadow-2xl lg:h-[95%]",
           isFullScreen && "h-full rounded-none border-none shadow-none",
         )}
       >
         {/* editor section*/}
+
         <div className="relative h-fit w-full overflow-hidden lg:h-full">
           {/* editor header like download and save and workspace */}
           <EditorSectionHeader />
@@ -54,8 +55,8 @@ export default function EditorSection({ children, onChange, value }: Props) {
           <EditorSectionFooter />
         </div>
         {/* history section*/}
-        {children}
       </div>
+      {children}
     </div>
   );
 }

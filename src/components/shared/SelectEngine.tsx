@@ -46,6 +46,15 @@ import { iconVariants } from "@/constants/variants";
 import { Label } from "@/components/ui/label";
 import { TbSettings } from "react-icons/tb";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 type EnginesType = keyof typeof enginesImage;
 interface IProps {
   value: string;
@@ -81,14 +90,14 @@ function CommandSelectItems({ items, setValue, value, onOpenChange }: IProps) {
               value={item}
               onSelect={handleSelectItem}
               className={cn(
-                "flex-row-reverse justify-between px-2 text-xsm",
+                "text-xsm flex-row-reverse justify-between px-2",
                 value.toLowerCase() === item.toLowerCase() &&
                   "bg-primary-light  aria-selected:bg-primary-light ",
               )}
             >
               <Check
                 className={cn(
-                  "me-2 h-4 w-4 text-xsm",
+                  "text-xsm me-2 h-4 w-4",
                   item.toLowerCase() === value.toLowerCase()
                     ? "opacity-100"
                     : "opacity-0",
@@ -162,8 +171,8 @@ function SettingPopover({ engine }: SettingPopoverProps) {
   const engineSettingValue = engineSetting[engine];
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
+    <Dialog>
+      <DialogTrigger
         asChild
         className="absolute end-7 top-1/2 -translate-y-1/2"
       >
@@ -172,90 +181,92 @@ function SettingPopover({ engine }: SettingPopoverProps) {
             className={cn(iconVariants({ size: "sm" }), "hover:bg-transparent")}
           />
         </Button>
-      </PopoverTrigger>
+      </DialogTrigger>
 
-      <PopoverContent
-        className="z-40 flex w-96 flex-col gap-6"
-        ref={contentRef}
-      >
-        <div className="grid grid-cols-1 space-y-3">
-          <div className="flex justify-between">
+      <DialogContent className="h-[390px] w-[483px] ">
+        <div className="absolute top-0 flex h-full w-full flex-col  ">
+          <div className="mx-[16px] mb-[8px] mt-[12px] flex justify-between ">
             <div className="flex items-center justify-between gap-2">
-              <TbSettings className={iconVariants({ size: "lg" })} />
-              <h4 className="text-base font-medium">
+              <TbSettings className="text-[24px]" />
+              <h4 className="text-[23px] text-base font-medium">
                 {select_engine.engine_setting}
               </h4>
             </div>
-            <div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setOpen(false)}
-              >
-                <IoMdClose size={20} />
-              </Button>
+          </div>
+          <div className=" mx-[16px] my-[8px] flex flex-col">
+            <div className="mx-[24px] flex flex-col gap-[8px]">
+              <div className="flex items-center gap-2">
+                <div className="relative h-[18px] w-[18px] overflow-hidden rounded-full">
+                  <Image
+                    src={enginesImage[engine as EnginesType]}
+                    alt={engine}
+                    fill
+                  />
+                  {engine}
+                </div>
+                <span className="text-[14px] font-[500]">{engine}</span>
+              </div>
+              <div className="form-gap   flex flex-col">
+                <span className="text-base text-muted-foreground">
+                  {select_engine.temperature}
+                </span>
+                <SliderSetting
+                  open={open}
+                  onChangeHandler={(v: number[]) =>
+                    handleEngineSetting(engine, "temperature", v[0])
+                  }
+                  value={[engineSettingValue.temperature]}
+                />
+
+                <span className="text-base text-muted-foreground">
+                  {select_engine.frequency_penalty}
+                </span>
+                <SliderSetting
+                  open={open}
+                  onChangeHandler={(v: number[]) =>
+                    handleEngineSetting(engine, "frequency", v[0])
+                  }
+                  value={[engineSettingValue.frequency]}
+                />
+
+                <span className="text-base text-muted-foreground">
+                  {select_engine.presence_penalty}
+                </span>
+                <SliderSetting
+                  open={open}
+                  onChangeHandler={(v: number[]) =>
+                    handleEngineSetting(engine, "presence", v[0])
+                  }
+                  value={[engineSettingValue.presence]}
+                />
+
+                <span className="text-base text-muted-foreground">
+                  {select_engine.top}
+                </span>
+                <SliderSetting
+                  open={open}
+                  onChangeHandler={(v: number[]) =>
+                    handleEngineSetting(engine, "top", v[0])
+                  }
+                  value={[engineSettingValue.top]}
+                />
+              </div>
+              <div className=" ml-auto flex flex-row gap-3 ">
+                <Button
+                  type="submit"
+                  className="text-[ #9373EE; ]
+              bg-[#F9F1FF]"
+                >
+                  Cancel{" "}
+                </Button>
+                <Button type="submit">Save </Button>
+              </div>
             </div>
           </div>
-          <hr className="bg-muted" />
-          <div className="flex justify-start gap-2">
-            <div className="relative h-5 w-5 overflow-hidden rounded-full">
-              <Image
-                src={enginesImage[engine as EnginesType]}
-                alt={engine}
-                fill
-              />
-              {engine}
-            </div>
-            <span className="text-base">{engine}</span>
-          </div>
-          <div className="flex  flex-col gap-6">
-            <span className="text-base text-muted-foreground">
-              {select_engine.temperature}
-            </span>
-            <SliderSetting
-              open={open}
-              onChangeHandler={(v: number[]) =>
-                handleEngineSetting(engine, "temperature", v[0])
-              }
-              value={[engineSettingValue.temperature]}
-            />
-
-            <span className="text-base text-muted-foreground">
-              {select_engine.frequency_penalty}
-            </span>
-            <SliderSetting
-              open={open}
-              onChangeHandler={(v: number[]) =>
-                handleEngineSetting(engine, "frequency", v[0])
-              }
-              value={[engineSettingValue.frequency]}
-            />
-
-            <span className="text-base text-muted-foreground">
-              {select_engine.presence_penalty}
-            </span>
-            <SliderSetting
-              open={open}
-              onChangeHandler={(v: number[]) =>
-                handleEngineSetting(engine, "presence", v[0])
-              }
-              value={[engineSettingValue.presence]}
-            />
-
-            <span className="text-base text-muted-foreground">
-              {select_engine.top}
-            </span>
-            <SliderSetting
-              open={open}
-              onChangeHandler={(v: number[]) =>
-                handleEngineSetting(engine, "top", v[0])
-              }
-              value={[engineSettingValue.top]}
-            />
-          </div>
+          <DialogFooter></DialogFooter>
         </div>
-      </PopoverContent>
-    </Popover>
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -328,7 +339,7 @@ function SelectEngineDropDown({ buttonStyle }: { buttonStyle?: ClassValue }) {
     <Select value={engine} onValueChange={handleSelect}>
       <div className="relative">
         <SelectTrigger
-          className={cn("m-0 w-full !text-xsm text-foreground", buttonStyle)}
+          className={cn("!text-xsm m-0 w-full text-foreground", buttonStyle)}
         >
           <SelectValue placeholder="Select an option" />
         </SelectTrigger>
@@ -344,7 +355,7 @@ function SelectEngineDropDown({ buttonStyle }: { buttonStyle?: ClassValue }) {
               key={item}
               value={item}
               className={cn(
-                "flex-row-reverse justify-between px-2 text-xsm",
+                "text-xsm flex-row-reverse justify-between px-2",
                 engine.toLowerCase() === item.toLowerCase() &&
                   "bg-primary-light focus:bg-primary-light",
               )}
