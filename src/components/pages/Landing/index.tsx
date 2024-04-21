@@ -20,7 +20,7 @@ const Landing = ({ lang }) => {
   return (
     <div lang={lang} className="mx-auto max-w-[1920px] overflow-x-hidden">
       <Navbar />
-      <div>
+      <main>
         <Hero />
         <Steps />
         <Features />
@@ -33,7 +33,7 @@ const Landing = ({ lang }) => {
         <Comments />
         <DownloadApp />
         <Footer />
-      </div>
+      </main>
     </div>
   );
 };

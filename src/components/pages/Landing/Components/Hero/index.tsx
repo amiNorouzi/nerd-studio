@@ -9,7 +9,7 @@ import { Star } from "@/components/svg-icons/Star";
 const Hero = () => {
   // @ts-ignore
   return (
-    <div className=" relative  w-full overflow-hidden bg-[#F2EEFD]">
+    <header className=" relative  w-full overflow-hidden bg-[#F2EEFD]">
       {/*Absolute Ellipses in Hero header*/}
       <Absolute className="hero-absolute-left absolute left-0 top-0 z-10  size-[308px] rounded-full" />
       <Absolute className="hero-absolute-right absolute right-0 top-16 z-10  hidden size-[250px] rounded-full lg:inline-block" />
@@ -17,18 +17,20 @@ const Hero = () => {
 
       <div className="padding-x z-20 flex grid-cols-2 flex-col  justify-around gap-x-14 pb-12 md:grid md:items-start  lg:items-center lg:pb-[60px]  xl:gap-x-[90px] ">
         {/*COL LEFT*/}
-        <div className="z-30 flex  w-full flex-col items-center justify-center  pt-[84px] md:items-start lg:pt-[100px]">
+        <div className="z-30 flex  w-full flex-col items-center justify-center  pt-[84px] md:items-start lg:pt-[100px] 2xl:pt-[120px]">
           {/*Title*/}
-          <h1 className=" text-xl font-bold leading-[45px] min-[375px]:text-2xl lg:mb-[25px]  lg:text-3xl  lg:leading-[55px] 2xl:text-4xl 2xl:leading-[89px] ">
+          <h1 className=" mb-4 text-xl font-bold leading-[36px] min-[375px]:text-2xl min-[375px]:leading-[45px] lg:mb-[25px] lg:text-3xl  lg:leading-[45px]  xl:mb-9 2xl:text-4xl 2xl:leading-[55px] ">
             <span className="">
               Lorem Ipsum is simply and
               <br />
             </span>
-            <div className="z-30 flex gap-x-2">
-              <div className=" -rotate-2 bg-primary px-2    text-white ">
+            <div className="z-30 flex gap-x-1 lg:gap-x-2">
+              <div className=" -rotate-[1.5deg] bg-primary px-2    text-white ">
                 typesetting
               </div>
-              <div>industry</div>
+              <div>
+                <span>industry</span>
+              </div>
             </div>
           </h1>
 
@@ -55,7 +57,7 @@ const Hero = () => {
           </div>
 
           {/*Rewards B*/}
-          <div className="z-30 mb-9 flex  flex-row justify-center gap-4 min-[375px]:gap-[18px] md:max-w-[645px] lg:mb-[70px]  lg:justify-between xl:gap-x-12">
+          <div className="z-30  mb-9 flex  flex-row justify-center gap-4 min-[375px]:gap-[18px] md:max-w-[645px] lg:mb-[85px]  lg:justify-between xl:gap-x-12">
             {rewards.map(item => (
               <div
                 key={item.id}
@@ -106,11 +108,11 @@ const Hero = () => {
 
         {/*COL RIGHT*/}
         <div className="md:items-enter flex w-full items-center  justify-end md:pt-[140px]  lg:h-screen lg:pt-0  ">
-          <div className="relative z-30 h-[234px] w-full rounded-lg shadow-md lg:h-[307px] lg:w-[571px]">
+          <div className="relative z-30 h-[234px] w-full rounded-2xl shadow-md lg:h-[307px] lg:w-[571px]">
             {/*bg*/}
-            <div className="bg-hero absolute h-full w-full rounded-lg blur-[3px]"></div>
+            <div className="bg-hero absolute h-full w-full rounded-2xl blur-[3px]"></div>
             {/*Filter bg*/}
-            <div className="bg-hero-filter absolute flex h-full w-full items-center justify-center rounded-lg">
+            <div className="bg-hero-filter absolute flex h-full w-full items-center justify-center rounded-2xl">
               <div className="  rounded-full bg-primary p-6 ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +132,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

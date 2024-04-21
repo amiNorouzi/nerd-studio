@@ -179,3 +179,23 @@ export const openAiLogo = [
     id: "chs;c4avtc!56",
   },
 ];
+
+export const ServiceSection = [
+  {
+    name: "Website",
+    name2: "Apps",
+    image: "service-3.svg",
+    id: "1",
+  },
+  {
+    name: "Apps",
+    name2: "Mobile",
+    image: "service-2.svg",
+    id: "2",
+  },
+  {
+    name: "Extension",
+    image: "service-1.svg",
+    id: "3",
+  },
+];

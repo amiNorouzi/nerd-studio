@@ -1,6 +1,6 @@
 import React from "react";
 interface AbsoluteType {
-  children?: any;
+  children?: React.ReactNode;
   className: string;
 }
 
@@ -10,7 +10,7 @@ interface AbsoluteType {
  * @param className
  * @constructor
  */
-const Absolute = ({ children, className }: AbsoluteType) => {
+const Absolute: React.FC<AbsoluteType> = ({ children, className }) => {
   return <div className={className}>{children}</div>;
 };
 
