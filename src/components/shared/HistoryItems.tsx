@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FaRegTrashCan, FaRegBookmark } from "react-icons/fa6";
+import { FaBookmark } from "react-icons/fa6";
+
 import {
   Popover,
   PopoverContent,
@@ -15,6 +17,8 @@ import type { HistoryItem } from "@/stores/zustand/types";
 import { useGetDictionary } from "@/hooks";
 import { useHistories, useHistoryDelete } from "@/services/history";
 import { BsPinAngle, BsPinAngleFill } from "react-icons/bs";
+import { timePassedSince } from "@/lib/date-transform";
+import { useFavorites, useSetFavorites } from "@/services/favorite-history";
 
 interface DeletePopoverProps {
   item: HistoryItem;
@@ -25,7 +29,7 @@ interface DeletePopoverProps {
  * @param item - history item
  * @constructor
  */
-function DeletePopOver({ item }: DeletePopoverProps) {
+function DeletePopOver({ item }: { item: Answer }) {
   const [open, setOpen] = useState(false);
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
 
@@ -120,6 +124,15 @@ export function HistoryItems({ appName, historyItems }: IProps) {
   const setHistoryInfoOpen = useHistoryStore.use.setHistoryInfoOpen();
   const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
   const setGrammarHistoryIsOpen = useHistoryStore.use.setGrammarHistoryIsOpen();
+  const { data: favoriteItems } = useFavorites();
+
+  const { data: toggleFavoriteAnswer, mutate } = useSetFavorites();
+
+  //check if item is favorite or not
+  const favoriteCheck = (id: number) => {
+    if (!historyItems || !favoriteItems) return null;
+    return favoriteItems.filter(item => item.id === id).length > 0;
+  };
 
   //fetch history
 
@@ -163,6 +176,9 @@ export function HistoryItems({ appName, historyItems }: IProps) {
                     "fill-muted-foreground-light",
                     isItemSelected(item.id) && "fill-primary",
                   )}
+                  onClick={e => {
+                    e.stopPropagation();
+                  }}
                 />
               </Button>
               <Button
@@ -170,16 +186,29 @@ export function HistoryItems({ appName, historyItems }: IProps) {
                 size="icon"
                 className=" h-fit w-fit p-1 transition-all hover:scale-110"
               >
-                <FaRegBookmark
-                  className={cn(
-                    "fill-muted-foreground-light",
-                    isItemSelected(item.id) && "fill-primary",
-                  )}
-                  onClick={e => {
-                    e.stopPropagation();
-                    console.log("bookmark itemId: ", item.id);
-                  }}
-                />
+                {favoriteCheck(item.id) && (
+                  <FaBookmark
+                    className={cn("fill-primary")}
+                    onClick={e => {
+                      e.stopPropagation();
+
+                      mutate({ answer_id: item.id, is_favorite: false });
+
+                      console.log("bookmark itemId: ", item.id);
+                    }}
+                  />
+                )}
+                {!favoriteCheck(item.id) && (
+                  <FaRegBookmark
+                    className={cn("fill-muted-foreground-light")}
+                    onClick={e => {
+                      e.stopPropagation();
+
+                      mutate({ answer_id: item.id, is_favorite: true });
+                      console.log("bookmark itemId: ", item.id);
+                    }}
+                  />
+                )}
               </Button>
 
               <DeletePopOver item={item} />
@@ -199,7 +228,10 @@ export function HistoryItems({ appName, historyItems }: IProps) {
             </div>
             <div>
               {" "}
-              <span className="text-[#B9BAC0]">48 Min ago</span>
+              <span className="text-[#B9BAC0]">
+                {" "}
+                {timePassedSince(item.created_at)}
+              </span>
             </div>
           </div>
         </div>

@@ -151,7 +151,7 @@ export interface HistoryAction {
   setHistoryIsOpen: (v: boolean) => void;
   setGrammarHistoryIsOpen: (v: boolean) => void;
   setHistorySearch: (v: string) => void;
-  setSelectHistoryItem: (v: HistoryItem) => void;
+  setSelectHistoryItem: (v: Answer) => void;
   resetHistory: () => void;
   setHistoryInfoOpen: (v: boolean) => void;
 }
