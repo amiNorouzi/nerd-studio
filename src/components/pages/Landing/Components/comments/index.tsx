@@ -11,7 +11,7 @@ const Comments: React.FC = () => {
   const [active, setActive] = useState(
     "bg-[#F2EEFD] border-[2px] border-[#9373EE] shadow-xl",
   );
-  Autoplay.globalOptions = { delay: 2000 };
+  Autoplay.globalOptions = { delay: 3000 };
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -43,8 +43,6 @@ const Comments: React.FC = () => {
     },
     [emblaApi],
   );
-  // console.log(scrollTo, scrollSnaps, scrollNext, scrollPrev);
-  console.log(selectedIndex);
   // @ts-ignore
   useEffect(() => {
     if (emblaApi) {
@@ -76,11 +74,11 @@ const Comments: React.FC = () => {
 
   return (
     <section className="padding-y padding-x embla flex flex-col" ref={emblaRef}>
-      <div className="embla__container mb-12">
+      <div className="mb-12 flex bg-gradient-to-r from-transparent via-white to-white">
         {[...Array(10)].map((_, index) => (
           <div
             key={index}
-            className={` ${f(index)}    embla__slide__comment-md flex max-w-[400px] flex-col rounded-3xl   p-6 `}
+            className={` ${f(index)}   mr-4 flex w-full min-w-0 max-w-[400px] flex-none flex-col rounded-3xl   p-6 `}
           >
             <div className="mb-5 flex flex-row items-center justify-between">
               <div className="flex flex-row">
@@ -128,7 +126,7 @@ const Comments: React.FC = () => {
           {scrollSnaps.map((_, index) => (
             <button
               key={index}
-              className={`embla__dot ${index === selectedIndex ? "is-selected" : ""}`}
+              className={` ${index === selectedIndex ? "is-selected w-7.5 h-2.5 rounded-md bg-purple-600" : ""} mx-1 h-2.5 w-2.5 cursor-pointer rounded-full bg-gray-200`}
               onClick={() => scrollTo(index)}
             >
               {/* Dot */}

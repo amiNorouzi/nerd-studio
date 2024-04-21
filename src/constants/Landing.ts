@@ -199,3 +199,11 @@ export const ServiceSection = [
     id: "3",
   },
 ];
+
+export const FooterLinks = [
+  { name: "About" },
+  { name: "Features" },
+  { name: "Pricing" },
+  { name: "News" },
+  { name: "Help" },
+];

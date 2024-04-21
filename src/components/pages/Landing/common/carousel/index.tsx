@@ -21,7 +21,7 @@ const Carousel = ({}: T) => {
   return (
     <div>
       <div className="embla z-30 py-9 " ref={emblaRef}>
-        <div className="embla__container flex h-max ">
+        <div className=" flex h-max bg-gradient-to-r from-transparent via-white to-white ">
           {openAiLogo.map(logo => (
             <div
               key={logo.id}

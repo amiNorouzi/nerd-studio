@@ -426,10 +426,7 @@ padding: {
     overflow: hidden;
 }
 
-.embla__container {
-    display: flex;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.00) 0%, #FFF 100%);
-}
+
 
 .embla__slide {
     flex: 0 0 15%;
@@ -451,50 +448,7 @@ padding: {
 }
 
 
-
-.embla__slide__comment-md {
-    flex: 0 0 100%;
-    min-width: 0;
-    margin-right: 16px;
-}
-
-
-.customButton {
-    position: relative;
-    overflow: hidden;
-    padding: 10px 20px;
-    border: none;
-    background-color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    box-sizing: border-box; /* Include padding and border in width/height */
-}
-
-.customButton .svgContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1; /* SVG sits behind the button content */
-}
-
-.customButton:hover {
-    background-color: #f0f0f0;
-}
-
-
-
-.embla__dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #EFEFEF;
-    margin: 0 4px;
-    cursor: pointer;
-}
-
-.embla__dot.is-selected {
+.is-selected {
     background: #9373EE;
     border-radius: 8px;
     width: 30px;
@@ -506,7 +460,6 @@ padding: {
 @keyframes width {
     0%{
         width:10px;
-
     }
     100%{
         width: 30px;
