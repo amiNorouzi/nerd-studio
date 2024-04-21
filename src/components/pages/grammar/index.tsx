@@ -35,14 +35,6 @@ export function GrammarPage({ params }: IProps) {
   const textInput = selectedHistoryItem
     ? selectedHistoryItem.answer_text + grammar
     : grammar;
-  // useEffect(() => {
-  //   if (selectedHistoryItem) {
-  //     setTextInput(selectedHistoryItem.answer_text);
-  //   }
-  //   if (grammar) {
-  //     setTextInput(prev => prev + grammar);
-  //   }
-  // }, [grammar, selectedHistoryItem]);
 
   const handleGenerate = () => {
     if (text) {
@@ -68,7 +60,7 @@ export function GrammarPage({ params }: IProps) {
           onSubmit={handleGenerate}
         />
 
-        <Run.Editor value={textInput ? textInput : ""} onChange={() => {}}>
+        <Run.Editor value={""} onChange={() => {}}>
           <Highlight>
             <HighlightContent />
           </Highlight>

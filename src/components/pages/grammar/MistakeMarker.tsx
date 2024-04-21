@@ -45,9 +45,8 @@ export default function MistakeMarker({
         >
           {wordsCoordinates.map((item, index) => {
             return (
-              <>
+              <div key={item.word + Math.random()}>
                 <div
-                  key={item.word + "underline"}
                   style={{
                     top: `${item.coordinates.y - inputScroll!}px`,
                     left: `${item.coordinates.x}px`,
@@ -71,10 +70,9 @@ export default function MistakeMarker({
                   mouseCoordination={mouseCoordination}
                   optionDivRef={optionDivRef}
                   spellCorrection={spellCorrection}
-                  key={item.word}
                 />
                 {/* options section */}
-              </>
+              </div>
             );
           })}
         </div>

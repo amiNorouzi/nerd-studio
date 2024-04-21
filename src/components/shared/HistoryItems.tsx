@@ -48,7 +48,6 @@ function DeletePopOver({ item }: { item: Answer }) {
           onClick={e => {
             e.stopPropagation();
             setOpen(true);
-            console.log("deleted itemId: ", item.id);
           }}
         >
           <FaRegTrashCan
@@ -193,8 +192,6 @@ export function HistoryItems({ appName, historyItems }: IProps) {
                       e.stopPropagation();
 
                       mutate({ answer_id: item.id, is_favorite: false });
-
-                      console.log("bookmark itemId: ", item.id);
                     }}
                   />
                 )}
@@ -205,7 +202,6 @@ export function HistoryItems({ appName, historyItems }: IProps) {
                       e.stopPropagation();
 
                       mutate({ answer_id: item.id, is_favorite: true });
-                      console.log("bookmark itemId: ", item.id);
                     }}
                   />
                 )}
