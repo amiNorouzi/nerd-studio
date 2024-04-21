@@ -16,7 +16,7 @@ const initialState = {
   activeTheme: "default" as Theme,
 };
 
-//for all the ui related states like open dialogs
+//for all the componets related states like open dialogs
 
 export const useUi = create<IUiState>()(
   devtools(

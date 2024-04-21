@@ -91,7 +91,7 @@ export function useTheme() {
       theme,
       primaryColor,
     });
-    //set theme and primaryColor to stage to change ui style like primary color check and theme border color
+    //set theme and primaryColor to stage to change componets style like primary color check and theme border color
     setActiveTheme(theme);
     setActivePrimaryColor(primaryColor);
   };

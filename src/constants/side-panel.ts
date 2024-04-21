@@ -66,4 +66,11 @@ export const apps = [
     route: "/grammar",
     icon: AppsIcons.GrammarIcon,
   },
+  {
+    id: "8",
+    i18Key: "",
+    title: "ChatPdf",
+    route: "/chatpdf",
+    icon: AppsIcons.GrammarIcon,
+  },
 ] as const;
