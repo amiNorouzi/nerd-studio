@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { AiOutlineLink } from "react-icons/ai";
-import { TooltipForUploadedFile } from "../../TooltipForUploadedFile";
+import { TooltipForUploadedFile } from "@/components/shared";
 import { DialogForUpload } from "./dialog-for-upload";
 
 import { useGetDictionary } from "@/hooks";
@@ -53,7 +53,7 @@ export function Upload(props: IProps) {
     <>
       <div
         className={cn(
-          "flex items-start justify-between rounded-lg ",
+          "absolute bottom-6 start-3.5 flex items-start justify-between rounded-lg",
           isFileOrUrlValid && "-mt-3 border p-2",
         )}
       >
@@ -85,8 +85,9 @@ export function Upload(props: IProps) {
         <Button
           onClick={handleTriggerOpenButton}
           variant="muted"
+          size={"sm"}
           className={cn(
-            "gap-2 bg-[#EFEFEF] text-sm text-muted-foreground transition-all duration-300",
+            "gap-2 bg-muted-dark text-muted-foreground transition-all duration-300",
             !isFileOrUrlValid && "-me-0.5 -mt-[31px] ",
           )}
         >
