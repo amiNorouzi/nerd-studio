@@ -38,6 +38,9 @@ export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
         model: "gpt-3.5-turbo-0125",
         temperature: 0.1,
         max_tokens: 1000,
+        top_p: 1.0,
+        frequency_penalty: 0,
+        presence_penalty: 0,
       });
     }
   };

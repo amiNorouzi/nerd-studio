@@ -1,11 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
-import axiosClient from "@/services/axios-client";
+import {useMutation} from '@tanstack/react-query';
+import axiosClient from '@/services/axios-client';
 
 type GenerateTranslateParams = {
-  text: string;
-  txLang: string;
-  trLang: string;
-} & Omit<OpenAiCompletionSchemaInput, "stream" | "messages">;
+    text: string
+    txLang: string
+    trLang: string
+} & Omit<OpenAiCompletionSchemaInput, 'stream' | 'messages'>
 
 export function useGenerateTranslate() {
   return useMutation({
@@ -16,6 +16,9 @@ export function useGenerateTranslate() {
       model,
       temperature,
       max_tokens,
+      top_p,
+      presence_penalty,
+      frequency_penalty,
     }: GenerateTranslateParams) => {
       const { data } = await axiosClient.post<
         unknown,
@@ -32,16 +35,19 @@ export function useGenerateTranslate() {
         temperature,
         max_tokens,
         stream: true,
+        top_p,
+        presence_penalty,
+        frequency_penalty,
       });
 
-      return data;
-    },
-  });
+            return data;
+        },
+    });
 }
 
 type PDFConvertorResponse = {
-  text: string;
-};
+    text: string
+}
 
 export function usePDFConvertor() {
   return useMutation({
@@ -49,7 +55,7 @@ export function usePDFConvertor() {
       const formData = new FormData();
       formData.append("file", pdf);
       const { data } = await axiosClient.post<PDFConvertorResponse>(
-        "/uploads/convert_pdf_to_text/",
+        "/translates/convert_pdf_to_text/",
         formData,
         {
           headers: {
@@ -58,14 +64,15 @@ export function usePDFConvertor() {
         },
       );
 
-      return data.text;
-    },
-  });
+            return data.text;
+        },
+    });
 }
 
+
 const translateService = {
-  useGenerateTranslate,
-  usePDFConvertor,
+    useGenerateTranslate,
+    usePDFConvertor,
 };
 
 export default translateService;

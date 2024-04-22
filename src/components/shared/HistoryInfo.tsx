@@ -32,8 +32,8 @@ export function HistoryInfo({ children }: IProps) {
   const side = dir === "ltr" ? "right" : "left";
   const open = useHistoryStore.use.isHistoryInfoOpen();
   const onOpenChange = useHistoryStore.use.setHistoryInfoOpen();
-  const engine = useHistoryStore.use.selectedHistoryItem()?.engine;
-  const engineIcon = useHistoryStore.use.selectedHistoryItem()?.engineIcon;
+  const engine = useHistoryStore.use.selectedHistoryItem()?.answer_text;
+  const engineIcon = useHistoryStore.use.selectedHistoryItem()?.answer_text;
   const {
     components: { history_info },
   } = useGetDictionary();
