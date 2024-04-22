@@ -38,7 +38,7 @@ export function TooltipForUploadedFile({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger className="h-fit">
-          <div className="relative flex  h-full  flex-col items-center  justify-center truncate rounded-lg border p-2">
+          <div className="relative flex  h-full  flex-col items-center  justify-center truncate rounded-lg  p-2">
             {file.type === "application/pdf" ? (
               <FaRegFilePdf size={30} className="text-muted-foreground" />
             ) : (

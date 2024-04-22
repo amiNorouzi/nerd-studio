@@ -45,9 +45,8 @@ export default function MistakeMarker({
         >
           {wordsCoordinates.map((item, index) => {
             return (
-              <>
+              <div key={item.word + Math.random()}>
                 <div
-                  key={item.word + "underline"}
                   style={{
                     top: `${item.coordinates.y - inputScroll!}px`,
                     left: `${item.coordinates.x}px`,
@@ -59,7 +58,7 @@ export default function MistakeMarker({
                   className={`absolute h-full ${
                     WordIsHovered(item, mouseCoordination) &&
                     "bg-gray-400 opacity-30 "
-                  }  pointer-events-none border-b-[2px] border-b-red-500 `}
+                  }  pointer-events-none overflow-hidden border-b-[2px] border-b-red-500 `}
                 ></div>
 
                 {/* options section */}
@@ -71,10 +70,9 @@ export default function MistakeMarker({
                   mouseCoordination={mouseCoordination}
                   optionDivRef={optionDivRef}
                   spellCorrection={spellCorrection}
-                  key={item.word}
                 />
                 {/* options section */}
-              </>
+              </div>
             );
           })}
         </div>
