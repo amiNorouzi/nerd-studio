@@ -63,19 +63,19 @@ export function DialogForUpload({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="flex h-full max-h-[420px] w-full  max-w-xl flex-col  justify-start gap-3 p-0">
-        <DialogHeader className="m-0 p-4">
+      <DialogContent className="flex max-h-[406px] w-[450px]   max-w-xl flex-col  justify-start gap-[8px] p-0">
+        <DialogHeader className="m-[12px] mx-[16px] ">
           <DialogTitle className="flex gap-2 text-lg font-medium">
             {form_section.form_upload}
           </DialogTitle>
         </DialogHeader>
-        <div className="flex h-full flex-1 flex-col">
+        <div className="flex h-full   flex-col ">
           <Tabs
             value={tab}
             onValueChange={setTab}
-            className="h-full w-full flex-1  justify-between"
+            className="h-full w-full flex-1 justify-between  px-4"
           >
-            <TabsList className="flex w-full justify-start gap-3 border-b bg-transparent px-4 py-0">
+            <TabsList className=" flex h-[36px] w-full justify-start gap-3 border-b bg-transparent py-0">
               <TabsTrigger value="document" className={tabClass}>
                 <TbFileUpload size={20} />
                 {form_section.form_upload}
@@ -85,10 +85,13 @@ export function DialogForUpload({
                 {form_section.form_url_website}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="document" className="p-6">
-              <div className="flex w-full items-center  justify-center gap-2  rounded-xl border py-0">
+            <TabsContent
+              value="document"
+              className="max-h-[245px] min-h-[173px]  "
+            >
+              <div className="flex  flex-col-reverse items-center  justify-center gap-2  rounded-xl border py-0">
                 {documentFiles.length > 0 && (
-                  <div className="max-w-1/2 flex flex-wrap gap-1 p-2">
+                  <div className=" flex w-full  flex-row gap-[6px] p-2">
                     {documentFiles.map((file, index) => (
                       <TooltipForUploadedFile
                         file={file}
@@ -102,7 +105,7 @@ export function DialogForUpload({
                 <UploadZone
                   documentFiles={documentFiles}
                   setDocumentFiles={handlePdfFile}
-                  className="mb-0 rounded-none border-none lg:mb-0 xl:mb-0"
+                  className="mb-0 rounded-xl border-none lg:mb-0 xl:mb-0"
                 />
               </div>
             </TabsContent>
@@ -111,7 +114,7 @@ export function DialogForUpload({
               value="url"
               className="flex w-full items-center justify-center  "
             >
-              <div className="grid w-full gap-1.5 p-6">
+              <div className=" mb-[8px] grid w-full gap-2 ">
                 <Label htmlFor="urlInput">{common.url_website}</Label>
                 <Input
                   type="url"
@@ -124,8 +127,14 @@ export function DialogForUpload({
             </TabsContent>
           </Tabs>
 
-          <div className="flex w-full justify-end p-6">
-            <Button className="w-fit px-9" onClick={() => handleSave(tab)}>
+          <div className=" mx-[16px] mb-[12px] flex h-[36px] justify-end  gap-3  ">
+            <Button
+              className="w-[80px] bg-secondary text-primary-dark hover:bg-blue-200"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button className="w-[80px] " onClick={() => handleSave(tab)}>
               {form_section.form_save}
             </Button>
           </div>

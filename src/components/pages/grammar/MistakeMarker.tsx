@@ -58,7 +58,7 @@ export default function MistakeMarker({
                   className={`absolute h-full ${
                     WordIsHovered(item, mouseCoordination) &&
                     "bg-gray-400 opacity-30 "
-                  }  pointer-events-none border-b-[2px] border-b-red-500 `}
+                  }  pointer-events-none overflow-hidden border-b-[2px] border-b-red-500 `}
                 ></div>
 
                 {/* options section */}

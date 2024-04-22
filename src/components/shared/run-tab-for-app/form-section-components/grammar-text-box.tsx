@@ -64,6 +64,8 @@ export function GrammarTextBox({
   //for upload file
   const [url, setUrl] = useState<string>("");
   const [files, setFiles] = useState<File[]>([]);
+  console.log("files", files);
+
   const { mutateAsync: covertPDF } = usePDFConvertor();
 
   const covertToText = async (files: File[]) => {
@@ -76,7 +78,7 @@ export function GrammarTextBox({
   };
   return (
     <div className="col form-gap">
-      <div className="col h-[200px] gap-label-space">
+      <div className="col max-h-[254px] min-h-[200px] gap-label-space">
         <Label htmlFor="gramer-textbox" className={cn("text-sm font-medium")}>
           {form_section.form_grammar_textarea_label}
         </Label>
@@ -89,15 +91,15 @@ export function GrammarTextBox({
           />
 
           {/*textarea*/}
-          {/* <div
-          contentEditable={true}
-          className={cn(
-            "mb-0 h-[400px] w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
-          )}
-          onInput={handleInput}
-          spellCheck={false}
-        /> */}
-          <GrammarInputDiv onTextChange={onTextAreaChange} value={value} />
+
+          <GrammarInputDiv
+            onTextChange={onTextAreaChange}
+            value={value}
+            setFiles={onSelectFiles}
+            setUserUrl={setUrl}
+            files={files}
+            userUrl={url}
+          />
 
           {/*404 Error*/}
           {value && value.toString().length > 0 && (
@@ -109,8 +111,8 @@ export function GrammarTextBox({
             </div>
           )}
 
-          {value?.toString().length === 0 && (
-            <div className="absolute bottom-0 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px]  p-[10px] text-muted-foreground">
+          {
+            <div className="absolute -bottom-3  start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px]  p-[10px] text-muted-foreground">
               <Upload
                 setFiles={onSelectFiles}
                 setUserUrl={setUrl}
@@ -118,7 +120,7 @@ export function GrammarTextBox({
                 userUrl={url}
               />
             </div>
-          )}
+          }
 
           {/*action buttons*/}
           {value && value.toString().length > 0 && (

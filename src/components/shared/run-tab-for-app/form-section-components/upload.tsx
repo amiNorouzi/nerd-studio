@@ -54,34 +54,8 @@ export function Upload(props: IProps) {
       <div
         className={cn(
           "absolute bottom-6 start-3.5 flex items-start justify-between rounded-lg",
-          isFileOrUrlValid && "-mt-3 border p-2",
         )}
       >
-        <div className="flex flex-wrap gap-1">
-          {fileType === "file" &&
-            files.map((file, index) => (
-              <TooltipForUploadedFile
-                file={file}
-                handleDeleteFiles={handleDeleteFilesFromParent}
-                index={index}
-                key={index}
-              />
-            ))}
-          {fileType === "url" && userUrl && (
-            <div className="group relative flex items-center justify-start gap-1 rounded-md border border-black p-3">
-              <AiOutlineLink />
-              {userUrl}
-              <Button
-                variant="ghost"
-                size={"sm"}
-                className="h-3 w-3 p-1 opacity-0 transition-opacity group-hover:opacity-100"
-                onClick={handleDeleteUrl}
-              >
-                X
-              </Button>
-            </div>
-          )}
-        </div>
         <Button
           onClick={handleTriggerOpenButton}
           variant="muted"

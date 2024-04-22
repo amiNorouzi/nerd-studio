@@ -9,8 +9,12 @@ import { useEffect, useRef, useState } from "react";
 import EditableDiv from "./EditableDiv";
 import MistakeMarker from "./MistakeMarker";
 import { useGetDictionary, useSpeechToText } from "@/hooks";
-import { MinimalButton } from "@/components/shared";
+import { MinimalButton, TooltipForUploadedFile } from "@/components/shared";
 import { TbMicrophone } from "react-icons/tb";
+
+import { useHandleUpload } from "@/components/shared/run-tab-for-app/form-section-components/useHandleUpload";
+import { AiOutlineLink } from "react-icons/ai";
+import { Button } from "@/components/ui/button";
 
 export interface WordCoordinates {
   word: string;
@@ -25,9 +29,20 @@ export interface WordCoordinates {
 interface Props {
   onTextChange: (value: string) => void;
   value?: string | number | readonly string[] | undefined;
+  files: File[];
+  setFiles: (files: File[]) => void;
+  setUserUrl: (url: string) => void;
+  userUrl: string;
 }
 
-function GrammarInputDiv({ onTextChange, value }: Props) {
+function GrammarInputDiv({
+  onTextChange,
+  value,
+  files,
+  setFiles,
+  setUserUrl,
+  userUrl,
+}: Props) {
   const divRef = useRef<HTMLDivElement>(null);
   const optionDivRef = useRef(null);
   const mistakeMarkerRef = useRef(null);
@@ -41,7 +56,7 @@ function GrammarInputDiv({ onTextChange, value }: Props) {
     y: number;
   }>();
   const [inputScroll, setInputScroll] = useState<number>();
-
+  const [focused, setFocused] = useState(false);
   // handle cleaning the div by clicking the trash icon
   useEffect(() => {
     if (!value && divRef.current) {
@@ -132,9 +147,61 @@ function GrammarInputDiv({ onTextChange, value }: Props) {
     components: { custom_textarea: dictionary },
   } = useGetDictionary();
 
+  //handle uploaded files section
+  const {
+    fileType,
+    open,
+    documentFiles,
+    url,
+    setDocumentFiles,
+    setUrl,
+    setOpen,
+    handleDeleteFilesFromParent,
+    handleDeleteUrl,
+    handleSave,
+    handleTriggerOpenButton,
+  } = useHandleUpload({ files, setFiles, setUserUrl, userUrl });
+
+  const isFileOrUrlValid =
+    (fileType === "file" && files.length > 0) ||
+    (fileType === "url" && userUrl);
+
   return (
-    <div className="relative h-[156px] w-full overflow-hidden ">
-      <div className="relative h-full  w-full cursor-text ">
+    <div
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
+      className={`relative ${files && files.length > 0 ? "h-[210px]" : "h-[156px]"}   w-full rounded-lg  border   pt-2 leading-8 outline-none ring-0 first-line:pl-4 ${focused && " bg-background"}  ${!focused && "bg-muted "} `}
+    >
+      {files && files.length > 0 && (
+        <div className="mx-4 h-[50px]  border-b">
+          <div className="flex flex-wrap gap-1">
+            {fileType === "file" &&
+              files.map((file, index) => (
+                <TooltipForUploadedFile
+                  file={file}
+                  handleDeleteFiles={handleDeleteFilesFromParent}
+                  index={index}
+                  key={index}
+                />
+              ))}
+            {fileType === "url" && userUrl && (
+              <div className="group relative flex items-center justify-start gap-1 rounded-md border border-black p-3">
+                <AiOutlineLink />
+                {userUrl}
+                <Button
+                  variant="ghost"
+                  size={"sm"}
+                  className="h-3 w-3 p-1 opacity-0 transition-opacity group-hover:opacity-100"
+                  onClick={handleDeleteUrl}
+                >
+                  X
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+      <div className="relative h-[103px]  w-full cursor-text overflow-hidden">
         {/* input field */}
 
         <EditableDiv
@@ -166,7 +233,7 @@ function GrammarInputDiv({ onTextChange, value }: Props) {
         )}
         {divRef.current && divRef.current.innerText.length === 0 && (
           <>
-            <p className="pointer-events-none absolute left-[30px] top-4 text-gray-500">
+            <p className="pointer-events-none absolute left-[30px] top-2 text-gray-500">
               enter your text that you wish to correct
             </p>
           </>
