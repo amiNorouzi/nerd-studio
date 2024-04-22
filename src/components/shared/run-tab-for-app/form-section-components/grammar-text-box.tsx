@@ -102,14 +102,14 @@ export function GrammarTextBox({
           />
 
           {/*404 Error*/}
-          {value && value.toString().length > 0 && (
+          {/* {value && value.toString().length > 0 && (
             <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
               <ErrorIcon />
               <span className="font-sans text-xs text-muted-foreground-light">
                 {form_section.form_error}
               </span>
             </div>
-          )}
+          )} */}
 
           {
             <div className="absolute -bottom-3  start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px]  p-[10px] text-muted-foreground">
