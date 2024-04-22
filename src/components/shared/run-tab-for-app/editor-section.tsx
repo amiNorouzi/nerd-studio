@@ -33,9 +33,7 @@ export default function EditorSection({ children, onChange, value }: Props) {
     <div
       className={cn(
         " form-gap col-span-12 flex h-fit overflow-hidden bg-white  transition-all duration-300",
-        isFullScreen
-          ? "col-span-12 h-full"
-          : "  lg:col-span-6 lg:h-full xl:col-span-8 ",
+        isFullScreen ? "col-span-12 h-full" : "  h-full  lg:col-span-8 ",
       )}
     >
       <div
