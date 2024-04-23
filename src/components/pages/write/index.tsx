@@ -25,13 +25,14 @@ export function WritePage({ params }: SCRPropsType) {
    *  and everywhere that needs to know app name
    */
 
-  const generatedText = useEventChanel({
+  const { message: generatedText, reset } = useEventChanel({
     eventName: "ai_writer",
   });
-  const { mutate: generate } = useAIWriter();
+  const { mutate: generate, isPending } = useAIWriter();
   const [prompt, setPrompt] = useState("");
   const handleGenerate = () => {
     if (prompt) {
+      reset();
       generate({
         prompt,
         model: "gpt-3.5-turbo-0125",
@@ -49,6 +50,7 @@ export function WritePage({ params }: SCRPropsType) {
       <Run>
         <Run.Form
           params={params}
+          isPending={isPending}
           onTextAreaChange={setPrompt}
           value={prompt}
           onSubmit={handleGenerate}

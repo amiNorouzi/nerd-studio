@@ -26,9 +26,12 @@ function CodeExplainer() {
   } = useGetDictionary();
 
   const { mutate } = useCodeExplainer();
-  const generatedCode = useEventChanel({ eventName: "code" });
+  const { message: generatedCode, reset } = useEventChanel({
+    eventName: "code",
+  });
 
   const handleGenerate = () => {
+    reset();
     mutate({
       code,
       language: currentLanguage,

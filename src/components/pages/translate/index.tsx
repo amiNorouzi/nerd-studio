@@ -23,13 +23,14 @@ interface IProps {
 
 export default function TranslatePage({ params }: IProps) {
   const searchParams = useSearchParams();
-  const translation = useEventChanel({
+  const { message: translation, reset } = useEventChanel({
     eventName: "translate",
   });
-  const { mutate: generateTranslate } = useGenerateTranslate();
+  const { mutate: generateTranslate, isPending } = useGenerateTranslate();
   const [text, setText] = useState("");
   const handleGenerate = () => {
     if (text) {
+      reset();
       generateTranslate({
         text,
         trLang:
@@ -55,6 +56,7 @@ export default function TranslatePage({ params }: IProps) {
           params={params}
           onTextAreaChange={setText}
           value={text}
+          isPending={isPending}
           onSubmit={handleGenerate}
         />
         <Run.Editor value={translation} onChange={() => {}}>

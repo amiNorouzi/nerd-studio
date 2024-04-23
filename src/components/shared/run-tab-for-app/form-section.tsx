@@ -4,7 +4,6 @@ import {
   OptionsSelectBoxes,
   SubmitButtonSelectEngine,
   TextBox,
-  Upload,
 } from "./form-section-components";
 import RenderIf from "@/components/shared/RenderIf";
 import { Button } from "@/components/ui/button";
@@ -14,7 +13,6 @@ import {
   RenderImageOrIcon,
 } from "@/components/shared";
 import { FaRegStar, FaStar } from "react-icons/fa6";
-import { usePathname } from "next/navigation";
 import type { ParamsType, TemplateItem } from "@/services/types";
 import { usePDFConvertor } from "@/services/translate";
 import { iconVariants } from "@/constants/variants";
@@ -27,7 +25,7 @@ interface IProps {
   mainTextAreaPlaceholder: string;
   onTextAreaChange(value: string): void;
   value: string;
-
+  isPending: boolean;
   onSubmit(): void;
 }
 
@@ -47,6 +45,7 @@ export default function FormSection({
   template,
   buttonContent,
   mainTextAreaPlaceholder,
+  isPending,
   onTextAreaChange,
   onSubmit,
   value,
@@ -119,6 +118,8 @@ export default function FormSection({
       />
       <OptionsSelectBoxes />
       <SubmitButtonSelectEngine
+        isDisabledSubmit={!value}
+        isPending={isPending}
         onClick={onSubmit}
         buttonContent={buttonContent}
       />

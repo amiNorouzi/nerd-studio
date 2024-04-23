@@ -27,7 +27,12 @@ export function useEventChanel({ onMessage, eventName }: EventChanelParams) {
     }
   }, [eventName, onMessage, uuid]);
 
-  return message;
+  return {
+    message,
+    reset() {
+      setMessage("");
+    },
+  };
 }
 
 const eventChanelService = {

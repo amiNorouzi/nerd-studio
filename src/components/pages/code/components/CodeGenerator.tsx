@@ -23,10 +23,13 @@ function CodeGenerator() {
     page: { code: codeDictionary },
   } = useGetDictionary();
   const { mutate } = useGenerateCode();
-  const generatedCode = useEventChanel({ eventName: "code" });
+  const { message: generatedCode, reset } = useEventChanel({
+    eventName: "code",
+  });
   const [prompt, setPrompt] = useState("");
 
   const handleGenerate = () => {
+    reset();
     mutate({
       prompt,
       language: currentLanguage,

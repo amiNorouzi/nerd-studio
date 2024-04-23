@@ -25,9 +25,12 @@ function CodeConvertor() {
   const [toLang, setToLang] = useState("Auto");
   const [code, setCode] = useState("");
   const { mutate } = useCodeConvertor();
-  const generatedCode = useEventChanel({ eventName: "code" });
+  const { message: generatedCode, reset } = useEventChanel({
+    eventName: "code",
+  });
 
   const handleGenerate = () => {
+    reset();
     mutate({
       code,
       fromLang,
