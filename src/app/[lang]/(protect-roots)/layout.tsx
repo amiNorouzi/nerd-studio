@@ -16,7 +16,7 @@ export default async function RootLayout({
   // this function get info from Google and if session wasn't valid (user signed out) redirect user to dashboard
   const session = await getServerSession(authConfig);
 
-  if (!session) return redirect("/signup");
+  if (!session) return redirect("/login");
 
   return (
     <div className="flex h-dvh w-dvw ">
