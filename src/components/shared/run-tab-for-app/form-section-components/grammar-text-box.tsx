@@ -66,7 +66,8 @@ export function GrammarTextBox({
   const [files, setFiles] = useState<File[]>([]);
   console.log("files", files);
 
-  const { mutateAsync: covertPDF, data } = usePDFConvertor();
+  const { mutateAsync: covertPDF, data, uploadProgress } = usePDFConvertor();
+  console.log("uploadProgress", uploadProgress);
 
   const covertToText = async (files: File[]) => {
     const text = await covertPDF(files[0]);
