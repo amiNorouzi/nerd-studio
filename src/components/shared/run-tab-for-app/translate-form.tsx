@@ -10,7 +10,7 @@ import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
 import { useState } from "react";
-import { usePDFConvertor } from "@/services/translate";
+import { usePDFConvertor } from "@/services/uoload";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
 
 interface IProps {

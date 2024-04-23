@@ -14,9 +14,9 @@ import {
 } from "@/components/shared";
 import { FaRegStar, FaStar } from "react-icons/fa6";
 import type { ParamsType, TemplateItem } from "@/services/types";
-import { usePDFConvertor } from "@/services/translate";
 import { iconVariants } from "@/constants/variants";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
+import { usePDFConvertor } from "@/services/uoload";
 
 interface IProps {
   params: ParamsType;
