@@ -10,7 +10,7 @@ import { UserMenu, UserPanel } from "@/components/user";
 import SpaceItems from "@/components/layout/side-panel/SpaceItems";
 import { Button } from "@/components/ui/button";
 
-import { useUiStore } from "@/stores/zustand/ui-store";
+import { useSidbarPDfStore } from "@/stores/zustand/ui-store";
 import useMobileSize from "@/hooks/useMobileSize";
 import { useTheme } from "@/hooks/useTheme";
 import useOutsideClick from "@/hooks/useOutSideClick";
@@ -19,6 +19,14 @@ import { cn, getHslColorByVar } from "@/lib/utils";
 import { apps } from "@/constants/side-panel";
 import { dirInLocalStorage } from "@/stores/browser-storage";
 import SidePanelItem from "@/components/layout/side-panel/SidePanelItem";
+import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
+import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
+import SidePanelItemPdf from "./SidePanelItemPdf";
+import { Badge } from "@/components/ui/badge";
+import { LuPlus } from "react-icons/lu";
+import { UploadPdf } from "@/components/shared/UploadPdf";
+import { UploadFilePdf } from "./uploadfilePdf";
+import PdfUploadZone from "./pdfUploadZone";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
@@ -26,14 +34,14 @@ import SidePanelItem from "@/components/layout/side-panel/SidePanelItem";
 
 export function SidebarChatPdf() {
   const isMobile = useMobileSize();
-  const isSidePanelOpen = useUiStore.use.isSidePanelOpen();
+  const isSidePanelOpen = useSidbarPDfStore.use.isSidePanelOpen();
   const pathname = usePathname();
   const { lang } = useParams();
-  const isHoverOnSidePanel = useUiStore.use.isHoverOnSidePanel();
+  const isHoverOnSidePanel = useSidbarPDfStore.use.isHoverOnSidePanel();
   //
-  const setIsHoverOnSidePanel = useUiStore.use.setIsHoverOnSidePanel();
+  const setIsHoverOnSidePanel = useSidbarPDfStore.use.setIsHoverOnSidePanel();
   //
-  const setIsSidePanelOpen = useUiStore.use.setIsSidePanelOpen();
+  const setIsSidePanelOpen = useSidbarPDfStore.use.setIsSidePanelOpen();
   const collapsed = !isSidePanelOpen;
   const dir = dirInLocalStorage.get().dir ?? "ltr";
   const isLtr = dir === "ltr";
@@ -77,44 +85,67 @@ export function SidebarChatPdf() {
             borderRightWidth: isLtr ? "1px" : 0,
             borderLeftWidth: isLtr ? 0 : "1px",
             borderColor: getHslColorByVar("--border"),
-            position: isMobile || collapsed ? "fixed" : "sticky",
+            // position: isMobile || collapsed ? "static" : "sticky",
+            position: "static",
             top: 0,
             bottom: 0,
-            zIndex: 40,
+            zIndex: 30,
             height: "100%",
             display: "flex",
             flexDirection: "column",
+            // border:"1px solid"
           }}
-          onMouseEnter={() => setIsHoverOnSidePanel(true)}
-          onMouseLeave={() => setIsHoverOnSidePanel(false)}
         >
           <div
             className={cn(
-              "row gap-2.5 border-b py-2",
+              "row gap-4 border-b bg-[#9373EE] py-2",
               !collapsed || isHoverOnSidePanel
                 ? "px-4 "
                 : "!w-full overflow-hidden px-3",
               isMainHeader ? "h-header" : "h-apps-header",
             )}
           >
-            <Image
-              src="/images/logo.png"
-              alt="nerd logo"
-              width={50}
-              height={40}
-              className={isOpen ? "w-9 md:w-10" : "me-4 w-11"}
-            />
-            <h1 className="text-gradiant whitespace-nowrap text-lg font-bold md:text-xl">
-              Nerd Studio
+            {!isOpen && (
+              <div className="w-11 text-center ">
+                <TbLayoutSidebarLeftExpand
+                  onClick={() => setIsHoverOnSidePanel(true)}
+                  className={` text-white ${isOpen ? " md:h-5 md:w-5" : " w-11 md:h-5"}`}
+                />
+              </div>
+            )}
+            <h1 className=" whitespace-nowrap pr-5 text-lg font-bold text-white md:text-xl">
+              History Upload
             </h1>
-
-            <Button
-              variant="ghost"
-              className="fit me-2 ms-auto p-1 text-muted-foreground lg:hidden"
-              onClick={() => setIsSidePanelOpen(false)}
-            >
-              <RiMenuFoldLine size="1.3rem" />
-            </Button>
+            {isOpen && (
+              <div className="w-11 text-center ">
+                <TbLayoutSidebarLeftCollapse
+                  onClick={() => setIsHoverOnSidePanel(false)}
+                  className={` text-white ${isOpen ? " md:h-5 md:w-5" : "me-2 w-11 md:h-5"}`}
+                />
+              </div>
+            )}
+          </div>
+          <div
+            className={cn(
+              "row gap-4 border-b py-2",
+              !collapsed || isHoverOnSidePanel
+                ? "px-4 "
+                : "!w-full overflow-hidden px-3",
+            )}
+          >
+            {isOpen ? (
+              <div className="h-auto  w-full text-center ">
+                <PdfUploadZone />
+              </div>
+            ) : (
+              <div
+                className=" rounded-lg border-2 border-dashed  text-center  "
+              >
+                <Badge className="w-11 rounded-lg bg-[#F9F6FF] p-3 text-[#9373EE]">
+                  <LuPlus className=" h-5 w-5" />
+                </Badge>
+              </div>
+            )}
           </div>
 
           <Menu
@@ -132,32 +163,31 @@ export function SidebarChatPdf() {
                 display: "flex",
                 justifyContent: isOpen ? "start" : "center",
                 alignItems: "center",
-                padding: isOpen ? "1px 10px" : "1px 4px 1px 0px",
+                padding: isOpen ? "1px 10px" : "",
                 height: "var(--spacing-element-height)",
                 width: "100%",
                 zIndex: 1,
                 "&:hover": {
                   backgroundColor: "var(--hover)",
                 },
+                // border:"1px solid "
               }),
               icon: {
                 margin: "0 auto",
               },
             }}
           >
-            {/*{apps.map(app => (*/}
-            {/*  <SidePanelItem*/}
-            {/*    key={app.id}*/}
-            {/*    title={app.title}*/}
-            {/*    to={app.route}*/}
-            {/*    icon={app.icon}*/}
-            {/*  />*/}
-            {/*))}*/}
-
-            {/*<div className="col absolute inset-x-0 bottom-0 gap-1.5 py-2">*/}
-            {/*  <SpaceItems />*/}
-            {/*  <UserMenu />*/}
-            {/*</div>*/}
+            {apps.map((item: any) => {
+              return (
+                <span onClick={() => setIsHoverOnSidePanel(true)}>
+                  <SidePanelItemPdf
+                    title={item.title}
+                    to="#"
+                    icon={item.icon}
+                  />
+                </span>
+              );
+            })}
           </Menu>
         </Sidebar>
       </div>

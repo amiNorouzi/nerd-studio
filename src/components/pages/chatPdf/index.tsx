@@ -6,11 +6,12 @@ import { SidebarChatPdf } from "@/components/pages/chatPdf/componets/sidebarChat
 import { ListPdfFile } from "@/components/pages/chatPdf/componets/ListPdfFile";
 
 export function ChatWithPdf() {
-  const [isUploadMood, setIsUploadMood] = useState<boolean>(false);
+  const [isUploadMood, setIsUploadMood] = useState<boolean>(true);
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="chatpdf">
-      <div>
+      <div className=" relative h-full ">
+       
         <div className={""}></div>
         {isUploadMood ? <UploadFilePdf /> : <ListPdfFile />}
       </div>

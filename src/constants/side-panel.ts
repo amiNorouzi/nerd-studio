@@ -7,6 +7,7 @@ import {
   TbLayoutDashboard,
   TbMessages,
   TbWriting,
+  TbPdf,
 } from "react-icons/tb";
 
 export const apps = [
@@ -71,6 +72,6 @@ export const apps = [
     i18Key: "",
     title: "ChatPdf",
     route: "/chatpdf",
-    icon: AppsIcons.GrammarIcon,
+    icon: TbPdf,
   },
 ] as const;

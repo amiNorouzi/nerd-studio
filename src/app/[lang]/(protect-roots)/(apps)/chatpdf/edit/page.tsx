@@ -1,12 +1,14 @@
 "use client";
-import { SidebarChatPdf } from "@/components/pages/chatPdf/componets/sidebarChatPdf";
-import { useState } from "react";
-import { ListPdfFile } from "@/components/pages/chatPdf/componets/ListPdfFile";
 
-export function EditPage(): JSX.Element {
+import EditPagePdf from "@/components/pages/editPagePdf";
+
+function EditPage(): JSX.Element {
   return (
     <>
-      <div></div>
+      <div>
+        <EditPagePdf />
+      </div>
     </>
   );
 }
+export default EditPage;
