@@ -92,15 +92,6 @@ export default function TranslateFormSection({
         onChange={onTextAreaChange}
       />
       {/*upload pdf and url input*/}
-      <Upload
-        setFiles={onSelectFiles}
-        setUserUrl={setUrl}
-        files={files}
-        userUrl={url}
-        successfulUploads={successfulUploads}
-        uploadIndex={uploadIndex}
-        uploadProgress={uploadProgress}
-      />
 
       {/*option section like response lang or creativity,...*/}
       <OptionsSelectBoxes hiddenSelectResponseLang />
