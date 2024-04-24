@@ -117,6 +117,7 @@ interface IProps {
 /**
  * this component is a list of history items
  * @param appName
+ * @param historyItems
  * @constructor
  */
 export function HistoryItems({ appName, historyItems }: IProps) {
@@ -144,26 +145,42 @@ export function HistoryItems({ appName, historyItems }: IProps) {
 
   //sort historyItems to set pin and fav on top
 
-  const sortHistoryItems = () => {
-    let sorted = [];
-    if (!historyItems || !historyItems.answers) return [];
-    historyItems.answers.forEach(item => {
-      if (!pinItems) return;
-      pinItems.forEach(pinedItem => {
-        if (pinedItem.id === item.id) sorted.push(pinedItem);
-      });
-      if (!favoriteItems) return;
+  const sortAnswers = (answers: Answer[]): Answer[] => {
+    // Extract ids from pinnedAnswers and favoriteAnswers
+    const pinnedIds = pinItems ? pinItems.map(answer => answer.id) : [];
+    const favoriteIds = favoriteItems
+      ? favoriteItems.map(answer => answer.id)
+      : [];
 
-      favoriteItems.forEach(favItem => {
-        if (favItem.id === item.id) sorted.push(favItem);
-      });
+    // Helper function to determine the sorting priority of an answer
+    const getPriority = (answer: Answer): number => {
+      if (pinnedIds.includes(answer.id)) return 1;
+      if (favoriteIds.includes(answer.id)) return 2;
+      return 3;
+    };
+
+    // Sorting function to compare two answers
+    answers.sort((a, b) => {
+      const priorityA = getPriority(a);
+      const priorityB = getPriority(b);
+
+      // If priorities are different, sort by priority
+      if (priorityA !== priorityB) {
+        return priorityA - priorityB;
+      }
+
+      // If priorities are the same and additional criteria is needed, compare by id
+      // or any other field, e.g., created_at
+      return b.id - a.id; // Default tie breaker
     });
+
+    return answers;
   };
 
   const items =
     historyItems &&
     historyItems.answers &&
-    historyItems.answers
+    sortAnswers(historyItems.answers)
       .filter(item => item.app_type === "grammar")
       .map(item => (
         <div

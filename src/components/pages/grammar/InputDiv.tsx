@@ -33,7 +33,7 @@ interface Props {
   setFiles?: (files: File[]) => void;
   setUserUrl?: (url: string) => void;
   userUrl?: string;
-  extractedText: string;
+  extractedText?: string;
 }
 
 function GrammarInputDiv({
