@@ -1,5 +1,5 @@
 "use client";
-import { TextareaHTMLAttributes } from "react";
+import { TextareaHTMLAttributes, useEffect, useState } from "react";
 
 import { LuCopy, LuCopyCheck } from "react-icons/lu";
 import { TbMicrophone, TbTrash, TbVolume } from "react-icons/tb";
@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 import { Upload } from "@/components/shared/run-tab-for-app/form-section-components";
 import RenderIf from "@/components/shared/RenderIf";
 import { usePathname } from "next/navigation";
+import { useUploadPdf } from "@/services/upload";
 
 export interface ICustomTextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -55,6 +56,9 @@ export function CustomTextarea({
   } = useGetDictionary();
   //for copy value
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
+  const [files, setFiles] = useState<File[]>([]);
+  const [url, setUrl] = useState<string>("");
+
   const { handleToggleRecording, isRecording } = useSpeechToText({
     transcript: value as string,
     setTranscript: setValue,
@@ -67,6 +71,42 @@ export function CustomTextarea({
     isSpeaking,
   } = useTextToSpeech(value as string);
   const pathname = usePathname();
+
+  const {
+    mutateAsync: covertPDF,
+    data,
+    uploadProgress,
+    successfulUploads,
+    setSuccessfulUploads,
+    setIndex: setUploadIndex,
+    index: uploadIndex,
+  } = useUploadPdf();
+
+  //set states of the upload hook
+  useEffect(() => {
+    if (uploadIndex === files.length) {
+      setSuccessfulUploads(0);
+      setUploadIndex(null);
+    }
+  }, [
+    successfulUploads,
+    files,
+    setSuccessfulUploads,
+    uploadIndex,
+    setUploadIndex,
+  ]);
+  const covertToText = async (files: File[]) => {
+    let index = 0;
+    for (const file of files) {
+      const text = await covertPDF(file);
+
+      index++;
+    }
+  };
+  const onSelectFiles = (files: File[]) => {
+    setFiles(files);
+    covertToText(files);
+  };
 
   return (
     <div className={cn("col relative w-full", rootClassName)}>
@@ -109,10 +149,13 @@ export function CustomTextarea({
       {/*action buttons*/}
       <RenderIf isTrue={!pathname.includes("template")}>
         <Upload
-          setFiles={() => {}}
-          setUserUrl={() => {}}
-          files={[]}
-          userUrl={"url"}
+          setFiles={onSelectFiles}
+          setUserUrl={setUrl}
+          files={files}
+          userUrl={url}
+          successfulUploads={successfulUploads}
+          uploadIndex={uploadIndex}
+          uploadProgress={uploadProgress}
         />
       </RenderIf>
       <div className="row absolute bottom-6 end-3.5 h-5 gap-1">

@@ -182,6 +182,7 @@ function GrammarInputDiv({
                   handleDeleteFiles={handleDeleteFilesFromParent}
                   index={index}
                   key={index}
+                  topOfTextField={true}
                 />
               ))}
             {fileType === "url" && userUrl && (

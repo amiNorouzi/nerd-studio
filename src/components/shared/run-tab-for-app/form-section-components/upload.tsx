@@ -16,18 +16,20 @@ interface IProps {
   setUserUrl: (url: string) => void;
   files: File[];
   userUrl: string;
+  successfulUploads: number;
+  uploadIndex: number | null;
+  uploadProgress: number;
 }
 
 /**
  * upload component
- * @param setFiles - set files
- * @param setUserUrl - set user url
- * @param files - files
- * @param userUrl - user url
+ *
  * @constructor
+ * @param props
  */
 export function Upload(props: IProps) {
-  const { userUrl, files } = props;
+  const { userUrl, files, successfulUploads, uploadIndex, uploadProgress } =
+    props;
   const {
     fileType,
     open,
@@ -79,10 +81,15 @@ export function Upload(props: IProps) {
         open={open}
         setOpen={setOpen}
         handleSave={handleSave}
+        handleDeleteFilesFromParent={handleDeleteFilesFromParent}
         documentFiles={documentFiles}
         setDocumentFiles={setDocumentFiles}
         url={url}
         setUrl={setUrl}
+        files={files}
+        successfulUploads={successfulUploads}
+        uploadIndex={uploadIndex}
+        uploadProgress={uploadProgress}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import React, { TextareaHTMLAttributes, useState } from "react";
+import React, { TextareaHTMLAttributes, useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { PiMicrophone } from "react-icons/pi";
@@ -13,8 +13,8 @@ import { ErrorIcon } from "@/components/svg-icons";
 import GrammarInputDiv from "@/components/pages/grammar/InputDiv";
 import { SelectGrammarLanguage } from "./select-grammar-language";
 import { OptionsSelectBoxes } from "./options-select-boxes";
-import { usePDFConvertor } from "@/services/translate";
 import { Upload } from "./upload";
+import { useUploadPdf } from "@/services/upload";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
@@ -65,13 +65,36 @@ export function GrammarTextBox({
   const [url, setUrl] = useState<string>("");
   const [files, setFiles] = useState<File[]>([]);
   console.log("files", files);
+  const {
+    mutateAsync: covertPDF,
+    data,
+    uploadProgress,
+    successfulUploads,
+    setSuccessfulUploads,
+    setIndex: setUploadIndex,
+    index: uploadIndex,
+  } = useUploadPdf();
 
-  const { mutateAsync: covertPDF, data, uploadProgress } = usePDFConvertor();
-  console.log("uploadProgress", uploadProgress);
-
+  //set states of the upload hook
+  useEffect(() => {
+    if (uploadIndex === files.length) {
+      setSuccessfulUploads(0);
+      setUploadIndex(null);
+    }
+  }, [
+    successfulUploads,
+    files,
+    setSuccessfulUploads,
+    uploadIndex,
+    setUploadIndex,
+  ]);
   const covertToText = async (files: File[]) => {
-    const text = await covertPDF(files[0]);
-    onTextAreaChange?.(text);
+    let index = 0;
+    for (const file of files) {
+      const text = await covertPDF(file);
+
+      index++;
+    }
   };
   const onSelectFiles = (files: File[]) => {
     setFiles(files);
@@ -119,6 +142,9 @@ export function GrammarTextBox({
                 setUserUrl={setUrl}
                 files={files}
                 userUrl={url}
+                successfulUploads={successfulUploads}
+                uploadIndex={uploadIndex}
+                uploadProgress={uploadProgress}
               />
             </div>
           }

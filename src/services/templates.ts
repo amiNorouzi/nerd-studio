@@ -15,6 +15,9 @@ export function useGenerateTemplate() {
       model,
       temperature,
       max_tokens,
+      presence_penalty,
+      frequency_penalty,
+      top_p,
     }: GenerateTemplateParams) {
       const { data } = await axiosClient.post<
         unknown,
@@ -31,6 +34,9 @@ export function useGenerateTemplate() {
         temperature,
         max_tokens,
         stream: true,
+        top_p,
+        presence_penalty,
+        frequency_penalty,
       });
 
       return data;

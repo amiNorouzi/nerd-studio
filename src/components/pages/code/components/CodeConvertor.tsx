@@ -35,6 +35,9 @@ function CodeConvertor() {
       model: "gpt-3.5-turbo-0125",
       temperature: 0.1,
       max_tokens: 100,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      top_p: 1,
     });
   };
 

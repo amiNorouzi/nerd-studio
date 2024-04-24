@@ -37,6 +37,9 @@ export function WritePage({ params }: SCRPropsType) {
         model: "gpt-3.5-turbo-0125",
         temperature: 0.1,
         max_tokens: 100,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
       });
     }
   };
