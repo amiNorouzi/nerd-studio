@@ -5,7 +5,8 @@ import EditPagePdf from "@/components/pages/editPagePdf";
 function EditPage(): JSX.Element {
   return (
     <>
-      <div>
+      <div className="w-full">
+        
         <EditPagePdf />
       </div>
     </>
