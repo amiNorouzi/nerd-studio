@@ -16,9 +16,9 @@ export function useCodeConvertor() {
       max_tokens,
       fromLang,
       toLang,
+      top_p,
       frequency_penalty,
       presence_penalty,
-      top_p,
     }: CodeConvertorParams) {
       const { data } = await axiosClient.post<
         unknown,
@@ -58,9 +58,9 @@ export function useGenerateCode() {
       temperature,
       max_tokens,
       language,
-      frequency_penalty,
       presence_penalty,
       top_p,
+      frequency_penalty,
     }: GenerateCodeParams) {
       const { data } = await axiosClient.post<
         unknown,
@@ -77,9 +77,9 @@ export function useGenerateCode() {
         temperature,
         max_tokens,
         stream: true,
-        top_p,
-        presence_penalty,
+        top_p: 1.0,
         frequency_penalty,
+        presence_penalty,
       });
 
       return data;
@@ -101,8 +101,8 @@ export function useCodeExplainer() {
       temperature,
       max_tokens,
       language,
-      frequency_penalty,
       presence_penalty,
+      frequency_penalty,
       top_p,
     }: CodeExplainerParams) {
       const { data } = await axiosClient.post<
@@ -120,7 +120,7 @@ export function useCodeExplainer() {
         temperature,
         max_tokens,
         stream: true,
-        top_p,
+        top_p: 1.0,
         frequency_penalty,
         presence_penalty,
       });

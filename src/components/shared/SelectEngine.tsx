@@ -169,9 +169,9 @@ function SettingPopover({ engine }: SettingPopoverProps) {
   const engineSetting = useFormStore.use.engines();
   const handleEngineSetting = useFormStore.use.handleEngineSetting();
   const engineSettingValue = engineSetting[engine];
-
+  const [openModal, setOpenModal] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={openModal} onOpenChange={setOpenModal}>
       <DialogTrigger
         asChild
         className="absolute end-7 top-1/2 -translate-y-1/2"
@@ -255,11 +255,14 @@ function SettingPopover({ engine }: SettingPopoverProps) {
                 <Button
                   type="submit"
                   className="text-[ #9373EE; ]
-              bg-[#F9F1FF]"
+             bg-secondary text-primary-dark hover:bg-blue-200"
+                  onClick={() => setOpenModal(false)}
                 >
                   Cancel{" "}
                 </Button>
-                <Button type="submit">Save </Button>
+                <Button type="submit" onClick={() => setOpenModal(false)}>
+                  Save{" "}
+                </Button>
               </div>
             </div>
           </div>

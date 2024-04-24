@@ -39,7 +39,7 @@ export function useHandleUpload({
       setUserUrl!(url);
       setFileType("url");
     }
-    setOpen(false);
+    // setOpen(false);
   }
   function handleTriggerOpenButton() {
     setDocumentFiles(files!);

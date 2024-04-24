@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TbFileUpload } from "react-icons/tb";
 import { AiOutlineLink } from "react-icons/ai";
 
@@ -26,6 +26,16 @@ interface IProps {
   setDocumentFiles: StateSetterType<File[]>;
   url: string;
   setUrl: StateSetterType<string>;
+  files: File[];
+  successfulUploads: number;
+  uploadIndex: number | null;
+  uploadProgress: number;
+  handleDeleteFilesFromParent: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    fileIndex: number,
+  ) => void;
+  startConverting(files: File[]): void;
+  setExtractedText: (text: string) => void;
 }
 export function DialogForUpload({
   open,
@@ -35,9 +45,21 @@ export function DialogForUpload({
   setDocumentFiles,
   url,
   setUrl,
+  files,
+  successfulUploads,
+  uploadIndex,
+  uploadProgress,
+  startConverting,
+  setExtractedText,
+  handleDeleteFilesFromParent,
 }: IProps) {
   const [tab, setTab] = useState("document");
+  const [pendingButton, setPendingButton] = useState(false);
 
+  useEffect(() => {
+    if (successfulUploads === 0) setPendingButton(false);
+    if (successfulUploads === files.length) setOpen(false);
+  }, [successfulUploads]);
   const {
     common,
     components: { form_section },
@@ -63,7 +85,7 @@ export function DialogForUpload({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="flex max-h-[406px] w-[450px]   max-w-xl flex-col  justify-start gap-[8px] p-0">
+      <DialogContent className="flex max-h-[406px] w-[450px]    max-w-xl flex-col  justify-start gap-[8px] p-0  ">
         <DialogHeader className="m-[12px] mx-[16px] ">
           <DialogTitle className="flex gap-2 text-lg font-medium">
             {form_section.form_upload}
@@ -87,25 +109,32 @@ export function DialogForUpload({
             </TabsList>
             <TabsContent
               value="document"
-              className="max-h-[245px] min-h-[173px]  "
+              className="max-h-[245px] min-h-[173px] overflow-hidden rounded-lg  "
             >
-              <div className="flex  flex-col-reverse items-center  justify-center gap-2  rounded-xl border py-0">
+              <div className="flex  flex-col-reverse items-center  justify-center    border py-0">
                 {documentFiles.length > 0 && (
-                  <div className=" flex w-full  flex-row gap-[6px] p-2">
+                  <div className="  flex h-[72px]   w-full flex-row  gap-[6px]   bg-muted-dark px-[47px]">
                     {documentFiles.map((file, index) => (
-                      <TooltipForUploadedFile
-                        file={file}
-                        handleDeleteFiles={handleDeleteFile}
-                        index={index}
-                        key={index}
-                      />
+                      <div key={index} className="relative  ">
+                        <TooltipForUploadedFile
+                          file={file}
+                          handleDeleteFiles={handleDeleteFile}
+                          index={index}
+                          uploadIndex={uploadIndex}
+                          uploadProgress={uploadProgress}
+                          topOfTextField={false}
+                          handleDeleteFilesFromParent={
+                            handleDeleteFilesFromParent
+                          }
+                        />
+                      </div>
                     ))}
                   </div>
                 )}
                 <UploadZone
                   documentFiles={documentFiles}
                   setDocumentFiles={handlePdfFile}
-                  className="mb-0 rounded-xl border-none lg:mb-0 xl:mb-0"
+                  className="mb-0 h-[173px]  border-none lg:mb-0 xl:mb-0"
                 />
               </div>
             </TabsContent>
@@ -134,9 +163,24 @@ export function DialogForUpload({
             >
               Cancel
             </Button>
-            <Button className="w-[80px] " onClick={() => handleSave(tab)}>
-              {form_section.form_save}
-            </Button>
+            {!pendingButton && (
+              <Button
+                className="w-[80px] "
+                onClick={() => {
+                  handleSave(tab);
+                  setPendingButton(true);
+                  startConverting(documentFiles);
+                  setExtractedText("");
+                }}
+              >
+                {form_section.form_save}
+              </Button>
+            )}
+            {pendingButton && (
+              <Button className="w-[80px] ">
+                {successfulUploads}/{files.length}
+              </Button>
+            )}
           </div>
         </div>
       </DialogContent>

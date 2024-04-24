@@ -88,7 +88,7 @@ export function UploadZone({
     <div
       {...getRootProps()}
       className={cn(
-        "mb-2 flex h-[173px] w-full gap-2 rounded-xl border bg-background  transition-all duration-300 hover:bg-hover lg:mb-3  xl:mb-5  ",
+        "mb-2 flex h-[173px] w-full gap-2   bg-muted-dark  transition-all duration-300  lg:mb-3  xl:mb-5  ",
         className,
       )}
       {...divProps}

@@ -46,6 +46,10 @@ export function useGenerateTranslate() {
   });
 }
 
+type PDFConvertorResponse = {
+  text: string;
+};
+
 const translateService = {
   useGenerateTranslate,
 };
