@@ -51,7 +51,7 @@
         --spacing-form-label: 8px;
         --spacing-form-padding: 24px;
         --spacing-form-gap: 18px;
-        --spacing-element-height: 36px;
+        --spacing-element-height: 28px;
     }
 
     .dark {
@@ -421,10 +421,7 @@ padding: {
     overflow: hidden;
 }
 
-.embla__container {
-    display: flex;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.00) 0%, #FFF 100%);
-}
+
 
 .embla__slide {
     flex: 0 0 15%;
@@ -452,5 +449,20 @@ padding: {
     margin-right: 24px;
 }
 
+.is-selected {
+    background: #9373EE;
+    border-radius: 8px;
+    width: 30px;
+    height: 10px;
 
+    animation: ease-in-out .5s width;
+}
+@keyframes width {
+    0%{
+        width:10px;
+    }
+    100%{
+        width: 30px;
+    }
+}
 

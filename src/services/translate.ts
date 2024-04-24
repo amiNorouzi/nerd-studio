@@ -17,9 +17,9 @@ export function useGenerateTranslate() {
       model,
       temperature,
       max_tokens,
-      frequency_penalty,
-      presence_penalty,
       top_p,
+      presence_penalty,
+      frequency_penalty,
     }: GenerateTranslateParams) => {
       const { data } = await axiosClient.post<
         unknown,
@@ -36,9 +36,9 @@ export function useGenerateTranslate() {
         temperature,
         max_tokens,
         stream: true,
-        frequency_penalty,
-        presence_penalty,
         top_p,
+        presence_penalty,
+        frequency_penalty,
       });
 
       return data;

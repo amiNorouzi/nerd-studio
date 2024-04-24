@@ -142,7 +142,7 @@ export interface HistoryState {
 
   historySearch: string;
   isHistoryInfoOpen: boolean;
-  selectedHistoryItem: HistoryItem | null;
+  selectedHistoryItem: Answer | null;
 }
 export interface HighlightState {
   isHighlightOpen: boolean;

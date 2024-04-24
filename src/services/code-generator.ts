@@ -35,7 +35,7 @@ export function useCodeConvertor() {
         temperature,
         max_tokens,
         stream: true,
-        top_p: 1.0,
+        top_p,
         frequency_penalty,
         presence_penalty,
       });

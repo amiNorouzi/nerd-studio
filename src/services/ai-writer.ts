@@ -12,9 +12,9 @@ export function useAIWriter() {
       temperature,
       max_tokens,
       model,
+      top_p,
       frequency_penalty,
       presence_penalty,
-      top_p,
     }: AIWritersParams) => {
       const { data } = await axiosClient.post<
         unknown,
@@ -32,8 +32,8 @@ export function useAIWriter() {
         max_tokens,
         stream: true,
         top_p,
-        presence_penalty,
         frequency_penalty,
+        presence_penalty,
       });
 
       return data;

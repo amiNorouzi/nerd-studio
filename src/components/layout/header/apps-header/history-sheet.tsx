@@ -6,6 +6,7 @@ import { useParams, usePathname } from "next/navigation";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { TbHistory } from "react-icons/tb";
 import { iconVariants } from "@/constants/variants";
+import useHighlightStore from "@/stores/zustand/highlight-store";
 
 export function HistorySheet() {
   const { components } = useGetDictionary();
@@ -13,15 +14,22 @@ export function HistorySheet() {
   const { lang } = useParams();
   const setHistoryIsOpen = useHistoryStore.use.setHistoryIsOpen();
   const isHistoryOpen = useHistoryStore.use.isHistoryOpen();
+  const setHighlightIsOpen = useHighlightStore.use.setHighlightIsOpen();
+  const isHighlightOpen = useHighlightStore.use.isHighlightOpen();
 
   if (pathname.includes("image") || pathname === `/${lang}/template`)
     return null;
 
+  const toggleDrawer = () => {
+    isHighlightOpen && setHighlightIsOpen(false);
+    setHistoryIsOpen(!isHistoryOpen);
+  };
+
   return (
     <>
       <Button
-        variant="outline"
-        onClick={() => setHistoryIsOpen(!isHistoryOpen)}
+        variant={isHistoryOpen ? "secondary" : "outline"}
+        onClick={toggleDrawer}
         className="px-2.5 md:px-4"
       >
         <TbHistory className={iconVariants({ size: "sm" })} />

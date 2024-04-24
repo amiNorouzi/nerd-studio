@@ -9,7 +9,6 @@ import { MyTooltip } from "@/components/shared";
 import { cn } from "@/lib/utils";
 import type { IconType } from "react-icons";
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
-import { ErrorIcon } from "@/components/svg-icons";
 import GrammarInputDiv from "@/components/pages/grammar/InputDiv";
 import { SelectGrammarLanguage } from "./select-grammar-language";
 import { OptionsSelectBoxes } from "./options-select-boxes";

@@ -1,11 +1,9 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import {
   OptionsSelectBoxes,
   SelectTranslateLanguages,
   SubmitButtonSelectEngine,
   TextBox,
-  Upload,
 } from "./form-section-components";
 
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
@@ -20,6 +18,7 @@ interface IProps {
   value: string;
   onTextAreaChange: (value: string) => void;
   onSubmit: () => void;
+  isPending: boolean;
 }
 
 /**
@@ -33,6 +32,7 @@ export default function TranslateFormSection({
   value,
   onTextAreaChange,
   onSubmit,
+  isPending,
 }: IProps) {
   const {
     page: { translate },
@@ -106,6 +106,8 @@ export default function TranslateFormSection({
       <OptionsSelectBoxes hiddenSelectResponseLang />
       {/*submit button and select engine with setting*/}
       <SubmitButtonSelectEngine
+        isDisabledSubmit={!value}
+        isPending={isPending}
         onClick={onSubmit}
         buttonContent={translate.submit_button_label}
       />

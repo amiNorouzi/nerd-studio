@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { getSelectionText, useEditorRef } from "@udecode/plate-common";
+import { useEditorRef } from "@udecode/plate-common";
 import {
   Dialog,
   DialogClose,
@@ -29,7 +29,7 @@ export function AiModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="muted" className="h-fit w-fit p-2">
+        <Button variant="muted" size="icon">
           <AiICon
             className={cn(iconVariants({ size: "md" }), "stroke-foreground")}
           />
