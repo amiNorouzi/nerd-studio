@@ -19,6 +19,8 @@ interface IProps {
   successfulUploads: number;
   uploadIndex: number | null;
   uploadProgress: number;
+  startConverting(files: File[]): void;
+  setExtractedText: (text: string) => void;
 }
 
 /**
@@ -28,8 +30,15 @@ interface IProps {
  * @param props
  */
 export function Upload(props: IProps) {
-  const { userUrl, files, successfulUploads, uploadIndex, uploadProgress } =
-    props;
+  const {
+    userUrl,
+    files,
+    successfulUploads,
+    uploadIndex,
+    uploadProgress,
+    startConverting,
+    setExtractedText,
+  } = props;
   const {
     fileType,
     open,
@@ -90,6 +99,8 @@ export function Upload(props: IProps) {
         successfulUploads={successfulUploads}
         uploadIndex={uploadIndex}
         uploadProgress={uploadProgress}
+        startConverting={startConverting}
+        setExtractedText={setExtractedText}
       />
     </>
   );

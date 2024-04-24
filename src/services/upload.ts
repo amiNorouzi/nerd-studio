@@ -12,27 +12,32 @@ export function useUploadPdf() {
   const [index, setIndex] = useState<number | null>(null);
   const { mutate, data, ...rest } = useMutation({
     async mutationFn(pdf: File) {
-      const formData = new FormData();
-      formData.append("file", pdf);
+      try {
+        const formData = new FormData();
+        formData.append("file", pdf);
 
-      const response = await axiosClient.post<PDFConvertorResponse>(
-        "/uploads/convert_pdf_to_text/",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
+        const response = await axiosClient.post<PDFConvertorResponse>(
+          "/uploads/convert_pdf_to_text/",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress: progressEvent => {
+              if (index === null) setIndex(0);
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total!,
+              );
+              setUploadProgress(percentCompleted);
+            },
           },
-          onUploadProgress: progressEvent => {
-            if (index === null) setIndex(0);
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total!,
-            );
-            setUploadProgress(percentCompleted);
-          },
-        },
-      );
+        );
 
-      return response.data.text;
+        return response.data.text;
+      } catch (err) {
+        console.log("error happend in the upload", err);
+        console.log("error in upload index number", index);
+      }
     },
     onSuccess: () => {
       setSuccessfulUploads(prev => prev + 1);

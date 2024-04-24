@@ -32,9 +32,8 @@ export function GrammarPage({ params }: IProps) {
   const { data } = useHistories({ pageNumber: 1 });
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const textInput = selectedHistoryItem
-    ? selectedHistoryItem.answer_text + grammar
-    : grammar;
-
+    ? selectedHistoryItem.answer_text + grammar.message
+    : grammar.message;
   const handleGenerate = () => {
     if (text) {
       generateGrammar({
@@ -60,7 +59,7 @@ export function GrammarPage({ params }: IProps) {
           onSubmit={handleGenerate}
         />
 
-        <Run.Editor value={""} onChange={() => {}}>
+        <Run.Editor value={textInput} onChange={() => {}}>
           <Highlight>
             <HighlightContent />
           </Highlight>

@@ -58,6 +58,8 @@ export function CustomTextarea({
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
   const [files, setFiles] = useState<File[]>([]);
   const [url, setUrl] = useState<string>("");
+  //returned text from pdfConvertor
+  const [extractedText, setExtractedText] = useState("");
 
   const { handleToggleRecording, isRecording } = useSpeechToText({
     transcript: value as string,
@@ -99,15 +101,17 @@ export function CustomTextarea({
     let index = 0;
     for (const file of files) {
       const text = await covertPDF(file);
-
+      if (text) setExtractedText(prev => prev + text);
+      index++;
       index++;
     }
   };
   const onSelectFiles = (files: File[]) => {
     setFiles(files);
+  };
+  const startConverting = (files: File[]) => {
     covertToText(files);
   };
-
   return (
     <div className={cn("col relative w-full", rootClassName)}>
       {/*voice input*/}
@@ -156,6 +160,8 @@ export function CustomTextarea({
           successfulUploads={successfulUploads}
           uploadIndex={uploadIndex}
           uploadProgress={uploadProgress}
+          setExtractedText={setExtractedText}
+          startConverting={startConverting}
         />
       </RenderIf>
       <div className="row absolute bottom-6 end-3.5 h-5 gap-1">

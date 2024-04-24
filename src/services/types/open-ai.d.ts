@@ -10,6 +10,6 @@ interface OpenAiCompletionSchemaInput {
 }
 
 interface OpenAiMessage {
-  role: "user";
+  role: "user" | "system";
   content: string;
 }

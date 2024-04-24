@@ -26,6 +26,7 @@ interface IProps {
  * @param value
  * @param onTextAreaChange
  * @param onSubmit
+ * @param isPending
  * @constructor
  */
 export default function GrammarFormSection({

@@ -63,7 +63,9 @@ export function GrammarTextBox({
   //for upload file
   const [url, setUrl] = useState<string>("");
   const [files, setFiles] = useState<File[]>([]);
-  console.log("files", files);
+
+  //returned text from pdfConvertor
+  const [extractedText, setExtractedText] = useState("");
   const {
     mutateAsync: covertPDF,
     data,
@@ -91,12 +93,15 @@ export function GrammarTextBox({
     let index = 0;
     for (const file of files) {
       const text = await covertPDF(file);
-
+      if (text) setExtractedText(prev => prev + text);
       index++;
     }
   };
   const onSelectFiles = (files: File[]) => {
     setFiles(files);
+  };
+
+  const startConverting = (files: File[]) => {
     covertToText(files);
   };
   return (
@@ -122,6 +127,7 @@ export function GrammarTextBox({
             setUserUrl={setUrl}
             files={files}
             userUrl={url}
+            extractedText={extractedText}
           />
 
           {/*404 Error*/}
@@ -135,7 +141,7 @@ export function GrammarTextBox({
           )} */}
 
           {
-            <div className="absolute -bottom-3  start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px]  p-[10px] text-muted-foreground">
+            <div className="lef-2 absolute  -bottom-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px]  p-[10px] text-muted-foreground">
               <Upload
                 setFiles={onSelectFiles}
                 setUserUrl={setUrl}
@@ -144,13 +150,15 @@ export function GrammarTextBox({
                 successfulUploads={successfulUploads}
                 uploadIndex={uploadIndex}
                 uploadProgress={uploadProgress}
+                startConverting={startConverting}
+                setExtractedText={setExtractedText}
               />
             </div>
           }
 
           {/*action buttons*/}
           {value && value.toString().length > 0 && (
-            <div className="row absolute bottom-3 end-3.5 gap-1 bg-white">
+            <div className="row absolute bottom-3 end-3.5 gap-1 ">
               <MinimalButton
                 Icon={MdDeleteOutline}
                 title={dictionary.clear_button_label}

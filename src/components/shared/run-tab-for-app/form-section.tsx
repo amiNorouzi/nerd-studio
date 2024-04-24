@@ -61,7 +61,7 @@ export default function FormSection({
   const { mutateAsync: covertPDF } = useUploadPdf();
   const covertToText = async (files: File[]) => {
     const text = await covertPDF(files[0]);
-    onTextAreaChange(text);
+    text && onTextAreaChange(text);
   };
 
   const onSelectFiles = (files: File[]) => {
