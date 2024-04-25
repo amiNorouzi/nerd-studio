@@ -14,6 +14,8 @@ import { SelectGrammarLanguage } from "./select-grammar-language";
 import { OptionsSelectBoxes } from "./options-select-boxes";
 import { Upload } from "./upload";
 import { useUploadPdf } from "@/services/upload";
+import useSuccessToast from "@/hooks/useSuccessToast";
+import useErrorToast from "@/hooks/useErrorToast";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
@@ -63,6 +65,7 @@ export function GrammarTextBox({
   //for upload file
   const [url, setUrl] = useState<string>("");
   const [files, setFiles] = useState<File[]>([]);
+  const [uploadStatus, setUploadStatus] = useState<boolean[]>([]);
 
   //returned text from pdfConvertor
   const [extractedText, setExtractedText] = useState("");
@@ -70,30 +73,33 @@ export function GrammarTextBox({
     mutateAsync: covertPDF,
     data,
     uploadProgress,
-    successfulUploads,
-    setSuccessfulUploads,
+
     setIndex: setUploadIndex,
     index: uploadIndex,
   } = useUploadPdf();
 
+  //
+  const { showSuccess } = useSuccessToast();
+  const { showError } = useErrorToast();
   //set states of the upload hook
   useEffect(() => {
     if (uploadIndex === files.length) {
-      setSuccessfulUploads(0);
       setUploadIndex(null);
+      setUploadStatus([]);
     }
-  }, [
-    successfulUploads,
-    files,
-    setSuccessfulUploads,
-    uploadIndex,
-    setUploadIndex,
-  ]);
+  }, [files, uploadIndex, setUploadIndex]);
   const covertToText = async (files: File[]) => {
     let index = 0;
     for (const file of files) {
       const text = await covertPDF(file);
-      if (text) setExtractedText(prev => prev + text);
+      if (text) {
+        setExtractedText(prev => prev + text);
+        setUploadStatus(prev => [...prev, true]);
+        showSuccess(` file ${file.name} uploaded`);
+      } else {
+        showError(` file ${file.name} failed upload`);
+        setUploadStatus(prev => [...prev, false]);
+      }
       index++;
     }
   };
@@ -147,7 +153,7 @@ export function GrammarTextBox({
                 setUserUrl={setUrl}
                 files={files}
                 userUrl={url}
-                successfulUploads={successfulUploads}
+                uploadStatus={uploadStatus}
                 uploadIndex={uploadIndex}
                 uploadProgress={uploadProgress}
                 startConverting={startConverting}

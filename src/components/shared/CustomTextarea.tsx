@@ -18,6 +18,8 @@ import { Upload } from "@/components/shared/run-tab-for-app/form-section-compone
 import RenderIf from "@/components/shared/RenderIf";
 import { usePathname } from "next/navigation";
 import { useUploadPdf } from "@/services/upload";
+import useSuccessToast from "@/hooks/useSuccessToast";
+import useErrorToast from "@/hooks/useErrorToast";
 
 export interface ICustomTextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -60,6 +62,7 @@ export function CustomTextarea({
   const [url, setUrl] = useState<string>("");
   //returned text from pdfConvertor
   const [extractedText, setExtractedText] = useState("");
+  const [uploadStatus, setUploadStatus] = useState<boolean[]>([]);
 
   const { handleToggleRecording, isRecording } = useSpeechToText({
     transcript: value as string,
@@ -78,37 +81,40 @@ export function CustomTextarea({
     mutateAsync: covertPDF,
     data,
     uploadProgress,
-    successfulUploads,
-    setSuccessfulUploads,
+
     setIndex: setUploadIndex,
     index: uploadIndex,
   } = useUploadPdf();
 
+  //
+  const { showSuccess } = useSuccessToast();
+  const { showError } = useErrorToast();
   //set states of the upload hook
   useEffect(() => {
     if (uploadIndex === files.length) {
-      setSuccessfulUploads(0);
       setUploadIndex(null);
+      setUploadStatus([]);
     }
-  }, [
-    successfulUploads,
-    files,
-    setSuccessfulUploads,
-    uploadIndex,
-    setUploadIndex,
-  ]);
+  }, [files, uploadIndex, setUploadIndex]);
   const covertToText = async (files: File[]) => {
     let index = 0;
     for (const file of files) {
       const text = await covertPDF(file);
-      if (text) setExtractedText(prev => prev + text);
-      index++;
+      if (text) {
+        setExtractedText(prev => prev + text);
+        setUploadStatus(prev => [...prev, true]);
+        showSuccess(` file ${file.name} uploaded`);
+      } else {
+        showError(` file ${file.name} failed upload`);
+        setUploadStatus(prev => [...prev, false]);
+      }
       index++;
     }
   };
   const onSelectFiles = (files: File[]) => {
     setFiles(files);
   };
+
   const startConverting = (files: File[]) => {
     covertToText(files);
   };
@@ -157,11 +163,11 @@ export function CustomTextarea({
           setUserUrl={setUrl}
           files={files}
           userUrl={url}
-          successfulUploads={successfulUploads}
           uploadIndex={uploadIndex}
           uploadProgress={uploadProgress}
           setExtractedText={setExtractedText}
           startConverting={startConverting}
+          uploadStatus={uploadStatus}
         />
       </RenderIf>
       <div className="row absolute bottom-6 end-3.5 h-5 gap-1">

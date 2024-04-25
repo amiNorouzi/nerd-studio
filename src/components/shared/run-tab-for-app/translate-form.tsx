@@ -12,6 +12,8 @@ import type { ParamsType } from "@/services/types";
 import { useEffect, useState } from "react";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
 import { useUploadPdf } from "@/services/upload";
+import useSuccessToast from "@/hooks/useSuccessToast";
+import useErrorToast from "@/hooks/useErrorToast";
 
 interface IProps {
   params: ParamsType;
@@ -45,39 +47,49 @@ export default function TranslateFormSection({
   const app = apps.find(
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
+  const [uploadStatus, setUploadStatus] = useState<boolean[]>([]);
+
+  //returned text from pdfConvertor
+  const [extractedText, setExtractedText] = useState("");
   const {
     mutateAsync: covertPDF,
     data,
     uploadProgress,
-    successfulUploads,
-    setSuccessfulUploads,
+
     setIndex: setUploadIndex,
     index: uploadIndex,
   } = useUploadPdf();
 
+  //
+  const { showSuccess } = useSuccessToast();
+  const { showError } = useErrorToast();
   //set states of the upload hook
   useEffect(() => {
     if (uploadIndex === files.length) {
-      setSuccessfulUploads(0);
       setUploadIndex(null);
+      setUploadStatus([]);
     }
-  }, [
-    successfulUploads,
-    files,
-    setSuccessfulUploads,
-    uploadIndex,
-    setUploadIndex,
-  ]);
+  }, [files, uploadIndex, setUploadIndex]);
   const covertToText = async (files: File[]) => {
     let index = 0;
     for (const file of files) {
       const text = await covertPDF(file);
-
+      if (text) {
+        setExtractedText(prev => prev + text);
+        setUploadStatus(prev => [...prev, true]);
+        showSuccess(` file ${file.name} uploaded`);
+      } else {
+        showError(` file ${file.name} failed upload`);
+        setUploadStatus(prev => [...prev, false]);
+      }
       index++;
     }
   };
   const onSelectFiles = (files: File[]) => {
     setFiles(files);
+  };
+
+  const startConverting = (files: File[]) => {
     covertToText(files);
   };
 

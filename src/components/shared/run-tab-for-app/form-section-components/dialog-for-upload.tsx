@@ -27,7 +27,6 @@ interface IProps {
   url: string;
   setUrl: StateSetterType<string>;
   files: File[];
-  successfulUploads: number;
   uploadIndex: number | null;
   uploadProgress: number;
   handleDeleteFilesFromParent: (
@@ -36,6 +35,7 @@ interface IProps {
   ) => void;
   startConverting(files: File[]): void;
   setExtractedText: (text: string) => void;
+  uploadStatus: boolean[];
 }
 export function DialogForUpload({
   open,
@@ -46,20 +46,20 @@ export function DialogForUpload({
   url,
   setUrl,
   files,
-  successfulUploads,
   uploadIndex,
   uploadProgress,
   startConverting,
   setExtractedText,
   handleDeleteFilesFromParent,
+  uploadStatus,
 }: IProps) {
   const [tab, setTab] = useState("document");
   const [pendingButton, setPendingButton] = useState(false);
 
   useEffect(() => {
-    if (successfulUploads === 0) setPendingButton(false);
-    if (successfulUploads === files.length) setOpen(false);
-  }, [successfulUploads]);
+    if (uploadStatus.length === 0) setPendingButton(false);
+    if (uploadStatus.length === files.length) setOpen(false);
+  }, [uploadStatus]);
   const {
     common,
     components: { form_section },
@@ -178,7 +178,7 @@ export function DialogForUpload({
             )}
             {pendingButton && (
               <Button className="w-[80px] ">
-                {successfulUploads}/{files.length}
+                {uploadStatus.filter(item => item).length}/{files.length}
               </Button>
             )}
           </div>
