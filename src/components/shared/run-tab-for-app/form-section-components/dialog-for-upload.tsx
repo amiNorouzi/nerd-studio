@@ -126,6 +126,7 @@ export function DialogForUpload({
                           handleDeleteFilesFromParent={
                             handleDeleteFilesFromParent
                           }
+                          pendingButton={pendingButton}
                         />
                       </div>
                     ))}

@@ -8,10 +8,10 @@ import type { FormSectionAction, FormSectionState } from "./types";
 type StoreType = FormSectionState & FormSectionAction;
 
 const initialValue = {
-  temperature: 50,
-  frequency: 50,
-  presence: 50,
-  top: 50,
+  temperature: 20,
+  frequency: 0,
+  presence: 0,
+  top: 100,
 };
 
 const engines = [
