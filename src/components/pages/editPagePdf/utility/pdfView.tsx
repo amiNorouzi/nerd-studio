@@ -22,7 +22,7 @@ const PdfView = () => {
   const thumbnailPluginInstance = thumbnailPlugin();
 
   const [screenCapture, setScreenCapture] = useState<string>("");
-  const handleScreenCapture = (capture: string) => {
+  const handleScreenCapture = (capture: any) => {
     setScreenCapture(capture);
     return null;
   };
@@ -134,18 +134,18 @@ const PdfView = () => {
         onEndCapture={handleScreenCapture}
         onStartCapture={onStartCapture}
       >
-        <>
-          <button className=" bg-white" onClick={onStartCapture}>
-            Capture
-          </button>
+        {({ onStartCapture }: any) => (
+          <>
+            <button onClick={onStartCapture}>Capture</button>
 
-          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-            <Viewer
-              fileUrl="/pdf/sample.pdf"
-              plugins={[defaultLayoutPluginInstance]}
-            />
-          </Worker>
-        </>
+            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+              <Viewer
+                fileUrl="/pdf/sample.pdf"
+                plugins={[defaultLayoutPluginInstance]}
+              />
+            </Worker>
+          </>
+        )}
       </ScreenCapture>
     </div>
   );

@@ -28,7 +28,7 @@ export interface DraggableProps
       block: string;
 
       /**
-       * Gutter at the left side of the editor.
+       * Gutter on the left side of the editor.
        * It has the height of the block
        */
       gutterLeft: string;
