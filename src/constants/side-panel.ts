@@ -7,6 +7,7 @@ import {
   TbMessages,
   TbWriting,
   TbTextGrammar,
+  TbPdf,
 } from "react-icons/tb";
 
 export const apps = [
@@ -65,5 +66,12 @@ export const apps = [
     title: "Prompt Library",
     route: "/template",
     icon: TbBooks,
+  },
+  {
+    id: "9",
+    i18Key: "",
+    title: "ChatPdf",
+    route: "/chatpdf",
+    icon: TbPdf,
   },
 ] as const;

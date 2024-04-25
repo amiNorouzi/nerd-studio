@@ -23,8 +23,8 @@ import { useEditorStore } from "@/stores/zustand/editor-slice";
 
 const items = {
   sans: "var(--font-sans)",
-  serif: "ui-serif, Georgia, Cambria, Times New Roman, Times, serif",
-  mono: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace",
+  serif: "componets-serif, Georgia, Cambria, Times New Roman, Times, serif",
+  mono: "componets-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace",
 } as const;
 
 type ItemsType = typeof items;

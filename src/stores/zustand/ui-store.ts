@@ -16,7 +16,7 @@ const initialState = {
   activeTheme: "default" as Theme,
 };
 
-//for all the ui related states like open dialogs
+//for all the componets related states like open dialogs
 
 export const useUi = create<IUiState>()(
   devtools(
@@ -53,4 +53,41 @@ export const useUi = create<IUiState>()(
   ),
 );
 
+
+
+export const useSidbarPDf = create<IUiState>()(
+  devtools(
+    immer(set => ({
+      ...initialState,
+      setIsHoverOnSidePanel: val =>
+        set(state => {
+          state.isHoverOnSidePanel = val;
+        }),
+      setIsSidePanelOpen: (val: boolean) =>
+        set(state => {
+          state.isSidePanelOpen = val;
+        }),
+      toggleIsSidePanelOpen: () =>
+        set(state => {
+          state.isSidePanelOpen = !state.isSidePanelOpen;
+        }),
+      setOpenUserPanelDialog: (val: boolean) =>
+        set(state => {
+          state.openUserPanelDialog = val;
+        }),
+      setUserPanelActiveMenu: (val: string) => {
+        set(state => {
+          state.userPanelActiveMenu = val;
+        });
+      },
+      setActiveTheme: val => {
+        set(state => {
+          state.activeTheme = val;
+        });
+      },
+    })),
+    { name: "ui", store: "ui" },
+  ),
+);
 export const useUiStore = createSelectors(useUi);
+export const useSidbarPDfStore = createSelectors(useSidbarPDf);
