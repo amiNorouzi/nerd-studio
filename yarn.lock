@@ -6034,6 +6034,11 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
+re-resizable@^6.9.14:
+  version "6.9.14"
+  resolved "https://registry.yarnpkg.com/re-resizable/-/re-resizable-6.9.14.tgz#b31e2bdef5e9068f295ca2ec2118d1e7b64449d9"
+  integrity sha512-2UbPrpezMr6gkHKNCRA/N6QGGU237SKOZ78yMHId204A/oXWSAREAIuGZNQ9qlrJosewzcsv2CphZH3u7hC6ng==
+
 react-beautiful-dnd@^13.1.1:
   version "13.1.1"
   resolved "https://registry.npmjs.org/react-beautiful-dnd/-/react-beautiful-dnd-13.1.1.tgz"

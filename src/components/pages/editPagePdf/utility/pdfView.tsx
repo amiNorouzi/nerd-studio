@@ -16,14 +16,15 @@ import {
   ToolbarSlot,
 } from "@react-pdf-viewer/default-layout";
 import { ReactElement, useState } from "react";
+import { log } from "node:util";
 
 const PdfView = () => {
   const thumbnailPluginInstance = thumbnailPlugin();
 
   const [screenCapture, setScreenCapture] = useState<string>("");
-  const [state, seStaet] = useState();
   const handleScreenCapture = (capture: string) => {
     setScreenCapture(capture);
+    return null;
   };
   const renderToolbar = (Toolbar: (props: any) => ReactElement) => (
     <Toolbar>
@@ -122,24 +123,29 @@ const PdfView = () => {
   const defaultLayoutPluginInstance = defaultLayoutPlugin({
     renderToolbar,
   });
-  // FIXME:fix the capther all the page
+  const onStartCapture = () => {
+    return null;
+  };
+  // FIXME:fix the capture all the page
+
   return (
     <div className="  h-screen w-[600px] ">
-      <ScreenCapture onEndCapture={handleScreenCapture}>
-        {({ onStartCapture }: any) => (
-          <>
-            {/* <button className=" bg-white" onClick={onStartCapture}>
-              Capture
-            </button> */}
-           
-            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-              <Viewer
-                fileUrl="/pdf/sample.pdf"
-                plugins={[defaultLayoutPluginInstance]}
-              />
-            </Worker>
-          </>
-        )}
+      <ScreenCapture
+        onEndCapture={handleScreenCapture}
+        onStartCapture={onStartCapture}
+      >
+        <>
+          <button className=" bg-white" onClick={onStartCapture}>
+            Capture
+          </button>
+
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+            <Viewer
+              fileUrl="/pdf/sample.pdf"
+              plugins={[defaultLayoutPluginInstance]}
+            />
+          </Worker>
+        </>
       </ScreenCapture>
     </div>
   );
