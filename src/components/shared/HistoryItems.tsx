@@ -2,17 +2,23 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FaRegTrashCan, FaRegBookmark } from "react-icons/fa6";
+import { FaBookmark } from "react-icons/fa6";
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { HiArrowLongRight } from "react-icons/hi2";
 
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { cn } from "@/lib/utils";
 import type { HistoryItem } from "@/stores/zustand/types";
 import { useGetDictionary } from "@/hooks";
-import { useHistories } from "@/services/history";
+import { useHistories, useHistoryDelete } from "@/services/history";
+import { BsPinAngle, BsPinAngleFill } from "react-icons/bs";
+import { timePassedSince } from "@/lib/date-transform";
+import { useFavorites, useSetFavorites } from "@/services/favorite-history";
 
 interface DeletePopoverProps {
   item: HistoryItem;
@@ -23,14 +29,15 @@ interface DeletePopoverProps {
  * @param item - history item
  * @constructor
  */
-function DeletePopOver({ item }: DeletePopoverProps) {
+function DeletePopOver({ item }: { item: Answer }) {
   const [open, setOpen] = useState(false);
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
+
   const {
     components: { history_items },
   } = useGetDictionary();
   const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
-
+  const { mutate } = useHistoryDelete();
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -41,7 +48,6 @@ function DeletePopOver({ item }: DeletePopoverProps) {
           onClick={e => {
             e.stopPropagation();
             setOpen(true);
-            console.log("deleted itemId: ", item.id);
           }}
         >
           <FaRegTrashCan
@@ -77,6 +83,8 @@ function DeletePopOver({ item }: DeletePopoverProps) {
             variant="outline"
             className="border bg-inherit text-destructive hover:border-destructive hover:bg-inherit hover:text-destructive"
             onClick={e => {
+              mutate({ answerUuid: item.uuid });
+
               e.stopPropagation();
               setOpen(false);
             }}
@@ -114,6 +122,16 @@ export function HistoryItems({ appName, historyItems }: IProps) {
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const setHistoryInfoOpen = useHistoryStore.use.setHistoryInfoOpen();
   const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
+  const setGrammarHistoryIsOpen = useHistoryStore.use.setGrammarHistoryIsOpen();
+  const { data: favoriteItems } = useFavorites();
+
+  const { data: toggleFavoriteAnswer, mutate } = useSetFavorites();
+
+  //check if item is favorite or not
+  const favoriteCheck = (id: number) => {
+    if (!historyItems || !favoriteItems) return null;
+    return favoriteItems.filter(item => item.id === id).length > 0;
+  };
 
   //fetch history
 
@@ -126,18 +144,23 @@ export function HistoryItems({ appName, historyItems }: IProps) {
         <div
           key={item.id}
           className={cn(
-            "flex w-full cursor-pointer flex-col gap-3 rounded-lg border p-2 transition-all hover:bg-muted-dark",
+            "flex w-full cursor-pointer flex-col gap-3 rounded-lg border bg-white p-2 transition-all hover:bg-muted-dark",
             isItemSelected(item.id) &&
-              "border-primary bg-primary-light hover:bg-primary-light",
+              " bg-primary-light hover:bg-primary-light",
           )}
           onClick={() => {
-            setSelectHistoryItem(item as any);
-            setHistoryInfoOpen(true);
+            setSelectHistoryItem(item);
+            setGrammarHistoryIsOpen(true);
           }}
         >
           {/*title and delete and bookmark button*/}
           <div className="flex w-full items-center justify-between">
-            <span className=" truncate text-muted-foreground">
+            <span
+              className={cn(
+                " w-[115px] truncate font-[400]",
+                isItemSelected(item.id) && " text-primary",
+              )}
+            >
               {item.answer_text}
             </span>
             {/*delete and bookmark buttons*/}
@@ -147,27 +170,66 @@ export function HistoryItems({ appName, historyItems }: IProps) {
                 size="icon"
                 className=" h-fit w-fit p-1 transition-all hover:scale-110"
               >
-                <FaRegBookmark
+                <BsPinAngle
                   className={cn(
                     "fill-muted-foreground-light",
                     isItemSelected(item.id) && "fill-primary",
                   )}
                   onClick={e => {
                     e.stopPropagation();
-                    console.log("bookmark itemId: ", item.id);
                   }}
                 />
               </Button>
-              <DeletePopOver item={item as any} />
+              <Button
+                variant="ghost"
+                size="icon"
+                className=" h-fit w-fit p-1 transition-all hover:scale-110"
+              >
+                {favoriteCheck(item.id) && (
+                  <FaBookmark
+                    className={cn("fill-primary")}
+                    onClick={e => {
+                      e.stopPropagation();
+
+                      mutate({ answer_id: item.id, is_favorite: false });
+                    }}
+                  />
+                )}
+                {!favoriteCheck(item.id) && (
+                  <FaRegBookmark
+                    className={cn("fill-muted-foreground-light")}
+                    onClick={e => {
+                      e.stopPropagation();
+
+                      mutate({ answer_id: item.id, is_favorite: true });
+                    }}
+                  />
+                )}
+              </Button>
+
+              <DeletePopOver item={item} />
             </div>
           </div>
           {/*data and Text & upload*/}
-          <div className="flex w-full items-center justify-start gap-8 text-muted-foreground-light">
+          {/* <div className="flex w-full items-center justify-start gap-8 text-muted-foreground-light">
             <span>48 Min ago</span>
             <span>Text & Upload doc</span>
-          </div>
+          </div> */}
           {/*description*/}
-          <p className="line-clamp-2">{item.answer_text}</p>
+          <div className="line-clamp-2 flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center">
+              <p className="mx-1 text-[#B9BAC0]"> Spell </p>
+              <HiArrowLongRight className="text-[#B9BAC0]" />{" "}
+              <p className="mx-1 "> Your </p>
+            </div>
+            <div>
+              {" "}
+              <span className="text-[#B9BAC0]">
+                {" "}
+                {timePassedSince(item.created_at)}
+              </span>
+            </div>
+          </div>
         </div>
       ));
 

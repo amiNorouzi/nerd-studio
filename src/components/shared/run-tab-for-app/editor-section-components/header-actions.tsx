@@ -35,7 +35,7 @@ function InputAndSelectSpace() {
     <div className="flex flex-1 gap-3">
       <Input
         type="text"
-        className=" w-full max-w-[230px] px-6 py-1 text-xsm"
+        className="text-xsm w-full max-w-[180px] px-6 py-1"
         defaultValue="New Document"
       />
 
@@ -43,7 +43,7 @@ function InputAndSelectSpace() {
         value={selectValue}
         setValue={setSelectValue}
         items={value}
-        buttonStyle="w-full max-w-[230px] px-6 py-1 capitalize"
+        buttonStyle="w-full max-w-[180px] px-6 py-1 capitalize"
         itemClassName="capitalize"
       />
     </div>

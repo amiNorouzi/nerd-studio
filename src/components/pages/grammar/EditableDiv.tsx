@@ -24,7 +24,7 @@ export default function EditableDiv({
       onScroll={handleScroll}
       spellCheck={false}
       className={cn(
-        "mb-0 h-[156px] w-full overflow-y-auto rounded-lg border bg-muted px-[26px] pb-[50px] pt-2 leading-8 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
+        "mb-0 h-full w-full overflow-y-auto rounded-lg  border-0   px-[26px] pb-[50px] pt-2 leading-8 outline-none ring-0 first-line:pl-4 ",
       )}
     >
       {/* <div contentEditable className="absolute top-3 outline-none">

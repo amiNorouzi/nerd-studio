@@ -1,18 +1,13 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import {
-  OptionsSelectBoxes,
-  SubmitButtonSelectEngine,
-  TextBox,
-  SelectTranslateLanguages,
   GrammarTextBox,
+  SubmitButtonSelectEngine,
 } from "./form-section-components";
-import { RenderImageOrIcon } from "@/components/shared";
 
 import { useGetDictionary } from "@/hooks";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
-import { useState } from "react";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { HistoryInfoContent } from "@/components/pages/grammar/history-info-content";
@@ -22,6 +17,7 @@ interface IProps {
   onTextAreaChange(value: string): void;
   onSubmit(): void;
   value: string;
+  isPending: boolean;
 }
 
 /**
@@ -34,6 +30,7 @@ export default function GrammarFormSection({
   value,
   onTextAreaChange,
   onSubmit,
+  isPending,
 }: IProps) {
   const {
     page: { translate },
@@ -46,12 +43,12 @@ export default function GrammarFormSection({
   const app = apps.find(
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
-  const open = useHistoryStore.use.isHistoryInfoOpen();
-
+  // const open = useHistoryStore.use.isHistoryInfoOpen();
+  const isGrammarHistoryOpen = useHistoryStore.use.isGrammarHistoryOpen();
   return (
     <FormWrapper>
       {/*text area and pdf upload and url input*/}
-      {!open && (
+      {!isGrammarHistoryOpen && (
         <div className={`col form-gap  `}>
           <GrammarTextBox
             value={value}
@@ -60,15 +57,19 @@ export default function GrammarFormSection({
           />
           {/*submit button and select engine with setting*/}
           <SubmitButtonSelectEngine
+            isDisabledSubmit={!value}
+            isPending={isPending}
             onClick={onSubmit}
             buttonContent={"Rewrite"}
           />
         </div>
       )}
-      {open && (
+      {isGrammarHistoryOpen && (
         <div className="col form-gap">
           <HistoryInfoContent onTextAreaChange={onTextAreaChange} />
           <SubmitButtonSelectEngine
+            isDisabledSubmit={!value}
+            isPending={isPending}
             onClick={onSubmit}
             buttonContent={"Edit Prompt"}
           />

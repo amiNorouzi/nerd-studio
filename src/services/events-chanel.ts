@@ -19,7 +19,7 @@ export function useEventChanel({ onMessage, eventName }: EventChanelParams) {
       );
       eventSource.current.addEventListener(eventName, event => {
         if (event.data) {
-          const data = JSON.parse(JSON.parse(event.data));
+          const data = JSON.parse(event.data);
           onMessage?.(data.content);
           if (data.content) setMessage(prev => prev + data.content);
         }
@@ -27,7 +27,12 @@ export function useEventChanel({ onMessage, eventName }: EventChanelParams) {
     }
   }, [eventName, onMessage, uuid]);
 
-  return message;
+  return {
+    message,
+    reset() {
+      setMessage("");
+    },
+  };
 }
 
 const eventChanelService = {

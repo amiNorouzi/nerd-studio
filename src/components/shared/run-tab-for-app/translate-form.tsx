@@ -1,18 +1,16 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import {
   OptionsSelectBoxes,
   SelectTranslateLanguages,
   SubmitButtonSelectEngine,
   TextBox,
-  Upload,
 } from "./form-section-components";
 
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
 import { useState } from "react";
-import { usePDFConvertor } from "@/services/translate";
+import { usePDFConvertor } from "@/services/uoload";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
 
 interface IProps {
@@ -20,6 +18,7 @@ interface IProps {
   value: string;
   onTextAreaChange: (value: string) => void;
   onSubmit: () => void;
+  isPending: boolean;
 }
 
 /**
@@ -33,6 +32,7 @@ export default function TranslateFormSection({
   value,
   onTextAreaChange,
   onSubmit,
+  isPending,
 }: IProps) {
   const {
     page: { translate },
@@ -65,18 +65,13 @@ export default function TranslateFormSection({
         value={value}
         onChange={onTextAreaChange}
       />
-      {/*upload pdf and url input*/}
-      <Upload
-        setFiles={onSelectFiles}
-        setUserUrl={setUrl}
-        files={files}
-        userUrl={url}
-      />
 
       {/*option section like response lang or creativity,...*/}
       <OptionsSelectBoxes hiddenSelectResponseLang />
       {/*submit button and select engine with setting*/}
       <SubmitButtonSelectEngine
+        isDisabledSubmit={!value}
+        isPending={isPending}
         onClick={onSubmit}
         buttonContent={translate.submit_button_label}
       />

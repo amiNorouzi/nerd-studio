@@ -1,5 +1,5 @@
 interface Interface {
-  className: string;
+  className?: string;
 }
 export const Star = ({ className }: Interface) => (
   <svg

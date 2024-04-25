@@ -51,7 +51,9 @@ export function MainTextArea({
 
   return (
     <div className="col relative w-full gap-label-space">
-      <Label htmlFor="textbox">{label ?? common.form_textarea_label}</Label>
+      <Label className={"text-sm"} htmlFor="textbox">
+        {label ?? common.form_textarea_label}
+      </Label>
 
       {/*text area*/}
       <CustomTextarea

@@ -20,7 +20,7 @@ export default function AppsLayout({
   const tab = searchParams.get("apps-tab") ?? "run";
 
   return (
-    <section className="flex h-full w-full flex-col overflow-hidden">
+    <section className="flex h-full w-full flex-col ">
       {/* header for apps that includes share , history , tabs and app title */}
       <Header className="h-apps-header" />
       {/*apps*/}

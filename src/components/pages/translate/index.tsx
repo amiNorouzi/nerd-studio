@@ -23,13 +23,14 @@ interface IProps {
 
 export default function TranslatePage({ params }: IProps) {
   const searchParams = useSearchParams();
-  const translation = useEventChanel({
+  const { message: translation, reset } = useEventChanel({
     eventName: "translate",
   });
-  const { mutate: generateTranslate } = useGenerateTranslate();
+  const { mutate: generateTranslate, isPending } = useGenerateTranslate();
   const [text, setText] = useState("");
   const handleGenerate = () => {
     if (text) {
+      reset();
       generateTranslate({
         text,
         trLang:
@@ -41,6 +42,9 @@ export default function TranslatePage({ params }: IProps) {
         model: "gpt-3.5-turbo-0125",
         temperature: 0.1,
         max_tokens: 100,
+        top_p: 1.0,
+        frequency_penalty: 0,
+        presence_penalty: 0,
       });
     }
   };
@@ -52,6 +56,7 @@ export default function TranslatePage({ params }: IProps) {
           params={params}
           onTextAreaChange={setText}
           value={text}
+          isPending={isPending}
           onSubmit={handleGenerate}
         />
         <Run.Editor value={translation} onChange={() => {}}>

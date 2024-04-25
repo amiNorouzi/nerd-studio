@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const CustomPrompt = () => {
   return (
-    <div className="padding-x padding-y">
+    <section className="padding-x padding-y">
       <div className="flex flex-col">
         {/*Title section*/}
         <TitleSection
@@ -16,19 +16,19 @@ const CustomPrompt = () => {
             "These are the stories of our customers who have joined us with great pleasure when using this crazy feature."
           }
         />
-        <div className="flex grid-cols-2 flex-col gap-x-6 rounded-3xl bg-[#F9F6FF] px-3 py-6 md:flex-row md:p-9 lg:grid ">
+        <div className="flex grid-cols-2 flex-col gap-x-6 rounded-3xl bg-[#F9F6FF] px-3 py-6 md:flex-row md:p-9 lg:grid min-[1920px]:gap-[85px] ">
           {/*Title And Sub*/}
           <div className="order-2 flex flex-col items-center justify-center md:order-1 md:items-start ">
             <div className="mb-3 flex justify-center lg:mb-6">
-              <h3 className="flex items-center gap-x-3 text-center text-lg text-[#181818] lg:text-2xl lg:font-bold">
-                <div className="w-fit rounded-s bg-[#F3F0FF] p-2 text-primary">
+              <h3 className="flex items-center gap-x-3 text-center text-lg text-[#181818] lg:text-2xl lg:font-bold min-[1920px]:text-4xl">
+                <div className="w-fit rounded-s bg-[#F3F0FF] p-2 text-primary xl:p-3.5 xl:text-4xl xl:text-[#551FFF]">
                   <TbBooks />
                 </div>
                 <span>Library Prompt</span>
               </h3>
             </div>
             <div className="mb-3 lg:mb-6">
-              <span className="sub-title-color lg:leading- text-xs leading-[18px] lg:text-sm">
+              <span className="sub-title-color text-xs leading-[18px] lg:text-sm lg:leading-[18px] 2xl:text-lg">
                 <span className="inline-block lg:hidden">
                   Lorem ipsum is placeholder text commonly used in the graphic,
                   print, and publishing industries for previewing layouts and
@@ -68,7 +68,7 @@ const CustomPrompt = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

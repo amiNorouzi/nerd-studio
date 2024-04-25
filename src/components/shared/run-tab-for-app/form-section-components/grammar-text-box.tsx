@@ -1,4 +1,4 @@
-import React, { TextareaHTMLAttributes } from "react";
+import React, { TextareaHTMLAttributes, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { PiMicrophone } from "react-icons/pi";
@@ -9,10 +9,11 @@ import { MyTooltip } from "@/components/shared";
 import { cn } from "@/lib/utils";
 import type { IconType } from "react-icons";
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
-import { ErrorIcon } from "@/components/svg-icons";
 import GrammarInputDiv from "@/components/pages/grammar/InputDiv";
 import { SelectGrammarLanguage } from "./select-grammar-language";
 import { OptionsSelectBoxes } from "./options-select-boxes";
+import { Upload } from "./upload";
+import { usePDFConvertor } from "@/services/uoload";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
@@ -59,9 +60,25 @@ export function GrammarTextBox({
   //for copy value
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
 
+  //for upload file
+  const [url, setUrl] = useState<string>("");
+  const [files, setFiles] = useState<File[]>([]);
+  console.log("files", files);
+
+  const { mutateAsync: covertPDF, data, uploadProgress } = usePDFConvertor();
+  console.log("uploadProgress", uploadProgress);
+
+  const covertToText = async (files: File[]) => {
+    const text = await covertPDF(files[0]);
+    onTextAreaChange?.(text);
+  };
+  const onSelectFiles = (files: File[]) => {
+    setFiles(files);
+    covertToText(files);
+  };
   return (
     <div className="col form-gap">
-      <div className="col h-[200px] gap-label-space">
+      <div className="col max-h-[254px] min-h-[200px] gap-label-space">
         <Label htmlFor="gramer-textbox" className={cn("text-sm font-medium")}>
           {form_section.form_grammar_textarea_label}
         </Label>
@@ -74,42 +91,57 @@ export function GrammarTextBox({
           />
 
           {/*textarea*/}
-          {/* <div
-          contentEditable={true}
-          className={cn(
-            "mb-0 h-[400px] w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 first-line:pl-4 focus:border-primary focus:bg-background",
-          )}
-          onInput={handleInput}
-          spellCheck={false}
-        /> */}
-          <GrammarInputDiv onTextChange={onTextAreaChange} value={value} />
+
+          <GrammarInputDiv
+            onTextChange={onTextAreaChange}
+            value={value}
+            setFiles={onSelectFiles}
+            setUserUrl={setUrl}
+            files={files}
+            userUrl={url}
+          />
 
           {/*404 Error*/}
-          <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
-            <ErrorIcon />
-            <span className="font-sans text-xs text-muted-foreground-light">
-              {form_section.form_error}
-            </span>
-          </div>
+          {/* {value && value.toString().length > 0 && (
+            <div className="absolute bottom-3 start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px] bg-white p-[10px] text-muted-foreground">
+              <ErrorIcon />
+              <span className="font-sans text-xs text-muted-foreground-light">
+                {form_section.form_error}
+              </span>
+            </div>
+          )} */}
+
+          {
+            <div className="absolute -bottom-3  start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px]  p-[10px] text-muted-foreground">
+              <Upload
+                setFiles={onSelectFiles}
+                setUserUrl={setUrl}
+                files={files}
+                userUrl={url}
+              />
+            </div>
+          }
 
           {/*action buttons*/}
-          <div className="row absolute bottom-3 end-3.5 gap-1 bg-white">
-            <MinimalButton
-              Icon={MdDeleteOutline}
-              title={dictionary.clear_button_label}
-              onClick={() => onTextAreaChange("")}
-            />
-            <MinimalButton
-              Icon={HiOutlineSpeakerWave}
-              title={dictionary.speak_button_label}
-            />
-            <MinimalButton
-              Icon={isCopied ? LuCopyCheck : LuCopy}
-              title={dictionary.copy_button_label}
-              onClick={() => handleCopy(value!.toString())}
-            />
-            {!!renderMoreActions && renderMoreActions()}
-          </div>
+          {value && value.toString().length > 0 && (
+            <div className="row absolute bottom-3 end-3.5 gap-1 bg-white">
+              <MinimalButton
+                Icon={MdDeleteOutline}
+                title={dictionary.clear_button_label}
+                onClick={() => onTextAreaChange("")}
+              />
+              <MinimalButton
+                Icon={HiOutlineSpeakerWave}
+                title={dictionary.speak_button_label}
+              />
+              <MinimalButton
+                Icon={isCopied ? LuCopyCheck : LuCopy}
+                title={dictionary.copy_button_label}
+                onClick={() => handleCopy(value!.toString())}
+              />
+              {!!renderMoreActions && renderMoreActions()}
+            </div>
+          )}
         </div>
 
         {/*character count*/}

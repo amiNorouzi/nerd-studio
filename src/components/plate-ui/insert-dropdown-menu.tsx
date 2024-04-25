@@ -41,6 +41,7 @@ import { ELEMENT_TABLE, insertTable } from "@udecode/plate-table";
 import { ELEMENT_LINK, triggerFloatingLink } from "@udecode/plate-link";
 import { ELEMENT_HR } from "@udecode/plate-horizontal-rule";
 import { ELEMENT_EXCALIDRAW } from "@udecode/plate-excalidraw";
+import { iconVariants } from "@/constants/variants";
 
 const items = [
   {
@@ -152,7 +153,7 @@ export function InsertDropdownMenu(props: DropdownMenuProps) {
     <DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
         <ToolbarButton pressed={openState.open} tooltip="Insert" isDropdown>
-          <Icons.add className="h-4.5 w-4.5" />
+          <Icons.add className={iconVariants({ size: "md" })} />
         </ToolbarButton>
       </DropdownMenuTrigger>
 
@@ -227,7 +228,7 @@ export function InsertDropdownMenu(props: DropdownMenuProps) {
                     focusEditor(editor);
                   }}
                 >
-                  <Icon className="mr-2 h-5 w-5" />
+                  <Icon className={iconVariants({ size: "md" })} />
                   {itemLabel}
                 </DropdownMenuItem>
               ),

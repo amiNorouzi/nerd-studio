@@ -11,6 +11,7 @@ import { useGenerateGrammar } from "@/services/grammar";
 import React, { useState } from "react";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 import { useHistories } from "@/services/history";
+import { useHistoryStore } from "@/stores/zustand/history-store";
 
 interface IProps {
   params: ParamsType;
@@ -25,10 +26,14 @@ export function GrammarPage({ params }: IProps) {
   const grammar = useEventChanel({
     eventName: "grammar",
   });
-  const { mutate: generateGrammar } = useGenerateGrammar();
+  const { mutate: generateGrammar, isPending } = useGenerateGrammar();
   const [text, setText] = useState("");
+  // const [textInput, setTextInput] = useState("");
   const { data } = useHistories({ pageNumber: 1 });
-  console.log("text send to server", text);
+  const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
+  const textInput = selectedHistoryItem
+    ? selectedHistoryItem.answer_text + grammar
+    : grammar;
 
   const handleGenerate = () => {
     if (text) {
@@ -38,6 +43,8 @@ export function GrammarPage({ params }: IProps) {
         temperature: 0.1,
         max_tokens: 100,
         top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
       });
     }
   };
@@ -46,18 +53,20 @@ export function GrammarPage({ params }: IProps) {
     <SetSearchParamProvider appName="app" appSearchParamValue="Grammar">
       <Run>
         <Run.GrammarForm
+          isPending={isPending}
           params={params}
           onTextAreaChange={setText}
           value={text}
           onSubmit={handleGenerate}
         />
-        <Run.Editor value={grammar ? grammar : ""} onChange={() => {}}>
-          <HistoryBox>
-            <HistoryItems appName="Grammar" historyItems={data} />
-          </HistoryBox>
+
+        <Run.Editor value={""} onChange={() => {}}>
           <Highlight>
             <HighlightContent />
           </Highlight>
+          <HistoryBox>
+            <HistoryItems appName="Grammar" historyItems={data} />
+          </HistoryBox>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           {/* <HistoryInfo>
             <HistoryInfoContent />

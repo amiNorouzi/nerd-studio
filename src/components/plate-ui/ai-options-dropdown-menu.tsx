@@ -17,6 +17,7 @@ import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { type BaseEditor, Transforms } from "slate";
 import { Generate } from "@/components/svg-icons";
 import { cn } from "@/lib/utils";
+import { iconVariants } from "@/constants/variants";
 
 export function AiOptionsDropdownMenu(props: DropdownMenuProps) {
   const openState = useOpenState();
@@ -37,13 +38,10 @@ export function AiOptionsDropdownMenu(props: DropdownMenuProps) {
   return (
     <DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton
-          pressed={openState.open}
-          tooltip="AI Options"
-          isDropdown
-          className=""
-        >
-          <Generate classname={cn("!h-3.5 !w-3.5", "!fill-foreground")} />
+        <ToolbarButton pressed={openState.open} tooltip="AI Options" isDropdown>
+          <Generate
+            classname={cn(iconVariants({ size: "md" }), "!fill-foreground")}
+          />
         </ToolbarButton>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

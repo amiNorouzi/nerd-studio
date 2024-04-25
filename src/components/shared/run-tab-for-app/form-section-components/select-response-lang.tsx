@@ -30,7 +30,7 @@ export function SelectResponseLang() {
     components: { form_section },
   } = useGetDictionary();
   return (
-    <div className="gap-label-space flex flex-col">
+    <div className="flex flex-col gap-label-space text-sm">
       <Label>{form_section.form_language}</Label>
       <ResponseLang />
     </div>

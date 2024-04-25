@@ -7,7 +7,7 @@ import CodeEditor from "./CodeEditor";
 import Result from "./Result";
 
 import { useGetDictionary } from "@/hooks";
-import { useCodeConvertor, useGenerateCode } from "@/services/code-generator";
+import { useCodeConvertor } from "@/services/code-generator";
 import { useEventChanel } from "@/services/events-chanel";
 
 /**
@@ -25,9 +25,12 @@ function CodeConvertor() {
   const [toLang, setToLang] = useState("Auto");
   const [code, setCode] = useState("");
   const { mutate } = useCodeConvertor();
-  const generatedCode = useEventChanel({ eventName: "code" });
+  const { message: generatedCode, reset } = useEventChanel({
+    eventName: "code",
+  });
 
   const handleGenerate = () => {
+    reset();
     mutate({
       code,
       fromLang,
@@ -35,6 +38,9 @@ function CodeConvertor() {
       model: "gpt-3.5-turbo-0125",
       temperature: 0.1,
       max_tokens: 100,
+      top_p: 1.0,
+      frequency_penalty: 0,
+      presence_penalty: 0,
     });
   };
 
