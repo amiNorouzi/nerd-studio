@@ -9,8 +9,11 @@ const EditPagePdf = () => {
     <div className=" flex w-full  grid-flow-row grid-cols-2 flex-nowrap gap-0">
       <PdfView />
       <div className="  flex-1 ">
-        <div className="relative flex h-full items-center justify-center bg-[#F4F7FE]">
-          <div className="  overflow-y-auto">
+        <div className="relative flex items-center justify-center bg-[#F4F7FE]">
+          <div
+            style={{ height: "var(--apps-main-height" }}
+            className=" overflow-y-auto "
+          >
             <ChatList />
           </div>
           <InputPromtChatPdf />

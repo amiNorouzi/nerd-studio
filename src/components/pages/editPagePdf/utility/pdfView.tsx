@@ -129,14 +129,17 @@ const PdfView = () => {
   // FIXME:fix the capture all the page
 
   return (
-    <div className="  h-screen w-[600px] ">
+    <div
+      style={{ height: "var(--apps-main-height" }}
+      className=" w-[600px] overflow-auto "
+    >
       <ScreenCapture
         onEndCapture={handleScreenCapture}
         onStartCapture={onStartCapture}
       >
         {({ onStartCapture }: any) => (
           <>
-            <button onClick={onStartCapture}>Capture</button>
+            {/* <button onClick={onStartCapture}>Capture</button> */}
 
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
               <Viewer
