@@ -8,7 +8,6 @@ type PDFConvertorResponse = {
 
 export function useUploadPdf() {
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [successfulUploads, setSuccessfulUploads] = useState(0);
   const [index, setIndex] = useState<number | null>(null);
   const { mutate, data, ...rest } = useMutation({
     async mutationFn(pdf: File) {
@@ -35,13 +34,11 @@ export function useUploadPdf() {
 
         return response.data.text;
       } catch (err) {
-        console.log("error happend in the upload", err);
+        console.log("error happened in the upload", err);
         console.log("error in upload index number", index);
       }
     },
-    onSuccess: () => {
-      setSuccessfulUploads(prev => prev + 1);
-    },
+
     onSettled: () => {
       setIndex(prev => (prev ? prev + 1 : 1));
       setUploadProgress(0);
@@ -52,8 +49,6 @@ export function useUploadPdf() {
     mutate,
     data,
     uploadProgress,
-    successfulUploads,
-    setSuccessfulUploads,
     setIndex,
     index,
     ...rest,

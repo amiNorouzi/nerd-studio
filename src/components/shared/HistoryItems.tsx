@@ -210,7 +210,7 @@ export function HistoryItems({ appName, historyItems }: IProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                className=" h-fit w-fit p-1 transition-all hover:scale-110"
+                className={` h-fit w-fit ${pinCheck(item.id) && "bg-[#F2EEFD]"} p-1 transition-all hover:scale-110`}
               >
                 {pinCheck(item.id) && (
                   <BsFillPinAngleFill
