@@ -17,6 +17,7 @@ import { useChatStore } from "@/stores/zustand/chat-store";
 
 import { iconVariants } from "@/constants/variants";
 import { MinimalButton } from "@/components/shared";
+import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
 /**
  * Prompt input component used in chat page
  * contains a textarea and send button nad some tools for input
@@ -63,9 +64,11 @@ export function InputPromtChatPdf() {
     const filterList = files.filter((item, index) => fileIndex !== index);
     setFiles(filterList);
   }
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [file, setFile] = useState<File[]>([]);
 
   return (
-    <div className="flex absolute bottom-16 z-30 w-full items-start gap-4 px-3 ">
+    <div className="absolute bottom-16 z-30 flex w-full items-start gap-4 px-3 ">
       <form
         ref={formRef}
         onSubmit={handleSubmit}
@@ -85,17 +88,21 @@ export function InputPromtChatPdf() {
         {/*buttons like send, save, upload, prompt library*/}
         <div className="flex items-end gap-1">
           {/*upload button that when click on it open modal*/}
-          <UploadDialog
-            setOpen={setOpenUploadDialog}
-            open={openUploadDialog}
-            key={String(openUploadDialog)}
-          >
-            <MinimalButton
-              title="Upload"
-              Icon={TbUpload}
-              onClick={() => setOpenUploadDialog(true)}
-            />
-          </UploadDialog>
+
+          <MinimalButton
+            title="Upload"
+            Icon={TbUpload}
+            onClick={() => setOpenDialog(!openDialog)}
+          />
+          <DialogForUpload
+            open={openDialog}
+            setOpen={setOpenDialog}
+            handleSave={() => console.log("save")}
+            documentFiles={file}
+            setDocumentFiles={setFile}
+            url={""}
+            setUrl={() => console.log()}
+          />
           {/*prompt library button*/}
           <PromptLibraryDialog />
           {/*save button*/}

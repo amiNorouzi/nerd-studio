@@ -3,6 +3,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDropzone } from "react-dropzone";
 import { UploadDialog } from "@/components/pages/chat/componets/UploadDialog";
 import { useState } from "react";
+import { Upload } from "@/components/shared/run-tab-for-app/form-section-components";
+import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
 
 const PdfUploadSection = () => {
   const onDrop = (acceptedFiles: any) => {
@@ -28,34 +30,43 @@ const PdfUploadSection = () => {
     maxSize: 5242880,
   });
   const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [file, setFile] = useState<File[]>([]);
 
   return (
-    <UploadDialog open={openDialog} setOpen={setOpenDialog}>
-      <div className=" ">
-        <div
-          //   {...getRootProps()}
-          className="transition-color flex h-full flex-1
+    <div className=" ">
+      <div
+        className="transition-color flex h-full flex-1
           flex-col items-center  justify-center rounded-lg border-2
           border-dashed border-[#9373EE] bg-[#F9F6FF] p-5 text-gray-400
            outline-none duration-300 hover:border-blue-500 hover:text-blue-500"
-        >
-          {/* <input {...getInputProps()} /> */}
-          {isDragActive ? (
-            ""
-          ) : (
-            <div className=" flex h-fit w-fit cursor-pointer flex-col items-center justify-center">
-              <img
-                className="h-5/6 w-5/6"
-                src="/images/mobile-upload.svg"
-                alt=""
-              />
-              <h1 className=" ">Select your PDF that you want </h1>
-              <p>(PDF Document / 5MB & 10Doc Max)</p>
-            </div>
-          )}
-        </div>
+      >
+        {isDragActive ? (
+          ""
+        ) : (
+          <div
+            onClick={() => setOpenDialog(!openDialog)}
+            className=" flex h-fit w-fit cursor-pointer flex-col items-center justify-center"
+          >
+            <img
+              className="h-5/6 w-5/6"
+              src="/images/mobile-upload.svg"
+              alt=""
+            />
+            <h1 className=" ">Select your PDF that you want </h1>
+            <p>(PDF Document / 5MB & 10Doc Max)</p>
+          </div>
+        )}
       </div>
-    </UploadDialog>
+      <DialogForUpload
+        open={openDialog}
+        setOpen={setOpenDialog}
+        handleSave={() => console.log("save")}
+        documentFiles={file}
+        setDocumentFiles={setFile}
+        url={""}
+        setUrl={() => console.log()}
+      />
+    </div>
   );
 };
 
