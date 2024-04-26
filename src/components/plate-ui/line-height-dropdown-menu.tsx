@@ -25,11 +25,7 @@ export function LineHeightDropdownMenu({ ...props }: DropdownMenuProps) {
   return (
     <DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton
-          pressed={openState.open}
-          tooltip="Line height"
-          isDropdown
-        >
+        <ToolbarButton pressed={openState.open} tooltip="Line height">
           <Icons.lineHeight className={iconVariants({ size: "md" })} />
         </ToolbarButton>
       </DropdownMenuTrigger>

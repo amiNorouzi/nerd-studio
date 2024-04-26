@@ -18,7 +18,7 @@ export function ToggleSidePanelButton() {
       {/*
         flip icon horizontally (from right to left) when side panel is open
       */}
-      <TbMenu2 size="1.3rem" />
+      <TbMenu2 size="1.15rem" />
     </Button>
   );
 }

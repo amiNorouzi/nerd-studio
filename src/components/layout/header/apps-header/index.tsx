@@ -19,12 +19,12 @@ export function AppsHeader(props: AppType) {
   return (
     <div className="flex flex-1 items-center justify-between">
       <div>
-        <h6 className="hidden text-[18px] font-semibold md:block">
+        <h6 className="hidden text-[16px] font-semibold md:block">
           {apps_header[appTitle]}
         </h6>
         <Link
           href="/workspace"
-          className="hidden text-muted-foreground md:block"
+          className="hidden text-sm text-muted-foreground md:block"
         >
           My WorkSpace
         </Link>
