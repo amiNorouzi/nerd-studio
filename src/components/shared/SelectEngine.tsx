@@ -255,12 +255,16 @@ function SettingPopover({ engine }: SettingPopoverProps) {
                 <Button
                   type="submit"
                   className="text-[ #9373EE; ]
-             bg-secondary text-primary-dark hover:bg-blue-200"
+             h-[36px] w-[80px] bg-secondary text-primary-dark hover:bg-blue-200"
                   onClick={() => setOpenModal(false)}
                 >
                   Cancel{" "}
                 </Button>
-                <Button type="submit" onClick={() => setOpenModal(false)}>
+                <Button
+                  type="submit"
+                  onClick={() => setOpenModal(false)}
+                  className="h-[36px] w-[80px]"
+                >
                   Save{" "}
                 </Button>
               </div>

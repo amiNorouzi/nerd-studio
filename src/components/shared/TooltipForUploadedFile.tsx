@@ -30,6 +30,7 @@ interface IProps {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     fileIndex: number,
   ) => void;
+  pendingButton?: boolean;
 }
 
 /**
@@ -50,6 +51,7 @@ export function TooltipForUploadedFile({
   uploadProgress,
   topOfTextField,
   handleDeleteFilesFromParent,
+  pendingButton,
 }: IProps) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -73,23 +75,25 @@ export function TooltipForUploadedFile({
             <div
               className={`absolute right-0 top-0 z-10 m-[2px] flex items-end justify-end rounded-md ${hovered && "bg-[#FFFFFF99] lg:opacity-100"}  ${!hovered && "bg-transparent lg:opacity-0"}`}
             >
-              <Button
-                variant="ghost"
-                className={cn(
-                  "fit z-10 h-[20px] w-[20px] rounded-full bg-transparent  p-0.5 text-primary ",
-                )}
-                onClick={e => {
-                  handleDeleteFiles(e, index);
-                  !topOfTextField && handleDeleteFilesFromParent!(e, index);
-                }}
-              >
-                <IoCloseOutline
+              {!pendingButton && (
+                <Button
+                  variant="ghost"
                   className={cn(
-                    iconVariants({ size: "sm" }),
-                    "text-destructive ",
+                    "fit z-10 h-[20px] w-[20px] rounded-full bg-transparent  p-0.5 text-primary ",
                   )}
-                />
-              </Button>
+                  onClick={e => {
+                    handleDeleteFiles(e, index);
+                    !topOfTextField && handleDeleteFilesFromParent!(e, index);
+                  }}
+                >
+                  <IoCloseOutline
+                    className={cn(
+                      iconVariants({ size: "sm" }),
+                      "text-destructive ",
+                    )}
+                  />
+                </Button>
+              )}
             </div>
           </div>
           {index === uploadIndex! && (

@@ -120,7 +120,7 @@ interface IProps {
  * @param historyItems
  * @constructor
  */
-export function HistoryItems({ appName, historyItems }: IProps) {
+export function HistoryItems({ appName }: IProps) {
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const setHistoryInfoOpen = useHistoryStore.use.setHistoryInfoOpen();
@@ -131,6 +131,8 @@ export function HistoryItems({ appName, historyItems }: IProps) {
   const { data: toggleFavoriteAnswer, mutate: mutateFavoriteItems } =
     useSetFavorites();
   const { data: togglePinAnswer, mutate: mutatePinItems } = useSetPinHistory();
+  const { data: historyItems } = useHistories({ pageNumber: 1 });
+
   //check if item is favorite or not
   const favoriteCheck = (id: number) => {
     if (!historyItems || !favoriteItems) return null;
@@ -181,7 +183,7 @@ export function HistoryItems({ appName, historyItems }: IProps) {
     historyItems &&
     historyItems.answers &&
     sortAnswers(historyItems.answers)
-      .filter(item => item.app_type === "grammar")
+      .filter(item => item.app_type === appName)
       .map(item => (
         <div
           key={item.id}
