@@ -28,7 +28,7 @@ export interface DraggableProps
       block: string;
 
       /**
-       * Gutter at the left side of the editor.
+       * Gutter on the left side of the editor.
        * It has the height of the block
        */
       gutterLeft: string;
@@ -97,7 +97,8 @@ export const Draggable = withRef<"div", DraggableProps>(
       droplineProps,
       gutterLeftProps,
       previewRef,
-      handleRef,
+      // FIXME: handleRef be null
+      // handleRef,
     } = useDraggable(state);
 
     return (
@@ -125,7 +126,7 @@ export const Draggable = withRef<"div", DraggableProps>(
                 classNames.blockToolbar,
               )}
             >
-              <div ref={handleRef} className="h-4 w-4">
+              <div className="h-4 w-4">
                 {isHovered && dragHandle}
               </div>
             </div>

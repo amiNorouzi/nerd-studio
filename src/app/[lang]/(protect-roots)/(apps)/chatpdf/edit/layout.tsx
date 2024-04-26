@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 const EditPageChatWithPdf = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <div className="relative flex h-full">
+      <div className="relative flex">
         <SidebarChatPdf />
         {children}
       </div>

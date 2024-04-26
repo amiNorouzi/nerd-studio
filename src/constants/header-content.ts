@@ -21,8 +21,6 @@ export const headerContent = {
     Grammar: {
       title: "grammar",
     },
-    chatpdf: {
-      title: "test",
-    },
+   
   },
 } as const;

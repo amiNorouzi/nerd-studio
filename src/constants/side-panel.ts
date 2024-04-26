@@ -5,9 +5,9 @@ import {
   TbLanguage,
   TbLayoutDashboard,
   TbMessages,
-  TbWriting,
-  TbTextGrammar,
   TbPdf,
+  TbTextGrammar,
+  TbWriting,
 } from "react-icons/tb";
 
 export const apps = [

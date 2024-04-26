@@ -15,15 +15,16 @@ import {
   ToolbarProps,
   ToolbarSlot,
 } from "@react-pdf-viewer/default-layout";
-import { ReactElement, useState } from "react";
+import { ReactElement, useCallback, useMemo, useState } from "react";
+import { log } from "node:util";
 
 const PdfView = () => {
   const thumbnailPluginInstance = thumbnailPlugin();
 
   const [screenCapture, setScreenCapture] = useState<string>("");
-  const [state, seStaet] = useState();
-  const handleScreenCapture = (capture: string) => {
+  const handleScreenCapture = (capture: any) => {
     setScreenCapture(capture);
+    return null;
   };
   const renderToolbar = (Toolbar: (props: any) => ReactElement) => (
     <Toolbar>
@@ -122,24 +123,48 @@ const PdfView = () => {
   const defaultLayoutPluginInstance = defaultLayoutPlugin({
     renderToolbar,
   });
-  // FIXME:fix the capther all the page
+  const onStartCapture = () => {
+    return null;
+  };
+  console.log("test");
+  const data = useMemo(() => {
+    console.log("test memo");
+
+    return (
+      <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+        <Viewer
+          fileUrl="/pdf/sample.pdf"
+          plugins={[defaultLayoutPluginInstance]}
+        />
+      </Worker>
+    );
+  }, []);
+
+
+
+  
+  // FIXME:fix the capture all the page
+
   return (
-    <div className="  h-screen w-[600px] ">
-      <ScreenCapture onEndCapture={handleScreenCapture}>
+    <div
+      style={{ height: "var(--apps-main-height" }}
+      className=" w-[600px] overflow-auto "
+    >
+      <ScreenCapture
+        onEndCapture={handleScreenCapture}
+        onStartCapture={onStartCapture}
+      >
         {({ onStartCapture }: any) => (
           <>
-            {/* <button className=" bg-white" onClick={onStartCapture}>
+            <button
+              className=" fixed right-14 top-10 z-50 bg-black"
+              onClick={onStartCapture}
+            >
               Capture
-            </button> */}
-           
-            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-              <Viewer
-                fileUrl="/pdf/sample.pdf"
-                plugins={[defaultLayoutPluginInstance]}
-              />
-            </Worker>
+            </button>
           </>
         )}
+        {data}
       </ScreenCapture>
     </div>
   );

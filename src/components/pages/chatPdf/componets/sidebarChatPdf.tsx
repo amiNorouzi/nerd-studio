@@ -138,9 +138,7 @@ export function SidebarChatPdf() {
                 <PdfUploadZone />
               </div>
             ) : (
-              <div
-                className=" rounded-lg border-2 border-dashed  text-center  "
-              >
+              <div className=" rounded-lg border-2 border-dashed  text-center  ">
                 <Badge className="w-11 rounded-lg bg-[#F9F6FF] p-3 text-[#9373EE]">
                   <LuPlus className=" h-5 w-5" />
                 </Badge>
@@ -179,7 +177,7 @@ export function SidebarChatPdf() {
           >
             {apps.map((item: any) => {
               return (
-                <span onClick={() => setIsHoverOnSidePanel(true)}>
+                <span key={item.id} onClick={() => setIsHoverOnSidePanel(true)}>
                   <SidePanelItemPdf
                     title={item.title}
                     to="#"
