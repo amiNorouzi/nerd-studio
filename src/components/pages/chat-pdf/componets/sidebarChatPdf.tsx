@@ -26,7 +26,7 @@ import { Badge } from "@/components/ui/badge";
 import { LuPlus } from "react-icons/lu";
 import { UploadPdf } from "@/components/shared/UploadPdf";
 import { UploadFilePdf } from "./uploadfilePdf";
-import PdfUploadZone from "./pdfUploadZone";
+import PdfUploadSection from "./pdf-upload-section";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
@@ -135,7 +135,7 @@ export function SidebarChatPdf() {
           >
             {isOpen ? (
               <div className="h-auto  w-full text-center ">
-                <PdfUploadZone />
+                <PdfUploadSection />
               </div>
             ) : (
               <div className=" rounded-lg border-2 border-dashed  text-center  ">

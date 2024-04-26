@@ -1,10 +1,10 @@
-"use client ";
+"use client";
 
 import { ChatList, PromptInput } from "../chat/componets";
 import { InputPromtChatPdf } from "./components/inputPromtChatPdf";
 import PdfView from "./utility/pdfView";
 
-const EditPagePdf = () => {
+export default function EditPagePdf() {
   return (
     <div className=" flex w-full  grid-flow-row grid-cols-2 flex-nowrap gap-0">
       <PdfView />
@@ -12,7 +12,7 @@ const EditPagePdf = () => {
         <div className="relative flex items-center justify-center bg-[#F4F7FE]">
           <div
             style={{ height: "var(--apps-main-height" }}
-            className=" overflow-y-auto py-2 px-5"
+            className=" overflow-y-auto px-5 py-2"
           >
             <ChatList />
           </div>
@@ -21,6 +21,4 @@ const EditPagePdf = () => {
       </div>
     </div>
   );
-};
-
-export default EditPagePdf;
+}
