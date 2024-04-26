@@ -1,7 +1,5 @@
-import { FaArrowRightLong } from "react-icons/fa6";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { BsFillPrinterFill } from "react-icons/bs";
-import { BsArrowsFullscreen } from "react-icons/bs";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
+import { BsArrowsFullscreen, BsFillPrinterFill } from "react-icons/bs";
 import { IoIosSearch } from "react-icons/io";
 
 import { ScreenCapture } from "react-screen-capture";
@@ -9,15 +7,15 @@ import { ScreenCapture } from "react-screen-capture";
 import { thumbnailPlugin } from "@react-pdf-viewer/thumbnail";
 import "@react-pdf-viewer/thumbnail/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
-import { Worker, Viewer } from "@react-pdf-viewer/core";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
 import {
   defaultLayoutPlugin,
-  ToolbarProps,
   ToolbarSlot,
 } from "@react-pdf-viewer/default-layout";
-import { ReactElement, useCallback, useMemo, useState } from "react";
 
-const PdfView = () => {
+import { ReactElement, useMemo, useState } from "react";
+
+export default function PdfView() {
   const thumbnailPluginInstance = thumbnailPlugin();
 
   const [screenCapture, setScreenCapture] = useState<string>("");
@@ -146,7 +144,7 @@ const PdfView = () => {
       style={{ height: "var(--apps-main-height" }}
       className=" w-[600px] overflow-auto "
     >
-      {/* @ts-ignore*/}
+      {/* @ts-ignore */}
       <ScreenCapture
         onEndCapture={handleScreenCapture}
         onStartCapture={onStartCapture}
@@ -165,6 +163,4 @@ const PdfView = () => {
       </ScreenCapture>
     </div>
   );
-};
-
-export default PdfView;
+}
