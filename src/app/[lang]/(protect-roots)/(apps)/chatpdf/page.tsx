@@ -1,4 +1,4 @@
-import { ChatWithPdf } from "@/components/pages/chatPdf";
+import { ChatWithPdf } from "../../../../../components/pages/chat-pdf";
 
 import type { LangParams } from "@/services/types";
 

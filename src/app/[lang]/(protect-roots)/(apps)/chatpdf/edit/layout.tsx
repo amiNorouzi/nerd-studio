@@ -1,4 +1,4 @@
-import { SidebarChatPdf } from "@/components/pages/chatPdf/componets/sidebarChatPdf";
+import { SidebarChatPdf } from "@/components/pages/chat-pdf/componets/sidebarChatPdf";
 import { PropsWithChildren } from "react";
 
 const EditPageChatWithPdf = ({ children }: PropsWithChildren) => {

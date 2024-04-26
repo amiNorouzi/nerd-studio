@@ -12,6 +12,7 @@ import {
   defaultLayoutPlugin,
   ToolbarSlot,
 } from "@react-pdf-viewer/default-layout";
+
 import { ReactElement, useMemo, useState } from "react";
 
 export default function PdfView() {

@@ -1,10 +1,10 @@
-import PdfUploadZone from "./pdfUploadZone";
+import PdfUploadSection from "./pdf-upload-section";
 
 export function UploadFilePdf() {
   return (
     <div>
       <div className="px-[143px] py-[48px]">
-        <PdfUploadZone />
+        <PdfUploadSection />
       </div>
       <div className="flex flex-col items-center justify-center gap-10">
         <div className=" text-5xl font-bold">
