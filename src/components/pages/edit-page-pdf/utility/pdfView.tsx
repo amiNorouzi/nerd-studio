@@ -16,7 +16,6 @@ import {
   ToolbarSlot,
 } from "@react-pdf-viewer/default-layout";
 import { ReactElement, useCallback, useMemo, useState } from "react";
-import { log } from "node:util";
 
 const PdfView = () => {
   const thumbnailPluginInstance = thumbnailPlugin();
@@ -140,9 +139,6 @@ const PdfView = () => {
     );
   }, []);
 
-
-
-  
   // FIXME:fix the capture all the page
 
   return (
@@ -150,6 +146,7 @@ const PdfView = () => {
       style={{ height: "var(--apps-main-height" }}
       className=" w-[600px] overflow-auto "
     >
+      {/* @ts-ignore*/}
       <ScreenCapture
         onEndCapture={handleScreenCapture}
         onStartCapture={onStartCapture}
