@@ -1,9 +1,5 @@
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDropzone } from "react-dropzone";
-import { UploadDialog } from "@/components/pages/chat/componets/UploadDialog";
 import { useState } from "react";
-import { Upload } from "@/components/shared/run-tab-for-app/form-section-components";
 import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
 
 const PdfUploadSection = () => {
@@ -65,6 +61,13 @@ const PdfUploadSection = () => {
         setDocumentFiles={setFile}
         url={""}
         setUrl={() => console.log()}
+        files={[]}
+        handleDeleteFilesFromParent={() => {}}
+        setExtractedText={() => {}}
+        startConverting={() => {}}
+        uploadIndex={1}
+        uploadProgress={50}
+        uploadStatus={[]}
       />
     </div>
   );

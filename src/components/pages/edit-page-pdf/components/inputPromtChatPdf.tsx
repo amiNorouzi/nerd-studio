@@ -102,6 +102,13 @@ export function InputPromtChatPdf() {
             setDocumentFiles={setFile}
             url={""}
             setUrl={() => console.log()}
+            files={[]}
+            handleDeleteFilesFromParent={() => {}}
+            setExtractedText={() => {}}
+            startConverting={() => {}}
+            uploadIndex={1}
+            uploadProgress={50}
+            uploadStatus={[]}
           />
           {/*prompt library button*/}
           <PromptLibraryDialog />
