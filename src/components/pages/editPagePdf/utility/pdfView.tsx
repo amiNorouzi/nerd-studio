@@ -15,7 +15,7 @@ import {
   ToolbarProps,
   ToolbarSlot,
 } from "@react-pdf-viewer/default-layout";
-import { ReactElement, useState } from "react";
+import { ReactElement, useCallback, useMemo, useState } from "react";
 import { log } from "node:util";
 
 const PdfView = () => {
@@ -126,6 +126,23 @@ const PdfView = () => {
   const onStartCapture = () => {
     return null;
   };
+  console.log("test");
+  const data = useMemo(() => {
+    console.log("test memo");
+
+    return (
+      <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+        <Viewer
+          fileUrl="/pdf/sample.pdf"
+          plugins={[defaultLayoutPluginInstance]}
+        />
+      </Worker>
+    );
+  }, []);
+
+
+
+  
   // FIXME:fix the capture all the page
 
   return (
@@ -139,16 +156,15 @@ const PdfView = () => {
       >
         {({ onStartCapture }: any) => (
           <>
-            {/* <button onClick={onStartCapture}>Capture</button> */}
-
-            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-              <Viewer
-                fileUrl="/pdf/sample.pdf"
-                plugins={[defaultLayoutPluginInstance]}
-              />
-            </Worker>
+            <button
+              className=" fixed right-14 top-10 z-50 bg-black"
+              onClick={onStartCapture}
+            >
+              Capture
+            </button>
           </>
         )}
+        {data}
       </ScreenCapture>
     </div>
   );

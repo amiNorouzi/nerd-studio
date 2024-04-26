@@ -12,7 +12,7 @@ const EditPagePdf = () => {
         <div className="relative flex items-center justify-center bg-[#F4F7FE]">
           <div
             style={{ height: "var(--apps-main-height" }}
-            className=" overflow-y-auto "
+            className=" overflow-y-auto py-2 px-5"
           >
             <ChatList />
           </div>
