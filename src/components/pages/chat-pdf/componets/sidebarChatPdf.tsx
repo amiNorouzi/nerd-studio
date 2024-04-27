@@ -185,18 +185,19 @@ export function SidebarChatPdf() {
             }}
           >
             {urlPdf.length > 0 &&
-              urlPdf.map((item: any) => {
-                return (
-                  <span
-                    key={"item.id"}
-                    onClick={() => {
-                      setSelectedFilePdf(item);
-                      setIsHoverOnSidePanel(true);
-                    }}
-                  >
-                    <SidePanelItemPdf title={item.path} to="#" icon={TbPdf} />
-                  </span>
-                );
+              urlPdf.map((item: any, index) => {
+                if (index !== 0)
+                  return (
+                    <span
+                      key={"item.id"}
+                      onClick={() => {
+                        setSelectedFilePdf(item);
+                        setIsHoverOnSidePanel(true);
+                      }}
+                    >
+                      <SidePanelItemPdf title={item.path} to="#" icon={TbPdf} />
+                    </span>
+                  );
               })}
           </Menu>
         </Sidebar>

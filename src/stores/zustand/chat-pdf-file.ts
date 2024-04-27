@@ -6,7 +6,7 @@ import { createSelectors } from "@/stores/zustand/createSelectors";
 import { CaptureScreen, FilePdf, SelectedFilePdf } from "./types";
 
 const initialState = {
-  urlPdf: [""],
+  urlPdf: [],
 };
 const initialStateSelectedFilePdf = {
   selectedFilePdf: "",
