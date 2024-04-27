@@ -158,7 +158,8 @@ export default function PdfView() {
         <>
           <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
             <Viewer
-              fileUrl={URL.createObjectURL(urlPdf)}
+              // fileUrl={URL.createObjectURL(urlPdf)}
+              fileUrl={"/pdf/1.pdf"}
               plugins={[defaultLayoutPluginInstance, thumbnailPluginInstance]}
             />
           </Worker>

@@ -10,7 +10,9 @@ export default function EditPagePdf() {
   return (
     <>
       <div className=" flex w-full  grid-flow-row grid-cols-2 flex-nowrap gap-0">
-        <PdfView />
+        <div>
+          <PdfView />
+        </div>
         <div className="  flex-1 ">
           <div className="relative flex items-center justify-center bg-[#F4F7FE]">
             <div
