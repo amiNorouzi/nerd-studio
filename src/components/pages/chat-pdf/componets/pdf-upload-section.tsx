@@ -1,10 +1,9 @@
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDropzone } from "react-dropzone";
-import { UploadDialog } from "@/components/pages/chat/componets/UploadDialog";
-import { useState } from "react";
-import { Upload } from "@/components/shared/run-tab-for-app/form-section-components";
 import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
+import { usePdfFileStore } from "@/stores/zustand/chat-pdf-file";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { useState } from "react";
 
 const PdfUploadSection = () => {
   const onDrop = (acceptedFiles: any) => {
@@ -30,7 +29,8 @@ const PdfUploadSection = () => {
     maxSize: 5242880,
   });
   const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [file, setFile] = useState<File[]>([]);
+  const [url, setFile] = useState<File[]>([]);
+  const setUrl = usePdfFileStore.use.setUrl();
 
   return (
     <div className=" ">
@@ -57,11 +57,15 @@ const PdfUploadSection = () => {
           </div>
         )}
       </div>
+      <Link href={"/chatpdf/edit"}>edit</Link>
       <DialogForUpload
         open={openDialog}
         setOpen={setOpenDialog}
-        handleSave={() => console.log("save")}
-        documentFiles={file}
+        handleSave={() => {
+          setUrl(url[url.length - 1]);
+          redirect("/chatpdf/edit");
+        }}
+        documentFiles={url}
         setDocumentFiles={setFile}
         url={""}
         setUrl={() => console.log()}

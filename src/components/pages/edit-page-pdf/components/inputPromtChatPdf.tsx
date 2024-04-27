@@ -18,6 +18,7 @@ import { useChatStore } from "@/stores/zustand/chat-store";
 import { iconVariants } from "@/constants/variants";
 import { MinimalButton } from "@/components/shared";
 import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
+import { useStateCaptureStore } from "@/stores/zustand/chat-pdf-file";
 /**
  * Prompt input component used in chat page
  * contains a textarea and send button nad some tools for input
@@ -66,9 +67,10 @@ export function InputPromtChatPdf() {
   }
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [file, setFile] = useState<File[]>([]);
-
+  const onClickCap = useStateCaptureStore.use.onClick();
   return (
-    <div className="absolute bottom-16 z-30 flex w-full items-start gap-4 px-3 ">
+    <div className="absolute bottom-16 z-30 flex w-full flex-col items-start gap-4 px-3 ">
+      <div onClick={onClickCap} className={"h-24 w-24 bg-red-400"}></div>
       <form
         ref={formRef}
         onSubmit={handleSubmit}
