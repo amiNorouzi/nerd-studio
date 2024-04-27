@@ -2,12 +2,7 @@ import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import { BsArrowsFullscreen, BsFillPrinterFill } from "react-icons/bs";
 import { IoIosSearch } from "react-icons/io";
 
-import { ScreenCapture } from "react-screen-capture";
-
-import {
-  RenderThumbnailItemProps,
-  thumbnailPlugin,
-} from "@react-pdf-viewer/thumbnail";
+import { thumbnailPlugin } from "@react-pdf-viewer/thumbnail";
 import "@react-pdf-viewer/thumbnail/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
@@ -18,15 +13,17 @@ import {
 
 import { ReactElement, useMemo, useState } from "react";
 import { BsLayoutSidebar } from "react-icons/bs";
+import {
+  usePdfFileStore,
+  useSelectedFilePdfStore,
+  useStateCaptureStore,
+} from "@/stores/zustand/chat-pdf-file";
+import { ScreenCapture } from "react-screen-capture";
 
 export default function PdfView() {
   const thumbnailPluginInstance = thumbnailPlugin();
   const { Thumbnails } = thumbnailPluginInstance;
-  const [screenCapture, setScreenCapture] = useState<string>("");
-  const handleScreenCapture = (capture: any) => {
-    setScreenCapture(capture);
-    return null;
-  };
+
   const [isOpenThumbnail, setOpenThumbnail] = useState<boolean>(false);
 
   const renderToolbar = (Toolbar: (props: any) => ReactElement) => (
@@ -35,7 +32,6 @@ export default function PdfView() {
         const {
           GoToNextPage,
           Zoom,
-
           CurrentPageLabel,
           GoToPreviousPage,
           Print,
@@ -143,24 +139,31 @@ export default function PdfView() {
     renderToolbar,
     sidebarTabs: defaultTabs => [],
   });
+  const [screenCapture, setScreenCapture] = useState<string>("");
+  const handleScreenCapture = (capture: any) => {
+    setScreenCapture(capture);
+    return null;
+  };
   const onStartCapture = () => {
     return null;
   };
-  console.log("test");
-  const data = useMemo(() => {
-    console.log("test memo");
+  const StartCapture = useStateCaptureStore.use.setOnClick();
+  const selectedFilePdf = useSelectedFilePdfStore.use.selectedFilePdf();
 
-    return (
-      <>
-        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-          <Viewer
-            fileUrl="/pdf/sample.pdf"
-            plugins={[defaultLayoutPluginInstance, thumbnailPluginInstance]}
-          />
-        </Worker>
-      </>
-    );
-  }, [isOpenThumbnail]);
+  const PdfMemo = useMemo(() => {
+    if (selectedFilePdf) {
+      return (
+        <>
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+            <Viewer
+              fileUrl={URL.createObjectURL(selectedFilePdf)}
+              plugins={[defaultLayoutPluginInstance, thumbnailPluginInstance]}
+            />
+          </Worker>
+        </>
+      );
+    }
+  }, [isOpenThumbnail, selectedFilePdf]);
 
   // FIXME:fix the capture all the page
 
@@ -176,15 +179,10 @@ export default function PdfView() {
       >
         {({ onStartCapture }: any) => (
           <>
-            <button
-              className=" fixed right-14 top-10 z-50 bg-black"
-              onClick={onStartCapture}
-            >
-              Capture
-            </button>
+            {StartCapture(onStartCapture)}
+            {PdfMemo}
           </>
         )}
-        {data}
       </ScreenCapture>
     </div>
   );

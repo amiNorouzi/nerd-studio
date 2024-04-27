@@ -19,7 +19,7 @@ import { cn, getHslColorByVar } from "@/lib/utils";
 import { apps } from "@/constants/side-panel";
 import { dirInLocalStorage } from "@/stores/browser-storage";
 import SidePanelItem from "@/components/layout/side-panel/SidePanelItem";
-import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
+import { TbLayoutSidebarLeftCollapse, TbPdf } from "react-icons/tb";
 import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
 import SidePanelItemPdf from "./SidePanelItemPdf";
 import { Badge } from "@/components/ui/badge";
@@ -27,6 +27,10 @@ import { LuPlus } from "react-icons/lu";
 import { UploadPdf } from "@/components/shared/UploadPdf";
 import { UploadFilePdf } from "./uploadfilePdf";
 import PdfUploadSection from "./pdf-upload-section";
+import {
+  usePdfFileStore,
+  useSelectedFilePdfStore,
+} from "@/stores/zustand/chat-pdf-file";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
@@ -67,7 +71,9 @@ export function SidebarChatPdf() {
   useOutsideClick(sidebarRefChatPdf, isMobile, setIsSidePanelOpen);
 
   const isOpen = !collapsed || isHoverOnSidePanel;
-
+  const urlPdf = usePdfFileStore.use.urlPdf();
+  const selectedFilePdf = useSelectedFilePdfStore.use.selectedFilePdf();
+  const setSelectedFilePdf = useSelectedFilePdfStore.use.setSelectedFilePdf();
   return (
     <>
       <div>
@@ -138,7 +144,10 @@ export function SidebarChatPdf() {
                 <PdfUploadSection />
               </div>
             ) : (
-              <div className=" rounded-lg border-2 border-dashed  text-center  ">
+              <div
+                onClick={() => setIsHoverOnSidePanel(true)}
+                className=" rounded-lg border-2 border-dashed  text-center  "
+              >
                 <Badge className="w-11 rounded-lg bg-[#F9F6FF] p-3 text-[#9373EE]">
                   <LuPlus className=" h-5 w-5" />
                 </Badge>
@@ -175,17 +184,21 @@ export function SidebarChatPdf() {
               },
             }}
           >
-            {apps.map((item: any) => {
-              return (
-                <span key={item.id} onClick={() => setIsHoverOnSidePanel(true)}>
-                  <SidePanelItemPdf
-                    title={item.title}
-                    to="#"
-                    icon={item.icon}
-                  />
-                </span>
-              );
-            })}
+            {urlPdf.length > 0 &&
+              urlPdf.map((item: any, index) => {
+                if (index !== 0)
+                  return (
+                    <span
+                      key={"item.id"}
+                      onClick={() => {
+                        setSelectedFilePdf(item);
+                        setIsHoverOnSidePanel(true);
+                      }}
+                    >
+                      <SidePanelItemPdf title={item.path} to="#" icon={TbPdf} />
+                    </span>
+                  );
+              })}
           </Menu>
         </Sidebar>
       </div>
