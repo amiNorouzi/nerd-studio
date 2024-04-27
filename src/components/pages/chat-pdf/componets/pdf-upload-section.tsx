@@ -1,9 +1,12 @@
 import { useDropzone } from "react-dropzone";
 import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
-import { usePdfFileStore } from "@/stores/zustand/chat-pdf-file";
+import {
+  usePdfFileStore,
+  useSelectedFilePdfStore,
+} from "@/stores/zustand/chat-pdf-file";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const PdfUploadSection = () => {
   const onDrop = (acceptedFiles: any) => {
@@ -30,8 +33,15 @@ const PdfUploadSection = () => {
   });
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [url, setFile] = useState<File[]>([]);
-  const setUrl = usePdfFileStore.use.setUrl();
-
+  const setUrlPdf = usePdfFileStore.use.setUrlPdf();
+  const setSelectedFilePdf = useSelectedFilePdfStore.use.setSelectedFilePdf();
+  const handleSaveDialog = () => {
+    setSelectedFilePdf(url[url.length - 1]);
+    setUrlPdf([...url]);
+    setOpenDialog(false);
+    // TODO: redirect when in  the edit page
+    redirect("/chatpdf/edit");
+  };
   return (
     <div className=" ">
       <div
@@ -57,18 +67,16 @@ const PdfUploadSection = () => {
           </div>
         )}
       </div>
+      {/*  TODO: remove it */}
       <Link href={"/chatpdf/edit"}>edit</Link>
       <DialogForUpload
         open={openDialog}
         setOpen={setOpenDialog}
-        handleSave={() => {
-          setUrl(url[url.length - 1]);
-          redirect("/chatpdf/edit");
-        }}
+        handleSave={handleSaveDialog}
         documentFiles={url}
         setDocumentFiles={setFile}
         url={""}
-        setUrl={() => console.log()}
+        setUrl={() => console.log("url")}
       />
     </div>
   );

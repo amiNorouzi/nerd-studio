@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useState, KeyboardEvent, FormEvent } from "react";
+import { AiOutlineScissor } from "react-icons/ai";
 
 import { TbBookmarks, TbSend, TbUpload } from "react-icons/tb";
 
@@ -70,7 +71,9 @@ export function InputPromtChatPdf() {
   const onClickCap = useStateCaptureStore.use.onClick();
   return (
     <div className="absolute bottom-16 z-30 flex w-full flex-col items-start gap-4 px-3 ">
-      <div onClick={onClickCap} className={"h-24 w-24 bg-red-400"}></div>
+      <div onClick={onClickCap} className={" -rotate-90 "}>
+        <AiOutlineScissor className="h-5 w-5 cursor-pointer text-[#B9BAC0]" />
+      </div>
       <form
         ref={formRef}
         onSubmit={handleSubmit}

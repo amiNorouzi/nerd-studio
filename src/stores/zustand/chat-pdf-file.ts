@@ -3,10 +3,13 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { createSelectors } from "@/stores/zustand/createSelectors";
 
-import { CaptureScreen, FilePdf } from "./types";
+import { CaptureScreen, FilePdf, SelectedFilePdf } from "./types";
 
 const initialState = {
-  url: "",
+  urlPdf: [""],
+};
+const initialStateSelectedFilePdf = {
+  selectedFilePdf: "",
 };
 
 // @ts-ignore
@@ -14,18 +17,29 @@ const usePdfFile = create<FilePdf>()(
   devtools(
     immer(set => ({
       ...initialState,
-      setUrl: (val: any) =>
+      setUrlPdf: (val: any) =>
         set(state => {
-          state.url = val;
+          state.urlPdf = val;
         }),
     })),
     { name: "urlPdf", store: "urlPdf" },
   ),
 );
+const useSelectedFilePdf = create<SelectedFilePdf>()(
+  devtools(
+    immer(set => ({
+      ...initialStateSelectedFilePdf,
+      setSelectedFilePdf: (val: any) =>
+        set(state => {
+          state.selectedFilePdf = val;
+        }),
+    })),
+    { name: "PdfSelected", store: "PdfSelected" },
+  ),
+);
 const initialStateCapture = {
   onClick: () => console.log("Initial onClick function called"),
 
-  // Method to update the onClick function
   setOnClick: (newOnClick: () => void) => ({ onClick: newOnClick }),
 };
 
@@ -47,3 +61,4 @@ const useStateCapture = create<CaptureScreen>()(
 
 export const usePdfFileStore = createSelectors(usePdfFile);
 export const useStateCaptureStore = createSelectors(useStateCapture);
+export const useSelectedFilePdfStore = createSelectors(useSelectedFilePdf);

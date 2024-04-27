@@ -2,10 +2,7 @@ import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import { BsArrowsFullscreen, BsFillPrinterFill } from "react-icons/bs";
 import { IoIosSearch } from "react-icons/io";
 
-import {
-  RenderThumbnailItemProps,
-  thumbnailPlugin,
-} from "@react-pdf-viewer/thumbnail";
+import { thumbnailPlugin } from "@react-pdf-viewer/thumbnail";
 import "@react-pdf-viewer/thumbnail/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
@@ -18,13 +15,13 @@ import { ReactElement, useMemo, useState } from "react";
 import { BsLayoutSidebar } from "react-icons/bs";
 import {
   usePdfFileStore,
+  useSelectedFilePdfStore,
   useStateCaptureStore,
 } from "@/stores/zustand/chat-pdf-file";
 import { ScreenCapture } from "react-screen-capture";
 
 export default function PdfView() {
   const thumbnailPluginInstance = thumbnailPlugin();
-  const urlPdf = usePdfFileStore.use.url();
   const { Thumbnails } = thumbnailPluginInstance;
 
   const [isOpenThumbnail, setOpenThumbnail] = useState<boolean>(false);
@@ -151,22 +148,22 @@ export default function PdfView() {
     return null;
   };
   const StartCapture = useStateCaptureStore.use.setOnClick();
+  const selectedFilePdf = useSelectedFilePdfStore.use.selectedFilePdf();
+
   const PdfMemo = useMemo(() => {
-    console.log(urlPdf);
-    if (urlPdf) {
+    if (selectedFilePdf) {
       return (
         <>
           <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
             <Viewer
-              // fileUrl={URL.createObjectURL(urlPdf)}
-              fileUrl={"/pdf/1.pdf"}
+              fileUrl={URL.createObjectURL(selectedFilePdf)}
               plugins={[defaultLayoutPluginInstance, thumbnailPluginInstance]}
             />
           </Worker>
         </>
       );
     }
-  }, [isOpenThumbnail, urlPdf]);
+  }, [isOpenThumbnail, selectedFilePdf]);
 
   // FIXME:fix the capture all the page
 

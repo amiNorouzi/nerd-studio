@@ -65,7 +65,7 @@ export function SidePanel() {
           ref={sidebarRef}
           collapsed={collapsed}
           collapsedWidth={
-            isMobile ? "0" : isHoverOnSidePanel ? "180px" : "60px"
+            isMobile ? "0" : isHoverOnSidePanel ? "180px" : "68px"
           }
           width="180px"
           transitionDuration={500}
