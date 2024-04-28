@@ -4,7 +4,6 @@ import { ChatList } from "../chat/componets";
 import { InputPromtChatPdf } from "./components/inputPromtChatPdf";
 import PdfView from "./utility/pdfView";
 
-
 export default function EditPagePdf() {
   return (
     <>
@@ -18,9 +17,9 @@ export default function EditPagePdf() {
               style={{ height: "var(--apps-main-height" }}
               className=" overflow-y-auto px-5 py-2"
             >
-              <ChatList />
+              <ChatList assistMessage={[""]} userMessage={[""]} />
             </div>
-            <InputPromtChatPdf />
+            <InputPromtChatPdf  />
           </div>
         </div>
       </div>
