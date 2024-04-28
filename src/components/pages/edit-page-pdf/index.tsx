@@ -1,10 +1,9 @@
 "use client";
 
-import { ChatList, PromptInput } from "../chat/componets";
+import { ChatList } from "../chat/componets";
 import { InputPromtChatPdf } from "./components/inputPromtChatPdf";
 import PdfView from "./utility/pdfView";
-import { ScreenCapture } from "react-screen-capture";
-import { useState } from "react";
+
 
 export default function EditPagePdf() {
   return (

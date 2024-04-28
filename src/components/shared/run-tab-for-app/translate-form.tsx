@@ -11,7 +11,7 @@ import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
 import { useEffect, useState } from "react";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
-import { useUploadPdf } from "@/services/upload";
+import { useCovertPdfToText } from "@/services/covert-pdf-to-text";
 import useSuccessToast from "@/hooks/useSuccessToast";
 import useErrorToast from "@/hooks/useErrorToast";
 
@@ -58,7 +58,7 @@ export default function TranslateFormSection({
 
     setIndex: setUploadIndex,
     index: uploadIndex,
-  } = useUploadPdf();
+  } = useCovertPdfToText();
 
   //
   const { showSuccess } = useSuccessToast();

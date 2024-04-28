@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { Upload } from "@/components/shared/run-tab-for-app/form-section-components";
 import RenderIf from "@/components/shared/RenderIf";
 import { usePathname } from "next/navigation";
-import { useUploadPdf } from "@/services/upload";
+import { useCovertPdfToText } from "@/services/covert-pdf-to-text";
 import useSuccessToast from "@/hooks/useSuccessToast";
 import useErrorToast from "@/hooks/useErrorToast";
 
@@ -84,7 +84,7 @@ export function CustomTextarea({
 
     setIndex: setUploadIndex,
     index: uploadIndex,
-  } = useUploadPdf();
+  } = useCovertPdfToText();
 
   //
   const { showSuccess } = useSuccessToast();

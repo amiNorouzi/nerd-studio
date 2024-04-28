@@ -16,7 +16,7 @@ import { FaRegStar, FaStar } from "react-icons/fa6";
 import type { ParamsType, TemplateItem } from "@/services/types";
 import { iconVariants } from "@/constants/variants";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
-import { useUploadPdf } from "@/services/upload";
+import { useCovertPdfToText } from "@/services/covert-pdf-to-text";
 
 interface IProps {
   params: ParamsType;
@@ -58,7 +58,7 @@ export default function FormSection({
   const [files, setFiles] = useState<File[]>([]);
   const [url, setUrl] = useState<string>("");
 
-  const { mutateAsync: covertPDF } = useUploadPdf();
+  const { mutateAsync: covertPDF } = useCovertPdfToText();
   const covertToText = async (files: File[]) => {
     const text = await covertPDF(files[0]);
     text && onTextAreaChange(text);

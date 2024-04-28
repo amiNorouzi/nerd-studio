@@ -7,6 +7,8 @@ import {
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useUploadPdf } from "@/services/types/upload-pdf";
+import { file } from "@excalidraw/excalidraw/types/components/icons";
 
 const PdfUploadSection = () => {
   const onDrop = (acceptedFiles: any) => {
@@ -24,23 +26,28 @@ const PdfUploadSection = () => {
   };
 
   // Only accept PDF files
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      "application/pdf": [".pdf"],
-    },
-    maxSize: 5242880,
-  });
+  const uploaderPdf = async () => {
+    const res = await uploadPdf(url[url.length - 1]);
+    console.log(res);
+  };
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [url, setFile] = useState<File[]>([]);
   const setUrlPdf = usePdfFileStore.use.setUrlPdf();
   const setSelectedFilePdf = useSelectedFilePdfStore.use.setSelectedFilePdf();
   const selectedFilePdf = useSelectedFilePdfStore.use.selectedFilePdf();
   const uploadStatus = [true, true];
+  const {
+    mutateAsync: uploadPdf,
+    data,
+    uploadProgress,
+    setIndex: setUploadIndex,
+    index: uploadIndex,
+  } = useUploadPdf();
   const handleSaveDialog = () => {
     setSelectedFilePdf(url[url.length - 1]);
     setUrlPdf([...url]);
     setOpenDialog(false);
+    uploaderPdf();
     // TODO: redirect when in  the edit page
     redirect("/chatpdf/edit");
   };
@@ -52,22 +59,14 @@ const PdfUploadSection = () => {
           border-dashed border-[#9373EE] bg-[#F9F6FF] p-5 text-gray-400
            outline-none duration-300 hover:border-blue-500 hover:text-blue-500"
       >
-        {isDragActive ? (
-          ""
-        ) : (
-          <div
-            onClick={() => setOpenDialog(!openDialog)}
-            className=" flex h-fit w-fit cursor-pointer flex-col items-center justify-center"
-          >
-            <img
-              className="h-5/6 w-5/6"
-              src="/images/mobile-upload.svg"
-              alt=""
-            />
-            <h1 className=" ">Select your PDF that you want </h1>
-            <p>(PDF Document / 5MB & 10Doc Max)</p>
-          </div>
-        )}
+        <div
+          onClick={() => setOpenDialog(!openDialog)}
+          className=" flex h-fit w-fit cursor-pointer flex-col items-center justify-center"
+        >
+          <img className="h-5/6 w-5/6" src="/images/mobile-upload.svg" alt="" />
+          <h1 className=" ">Select your PDF that you want </h1>
+          <p>(PDF Document / 5MB & 10Doc Max)</p>
+        </div>
       </div>
       {/*  TODO: remove it */}
       <Link href={"/chatpdf/edit"}>edit</Link>
@@ -84,7 +83,7 @@ const PdfUploadSection = () => {
         setExtractedText={() => console.log()}
         startConverting={setUrlPdf}
         uploadIndex={1}
-        uploadProgress={3}
+        uploadProgress={uploadIndex === null ? 0 : uploadProgress}
         uploadStatus={[...uploadStatus]}
       />
     </div>

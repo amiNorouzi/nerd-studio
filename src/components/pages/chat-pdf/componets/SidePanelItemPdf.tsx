@@ -56,7 +56,6 @@ const SidePanelItemPdf = ({ title, to, icon }: IProps) => {
   const isHoverOnSidePanel = useSidbarPDfStore.use.isHoverOnSidePanel();
 
   const isOpenSidePanel = isSidePanelOpen || isHoverOnSidePanel;
-  console.log(isOpenSidePanel);
 
   const isActive = false;
   return (

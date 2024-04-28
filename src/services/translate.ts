@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
-import { useState } from "react";
 
 type GenerateTranslateParams = {
   text: string;

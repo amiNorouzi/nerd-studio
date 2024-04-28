@@ -30,7 +30,6 @@ export function useHistoryVersion() {
       const { data } = await axiosClient.get<HistoryVersion>(
         "/histories/" + uuid,
       );
-
       return data;
     },
   });

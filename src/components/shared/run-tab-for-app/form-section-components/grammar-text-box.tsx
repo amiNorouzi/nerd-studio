@@ -13,7 +13,7 @@ import GrammarInputDiv from "@/components/pages/grammar/InputDiv";
 import { SelectGrammarLanguage } from "./select-grammar-language";
 import { OptionsSelectBoxes } from "./options-select-boxes";
 import { Upload } from "./upload";
-import { useUploadPdf } from "@/services/upload";
+import { useCovertPdfToText } from "@/services/covert-pdf-to-text";
 import useSuccessToast from "@/hooks/useSuccessToast";
 import useErrorToast from "@/hooks/useErrorToast";
 
@@ -76,7 +76,7 @@ export function GrammarTextBox({
 
     setIndex: setUploadIndex,
     index: uploadIndex,
-  } = useUploadPdf();
+  } = useCovertPdfToText();
 
   //
   const { showSuccess } = useSuccessToast();
