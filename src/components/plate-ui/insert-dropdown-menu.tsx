@@ -32,16 +32,12 @@ import {
   ELEMENT_MEDIA_EMBED,
   insertMedia,
 } from "@udecode/plate-media";
-import {
-  KEY_LIST_STYLE_TYPE,
-  toggleIndentList,
-} from "@udecode/plate-indent-list";
 import { toggleList } from "@udecode/plate-list";
 import { ELEMENT_TABLE, insertTable } from "@udecode/plate-table";
 import { ELEMENT_LINK, triggerFloatingLink } from "@udecode/plate-link";
 import { ELEMENT_HR } from "@udecode/plate-horizontal-rule";
-import { ELEMENT_EXCALIDRAW } from "@udecode/plate-excalidraw";
 import { iconVariants } from "@/constants/variants";
+import { cn } from "@/lib/utils";
 
 const items = [
   {
@@ -152,7 +148,11 @@ export function InsertDropdownMenu(props: DropdownMenuProps) {
   return (
     <DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={openState.open} tooltip="Insert" isDropdown>
+        <ToolbarButton
+          pressed={openState.open}
+          tooltip="Insert"
+          variant="muted"
+        >
           <Icons.add className={iconVariants({ size: "md" })} />
         </ToolbarButton>
       </DropdownMenuTrigger>

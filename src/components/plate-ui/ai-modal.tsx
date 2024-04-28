@@ -31,7 +31,10 @@ export function AiModal() {
       <DialogTrigger asChild>
         <Button variant="muted" size="icon">
           <AiICon
-            className={cn(iconVariants({ size: "md" }), "stroke-foreground")}
+            className={cn(
+              iconVariants({ size: "md" }),
+              "stroke-muted-foreground",
+            )}
           />
         </Button>
       </DialogTrigger>

@@ -38,9 +38,16 @@ export function AiOptionsDropdownMenu(props: DropdownMenuProps) {
   return (
     <DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={openState.open} tooltip="AI Options" isDropdown>
+        <ToolbarButton
+          pressed={openState.open}
+          tooltip="AI Options"
+          variant="muted"
+        >
           <Generate
-            classname={cn(iconVariants({ size: "md" }), "!fill-foreground")}
+            classname={cn(
+              iconVariants({ size: "md" }),
+              "!fill-muted-foreground",
+            )}
           />
         </ToolbarButton>
       </DropdownMenuTrigger>

@@ -33,7 +33,7 @@ export const ToolbarSeparator = withCn(
 const toolbarButtonVariants = cva(
   cn(
     "inline-flex items-center justify-center rounded-md  ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-    "[&_svg:not([data-icon])]:h-5 [&_svg:not([data-icon])]:w-5",
+    "[&_svg:not([data-icon])]:h-5 [&_svg:not([data-icon])]:w-5 hover:shadow",
   ),
   {
     variants: {
@@ -42,10 +42,12 @@ const toolbarButtonVariants = cva(
           "bg-transparent hover:bg-muted hover:text-muted-foreground aria-checked:bg-accent aria-checked:text-accent-foreground",
         outline:
           "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
+        muted:
+          "bg-muted !fill-muted-foreground text-muted-foreground hover:bg-muted-dark active:bg-muted-dark disabled:opacity-100",
       },
       size: {
-        default: "fit rounded-md p-1",
-        sm: "fit rounded-md p-1",
+        default: "fit rounded-md p-1.5",
+        sm: "fit rounded-md p-1.5",
         lg: "h-11 px-5",
       },
     },
