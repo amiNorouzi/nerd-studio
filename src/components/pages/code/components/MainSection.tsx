@@ -7,7 +7,7 @@ import CodeExplainer from "./CodeExplainer";
 
 import { useGetDictionary } from "@/hooks";
 import useCodeFeatures from "../hooks/useCodeFeatures";
-import { HistoryBox } from "@/components/shared";
+import { HistoryBox, HistoryItems } from "@/components/shared";
 import CodeHistoryItems from "@/components/pages/code/components/CodeHistoryItems";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { cn } from "@/lib/utils";
@@ -73,8 +73,11 @@ export function MainSection() {
         <Highlight>
           <HighlightContent />
         </Highlight>
+        {/*<HistoryBox>*/}
+        {/*  <CodeHistoryItems appName={codeDictionary.page_title} />*/}
+        {/*</HistoryBox>*/}
         <HistoryBox>
-          <CodeHistoryItems appName={codeDictionary.page_title} />
+          <HistoryItems appName="code" />
         </HistoryBox>
       </div>
     </section>

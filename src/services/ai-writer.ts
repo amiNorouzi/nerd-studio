@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 
 type AIWritersParams = {
@@ -6,6 +6,8 @@ type AIWritersParams = {
 } & Omit<OpenAiCompletionSchemaInput, "stream" | "messages">;
 
 export function useAIWriter() {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async ({
       prompt,
@@ -37,6 +39,10 @@ export function useAIWriter() {
       });
 
       return data;
+    },
+    onSuccess: () => {
+      // @ts-ignore
+      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
     },
   });
 }
