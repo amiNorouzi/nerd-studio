@@ -19,6 +19,8 @@ import { useHistories, useHistoryDelete } from "@/services/history";
 import { BsPinAngle, BsPinAngleFill } from "react-icons/bs";
 import { timePassedSince } from "@/lib/date-transform";
 import { useFavorites, useSetFavorites } from "@/services/favorite-history";
+import { usePinHistory, useSetPinHistory } from "@/services/pin-history";
+import { BsFillPinAngleFill } from "react-icons/bs";
 
 interface DeletePopoverProps {
   item: HistoryItem;
@@ -115,31 +117,73 @@ interface IProps {
 /**
  * this component is a list of history items
  * @param appName
+ * @param historyItems
  * @constructor
  */
-export function HistoryItems({ appName, historyItems }: IProps) {
+export function HistoryItems({ appName }: IProps) {
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const setHistoryInfoOpen = useHistoryStore.use.setHistoryInfoOpen();
   const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
   const setGrammarHistoryIsOpen = useHistoryStore.use.setGrammarHistoryIsOpen();
   const { data: favoriteItems } = useFavorites();
-
-  const { data: toggleFavoriteAnswer, mutate } = useSetFavorites();
+  const { data: pinItems } = usePinHistory();
+  const { data: toggleFavoriteAnswer, mutate: mutateFavoriteItems } =
+    useSetFavorites();
+  const { data: togglePinAnswer, mutate: mutatePinItems } = useSetPinHistory();
+  const { data: historyItems } = useHistories({ pageNumber: 1 });
 
   //check if item is favorite or not
   const favoriteCheck = (id: number) => {
     if (!historyItems || !favoriteItems) return null;
     return favoriteItems.filter(item => item.id === id).length > 0;
   };
+  //check if item is pinned
 
-  //fetch history
+  const pinCheck = (id: number) => {
+    if (!historyItems || !pinItems) return null;
+    return pinItems.filter(item => item.id === id).length > 0;
+  };
+
+  //sort historyItems to set pin and fav on top
+
+  const sortAnswers = (answers: Answer[]): Answer[] => {
+    // Extract ids from pinnedAnswers and favoriteAnswers
+    const pinnedIds = pinItems ? pinItems.map(answer => answer.id) : [];
+    const favoriteIds = favoriteItems
+      ? favoriteItems.map(answer => answer.id)
+      : [];
+
+    // Helper function to determine the sorting priority of an answer
+    const getPriority = (answer: Answer): number => {
+      if (pinnedIds.includes(answer.id)) return 1;
+      if (favoriteIds.includes(answer.id)) return 2;
+      return 3;
+    };
+
+    // Sorting function to compare two answers
+    answers.sort((a, b) => {
+      const priorityA = getPriority(a);
+      const priorityB = getPriority(b);
+
+      // If priorities are different, sort by priority
+      if (priorityA !== priorityB) {
+        return priorityA - priorityB;
+      }
+
+      // If priorities are the same and additional criteria is needed, compare by id
+      // or any other field, e.g., created_at
+      return b.id - a.id; // Default tie breaker
+    });
+
+    return answers;
+  };
 
   const items =
     historyItems &&
     historyItems.answers &&
-    historyItems.answers
-      .filter(item => item.app_type === "grammar")
+    sortAnswers(historyItems.answers)
+      .filter(item => item.app_type === appName)
       .map(item => (
         <div
           key={item.id}
@@ -168,17 +212,34 @@ export function HistoryItems({ appName, historyItems }: IProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                className=" h-fit w-fit p-1 transition-all hover:scale-110"
+                className={` h-fit w-fit ${pinCheck(item.id) && "bg-[#F2EEFD]"} p-1 transition-all hover:scale-110`}
               >
-                <BsPinAngle
-                  className={cn(
-                    "fill-muted-foreground-light",
-                    isItemSelected(item.id) && "fill-primary",
-                  )}
-                  onClick={e => {
-                    e.stopPropagation();
-                  }}
-                />
+                {pinCheck(item.id) && (
+                  <BsFillPinAngleFill
+                    className={cn("fill-primary")}
+                    onClick={e => {
+                      e.stopPropagation();
+
+                      mutatePinItems({
+                        answer_id: item.id,
+                        is_pinned: false,
+                      });
+                    }}
+                  />
+                )}
+                {!pinCheck(item.id) && (
+                  <BsPinAngle
+                    className={cn("fill-muted-foreground-light")}
+                    onClick={e => {
+                      e.stopPropagation();
+
+                      mutatePinItems({
+                        answer_id: item.id,
+                        is_pinned: true,
+                      });
+                    }}
+                  />
+                )}
               </Button>
               <Button
                 variant="ghost"
@@ -191,7 +252,10 @@ export function HistoryItems({ appName, historyItems }: IProps) {
                     onClick={e => {
                       e.stopPropagation();
 
-                      mutate({ answer_id: item.id, is_favorite: false });
+                      mutateFavoriteItems({
+                        answer_id: item.id,
+                        is_favorite: false,
+                      });
                     }}
                   />
                 )}
@@ -201,7 +265,10 @@ export function HistoryItems({ appName, historyItems }: IProps) {
                     onClick={e => {
                       e.stopPropagation();
 
-                      mutate({ answer_id: item.id, is_favorite: true });
+                      mutateFavoriteItems({
+                        answer_id: item.id,
+                        is_favorite: true,
+                      });
                     }}
                   />
                 )}

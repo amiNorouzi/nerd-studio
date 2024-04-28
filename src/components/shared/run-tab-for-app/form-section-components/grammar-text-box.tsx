@@ -1,4 +1,4 @@
-import React, { TextareaHTMLAttributes, useState } from "react";
+import React, { TextareaHTMLAttributes, useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { PiMicrophone } from "react-icons/pi";
@@ -13,7 +13,9 @@ import GrammarInputDiv from "@/components/pages/grammar/InputDiv";
 import { SelectGrammarLanguage } from "./select-grammar-language";
 import { OptionsSelectBoxes } from "./options-select-boxes";
 import { Upload } from "./upload";
-import { usePDFConvertor } from "@/services/uoload";
+import { useUploadPdf } from "@/services/upload";
+import useSuccessToast from "@/hooks/useSuccessToast";
+import useErrorToast from "@/hooks/useErrorToast";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
@@ -63,17 +65,49 @@ export function GrammarTextBox({
   //for upload file
   const [url, setUrl] = useState<string>("");
   const [files, setFiles] = useState<File[]>([]);
-  console.log("files", files);
+  const [uploadStatus, setUploadStatus] = useState<boolean[]>([]);
 
-  const { mutateAsync: covertPDF, data, uploadProgress } = usePDFConvertor();
-  console.log("uploadProgress", uploadProgress);
+  //returned text from pdfConvertor
+  const [extractedText, setExtractedText] = useState("");
+  const {
+    mutateAsync: covertPDF,
+    data,
+    uploadProgress,
 
+    setIndex: setUploadIndex,
+    index: uploadIndex,
+  } = useUploadPdf();
+
+  //
+  const { showSuccess } = useSuccessToast();
+  const { showError } = useErrorToast();
+  //set states of the upload hook
+  useEffect(() => {
+    if (uploadIndex === files.length) {
+      setUploadIndex(null);
+      setUploadStatus([]);
+    }
+  }, [files, uploadIndex, setUploadIndex]);
   const covertToText = async (files: File[]) => {
-    const text = await covertPDF(files[0]);
-    onTextAreaChange?.(text);
+    let index = 0;
+    for (const file of files) {
+      const text = await covertPDF(file);
+      if (text) {
+        setExtractedText(prev => prev + text);
+        setUploadStatus(prev => [...prev, true]);
+        showSuccess(` file ${file.name} uploaded`);
+      } else {
+        showError(` file ${file.name} failed upload`);
+        setUploadStatus(prev => [...prev, false]);
+      }
+      index++;
+    }
   };
   const onSelectFiles = (files: File[]) => {
     setFiles(files);
+  };
+
+  const startConverting = (files: File[]) => {
     covertToText(files);
   };
   return (
@@ -99,6 +133,7 @@ export function GrammarTextBox({
             setUserUrl={setUrl}
             files={files}
             userUrl={url}
+            extractedText={extractedText}
           />
 
           {/*404 Error*/}
@@ -112,19 +147,24 @@ export function GrammarTextBox({
           )} */}
 
           {
-            <div className="absolute -bottom-3  start-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px]  p-[10px] text-muted-foreground">
+            <div className="lef-2 absolute  -bottom-3 flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px]  p-[10px] text-muted-foreground">
               <Upload
                 setFiles={onSelectFiles}
                 setUserUrl={setUrl}
                 files={files}
                 userUrl={url}
+                uploadStatus={uploadStatus}
+                uploadIndex={uploadIndex}
+                uploadProgress={uploadProgress}
+                startConverting={startConverting}
+                setExtractedText={setExtractedText}
               />
             </div>
           }
 
           {/*action buttons*/}
           {value && value.toString().length > 0 && (
-            <div className="row absolute bottom-3 end-3.5 gap-1 bg-white">
+            <div className="row absolute bottom-3 end-3.5 gap-1 ">
               <MinimalButton
                 Icon={MdDeleteOutline}
                 title={dictionary.clear_button_label}

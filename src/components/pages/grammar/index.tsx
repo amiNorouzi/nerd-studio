@@ -29,12 +29,10 @@ export function GrammarPage({ params }: IProps) {
   const { mutate: generateGrammar, isPending } = useGenerateGrammar();
   const [text, setText] = useState("");
   // const [textInput, setTextInput] = useState("");
-  const { data } = useHistories({ pageNumber: 1 });
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const textInput = selectedHistoryItem
-    ? selectedHistoryItem.answer_text + grammar
-    : grammar;
-
+    ? selectedHistoryItem.answer_text + grammar.message
+    : grammar.message;
   const handleGenerate = () => {
     if (text) {
       generateGrammar({
@@ -60,12 +58,12 @@ export function GrammarPage({ params }: IProps) {
           onSubmit={handleGenerate}
         />
 
-        <Run.Editor value={""} onChange={() => {}}>
+        <Run.Editor value={textInput} onChange={() => {}}>
           <Highlight>
             <HighlightContent />
           </Highlight>
           <HistoryBox>
-            <HistoryItems appName="Grammar" historyItems={data} />
+            <HistoryItems appName="grammar" />
           </HistoryBox>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           {/* <HistoryInfo>

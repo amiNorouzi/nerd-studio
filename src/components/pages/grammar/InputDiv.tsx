@@ -33,6 +33,7 @@ interface Props {
   setFiles?: (files: File[]) => void;
   setUserUrl?: (url: string) => void;
   userUrl?: string;
+  extractedText?: string;
 }
 
 function GrammarInputDiv({
@@ -42,6 +43,7 @@ function GrammarInputDiv({
   setFiles,
   setUserUrl,
   userUrl,
+  extractedText,
 }: Props) {
   const divRef = useRef<HTMLDivElement>(null);
   const optionDivRef = useRef(null);
@@ -57,6 +59,15 @@ function GrammarInputDiv({
   }>();
   const [inputScroll, setInputScroll] = useState<number>();
   const [focused, setFocused] = useState(false);
+
+  // set the input value to extracted text from pdf
+  useEffect(() => {
+    if (extractedText && divRef && divRef.current) {
+      divRef.current.innerHTML = extractedText;
+      onTextChange(extractedText);
+    }
+  }, [extractedText]);
+
   // handle cleaning the div by clicking the trash icon
   useEffect(() => {
     if (!value && divRef.current) {
@@ -182,6 +193,7 @@ function GrammarInputDiv({
                   handleDeleteFiles={handleDeleteFilesFromParent}
                   index={index}
                   key={index}
+                  topOfTextField={true}
                 />
               ))}
             {fileType === "url" && userUrl && (

@@ -16,18 +16,29 @@ interface IProps {
   setUserUrl: (url: string) => void;
   files: File[];
   userUrl: string;
+  uploadIndex: number | null;
+  uploadProgress: number;
+  startConverting(files: File[]): void;
+  setExtractedText: (text: string) => void;
+  uploadStatus: boolean[];
 }
 
 /**
  * upload component
- * @param setFiles - set files
- * @param setUserUrl - set user url
- * @param files - files
- * @param userUrl - user url
+ *
  * @constructor
+ * @param props
  */
 export function Upload(props: IProps) {
-  const { userUrl, files } = props;
+  const {
+    userUrl,
+    files,
+    uploadIndex,
+    uploadProgress,
+    startConverting,
+    setExtractedText,
+    uploadStatus,
+  } = props;
   const {
     fileType,
     open,
@@ -79,10 +90,17 @@ export function Upload(props: IProps) {
         open={open}
         setOpen={setOpen}
         handleSave={handleSave}
+        handleDeleteFilesFromParent={handleDeleteFilesFromParent}
         documentFiles={documentFiles}
         setDocumentFiles={setDocumentFiles}
         url={url}
         setUrl={setUrl}
+        files={files}
+        uploadIndex={uploadIndex}
+        uploadProgress={uploadProgress}
+        startConverting={startConverting}
+        setExtractedText={setExtractedText}
+        uploadStatus={uploadStatus}
       />
     </>
   );

@@ -26,6 +26,11 @@ export function useGenerateGrammar() {
         model,
         messages: [
           {
+            content:
+              "You will be provided with statements, and your task is to convert them to standard English.",
+            role: "system",
+          },
+          {
             role: "user",
             content: `grammar errors of: "${text}"`,
           },

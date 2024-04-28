@@ -5,9 +5,9 @@ import {
   TbLanguage,
   TbLayoutDashboard,
   TbMessages,
-  TbWriting,
   TbPdf,
   TbTextGrammar,
+  TbWriting,
 } from "react-icons/tb";
 
 export const apps = [
@@ -68,7 +68,7 @@ export const apps = [
     icon: TbBooks,
   },
   {
-    id: "8",
+    id: "9",
     i18Key: "",
     title: "ChatPdf",
     route: "/chatpdf",

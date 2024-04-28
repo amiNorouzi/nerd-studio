@@ -9,9 +9,11 @@ import {
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
-import { useState } from "react";
-import { usePDFConvertor } from "@/services/uoload";
+import { useEffect, useState } from "react";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
+import { useUploadPdf } from "@/services/upload";
+import useSuccessToast from "@/hooks/useSuccessToast";
+import useErrorToast from "@/hooks/useErrorToast";
 
 interface IProps {
   params: ParamsType;
@@ -45,13 +47,49 @@ export default function TranslateFormSection({
   const app = apps.find(
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
-  const { mutateAsync: covertPDF } = usePDFConvertor();
+  const [uploadStatus, setUploadStatus] = useState<boolean[]>([]);
+
+  //returned text from pdfConvertor
+  const [extractedText, setExtractedText] = useState("");
+  const {
+    mutateAsync: covertPDF,
+    data,
+    uploadProgress,
+
+    setIndex: setUploadIndex,
+    index: uploadIndex,
+  } = useUploadPdf();
+
+  //
+  const { showSuccess } = useSuccessToast();
+  const { showError } = useErrorToast();
+  //set states of the upload hook
+  useEffect(() => {
+    if (uploadIndex === files.length) {
+      setUploadIndex(null);
+      setUploadStatus([]);
+    }
+  }, [files, uploadIndex, setUploadIndex]);
   const covertToText = async (files: File[]) => {
-    const text = await covertPDF(files[0]);
-    onTextAreaChange?.(text);
+    let index = 0;
+    for (const file of files) {
+      const text = await covertPDF(file);
+      if (text) {
+        setExtractedText(prev => prev + text);
+        setUploadStatus(prev => [...prev, true]);
+        showSuccess(` file ${file.name} uploaded`);
+      } else {
+        showError(` file ${file.name} failed upload`);
+        setUploadStatus(prev => [...prev, false]);
+      }
+      index++;
+    }
   };
   const onSelectFiles = (files: File[]) => {
     setFiles(files);
+  };
+
+  const startConverting = (files: File[]) => {
     covertToText(files);
   };
 
@@ -65,6 +103,7 @@ export default function TranslateFormSection({
         value={value}
         onChange={onTextAreaChange}
       />
+      {/*upload pdf and url input*/}
 
       {/*option section like response lang or creativity,...*/}
       <OptionsSelectBoxes hiddenSelectResponseLang />

@@ -61,7 +61,7 @@ export default function TranslatePage({ params }: IProps) {
         />
         <Run.Editor value={translation} onChange={() => {}}>
           <HistoryBox>
-            <HistoryItems appName="Translate" />
+            <HistoryItems appName="translate" />
           </HistoryBox>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           <HistoryInfo>
