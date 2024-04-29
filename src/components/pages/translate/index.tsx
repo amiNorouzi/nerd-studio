@@ -14,8 +14,8 @@ import { useGenerateTranslate } from "@/services/translate";
 import { useSearchParams } from "next/navigation";
 import { languages } from "@/components/shared/run-tab-for-app/form-section-components/contants";
 import { getLangById } from "@/lib/utils";
-import React, { useState } from "react";
-import { Highlight, HighlightContent } from "@/components/shared/Highlight";
+import { useState } from "react";
+import Highlight from "@/components/shared/Highlight";
 
 interface IProps {
   params: ParamsType;
@@ -68,9 +68,7 @@ export default function TranslatePage({ params }: IProps) {
             <HistoryInfoContent />
           </HistoryInfo>
 
-          <Highlight>
-            <HighlightContent />
-          </Highlight>
+          <Highlight />
         </Run.Editor>
       </Run>
     </SetSearchParamProvider>

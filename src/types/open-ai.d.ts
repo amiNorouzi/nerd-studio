@@ -3,10 +3,11 @@ interface OpenAiCompletionSchemaInput {
   messages: OpenAiMessage[];
   temperature: number;
   max_tokens: number;
-  stream: boolean;
-  top_p?: number;
+  stream?: boolean;
+  top_p: number;
   frequency_penalty: number;
   presence_penalty: number;
+  // workspace: string;
 }
 
 interface OpenAiMessage {

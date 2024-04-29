@@ -144,9 +144,7 @@ export interface HistoryState {
   isHistoryInfoOpen: boolean;
   selectedHistoryItem: Answer | null;
 }
-export interface HighlightState {
-  isHighlightOpen: boolean;
-}
+
 export interface HistoryAction {
   setHistoryIsOpen: (v: boolean) => void;
   setGrammarHistoryIsOpen: (v: boolean) => void;
@@ -155,11 +153,11 @@ export interface HistoryAction {
   resetHistory: () => void;
   setHistoryInfoOpen: (v: boolean) => void;
 }
-export interface HighlightAction {
-  setHighlightIsOpen(isOpen: boolean): void;
-}
 
 //chat
+/**
+ * @deprecated don't use this type
+ */
 export interface messageForHighlight {
   id: string;
   prompt: string[];

@@ -11,7 +11,7 @@ import { HistoryBox } from "@/components/shared";
 import CodeHistoryItems from "@/components/pages/code/components/CodeHistoryItems";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { cn } from "@/lib/utils";
-import { Highlight, HighlightContent } from "@/components/shared/Highlight";
+import Highlight from "@/components/shared/Highlight";
 import React from "react";
 
 /**
@@ -70,9 +70,7 @@ export function MainSection() {
           </div>
         </div>
 
-        <Highlight>
-          <HighlightContent />
-        </Highlight>
+        <Highlight />
         <HistoryBox>
           <CodeHistoryItems appName={codeDictionary.page_title} />
         </HistoryBox>

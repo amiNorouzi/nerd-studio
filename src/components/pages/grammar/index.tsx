@@ -9,7 +9,7 @@ import type { ParamsType } from "@/services/types";
 import { useEventChanel } from "@/services/events-chanel";
 import { useGenerateGrammar } from "@/services/grammar";
 import React, { useState } from "react";
-import { Highlight, HighlightContent } from "@/components/shared/Highlight";
+import Highlight from "@/components/shared/Highlight";
 import { useHistories } from "@/services/history";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 
@@ -59,9 +59,7 @@ export function GrammarPage({ params }: IProps) {
         />
 
         <Run.Editor value={textInput} onChange={() => {}}>
-          <Highlight>
-            <HighlightContent />
-          </Highlight>
+          <Highlight />
           <HistoryBox>
             <HistoryItems appName="grammar" />
           </HistoryBox>

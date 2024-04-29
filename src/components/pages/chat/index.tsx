@@ -24,7 +24,7 @@ import type { StateSetterType } from "@/services/types";
 import { useChatStore } from "@/stores/zustand/chat-store";
 import { TbMessagePlus } from "react-icons/tb";
 import { iconVariants } from "@/constants/variants";
-import { Highlight, HighlightContent } from "@/components/shared/Highlight";
+import Highlight from "@/components/shared/Highlight";
 
 const chatContent = {
   chatList: ChatList,
@@ -93,9 +93,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           </div>
         </div>
 
-        <Highlight>
-          <HighlightContent key={String(isHighlightOpen)} />
-        </Highlight>
+        <Highlight />
 
         {/*history box open when history button in header clicked (value of history button save in zustand)*/}
         <HistoryBox>

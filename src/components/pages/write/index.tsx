@@ -12,7 +12,7 @@ import { useEventChanel } from "@/services/events-chanel";
 import React, { useState } from "react";
 import { useAIWriter } from "@/services/ai-writer";
 import { useGetDictionary } from "@/hooks";
-import { Highlight, HighlightContent } from "@/components/shared/Highlight";
+import Highlight from "@/components/shared/Highlight";
 
 export function WritePage({ params }: SCRPropsType) {
   const {
@@ -62,9 +62,7 @@ export function WritePage({ params }: SCRPropsType) {
             <HistoryItems appName="ReWrite" />
           </HistoryBox>
 
-          <Highlight>
-            <HighlightContent />
-          </Highlight>
+          <Highlight />
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           <HistoryInfo>
             <HistoryInfoContent />
