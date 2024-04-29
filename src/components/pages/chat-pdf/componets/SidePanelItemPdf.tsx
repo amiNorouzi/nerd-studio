@@ -1,22 +1,24 @@
 "use client";
 import { memo } from "react";
-import Link from "next/link";
 
-import { useParams, usePathname } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { MenuItem } from "react-pro-sidebar";
+import { MdDelete } from "react-icons/md";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
-import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
 
 import type { AppIconType } from "@/components/svg-icons/AppsIcons";
 import { IconType } from "react-icons";
 import { iconVariants } from "@/constants/variants";
 import { useSidbarPDfStore } from "@/stores/zustand/ui-store";
+import { usePdfDelete } from "@/services/types/upload-pdf";
+import { useSelectedFilePdfStore } from "@/stores/zustand/chat-pdf-file";
 
 interface IProps {
   title: string;
   to: string;
+  id: string;
   icon: IconType | AppIconType;
 }
 
@@ -50,25 +52,32 @@ const renderIcon = (
   );
 };
 
-const SidePanelItemPdf = ({ title, to, icon }: IProps) => {
+const SidePanelItemPdf = ({ title, to, icon, id }: IProps) => {
   const isSidePanelOpen = useSidbarPDfStore.use.isSidePanelOpen();
-  const { lang } = useParams();
+  const { mutate, isSuccess, isPending } = usePdfDelete();
   const isHoverOnSidePanel = useSidbarPDfStore.use.isHoverOnSidePanel();
 
+  const setSelectedFilePdfUrl =
+    useSelectedFilePdfStore.use.setSelectedFilePdf();
   const isOpenSidePanel = isSidePanelOpen || isHoverOnSidePanel;
 
   const isActive = false;
+  const OnDelletHandler = (e: React.MouseEvent<SVGElement>) => {
+    if (!isPending) {
+      // console.log("test delet");
+      mutate({ id: id });
+    }
+  };
   return (
     <MenuItem
       aria-level={1}
-      icon={renderIcon(icon, isOpenSidePanel, isActive, to.includes("grammar"))}
+      icon={renderIcon(icon, isOpenSidePanel, isActive, to.includes("chatPdf"))}
       component={<div></div>}
       rootStyles={{
         color: getHslColorByVar("--foreground"),
         fontSize: "13px",
         fontWeight: 400,
         width: "100%",
-        // border: "1px solid",
         "&>a": {
           justifyContent: isOpenSidePanel ? "start" : "center",
           transition: "all 300ms",
@@ -78,7 +87,22 @@ const SidePanelItemPdf = ({ title, to, icon }: IProps) => {
         },
       }}
     >
-      {isOpenSidePanel && <span>{title}</span>}
+      {isOpenSidePanel && (
+        <div className="flex w-full items-center  justify-between gap-4">
+          <div
+            onClick={() => setSelectedFilePdfUrl(to)}
+            className="flex w-full items-center  justify-between gap-4"
+          >
+            {title}
+          </div>
+          <div className="">
+            <MdDelete
+              onClick={OnDelletHandler}
+              className={`${isPending ? "disabled:text-red-300" : "hover:text-red-600"} h-4 w-4 `}
+            />
+          </div>
+        </div>
+      )}
     </MenuItem>
   );
 };

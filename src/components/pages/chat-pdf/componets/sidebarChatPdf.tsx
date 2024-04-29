@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 import { Menu, Sidebar } from "react-pro-sidebar";
 import { RiMenuFoldLine } from "react-icons/ri";
@@ -38,7 +38,6 @@ import { useGetPdf, useGetUploadedPdf } from "@/services/types/upload-pdf";
 //overlay on hover and expand on open button click
 
 export function SidebarChatPdf() {
-  const { isPending, mutateAsync: getPdf, data: pdfFile } = useGetPdf();
   const isMobile = useMobileSize();
   const isSidePanelOpen = useSidbarPDfStore.use.isSidePanelOpen();
   const pathname = usePathname();
@@ -58,7 +57,6 @@ export function SidebarChatPdf() {
     pathname === `/${lang}/workspace` ||
     pathname === `/${lang}/app-store`;
 
-  //need to add padding to main because sidebar go over it on fixed position
   useEffect(() => {
     const main = document.getElementById("main");
     if (collapsed && !isMobile) {
@@ -71,19 +69,12 @@ export function SidebarChatPdf() {
   //Handel outsideClick in mobile
   const sidebarRefChatPdf = useRef<HTMLHtmlElement>(null);
   useOutsideClick(sidebarRefChatPdf, isMobile, setIsSidePanelOpen);
+  const router = useRouter();
 
   const isOpen = !collapsed || isHoverOnSidePanel;
-  const setSelectedFilePdf = useSelectedFilePdfStore.use.setSelectedFilePdf();
-  const { data, isLoading } = useGetUploadedPdf();
-  useEffect(() => {
-    const getData = async () => {
-      const data = await getPdf(
-        "https://nerdstudio-backend-bucket.s3.amazonaws.com/private/_Business-Model-Canvas-poster-Persian.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQ3EGTGXZ6JVDVRHR%2F20240428%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20240428T092402Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=37ae837c1e6f5063741a7ce87da7546dc82e30e7603fae0514a02b7850f08d5c",
-      );
-      console.log("getBy url:", data);
-    };
-    getData();
-  }, [collapsed]);
+
+  const { data, isLoading, refetch, isSuccess } = useGetUploadedPdf();
+
   return (
     <>
       <div>
@@ -194,25 +185,29 @@ export function SidebarChatPdf() {
               },
             }}
           >
-            {!isLoading &&
-              data?.map(({ path }: any) => {
-                return (
-                  <span
-                    // TODO: generaite the id
-                    key={"item.id"}
-                    onClick={() => {
-                      setSelectedFilePdf(path);
-                      setIsHoverOnSidePanel(true);
-                    }}
-                  >
-                    <SidePanelItemPdf
-                      title={"item.path"}
-                      to={path}
-                      icon={TbPdf}
-                    />
-                  </span>
-                );
-              })}
+            {!isLoading
+              ? isSuccess &&
+                data?.map(({ path, title, id }: any) => {
+                  // TODO: two onCLick one span
+                  return (
+                    <span
+                      key={id}
+                      onClick={() => {
+                        setIsHoverOnSidePanel(true);
+                        console.log("tes t");
+                        refetch();
+                      }}
+                    >
+                      <SidePanelItemPdf
+                        title={title.substring(0, 20)}
+                        id={id}
+                        to={path}
+                        icon={TbPdf}
+                      />
+                    </span>
+                  );
+                })
+              : ""}
           </Menu>
         </Sidebar>
       </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 
 type PDFConvertorResponse = {
@@ -19,7 +19,7 @@ export function useUploadPdf() {
         formData.append("file", pdf);
 
         const response = await axiosClient.post<PDFConvertorResponse>(
-          "/uploads/",
+          "/uploads/save_pdf/",
           formData,
           {
             headers: {
@@ -34,7 +34,7 @@ export function useUploadPdf() {
             },
           },
         );
-        console.log("res:", response.data.path);
+        // console.log("res:", response.data.path);
         return response.data.path;
       } catch (err) {
         console.log("error happened in the upload", err);
@@ -86,14 +86,47 @@ export function useGetPdf() {
   };
 }
 export function useGetUploadedPdf() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch,isSuccess } = useQuery({
     queryKey: ["uploads"],
     async queryFn() {
-      const { data } = await axiosClient.get<getPdfs[]>("/uploads/");
-
+      const { data } = await axiosClient.get<getPdfs[]>("/uploads/list_of_pdf");
       return data;
     },
   });
 
-  return { data, isLoading };
+  return { data, isLoading, refetch, isSuccess };
+}
+export function usePdfDelete() {
+  return useMutation({
+    mutationFn: async ({ id }: { id: string }) => {
+      const { data } = await axiosClient.delete<Version>(
+        `uploads/delete_pdf?pdf_id=${id}`,
+      );
+      return data;
+    },
+  });
+}
+export function useConverPicToText() {
+ const { mutate, data, ...rest } = useMutation({
+   async mutationFn(pic: string) {
+     try {
+   
+       const response = await axiosClient.post<PDFConvertorResponse>(
+         "/uploads/convert_pdf_to_text/",
+         pic,
+         {
+           headers: {
+             "Content-Type": "multipart/form-data",
+           },
+         },
+       );
+       console.log("res:", response.data.path);
+       return response.data.path;
+     } catch (err) {
+       console.log("error happened in the upload", err);
+     }
+   },
+
+   
+ });
 }

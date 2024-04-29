@@ -227,10 +227,33 @@ export interface FilePdf {
   setUrlPdf: (url: any[]) => void;
 }
 export interface SelectedFilePdf {
-  selectedFilePdf: any;
-  setSelectedFilePdf: (url: File) => void;
+  selectedFilePdf: string;
+  setSelectedFilePdf: (url: string) => void;
 }
 export interface CaptureScreen {
   onClick: () => void; // Type of the onClick function
   setOnClick: (newOnClick: () => void) => void;
 }
+export interface CaptureScreenPic {
+  pic: string;
+  setPic: (url: string) => void;
+}
+export interface conversation {
+  id: string;
+  prompt: string[];
+  image: string;
+  timeLine?: string;
+  name: string;
+  role: string;
+  setConversation: ({}: any) => void;
+}
+// {
+//       id: "2",
+//       prompt: [
+//         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n",
+//       ],
+//       image: "/images/logo.png",
+//       timeLine: "5 Min ago",
+//       name: "kasra",
+//       role: "user",
+//     },
