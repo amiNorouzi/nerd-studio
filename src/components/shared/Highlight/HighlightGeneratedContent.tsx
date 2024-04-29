@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import useHighlightStore from "@/stores/zustand/highlight-store";
 import { useCopyTextInClipBoard } from "@/hooks";
 import { Button } from "@/components/ui/button";
@@ -13,19 +13,23 @@ import { MinimalButton } from "@/components/shared";
 import { LuCopy, LuCopyCheck } from "react-icons/lu";
 import { HighlightItemContentProps } from "@/components/shared/Highlight/HighlightOptionItemContent";
 
-type HighlightGeneratedContentProps = { highlightType: HighlightType } & Pick<
-  HighlightItemContentProps,
-  "item"
->;
+type HighlightGeneratedContentProps = {
+  highlightType: HighlightType;
+  regenerate: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  setCurrentIndex: Dispatch<SetStateAction<number>>;
+} & Pick<HighlightItemContentProps, "item">;
 /**
  * this component is for generated content (textarea and action buttons)  of highlight
  * @param item
  * @param highlightType
+ * @param regenerate
  * @constructor
  */
 export default function HighlightGeneratedContent({
   item,
   highlightType,
+  regenerate,
+  setCurrentIndex,
 }: HighlightGeneratedContentProps) {
   const [highlightIndexToShow, setHighlightIndexToShow] = useState(0);
   const [editable, setEditable] = useState(false);
@@ -72,7 +76,13 @@ export default function HighlightGeneratedContent({
           disabled={!editable}
         />
         <div className="absolute bottom-2 end-3 flex w-fit gap-1 rounded-lg bg-background px-1 py-0.5 text-muted-foreground">
-          <MinimalButton Icon={TbReload} />
+          <MinimalButton
+            Icon={TbReload}
+            onClick={e => {
+              regenerate(e);
+              setCurrentIndex(prev => prev + 1);
+            }}
+          />
           <MinimalButton Icon={TbEdit} onClick={() => setEditable(v => !v)} />
           <MinimalButton
             Icon={isCopy ? LuCopyCheck : LuCopy}

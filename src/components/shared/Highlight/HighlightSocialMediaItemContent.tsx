@@ -27,26 +27,31 @@ export default function HighlightSocialMediaItemContent({
   const {
     page: { chat },
   } = useGetDictionary();
-
+  const { mutate: mutateGenerate } = useGenerateHighlight();
+  const { message, reset } = useEventChanel({
+    eventName: `highlight_${highlightType}`,
+  });
   // const { message } = useEventChanel({
   //   eventName: `highlight_${highlightType}`,
   // });
   // console.info("event", message);
   const setGeneratedHighlight = useHighlightStore.use.setGeneratedHighlight();
   const highlightMessages = useHighlightStore.use.messages();
-  const currentIndex =
+  const [currentIndex, setCurrentIndex] = useState<number>(
     highlightMessages[highlightType].length === 0
       ? 0
-      : highlightMessages[highlightType].length - 1;
-
-  const { mutate: mutateGenerate } = useGenerateHighlight();
+      : highlightMessages[highlightType].length - 1,
+  );
+  useEffect(() => {
+    setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
+  }, [currentIndex, highlightType, message, setGeneratedHighlight]);
   // useEffect(() => {
   //   setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
   // }, [currentIndex, highlightType, message, setGeneratedHighlight]);
 
   // handle click on generate button
   function handleGenerate(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    console.log("generate", highlightType);
+    reset();
     e.stopPropagation();
     setShowTextArea(true);
     mutateGenerate({
@@ -56,7 +61,7 @@ export default function HighlightSocialMediaItemContent({
       max_tokens: 100,
       model: "gpt-3.5-turbo-0125",
       temperature: 0.3,
-      type: "meta",
+      type: highlightType,
       frequency_penalty: 0,
       stream: true,
     });
@@ -65,7 +70,12 @@ export default function HighlightSocialMediaItemContent({
   // if user click on generate button or generate button in header  , we will show generated content
   if (isGenerate || showTextarea)
     return (
-      <HighlightGeneratedContent item={item} highlightType={highlightType} />
+      <HighlightGeneratedContent
+        item={item}
+        highlightType={highlightType}
+        regenerate={handleGenerate}
+        setCurrentIndex={setCurrentIndex}
+      />
     );
 
   // else we show normal content

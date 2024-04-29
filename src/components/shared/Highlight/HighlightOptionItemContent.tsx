@@ -39,16 +39,18 @@ export default function HighlightOptionItemContent({
     page: { chat },
   } = useGetDictionary();
   const { mutate: mutateGenerate } = useGenerateHighlight();
-  const { message } = useEventChanel({
+  const { message, reset } = useEventChanel({
     eventName: `highlight_${highlightType}`,
   });
+
   // console.info("event", message);
   const setGeneratedHighlight = useHighlightStore.use.setGeneratedHighlight();
   const highlightMessages = useHighlightStore.use.messages();
-  const currentIndex =
+  const [currentIndex, setCurrentIndex] = useState<number>(
     highlightMessages[highlightType].length === 0
       ? 0
-      : highlightMessages[highlightType].length - 1;
+      : highlightMessages[highlightType].length - 1,
+  );
 
   useEffect(() => {
     setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
@@ -56,6 +58,7 @@ export default function HighlightOptionItemContent({
 
   // handle click on generate button
   function handleGenerate(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    reset();
     e.stopPropagation();
     setShowTextArea(true);
     mutateGenerate({
@@ -73,7 +76,12 @@ export default function HighlightOptionItemContent({
   // if user click on generate button or generate button in header  , we will show generated content
   if (isGenerate || showTextarea)
     return (
-      <HighlightGeneratedContent item={item} highlightType={highlightType} />
+      <HighlightGeneratedContent
+        item={item}
+        highlightType={highlightType}
+        regenerate={handleGenerate}
+        setCurrentIndex={setCurrentIndex}
+      />
     );
 
   // else we show normal content
