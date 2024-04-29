@@ -26,7 +26,7 @@ export function useEventChanel({ onMessage, eventName }: EventChanelParams) {
       });
 
       eventSource.current.onerror = ev => {
-        console.error("Error on events chanel: ", ev);
+        // console.error("Error on events chanel: ", ev);
       };
     }
   }, [eventName, onMessage, uuid]);

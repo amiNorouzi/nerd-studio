@@ -70,7 +70,12 @@ export default function HighlightGeneratedContent({
       </div>
       <div className="relative">
         <textarea
-          value={highlightMessages[highlightType]?.[highlightIndexToShow]}
+          value={
+            highlightMessages[highlightType]?.[highlightIndexToShow] !==
+            "undefined"
+              ? highlightMessages[highlightType]?.[highlightIndexToShow]
+              : ""
+          }
           rows={5}
           className="mb-0 w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 focus:border-primary "
           disabled={!editable}

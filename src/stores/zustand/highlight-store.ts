@@ -33,7 +33,7 @@ const useHighlight = create<HighlightState & HighlightAction>()(
         }),
       setGeneratedHighlight: (index, v) =>
         set(state => {
-          console.log("store", v);
+          // console.log("store", v);
           const [key] = Object.keys(v) as HighlightType[];
           const newState = { ...(state.messages ?? {}) };
           newState[key][index] += v[key]?.[0];
