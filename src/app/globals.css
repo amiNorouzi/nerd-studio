@@ -466,3 +466,6 @@ padding: {
     }
 }
 
+.overlay {
+    top: 56px !important;
+}

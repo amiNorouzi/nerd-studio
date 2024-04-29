@@ -40,13 +40,13 @@ const renderIcon = (
   }
 
   return (
-      <Icon
-        className={cn(
-          "text-muted-foreground",
-          iconVariants({ size: isOpenSidePanel ? "md" : "lg" }),
-          isActive && "text-primary",
-        )}
-      />
+    <Icon
+      className={cn(
+        "text-muted-foreground",
+        iconVariants({ size: isOpenSidePanel ? "md" : "lg" }),
+        isActive && "text-primary",
+      )}
+    />
   );
 };
 
@@ -56,14 +56,14 @@ const SidePanelItemPdf = ({ title, to, icon }: IProps) => {
   const isHoverOnSidePanel = useSidbarPDfStore.use.isHoverOnSidePanel();
 
   const isOpenSidePanel = isSidePanelOpen || isHoverOnSidePanel;
-console.log(isOpenSidePanel);
+  console.log(isOpenSidePanel);
 
   const isActive = false;
   return (
     <MenuItem
       aria-level={1}
       icon={renderIcon(icon, isOpenSidePanel, isActive, to.includes("grammar"))}
-      component={<Link href={`/${lang}${to}`} />}
+      component={<div></div>}
       rootStyles={{
         color: getHslColorByVar("--foreground"),
         fontSize: "13px",
@@ -77,7 +77,6 @@ console.log(isOpenSidePanel);
           borderLeft: "3px solid transparent",
           backgroundColor: "red",
         },
-       
       }}
     >
       {isOpenSidePanel && <span>{title}</span>}

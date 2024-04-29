@@ -1,6 +1,12 @@
 import { useDropzone } from "react-dropzone";
-import { useState } from "react";
 import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
+import {
+  usePdfFileStore,
+  useSelectedFilePdfStore,
+} from "@/stores/zustand/chat-pdf-file";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const PdfUploadSection = () => {
   const onDrop = (acceptedFiles: any) => {
@@ -26,8 +32,18 @@ const PdfUploadSection = () => {
     maxSize: 5242880,
   });
   const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [file, setFile] = useState<File[]>([]);
-
+  const [url, setFile] = useState<File[]>([]);
+  const setUrlPdf = usePdfFileStore.use.setUrlPdf();
+  const setSelectedFilePdf = useSelectedFilePdfStore.use.setSelectedFilePdf();
+  const selectedFilePdf = useSelectedFilePdfStore.use.selectedFilePdf();
+  const uploadStatus = [true, true];
+  const handleSaveDialog = () => {
+    setSelectedFilePdf(url[url.length - 1]);
+    setUrlPdf([...url]);
+    setOpenDialog(false);
+    // TODO: redirect when in  the edit page
+    redirect("/chatpdf/edit");
+  };
   return (
     <div className=" ">
       <div
@@ -53,21 +69,23 @@ const PdfUploadSection = () => {
           </div>
         )}
       </div>
+      {/*  TODO: remove it */}
+      <Link href={"/chatpdf/edit"}>edit</Link>
       <DialogForUpload
         open={openDialog}
         setOpen={setOpenDialog}
-        handleSave={() => console.log("save")}
-        documentFiles={file}
+        handleSave={handleSaveDialog}
+        documentFiles={url}
         setDocumentFiles={setFile}
         url={""}
-        setUrl={() => console.log()}
-        files={[]}
-        handleDeleteFilesFromParent={() => {}}
-        setExtractedText={() => {}}
-        startConverting={() => {}}
+        setUrl={() => console.log("url")}
+        files={selectedFilePdf}
+        handleDeleteFilesFromParent={() => console.log()}
+        setExtractedText={() => console.log()}
+        startConverting={setUrlPdf}
         uploadIndex={1}
-        uploadProgress={50}
-        uploadStatus={[]}
+        uploadProgress={3}
+        uploadStatus={[...uploadStatus]}
       />
     </div>
   );

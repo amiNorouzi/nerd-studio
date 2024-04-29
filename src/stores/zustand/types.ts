@@ -222,3 +222,15 @@ export interface AiImageAction {
   resetInputValue: (tab: ImageModelType) => void;
   setGeneratedImages: (tab: ImageModelType, images: string[]) => void;
 }
+export interface FilePdf {
+  urlPdf: any[];
+  setUrlPdf: (url: any[]) => void;
+}
+export interface SelectedFilePdf {
+  selectedFilePdf: any;
+  setSelectedFilePdf: (url: File) => void;
+}
+export interface CaptureScreen {
+  onClick: () => void; // Type of the onClick function
+  setOnClick: (newOnClick: () => void) => void;
+}
