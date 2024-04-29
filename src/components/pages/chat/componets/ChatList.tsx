@@ -16,7 +16,7 @@ interface Props {
     prompt: string[];
     timeLine: string;
     id: string;
-    role: "user" | "bot";
+    role: string;
   }[];
 }
 export function ChatList({ messages }: Props) {
@@ -40,7 +40,7 @@ export function ChatList({ messages }: Props) {
                 role="user"
               />
             )}
-            {item.role === "user" && (
+            {item.role === "assistance" && (
               <AssistMessageCard
                 timeLine={""}
                 prompt={item.prompt}

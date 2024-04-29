@@ -14,7 +14,7 @@ import {
 import { ReactElement, useMemo, useState } from "react";
 import { BsLayoutSidebar } from "react-icons/bs";
 import {
-  usePdfFileStore,
+  
   useSelectedFilePdfStore,
   useStateCaptureStore,
 } from "@/stores/zustand/chat-pdf-file";
