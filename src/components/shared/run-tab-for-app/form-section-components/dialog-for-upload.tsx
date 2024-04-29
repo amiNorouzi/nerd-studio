@@ -33,7 +33,7 @@ interface IProps {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     fileIndex: number,
   ) => void;
-  startConverting(files: File[]): void;
+  startConverting(files: File[], url: string): void;
   setExtractedText: (text: string) => void;
   uploadStatus: boolean[];
 }
@@ -58,7 +58,12 @@ export function DialogForUpload({
 
   useEffect(() => {
     if (uploadStatus.length === 0) setPendingButton(false);
-    if (uploadStatus.length === files.length) setOpen(false);
+    if (
+      url
+        ? uploadStatus.length === files.length + 1
+        : uploadStatus.length === files.length
+    )
+      setOpen(false);
   }, [uploadStatus]);
   const {
     common,
@@ -169,9 +174,14 @@ export function DialogForUpload({
                 className="w-[80px] "
                 onClick={() => {
                   handleSave(tab);
-                  setPendingButton(true);
-                  startConverting(documentFiles);
-                  setExtractedText("");
+                  if (documentFiles.length > 0 || url) {
+                    setPendingButton(true);
+                    console.log("url is ", url);
+                    startConverting(documentFiles, url);
+                    setExtractedText("");
+                  } else {
+                    setOpen(false);
+                  }
                 }}
               >
                 {form_section.form_save}
@@ -179,7 +189,8 @@ export function DialogForUpload({
             )}
             {pendingButton && (
               <Button className="w-[80px] ">
-                {uploadStatus.filter(item => item).length}/{files.length}
+                {uploadStatus.filter(item => item).length}/
+                {!url ? files.length : files.length + 1}
               </Button>
             )}
           </div>

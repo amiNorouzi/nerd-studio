@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 
 type CodeConvertorParams = {
@@ -8,6 +8,8 @@ type CodeConvertorParams = {
 } & Omit<OpenAiCompletionSchemaInput, "stream" | "messages">;
 
 export function useCodeConvertor() {
+  const queryClient = useQueryClient();
+
   return useMutation({
     async mutationFn({
       code,
@@ -41,6 +43,11 @@ export function useCodeConvertor() {
       });
 
       return data;
+    },
+    onSuccess: () => {
+      // @ts-ignore
+
+      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
     },
   });
 }

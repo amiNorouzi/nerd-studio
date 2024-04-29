@@ -18,7 +18,7 @@ interface IProps {
   userUrl: string;
   uploadIndex: number | null;
   uploadProgress: number;
-  startConverting(files: File[]): void;
+  startConverting(files: File[], url: string): void;
   setExtractedText: (text: string) => void;
   uploadStatus: boolean[];
 }

@@ -59,7 +59,7 @@ export function WritePage({ params }: SCRPropsType) {
         />
         <Run.Editor value={generatedText} onChange={() => {}}>
           <HistoryBox>
-            <HistoryItems appName="ReWrite" />
+            <HistoryItems appName="ai_writer" />
           </HistoryBox>
 
           <Highlight />
