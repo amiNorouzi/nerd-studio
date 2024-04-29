@@ -1,5 +1,10 @@
-import { SetSearchParamProvider } from "@/components/shared";
+import {
+  HistoryBox,
+  HistoryItems,
+  SetSearchParamProvider,
+} from "@/components/shared";
 import { AIImageForm, ResultSection } from "./components";
+import React from "react";
 
 /**
  * generate image by AI page
@@ -12,6 +17,9 @@ function AiImagePage() {
         <AIImageForm />
         <ResultSection />
       </div>
+      <HistoryBox>
+        <HistoryItems appName="translate" />
+      </HistoryBox>
     </SetSearchParamProvider>
   );
 }
