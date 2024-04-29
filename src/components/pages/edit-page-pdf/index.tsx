@@ -17,7 +17,7 @@ export default function EditPagePdf() {
               style={{ height: "var(--apps-main-height" }}
               className=" overflow-y-auto px-5 py-2"
             >
-              <ChatList assistMessage={[""]} userMessage={[""]} />
+              {/* <ChatList assistMessage={[""]} userMessage={[""]} /> */}
             </div>
             <InputPromtChatPdf  />
           </div>
