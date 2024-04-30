@@ -2,24 +2,14 @@
 import { useState } from "react";
 import {
   GrammarTextBox,
-  OptionsSelectBoxes,
   SubmitButtonSelectEngine,
-  TextBox,
 } from "./form-section-components";
-import RenderIf from "@/components/shared/RenderIf";
-import { Button } from "@/components/ui/button";
-import {
-  DescriptionHoverCard,
-  FavoriteButtonAndDialog,
-  RenderImageOrIcon,
-} from "@/components/shared";
 import { FaRegStar, FaStar } from "react-icons/fa6";
 import type { ParamsType, TemplateItem } from "@/services/types";
-import { iconVariants } from "@/constants/variants";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
-import { useUploadPdf } from "@/services/upload";
 import { HistoryInfoContent } from "@/components/pages/grammar/history-info-content";
 import { useHistoryStore } from "@/stores/zustand/history-store";
+import { useCovertPdfToText } from "@/services/covert-pdf-to-text";
 
 interface IProps {
   params: ParamsType;
@@ -61,7 +51,7 @@ export default function FormSection({
   const [files, setFiles] = useState<File[]>([]);
   const [url, setUrl] = useState<string>("");
 
-  const { mutateAsync: covertPDF } = useUploadPdf();
+  const { mutateAsync: covertPDF } = useCovertPdfToText();
   const covertToText = async (files: File[]) => {
     const text = await covertPDF(files[0]);
     text && onTextAreaChange(text);

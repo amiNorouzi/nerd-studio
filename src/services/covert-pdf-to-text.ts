@@ -6,7 +6,7 @@ type PDFConvertorResponse = {
   text: string;
 };
 
-export function useUploadPdf() {
+export function useCovertPdfToText() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [index, setIndex] = useState<number | null>(null);
   const { mutate, data, ...rest } = useMutation({

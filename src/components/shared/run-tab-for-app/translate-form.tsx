@@ -3,18 +3,14 @@ import {
   OptionsSelectBoxes,
   SelectTranslateLanguages,
   SubmitButtonSelectEngine,
-  TextBox,
   Upload,
 } from "./form-section-components";
 
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
-import { useUploadPdf } from "@/services/upload";
-import useSuccessToast from "@/hooks/useSuccessToast";
-import useErrorToast from "@/hooks/useErrorToast";
 import GrammarInputDiv from "@/components/pages/grammar/InputDiv";
 import { useUploadData } from "@/components/shared/run-tab-for-app/upload-section";
 import { useHistoryStore } from "@/stores/zustand/history-store";

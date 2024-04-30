@@ -227,17 +227,41 @@ export interface AiImageAction {
   setGeneratedImages: (tab: ImageModelType, images: string[]) => void;
 }
 export interface FilePdf {
-  urlPdf: any[];
-  setUrlPdf: (url: any[]) => void;
+  urlPdf: File[];
+  setUrlPdf: (url: File[]) => void;
 }
 export interface SelectedFilePdf {
-  selectedFilePdf: any;
-  setSelectedFilePdf: (url: File) => void;
+  selectedFilePdf: string;
+  setSelectedFilePdf: (url: string) => void;
 }
 export interface CaptureScreen {
   onClick: () => void; // Type of the onClick function
   setOnClick: (newOnClick: () => void) => void;
 }
+// fixed the type
+export interface CaptureScreenPic {
+  pic: any[];
+  setPic: (pic: any[]) => void;
+}
+export interface conversation {
+  id: string;
+  prompt: string[];
+  image: string;
+  timeLine?: string;
+  name: string;
+  role: string;
+  setConversation: ({}: any) => void;
+}
+// {
+//       id: "2",
+//       prompt: [
+//         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n",
+//       ],
+//       image: "/images/logo.png",
+//       timeLine: "5 Min ago",
+//       name: "kasra",
+//       role: "user",
+//     },
 
 // ************************************************** WorkSpace Interface ******************************************
 export interface WorkSpaceState {

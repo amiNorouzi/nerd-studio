@@ -1,5 +1,5 @@
 "use client";
-import { TextareaHTMLAttributes, useEffect, useState } from "react";
+import { TextareaHTMLAttributes, useState } from "react";
 
 import { LuCopy, LuCopyCheck } from "react-icons/lu";
 import { TbMicrophone, TbTrash, TbVolume } from "react-icons/tb";
@@ -17,9 +17,6 @@ import { cn } from "@/lib/utils";
 import { Upload } from "@/components/shared/run-tab-for-app/form-section-components";
 import RenderIf from "@/components/shared/RenderIf";
 import { usePathname } from "next/navigation";
-import { useUploadPdf } from "@/services/upload";
-import useSuccessToast from "@/hooks/useSuccessToast";
-import useErrorToast from "@/hooks/useErrorToast";
 import { useUploadData } from "@/components/shared/run-tab-for-app/upload-section";
 
 export interface ICustomTextareaProps
