@@ -1,7 +1,8 @@
-import { useUploadPdf, useUploadUrl } from "@/services/upload";
 import useSuccessToast from "@/hooks/useSuccessToast";
 import useErrorToast from "@/hooks/useErrorToast";
 import { useEffect, useState } from "react";
+import { useUploadPdf } from "@/services/upload-pdf";
+import { useUploadUrl } from "@/services/covert-pdf-to-text";
 
 interface Props {
   files: File[];
