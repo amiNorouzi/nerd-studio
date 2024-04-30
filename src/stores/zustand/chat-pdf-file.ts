@@ -69,7 +69,7 @@ const useStateCapturePic = create<CaptureScreenPic>()(
   devtools(
     immer(set => ({
       ...initialStatePic,
-      setPic: (val: string) =>
+      setPic: (val: FormData) =>
         set(state => {
           state.pic = val;
         }),

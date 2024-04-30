@@ -234,9 +234,10 @@ export interface CaptureScreen {
   onClick: () => void; // Type of the onClick function
   setOnClick: (newOnClick: () => void) => void;
 }
+// fixed the type
 export interface CaptureScreenPic {
-  pic: string;
-  setPic: (url: string) => void;
+  pic: any;
+  setPic: (url: any) => void;
 }
 export interface conversation {
   id: string;

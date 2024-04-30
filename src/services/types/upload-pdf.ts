@@ -107,10 +107,11 @@ export function usePdfDelete() {
   });
 }
 export function useConverPicToText() {
- const { mutate, data, ...rest } = useMutation({
-   async mutationFn(pic: string) {
+ return  useMutation({
+   async mutationFn(pic: FormData) {
      try {
-   
+      console.log(pic);
+      
        const response = await axiosClient.post<PDFConvertorResponse>(
          "/uploads/convert_pdf_to_text/",
          pic,
@@ -120,7 +121,7 @@ export function useConverPicToText() {
            },
          },
        );
-       console.log("res:", response.data.path);
+       console.log("res:", response.data);
        return response.data.path;
      } catch (err) {
        console.log("error happened in the upload", err);
