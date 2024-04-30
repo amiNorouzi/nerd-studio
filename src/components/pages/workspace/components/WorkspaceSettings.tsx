@@ -4,6 +4,7 @@ import ChangeWorkspaceNameDialog from "./ChangeWorkspaceNameDialog";
 import TransferWorkspaceDialog from "./TransferWorkspaceDialog";
 
 import { useGetDictionary } from "@/hooks";
+import { useSession } from "next-auth/react";
 
 /**
  * settings tab content in workspace page
@@ -14,6 +15,9 @@ export function WorkspaceSettings() {
   const {
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
+  const {data:session} = useSession();
+
+  const myWorkspace = session?.user.workspace;
 
   return (
     <>
@@ -27,7 +31,7 @@ export function WorkspaceSettings() {
           title={workspaceDictionary.setting_name_label}
           Action={<ChangeWorkspaceNameDialog />}
         >
-          <p className="text-foreground/80">My Workspace</p>
+          <p className="text-foreground/80">{myWorkspace?.name}</p>
         </SettingItem>
       </div>
 

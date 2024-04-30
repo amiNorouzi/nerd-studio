@@ -88,14 +88,25 @@ export interface CodeHistoryItem {
   engineIcon: string;
 }
 
+export interface Workspace {
+  name: string;
+  id: 0;
+  uuid: string;
+  created_at: string;
+  updated_at: string;
+  is_default: boolean;
+}
+
 export interface AuthReturn {
   refresh_token: string;
   access_token: string;
+  workspace: Workspace;
 }
 
 export interface User {
   username: string;
   email: string;
+  workspace: Workspace;
   sub: string;
   iat: number;
   exp: number;
