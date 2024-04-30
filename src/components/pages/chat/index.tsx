@@ -69,7 +69,8 @@ export default function ChatPage({ lang }: { lang: Locale }) {
       <div className="max-h-apps-page flex h-full w-full overflow-hidden bg-background p-0">
         <div className="col mx-auto h-full w-full items-center overflow-y-auto p-2 lg:p-4">
           {/* chat list or chat option*/}
-          <Content>
+          {/* @ts-ignore */}
+          <Content >
             {/*these children are for Options component*/}
             <Title lang={lang} />
             <ChatHero lang={lang} />

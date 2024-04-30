@@ -32,7 +32,7 @@ const PdfUploadSection = () => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [url, setFile] = useState<File[]>([]);
   const setUrlPdf = usePdfFileStore.use.setUrlPdf();
-  const setSelectedFilePdf = useSelectedFilePdfStore.use.setSelectedFilePdf();
+  const urlPdf = usePdfFileStore.use.urlPdf();
   const selectedFilePdf = useSelectedFilePdfStore.use.selectedFilePdf();
   const uploadStatus = [true, true];
   const {
@@ -43,7 +43,6 @@ const PdfUploadSection = () => {
     index: uploadIndex,
   } = useUploadPdf();
   const handleSaveDialog = () => {
-    setSelectedFilePdf(url[url.length - 1]);
     setUrlPdf([...url]);
     setOpenDialog(false);
     uploaderPdf();
@@ -77,7 +76,7 @@ const PdfUploadSection = () => {
         setDocumentFiles={setFile}
         url={""}
         setUrl={() => console.log("url")}
-        files={selectedFilePdf}
+        files={urlPdf}
         handleDeleteFilesFromParent={() => console.log()}
         setExtractedText={() => console.log()}
         startConverting={setUrlPdf}
