@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import {
+  GrammarTextBox,
   OptionsSelectBoxes,
   SubmitButtonSelectEngine,
   TextBox,
@@ -17,6 +18,8 @@ import type { ParamsType, TemplateItem } from "@/services/types";
 import { iconVariants } from "@/constants/variants";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
 import { useUploadPdf } from "@/services/upload";
+import { HistoryInfoContent } from "@/components/pages/grammar/history-info-content";
+import { useHistoryStore } from "@/stores/zustand/history-store";
 
 interface IProps {
   params: ParamsType;
@@ -74,55 +77,38 @@ export default function FormSection({
   // here we select favorite icon if we select a template
   const cardIcon = favTemp ? "fav" : "notFav";
   const ButtonIcon = startIcon[cardIcon];
+  const isGrammarHistoryOpen = useHistoryStore.use.isGrammarHistoryOpen();
 
   return (
     <FormWrapper>
-      <RenderIf isTrue={!!template}>
-        <div className="flex w-full justify-between gap-2">
-          <div className="flex w-full items-center justify-start gap-2">
-            {icon && <RenderImageOrIcon icon={icon} />}
-            <h3 className="max-w-full text-ellipsis text-nowrap">
-              {template?.topic}
-            </h3>
-            <DescriptionHoverCard description={template?.task || ""} />
-          </div>
-
-          {/*this is for when use select a template that show icon title and fav icon in form section*/}
-          <FavoriteButtonAndDialog
-            open={open}
-            setOpen={setOpen}
-            favorite={favTemp}
-          >
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => {
-                setFavTemp(!favTemp);
-                setOpen(true);
-              }}
-            >
-              <ButtonIcon
-                className={iconVariants({ size: "md" })}
-                color="hsl(var(--primary))"
-              />
-            </Button>
-          </FavoriteButtonAndDialog>
+      {/*text area and pdf upload and url input*/}
+      {!isGrammarHistoryOpen && (
+        <div className={`col form-gap  `}>
+          <GrammarTextBox
+            value={value}
+            onTextAreaChange={onTextAreaChange}
+            maxLength={4000}
+          />
+          {/*submit button and select engine with setting*/}
+          <SubmitButtonSelectEngine
+            isDisabledSubmit={!value}
+            isPending={isPending}
+            onClick={onSubmit}
+            buttonContent={"Rewrite"}
+          />
         </div>
-      </RenderIf>
-
-      <TextBox
-        template={template}
-        mainTextAreaPlaceholder={mainTextAreaPlaceholder}
-        onChange={onTextAreaChange}
-        value={value}
-      />
-      <OptionsSelectBoxes />
-      <SubmitButtonSelectEngine
-        isDisabledSubmit={!value}
-        isPending={isPending}
-        onClick={onSubmit}
-        buttonContent={buttonContent}
-      />
+      )}
+      {isGrammarHistoryOpen && (
+        <div className="col form-gap">
+          <HistoryInfoContent onTextAreaChange={onTextAreaChange} />
+          <SubmitButtonSelectEngine
+            isDisabledSubmit={!value}
+            isPending={isPending}
+            onClick={onSubmit}
+            buttonContent={"Edit Prompt"}
+          />
+        </div>
+      )}
     </FormWrapper>
   );
 }

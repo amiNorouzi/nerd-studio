@@ -42,6 +42,8 @@ function CodeExplainer() {
       top_p: 1.0,
       frequency_penalty: 0,
       presence_penalty: 0,
+      workspace_id: 1,
+      document_name: "New Document",
     });
   };
 
