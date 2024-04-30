@@ -27,12 +27,11 @@ import { useSession } from "next-auth/react";
  * @constructor
  */
 export function WorkspaceItems({ isHeader = false, workspaces }: { isHeader?: boolean, workspaces:TransformedWorkspace[] }) {
-  const {update, data:session} = useSession();
   const [open, setOpen] = React.useState(false);
   const [workSpaceId, setWorkSpaceId] = React.useState<string>(workspaces[0].id);
 
   // hook to change workspace
-  const { mutate: changeDefaultWorkspace, isSuccess, data: workspace } = useChangeDefaultWorkSpace();
+  const { mutate: changeDefaultWorkspace, data: workspace } = useChangeDefaultWorkSpace();
 
   /**
    * on select item change value and close select popover
@@ -46,18 +45,6 @@ export function WorkspaceItems({ isHeader = false, workspaces }: { isHeader?: bo
     changeDefaultWorkspace({ workspace_id: Number(workSpaceID) });
 
   }, [changeDefaultWorkspace, workSpaceId]);
-
-  if(isSuccess) {
-    console.log("session: ", {
-      ...session,
-      workspace
-    })
-    // update session with created new workspace if workspace successfully updated
-    update({
-      ...session,
-      workspace
-    });
-  }
 
 
   const isSidePanelOpen = useCheckSidePanelOpen();

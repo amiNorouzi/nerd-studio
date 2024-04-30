@@ -17,7 +17,7 @@ function ChangeWorkspaceNameDialog() {
   const {
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
-  const {data:session, update} = useSession();
+  const { data:session } = useSession();
   const [workspaceName, setWorkspaceName] = useState(session?.user.workspace.name || "");
   const {showError} = useErrorToast();
   const { mutate: updateWorkspace, isPending, isSuccess, isError, error, data:workspace } = useUpdateWorkSpace();
@@ -32,19 +32,13 @@ function ChangeWorkspaceNameDialog() {
 
     if(myWorkspace?.id)
       updateWorkspace({ workspace_id: myWorkspace?.id, name: newWorkspaceName });
-    else showError("No Workspace Found");
+    else 
+      showError("No Workspace Found");
   };
 
   if(isError) {
     console.error(error);
     showError(error.message)
-  }
-
-  if(isSuccess) {
-    update({
-      ...session,
-      workspace: workspace
-    });
   }
 
   return (

@@ -4,17 +4,17 @@ import axiosClient from "@/services/axios-client";
 import type { Workspace } from "@/services/types";
 import { useUpdateWorkspaceSession } from "@/hooks/useUpdateWorkspaceSession";
 
-type WorkspaceChangeParams = {
+type WorkspaceDeleteParams = {
   workspace_id: number;
 };
 
-export function useChangeDefaultWorkSpace() {
+export function useDeleteWorkSpace() {
   const queryClient = useQueryClient();
   const updateWorkspaceSession = useUpdateWorkspaceSession();
 
   return useMutation({
-    mutationFn: async ({ workspace_id }: WorkspaceChangeParams) => {
-      const { data } = await axiosClient.put<unknown, any, WorkspaceChangeParams>(`/workspaces/change_default/${workspace_id}/`);
+    mutationFn: async ({ workspace_id }: WorkspaceDeleteParams) => {
+      const { data } = await axiosClient.delete<unknown, any, WorkspaceDeleteParams>(`/workspaces/delete_workspace/${workspace_id}/`);
       return data as Workspace;
     },
     onSuccess: (workspace) => {
