@@ -1,12 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
+import { useSession } from "next-auth/react";
 
 type AIWritersParams = {
   prompt: string;
-} & Omit<OpenAiCompletionSchemaInput, "stream" | "messages">;
+} & Omit<OpenAiCompletionSchemaInput, "stream" | "messages" | "workspace_id">;
 
 export function useAIWriter() {
   const queryClient = useQueryClient();
+  const { data: session } = useSession();
 
   return useMutation({
     mutationFn: async ({
@@ -17,6 +19,7 @@ export function useAIWriter() {
       top_p,
       frequency_penalty,
       presence_penalty,
+      document_name,
     }: AIWritersParams) => {
       const { data } = await axiosClient.post<
         unknown,
@@ -36,6 +39,8 @@ export function useAIWriter() {
         top_p,
         frequency_penalty,
         presence_penalty,
+        document_name,
+        workspace_id: session?.user.workspace.id!,
       });
 
       return data;

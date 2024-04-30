@@ -1,14 +1,19 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
+import { useSession } from "next-auth/react";
 
 type CodeConvertorParams = {
   code: string;
   fromLang: string;
   toLang: string;
-} & Omit<OpenAiCompletionSchemaInput, "stream" | "messages">;
+} & Omit<
+  OpenAiCompletionSchemaInput,
+  "stream" | "messages" | "workspace_id" | "document_name"
+>;
 
 export function useCodeConvertor() {
   const queryClient = useQueryClient();
+  const { data: session } = useSession();
 
   return useMutation({
     async mutationFn({
@@ -36,7 +41,6 @@ export function useCodeConvertor() {
         ],
         temperature,
         max_tokens,
-        stream: true,
         top_p,
         frequency_penalty,
         presence_penalty,
@@ -55,9 +59,14 @@ export function useCodeConvertor() {
 type GenerateCodeParams = {
   prompt: string;
   language: string;
-} & Omit<OpenAiCompletionSchemaInput, "stream" | "messages">;
+} & Omit<
+  OpenAiCompletionSchemaInput,
+  "stream" | "messages" | "workspace_id" | "document_name"
+>;
 
 export function useGenerateCode() {
+  const { data: session } = useSession();
+
   return useMutation({
     async mutationFn({
       prompt,
@@ -83,8 +92,7 @@ export function useGenerateCode() {
         ],
         temperature,
         max_tokens,
-        stream: true,
-        top_p: 1.0,
+        top_p,
         frequency_penalty,
         presence_penalty,
       });
@@ -97,9 +105,14 @@ type CodeExplainerParams = {
   info: string;
   code: string;
   language: string;
-} & Omit<OpenAiCompletionSchemaInput, "stream" | "messages">;
+} & Omit<
+  OpenAiCompletionSchemaInput,
+  "stream" | "messages" | "workspace_id" | "document_name"
+>;
 
 export function useCodeExplainer() {
+  const { data: session } = useSession();
+
   return useMutation({
     async mutationFn({
       info,
@@ -126,8 +139,7 @@ export function useCodeExplainer() {
         ],
         temperature,
         max_tokens,
-        stream: true,
-        top_p: 1.0,
+        top_p,
         frequency_penalty,
         presence_penalty,
       });
