@@ -21,6 +21,8 @@ export function useGenerateTranslate() {
       top_p,
       presence_penalty,
       frequency_penalty,
+      workspace_id,
+      document_name,
     }: GenerateTranslateParams) => {
       const { data } = await axiosClient.post<
         unknown,
@@ -40,6 +42,8 @@ export function useGenerateTranslate() {
         top_p,
         presence_penalty,
         frequency_penalty,
+        document_name,
+        workspace_id,
       });
 
       return data;

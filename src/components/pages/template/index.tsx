@@ -103,16 +103,12 @@ export function TemplatePage() {
                     {/* advance and my prompt button that change the content by set template-content in query param in url*/}
                     <AdvancedButton />
                   </div>
-                  {/**
-                   *this section show Content
-                   * TemplateList
-                   * AdvancedPrompt
-                   */}
-                  <Content
-                    templates={templates}
-                    searchText={searchText}
-                    selectedTab={tab}
-                  />
+                  <AdvancedPrompt />
+                  {/*<Content*/}
+                  {/*  templates={templates}*/}
+                  {/*  searchText={searchText}*/}
+                  {/*  selectedTab={tab}*/}
+                  {/*/>*/}
                 </>
               </Show.Else>
             </Show>

@@ -21,6 +21,8 @@ export function useCodeConvertor() {
       top_p,
       frequency_penalty,
       presence_penalty,
+      document_name,
+      workspace_id,
     }: CodeConvertorParams) {
       const { data } = await axiosClient.post<
         unknown,
@@ -40,6 +42,8 @@ export function useCodeConvertor() {
         top_p,
         frequency_penalty,
         presence_penalty,
+        document_name,
+        workspace_id,
       });
 
       return data;
@@ -68,6 +72,8 @@ export function useGenerateCode() {
       presence_penalty,
       top_p,
       frequency_penalty,
+      workspace_id,
+      document_name,
     }: GenerateCodeParams) {
       const { data } = await axiosClient.post<
         unknown,
@@ -87,6 +93,8 @@ export function useGenerateCode() {
         top_p: 1.0,
         frequency_penalty,
         presence_penalty,
+        workspace_id,
+        document_name,
       });
 
       return data;
@@ -111,6 +119,8 @@ export function useCodeExplainer() {
       presence_penalty,
       frequency_penalty,
       top_p,
+      workspace_id,
+      document_name,
     }: CodeExplainerParams) {
       const { data } = await axiosClient.post<
         unknown,
@@ -130,6 +140,8 @@ export function useCodeExplainer() {
         top_p: 1.0,
         frequency_penalty,
         presence_penalty,
+        document_name,
+        workspace_id,
       });
 
       return data;

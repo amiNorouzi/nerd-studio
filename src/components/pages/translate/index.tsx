@@ -14,8 +14,10 @@ import { useGenerateTranslate } from "@/services/translate";
 import { useSearchParams } from "next/navigation";
 import { languages } from "@/components/shared/run-tab-for-app/form-section-components/contants";
 import { getLangById } from "@/lib/utils";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
+import { useHistoryStore } from "@/stores/zustand/history-store";
+import { useHistoryUpdate } from "@/services/history";
 
 interface IProps {
   params: ParamsType;
@@ -27,7 +29,13 @@ export default function TranslatePage({ params }: IProps) {
     eventName: "translate",
   });
   const { mutate: generateTranslate, isPending } = useGenerateTranslate();
+  const { mutate: updateHistoryMutate } = useHistoryUpdate();
+
   const [text, setText] = useState("");
+  const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
+  const textInput = selectedHistoryItem
+    ? selectedHistoryItem.answer_text + translation
+    : translation;
   const handleGenerate = () => {
     if (text) {
       reset();
@@ -45,9 +53,22 @@ export default function TranslatePage({ params }: IProps) {
         top_p: 1.0,
         frequency_penalty: 0,
         presence_penalty: 0,
+        workspace_id: 1,
+        document_name: "New Document",
       });
     }
   };
+  useEffect(() => {
+    if (!isPending && selectedHistoryItem) {
+      updateHistoryMutate({
+        answer_text: textInput,
+        answerUuid: selectedHistoryItem.uuid,
+      });
+    }
+  }, [isPending]);
+  useEffect(() => {
+    reset();
+  }, [selectedHistoryItem]);
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="Translate">
@@ -59,7 +80,7 @@ export default function TranslatePage({ params }: IProps) {
           isPending={isPending}
           onSubmit={handleGenerate}
         />
-        <Run.Editor value={translation} onChange={() => {}}>
+        <Run.Editor value={textInput} onChange={() => {}}>
           <HistoryBox>
             <HistoryItems appName="translate" />
           </HistoryBox>

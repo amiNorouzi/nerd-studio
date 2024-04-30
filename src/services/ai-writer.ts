@@ -17,6 +17,8 @@ export function useAIWriter() {
       top_p,
       frequency_penalty,
       presence_penalty,
+      document_name,
+      workspace_id,
     }: AIWritersParams) => {
       const { data } = await axiosClient.post<
         unknown,
@@ -36,6 +38,8 @@ export function useAIWriter() {
         top_p,
         frequency_penalty,
         presence_penalty,
+        workspace_id,
+        document_name,
       });
 
       return data;

@@ -8,9 +8,9 @@ import {
 import type { ParamsType } from "@/services/types";
 import { useEventChanel } from "@/services/events-chanel";
 import { useGenerateGrammar } from "@/services/grammar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
-import { useHistories } from "@/services/history";
+import { useHistories, useHistoryUpdate } from "@/services/history";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 
 interface IProps {
@@ -27,6 +27,7 @@ export function GrammarPage({ params }: IProps) {
     eventName: "grammar",
   });
   const { mutate: generateGrammar, isPending } = useGenerateGrammar();
+  const { mutate: updateHistoryMutate } = useHistoryUpdate();
   const [text, setText] = useState("");
   // const [textInput, setTextInput] = useState("");
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
@@ -43,10 +44,22 @@ export function GrammarPage({ params }: IProps) {
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
+        workspace_id: 0,
+        document_name: "New Document",
       });
     }
   };
-
+  useEffect(() => {
+    if (!isPending && selectedHistoryItem) {
+      updateHistoryMutate({
+        answer_text: textInput,
+        answerUuid: selectedHistoryItem.uuid,
+      });
+    }
+  }, [isPending]);
+  useEffect(() => {
+    grammar.reset();
+  }, [selectedHistoryItem]);
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="Grammar">
       <Run>

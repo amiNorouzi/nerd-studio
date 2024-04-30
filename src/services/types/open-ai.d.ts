@@ -7,6 +7,8 @@ interface OpenAiCompletionSchemaInput {
   top_p?: number;
   frequency_penalty: number;
   presence_penalty: number;
+  document_name: string;
+  workspace_id: number;
 }
 
 interface OpenAiMessage {

@@ -9,10 +9,12 @@ import {
 import { HistoryInfoContent } from "./history-info-content";
 import type { SCRPropsType } from "@/services/types";
 import { useEventChanel } from "@/services/events-chanel";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAIWriter } from "@/services/ai-writer";
 import { useGetDictionary } from "@/hooks";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
+import { useHistoryStore } from "@/stores/zustand/history-store";
+import { useHistoryUpdate } from "@/services/history";
 
 export function WritePage({ params }: SCRPropsType) {
   const {
@@ -28,6 +30,12 @@ export function WritePage({ params }: SCRPropsType) {
   const { message: generatedText, reset } = useEventChanel({
     eventName: "ai_writer",
   });
+  const { mutate: updateHistoryMutate } = useHistoryUpdate();
+
+  const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
+  const textInput = selectedHistoryItem
+    ? selectedHistoryItem.answer_text + generatedText
+    : generatedText;
   const { mutate: generate, isPending } = useAIWriter();
   const [prompt, setPrompt] = useState("");
   const handleGenerate = () => {
@@ -41,9 +49,22 @@ export function WritePage({ params }: SCRPropsType) {
         frequency_penalty: 0,
         presence_penalty: 0,
         top_p: 0,
+        document_name: "New Document",
+        workspace_id: 1,
       });
     }
   };
+  useEffect(() => {
+    if (!isPending && selectedHistoryItem) {
+      updateHistoryMutate({
+        answer_text: textInput,
+        answerUuid: selectedHistoryItem.uuid,
+      });
+    }
+  }, [isPending]);
+  useEffect(() => {
+    reset();
+  }, [selectedHistoryItem]);
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="ReWrite">
@@ -57,7 +78,7 @@ export function WritePage({ params }: SCRPropsType) {
           buttonContent={ReWrite.form_rewrite_button}
           mainTextAreaPlaceholder={ReWrite.text_input_placeholder}
         />
-        <Run.Editor value={generatedText} onChange={() => {}}>
+        <Run.Editor value={textInput} onChange={() => {}}>
           <HistoryBox>
             <HistoryItems appName="ai_writer" />
           </HistoryBox>

@@ -17,6 +17,8 @@ export function useGenerateGrammar() {
       top_p,
       frequency_penalty,
       presence_penalty,
+      workspace_id,
+      document_name,
     }: GrammarGenerateParams) => {
       const { data } = await axiosClient.post<
         unknown,
@@ -41,6 +43,8 @@ export function useGenerateGrammar() {
         max_tokens,
         stream: true,
         top_p,
+        workspace_id,
+        document_name,
       });
 
       return data;
