@@ -12,7 +12,7 @@ import type { AppIconType } from "@/components/svg-icons/AppsIcons";
 import { IconType } from "react-icons";
 import { iconVariants } from "@/constants/variants";
 import { useSidbarPDfStore } from "@/stores/zustand/ui-store";
-import { usePdfDelete } from "@/services/types/upload-pdf";
+import { usePdfDelete } from "@/services/upload-pdf";
 import { useSelectedFilePdfStore } from "@/stores/zustand/chat-pdf-file";
 
 interface IProps {

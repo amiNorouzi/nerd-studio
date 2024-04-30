@@ -21,6 +21,8 @@ interface Props {
 }
 export function ChatList({ messages }: Props) {
   const { data: session } = useSession();
+  console.log("test ChatList");
+  
   return (
     <div className="col w-full max-w-[760px] flex-grow gap-6 pb-6 ">
       {messages.map(item => {

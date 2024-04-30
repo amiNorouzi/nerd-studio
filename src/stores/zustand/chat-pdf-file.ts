@@ -15,17 +15,20 @@ const initialState = {
   urlPdf: [],
 };
 const initialStatePic = {
-  pic: "",
+  pic: [""],
 };
 const initialStateSelectedFilePdf = {
-  selectedFilePdf: "",
+  selectedFilePdf: [""],
 };
 
+// @ts-ignore
 const usePdfFile = create<FilePdf>()(
   devtools(
+    // @ts-ignore
+
     immer(set => ({
       ...initialState,
-      setUrlPdf: (val: any) =>
+      setUrlPdf: (val: File[]) =>
         set(state => {
           state.urlPdf = val;
         }),
@@ -33,23 +36,23 @@ const usePdfFile = create<FilePdf>()(
     { name: "urlPdf", store: "urlPdf" },
   ),
 );
+// @ts-ignore
 const useSelectedFilePdf = create<SelectedFilePdf>()(
   devtools(
+    // @ts-ignore
+
     immer(set => ({
       ...initialStateSelectedFilePdf,
-      setSelectedFilePdf: (val: any) =>
+      setSelectedFilePdf: (val: File) =>
         set(state => {
+          // @ts-ignore
+
           state.selectedFilePdf = val;
         }),
     })),
     { name: "PdfSelected", store: "PdfSelected" },
   ),
 );
-const initialStateCapture = {
-  onClick: () => console.log("Initial onClick function called"),
-
-  setOnClick: (newOnClick: () => void) => ({ onClick: newOnClick }),
-};
 
 const useStateCapture = create<CaptureScreen>()(
   devtools(
@@ -69,7 +72,7 @@ const useStateCapturePic = create<CaptureScreenPic>()(
   devtools(
     immer(set => ({
       ...initialStatePic,
-      setPic: (val: FormData) =>
+      setPic: (val: any) =>
         set(state => {
           state.pic = val;
         }),
@@ -79,6 +82,8 @@ const useStateCapturePic = create<CaptureScreenPic>()(
 );
 const useStateConversation = create<conversation>()(
   devtools(
+    // @ts-ignore
+
     immer(set => ({
       id: "",
       prompt: [],

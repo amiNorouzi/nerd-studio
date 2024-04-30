@@ -223,12 +223,12 @@ export interface AiImageAction {
   setGeneratedImages: (tab: ImageModelType, images: string[]) => void;
 }
 export interface FilePdf {
-  urlPdf: any[];
-  setUrlPdf: (url: any[]) => void;
+  urlPdf: File[];
+  setUrlPdf: (url: File[]) => void;
 }
 export interface SelectedFilePdf {
-  selectedFilePdf: string;
-  setSelectedFilePdf: (url: string) => void;
+  selectedFilePdf: File[];
+  setSelectedFilePdf: (url: File) => void;
 }
 export interface CaptureScreen {
   onClick: () => void; // Type of the onClick function
@@ -236,8 +236,8 @@ export interface CaptureScreen {
 }
 // fixed the type
 export interface CaptureScreenPic {
-  pic: any;
-  setPic: (url: any) => void;
+  pic: any[];
+  setPic: (pic: any[]) => void;
 }
 export interface conversation {
   id: string;

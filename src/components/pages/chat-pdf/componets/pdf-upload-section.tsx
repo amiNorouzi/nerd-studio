@@ -7,8 +7,7 @@ import {
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useUploadPdf } from "@/services/types/upload-pdf";
-import { file } from "@excalidraw/excalidraw/types/components/icons";
+import { useUploadPdf } from "@/services/upload-pdf";
 
 const PdfUploadSection = () => {
   const onDrop = (acceptedFiles: any) => {
@@ -69,7 +68,6 @@ const PdfUploadSection = () => {
         </div>
       </div>
       {/*  TODO: remove it */}
-      <Link href={"/chatpdf/edit"}>edit</Link>
       <DialogForUpload
         open={openDialog}
         setOpen={setOpenDialog}

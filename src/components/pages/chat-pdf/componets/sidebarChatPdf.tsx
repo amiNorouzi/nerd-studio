@@ -31,7 +31,7 @@ import {
   usePdfFileStore,
   useSelectedFilePdfStore,
 } from "@/stores/zustand/chat-pdf-file";
-import { useGetPdf, useGetUploadedPdf } from "@/services/types/upload-pdf";
+import { useGetPdf, useGetUploadedPdf } from "@/services/upload-pdf";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event

@@ -19,15 +19,15 @@ import {
   useStateCaptureStore,
 } from "@/stores/zustand/chat-pdf-file";
 import { ScreenCapture } from "react-screen-capture";
-import { appendBlobToFormData, base64ToBlobPDF } from "./covert-base64-to-file";
-import { base64ToBlob, dataURLtoFile } from "../../ai-image/utils";
-import { useConverPicToText, useUploadPdf } from "@/services/types/upload-pdf";
+import { useConvertPicToText, useUploadPdf } from "@/services/upload-pdf";
 
 export default function PdfView() {
   const [screenCapture, setScreenCapture] = useState<string>("");
   const setPic = useStateCapturePicStore.use.setPic();
-  const { mutate } = useConverPicToText();
-  const { mutate:uploadtest } = useUploadPdf();
+  const pics = useStateCapturePicStore.use.pic();
+  const { mutate } = useConvertPicToText();
+  const { mutate: uploadtest } = useUploadPdf();
+
   const thumbnailPluginInstance = thumbnailPlugin();
   const { Thumbnails } = thumbnailPluginInstance;
 
@@ -147,12 +147,7 @@ export default function PdfView() {
     sidebarTabs: defaultTabs => [],
   });
   const handleScreenCapture = (capture: string) => {
-    const blob = base64ToBlob(capture, "image/png");
-    const formData = new FormData();
-    formData.append("file", blob);
-    const url = URL.createObjectURL(blob);
-
-    mutate(formData);
+    setPic([...pics, capture]);
     return null;
   };
   const onStartCapture = () => {
