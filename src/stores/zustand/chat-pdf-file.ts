@@ -43,7 +43,7 @@ const useSelectedFilePdf = create<SelectedFilePdf>()(
 
     immer(set => ({
       ...initialStateSelectedFilePdf,
-      setSelectedFilePdf: (val: File) =>
+      setSelectedFilePdf: (val: string) =>
         set(state => {
           // @ts-ignore
 

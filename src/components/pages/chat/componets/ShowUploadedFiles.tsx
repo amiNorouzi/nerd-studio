@@ -4,9 +4,7 @@ import { useStateCapturePicStore } from "@/stores/zustand/chat-pdf-file";
 
 interface IProps {
   files: any[];
-  handleDeleteFile: (
-    fileIndex: number,
-  ) => void;
+  handleDeleteFile: (fileIndex: number) => void;
   children?: React.ReactNode;
 }
 
@@ -28,9 +26,9 @@ export function ShowUploadedFiles({
         <div className="max-w-1/2 flex flex-wrap gap-1 lg:p-2">
           {files.map((file, index) => (
             <img
-            className="w-10 h-10 rounded-xl"
+              className="h-10 w-10 rounded-xl"
               src={file}
-              onClick={()=>handleDeleteFile(index)}
+              onClick={() => handleDeleteFile(index)}
               key={index}
             />
           ))}

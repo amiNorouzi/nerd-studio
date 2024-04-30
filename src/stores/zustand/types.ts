@@ -227,8 +227,8 @@ export interface FilePdf {
   setUrlPdf: (url: File[]) => void;
 }
 export interface SelectedFilePdf {
-  selectedFilePdf: File[];
-  setSelectedFilePdf: (url: File) => void;
+  selectedFilePdf: any[];
+  setSelectedFilePdf: (url: any) => void;
 }
 export interface CaptureScreen {
   onClick: () => void; // Type of the onClick function

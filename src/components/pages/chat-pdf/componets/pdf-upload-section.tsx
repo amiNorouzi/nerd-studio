@@ -68,6 +68,7 @@ const PdfUploadSection = () => {
         </div>
       </div>
       {/*  TODO: remove it */}
+      <Link href={"/chatpdf/edit"}>edit</Link>
       <DialogForUpload
         open={openDialog}
         setOpen={setOpenDialog}
