@@ -21,12 +21,13 @@ import {
 import { ScreenCapture } from "react-screen-capture";
 import { appendBlobToFormData, base64ToBlobPDF } from "./covert-base64-to-file";
 import { base64ToBlob, dataURLtoFile } from "../../ai-image/utils";
-import { useConverPicToText } from "@/services/types/upload-pdf";
+import { useConverPicToText, useUploadPdf } from "@/services/types/upload-pdf";
 
 export default function PdfView() {
   const [screenCapture, setScreenCapture] = useState<string>("");
   const setPic = useStateCapturePicStore.use.setPic();
   const { mutate } = useConverPicToText();
+  const { mutate:uploadtest } = useUploadPdf();
   const thumbnailPluginInstance = thumbnailPlugin();
   const { Thumbnails } = thumbnailPluginInstance;
 
@@ -146,11 +147,11 @@ export default function PdfView() {
     sidebarTabs: defaultTabs => [],
   });
   const handleScreenCapture = (capture: string) => {
-    const blob = base64ToBlob(capture, "image/jpeg");
+    const blob = base64ToBlob(capture, "image/png");
     const formData = new FormData();
-    formData.append("file", blob, "uploaded_image.jpg");
+    formData.append("file", blob);
+    const url = URL.createObjectURL(blob);
 
-  
     mutate(formData);
     return null;
   };

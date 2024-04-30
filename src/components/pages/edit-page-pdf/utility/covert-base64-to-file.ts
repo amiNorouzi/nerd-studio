@@ -19,7 +19,3 @@ export function appendBlobToFormData(blob: any) {
   formData.append("file", blob);
   return formData;
 }
-// Example usage:
-const base64ImageString =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA..."; // Your base64 string here
-const imageName = "converted-image.png";

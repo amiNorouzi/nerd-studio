@@ -113,7 +113,7 @@ export function useConverPicToText() {
       console.log(pic);
       
        const response = await axiosClient.post<PDFConvertorResponse>(
-         "/uploads/convert_pdf_to_text/",
+         "/uploads/ocr_extract_text_from_image/",
          pic,
          {
            headers: {
