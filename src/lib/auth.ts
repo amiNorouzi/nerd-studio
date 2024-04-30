@@ -35,6 +35,8 @@ export const authConfig = {
           });
           const user = jwtDecode(data.access_token) as User;
 
+          console.log("data: ", data);
+
           if (user) {
             // Any object returned will be saved in `user` property of the JWT
             return {
@@ -43,6 +45,7 @@ export const authConfig = {
               email: user.email,
               accessToken: data.access_token,
               refreshToken: data.refresh_token,
+              workspace: data?.workspace || {}
             };
           } else {
             // If you return null then an error will be displayed advising the user to check their details.
@@ -85,6 +88,7 @@ export const authConfig = {
               email: user.email,
               accessToken: data.access_token,
               refreshToken: data.refresh_token,
+              workspace: data?.workspace || {}
             };
           } else {
             // If you return null then an error will be displayed advising the user to check their details.
@@ -108,6 +112,7 @@ export const authConfig = {
         if (account.type === "credentials") {
           token.accessToken = user.accessToken;
           token.refreshToken = user.refreshToken;
+          token.workspace = user.workspace;
         } else {
           //in oAuth login fetch tokens with api
           if (user) {

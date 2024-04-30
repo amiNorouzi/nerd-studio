@@ -238,3 +238,9 @@ export interface CaptureScreen {
   onClick: () => void; // Type of the onClick function
   setOnClick: (newOnClick: () => void) => void;
 }
+
+// ************************************************** WorkSpace Interface ******************************************
+export interface WorkSpaceState {
+  id: string,
+  name: string;
+}

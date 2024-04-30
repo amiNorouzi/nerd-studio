@@ -41,6 +41,7 @@ export function WritePage({ params }: SCRPropsType) {
         frequency_penalty: 0,
         presence_penalty: 0,
         top_p: 0,
+        document_name: "AI Writer",
       });
     }
   };
