@@ -161,10 +161,14 @@ export default function PdfView() {
       return (
         <>
           <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-            <Viewer
-              fileUrl={selectedFilePdfUrl}
-              plugins={[defaultLayoutPluginInstance, thumbnailPluginInstance]}
-            />
+            {selectedFilePdfUrl.length > 3 ? (
+              <Viewer
+                fileUrl={selectedFilePdfUrl}
+                plugins={[defaultLayoutPluginInstance, thumbnailPluginInstance]}
+              />
+            ) : (
+              ""
+            )}
           </Worker>
         </>
       );
