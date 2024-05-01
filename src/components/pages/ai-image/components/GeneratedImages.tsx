@@ -41,7 +41,7 @@ const sendActions = [
  * @param images
  * @constructor
  */
-function GeneratedImages({ images }: { images: string[] }) {
+function GeneratedImages({ images }: { images: string }) {
   const { currentTab } = useImageTabs();
   //for show main image of selected
   const [selectedImage, setSelectedImage] = useState(images[0]);
@@ -58,13 +58,14 @@ function GeneratedImages({ images }: { images: string[] }) {
       {/*main image and actions*/}
       <div className="group relative overflow-hidden rounded-lg xl:h-full">
         {/*main image*/}
-        <Image
-          src={selectedImage}
-          alt="generated"
-          width={300}
-          height={300}
-          className="mx-auto rounded-lg max-xl:max-h-[350px] xl:h-full xl:max-h-[25rem]"
-        />
+        {/*<Image*/}
+        {/*  src={images}*/}
+        {/*  alt="generated"*/}
+        {/*  width={300}*/}
+        {/*  height={300}*/}
+        {/*  className="mx-auto rounded-lg max-xl:max-h-[350px] xl:h-full xl:max-h-[25rem]"*/}
+        {/*/>*/}
+        <img src={images}  ></img>
         <div
           className="absolute inset-x-0 bottom-0 z-10 flex h-1/2 items-end justify-end gap-2 bg-gradient-to-t from-[#00000090] to-transparent
            p-2 opacity-100 transition-all duration-300 dark:from-gray-900 lg:opacity-0 lg:group-hover:opacity-100"

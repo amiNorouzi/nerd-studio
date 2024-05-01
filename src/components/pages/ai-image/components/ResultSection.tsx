@@ -18,7 +18,10 @@ import { cn, isEmpty } from "@/lib/utils";
 import type { HistoryItem } from "@/services/types";
 import { HistoryBox, HistoryItems, Show } from "@/components/shared";
 import { iconVariants } from "@/constants/variants";
-import { useAiImageStore } from "@/stores/zustand/ai-image-store";
+import {
+  useAiImageStore,
+  useImageUrlStore,
+} from "@/stores/zustand/ai-image-store";
 import { ImageModelType } from "@/stores/zustand/types";
 
 //list of history
@@ -60,10 +63,8 @@ export function ResultSection() {
   const [isOpenMobileImageHistory, setIsOpenMobileImageHistory] =
     useState(false);
   const { currentTab, tabs } = useImageTabs();
-  const images =
-    useAiImageStore.use.generatedImages()[
-      currentTab.replaceAll("-", "_") as ImageModelType
-    ];
+  const imageUrl = useImageUrlStore.use.imageUrl();
+  console.log("isEmpty(imageUrl):", isEmpty(imageUrl));
 
   return (
     <section className="col-span-12 flex h-full gap-2.5 overflow-hidden bg-white   lg:col-span-8  ">
@@ -71,9 +72,9 @@ export function ResultSection() {
         {/*
           if there is no generated images or history, show the empty result
         */}
-        {isEmpty(images) && isEmpty(histories) ? (
+        {/* {true ? (
           <EmptyResult />
-        ) : (
+        ) : ( */}
           <>
             <div className="col h-full w-full">
               <div className="row gap-2.5 border-b px-4 py-2.5">
@@ -108,7 +109,7 @@ export function ResultSection() {
                   </Show.When>
 
                   <Show.Else>
-                    <GeneratedImages images={images} />
+                    <GeneratedImages images={imageUrl} />
                   </Show.Else>
                 </Show>
               </div>
@@ -120,7 +121,7 @@ export function ResultSection() {
             {/*  setIsOpenMobileImageHistory={setIsOpenMobileImageHistory}*/}
             {/*/>*/}
           </>
-        )}
+        {/* )} */}
       </div>
       <HistoryBox>
         <ImageHistory

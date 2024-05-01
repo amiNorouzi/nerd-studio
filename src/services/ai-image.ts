@@ -112,9 +112,9 @@ export function useGeneratePic() {
         const response = await axiosClient.post<any>(
           "/images/open_ai_generate_text_to_image/",
           {
-            model: "dall-e-2",
+            model: model,
             n: 1,
-            prompt: "a white siamese cat",
+            prompt: prompt,
             quality: "standard",
             response_format: "url",
             size: "1024x1024",
@@ -134,4 +134,3 @@ export function useGeneratePic() {
     },
   });
 }
-
