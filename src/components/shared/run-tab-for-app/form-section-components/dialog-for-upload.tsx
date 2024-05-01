@@ -19,6 +19,7 @@ import { useGetDictionary } from "@/hooks";
 import type { StateSetterType } from "@/services/types";
 
 interface IProps {
+  typeUpload?: string;
   open: boolean;
   setOpen: (open: boolean) => void;
   handleSave: (v: string) => void;
@@ -52,10 +53,11 @@ export function DialogForUpload({
   setExtractedText,
   handleDeleteFilesFromParent,
   uploadStatus,
+  typeUpload = "pdf",
 }: IProps) {
   const [tab, setTab] = useState("document");
   const [pendingButton, setPendingButton] = useState(false);
-
+  
   useEffect(() => {
     if (uploadStatus.length === 0) setPendingButton(false);
     if (
@@ -141,6 +143,7 @@ export function DialogForUpload({
                   documentFiles={documentFiles}
                   setDocumentFiles={handlePdfFile}
                   className="mb-0 h-[173px]  border-none lg:mb-0 xl:mb-0"
+                  typeUpload={typeUpload}
                 />
               </div>
             </TabsContent>
