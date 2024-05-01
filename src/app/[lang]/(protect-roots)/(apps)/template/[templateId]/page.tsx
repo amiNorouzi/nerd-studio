@@ -1,7 +1,7 @@
+"use client";
 import { SCRPropsType } from "@/services/types";
-import { DynamicTemplatePage } from "@/components/pages/template/components";
 import dynamic from "next/dynamic";
-import DynamicTemplateLoading from "@/app/[lang]/(protect-roots)/(apps)/template/[templateId]/loading";
+import DynamicTemplateLoading from "./loading";
 
 const DynamicTemplatePage = dynamic(
   () => import("@/components/pages/template/components/dynamic-template-page"),

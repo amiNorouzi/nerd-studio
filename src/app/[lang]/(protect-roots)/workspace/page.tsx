@@ -1,3 +1,4 @@
+"use client";
 import type { LangParams } from "@/services/types";
 import WorkspaceLoading from "@/app/[lang]/(protect-roots)/workspace/loading";
 import dynamic from "next/dynamic";

@@ -1,10 +1,11 @@
-import { useEffect, RefObject } from "react";
+"use client";
+import { RefObject, useEffect } from "react";
 
 /**
  * This is a custom hook for handle outside click
  *
  * */
-function useOutsideClick<T extends HTMLElement>(
+export default function useOutsideClick<T extends HTMLElement>(
   ref: RefObject<T | undefined>,
   isMobile: boolean = false,
   callback: (val: boolean) => void,
@@ -24,4 +25,3 @@ function useOutsideClick<T extends HTMLElement>(
     };
   }, [ref, callback, isMobile]);
 }
-export default useOutsideClick;

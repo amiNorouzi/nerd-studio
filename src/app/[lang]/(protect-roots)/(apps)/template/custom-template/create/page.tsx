@@ -1,3 +1,4 @@
+"use client";
 import type { LangParams } from "@/services/types";
 import CustomTemplateLoading from "@/app/[lang]/(protect-roots)/(apps)/template/custom-template/create/loading";
 import dynamic from "next/dynamic";

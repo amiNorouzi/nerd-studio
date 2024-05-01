@@ -1,3 +1,4 @@
+"use client";
 import type { ParamsType } from "@/services/types";
 import TranslateLoading from "@/app/[lang]/(protect-roots)/(apps)/translate/loading";
 import dynamic from "next/dynamic";

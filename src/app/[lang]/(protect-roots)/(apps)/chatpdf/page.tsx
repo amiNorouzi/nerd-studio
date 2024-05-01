@@ -1,3 +1,4 @@
+"use client";
 import type { LangParams } from "@/services/types";
 import ChatPdfLoading from "@/app/[lang]/(protect-roots)/(apps)/chatpdf/loading";
 import dynamic from "next/dynamic";
