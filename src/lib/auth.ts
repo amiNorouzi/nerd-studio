@@ -35,7 +35,7 @@ export const authConfig = {
           });
           const user = jwtDecode(data.access_token) as User;
 
-          console.log("data: ", data);
+          // console.log("data: ", data);
 
           if (user) {
             // Any object returned will be saved in `user` property of the JWT
@@ -106,7 +106,13 @@ export const authConfig = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account, trigger, session }) {
+
+      // update session
+      if(trigger === "update" && session.user.workspace) {
+        token.workspace = session.user.workspace;
+      }
+
       if (user && account) {
         //get tokens from passed user in credentials login
         if (account.type === "credentials") {
@@ -135,12 +141,13 @@ export const authConfig = {
       return token;
     },
 
-    async session({ session, token }) {
+    async session({ session, token}) {
       const { picture, ...rest } = token;
       session.user = {
         ...(rest as any),
         image: picture,
       };
+
       return session;
     },
   },
