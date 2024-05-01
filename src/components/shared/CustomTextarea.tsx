@@ -1,5 +1,5 @@
 "use client";
-import { TextareaHTMLAttributes, useEffect, useState } from "react";
+import { TextareaHTMLAttributes, useState } from "react";
 
 import { LuCopy, LuCopyCheck } from "react-icons/lu";
 import { TbMicrophone, TbTrash, TbVolume } from "react-icons/tb";
@@ -17,9 +17,7 @@ import { cn } from "@/lib/utils";
 import { Upload } from "@/components/shared/run-tab-for-app/form-section-components";
 import RenderIf from "@/components/shared/RenderIf";
 import { usePathname } from "next/navigation";
-import { useCovertPdfToText } from "@/services/covert-pdf-to-text";
-import useSuccessToast from "@/hooks/useSuccessToast";
-import useErrorToast from "@/hooks/useErrorToast";
+import { useUploadData } from "@/components/shared/run-tab-for-app/upload-section";
 
 export interface ICustomTextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -60,9 +58,6 @@ export function CustomTextarea({
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
   const [files, setFiles] = useState<File[]>([]);
   const [url, setUrl] = useState<string>("");
-  //returned text from pdfConvertor
-  const [extractedText, setExtractedText] = useState("");
-  const [uploadStatus, setUploadStatus] = useState<boolean[]>([]);
 
   const { handleToggleRecording, isRecording } = useSpeechToText({
     transcript: value as string,
@@ -78,45 +73,16 @@ export function CustomTextarea({
   const pathname = usePathname();
 
   const {
-    mutateAsync: covertPDF,
-    data,
+    setExtractedText,
+    extractedText,
+    startConverting,
+    uploadStatus,
+    setUploadStatus,
     uploadProgress,
-
-    setIndex: setUploadIndex,
-    index: uploadIndex,
-  } = useCovertPdfToText();
-
-  //
-  const { showSuccess } = useSuccessToast();
-  const { showError } = useErrorToast();
-  //set states of the upload hook
-  useEffect(() => {
-    if (uploadIndex === files.length) {
-      setUploadIndex(null);
-      setUploadStatus([]);
-    }
-  }, [files, uploadIndex, setUploadIndex]);
-  const covertToText = async (files: File[]) => {
-    let index = 0;
-    for (const file of files) {
-      const text = await covertPDF(file);
-      if (text) {
-        setExtractedText(prev => prev + text);
-        setUploadStatus(prev => [...prev, true]);
-        showSuccess(` file ${file.name} uploaded`);
-      } else {
-        showError(` file ${file.name} failed upload`);
-        setUploadStatus(prev => [...prev, false]);
-      }
-      index++;
-    }
-  };
+    uploadIndex,
+  } = useUploadData({ files: files });
   const onSelectFiles = (files: File[]) => {
     setFiles(files);
-  };
-
-  const startConverting = (files: File[]) => {
-    covertToText(files);
   };
   return (
     <div className={cn("col relative w-full", rootClassName)}>

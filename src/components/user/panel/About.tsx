@@ -17,7 +17,7 @@ export default function About() {
         />
         <div className="col gap-1">
           <p className="text-xl font-bold">Nerd Studio</p>
-          <p className="text-muted-foreground">Version 0.1.1</p>
+          <p className="text-muted-foreground">Version 0.1.3-2024-4-30</p>
         </div>
       </div>
     </div>

@@ -1,3 +1,7 @@
+/**
+ * ! Warning
+ * @deprecated don't use this type directly. All types must be in the types directory'
+ */
 import { TemplateItem } from "@/services/types";
 import { Theme } from "@/stores/browser-storage/types";
 
@@ -258,3 +262,9 @@ export interface conversation {
 //       name: "kasra",
 //       role: "user",
 //     },
+
+// ************************************************** WorkSpace Interface ******************************************
+export interface WorkSpaceState {
+  id: string,
+  name: string;
+}

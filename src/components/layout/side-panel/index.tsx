@@ -19,6 +19,7 @@ import useOutsideClick from "@/hooks/useOutSideClick";
 import { cn, getHslColorByVar } from "@/lib/utils";
 import { apps } from "@/constants/side-panel";
 import { dirInLocalStorage } from "@/stores/browser-storage";
+import { useHistoryStore } from "@/stores/zustand/history-store";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
@@ -55,6 +56,8 @@ export function SidePanel() {
   //Handel outsideClick in mobile
   const sidebarRef = useRef<HTMLHtmlElement>(null);
   useOutsideClick(sidebarRef, isMobile, setIsSidePanelOpen);
+  const setGrammarHistoryIsOpen = useHistoryStore.use.setGrammarHistoryIsOpen();
+  const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
 
   const isOpen = !collapsed || isHoverOnSidePanel;
 
@@ -140,6 +143,16 @@ export function SidePanel() {
               icon: {
                 margin: "0 auto",
               },
+            }}
+            onClick={() => {
+              setGrammarHistoryIsOpen(false);
+              setSelectHistoryItem({
+                answer_text: "",
+                id: 0,
+                app_type: "grammar",
+                uuid: "12121212",
+                created_at: "12121212",
+              });
             }}
           >
             {apps.map(app => (

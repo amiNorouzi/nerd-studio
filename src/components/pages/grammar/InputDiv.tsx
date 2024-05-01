@@ -213,7 +213,7 @@ function GrammarInputDiv({
           </div>
         </div>
       )}
-      <div className="relative h-[103px]  w-full cursor-text overflow-hidden">
+      <div className="relative h-[103px]  w-full cursor-pointer overflow-hidden">
         {/* input field */}
 
         <EditableDiv
@@ -225,7 +225,7 @@ function GrammarInputDiv({
         {isRecording ? (
           <button
             onClick={handleToggleRecording}
-            className=" absolute start-1.5 top-4 flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
+            className=" absolute start-2.5 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-400 hover:bg-red-500 focus:outline-none"
           >
             <svg
               className="h-12 w-12 "
@@ -239,13 +239,13 @@ function GrammarInputDiv({
           <MinimalButton
             Icon={TbMicrophone}
             title={dictionary.voice_button_label}
-            className="absolute start-1.5 top-4"
+            className="absolute start-2.5 top-1"
             onClick={handleToggleRecording}
           />
         )}
         {divRef.current && divRef.current.innerText.length === 0 && (
           <>
-            <p className="pointer-events-none absolute left-[30px] top-2 text-gray-500">
+            <p className="pointer-events-none absolute left-[32px] top-0  text-gray-500">
               enter your text that you wish to correct
             </p>
           </>

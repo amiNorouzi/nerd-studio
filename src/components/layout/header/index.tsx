@@ -19,6 +19,7 @@ export function Header({ className, ...otherProps }: IProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const appPage = searchParams.get("app") ?? "";
+
   const {
     components: {
       apps_header: { back_to_library_button_label },

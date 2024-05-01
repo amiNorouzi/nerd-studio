@@ -54,3 +54,37 @@ export function useCovertPdfToText() {
     ...rest,
   };
 }
+
+export function useUploadUrl() {
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const { mutate, data, ...rest } = useMutation({
+    async mutationFn(url: string) {
+      try {
+        const response = await axiosClient.post<PDFConvertorResponse>(
+          "/uploads/import_pdf_from_url/",
+          { url },
+          {
+            onUploadProgress: progressEvent => {
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total!,
+              );
+              setUploadProgress(percentCompleted);
+            },
+          },
+        );
+
+        return response.data.text;
+      } catch (err) {
+        console.log("error happened in the upload url", err);
+      }
+    },
+  });
+
+  return {
+    mutate,
+    data,
+    uploadProgress,
+
+    ...rest,
+  };
+}

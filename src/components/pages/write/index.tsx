@@ -41,6 +41,7 @@ export function WritePage({ params }: SCRPropsType) {
         frequency_penalty: 0,
         presence_penalty: 0,
         top_p: 0,
+        document_name: "AI Writer",
       });
     }
   };
@@ -59,7 +60,7 @@ export function WritePage({ params }: SCRPropsType) {
         />
         <Run.Editor value={generatedText} onChange={() => {}}>
           <HistoryBox>
-            <HistoryItems appName="ReWrite" />
+            <HistoryItems appName="ai_writer" />
           </HistoryBox>
 
           <Highlight>

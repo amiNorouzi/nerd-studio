@@ -17,8 +17,7 @@ export function HistorySheet() {
   const setHighlightIsOpen = useHighlightStore.use.setHighlightIsOpen();
   const isHighlightOpen = useHighlightStore.use.isHighlightOpen();
 
-  if (pathname.includes("image") || pathname === `/${lang}/template`)
-    return null;
+  if (pathname === `/${lang}/template`) return null;
 
   const toggleDrawer = () => {
     isHighlightOpen && setHighlightIsOpen(false);

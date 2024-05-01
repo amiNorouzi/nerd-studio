@@ -10,7 +10,6 @@ import { useEventChanel } from "@/services/events-chanel";
 import { useGenerateGrammar } from "@/services/grammar";
 import React, { useState } from "react";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
-import { useHistories } from "@/services/history";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 
 interface IProps {
@@ -43,6 +42,7 @@ export function GrammarPage({ params }: IProps) {
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
+        document_name: "grammar",
       });
     }
   };

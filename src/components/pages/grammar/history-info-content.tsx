@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { MinimalButton } from "@/components/shared";
 import { HiOutlineSpeakerWave } from "react-icons/hi2";
@@ -31,15 +31,17 @@ function DivWrapper({ children, className, ...otherProps }: DivWrapperProps) {
 }
 export function HistoryInfoContent({
   onTextAreaChange,
+  appName,
 }: {
   onTextAreaChange: (value: string) => void;
+  appName?: string;
 }) {
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const [handleCopy, isCopied] = useCopyTextInClipBoard(); // for copy value
   const { handlePlaySpeak, handleStopSpeak, isSpeaking } = useTextToSpeech(
     selectedHistoryItem?.answer_text ?? "",
   );
-
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const {
     common: { copy },
     components: { custom_textarea: dictionary },
@@ -109,19 +111,32 @@ export function HistoryInfoContent({
       {/*show url or file*/}
 
       {/*show tags*/}
-      <div className="grid items-start gap-label-space">
-        <span className={cn("text-sm font-medium")}>{translate.tags}</span>
-        <div className="flex flex-wrap gap-1">
-          {tags.map(tag => (
-            <span
-              className="rounded-md bg-muted p-3 text-muted-foreground"
-              key={tag}
-            >
-              {tag}
-            </span>
-          ))}
+      {appName !== "grammar" && (
+        <div className="grid items-start gap-label-space">
+          <span className={cn("text-sm font-medium")}>{translate.tags}</span>
+          <div className="flex flex-wrap gap-1">
+            {tags.map(tag => (
+              <span
+                className={cn(
+                  "cursor-pointer rounded-md bg-muted p-3 text-muted-foreground",
+                  selectedTags.includes(tag) && "bg-primary text-muted-dark",
+                )}
+                key={tag}
+                onClick={() => {
+                  if (selectedTags.includes(tag)) {
+                    const filtered = selectedTags.filter(item => item !== tag);
+                    setSelectedTags(filtered);
+                  } else {
+                    setSelectedTags(prev => [...prev, tag]);
+                  }
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
