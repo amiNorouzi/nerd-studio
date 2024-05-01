@@ -6,25 +6,52 @@ import { AssistMessageCard } from "@/components/pages/chat/componets/AssistMessa
 /**
  * List of chat messages used in chat page
  * contains user and chatbot messages
- * TODO: replace with real data from api and map through it
+ * give list of conversition of user and bot 
  * @constructor
  */
-
-export function ChatList() {
+interface Props {
+  messages: {
+    image: string;
+    name: string;
+    prompt: string[];
+    timeLine: string;
+    id: string;
+    role: string;
+  }[];
+}
+export function ChatList({ messages }: Props) {
   const { data: session } = useSession();
+  console.log("test ChatList");
+  
   return (
     <div className="col w-full max-w-[760px] flex-grow gap-6 pb-6 ">
-      {data.map(item => {
-        const image = session?.user?.image;
-        const name = session?.user?.name ?? item[0].name;
-        return (
-          <div
-            key={item[0].id + item[1].id}
-            className="mx-auto grid max-w-3xl grid-cols-1 gap-6"
-          >
-            <UserMessageCard {...item[0]} image={image || ""} name={name} />
+      {messages.map(item => {
+        // TODO: set the defult pic for the user
+        const image = session?.user?.image ?? "";
+        const name = session?.user?.name ?? "";
 
-            <AssistMessageCard {...item[1]} />
+        return (
+          <div key={""} className="mx-auto grid max-w-3xl grid-cols-1 gap-6">
+            {item.role === "user" && (
+              <UserMessageCard
+                timeLine={""}
+                prompt={item.prompt}
+                image={"/images/gemni.jpeg"}
+                name={name}
+                id={"1"}
+                role="user"
+              />
+            )}
+            {item.role === "assistance" && (
+              <AssistMessageCard
+                timeLine={""}
+                prompt={item.prompt}
+                image={image}
+                name={name}
+                id={"1"}
+                role="user"
+              />
+            )}
           </div>
         );
       })}
@@ -32,6 +59,7 @@ export function ChatList() {
   );
 }
 
+// its dumy text
 const contantPropmt =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n";
 const constantPrompt2 =

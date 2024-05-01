@@ -1,8 +1,9 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import { TooltipForUploadedFile } from "@/components/shared";
+import { useStateCapturePicStore } from "@/stores/zustand/chat-pdf-file";
 
 interface IProps {
-  files: File[];
+  files: any[];
   handleDeleteFile: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     fileIndex: number,
@@ -27,10 +28,10 @@ export function ShowUploadedFiles({
       {files.length > 0 && (
         <div className="max-w-1/2 flex flex-wrap gap-1 lg:p-2">
           {files.map((file, index) => (
-            <TooltipForUploadedFile
-              file={file}
-              handleDeleteFiles={handleDeleteFile}
-              index={index}
+            <img
+              className="h-10 w-10 rounded-xl"
+              src={file}
+              onClick={() => console.log()}
               key={index}
             />
           ))}

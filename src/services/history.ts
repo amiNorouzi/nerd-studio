@@ -30,7 +30,6 @@ export function useHistoryVersion() {
       const { data } = await axiosClient.get<HistoryVersion>(
         "/histories/" + uuid,
       );
-
       return data;
     },
   });
@@ -45,7 +44,7 @@ export function useHistoryUpdate() {
   return useMutation({
     mutationFn: async ({ answerUuid, answer_text }: HistoryVUpdateParams) => {
       const { data } = await axiosClient.put<Version>(
-        "/histories/update" + answerUuid,
+        "/histories/update/" + answerUuid,
         {
           answer_text,
         },

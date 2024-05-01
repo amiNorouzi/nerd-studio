@@ -188,7 +188,7 @@ export function HistoryItems({ appName }: IProps) {
         <div
           key={item.id}
           className={cn(
-            "flex w-full cursor-pointer flex-col gap-3 rounded-lg border bg-white p-2 transition-all hover:bg-muted-dark",
+            "flex min-h-[73px] w-full cursor-pointer flex-col gap-3 rounded-lg border  bg-white p-2 transition-all hover:bg-muted-dark",
             isItemSelected(item.id) &&
               " bg-primary-light hover:bg-primary-light",
           )}
@@ -198,15 +198,34 @@ export function HistoryItems({ appName }: IProps) {
           }}
         >
           {/*title and delete and bookmark button*/}
-          <div className="flex w-full items-center justify-between">
-            <span
-              className={cn(
-                " w-[115px] truncate font-[400]",
-                isItemSelected(item.id) && " text-primary",
-              )}
-            >
-              {item.answer_text}
-            </span>
+
+          <div className="mt-1 flex w-full items-start  justify-between  px-2">
+            {appName !== "translate" && (
+              <span
+                className={cn(
+                  " w-[115px] truncate font-[400]",
+                  isItemSelected(item.id) && " text-primary",
+                )}
+              >
+                {item.answer_text}
+              </span>
+            )}{" "}
+            {appName === "translate" && (
+              <div className=" flex flex-col gap-2.5 ">
+                <span
+                  className={cn(
+                    " w-[115px] truncate text-[12px] font-[400]",
+                    isItemSelected(item.id) && " text-primary",
+                  )}
+                >
+                  English to Persian
+                </span>
+                <div>
+                  {" "}
+                  <span className=" text-[#B9BAC0]"> text & upload doc</span>
+                </div>
+              </div>
+            )}
             {/*delete and bookmark buttons*/}
             <div className="flex items-center gap-1">
               <Button
@@ -283,13 +302,45 @@ export function HistoryItems({ appName }: IProps) {
             <span>Text & Upload doc</span>
           </div> */}
           {/*description*/}
-          <div className="line-clamp-2 flex flex-row items-center justify-between">
-            <div className="flex flex-row items-center">
-              <p className="mx-1 text-[#B9BAC0]"> Spell </p>
-              <HiArrowLongRight className="text-[#B9BAC0]" />{" "}
-              <p className="mx-1 "> Your </p>
-            </div>
-            <div>
+          <div className="mt-1 line-clamp-2 flex flex-row items-center  justify-between  px-2">
+            {appName === "grammar" && (
+              <div className="flex flex-row items-center">
+                <p className="mx-1 text-[#B9BAC0]"> Spell </p>
+                <HiArrowLongRight className="text-[#B9BAC0]" />{" "}
+                <p className="mx-1 "> Your </p>
+              </div>
+            )}
+            {appName === "translate" && (
+              <span
+                className={cn(
+                  " mb-1 w-[115px] truncate font-[400]",
+                  isItemSelected(item.id) && " text-primary",
+                )}
+              >
+                {item.answer_text}
+              </span>
+            )}{" "}
+            {appName === "ai_writer" && (
+              <span
+                className={cn(
+                  " w-[115px] truncate font-[400] text-[#B9BAC0]",
+                  isItemSelected(item.id) && " text-primary",
+                )}
+              >
+                English
+              </span>
+            )}{" "}
+            {appName === "code" && (
+              <span
+                className={cn(
+                  " w-[115px] truncate font-[400] text-[#B9BAC0]",
+                  isItemSelected(item.id) && " text-primary",
+                )}
+              >
+                Convert and explanation
+              </span>
+            )}
+            <div className={`${appName === "translate" && "mb-1 "}`}>
               {" "}
               <span className="text-[#B9BAC0]">
                 {" "}

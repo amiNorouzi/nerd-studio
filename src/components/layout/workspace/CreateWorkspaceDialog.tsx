@@ -15,12 +15,45 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useGetDictionary } from "@/hooks";
+import { useCreateNewWorkSpace } from "@/components/pages/workspace/hooks/useCreateNewWorkspace";
+import useErrorToast from "@/hooks/useErrorToast";
+import { useSession } from "next-auth/react";
 
-//create new workspace dialog open by click on workspaces combo box
+//create new workspace dialog open by click on workspaces combobox
 
 export function CreateWorkspaceDialog() {
+  const { update, data:session } = useSession();
   const [workspaceName, setWorkspaceName] = useState("");
+  const {showError} = useErrorToast();
   const workspaceDictionary = useGetDictionary().components.workspace;
+  const {mutate:createWorkspaceMutation, isError, error, data:workspace, isSuccess, isPending } = useCreateNewWorkSpace();
+
+  const createNewFromHandler = () => {
+    createWorkspaceMutation({ name: workspaceName });
+  }
+
+  console.log(session);
+  console.log(isSuccess);
+  console.log(workspace);
+
+  if(isError) {
+    console.error(error);
+    showError(error.message)
+  };
+
+  if(isSuccess) {
+    // update session with created new workspace
+    console.log(
+      {
+        ...session,
+        workspace: workspace
+      }
+    );
+    update({
+      ...session,
+      workspace: workspace
+    });
+  };
 
   return (
     <Dialog>
@@ -46,8 +79,8 @@ export function CreateWorkspaceDialog() {
           className="my-2"
         />
         <DialogFooter>
-          <Button type="submit">
-            {workspaceDictionary.workspace_create_dialog_button_label}
+          <Button type="submit" onClick={createNewFromHandler}>
+            {isPending ? "creating..." : workspaceDictionary.workspace_create_dialog_button_label}
           </Button>
         </DialogFooter>
       </DialogContent>
