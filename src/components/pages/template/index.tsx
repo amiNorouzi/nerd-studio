@@ -104,6 +104,7 @@ export function TemplatePage() {
                     <AdvancedButton />
                   </div>
                   {/*<AdvancedPrompt />*/}
+
                   <Content
                     templates={templates}
                     searchText={searchText}
