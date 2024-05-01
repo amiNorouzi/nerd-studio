@@ -37,6 +37,7 @@ const PdfUploadSection = () => {
   const selectedFilePdf = useSelectedFilePdfStore.use.selectedFilePdf();
   const uploadStatus = [true, true];
   const {
+    
     mutateAsync: uploadPdf,
     data,
     uploadProgress,
@@ -85,7 +86,7 @@ const PdfUploadSection = () => {
         setExtractedText={() => console.log()}
         startConverting={setUrlPdf}
         uploadIndex={1}
-        uploadProgress={uploadIndex === null ? 0 : uploadProgress}
+        uploadProgress={100}
         uploadStatus={[...uploadStatus]}
       />
     </div>
