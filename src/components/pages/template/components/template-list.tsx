@@ -58,23 +58,17 @@ export function TemplateList({
   // const selectedTabInitialData =
   //   templates.find(item => item.category_name === selectedTab)?.templates || [];
   const [selectedTabData, setSelectedTabData] = useState<TemplateItem[]>([]);
-  console.log("selectedTabData", selectedTabData);
-  console.log("templates", templates);
+
   useEffect(() => {
-    // if (!isAllTab) {
-    //   setSelectedTabData(
-    //     [...selectedTabInitialData].filter(
-    //       t =>
-    //         t.task.toLowerCase().includes(searchText) ||
-    //         t.topic.toLowerCase().includes(searchText),
-    //     ),
-    //   );
-    // }
     if (!isAllTab) {
-      const filteredPrompts = templates.filter(
-        template => template.category_name === selectedTab,
-      );
-      setSelectedTabData(filteredPrompts[0].templates);
+      const filteredPrompts = templates
+        .filter(template => template.category_name === selectedTab)[0]
+        .templates.filter(
+          item =>
+            item.task.toLowerCase().includes(searchText) ||
+            item.topic.toLowerCase().includes(searchText),
+        );
+      setSelectedTabData(filteredPrompts);
     }
   }, [searchText, selectedTab]);
 

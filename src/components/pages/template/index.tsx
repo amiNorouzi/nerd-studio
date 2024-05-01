@@ -39,7 +39,8 @@ export function TemplatePage() {
   const isDefaultContent = templateTab === tabsType.default;
   const [searchText, setSearchText] = useState("");
   const { templates, isLoading } = useTemplate();
-
+  const [showAdvance, setShowAdvance] = useState(false);
+  console.log("tab", tab);
   // const queryClient = useQueryClient();
   // const { axiosFetch } = useAxiosFetcher();
   //
@@ -69,7 +70,7 @@ export function TemplatePage() {
           className="col max-h-page h-[var(--main-height)]  w-full overflow-y-auto bg-background"
         >
           {/*this section used for search in list*/}
-          <RenderIf isTrue={isDefaultContent}>
+          <RenderIf isTrue={tab === "All Prompts"}>
             <BannerWithSearch
               name={"template-search"}
               onChangeText={setSearchText}
@@ -101,15 +102,18 @@ export function TemplatePage() {
                     />
 
                     {/* advance and my prompt button that change the content by set template-content in query param in url*/}
-                    <AdvancedButton />
+                    <div onClick={() => setShowAdvance(prev => !prev)}>
+                      <AdvancedButton selected={showAdvance} />
+                    </div>
                   </div>
-                  {/*<AdvancedPrompt />*/}
-
-                  <Content
-                    templates={templates}
-                    searchText={searchText}
-                    selectedTab={tab}
-                  />
+                  {showAdvance && <AdvancedPrompt />}
+                  {!showAdvance && (
+                    <Content
+                      templates={templates}
+                      searchText={searchText}
+                      selectedTab={tab}
+                    />
+                  )}
                 </>
               </Show.Else>
             </Show>
