@@ -5,6 +5,7 @@ import SignupQuestions from "@/components/shared/SignupQuestions";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import HomeLoading from "@/app/[lang]/loading";
 
 export default async function RootLayout({
   children,
@@ -22,7 +23,7 @@ export default async function RootLayout({
     <div className="flex h-dvh w-dvw ">
       <SidePanel />
       <div id="main" className="main-padding flex h-full w-full flex-col ">
-        <Suspense>
+        <Suspense fallback={<HomeLoading />}>
           <main className="h-full w-full">{children}</main>
           <SignupQuestions />
         </Suspense>

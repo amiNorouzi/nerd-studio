@@ -126,7 +126,7 @@ export function UserMenu() {
             icon={ShareIcon}
           />
           <UserMenuItem
-            onClick={() => signOut()}
+            onClick={() => signOut({ callbackUrl: "/login" })}
             title={userMenuDictionary.logout_label}
             icon={TbLogout2}
           />

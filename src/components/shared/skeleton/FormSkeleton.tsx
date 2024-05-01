@@ -1,7 +1,7 @@
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-function FormSkeleton() {
+export default function FormSkeleton() {
   return (
     <>
       <div className="col gap-label-space">
@@ -24,5 +24,3 @@ function FormSkeleton() {
     </>
   );
 }
-
-export default FormSkeleton;
