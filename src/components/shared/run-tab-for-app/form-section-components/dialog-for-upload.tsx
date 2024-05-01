@@ -76,7 +76,6 @@ export function DialogForUpload({
     setDocumentFiles(v => [...v, ...file]);
   }
 
-  console.log("pendingButton", pendingButton);
   function handleDeleteFile(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     fileIndex: number,
