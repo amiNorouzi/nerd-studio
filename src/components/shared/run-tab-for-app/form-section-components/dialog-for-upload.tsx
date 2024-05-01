@@ -36,6 +36,7 @@ interface IProps {
   startConverting(files: File[], url: string): void;
   setExtractedText: (text: string) => void;
   uploadStatus: boolean[];
+  setUploadStatus: (item: []) => void;
 }
 export function DialogForUpload({
   open,
@@ -52,18 +53,20 @@ export function DialogForUpload({
   setExtractedText,
   handleDeleteFilesFromParent,
   uploadStatus,
+  setUploadStatus,
 }: IProps) {
   const [tab, setTab] = useState("document");
   const [pendingButton, setPendingButton] = useState(false);
 
   useEffect(() => {
-    if (uploadStatus.length === 0) setPendingButton(false);
     if (
       url
         ? uploadStatus.length === files.length + 1
         : uploadStatus.length === files.length
-    )
+    ) {
       setOpen(false);
+      setPendingButton(false);
+    }
   }, [uploadStatus]);
   const {
     common,
@@ -73,6 +76,7 @@ export function DialogForUpload({
     setDocumentFiles(v => [...v, ...file]);
   }
 
+  console.log("pendingButton", pendingButton);
   function handleDeleteFile(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     fileIndex: number,
@@ -176,7 +180,7 @@ export function DialogForUpload({
                   handleSave(tab);
                   if (documentFiles.length > 0 || url) {
                     setPendingButton(true);
-                    console.log("url is ", url);
+                    setUploadStatus([]);
                     startConverting(documentFiles, url);
                     setExtractedText("");
                   } else {

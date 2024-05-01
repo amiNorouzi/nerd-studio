@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 import { ALL_PROMPT_TITLE, TEMPLATE_TAB_PARAMS_KEY } from "../constants";
 
-import { TemplateCategoryItem } from "@/services/types";
+import { TemplateCategoryItem, TemplateItem } from "@/services/types";
 import { Show } from "@/components/shared";
 import { useEffect, useState } from "react";
 
@@ -55,21 +55,20 @@ export function TemplateList({
     t.category_name.toLowerCase().includes(searchText),
   );
 
-  const selectedTabInitialData =
-    templates.find(item => item.category_name === selectedTab)?.templates || [];
-  const [selectedTabData, setSelectedTabData] = useState(
-    selectedTabInitialData,
-  );
+  // const selectedTabInitialData =
+  //   templates.find(item => item.category_name === selectedTab)?.templates || [];
+  const [selectedTabData, setSelectedTabData] = useState<TemplateItem[]>([]);
 
   useEffect(() => {
     if (!isAllTab) {
-      setSelectedTabData(
-        [...selectedTabInitialData].filter(
-          t =>
-            t.task.toLowerCase().includes(searchText) ||
-            t.topic.toLowerCase().includes(searchText),
-        ),
-      );
+      const filteredPrompts = templates
+        .filter(template => template.category_name === selectedTab)[0]
+        .templates.filter(
+          item =>
+            item.task.toLowerCase().includes(searchText) ||
+            item.topic.toLowerCase().includes(searchText),
+        );
+      setSelectedTabData(filteredPrompts);
     }
   }, [searchText, selectedTab]);
 
@@ -83,16 +82,19 @@ export function TemplateList({
       <Show>
         <Show.When isTrue={isAllTab}>
           <>
-            {allTabData.map(item => (
-              <TemplateByCategoryItem {...item} key={item.category_name} />
+            {allTabData.map((item, index) => (
+              <TemplateByCategoryItem
+                {...item}
+                key={item.category_name + index}
+              />
             ))}
           </>
         </Show.When>
         <Show.Else>
           <>
-            {selectedTabData?.map(item => (
+            {selectedTabData?.map((item, index) => (
               <TemplateCard
-                key={item.id}
+                key={index}
                 category={selectedTab}
                 template={item}
               />

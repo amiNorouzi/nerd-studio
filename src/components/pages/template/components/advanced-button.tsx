@@ -6,8 +6,9 @@ import {
   tabsType,
   TEMPLATE_TAB_PARAMS_KEY,
 } from "@/components/pages/template/constants";
+import { cn } from "@/lib/utils";
 
-export function AdvancedButton() {
+export function AdvancedButton({ selected }: { selected: boolean }) {
   const [, setSearchParams] = useCustomSearchParams();
   const {
     page: {
@@ -15,11 +16,16 @@ export function AdvancedButton() {
     },
   } = useGetDictionary();
 
-  function handleClick() {
-    setSearchParams(TEMPLATE_TAB_PARAMS_KEY, tabsType.advance);
-  }
+  // function handleClick() {
+  //   setSearchParams(TEMPLATE_TAB_PARAMS_KEY, tabsType.advance);
+  // }
   return (
-    <Button className="h-[40px] rounded-lg px-4 py-2" onClick={handleClick}>
+    <Button
+      className={cn(
+        "h-[50px] w-[102px] rounded-lg  px-4 py-2",
+        selected && "bg-primary-dark hover:bg-primary",
+      )}
+    >
       {advance}
     </Button>
   );
