@@ -4,7 +4,7 @@ import {
   usePdfFileStore,
   useSelectedFilePdfStore,
 } from "@/stores/zustand/chat-pdf-file";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUploadPdf } from "@/services/upload-pdf";
@@ -23,9 +23,10 @@ const PdfUploadSection = () => {
       reader.readAsArrayBuffer(file);
     });
   };
-
-  // Only accept PDF files
+  const route = useRouter()
   const uploaderPdf = async () => {
+    console.log("test upload pdf");
+    
     const res = await uploadPdf(url[url.length - 1]);
     console.log(res);
   };
@@ -42,12 +43,15 @@ const PdfUploadSection = () => {
     setIndex: setUploadIndex,
     index: uploadIndex,
   } = useUploadPdf();
-  const handleSaveDialog = () => {
+  const handleSaveDialog = async () => {
+    console.log("test save dialog");
+    
     setUrlPdf([...url]);
     setOpenDialog(false);
     uploaderPdf();
     // TODO: redirect when in  the edit page
-    redirect("/chatpdf/edit");
+    // redirect("/chatpdf/edit");
+    route.push("/chatpdf/edit");
   };
   return (
     <div className=" ">
