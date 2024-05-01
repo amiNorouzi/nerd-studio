@@ -29,13 +29,14 @@ export const authConfig = {
       async authorize(credentials) {
         try {
           if (!credentials?.email || !credentials.password) return null;
+          console.log("test");
           const { data } = await loginApi({
             email: credentials.email,
             password: credentials.password,
           });
+          console.log("data: ", data);
           const user = jwtDecode(data.access_token) as User;
 
-          console.log("data: ", data);
 
           if (user) {
             // Any object returned will be saved in `user` property of the JWT

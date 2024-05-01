@@ -22,8 +22,8 @@ export function WorkspaceSettings() {
   const myWorkspace = session?.user.workspace;
 
   const deleteWorkspaceHandler = () => {
-    // if(myWorkspace?.id)
-    // deleteWorkSpace({ workspace_id: myWorkspace?.id });
+    if(myWorkspace?.id)
+    deleteWorkSpace({ workspace_id: myWorkspace?.id });
   };
 
   return (
@@ -72,7 +72,7 @@ export function WorkspaceSettings() {
             <DeleteAlertDialog
               title="Delete Workspace"
               description="Are you sure you want to delete this workspace?"
-              handleSubmit={() => {}}
+              handleSubmit={deleteWorkspaceHandler}
             />
           }
         >
