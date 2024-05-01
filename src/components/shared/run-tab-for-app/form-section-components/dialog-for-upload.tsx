@@ -59,13 +59,14 @@ export function DialogForUpload({
   const [pendingButton, setPendingButton] = useState(false);
 
   useEffect(() => {
-    if (uploadStatus.length === 0) setPendingButton(false);
     if (
       url
         ? uploadStatus.length === files.length + 1
         : uploadStatus.length === files.length
-    )
+    ) {
       setOpen(false);
+      setPendingButton(false);
+    }
   }, [uploadStatus]);
   const {
     common,
@@ -75,6 +76,7 @@ export function DialogForUpload({
     setDocumentFiles(v => [...v, ...file]);
   }
 
+  console.log("pendingButton", pendingButton);
   function handleDeleteFile(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     fileIndex: number,

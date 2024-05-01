@@ -183,7 +183,7 @@ function GrammarInputDiv({
     <div
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
-      className={`relative ${files && uploadStatus && uploadStatus.filter(item => item).length > 0 ? "h-[210px]" : "h-[156px]"} ${uploadStatus && uploadStatus.filter(item => item).length === 0 && "h-[156px]"}  w-full rounded-lg  border   pt-2 leading-8 outline-none ring-0 first-line:pl-4 ${focused && " bg-background"}  ${!focused && "bg-muted "} `}
+      className={`relative ${files && files?.length > 0 && uploadStatus && uploadStatus.filter(item => item).length > 0 ? "h-[210px]" : "h-[156px]"}   w-full rounded-lg  border   pt-2 leading-8 outline-none ring-0 first-line:pl-4 ${focused && " bg-background"}  ${!focused && "bg-muted "} `}
     >
       {files &&
         files.length > 0 &&
@@ -205,20 +205,20 @@ function GrammarInputDiv({
                     )}
                   </>
                 ))}
-              {fileType === "url" && userUrl && (
-                <div className="group relative flex items-center justify-start gap-1 rounded-md border border-black p-3">
-                  <AiOutlineLink />
-                  {userUrl}
-                  <Button
-                    variant="ghost"
-                    size={"sm"}
-                    className="h-3 w-3 p-1 opacity-0 transition-opacity group-hover:opacity-100"
-                    onClick={handleDeleteUrl}
-                  >
-                    X
-                  </Button>
-                </div>
-              )}
+              {/*{fileType === "url" && userUrl && (*/}
+              {/*  <div className="group relative flex items-center justify-start gap-1 rounded-md border border-black p-3">*/}
+              {/*    <AiOutlineLink />*/}
+              {/*    {userUrl}*/}
+              {/*    <Button*/}
+              {/*      variant="ghost"*/}
+              {/*      size={"sm"}*/}
+              {/*      className="h-3 w-3 p-1 opacity-0 transition-opacity group-hover:opacity-100"*/}
+              {/*      onClick={handleDeleteUrl}*/}
+              {/*    >*/}
+              {/*      X*/}
+              {/*    </Button>*/}
+              {/*  </div>*/}
+              {/*)}*/}
             </div>
           </div>
         )}
