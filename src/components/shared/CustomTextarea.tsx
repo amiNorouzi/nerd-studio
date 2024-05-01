@@ -157,7 +157,9 @@ export function CustomTextarea({
       />
 
       {/*action buttons*/}
-      <RenderIf isTrue={!pathname.includes("template")}>
+      <RenderIf
+        isTrue={!pathname.includes("template") && !pathname.includes("image")}
+      >
         <Upload
           setFiles={onSelectFiles}
           setUserUrl={setUrl}
