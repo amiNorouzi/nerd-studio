@@ -1,11 +1,5 @@
 "use client";
-import React, {
-  useRef,
-  useState,
-  KeyboardEvent,
-  FormEvent,
-  MouseEventHandler,
-} from "react";
+import React, { FormEvent, KeyboardEvent, useRef, useState } from "react";
 import { AiOutlineScissor } from "react-icons/ai";
 
 import { TbBookmarks, TbSend, TbUpload } from "react-icons/tb";
@@ -14,8 +8,6 @@ import { Button } from "@/components/ui/button";
 
 import { MyTooltip } from "@/components/shared/myTooltip";
 import { PromptLibraryDialog } from "../../chat/componets/PromptLibraryDialog";
-import { UploadDialog } from "../../chat/componets/UploadDialog";
-import { ShowUploadedFiles } from "../../chat/componets/ShowUploadedFiles";
 import { PromptInputTextBox } from "../../chat/componets/PromptInputTextBox";
 
 import useErrorToast from "@/hooks/useErrorToast";
@@ -29,6 +21,7 @@ import {
   useStateCapturePicStore,
   useStateCaptureStore,
 } from "@/stores/zustand/chat-pdf-file";
+
 /**
  * Prompt input component used in chat page
  * contains a textarea and send button nad some tools for input
@@ -116,6 +109,7 @@ export function InputPromtChatPdf() {
             uploadIndex={1}
             uploadProgress={50}
             uploadStatus={[]}
+            setUploadStatus={() => {}}
           />
           {/*prompt library button*/}
           <PromptLibraryDialog />

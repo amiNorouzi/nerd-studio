@@ -1,4 +1,3 @@
-import { useDropzone } from "react-dropzone";
 import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
 import {
   usePdfFileStore,
@@ -6,7 +5,7 @@ import {
 } from "@/stores/zustand/chat-pdf-file";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useUploadPdf } from "@/services/upload-pdf";
 
 const PdfUploadSection = () => {
@@ -83,6 +82,7 @@ const PdfUploadSection = () => {
         uploadIndex={1}
         uploadProgress={uploadIndex === null ? 0 : uploadProgress}
         uploadStatus={[...uploadStatus]}
+        setUploadStatus={() => {}}
       />
     </div>
   );
