@@ -1,12 +1,11 @@
-import { Suspense } from "react";
-import { WritePage } from "@/components/pages/write";
 import type { SCRPropsType } from "@/services/types";
 import ReWriteLoading from "@/app/[lang]/(protect-roots)/(apps)/ReWrite/loading";
+import dynamic from "next/dynamic";
+
+const WritePage = dynamic(() => import("@/components/pages/write"), {
+  loading: () => <ReWriteLoading />,
+});
 
 export default function Write({ searchParams, params }: SCRPropsType) {
-  return (
-    <Suspense fallback={<ReWriteLoading />}>
-      <WritePage searchParams={searchParams} params={params} />
-    </Suspense>
-  );
+  return <WritePage searchParams={searchParams} params={params} />;
 }

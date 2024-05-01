@@ -14,7 +14,7 @@ import { useAIWriter } from "@/services/ai-writer";
 import { useGetDictionary } from "@/hooks";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 
-export function WritePage({ params }: SCRPropsType) {
+export default function WritePage({ params }: SCRPropsType) {
   const {
     page: { ReWrite },
   } = useGetDictionary();

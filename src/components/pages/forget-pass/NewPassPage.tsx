@@ -36,9 +36,9 @@ interface IProps {
  * @param {string} props.email - The email of the user from search params.
  * @param {string} props.token - The token for password reset from search params.
  *
- * @returns {JSX.Element} The rendered password reset page.
+ * @returns The rendered password reset page.
  */
-export function NewPassPage({ email, token }: IProps) {
+export default function NewPassPage({ email, token }: IProps) {
   // Use `useState` to manage the state of password visibility.
   const [showPass, setShowPass] = useState(false);
   const [showConfPass, setShowConfPass] = useState(false);

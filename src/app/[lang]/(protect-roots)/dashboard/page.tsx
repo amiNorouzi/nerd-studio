@@ -1,13 +1,11 @@
-import Dashboard from "@/components/pages/dashboard";
-
 import type { LangParams } from "@/services/types";
-import { Suspense } from "react";
 import DashboardLoading from "@/app/[lang]/(protect-roots)/dashboard/loading";
+import dynamic from "next/dynamic";
+
+const Dashboard = dynamic(() => import("@/components/pages/dashboard"), {
+  loading: () => <DashboardLoading />,
+});
 
 export default function DashboardPage({ params: { lang } }: LangParams) {
-  return (
-    <Suspense fallback={<DashboardLoading />}>
-      <Dashboard lang={lang} />
-    </Suspense>
-  );
+  return <Dashboard lang={lang} />;
 }

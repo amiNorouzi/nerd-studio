@@ -28,7 +28,6 @@ export default async function Layout({ children }: IProps) {
           />
         </svg>
       </div>
-
       {children}
     </div>
   );

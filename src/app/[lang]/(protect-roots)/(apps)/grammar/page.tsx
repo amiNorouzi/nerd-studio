@@ -1,15 +1,14 @@
-import { GrammarPage } from "@/components/pages/grammar";
 import type { ParamsType } from "@/services/types";
-import { Suspense } from "react";
 import GrammarLoading from "@/app/[lang]/(protect-roots)/(apps)/grammar/loading";
+import dynamic from "next/dynamic";
+
+const GrammarPage = dynamic(() => import("@/components/pages/grammar"), {
+  loading: () => <GrammarLoading />,
+});
 
 interface IProps {
   params: ParamsType;
 }
 export default function Page({ params }: IProps) {
-  return (
-    <Suspense fallback={<GrammarLoading />}>
-      <GrammarPage params={params} />
-    </Suspense>
-  );
+  return <GrammarPage params={params} />;
 }

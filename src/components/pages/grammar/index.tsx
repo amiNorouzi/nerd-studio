@@ -17,7 +17,7 @@ interface IProps {
   params: ParamsType;
 }
 
-export function GrammarPage({ params }: IProps) {
+export default function GrammarPage({ params }: IProps) {
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param
    *  value of it used in apps Header in  layout or form-section

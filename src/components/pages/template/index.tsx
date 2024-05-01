@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   BannerWithSearch,
@@ -22,16 +22,13 @@ import {
   tabsType,
   TEMPLATE_TAB_PARAMS_KEY,
 } from "./constants";
-import { useTemplate, useTemplateParentCategories } from "@/services/templates";
-import { useQueryClient } from "@tanstack/react-query";
-import { useAxiosFetcher } from "@/hooks/useAxiosFetcher";
-import { CategoryItem } from "@/components/pages/template/types";
+import { useTemplate } from "@/services/templates";
 
 const content = {
   advance: AdvancedPrompt,
   default: TemplateList,
 } as const;
-export function TemplatePage() {
+export default function TemplatePage() {
   const [tab, setTab] = useState(ALL_PROMPT_TITLE);
   const templateTab =
     tab == tabsType.advance ? tabsType.advance : tabsType.default;

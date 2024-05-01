@@ -6,7 +6,8 @@ import type { ParamsType } from "@/services/types";
 interface IProps {
   params: ParamsType;
 }
-export function SignUpPage({ params }: IProps) {
+
+export default function SignUpPage({ params }: IProps) {
   return (
     <div className="flex h-full w-full flex-col items-center justify-between">
       <Header params={params} />
