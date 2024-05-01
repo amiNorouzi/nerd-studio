@@ -14,6 +14,9 @@ import React, { useState } from "react";
 import ImageHistoryInfo from "@/components/pages/ai-image/components/ImageHistoryInfo";
 import { iconVariants } from "@/constants/variants";
 import { cn } from "@/lib/utils";
+import { useFavorites, useSetFavorites } from "@/services/favorite-history";
+import { usePinHistory, useSetPinHistory } from "@/services/pin-history";
+import { useHistories } from "@/services/history";
 
 interface IProps {
   histories: HistoryItem[];
@@ -45,34 +48,67 @@ function ImageHistory({
 
   // check if mobile screen
   const isMd = useMediaQuery("(max-width:768px)");
-
+  const { data: favoriteItems } = useFavorites();
+  const { data: pinItems } = usePinHistory();
+  const { data: toggleFavoriteAnswer, mutate: mutateFavoriteItems } =
+    useSetFavorites();
+  const { data: togglePinAnswer, mutate: mutatePinItems } = useSetPinHistory();
+  const { data: historyItems } = useHistories({ pageNumber: 1 });
   const handleClickItem = (history: HistoryItem) => {
     setSelectedItem(history);
     setIsOpenInfo(true);
   };
+  //check if item is favorite or not
+  const favoriteCheck = (id: number) => {
+    if (!historyItems || !favoriteItems) return null;
+    return favoriteItems.filter(item => item.id === id).length > 0;
+  };
+  //check if item is pinned
 
+  const pinCheck = (id: number) => {
+    if (!historyItems || !pinItems) return null;
+    return pinItems.filter(item => item.id === id).length > 0;
+  };
+
+  //sort historyItems to set pin and fav on top
+
+  const sortAnswers = (answers: Answer[]): Answer[] => {
+    // Extract ids from pinnedAnswers and favoriteAnswers
+    const pinnedIds = pinItems ? pinItems.map(answer => answer.id) : [];
+    const favoriteIds = favoriteItems
+      ? favoriteItems.map(answer => answer.id)
+      : [];
+
+    // Helper function to determine the sorting priority of an answer
+    const getPriority = (answer: Answer): number => {
+      if (pinnedIds.includes(answer.id)) return 1;
+      if (favoriteIds.includes(answer.id)) return 2;
+      return 3;
+    };
+
+    // Sorting function to compare two answers
+    answers.sort((a, b) => {
+      const priorityA = getPriority(a);
+      const priorityB = getPriority(b);
+
+      // If priorities are different, sort by priority
+      if (priorityA !== priorityB) {
+        return priorityA - priorityB;
+      }
+
+      // If priorities are the same and additional criteria is needed, compare by id
+      // or any other field, e.g., created_at
+      return b.id - a.id; // Default tie breaker
+    });
+
+    return answers;
+  };
   // render main content
   const renderMain = () => (
     <>
-      <h3 className="row mb-2 gap-1 border-b px-4 py-2.5 font-semibold text-primary">
-        <TbHistory className={iconVariants({ size: "md" })} />
-        {imageDictionary.history_title}
-      </h3>
       <div className="col gap-2 p-5 md:p-2">
         {/*search input*/}
-        <div className="w-ful bg-backgroundl relative">
-          <Input
-            type="search"
-            className=" w-full bg-background ps-8 font-light"
-            placeholder={search}
-          />
-          <TbSearch
-            className={cn(
-              "absolute start-2 top-1/2 -translate-y-1/2",
-              iconVariants({ size: "md" }),
-            )}
-          />
-        </div>
+
         {histories?.map(history => (
           <ImageHistoryItem
             onClick={() => handleClickItem(history)}

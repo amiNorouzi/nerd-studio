@@ -45,6 +45,7 @@ export default function TranslatePage({ params }: IProps) {
         top_p: 1.0,
         frequency_penalty: 0,
         presence_penalty: 0,
+        document_name: "translate",
       });
     }
   };

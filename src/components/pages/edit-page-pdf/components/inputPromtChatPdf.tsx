@@ -1,5 +1,11 @@
 "use client";
-import React, { useRef, useState, KeyboardEvent, FormEvent } from "react";
+import React, {
+  useRef,
+  useState,
+  KeyboardEvent,
+  FormEvent,
+  MouseEventHandler,
+} from "react";
 import { AiOutlineScissor } from "react-icons/ai";
 
 import { TbBookmarks, TbSend, TbUpload } from "react-icons/tb";
@@ -19,7 +25,10 @@ import { useChatStore } from "@/stores/zustand/chat-store";
 import { iconVariants } from "@/constants/variants";
 import { MinimalButton } from "@/components/shared";
 import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
-import { useStateCaptureStore } from "@/stores/zustand/chat-pdf-file";
+import {
+  useStateCapturePicStore,
+  useStateCaptureStore,
+} from "@/stores/zustand/chat-pdf-file";
 /**
  * Prompt input component used in chat page
  * contains a textarea and send button nad some tools for input
@@ -33,6 +42,7 @@ export function InputPromtChatPdf() {
   const prompt = useChatStore.use.chatTextBoxValue();
   const files = useChatStore.use.files();
   const setFiles = useChatStore.use.setFiles();
+  const pics = useStateCapturePicStore.use.pic();
 
   const {
     page: { chat: chatDictionary },
@@ -58,12 +68,8 @@ export function InputPromtChatPdf() {
     if (!prompt) return showError("Please! write your prompt");
   };
 
-  function handleDeleteFile(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    fileIndex: number,
-  ) {
-    e.stopPropagation();
-    const filterList = files.filter((item, index) => fileIndex !== index);
+  function handleDeleteFile(fileIndex: number) {
+    const filterList = pics.filter((item, index) => fileIndex !== index);
     setFiles(filterList);
   }
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -83,10 +89,6 @@ export function InputPromtChatPdf() {
         {/*prompt input text box and uploaded files*/}
         <div className=" col items-start">
           {/*show uploaded files*/}
-          <ShowUploadedFiles
-            files={files}
-            handleDeleteFile={handleDeleteFile}
-          />
           {/*prompt input text box*/}
           <PromptInputTextBox />
         </div>

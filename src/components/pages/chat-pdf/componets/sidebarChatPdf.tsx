@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 import { Menu, Sidebar } from "react-pro-sidebar";
 import { RiMenuFoldLine } from "react-icons/ri";
@@ -31,6 +31,7 @@ import {
   usePdfFileStore,
   useSelectedFilePdfStore,
 } from "@/stores/zustand/chat-pdf-file";
+import { useGetPdf, useGetUploadedPdf } from "@/services/upload-pdf";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event
@@ -56,7 +57,6 @@ export function SidebarChatPdf() {
     pathname === `/${lang}/workspace` ||
     pathname === `/${lang}/app-store`;
 
-  //need to add padding to main because sidebar go over it on fixed position
   useEffect(() => {
     const main = document.getElementById("main");
     if (collapsed && !isMobile) {
@@ -69,11 +69,12 @@ export function SidebarChatPdf() {
   //Handel outsideClick in mobile
   const sidebarRefChatPdf = useRef<HTMLHtmlElement>(null);
   useOutsideClick(sidebarRefChatPdf, isMobile, setIsSidePanelOpen);
+  const router = useRouter();
 
   const isOpen = !collapsed || isHoverOnSidePanel;
-  const urlPdf = usePdfFileStore.use.urlPdf();
-  const selectedFilePdf = useSelectedFilePdfStore.use.selectedFilePdf();
-  const setSelectedFilePdf = useSelectedFilePdfStore.use.setSelectedFilePdf();
+
+  const { data, isLoading, refetch, isSuccess } = useGetUploadedPdf();
+
   return (
     <>
       <div>
@@ -184,21 +185,27 @@ export function SidebarChatPdf() {
               },
             }}
           >
-            {urlPdf.length > 0 &&
-              urlPdf.map((item: any, index) => {
-                if (index !== 0)
+            {!isLoading
+              ? isSuccess &&
+                data?.map(({ path, title, id }: any) => {
+                  // TODO: two onCLick one span
                   return (
                     <span
-                      key={"item.id"}
+                      key={id}
                       onClick={() => {
-                        setSelectedFilePdf(item);
                         setIsHoverOnSidePanel(true);
                       }}
                     >
-                      <SidePanelItemPdf title={item.path} to="#" icon={TbPdf} />
+                      <SidePanelItemPdf
+                        title={title.substring(0, 20)}
+                        id={id}
+                        to={path}
+                        icon={TbPdf}
+                      />
                     </span>
                   );
-              })}
+                })
+              : ""}
           </Menu>
         </Sidebar>
       </div>

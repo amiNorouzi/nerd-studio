@@ -1,3 +1,7 @@
+/**
+ * ! Warning
+ * @deprecated don't use this type directly. All types must be in the types directory'
+ */
 export type PrimaryColor =
   | "default"
   | "primary-blue"

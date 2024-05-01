@@ -1,3 +1,7 @@
+/**
+ * ! Warning
+ * @deprecated don't use this type directly. All types must be in the types directory'
+ */
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { Locale } from "../../i18n.config";
 import { DynamicInputType } from "@/stores/zustand/types";
@@ -90,7 +94,7 @@ export interface CodeHistoryItem {
 
 export interface Workspace {
   name: string;
-  id: 0;
+  id: number;
   uuid: string;
   created_at: string;
   updated_at: string;

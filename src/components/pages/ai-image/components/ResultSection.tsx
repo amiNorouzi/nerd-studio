@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { GoHistory } from "react-icons/go";
 
@@ -16,7 +16,7 @@ import useImageTabs from "../hooks/useImageTabs";
 import { cn, isEmpty } from "@/lib/utils";
 
 import type { HistoryItem } from "@/services/types";
-import { Show } from "@/components/shared";
+import { HistoryBox, HistoryItems, Show } from "@/components/shared";
 import { iconVariants } from "@/constants/variants";
 import { useAiImageStore } from "@/stores/zustand/ai-image-store";
 import { ImageModelType } from "@/stores/zustand/types";
@@ -66,8 +66,8 @@ export function ResultSection() {
     ];
 
   return (
-    <section className="col-span-12 h-full overflow-hidden p-3 lg:col-span-8  lg:p-5 ">
-      <div className="flex h-full overflow-hidden rounded-xl border bg-background shadow-2xl ">
+    <section className="col-span-12 flex h-full gap-2.5 overflow-hidden bg-white   lg:col-span-8  ">
+      <div className="my-4 ml-6 mr-4 flex h-[95%] w-full overflow-hidden rounded-xl border bg-background shadow-2xl ">
         {/*
           if there is no generated images or history, show the empty result
         */}
@@ -113,14 +113,22 @@ export function ResultSection() {
                 </Show>
               </div>
             </div>
-            <ImageHistory
-              histories={histories}
-              isOpenMobileImageHistory={isOpenMobileImageHistory}
-              setIsOpenMobileImageHistory={setIsOpenMobileImageHistory}
-            />
+
+            {/*<ImageHistory*/}
+            {/*  histories={histories}*/}
+            {/*  isOpenMobileImageHistory={isOpenMobileImageHistory}*/}
+            {/*  setIsOpenMobileImageHistory={setIsOpenMobileImageHistory}*/}
+            {/*/>*/}
           </>
         )}
       </div>
+      <HistoryBox>
+        <ImageHistory
+          histories={histories}
+          isOpenMobileImageHistory={isOpenMobileImageHistory}
+          setIsOpenMobileImageHistory={setIsOpenMobileImageHistory}
+        />
+      </HistoryBox>
     </section>
   );
 }

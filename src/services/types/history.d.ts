@@ -14,6 +14,9 @@ interface HistoryVersion {
   answer: Answer;
   versions: Version[];
 }
+interface getPdfs {
+  path: string;
+}
 
 interface Version {
   id: number;

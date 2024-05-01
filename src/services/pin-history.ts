@@ -6,7 +6,6 @@ export function usePinHistory() {
     queryKey: ["history-pin"],
     async queryFn() {
       const { data } = await axiosClient.get<Answer[] | []>("/histories/pins/");
-
       return data;
     },
   });
