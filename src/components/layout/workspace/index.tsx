@@ -33,7 +33,7 @@ function transformWorkspaces(workspaces: Workspace[]): TransformedWorkspace[] {
 export function Workspace({ isHeader = false }: { isHeader?: boolean }) {
 
   const {data:workspaces, error, isLoading, isFetching, isError, isSuccess} = useWorkspaces();
-  console.log(workspaces);
+  // console.log(workspaces);
 
   if(isError) { 
     console.error(error);
