@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { GoHistory } from "react-icons/go";
 
@@ -64,21 +64,29 @@ export function ResultSection() {
     useState(false);
   const { currentTab, tabs } = useImageTabs();
   const imageUrl = useImageUrlStore.use.imageUrl();
-  console.log("isEmpty(imageUrl):", isEmpty(imageUrl));
-
+  useEffect(() => {
+    console.log("isEmpty(imageUrl):", isEmpty(imageUrl));
+  }, [imageUrl]);
   return (
     <section className="col-span-12 flex h-full gap-2.5 overflow-hidden bg-white   lg:col-span-8  ">
       <div className="my-4 ml-6 mr-4 flex h-[95%] w-full overflow-hidden rounded-xl border bg-background shadow-2xl ">
         {/*
           if there is no generated images or history, show the empty result
         */}
-        {/* {true ? (
+        {/* {isEmpty(imageUrl) ? (
           <EmptyResult />
-
-          
         ) : ( */}
           <>
-            <div className="col h-full w-full">
+            <div className="col flex h-full w-full items-center justify-center py-[15%]">
+              <img
+                className=" h-[140%] w-5/6 rounded-xl"
+                src={
+                  "https://nerdstudio-backend-bucket.s3.amazonaws.com/media/images/open_ai-text_to_image-396fc809-ffaa-4a13-a866-a9de9d31e54a.webp"
+                }
+                alt=""
+              />
+            </div>
+            {/* <div className="col h-full w-full">
               <div className="row gap-2.5 border-b px-4 py-2.5">
                 <Generate
                   classname={cn(
@@ -115,7 +123,7 @@ export function ResultSection() {
                   </Show.Else>
                 </Show>
               </div>
-            </div>
+            </div> */}
 
             {/*<ImageHistory*/}
             {/*  histories={histories}*/}
