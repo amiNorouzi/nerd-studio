@@ -36,6 +36,7 @@ interface IProps {
   startConverting(files: File[], url: string): void;
   setExtractedText: (text: string) => void;
   uploadStatus: boolean[];
+  setUploadStatus: (item: []) => void;
 }
 export function DialogForUpload({
   open,
@@ -52,6 +53,7 @@ export function DialogForUpload({
   setExtractedText,
   handleDeleteFilesFromParent,
   uploadStatus,
+  setUploadStatus,
 }: IProps) {
   const [tab, setTab] = useState("document");
   const [pendingButton, setPendingButton] = useState(false);
@@ -176,7 +178,7 @@ export function DialogForUpload({
                   handleSave(tab);
                   if (documentFiles.length > 0 || url) {
                     setPendingButton(true);
-                    console.log("url is ", url);
+                    setUploadStatus([]);
                     startConverting(documentFiles, url);
                     setExtractedText("");
                   } else {

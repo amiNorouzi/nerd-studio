@@ -101,6 +101,7 @@ export function GrammarTextBox({
             files={files}
             userUrl={url}
             extractedText={extractedText}
+            uploadStatus={uploadStatus}
           />
 
           {/*404 Error*/}
@@ -125,6 +126,7 @@ export function GrammarTextBox({
                 uploadProgress={uploadProgress}
                 startConverting={startConverting}
                 setExtractedText={setExtractedText}
+                setUploadStatus={setUploadStatus}
               />
             </div>
           }

@@ -85,6 +85,7 @@ export default function TranslateFormSection({
               files={files}
               userUrl={url}
               extractedText={extractedText}
+              uploadStatus={uploadStatus}
             />
             {/*upload pdf and url input*/}
 
@@ -99,6 +100,7 @@ export default function TranslateFormSection({
                 uploadProgress={uploadProgress}
                 startConverting={startConverting}
                 setExtractedText={setExtractedText}
+                setUploadStatus={setUploadStatus}
               />
             </div>
           </div>

@@ -8,9 +8,10 @@ import {
 import type { ParamsType } from "@/services/types";
 import { useEventChanel } from "@/services/events-chanel";
 import { useGenerateGrammar } from "@/services/grammar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 import { useHistoryStore } from "@/stores/zustand/history-store";
+import { useHistoryUpdate } from "@/services/history";
 
 interface IProps {
   params: ParamsType;
@@ -22,16 +23,17 @@ export function GrammarPage({ params }: IProps) {
    *  value of it used in apps Header in  layout or form-section
    *  and everywhere that needs to know app name
    */
-  const grammar = useEventChanel({
+  const { message, reset } = useEventChanel({
     eventName: "grammar",
   });
   const { mutate: generateGrammar, isPending } = useGenerateGrammar();
+  const { mutate: updateHistory } = useHistoryUpdate();
   const [text, setText] = useState("");
   // const [textInput, setTextInput] = useState("");
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const textInput = selectedHistoryItem
-    ? selectedHistoryItem.answer_text + grammar.message
-    : grammar.message;
+    ? selectedHistoryItem.answer_text + message
+    : message;
   const handleGenerate = () => {
     if (text) {
       generateGrammar({
@@ -46,7 +48,18 @@ export function GrammarPage({ params }: IProps) {
       });
     }
   };
-
+  //reset the stream everytime item in history is selected
+  useEffect(() => {
+    reset();
+  }, [selectedHistoryItem]);
+  useEffect(() => {
+    if (!isPending && selectedHistoryItem) {
+      updateHistory({
+        answer_text: textInput,
+        answerUuid: selectedHistoryItem?.uuid,
+      });
+    }
+  }, [isPending]);
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="Grammar">
       <Run>

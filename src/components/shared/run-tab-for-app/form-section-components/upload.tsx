@@ -21,6 +21,7 @@ interface IProps {
   startConverting(files: File[], url: string): void;
   setExtractedText: (text: string) => void;
   uploadStatus: boolean[];
+  setUploadStatus: (item: []) => void;
 }
 
 /**
@@ -38,6 +39,7 @@ export function Upload(props: IProps) {
     startConverting,
     setExtractedText,
     uploadStatus,
+    setUploadStatus,
   } = props;
   const {
     fileType,
@@ -101,6 +103,7 @@ export function Upload(props: IProps) {
         startConverting={startConverting}
         setExtractedText={setExtractedText}
         uploadStatus={uploadStatus}
+        setUploadStatus={setUploadStatus}
       />
     </>
   );
