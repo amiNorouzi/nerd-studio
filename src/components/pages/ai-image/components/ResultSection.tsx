@@ -74,6 +74,8 @@ export function ResultSection() {
         */}
         {/* {true ? (
           <EmptyResult />
+
+          
         ) : ( */}
           <>
             <div className="col h-full w-full">
