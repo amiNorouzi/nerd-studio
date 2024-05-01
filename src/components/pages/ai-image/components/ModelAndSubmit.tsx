@@ -44,13 +44,14 @@ function ModelAndSubmit({
   const setImage = useImageUrlStore.use.setUrlImage();
 
   const getPic =async () => {
+    setImage("")
     if (getValue("text")) {
       const data =await mutateAsync({
         model: activeModel,
         sizePic: "",
         prompt: String(getValue("text") || ""),
       });
-      console.log("isPending", isSuccess);
+      // console.log("isPending", isSuccess);
 
       if (isSuccess) {
         console.log("test if");
