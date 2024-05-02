@@ -1,19 +1,11 @@
 "use client";
-import {
-  HistoryBox,
-  HistoryItems,
-  Run,
-  SetSearchParamProvider,
-} from "@/components/shared";
-import type { ParamsType } from "@/services/types";
-import { useEventChanel } from "@/services/events-chanel";
-import { useGenerateGrammar } from "@/services/grammar";
-import React, { useState } from "react";
-import Highlight from "@/components/shared/Highlight";
-import { useHistories } from "@/services/history";
-import { useHistoryStore } from "@/stores/zustand/history-store";
-import { useHistoryUpdate } from "@/services/history";
-import { useHandleGeneratedData } from "@/hooks/generates-hook";
+import {HistoryBox, HistoryItems, Run, SetSearchParamProvider} from '@/components/shared';
+import type {ParamsType} from '@/services/types';
+import {useEventChanel} from '@/services/events-chanel';
+import {useGenerateGrammar} from '@/services/grammar';
+import React from 'react';
+import Highlight from '@/components/shared/Highlight';
+import {useHandleGeneratedData} from '@/hooks/generates-hook';
 
 interface IProps {
   params: ParamsType;
@@ -60,9 +52,7 @@ export default function GrammarPage({ params }: IProps) {
         />
 
         <Run.Editor value={textInput} onChange={setUpdateText}>
-          <Highlight>
-            <HighlightContent />
-          </Highlight>
+            <Highlight/>
           <HistoryBox>
             <HistoryItems appName="grammar" />
           </HistoryBox>
