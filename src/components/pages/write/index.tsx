@@ -15,7 +15,7 @@ import { useGetDictionary } from "@/hooks";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 import { useHistoryUpdate } from "@/services/history";
 import { useHistoryStore } from "@/stores/zustand/history-store";
-import { useGenerate } from "@/components/shared/run-tab-for-app/generates-hook";
+import { useHandleGeneratedData } from "@/hooks/generates-hook";
 
 export default function WritePage({ params }: SCRPropsType) {
   const {
@@ -32,7 +32,7 @@ export default function WritePage({ params }: SCRPropsType) {
     eventName: "ai_writer",
   });
   const { mutate: generate, isPending } = useAIWriter();
-  const { setUpdateText, text, setText, textInput } = useGenerate({
+  const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
     generateFn: handleGenerate,
     message: generatedText,
   });
