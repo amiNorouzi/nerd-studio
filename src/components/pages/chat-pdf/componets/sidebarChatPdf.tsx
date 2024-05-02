@@ -194,6 +194,7 @@ export function SidebarChatPdf() {
                       key={id}
                       onClick={() => {
                         setIsHoverOnSidePanel(true);
+                        refetch();
                       }}
                     >
                       <SidePanelItemPdf

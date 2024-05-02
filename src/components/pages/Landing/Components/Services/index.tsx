@@ -1,10 +1,7 @@
-"use client";
-
 import Image from "next/image";
 import { ServiceSection } from "@/constants/Landing";
-import Absolute from "@/components/pages/Landing/common/Absolute";
 
-const Services = () => {
+export default function Services() {
   return (
     <section className="bg-services padding-y padding-x relative  mb-[60px] flex flex-col items-center bg-cover bg-center lg:flex-row lg:justify-between min-[1920px]:py-16">
       <h3 className="mb-9  text-center text-lg leading-normal text-white lg:text-start xl:text-2xl 2xl:text-[32px] min-[1920px]:text-3xl">
@@ -50,5 +47,3 @@ const Services = () => {
     </section>
   );
 };
-
-export default Services;

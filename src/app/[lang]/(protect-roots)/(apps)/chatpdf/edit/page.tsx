@@ -1,14 +1,11 @@
 "use client";
+import dynamic from "next/dynamic";
+import ChatPdfEditPageLoading from "@/app/[lang]/(protect-roots)/(apps)/chatpdf/edit/loading";
 
-import EditPagePdf from "../../../../../../components/pages/edit-page-pdf";
+const EditPagePdf = dynamic(() => import("@/components/pages/edit-page-pdf"), {
+  loading: () => <ChatPdfEditPageLoading />,
+});
 
-function EditPage(): JSX.Element {
-  return (
-    <>
-      <div className="w-full">
-        <EditPagePdf />
-      </div>
-    </>
-  );
+export default function EditPage() {
+  return <EditPagePdf />;
 }
-export default EditPage;

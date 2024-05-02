@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 
 interface RectangleProgressBarProps {
   label: string;

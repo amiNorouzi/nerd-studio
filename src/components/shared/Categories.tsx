@@ -77,7 +77,7 @@ export function Categories({
             <TabsTrigger
               key={category}
               value={category}
-              className="h-element rounded-lg bg-muted px-4 py-2 text-muted-foreground hover:text-primary data-[state=active]:bg-primary-light data-[state=active]:text-primary"
+              className="h-[50px] min-w-[102px] max-w-full rounded-lg bg-muted px-4 py-2 text-muted-foreground hover:text-primary data-[state=active]:bg-primary-light data-[state=active]:text-primary"
             >
               {category}
             </TabsTrigger>

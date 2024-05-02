@@ -1,13 +1,11 @@
-"use client";
 import React from "react";
 import Absolute from "@/components/pages/Landing/common/Absolute";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { brandsArray, rewards, starsArray } from "@/constants/Landing";
 import { Star } from "@/components/svg-icons/Star";
 
-const Hero = () => {
-  // @ts-ignore
+export default function Hero() {
+
   return (
     <header className=" relative  w-full overflow-hidden bg-[#F2EEFD]">
       {/*Absolute Ellipses in Hero header*/}
@@ -135,5 +133,3 @@ const Hero = () => {
     </header>
   );
 };
-
-export default Hero;

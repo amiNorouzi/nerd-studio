@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -103,6 +103,7 @@
     "negotiator": "^0.6.3",
     "next": "14.2.2",
     "next-auth": "^4.24.6",
+    "next-nprogress-bar": "^2.3.11",
     "pdfjs-dist": "3.4.120",
     "re-resizable": "^6.9.14",
     "react": "^18",
@@ -140,6 +141,7 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.3",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/react": "^18",

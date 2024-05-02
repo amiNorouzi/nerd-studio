@@ -2,8 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 
 import { Providers } from "@/components/providers";
-import { Toaster } from "@/components/ui/toaster";
-import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
 
 import { i18n, type Locale } from "../../../i18n.config";
 
@@ -38,10 +36,7 @@ export default async function RootLayout({
   return (
     <html lang={params.lang} dir={langDir[params.lang]}>
       <body suppressHydrationWarning className="h-dvh w-dvw">
-        <NextAuthProvider>
-          <Providers>{children}</Providers>
-        </NextAuthProvider>
-        <Toaster />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

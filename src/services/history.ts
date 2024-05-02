@@ -41,6 +41,8 @@ type HistoryVUpdateParams = {
 };
 
 export function useHistoryUpdate() {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async ({ answerUuid, answer_text }: HistoryVUpdateParams) => {
       const { data } = await axiosClient.put<Version>(
@@ -51,6 +53,11 @@ export function useHistoryUpdate() {
       );
 
       return data;
+    },
+    onSuccess: () => {
+      // @ts-ignore
+
+      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
     },
   });
 }

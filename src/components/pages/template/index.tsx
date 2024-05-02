@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   BannerWithSearch,
@@ -22,16 +22,13 @@ import {
   tabsType,
   TEMPLATE_TAB_PARAMS_KEY,
 } from "./constants";
-import { useTemplate, useTemplateParentCategories } from "@/services/templates";
-import { useQueryClient } from "@tanstack/react-query";
-import { useAxiosFetcher } from "@/hooks/useAxiosFetcher";
-import { CategoryItem } from "@/components/pages/template/types";
+import { useTemplate } from "@/services/templates";
 
 const content = {
   advance: AdvancedPrompt,
   default: TemplateList,
 } as const;
-export function TemplatePage() {
+export default function TemplatePage() {
   const [tab, setTab] = useState(ALL_PROMPT_TITLE);
   const templateTab =
     tab == tabsType.advance ? tabsType.advance : tabsType.default;
@@ -39,7 +36,7 @@ export function TemplatePage() {
   const isDefaultContent = templateTab === tabsType.default;
   const [searchText, setSearchText] = useState("");
   const { templates, isLoading } = useTemplate();
-
+  const [showAdvance, setShowAdvance] = useState(false);
   // const queryClient = useQueryClient();
   // const { axiosFetch } = useAxiosFetcher();
   //
@@ -63,20 +60,20 @@ export function TemplatePage() {
       appName={"app"}
       appSearchParamValue={"prompt_library"}
     >
-      <div className="h-full w-full">
+      <div className="h-full w-full ">
         <div
           id="app-store-main"
-          className="col max-h-page h-[var(--main-height)]  w-full overflow-y-auto bg-background"
+          className="col max-h-page h-full  w-full overflow-y-auto bg-background"
         >
           {/*this section used for search in list*/}
-          <RenderIf isTrue={isDefaultContent}>
+          <RenderIf isTrue={tab === "All Prompts"}>
             <BannerWithSearch
               name={"template-search"}
               onChangeText={setSearchText}
               value={searchText}
             />
           </RenderIf>
-          <div className="col h-fit w-full gap-4 p-2 md:p-4 lg:gap-6 lg:p-6">
+          <div className="col h-full w-full gap-4  p-2 md:p-4 lg:gap-6 lg:p-6">
             <Show>
               <Show.When isTrue={isLoading}>
                 <TemplateListSkeleton />
@@ -101,14 +98,19 @@ export function TemplatePage() {
                     />
 
                     {/* advance and my prompt button that change the content by set template-content in query param in url*/}
-                    <AdvancedButton />
+                    <div onClick={() => setShowAdvance(prev => !prev)}>
+                      <AdvancedButton selected={showAdvance} />
+                    </div>
                   </div>
-                  {/*<AdvancedPrompt />*/}
-                  <Content
-                    templates={templates}
-                    searchText={searchText}
-                    selectedTab={tab}
-                  />
+                  {showAdvance && <AdvancedPrompt />}
+
+                  {!showAdvance && (
+                    <Content
+                      templates={templates}
+                      searchText={searchText}
+                      selectedTab={tab}
+                    />
+                  )}
                 </>
               </Show.Else>
             </Show>

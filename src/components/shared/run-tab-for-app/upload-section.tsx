@@ -2,7 +2,10 @@ import useSuccessToast from "@/hooks/useSuccessToast";
 import useErrorToast from "@/hooks/useErrorToast";
 import { useEffect, useState } from "react";
 import { useUploadPdf } from "@/services/upload-pdf";
-import { useUploadUrl } from "@/services/covert-pdf-to-text";
+import {
+  useCovertPdfToText,
+  useUploadUrl,
+} from "@/services/covert-pdf-to-text";
 
 interface Props {
   files: File[];
@@ -18,7 +21,7 @@ export const useUploadData = ({ files }: Props) => {
 
     setIndex: setUploadIndex,
     index: uploadIndex,
-  } = useUploadPdf();
+  } = useCovertPdfToText();
 
   // url upload
   const { mutateAsync: convertUrl, uploadProgress: urlUploadProgress } =
@@ -31,7 +34,7 @@ export const useUploadData = ({ files }: Props) => {
   useEffect(() => {
     if (uploadIndex === files.length) {
       setUploadIndex(null);
-      setUploadStatus([]);
+      // setUploadStatus([]);
     }
   }, [files, uploadIndex, setUploadIndex]);
 

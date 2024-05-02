@@ -134,6 +134,7 @@ export function CustomTextarea({
           setExtractedText={setExtractedText}
           startConverting={startConverting}
           uploadStatus={uploadStatus}
+          setUploadStatus={() => {}}
         />
       </RenderIf>
       <div className="row absolute bottom-6 end-3.5 h-5 gap-1">

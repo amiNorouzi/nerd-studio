@@ -1,10 +1,9 @@
-"use client";
 import TitleSection from "@/components/pages/Landing/common/TitleSection";
 import { TbMessages } from "react-icons/tb";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-const Mobile = () => {
+export default function Mobile() {
   return (
     <div className=" padding-y flex flex-col max-sm:px-3  md:ps-[30px] lg:ps-[40px] xl:ps-[80px] 2xl:ps-[100px]">
       {/*Title section*/}
@@ -65,5 +64,3 @@ const Mobile = () => {
     </div>
   );
 };
-
-export default Mobile;

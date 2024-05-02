@@ -1,13 +1,12 @@
-import { useDropzone } from "react-dropzone";
 import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
 import {
   usePdfFileStore,
   useSelectedFilePdfStore,
 } from "@/stores/zustand/chat-pdf-file";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useUploadPdf } from "@/services/upload-pdf";
+import { useState } from "react";
+import { useGetUploadedPdf, useUploadPdf } from "@/services/upload-pdf";
 
 const PdfUploadSection = () => {
   const onDrop = (acceptedFiles: any) => {
@@ -23,11 +22,16 @@ const PdfUploadSection = () => {
       reader.readAsArrayBuffer(file);
     });
   };
+  // when pdf uploaded refech the data
+  const { refetch } = useGetUploadedPdf();
 
-  // Only accept PDF files
+  const router = useRouter();
   const uploaderPdf = async () => {
+    console.log("test upload pdf");
+
     const res = await uploadPdf(url[url.length - 1]);
     console.log(res);
+    refetch();
   };
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [url, setFile] = useState<File[]>([]);
@@ -42,12 +46,13 @@ const PdfUploadSection = () => {
     setIndex: setUploadIndex,
     index: uploadIndex,
   } = useUploadPdf();
-  const handleSaveDialog = () => {
+  const handleSaveDialog = async () => {
+    console.log("test save dialog");
+
     setUrlPdf([...url]);
     setOpenDialog(false);
     uploaderPdf();
-    // TODO: redirect when in  the edit page
-    redirect("/chatpdf/edit");
+    router.push("/chatpdf/edit");
   };
   return (
     <div className=" ">
@@ -81,8 +86,9 @@ const PdfUploadSection = () => {
         setExtractedText={() => console.log()}
         startConverting={setUrlPdf}
         uploadIndex={1}
-        uploadProgress={uploadIndex === null ? 0 : uploadProgress}
+        uploadProgress={100}
         uploadStatus={[...uploadStatus]}
+        setUploadStatus={() => {}}
       />
     </div>
   );

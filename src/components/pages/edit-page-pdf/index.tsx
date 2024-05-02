@@ -1,5 +1,3 @@
-"use client";
-
 import { ChatList } from "../chat/componets";
 import { InputPromtChatPdf } from "./components/inputPromtChatPdf";
 import PdfView from "./utility/pdfView";
@@ -37,7 +35,7 @@ export default function EditPagePdf() {
     getData();
   }, [pics]);
   return (
-    <>
+    <div className="w-full">
       <div className=" flex w-full  grid-flow-row grid-cols-2 flex-nowrap gap-0">
         <div>
           <PdfView />
@@ -54,6 +52,6 @@ export default function EditPagePdf() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

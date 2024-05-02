@@ -1,10 +1,9 @@
-"use client";
 import Image from "next/image";
 import { steps } from "@/constants/Landing";
 import TitleSection from "@/components/pages/Landing/common/TitleSection";
 import Absolute from "@/components/pages/Landing/common/Absolute";
 
-const Steps = () => {
+export default function Steps() {
   return (
     <section className="padding-x padding-y relative flex flex-col">
       <TitleSection
@@ -79,4 +78,3 @@ const Steps = () => {
   );
 };
 
-export default Steps;
