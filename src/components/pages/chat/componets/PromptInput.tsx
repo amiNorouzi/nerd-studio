@@ -17,7 +17,7 @@ import { useChatStore } from "@/stores/zustand/chat-store";
 
 import { iconVariants } from "@/constants/variants";
 import { MinimalButton } from "@/components/shared";
-import { useStream } from "../hooks/useStreamingApi";
+import { useStream } from "@/hooks/useStreamingApi";
 /**
  * Prompt input component used in chat page
  * contains a textarea and send button nad some tools for input

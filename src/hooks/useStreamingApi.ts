@@ -13,9 +13,9 @@ export function useStream({envalidationKey, endpoint, eventName}:{
   const { data: session } = useSession();
   const queryClient = useQueryClient();
   const [message, setMessage] = useState("");
-  const eventSource = useRef<EventSource>();
+  const eventSource = useRef<EventSource | null>(null);
   const uuid = session?.user.sub;
-
+  
   const { mutate, ...props } = useMutation({
     mutationFn: async (requestBody: OpenAiCompletionSchemaInput) => {
       const { data } = await axiosClient.post<
@@ -35,6 +35,24 @@ export function useStream({envalidationKey, endpoint, eventName}:{
     },
   });
 
+  const generateStream = useCallback((requestBody: OpenAiCompletionSchemaInput) => {
+    if (requestBody.messages && requestBody.messages.length > 0) {
+      setMessage("");
+      mutate(requestBody);
+    }
+  },[mutate]);
+
+  const cancelStream = useCallback(() => {
+    if (eventSource.current) {
+      eventSource.current.close();
+      eventSource.current = null;
+    }
+  }, []);
+
+  const resetMessage = useCallback(()=> {
+    setMessage("");
+  },[]);
+
   useEffect(() => {
     if (!eventSource.current && uuid) {
       eventSource.current = new EventSource(
@@ -47,23 +65,16 @@ export function useStream({envalidationKey, endpoint, eventName}:{
         }
       });
     }
-  }, [eventName, uuid]);
-
-  const generateStream = useCallback((requestBody: OpenAiCompletionSchemaInput) => {
-    if (requestBody.messages && requestBody.messages.length > 0) {
-      setMessage("");
-      mutate(requestBody);
-    }
-  },[mutate]);
-
-  const resetMessage = useCallback(()=> {
-    setMessage("");
-  },[]);
+    return () => {
+      cancelStream();
+    };
+  }, [cancelStream, eventName, uuid]);
 
   return {
     message,
     resetMessage,
     generateStream,
+    cancelStream,
     ...props
   };
 }
