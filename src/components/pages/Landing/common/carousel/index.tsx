@@ -1,8 +1,10 @@
+"use client";
 import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { openAiLogo } from "@/constants/Landing";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
+
 interface T {
   children?: React.ReactNode;
   arrayForMap?: object[];

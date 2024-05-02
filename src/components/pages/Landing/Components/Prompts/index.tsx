@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Icons } from "@/components/icons";
 
 import { useEffect, useState } from "react";
-import RectangleProgressBar from "@/components/pages/Landing/common/RectangleProgressBar";
 
 const PromptsSection = () => {
   const [progress, setProgress] = useState(0);

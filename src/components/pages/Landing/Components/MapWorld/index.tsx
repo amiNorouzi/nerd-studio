@@ -1,3 +1,4 @@
+"use client";
 import TitleSection from "@/components/pages/Landing/common/TitleSection";
 import {
   ComposableMap,
