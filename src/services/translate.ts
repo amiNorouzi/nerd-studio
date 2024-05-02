@@ -1,14 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
-import { useState } from "react";
+import { useSession } from "next-auth/react";
 
-type GenerateTranslateParams = {
+export type GenerateTranslateParams = {
   text: string;
   txLang: string;
   trLang: string;
-} & Omit<OpenAiCompletionSchemaInput, "stream" | "messages">;
+} & Omit<OpenAiCompletionSchemaInput, "stream" | "messages" | "workspace_id">;
 
 export function useGenerateTranslate() {
+  const { data: session } = useSession();
+
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({
@@ -21,6 +23,7 @@ export function useGenerateTranslate() {
       top_p,
       presence_penalty,
       frequency_penalty,
+      document_name,
     }: GenerateTranslateParams) => {
       const { data } = await axiosClient.post<
         unknown,
@@ -40,6 +43,8 @@ export function useGenerateTranslate() {
         top_p,
         presence_penalty,
         frequency_penalty,
+        document_name,
+        workspace_id: session?.user.workspace.id!,
       });
 
       return data;

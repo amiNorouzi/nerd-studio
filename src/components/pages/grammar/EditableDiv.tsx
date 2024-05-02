@@ -17,7 +17,7 @@ export default function EditableDiv({
   return (
     <div
       id="input"
-      contentEditable="plaintext-only"
+      contentEditable
       onInput={handleInput}
       onMouseMove={handleMouseMove}
       ref={divRef}

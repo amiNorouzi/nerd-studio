@@ -3,20 +3,18 @@ import {
   OptionsSelectBoxes,
   SelectTranslateLanguages,
   SubmitButtonSelectEngine,
-  TextBox,
   Upload,
 } from "./form-section-components";
 
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";
 import { apps } from "@/constants/side-panel";
 import type { ParamsType } from "@/services/types";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import FormWrapper from "@/components/shared/run-tab-for-app/form-wrapper";
-import { useUploadPdf } from "@/services/upload";
-import useSuccessToast from "@/hooks/useSuccessToast";
-import useErrorToast from "@/hooks/useErrorToast";
 import GrammarInputDiv from "@/components/pages/grammar/InputDiv";
 import { useUploadData } from "@/components/shared/run-tab-for-app/upload-section";
+import { useHistoryStore } from "@/stores/zustand/history-store";
+import { HistoryInfoContent } from "@/components/pages/grammar/history-info-content";
 
 interface IProps {
   params: ParamsType;
@@ -50,6 +48,7 @@ export default function TranslateFormSection({
   const app = apps.find(
     app => app.title.toLowerCase() === appName?.toLowerCase(),
   );
+  const isGrammarHistoryOpen = useHistoryStore.use.isGrammarHistoryOpen();
 
   const {
     setExtractedText,
@@ -68,48 +67,65 @@ export default function TranslateFormSection({
   return (
     <FormWrapper>
       {/*select language from/to for translate*/}
-      <SelectTranslateLanguages />
-      {/*text area and pdf upload and url input*/}
-      {/*<TextBox*/}
-      {/*  mainTextAreaPlaceholder={translate.text_input_placeholder}*/}
-      {/*  value={value}*/}
-      {/*  onChange={onTextAreaChange}*/}
-      {/*/>*/}
-      <div className="relative">
-        <GrammarInputDiv
-          onTextChange={onTextAreaChange}
-          value={value}
-          setFiles={onSelectFiles}
-          setUserUrl={setUrl}
-          files={files}
-          userUrl={url}
-          extractedText={extractedText}
-        />
-        {/*upload pdf and url input*/}
+      {!isGrammarHistoryOpen && (
+        <div className="col form-gap">
+          <SelectTranslateLanguages />
+          {/*text area and pdf upload and url input*/}
+          {/*<TextBox*/}
+          {/*  mainTextAreaPlaceholder={translate.text_input_placeholder}*/}
+          {/*  value={value}*/}
+          {/*  onChange={onTextAreaChange}*/}
+          {/*/>*/}
+          <div className="relative">
+            <GrammarInputDiv
+              onTextChange={onTextAreaChange}
+              value={value}
+              setFiles={onSelectFiles}
+              setUserUrl={setUrl}
+              files={files}
+              userUrl={url}
+              extractedText={extractedText}
+              uploadStatus={uploadStatus}
+            />
+            {/*upload pdf and url input*/}
 
-        <div className=" absolute -bottom-3   flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px]  p-[10px] text-muted-foreground">
-          <Upload
-            setFiles={onSelectFiles}
-            setUserUrl={setUrl}
-            files={files}
-            userUrl={url}
-            uploadStatus={uploadStatus}
-            uploadIndex={uploadIndex}
-            uploadProgress={uploadProgress}
-            startConverting={startConverting}
-            setExtractedText={setExtractedText}
+            <div className=" absolute -bottom-3   flex h-[28px] w-[103px] items-center gap-[10px] rounded-[10px]  p-[10px] text-muted-foreground">
+              <Upload
+                setFiles={onSelectFiles}
+                setUserUrl={setUrl}
+                files={files}
+                userUrl={url}
+                uploadStatus={uploadStatus}
+                uploadIndex={uploadIndex}
+                uploadProgress={uploadProgress}
+                startConverting={startConverting}
+                setExtractedText={setExtractedText}
+                setUploadStatus={setUploadStatus}
+              />
+            </div>
+          </div>
+          <OptionsSelectBoxes hiddenSelectResponseLang />
+          {/*submit button and select engine with setting*/}
+          <SubmitButtonSelectEngine
+            isDisabledSubmit={!value}
+            isPending={isPending}
+            onClick={onSubmit}
+            buttonContent={translate.submit_button_label}
           />
         </div>
-      </div>
+      )}
+      {isGrammarHistoryOpen && (
+        <div className="col form-gap">
+          <HistoryInfoContent onTextAreaChange={onTextAreaChange} />
+          <SubmitButtonSelectEngine
+            isDisabledSubmit={!value}
+            isPending={isPending}
+            onClick={onSubmit}
+            buttonContent={"Edit Prompt"}
+          />
+        </div>
+      )}
       {/*option section like response lang or creativity,...*/}
-      <OptionsSelectBoxes hiddenSelectResponseLang />
-      {/*submit button and select engine with setting*/}
-      <SubmitButtonSelectEngine
-        isDisabledSubmit={!value}
-        isPending={isPending}
-        onClick={onSubmit}
-        buttonContent={translate.submit_button_label}
-      />
     </FormWrapper>
   );
 }

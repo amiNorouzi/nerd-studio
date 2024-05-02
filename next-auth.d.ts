@@ -1,4 +1,5 @@
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession }  from "next-auth";
+import { Workspace } from "@/services/types";
 
 declare module "next-auth" {
   /**
@@ -12,6 +13,7 @@ declare module "next-auth" {
       sub?: string | null;
       accessToken: string;
       refreshToken: string;
+      workspace: Workspace,
       exp: number;
       iat: number;
       jti: string;
@@ -25,5 +27,6 @@ declare module "next-auth" {
     image?: string | null;
     accessToken: string;
     refreshToken: string;
+    workspace: Workspace;
   }
 }

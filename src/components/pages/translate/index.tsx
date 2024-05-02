@@ -14,8 +14,11 @@ import { useGenerateTranslate } from "@/services/translate";
 import { useSearchParams } from "next/navigation";
 import { languages } from "@/components/shared/run-tab-for-app/form-section-components/contants";
 import { getLangById } from "@/lib/utils";
-import { useState } from "react";
-import Highlight from "@/components/shared/Highlight";
+import React, { useEffect, useState } from "react";
+import { Highlight, HighlightContent } from "@/components/shared/Highlight";
+import { useHistoryStore } from "@/stores/zustand/history-store";
+import { useHistoryUpdate } from "@/services/history";
+import { useHandleGeneratedData } from "@/hooks/generates-hook";
 
 interface IProps {
   params: ParamsType;
@@ -27,8 +30,11 @@ export default function TranslatePage({ params }: IProps) {
     eventName: "translate",
   });
   const { mutate: generateTranslate, isPending } = useGenerateTranslate();
-  const [text, setText] = useState("");
-  const handleGenerate = () => {
+  const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
+    generateFn: handleGenerate,
+    message: translation,
+  });
+  function handleGenerate() {
     if (text) {
       reset();
       generateTranslate({
@@ -45,9 +51,10 @@ export default function TranslatePage({ params }: IProps) {
         top_p: 1.0,
         frequency_penalty: 0,
         presence_penalty: 0,
+        document_name: "translate",
       });
     }
-  };
+  }
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="Translate">
@@ -59,7 +66,7 @@ export default function TranslatePage({ params }: IProps) {
           isPending={isPending}
           onSubmit={handleGenerate}
         />
-        <Run.Editor value={translation} onChange={() => {}}>
+        <Run.Editor value={textInput} onChange={setUpdateText}>
           <HistoryBox>
             <HistoryItems appName="translate" />
           </HistoryBox>
@@ -68,7 +75,9 @@ export default function TranslatePage({ params }: IProps) {
             <HistoryInfoContent />
           </HistoryInfo>
 
-          <Highlight />
+          <Highlight>
+            <HighlightContent />
+          </Highlight>
         </Run.Editor>
       </Run>
     </SetSearchParamProvider>

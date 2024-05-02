@@ -235,9 +235,7 @@ export function AdvancedPrompt() {
   return (
     <div className="col h-fit w-full flex-1 items-center gap-6">
       <ListOfStepBoxes stepper={stepper} />
-      <RenderIf isTrue={stepper > 0}>
-        <SearchBox />
-      </RenderIf>
+
       <Content
         setSelectedParentCategoryId={setSelectedParentCategoryId}
         selectedParentCategoryId={selectedParentCategoryId}

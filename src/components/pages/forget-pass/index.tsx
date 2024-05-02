@@ -24,9 +24,9 @@ interface FormTypes {
  * `ForgetPassPage` is a React component that handles the password reset process.
  * It uses the `react-hook-form` for form handling and validation, and `useState` for local state management.
  *
- * @returns {JSX.Element} The rendered password reset page.
+ * @returns The rendered password reset page.
  */
-export function ForgetPassPage() {
+export default function ForgetPassPage() {
   // Use `useState` to manage the state of email confirmation for showing the email confirmation message.
   const [showEmailConfirmation, setShowEmailConfirmation] = useState(false);
 

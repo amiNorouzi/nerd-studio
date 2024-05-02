@@ -16,7 +16,10 @@ import { useGenerateTemplate } from "@/services/templates";
 import { useEventChanel } from "@/services/events-chanel";
 import { useState } from "react";
 
-export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
+export default function DynamicTemplatePage({
+  params,
+  searchParams,
+}: SCRPropsType) {
   // pass template to Form component to used its data to show and change it
   const template = useTemplateStore.use.currentTemplate();
   const {

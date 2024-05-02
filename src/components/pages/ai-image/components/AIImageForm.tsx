@@ -7,7 +7,7 @@ import PromptTextArea from "./PromptTextArea";
 import RenderIf from "@/components/shared/RenderIf";
 import CommonSettings from "./CommonSettings";
 import AdvanceSettings from "./AdvanceSettings";
-import FormSkeleton from "./FormSkeleton";
+import FormSkeleton from "@/components/shared/skeleton/FormSkeleton";
 
 import useImageTabs from "../hooks/useImageTabs";
 import useImageModels from "../hooks/useImageModels";

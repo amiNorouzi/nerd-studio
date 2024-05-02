@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { CiMail, CiLock } from "react-icons/ci";
+import { CiLock, CiMail } from "react-icons/ci";
 import { TbEye, TbEyeClosed } from "react-icons/tb";
 
 import { Button } from "@/components/ui/button";
@@ -36,7 +36,7 @@ interface FormTypes {
  *
  * @returns {JSX.Element} The rendered login page.
  */
-export function LoginPage() {
+export default function LoginPage() {
   // Use `useState` to manage the state of password visibility.
   const [showPass, setShowPass] = useState(false);
 

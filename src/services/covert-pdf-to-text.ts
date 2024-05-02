@@ -6,7 +6,7 @@ type PDFConvertorResponse = {
   text: string;
 };
 
-export function useUploadPdf() {
+export function useCovertPdfToText() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [index, setIndex] = useState<number | null>(null);
   const { mutate, data, ...rest } = useMutation({
@@ -61,7 +61,7 @@ export function useUploadUrl() {
     async mutationFn(url: string) {
       try {
         const response = await axiosClient.post<PDFConvertorResponse>(
-          "/uploads/import_pdf_from_url/",
+          "/uploads/convert_url_pdf_to_text/",
           { url },
           {
             onUploadProgress: progressEvent => {

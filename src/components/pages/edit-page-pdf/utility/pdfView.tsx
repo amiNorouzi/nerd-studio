@@ -14,13 +14,20 @@ import {
 import { ReactElement, useMemo, useState } from "react";
 import { BsLayoutSidebar } from "react-icons/bs";
 import {
-  usePdfFileStore,
   useSelectedFilePdfStore,
+  useStateCapturePicStore,
   useStateCaptureStore,
 } from "@/stores/zustand/chat-pdf-file";
 import { ScreenCapture } from "react-screen-capture";
+import { useConvertPicToText, useUploadPdf } from "@/services/upload-pdf";
 
 export default function PdfView() {
+  const [screenCapture, setScreenCapture] = useState<string>("");
+  const setPic = useStateCapturePicStore.use.setPic();
+  const pics = useStateCapturePicStore.use.pic();
+  const { mutate } = useConvertPicToText();
+  const { mutate: uploadtest } = useUploadPdf();
+
   const thumbnailPluginInstance = thumbnailPlugin();
   const { Thumbnails } = thumbnailPluginInstance;
 
@@ -139,31 +146,34 @@ export default function PdfView() {
     renderToolbar,
     sidebarTabs: defaultTabs => [],
   });
-  const [screenCapture, setScreenCapture] = useState<string>("");
-  const handleScreenCapture = (capture: any) => {
-    setScreenCapture(capture);
+  const handleScreenCapture = (capture: string) => {
+    setPic([...pics, capture]);
     return null;
   };
   const onStartCapture = () => {
     return null;
   };
   const StartCapture = useStateCaptureStore.use.setOnClick();
-  const selectedFilePdf = useSelectedFilePdfStore.use.selectedFilePdf();
+  const selectedFilePdfUrl = useSelectedFilePdfStore.use.selectedFilePdf();
 
   const PdfMemo = useMemo(() => {
-    if (selectedFilePdf) {
+    if (selectedFilePdfUrl) {
       return (
         <>
           <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-            <Viewer
-              fileUrl={URL.createObjectURL(selectedFilePdf)}
-              plugins={[defaultLayoutPluginInstance, thumbnailPluginInstance]}
-            />
+            {selectedFilePdfUrl.length > 3 ? (
+              <Viewer
+                fileUrl={selectedFilePdfUrl}
+                plugins={[defaultLayoutPluginInstance, thumbnailPluginInstance]}
+              />
+            ) : (
+              ""
+            )}
           </Worker>
         </>
       );
     }
-  }, [isOpenThumbnail, selectedFilePdf]);
+  }, [isOpenThumbnail, selectedFilePdfUrl]);
 
   // FIXME:fix the capture all the page
 

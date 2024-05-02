@@ -4,6 +4,8 @@ import ChangeWorkspaceNameDialog from "./ChangeWorkspaceNameDialog";
 import TransferWorkspaceDialog from "./TransferWorkspaceDialog";
 
 import { useGetDictionary } from "@/hooks";
+import { useSession } from "next-auth/react";
+import { useDeleteWorkSpace } from "@/components/pages/workspace/hooks/useDeleteWorkSpace";
 
 /**
  * settings tab content in workspace page
@@ -14,6 +16,15 @@ export function WorkspaceSettings() {
   const {
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
+  const {data:session} = useSession();
+  const { mutate: deleteWorkSpace } = useDeleteWorkSpace();
+
+  const myWorkspace = session?.user.workspace;
+
+  const deleteWorkspaceHandler = () => {
+    if(myWorkspace?.id)
+    deleteWorkSpace({ workspace_id: myWorkspace?.id });
+  };
 
   return (
     <>
@@ -27,7 +38,7 @@ export function WorkspaceSettings() {
           title={workspaceDictionary.setting_name_label}
           Action={<ChangeWorkspaceNameDialog />}
         >
-          <p className="text-foreground/80">My Workspace</p>
+          <p className="text-foreground/80">{myWorkspace?.name}</p>
         </SettingItem>
       </div>
 
@@ -61,7 +72,7 @@ export function WorkspaceSettings() {
             <DeleteAlertDialog
               title="Delete Workspace"
               description="Are you sure you want to delete this workspace?"
-              handleSubmit={() => {}}
+              handleSubmit={()=>{}}
             />
           }
         >

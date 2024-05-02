@@ -1,5 +1,4 @@
 import PdfUploadSection from "./pdf-upload-section";
-import PdfView from "@/components/pages/edit-page-pdf/utility/pdfView";
 
 export function UploadFilePdf() {
   return (

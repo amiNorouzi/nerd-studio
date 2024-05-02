@@ -109,7 +109,7 @@ export function useAxiosFetcher() {
             return axiosInstance(prevRequest);
           } else {
             // if token is not returned sign out the user
-            await signOut();
+            await signOut({ callbackUrl: "/login" });
             return Promise.reject(error);
           }
         } else {

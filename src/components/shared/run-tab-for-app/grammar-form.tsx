@@ -70,7 +70,10 @@ export default function GrammarFormSection({
       )}
       {isGrammarHistoryOpen && (
         <div className="col form-gap">
-          <HistoryInfoContent onTextAreaChange={onTextAreaChange} />
+          <HistoryInfoContent
+            onTextAreaChange={onTextAreaChange}
+            appName="grammar"
+          />
           <SubmitButtonSelectEngine
             isDisabledSubmit={!value}
             isPending={isPending}

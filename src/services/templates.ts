@@ -6,7 +6,10 @@ import { CategoryItem } from "@/components/pages/template/types";
 
 type GenerateTemplateParams = {
   prompt: string;
-} & Omit<OpenAiCompletionSchemaInput, "stream" | "messages">;
+} & Omit<
+  OpenAiCompletionSchemaInput,
+  "stream" | "messages" | "document_name" | "workspace_id"
+>;
 
 export function useGenerateTemplate() {
   return useMutation({
@@ -44,6 +47,45 @@ export function useGenerateTemplate() {
   });
 }
 
+type CreateTemplateParams = {
+  topic: string;
+  task: string;
+  prompt: string;
+  params: {
+    type: "text";
+    label: string;
+    description: string;
+    placeholder: string;
+  }[];
+  category_name: string;
+};
+
+export function useCreateTemplate() {
+  return useMutation({
+    async mutationFn({
+      prompt,
+      params,
+      category_name,
+      topic,
+      task,
+    }: CreateTemplateParams) {
+      const { data } = await axiosClient.post<
+        unknown,
+        any,
+        CreateTemplateParams
+      >("/templates/", {
+        topic,
+        params,
+        category_name,
+        task,
+        prompt,
+      });
+
+      return data;
+    },
+  });
+}
+
 export function useTemplate() {
   const { axiosFetch } = useAxiosFetcher();
   const { data: templates = [], isLoading } = useQuery({
@@ -52,11 +94,6 @@ export function useTemplate() {
       axiosFetch<TemplateCategoryItem[]>({
         url: "/templates/public/",
       }),
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    staleTime: 120000,
-    refetchInterval: 120000,
-    refetchOnReconnect: false,
   });
 
   return { templates, isLoading };
@@ -131,6 +168,7 @@ export function useTemplatesByChildAndParentCategory({
 
 const templateService = {
   useGenerateTemplate,
+  useCreateTemplate,
   useTemplate,
   useTemplateParentCategories,
   useTemplatesByChildAndParentCategory,
