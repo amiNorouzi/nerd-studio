@@ -19,6 +19,8 @@ import { cn } from "@/lib/utils";
 
 import type { StateSetterType } from "@/services/types";
 import type { TemplateState } from "@/stores/zustand/types";
+import { AdvancedChildCategory } from "@/components/pages/template/components/advance-child-category";
+import { AdvancedContentTopicNew } from "@/components/pages/template/components/advanced-content-topic-new";
 
 interface StepBoxProps {
   step: number;
@@ -219,6 +221,21 @@ const stepsTitle = {
   "1": "content_topic",
 } as const;
 
+export function AdvancedHeader() {
+  return (
+    <div className={cn("mx-[150px] flex h-[90px] w-full flex-col gap-[12px]")}>
+      <div className="mx-auto text-[36px] font-[700px] leading-[24px]">
+        {" "}
+        Advance Search
+      </div>
+      <div className="mx-auto text-[16px] text-[#747474]">
+        {" "}
+        extra information about advanced setting can be written here
+      </div>
+    </div>
+  );
+}
+
 export function AdvancedPrompt() {
   const [selectedParentCategoryId, setSelectedParentCategoryId] = useState(-1);
   const [selectedChildCategoryId, setSelectedChildCategoryId] = useState(-1);
@@ -233,23 +250,58 @@ export function AdvancedPrompt() {
   }
 
   return (
-    <div className="col h-fit w-full flex-1 items-center gap-6">
-      <ListOfStepBoxes stepper={stepper} />
-
-      <Content
-        setSelectedParentCategoryId={setSelectedParentCategoryId}
-        selectedParentCategoryId={selectedParentCategoryId}
-        selectedChildCategoryId={selectedChildCategoryId}
-        setSelectedChildCategoryId={setSelectedChildCategoryId}
-        selectedChildItemName={selectedChildItemName}
-        setSelectedChildItemName={setSelectedChildItemName}
-      />
-      <FooterButtons
-        stepper={stepper}
-        setStepper={setStepper}
-        handleReset={handleReset}
-        isDisabledNext={selectedChildCategoryId < 0}
-      />
+    <div className="col h-full w-full flex-1 items-center gap-6">
+      <AdvancedHeader />
+      {/*<Content*/}
+      {/*  setSelectedParentCategoryId={setSelectedParentCategoryId}*/}
+      {/*  selectedParentCategoryId={selectedParentCategoryId}*/}
+      {/*  selectedChildCategoryId={selectedChildCategoryId}*/}
+      {/*  setSelectedChildCategoryId={setSelectedChildCategoryId}*/}
+      {/*  selectedChildItemName={selectedChildItemName}*/}
+      {/*  setSelectedChildItemName={setSelectedChildItemName}*/}
+      {/*/>*/}
+      <div className="col  h-full w-[80%]  rounded-xl border ">
+        <div className="col  mt-[24px] flex h-full w-full   ">
+          <div
+            className={cn(
+              "flex w-full flex-col ",
+              selectedParentCategoryId !== -1 &&
+                selectedChildCategoryId !== -1 &&
+                "lg:flex-row",
+            )}
+          >
+            <AdvancedCategory
+              setSelectedParentCategoryId={setSelectedParentCategoryId}
+              selectedParentCategoryId={selectedParentCategoryId}
+              setSelectedChildCategoryId={setSelectedChildCategoryId}
+            />{" "}
+            <AdvancedChildCategory
+              selectedParentCategoryId={selectedParentCategoryId}
+              selectedChildCategoryId={selectedChildCategoryId}
+              setSelectedChildCategoryId={setSelectedChildCategoryId}
+              setSelectedChildItemName={setSelectedChildItemName}
+            />{" "}
+          </div>
+          <div className={"mx-auto flex max-h-[350px] w-full  "}>
+            <AdvancedContentTopicNew
+              selectedChildCategoryId={selectedChildCategoryId}
+              selectedParentCategoryId={selectedParentCategoryId}
+              selectedChildItemName={selectedChildItemName}
+            />
+          </div>
+          {/*<AdvancedContentTopic*/}
+          {/*  selectedChildCategoryId={selectedChildCategoryId}*/}
+          {/*  selectedParentCategoryId={selectedParentCategoryId}*/}
+          {/*  selectedChildItemName={selectedChildItemName}*/}
+          {/*/>*/}
+        </div>
+      </div>
+      {/*<FooterButtons*/}
+      {/*  stepper={stepper}*/}
+      {/*  setStepper={setStepper}*/}
+      {/*  handleReset={handleReset}*/}
+      {/*  isDisabledNext={selectedChildCategoryId < 0}*/}
+      {/*/>*/}
     </div>
   );
 }
