@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, KeyboardEvent, FormEvent } from "react";
+import React, { useRef, useState, KeyboardEvent, FormEvent, useCallback } from "react";
 
 import { TbBookmarks, TbSend, TbUpload } from "react-icons/tb";
 
@@ -17,6 +17,7 @@ import { useChatStore } from "@/stores/zustand/chat-store";
 
 import { iconVariants } from "@/constants/variants";
 import { MinimalButton } from "@/components/shared";
+import { useStream } from "../hooks/useStreamingApi";
 /**
  * Prompt input component used in chat page
  * contains a textarea and send button nad some tools for input
@@ -24,6 +25,12 @@ import { MinimalButton } from "@/components/shared";
  */
 export function PromptInput() {
   const [openUploadDialog, setOpenUploadDialog] = useState(false);
+  const {generateStream, message} = useStream({
+    endpoint: "/chat_bot/conversation/",
+    eventName: "chat_bot",
+    // @ts-ignore
+    envalidationKey: ["history"],
+  });
 
   const formRef = useRef<HTMLFormElement>(null); //need it for submit on enter button pressed
 
@@ -49,13 +56,33 @@ export function PromptInput() {
    * submit form
    * @param e FormEvent
    */
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     //check if user write a prompt
     if (!prompt) return showError("Please! write your prompt");
 
-    console.log(prompt);
-  };
+    generateStream({
+      frequency_penalty: 0,
+      max_tokens: 100,
+      messages: [
+        {
+          content: "you are a helpful assistant.",
+          role: "system"
+        },
+        {
+          content: "where is Iran?",
+          role: "user"
+        }
+      ],
+      model: "gpt-3.5-turbo-0125",
+      presence_penalty: 0,
+      temperature: 0.3,
+      top_p: 1
+    });
+  }, [generateStream, prompt, showError]);
+
+  console.log("message", message);
 
   function handleDeleteFile(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -83,6 +110,7 @@ export function PromptInput() {
           />
           {/*prompt input text box*/}
           <PromptInputTextBox />
+          <div>{message}</div>
         </div>
         {/*buttons like send, save, upload, prompt library*/}
         <div className="flex items-end gap-1">
