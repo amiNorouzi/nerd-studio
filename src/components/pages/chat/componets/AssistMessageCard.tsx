@@ -55,7 +55,7 @@ export function AssistMessageCard(props: IProps) {
   }
 
   return (
-    <div className="col gap-1 lg:flex-row  lg:pe-10">
+    <div className="col gap-1 lg:flex-row  lg:pe-10 w-full">
       {/*assist image*/}
       <UserAvatar
         imageSrc={image}

@@ -47,9 +47,6 @@ export default function ChatPage({ lang }: { lang: Locale }) {
             <ChatSettingAndUpload />
           </Content>
 
-          {/*stop response button*/}
-          <StopResponseButton className="sticky bottom-1/4 " />
-
           {/* chat settings and prompt input*/}
           <ChatArea isChatListValid={isChatListValid} setChatList={setChatList} />
         </div>

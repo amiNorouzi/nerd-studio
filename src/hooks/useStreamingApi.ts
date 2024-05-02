@@ -5,7 +5,7 @@ import axiosClient from "@/services/axios-client";
 
 const EventListenerBaseApi = "http://5.78.55.161:8000/events";
 
-export function useStream({envalidationKey, endpoint, eventName}:{
+export function useStream<T>({envalidationKey, endpoint, eventName}:{
   envalidationKey:InvalidateQueryFilters;
   endpoint:string;
   eventName:string;
@@ -13,6 +13,7 @@ export function useStream({envalidationKey, endpoint, eventName}:{
   const { data: session } = useSession();
   const queryClient = useQueryClient();
   const [message, setMessage] = useState("");
+  const [conversationHistory, setConversationHistory] = useState<T[]>([]);
   const eventSource = useRef<EventSource | null>(null);
   const uuid = session?.user.sub;
   
@@ -28,9 +29,10 @@ export function useStream({envalidationKey, endpoint, eventName}:{
         document_name: eventName
       });
 
-      return data;
+      return data as T;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setConversationHistory(prev => [...prev, data]);
       queryClient.invalidateQueries(envalidationKey); // Invalidate the query to trigger a refetch
     },
   });
@@ -75,6 +77,7 @@ export function useStream({envalidationKey, endpoint, eventName}:{
     resetMessage,
     generateStream,
     cancelStream,
+    conversationHistory,
     ...props
   };
 }

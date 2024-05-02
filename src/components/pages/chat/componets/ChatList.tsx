@@ -42,7 +42,7 @@ export function ChatList({ messages }: Props) {
                 role="user"
               />
             )}
-            {item.role === "assistance" && (
+            {item.role === "assistance" || item.role === "assistant" && (
               <AssistMessageCard
                 timeLine={""}
                 prompt={item.prompt}
