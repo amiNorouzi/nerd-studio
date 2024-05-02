@@ -16,7 +16,7 @@ import useImageTabs from "../hooks/useImageTabs";
 import { cn, isEmpty } from "@/lib/utils";
 
 import type { HistoryItem } from "@/services/types";
-import { HistoryBox, HistoryItems, Show } from "@/components/shared";
+import { HistoryBox, Show } from "@/components/shared";
 import { iconVariants } from "@/constants/variants";
 import { useAiImageStore } from "@/stores/zustand/ai-image-store";
 import { ImageModelType } from "@/stores/zustand/types";
@@ -124,6 +124,7 @@ export function ResultSection() {
       </div>
       <HistoryBox>
         <ImageHistory
+          /*@ts-ignore*/
           histories={histories}
           isOpenMobileImageHistory={isOpenMobileImageHistory}
           setIsOpenMobileImageHistory={setIsOpenMobileImageHistory}
