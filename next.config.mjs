@@ -12,6 +12,10 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'u398193.your-storagebox.de',
             },
+            {
+                protocol: 'https',
+                hostname: 'nerdstudio-backend-bucket.s3.amazonaws.com',
+            }
         ]
     },
     webpack: (
