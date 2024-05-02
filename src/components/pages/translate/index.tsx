@@ -18,6 +18,7 @@ import React, { useEffect, useState } from "react";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { useHistoryUpdate } from "@/services/history";
+import { useGenerate } from "@/components/shared/run-tab-for-app/generates-hook";
 
 interface IProps {
   params: ParamsType;
@@ -29,14 +30,11 @@ export default function TranslatePage({ params }: IProps) {
     eventName: "translate",
   });
   const { mutate: generateTranslate, isPending } = useGenerateTranslate();
-  const [text, setText] = useState("");
-  const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
-  const { mutate: updateHistory } = useHistoryUpdate();
-
-  const textInput = selectedHistoryItem
-    ? selectedHistoryItem.answer_text + translation
-    : translation;
-  const handleGenerate = () => {
+  const { setUpdateText, text, setText, textInput } = useGenerate({
+    generateFn: handleGenerate,
+    message: translation,
+  });
+  function handleGenerate() {
     if (text) {
       reset();
       generateTranslate({
@@ -56,18 +54,7 @@ export default function TranslatePage({ params }: IProps) {
         document_name: "translate",
       });
     }
-  };
-  useEffect(() => {
-    reset();
-  }, [selectedHistoryItem]);
-  useEffect(() => {
-    if (!isPending && selectedHistoryItem) {
-      updateHistory({
-        answer_text: textInput,
-        answerUuid: selectedHistoryItem?.uuid,
-      });
-    }
-  }, [isPending]);
+  }
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="Translate">
@@ -79,7 +66,7 @@ export default function TranslatePage({ params }: IProps) {
           isPending={isPending}
           onSubmit={handleGenerate}
         />
-        <Run.Editor value={textInput} onChange={() => {}}>
+        <Run.Editor value={textInput} onChange={setUpdateText}>
           <HistoryBox>
             <HistoryItems appName="translate" />
           </HistoryBox>

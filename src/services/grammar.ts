@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 import { useSession } from "next-auth/react";
 
-type GrammarGenerateParams = {
+export type GrammarGenerateParams = {
   text: string;
 } & Omit<OpenAiCompletionSchemaInput, "stream" | "messages" | "workspace_id">;
 

@@ -15,6 +15,7 @@ import { useGetDictionary } from "@/hooks";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 import { useHistoryUpdate } from "@/services/history";
 import { useHistoryStore } from "@/stores/zustand/history-store";
+import { useGenerate } from "@/components/shared/run-tab-for-app/generates-hook";
 
 export function WritePage({ params }: SCRPropsType) {
   const {
@@ -31,18 +32,15 @@ export function WritePage({ params }: SCRPropsType) {
     eventName: "ai_writer",
   });
   const { mutate: generate, isPending } = useAIWriter();
-  const [prompt, setPrompt] = useState("");
-  const { mutate: updateHistory } = useHistoryUpdate();
-  const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
-
-  const textInput = selectedHistoryItem
-    ? selectedHistoryItem.answer_text + generatedText
-    : generatedText;
-  const handleGenerate = () => {
-    if (prompt) {
+  const { setUpdateText, text, setText, textInput } = useGenerate({
+    generateFn: handleGenerate,
+    message: generatedText,
+  });
+  function handleGenerate() {
+    if (text) {
       reset();
       generate({
-        prompt,
+        prompt: text,
         model: "gpt-3.5-turbo-0125",
         temperature: 0.1,
         max_tokens: 100,
@@ -52,19 +50,8 @@ export function WritePage({ params }: SCRPropsType) {
         document_name: "AI Writer",
       });
     }
-  };
+  }
   //reset the stream everytime item in history is selected
-  useEffect(() => {
-    reset();
-  }, [selectedHistoryItem]);
-  useEffect(() => {
-    if (!isPending && selectedHistoryItem) {
-      updateHistory({
-        answer_text: textInput,
-        answerUuid: selectedHistoryItem?.uuid,
-      });
-    }
-  }, [isPending]);
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="ReWrite">
@@ -72,13 +59,13 @@ export function WritePage({ params }: SCRPropsType) {
         <Run.Form
           params={params}
           isPending={isPending}
-          onTextAreaChange={setPrompt}
-          value={prompt}
+          onTextAreaChange={setText}
+          value={text}
           onSubmit={handleGenerate}
           buttonContent={ReWrite.form_rewrite_button}
           mainTextAreaPlaceholder={ReWrite.text_input_placeholder}
         />
-        <Run.Editor value={textInput} onChange={() => {}}>
+        <Run.Editor value={textInput} onChange={setUpdateText}>
           <HistoryBox>
             <HistoryItems appName="ai_writer" />
           </HistoryBox>
