@@ -23,7 +23,7 @@ export function ChatSettings() {
   const {
     page: { chat },
   } = useGetDictionary();
-
+  
   return (
     <div className="spacing-row w-full !items-end pe-1 lg:ps-10">
       {/*engine select*/}

@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import {
-  PromptInput,
-  ChatSettings,
   ChatList,
   Options,
   Title,
@@ -12,46 +10,18 @@ import {
 } from "./componets";
 import {
   HistoryBox,
-  MyTooltip,
   SetSearchParamProvider,
 } from "@/components/shared";
 import { ChatHero } from "@/components/pages/chat/componets/ChatHero";
-import RenderIf from "@/components/shared/RenderIf";
 import type { Locale } from "../../../../i18n.config";
-import { Button } from "@/components/ui/button";
-import { useGetDictionary } from "@/hooks";
-import type { StateSetterType } from "@/services/types";
 import { useChatStore } from "@/stores/zustand/chat-store";
-import { TbMessagePlus } from "react-icons/tb";
-import { iconVariants } from "@/constants/variants";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
+import ChatArea from "./componets/ChatArea";
 
 const chatContent = {
   chatList: ChatList,
   options: Options,
 };
-
-function NewChatButton({
-  setChatList,
-}: {
-  setChatList: StateSetterType<boolean>;
-}) {
-  const {
-    page: { chat: chatDictionary },
-  } = useGetDictionary();
-  return (
-    <MyTooltip title={chatDictionary.new_chat_button_label}>
-      <Button
-        variant="ghost"
-        className="w-element rounded-full bg-primary-dark
-         p-1 text-white hover:bg-primary-dark"
-        onClick={() => setChatList(v => !v)}
-      >
-        <TbMessagePlus className={iconVariants({ size: "md" })} />
-      </Button>
-    </MyTooltip>
-  );
-}
 
 export default function ChatPage({ lang }: { lang: Locale }) {
   const isHighlightOpen = useChatStore.use.openHighlightBox();
@@ -81,17 +51,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           <StopResponseButton className="sticky bottom-1/4 " />
 
           {/* chat settings and prompt input*/}
-          <div className="col sticky bottom-0 w-full max-w-[760px] gap-1.5 ">
-            <RenderIf isTrue={isChatListValid === "chatList"}>
-              <ChatSettings />
-            </RenderIf>
-            <div className="flex w-full items-start gap-2">
-              {/*new chat button*/}
-              <NewChatButton setChatList={setChatList} />
-              {/*prompt input (text box)*/}
-              <PromptInput />
-            </div>
-          </div>
+          <ChatArea isChatListValid={isChatListValid} setChatList={setChatList} />
         </div>
 
         <Highlight>

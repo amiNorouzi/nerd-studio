@@ -53,6 +53,8 @@ export function PromptInput() {
     e.preventDefault();
     //check if user write a prompt
     if (!prompt) return showError("Please! write your prompt");
+
+    console.log(prompt);
   };
 
   function handleDeleteFile(
