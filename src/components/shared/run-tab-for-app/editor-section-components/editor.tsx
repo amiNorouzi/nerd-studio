@@ -7,11 +7,14 @@ type Props = {
   onChange: (text: string) => void;
 };
 
-export function Editor({ value }: Props) {
+export function Editor({ value, onChange }: Props) {
   const { editorAndFooterButtonsWrapperRef } = useEditorContext();
 
   const onEdite = (doc: any) => {
     // doc[0][0].children[0].text;
+    if (doc && doc[0]) {
+      onChange(doc[0][0].children[0].text);
+    }
   };
   return (
     <div ref={editorAndFooterButtonsWrapperRef} className="editorWrapper">
