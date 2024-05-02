@@ -1,10 +1,10 @@
 import dynamic from "next/dynamic";
-import NewPassLoading from "@/app/[lang]/(auth)/login/reset-password/loading";
+import HomeLoading from "@/app/[lang]/loading";
 
 const NewPassPage = dynamic(
   () => import("@/components/pages//forget-pass/NewPassPage"),
   {
-    loading: () => <NewPassLoading />,
+    loading: () => <HomeLoading />,
   },
 );
 

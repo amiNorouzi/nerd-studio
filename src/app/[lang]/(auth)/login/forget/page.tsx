@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
-import ForgetPassLoading from "@/app/[lang]/(auth)/login/forget/loading";
+import HomeLoading from "@/app/[lang]/loading";
 
 const ForgetPassPage = dynamic(() => import("@/components/pages/forget-pass"), {
-  loading: () => <ForgetPassLoading />,
+  loading: () => <HomeLoading />,
 });
 
 export default function ForgetPass() {

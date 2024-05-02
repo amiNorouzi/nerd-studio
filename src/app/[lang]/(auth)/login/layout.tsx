@@ -1,11 +1,12 @@
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getDictionary } from "@/lib/dictionary";
 import type { ParamsType } from "@/services/types";
+import type { ReactNode } from "react";
+
 interface IProps {
-  children: React.ReactNode;
+  children: ReactNode;
   params: ParamsType;
 }
 export default async function Layout({ children, params }: IProps) {
@@ -13,8 +14,9 @@ export default async function Layout({ children, params }: IProps) {
     common,
     page: { login },
   } = await getDictionary(params.lang);
+
   return (
-    <div className="flex h-full w-full flex-col items-center justify-between ">
+    <div className="flex h-full w-full flex-col items-center">
       <header className="z-50 flex w-full bg-white p-5 sm:p-8">
         <div className="me-auto flex items-center gap-3">
           <Image
@@ -36,19 +38,6 @@ export default async function Layout({ children, params }: IProps) {
         </div>
       </header>
       {children}
-      <footer>
-        <span className="text-xs text-white">
-          {login.footer_description}
-          <Link href="#" className="underline">
-            {common.privacy_policy}
-          </Link>{" "}
-          {common.and}{" "}
-          <Link href="#" className="underline">
-            {common.terms_of_service}
-          </Link>{" "}
-          {common.apply}
-        </span>
-      </footer>
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import LoginLoading from "@/app/[lang]/(auth)/login/loading";
 import dynamic from "next/dynamic";
+import HomeLoading from "@/app/[lang]/loading";
 
 const LoginPage = dynamic(() => import("@/components/pages/login"), {
-  loading: () => <LoginLoading />,
+  loading: () => <HomeLoading />,
 });
 
 export default function Login() {

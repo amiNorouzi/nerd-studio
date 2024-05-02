@@ -3,17 +3,21 @@ import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import "@/styles/auth-layout.sass";
+import { Footer } from "@/components/pages/signup/footer";
+import type { ParamsType } from "@/services/types";
 
 interface IProps {
   children: React.ReactNode;
+  params: ParamsType;
 }
-export default async function Layout({ children }: IProps) {
+
+export default async function Layout({ children, params }: IProps) {
   // this function get info from Google and if session was valid (user signed in) redirect users to dashboard
   const session = await getServerSession(authConfig);
-  if (session) return redirect("/");
+  if (session) return redirect("/dashboard");
 
   return (
-    <div className="bg-linearGradient relative flex h-full w-full items-center justify-center overflow-hidden">
+    <div className="bg-linearGradient relative flex-col flex h-full w-full items-center justify-center overflow-hidden">
       {/* this div is wave white background*/}
       <div className="custom-shape-divider-top-1709011671">
         <svg
@@ -29,6 +33,7 @@ export default async function Layout({ children }: IProps) {
         </svg>
       </div>
       {children}
+      <Footer params={params} />
     </div>
   );
 }
