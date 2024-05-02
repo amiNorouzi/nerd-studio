@@ -1,28 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
-import { GoHistory } from "react-icons/go";
-
-import EmptyResult from "./EmptyResult";
 import ImageHistory from "./ImageHistory";
-import GeneratedImages from "./GeneratedImages";
-import ImageCompare from "./ImageCompare";
-import { Generate } from "@/components/svg-icons";
-import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
 import useImageTabs from "../hooks/useImageTabs";
 
-import { cn, isEmpty } from "@/lib/utils";
+import { isEmpty } from "@/lib/utils";
 
 import type { HistoryItem } from "@/services/types";
-import { HistoryBox, Show } from "@/components/shared";
-import { iconVariants } from "@/constants/variants";
-import {
-  useAiImageStore,
-  useImageUrlStore,
-} from "@/stores/zustand/ai-image-store";
-import { ImageModelType } from "@/stores/zustand/types";
+import { HistoryBox } from "@/components/shared";
+import { useImageUrlStore } from "@/stores/zustand/ai-image-store";
 
 //list of history
 //TODO: replace with real data

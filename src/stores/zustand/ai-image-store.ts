@@ -47,11 +47,11 @@ const useAiImage = create<StoreType>()(
 );
 const useImageUrl = create<any>()(
   devtools(
-    // @ts-ignore
+
 
     immer(set => ({
       ...initialStateIamge,
-      setUrlImage: (val: string) =>
+      setUrlImage: (val: string) =>// @ts-ignore
         set(state => {
           state.imageUrl = val;
         }),
