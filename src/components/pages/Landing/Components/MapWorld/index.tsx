@@ -1,4 +1,3 @@
-"use client";
 import TitleSection from "@/components/pages/Landing/common/TitleSection";
 import {
   ComposableMap,
@@ -7,18 +6,15 @@ import {
   Marker,
 } from "react-simple-maps";
 import geo from "@/constants/geo.json";
-import { ReactNode, useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import { MarkerIconMap } from "@/components/svg-icons/MarkerIconMap";
-import { Star } from "@/components/svg-icons/Star";
-import PopupMarker from "@/components/pages/Landing/common/popupMarker";
 
 const MapWorld = () => {
   const [showPopup, setShowPopup] = useState(false);
-  const [popupContent, setPopupContent] = useState({
-    title: "“I like it because .”.",
-    imageUrl: "/images/landing/Avatar.png",
-  });
+  // const [popupContent, setPopupContent] = useState({
+  //   title: "“I like it because .”.",
+  //   imageUrl: "/images/landing/Avatar.png",
+  // });
 
   return (
     <div className="padding-x  mt-0  bg-[#F8F8F8] py-6 md:mt-20 lg:py-[10px] 2xl:py-[10px]">
@@ -88,7 +84,7 @@ const MapWorld = () => {
                     stroke="#B388F4FF"
                   />
                   <image
-                    href={popupContent.imageUrl}
+                    href={"/images/landing/Avatar.png"}
                     x="10"
                     y="10"
                     width="100"
@@ -100,7 +96,7 @@ const MapWorld = () => {
                     y="80"
                     style={{ fontFamily: "system-ui", fill: "#333" }}
                   >
-                    {popupContent.title}
+                    “I like it because .”
                   </text>
                 </g>
               )}
