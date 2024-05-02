@@ -1,8 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { SelectEngine } from "@/components/shared";
-import RenderIf from "@/components/shared/RenderIf";
-import Loading from "@/components/shared/Loading";
 import React from "react";
 
 interface IProps {
@@ -27,13 +25,8 @@ export function SubmitButtonSelectEngine({
         className="row w-full"
         onClick={onClick}
         disabled={isPending || isDisabledSubmit}
+        isPending={isPending}
       >
-        <RenderIf isTrue={isPending}>
-          <Loading
-            rootClass="-ms-1 me-1"
-            svgClass="w-6 h-6 !stroke-primary-foreground"
-          />
-        </RenderIf>
         {buttonContent}
       </Button>
     </div>

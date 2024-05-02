@@ -34,12 +34,13 @@ export default function ForgetPassPage() {
   const { showFetchError } = useErrorToast();
   // Use the custom hook `useSuccessToast` to get the `showSuccess` function.
   const { showSuccess } = useSuccessToast();
+  const [isPending, setIsPending] = useState(false);
 
   // Use `useForm` from `react-hook-form` to manage the form state and validation.
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     getValues,
   } = useForm<FormTypes>({
     defaultValues: {
@@ -61,6 +62,7 @@ export default function ForgetPassPage() {
    * @param {FormTypes} data - The form data.
    */
   const handleForgotPass = async (data: FormTypes) => {
+    setIsPending(true);
     try {
       // Send a request to the password reset API with the form data.
       await forgotPassApi(data);
@@ -71,7 +73,7 @@ export default function ForgetPassPage() {
       showSuccess("Reset password link sent to your email");
     } catch (e) {
       console.log(e);
-
+      setIsPending(false);
       // If the request fails, show an error message.
       showFetchError(e);
     }
@@ -82,12 +84,12 @@ export default function ForgetPassPage() {
   return (
     <>
       <section
-        className=" z-50 flex w-full flex-col items-center justify-center gap-8 p-3"
+        className="z-50 flex w-full flex-col items-center justify-center gap-6"
         style={{ display: showEmailConfirmation ? "none" : "flex" }}
       >
         <form
           onSubmit={handleSubmit(handleForgotPass)}
-          className="flex h-fit w-full max-w-[480px] flex-col gap-5 rounded bg-white p-5 shadow-2xl sm:px-16 sm:py-10"
+          className="flex h-fit w-full max-w-[380px] flex-col gap-5 rounded bg-white p-8 shadow-2xl"
         >
           <h2 className="text-center text-lg font-bold">{login.welcome}</h2>
           <div className="grid grid-cols-1 items-start gap-2">
@@ -114,8 +116,9 @@ export default function ForgetPassPage() {
           </div>
           <Button
             type="submit"
-            className="h-14 w-full text-sm font-extrabold"
-            disabled={isSubmitting}
+            size="lg"
+            disabled={isPending}
+            isPending={isPending}
           >
             {forget_pass.send_me_link}
           </Button>

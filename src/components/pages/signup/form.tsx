@@ -34,9 +34,9 @@ import { TbEye, TbEyeClosed } from "react-icons/tb";
  * It also uses a custom hook `useSignup` to handle the signup process and manage the email confirmation state.
  * It uses `useGetDictionary` to get the localized strings for the page.
  *
- * @returns {JSX.Element} The rendered signup form.
+ * @returns The rendered signup form.
  */
-export function Form() {
+export default function Form() {
   // Use `useState` to manage the state of password visibility.
   const [showPass, setShowPass] = useState(false);
 
@@ -68,14 +68,14 @@ export function Form() {
   return (
     <>
       <section
-        className="z-50 w-full flex-col items-center justify-center gap-8 p-3"
+        className="z-50 w-full flex-col items-center justify-center gap-6"
         style={{ display: showEmailConfirmation ? "none" : "flex" }}
       >
         <FormProvider {...form}>
           <form
             method="post"
             onSubmit={handleSubmit(handleSignup)}
-            className="flex h-fit w-full max-w-[480px] flex-col gap-5 rounded-xl bg-white p-5 shadow-2xl sm:px-16 sm:py-10"
+            className="flex h-fit w-full max-w-[380px] flex-col gap-5 rounded-xl bg-white p-8 shadow-2xl"
           >
             <h2 className="text-center text-lg font-bold">
               {signup.form_header}
@@ -216,8 +216,9 @@ export function Form() {
 
             <Button
               type="submit"
-              className="h-14 w-full text-sm font-extrabold"
+              size="lg"
               disabled={isSubmitting}
+              isPending={isSubmitting}
             >
               {signup.signup}
             </Button>

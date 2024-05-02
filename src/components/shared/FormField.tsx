@@ -39,7 +39,7 @@ export function FormField<T extends FieldValues>(
         name={name}
         {...textFieldProps}
         className={cn(
-          "h-full w-full outline-none ring-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
+          "!h-9 w-full outline-none ring-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
           error && "border-destructive",
           inputClass,
         )}

@@ -1,6 +1,5 @@
-import { Header } from "./header";
-import { Form } from "./form";
-import { Footer } from "./footer";
+import Header from "./header";
+import Form from "./form";
 import type { ParamsType } from "@/services/types";
 
 interface IProps {
@@ -9,10 +8,9 @@ interface IProps {
 
 export default function SignUpPage({ params }: IProps) {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-between">
+    <div className="flex h-full w-full flex-col items-center">
       <Header params={params} />
       <Form />
-      <Footer params={params} />
     </div>
   );
 }

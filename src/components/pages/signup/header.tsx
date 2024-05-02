@@ -3,14 +3,17 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getDictionary } from "@/lib/dictionary";
 import type { ParamsType } from "@/services/types";
+
 interface IProps {
   params: ParamsType;
 }
-export async function Header({ params }: IProps) {
+
+export default async function Header({ params }: IProps) {
   const {
     common,
     page: { signup },
   } = await getDictionary(params.lang);
+
   return (
     <header className="z-50 flex w-full bg-white p-5 sm:p-8">
       <div className="me-auto flex items-center gap-3">
