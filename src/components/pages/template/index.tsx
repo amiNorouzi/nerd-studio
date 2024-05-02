@@ -37,7 +37,6 @@ export default function TemplatePage() {
   const [searchText, setSearchText] = useState("");
   const { templates, isLoading } = useTemplate();
   const [showAdvance, setShowAdvance] = useState(false);
-  console.log("tab", tab);
   // const queryClient = useQueryClient();
   // const { axiosFetch } = useAxiosFetcher();
   //
@@ -61,10 +60,10 @@ export default function TemplatePage() {
       appName={"app"}
       appSearchParamValue={"prompt_library"}
     >
-      <div className="h-full w-full">
+      <div className="h-full w-full ">
         <div
           id="app-store-main"
-          className="col max-h-page h-[var(--main-height)]  w-full overflow-y-auto bg-background"
+          className="col max-h-page h-full  w-full overflow-y-auto bg-background"
         >
           {/*this section used for search in list*/}
           <RenderIf isTrue={tab === "All Prompts"}>
@@ -74,7 +73,7 @@ export default function TemplatePage() {
               value={searchText}
             />
           </RenderIf>
-          <div className="col h-fit w-full gap-4 p-2 md:p-4 lg:gap-6 lg:p-6">
+          <div className="col h-full w-full gap-4  p-2 md:p-4 lg:gap-6 lg:p-6">
             <Show>
               <Show.When isTrue={isLoading}>
                 <TemplateListSkeleton />
@@ -104,6 +103,7 @@ export default function TemplatePage() {
                     </div>
                   </div>
                   {showAdvance && <AdvancedPrompt />}
+
                   {!showAdvance && (
                     <Content
                       templates={templates}
