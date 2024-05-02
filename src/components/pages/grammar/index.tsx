@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { useHistoryUpdate } from "@/services/history";
-import { useGenerate } from "@/components/shared/run-tab-for-app/generates-hook";
+import { useHandleGeneratedData } from "@/hooks/generates-hook";
 
 interface IProps {
   params: ParamsType;
@@ -28,7 +28,7 @@ export function GrammarPage({ params }: IProps) {
     eventName: "grammar",
   });
   const { mutate: generateGrammar, isPending } = useGenerateGrammar();
-  const { setUpdateText, text, setText, textInput } = useGenerate({
+  const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
     generateFn: handleGenerate,
     message,
   });
