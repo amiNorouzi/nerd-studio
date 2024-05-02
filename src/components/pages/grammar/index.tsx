@@ -8,8 +8,9 @@ import {
 import type { ParamsType } from "@/services/types";
 import { useEventChanel } from "@/services/events-chanel";
 import { useGenerateGrammar } from "@/services/grammar";
-import React, { useEffect, useState } from "react";
-import { Highlight, HighlightContent } from "@/components/shared/Highlight";
+import React, { useState } from "react";
+import Highlight from "@/components/shared/Highlight";
+import { useHistories } from "@/services/history";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { useHistoryUpdate } from "@/services/history";
 import { useHandleGeneratedData } from "@/hooks/generates-hook";
