@@ -201,7 +201,7 @@ export function PromptInput() {
   }, [data, isPending, isSuccess]);
 
   // Transform StreamData to the desired structure
-  let startMessages = messagesHistory?.chats.map(chat => {
+  let messages = messagesHistory?.chats.map(chat => {
     return {
       name: "reza",
       image: "/images/logo.png",
@@ -247,7 +247,7 @@ export function PromptInput() {
             {/*prompt input text box*/}
             <ChatList
               messages={
-                 startMessages || []
+                 messages || []
               }
             />
             {(isPending || continueIsPending) && (

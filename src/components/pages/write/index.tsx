@@ -1,21 +1,13 @@
 "use client";
-import {
-  HistoryBox,
-  HistoryInfo,
-  HistoryItems,
-  Run,
-  SetSearchParamProvider,
-} from "@/components/shared";
-import { HistoryInfoContent } from "./history-info-content";
-import type { SCRPropsType } from "@/services/types";
-import { useEventChanel } from "@/services/events-chanel";
-import React, { useEffect, useState } from "react";
-import { useAIWriter } from "@/services/ai-writer";
-import { useGetDictionary } from "@/hooks";
-import { Highlight, HighlightContent } from "@/components/shared/Highlight";
-import { useHistoryUpdate } from "@/services/history";
-import { useHistoryStore } from "@/stores/zustand/history-store";
-import { useHandleGeneratedData } from "@/hooks/generates-hook";
+import {HistoryBox, HistoryInfo, HistoryItems, Run, SetSearchParamProvider} from '@/components/shared';
+import {HistoryInfoContent} from './history-info-content';
+import type {SCRPropsType} from '@/services/types';
+import {useEventChanel} from '@/services/events-chanel';
+import React from 'react';
+import {useAIWriter} from '@/services/ai-writer';
+import {useGetDictionary} from '@/hooks';
+import Highlight from '@/components/shared/Highlight';
+import {useHandleGeneratedData} from '@/hooks/generates-hook';
 
 export default function WritePage({ params }: SCRPropsType) {
   const {
@@ -70,9 +62,7 @@ export default function WritePage({ params }: SCRPropsType) {
             <HistoryItems appName="ai_writer" />
           </HistoryBox>
 
-          <Highlight>
-            <HighlightContent />
-          </Highlight>
+            <Highlight/>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           <HistoryInfo>
             <HistoryInfoContent />

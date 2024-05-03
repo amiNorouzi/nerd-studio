@@ -19,7 +19,7 @@ import { usePinHistory, useSetPinHistory } from "@/services/pin-history";
 import { useHistories } from "@/services/history";
 
 interface IProps {
-  histories: HistoryItem[];
+  histories: Answer[];
   isOpenMobileImageHistory: boolean;
   setIsOpenMobileImageHistory: StateSetterType<boolean>;
 }
@@ -43,18 +43,16 @@ function ImageHistory({
     common: { search },
     page: { image: imageDictionary },
   } = useGetDictionary();
-  const [selectedItem, setSelectedItem] = useState<HistoryItem>();
+  const [selectedItem, setSelectedItem] = useState<Answer>();
   const [isOpenInfo, setIsOpenInfo] = useState(false);
 
   // check if mobile screen
   const isMd = useMediaQuery("(max-width:768px)");
   const { data: favoriteItems } = useFavorites();
   const { data: pinItems } = usePinHistory();
-  const { data: toggleFavoriteAnswer, mutate: mutateFavoriteItems } =
-    useSetFavorites();
-  const { data: togglePinAnswer, mutate: mutatePinItems } = useSetPinHistory();
+
   const { data: historyItems } = useHistories({ pageNumber: 1 });
-  const handleClickItem = (history: HistoryItem) => {
+  const handleClickItem = (history: Answer) => {
     setSelectedItem(history);
     setIsOpenInfo(true);
   };
@@ -109,20 +107,31 @@ function ImageHistory({
       <div className="col gap-2 p-5 md:p-2">
         {/*search input*/}
 
-        {histories?.map(history => (
-          <ImageHistoryItem
-            onClick={() => handleClickItem(history)}
-            history={history}
-            key={history.id}
-            isActive={history.id === selectedItem?.id}
-          />
-        ))}
+        {historyItems &&
+          historyItems.answers &&
+          sortAnswers(historyItems.answers)
+            .filter(
+              item =>
+                item.app_type === "text_to_image" ||
+                item.app_type === "image_to_image" ||
+                item.app_type === "image_upscale",
+            )
+            .map(history => (
+              <ImageHistoryItem
+                onClick={() => {}}
+                history={history}
+                key={history.id}
+                isActive={history.id === selectedItem?.id}
+                favorite={favoriteCheck(history.id)}
+                pin={pinCheck(history.id)}
+              />
+            ))}
       </div>
-      <ImageHistoryInfo
-        isOpen={isOpenInfo}
-        setIsOpen={setIsOpenInfo}
-        history={selectedItem!}
-      />
+      {/*<ImageHistoryInfo*/}
+      {/*  isOpen={isOpenInfo}*/}
+      {/*  setIsOpen={setIsOpenInfo}*/}
+      {/*  history={selectedItem!}*/}
+      {/*/>*/}
     </>
   );
 

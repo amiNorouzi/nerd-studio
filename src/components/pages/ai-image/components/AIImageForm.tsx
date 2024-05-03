@@ -54,13 +54,13 @@ export function AIImageForm() {
                 upload image for image to image and upscale
                 not render in text to image
               */}
-              <UploadZone />
+              {/* <UploadZone /> */}
 
               {/*
                 -resolution and style
                 - style not render in upscale
               */}
-              <CommonSettings settings={basicInputs} />
+              {/* <CommonSettings settings={basicInputs} /> */}
 
               {/*
                 advance settings id different for all tabs
