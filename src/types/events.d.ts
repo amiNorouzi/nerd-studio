@@ -1,1 +1,1 @@
-type EventName = "chat_bot" | "translate";
+type EventName = "chat_bot" | "translate" |"grammar";
