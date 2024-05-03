@@ -21,7 +21,6 @@ interface Props {
 }
 export function ChatList({ messages }: Props) {
   const { data: session } = useSession();
-  console.log("test ChatList");
   
   return (
     <div className="col w-full max-w-[760px] flex-grow gap-6 pb-6 ">
@@ -31,14 +30,14 @@ export function ChatList({ messages }: Props) {
         const name = session?.user?.name ?? "";
 
         return (
-          <div key={""} className="mx-auto grid max-w-3xl grid-cols-1 gap-6">
+          <div key={item.id} className="mx-auto grid max-w-3xl grid-cols-1 gap-6">
             {item.role === "user" && (
               <UserMessageCard
                 timeLine={""}
                 prompt={item.prompt}
                 image={"/images/gemni.jpeg"}
                 name={name}
-                id={"1"}
+                id={item.id}
                 role="user"
               />
             )}
@@ -48,7 +47,7 @@ export function ChatList({ messages }: Props) {
                 prompt={item.prompt}
                 image={image}
                 name={name}
-                id={"1"}
+                id={item.id}
                 role="user"
               />
             )}
