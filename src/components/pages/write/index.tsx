@@ -63,7 +63,7 @@ export default function WritePage({ params }: SCRPropsType) {
             <HistoryItems appName="ai_writer" />
           </HistoryBox>
 
-            <Highlight/>
+          <Highlight />
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           <HistoryInfo>
             <HistoryInfoContent />

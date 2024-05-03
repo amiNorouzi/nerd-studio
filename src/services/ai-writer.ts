@@ -7,9 +7,9 @@ type AIWritersParams = {
 
 export default function useAIWriter() {
   const { generateStream, ...other } = useStream({
-    eventName: "translate",
+    eventName: "ai_writer",
     endpoint: "/ai_writers/generate_AI_writer/",
-    invalidationQuery: { queryKey: ["translate"] },
+    invalidationQuery: { queryKey: ["ai_writer"] },
   });
   const generateReWrite = useCallback(
     ({ text, ...params }: AIWritersParams) => {
