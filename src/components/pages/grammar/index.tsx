@@ -1,7 +1,7 @@
 "use client";
 import {HistoryBox, HistoryItems, Run, SetSearchParamProvider} from '@/components/shared';
 import type {ParamsType} from '@/services/types';
-import {useEventChanel} from '@/services/events-chanel';
+import useEventChanel from '@/services/events-chanel';
 import {useGenerateGrammar} from '@/services/grammar';
 import React from 'react';
 import Highlight from '@/components/shared/Highlight';
@@ -17,7 +17,7 @@ export default function GrammarPage({ params }: IProps) {
    *  value of it used in apps Header in  layout or form-section
    *  and everywhere that needs to know app name
    */
-  const { message, reset } = useEventChanel({
+  const { message, resetMessage } = useEventChanel({
     eventName: "grammar",
   });
   const { mutate: generateGrammar, isPending } = useGenerateGrammar();

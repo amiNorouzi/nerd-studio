@@ -2,7 +2,7 @@
 import {HistoryBox, HistoryInfo, HistoryItems, Run, SetSearchParamProvider} from '@/components/shared';
 import {HistoryInfoContent} from './history-info-content';
 import type {SCRPropsType} from '@/services/types';
-import {useEventChanel} from '@/services/events-chanel';
+import useEventChanel from '@/services/events-chanel';
 import React from 'react';
 import {useAIWriter} from '@/services/ai-writer';
 import {useGetDictionary} from '@/hooks';
@@ -20,7 +20,7 @@ export default function WritePage({ params }: SCRPropsType) {
    *  and everywhere that needs to know app name
    */
 
-  const { message: generatedText, reset } = useEventChanel({
+  const { message: generatedText, resetMessage } = useEventChanel({
     eventName: "ai_writer",
   });
   const { mutate: generate, isPending } = useAIWriter();
@@ -30,7 +30,7 @@ export default function WritePage({ params }: SCRPropsType) {
   });
   function handleGenerate() {
     if (text) {
-      reset();
+      resetMessage();
       generate({
         prompt: text,
         model: "gpt-3.5-turbo-0125",

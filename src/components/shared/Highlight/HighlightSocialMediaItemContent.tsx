@@ -9,7 +9,7 @@ import { iconVariants } from "@/constants/variants";
 import type { IconType } from "react-icons";
 import { HighlightItemContentProps } from "@/components/shared/Highlight/HighlightOptionItemContent";
 import { useGenerateHighlight } from "@/services/highlight";
-import { useEventChanel } from "@/services/events-chanel";
+import useEventChanel from "@/services/events-chanel";
 import useHighlightStore from "@/stores/zustand/highlight-store";
 
 export default function HighlightSocialMediaItemContent({
@@ -28,7 +28,7 @@ export default function HighlightSocialMediaItemContent({
     page: { chat },
   } = useGetDictionary();
   const { mutate: mutateGenerate } = useGenerateHighlight();
-  const { message, reset } = useEventChanel({
+  const { message, resetMessage } = useEventChanel({
     eventName: `highlight_${highlightType}`,
   });
   // const { message } = useEventChanel({
@@ -51,7 +51,7 @@ export default function HighlightSocialMediaItemContent({
 
   // handle click on generate button
   function handleGenerate(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    reset();
+    resetMessage();
     e.stopPropagation();
     setShowTextArea(true);
     mutateGenerate({

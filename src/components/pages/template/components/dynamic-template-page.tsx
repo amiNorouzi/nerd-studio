@@ -13,7 +13,7 @@ import { useGetDictionary } from "@/hooks";
 
 import type { SCRPropsType } from "@/services/types";
 import { useGenerateTemplate } from "@/services/templates";
-import { useEventChanel } from "@/services/events-chanel";
+import useEventChanel from "@/services/events-chanel";
 import { useState } from "react";
 
 export default function DynamicTemplatePage({
@@ -32,13 +32,13 @@ export default function DynamicTemplatePage({
    */
 
   const { mutate: generateTemplate, isPending } = useGenerateTemplate();
-  const { message: generatedTemplate, reset } = useEventChanel({
+  const { message: generatedTemplate, resetMessage } = useEventChanel({
     eventName: "template",
   });
   const [prompt, setPrompt] = useState(template.prompt);
   const handleGenerate = () => {
     if (prompt) {
-      reset();
+      resetMessage();
       generateTemplate({
         prompt,
         model: "gpt-3.5-turbo-0125",

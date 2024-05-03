@@ -67,7 +67,7 @@ export function PromptInput() {
     endpoint: "/chat_bot/conversation/",
     eventName: "chat_bot",
     // @ts-ignore
-    envalidationKey: ["history"],
+    invalidationKey: ["history"],
   });
   const {
     generateStream: continueCoversation,

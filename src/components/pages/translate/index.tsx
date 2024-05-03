@@ -3,7 +3,7 @@ import {HistoryBox, HistoryInfo, HistoryItems, Run, SetSearchParamProvider} from
 
 import {HistoryInfoContent} from './history-info-content';
 import type {ParamsType} from '@/services/types';
-import {useEventChanel} from '@/services/events-chanel';
+import useEventChanel from '@/services/events-chanel';
 import {useGenerateTranslate} from '@/services/translate';
 import {useSearchParams} from 'next/navigation';
 import {languages} from '@/components/shared/run-tab-for-app/form-section-components/contants';
@@ -18,7 +18,7 @@ interface IProps {
 
 export default function TranslatePage({ params }: IProps) {
   const searchParams = useSearchParams();
-  const { message: translation, reset } = useEventChanel({
+  const { message: translation, resetMessage } = useEventChanel({
     eventName: "translate",
   });
   const { mutate: generateTranslate, isPending } = useGenerateTranslate();
@@ -28,7 +28,7 @@ export default function TranslatePage({ params }: IProps) {
   });
   function handleGenerate() {
     if (text) {
-      reset();
+      resetMessage();
       generateTranslate({
         text,
         trLang:

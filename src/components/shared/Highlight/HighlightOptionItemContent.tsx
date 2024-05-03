@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGetDictionary } from "@/hooks";
 import { useGenerateHighlight } from "@/services/highlight";
-import { useEventChanel } from "@/services/events-chanel";
+import  useEventChanel  from "@/services/events-chanel";
 import useHighlightStore from "@/stores/zustand/highlight-store";
 import HighlightGeneratedContent from "@/components/shared/Highlight/HighlightGeneratedContent";
 import { cn } from "@/lib/utils";
@@ -39,7 +39,7 @@ export default function HighlightOptionItemContent({
     page: { chat },
   } = useGetDictionary();
   const { mutate: mutateGenerate } = useGenerateHighlight();
-  const { message, reset } = useEventChanel({
+  const { message, resetMessage } = useEventChanel({
     eventName: `highlight_${highlightType}`,
   });
 
@@ -58,7 +58,7 @@ export default function HighlightOptionItemContent({
 
   // handle click on generate button
   function handleGenerate(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    reset();
+    resetMessage();
     e.stopPropagation();
     setShowTextArea(true);
     mutateGenerate({
