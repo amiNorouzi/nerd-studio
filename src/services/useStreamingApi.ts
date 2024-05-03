@@ -1,22 +1,24 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { useSession } from "next-auth/react";
 import {
-  InvalidateQueryFilters,
+  type InvalidateQueryFilters,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 import useEventChanel from "@/services/events-chanel";
 
-export function useStream<T>({
-  invalidationKey,
+interface StreamParams {
+  invalidationQuery: InvalidateQueryFilters;
+  endpoint: string;
+  eventName: EventName;
+}
+
+export default function useStream<T>({
+  invalidationQuery,
   endpoint,
   eventName,
-}: {
-  invalidationKey: InvalidateQueryFilters;
-  endpoint: string;
-  eventName: string;
-}) {
+}: StreamParams) {
   const { data: session } = useSession();
   const queryClient = useQueryClient();
   const [conversationHistory, setConversationHistory] = useState<T[]>([]);
@@ -35,9 +37,9 @@ export function useStream<T>({
 
       return data as T;
     },
-    onSuccess: data => {
+    onSuccess(data) {
       setConversationHistory(prev => [...prev, data]);
-      queryClient.invalidateQueries(invalidationKey); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries(invalidationQuery); // Invalidate the query to trigger a refetch
     },
   });
 

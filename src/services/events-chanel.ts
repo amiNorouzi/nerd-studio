@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 const EventListenerBaseApi = "http://5.78.55.161:8000/events";
 
 type EventChanelParams = {
-  eventName: string;
+  eventName: EventName;
 };
 
 export default function useEventChanel({ eventName }: EventChanelParams) {

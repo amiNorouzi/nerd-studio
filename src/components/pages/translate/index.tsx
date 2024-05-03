@@ -1,16 +1,21 @@
 "use client";
-import {HistoryBox, HistoryInfo, HistoryItems, Run, SetSearchParamProvider} from '@/components/shared';
+import {
+  HistoryBox,
+  HistoryInfo,
+  HistoryItems,
+  Run,
+  SetSearchParamProvider,
+} from "@/components/shared";
 
-import {HistoryInfoContent} from './history-info-content';
-import type {ParamsType} from '@/services/types';
-import useEventChanel from '@/services/events-chanel';
-import {useGenerateTranslate} from '@/services/translate';
-import {useSearchParams} from 'next/navigation';
-import {languages} from '@/components/shared/run-tab-for-app/form-section-components/contants';
-import {getLangById} from '@/lib/utils';
-import React from 'react';
-import {useHandleGeneratedData} from '@/hooks/generates-hook';
-import Highlight from '@/components/shared/Highlight';
+import { HistoryInfoContent } from "./history-info-content";
+import type { ParamsType } from "@/services/types";
+import useGenerateTranslate from "@/services/translate";
+import { useSearchParams } from "next/navigation";
+import { languages } from "@/components/shared/run-tab-for-app/form-section-components/contants";
+import { getLangById } from "@/lib/utils";
+import React from "react";
+import { useHandleGeneratedData } from "@/hooks/generates-hook";
+import Highlight from "@/components/shared/Highlight";
 
 interface IProps {
   params: ParamsType;
@@ -18,10 +23,12 @@ interface IProps {
 
 export default function TranslatePage({ params }: IProps) {
   const searchParams = useSearchParams();
-  const { message: translation, resetMessage } = useEventChanel({
-    eventName: "translate",
-  });
-  const { mutate: generateTranslate, isPending } = useGenerateTranslate();
+  const {
+    generateTranslate,
+    isPending,
+    message: translation,
+    resetMessage,
+  } = useGenerateTranslate();
   const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
     generateFn: handleGenerate,
     message: translation,
