@@ -24,7 +24,7 @@ import { useChatStore } from "@/stores/zustand/chat-store";
 
 import { iconVariants } from "@/constants/variants";
 import { MinimalButton } from "@/components/shared";
-import { useStream } from "@/hooks/useStreamingApi";
+import { useStream } from "@/services/useStreamingApi";
 import { ChatList } from "./ChatList";
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import { StopResponseButton } from "./StopResponseButton";
