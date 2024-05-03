@@ -87,7 +87,6 @@ export function PromptInput() {
     envalidationKey: ["history"],
   });
 
-
   const formRef = useRef<HTMLFormElement>(null); //need it for submit on enter button pressed
 
   const prompt = useChatStore.use.chatTextBoxValue();
@@ -130,7 +129,7 @@ export function PromptInput() {
 
       if (conversationHistory.length > 0) {
         continueCoversation({
-          frequency_penalty: 0,
+          frequency_penalty: GPT3Turbo.frequency / 100,
           max_tokens: 100,
           messages: [
             {
@@ -139,15 +138,15 @@ export function PromptInput() {
             },
           ],
           model: "gpt-3.5-turbo-0125",
-          presence_penalty: 0,
-          temperature: 0.3,
-          top_p: 1,
+          presence_penalty: GPT3Turbo.presence / 100,
+          temperature: GPT3Turbo.temperature / 100,
+          top_p: GPT3Turbo.top / 100,
         });
         return;
       }
 
       startCoversation({
-        frequency_penalty: 0,
+        frequency_penalty: GPT3Turbo.frequency / 100,
         max_tokens: 100,
         messages: [
           {
@@ -160,12 +159,25 @@ export function PromptInput() {
           },
         ],
         model: "gpt-3.5-turbo-0125",
-        presence_penalty: 0,
-        temperature: 0.3,
-        top_p: 1,
+        presence_penalty: GPT3Turbo.presence / 100,
+        temperature: GPT3Turbo.temperature / 100,
+        top_p: GPT3Turbo.top / 100,
       });
     },
-    [continueCoversation, conversationHistory, prompt, promptReset, resetContinueMessage, resetMessage, showError, startCoversation],
+    [
+      GPT3Turbo.frequency,
+      GPT3Turbo.presence,
+      GPT3Turbo.temperature,
+      GPT3Turbo.top,
+      continueCoversation,
+      conversationHistory,
+      prompt,
+      promptReset,
+      resetContinueMessage,
+      resetMessage,
+      showError,
+      startCoversation,
+    ],
   );
 
   function handleDeleteFile(
@@ -177,25 +189,24 @@ export function PromptInput() {
     setFiles(filterList);
   }
 
-
   if (isError) {
     console.error(error);
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     if (continueIsPending) {
       return;
     }
-    if(continueIsSuccess) {
+    if (continueIsSuccess) {
       setMessagesHistory(continueData);
     }
   }, [continueData, continueIsPending, continueIsSuccess]);
 
-  useEffect(()=> {
+  useEffect(() => {
     if (isPending) {
       return;
     }
-    if(isSuccess) {
+    if (isSuccess) {
       setMessagesHistory(data);
     }
   }, [data, isPending, isSuccess]);
@@ -245,11 +256,7 @@ export function PromptInput() {
               handleDeleteFile={handleDeleteFile}
             />
             {/*prompt input text box*/}
-            <ChatList
-              messages={
-                 messages || []
-              }
-            />
+            <ChatList messages={messages || []} />
             {(isPending || continueIsPending) && (
               <AssistMessageCard
                 timeLine={""}
