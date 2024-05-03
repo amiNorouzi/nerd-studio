@@ -8,7 +8,7 @@ import Result from "./Result";
 
 import { useGetDictionary } from "@/hooks";
 import { useCodeConvertor } from "@/services/code-generator";
-import useEventChanel from "@/services/events-chanel";
+import { useEventChanel } from "@/services/events-chanel";
 
 /**
  * covert code from one language to another
@@ -25,12 +25,12 @@ function CodeConvertor() {
   const [toLang, setToLang] = useState("Auto");
   const [code, setCode] = useState("");
   const { mutate } = useCodeConvertor();
-  const { message: generatedCode, resetMessage } = useEventChanel({
+  const { message: generatedCode, reset } = useEventChanel({
     eventName: "code",
   });
 
   const handleGenerate = () => {
-    resetMessage();
+    reset();
     mutate({
       code,
       fromLang,

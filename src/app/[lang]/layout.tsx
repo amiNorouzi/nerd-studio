@@ -1,13 +1,13 @@
-import React from 'react';
-import type {Metadata, Viewport} from 'next';
+import React from "react";
+import type { Metadata } from "next";
 
-import {Providers} from '@/components/providers';
+import { Providers } from "@/components/providers";
 
-import {i18n, type Locale} from '../../../i18n.config';
+import { i18n, type Locale } from "../../../i18n.config";
 
-import '../globals.css';
-import '../theme.css';
-import {langDir} from '@/lib/dictionary';
+import "../globals.css";
+import "../theme.css";
+import { langDir } from "@/lib/dictionary";
 
 const APP_NAME = "Nerd Studio";
 const APP_DEFAULT_TITLE = "Nerd Studio | Home";
@@ -15,43 +15,11 @@ const APP_TITLE_TEMPLATE = "Nerd Studio | %s";
 const APP_DESCRIPTION = "Nerd Studio AI";
 
 export const metadata: Metadata = {
-  applicationName: APP_NAME,
   title: {
-    default: APP_DEFAULT_TITLE,
-    template: APP_TITLE_TEMPLATE,
+    template: "Nerd Studio | %s",
+    default: "Nerd Studio | Home",
   },
-  description: APP_DESCRIPTION,
-  manifest: "/manifest.json",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: APP_DEFAULT_TITLE,
-    // startUpImage: [],
-  },
-  formatDetection: {
-    telephone: false,
-  },
-  openGraph: {
-    type: 'website',
-    siteName: APP_NAME,
-    title: {
-      default: APP_DEFAULT_TITLE,
-      template: APP_TITLE_TEMPLATE,
-    },
-    description: APP_DESCRIPTION,
-  },
-  twitter: {
-    card: 'summary',
-    title: {
-      default: APP_DEFAULT_TITLE,
-      template: APP_TITLE_TEMPLATE,
-    },
-    description: APP_DESCRIPTION,
-  },
-};
-
-export const viewport: Viewport = {
-  themeColor: '#FFFFFF',
+  description: "AI",
 };
 
 export async function generateStaticParams() {

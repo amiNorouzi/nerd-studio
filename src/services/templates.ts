@@ -3,8 +3,6 @@ import axiosClient from "@/services/axios-client";
 import type { TemplateCategoryItem, TemplateItem } from "@/services/types";
 import { useAxiosFetcher } from "@/hooks/useAxiosFetcher";
 import { CategoryItem } from "@/components/pages/template/types";
-import useStream from "@/services/useStreamingApi";
-import { useCallback } from "react";
 
 type GenerateTemplateParams = {
   prompt: string;
@@ -14,34 +12,39 @@ type GenerateTemplateParams = {
 >;
 
 export function useGenerateTemplate() {
-  const { generateStream, ...other } = useStream({
-    eventName: "template",
-    endpoint: "/templates/generate_template/",
-    invalidationQuery: { queryKey: ["generate_template"] },
-  });
-  const generateTemplate = useCallback(
-    ({ prompt, ...params }: GenerateTemplateParams) => {
-      return generateStream({
+  return useMutation({
+    async mutationFn({
+      prompt,
+      model,
+      temperature,
+      max_tokens,
+      presence_penalty,
+      frequency_penalty,
+      top_p,
+    }: GenerateTemplateParams) {
+      const { data } = await axiosClient.post<
+        unknown,
+        any,
+        OpenAiCompletionSchemaInput
+      >("/templates/generate_template/", {
+        model,
         messages: [
-          {
-            role: "system",
-            content: "you are a helpful assistant",
-          },
           {
             role: "user",
             content: prompt,
           },
         ],
-        ...params,
+        temperature,
+        max_tokens,
+        stream: true,
+        top_p,
+        presence_penalty,
+        frequency_penalty,
       });
-    },
-    [generateStream],
-  );
 
-  return {
-    generateTemplate,
-    ...other,
-  };
+      return data;
+    },
+  });
 }
 
 type CreateTemplateParams = {

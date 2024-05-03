@@ -3,7 +3,7 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { createSelectors } from "@/stores/zustand/createSelectors";
 
-import { AiImageAction, AiImageState, FilePdf } from "./types";
+import type { AiImageAction, AiImageState } from "./types";
 
 type StoreType = AiImageState & AiImageAction;
 
@@ -19,9 +19,6 @@ const initialState = {
     image_upscale: [],
   },
 } as AiImageState;
-const initialStateIamge = {
-  imageUrl: "",
-};
 
 const useAiImage = create<StoreType>()(
   devtools(
@@ -45,19 +42,5 @@ const useAiImage = create<StoreType>()(
     { name: "image", store: "image" },
   ),
 );
-const useImageUrl = create<any>()(
-  devtools(
 
-
-    immer(set => ({
-      ...initialStateIamge,
-      setUrlImage: (val: string) =>// @ts-ignore
-        set(state => {
-          state.imageUrl = val;
-        }),
-    })),
-    { name: "urlPdf", store: "urlPdf" },
-  ),
-);
 export const useAiImageStore = createSelectors(useAiImage);
-export const useImageUrlStore = createSelectors(useImageUrl);

@@ -5,6 +5,7 @@ import {
   Options,
   Title,
   ChatSettingAndUpload,
+  StopResponseButton,
   HistoryItems,
 } from "./componets";
 import {
@@ -14,8 +15,8 @@ import {
 import { ChatHero } from "@/components/pages/chat/componets/ChatHero";
 import type { Locale } from "../../../../i18n.config";
 import { useChatStore } from "@/stores/zustand/chat-store";
+import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 import ChatArea from "./componets/ChatArea";
-import Highlight from "@/components/shared/Highlight";
 
 const chatContent = {
   chatList: ChatList,
@@ -50,7 +51,9 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           <ChatArea isChatListValid={isChatListValid} setChatList={setChatList} />
         </div>
 
-        <Highlight />
+        <Highlight>
+          <HighlightContent key={String(isHighlightOpen)} />
+        </Highlight>
 
         {/*history box open when history button in header clicked (value of history button save in zustand)*/}
         <HistoryBox>

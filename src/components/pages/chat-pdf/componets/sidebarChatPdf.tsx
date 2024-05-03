@@ -188,6 +188,7 @@ export function SidebarChatPdf() {
             {!isLoading
               ? isSuccess &&
                 data?.map(({ path, title, id }: any) => {
+                  // TODO: two onCLick one span
                   return (
                     <span
                       key={id}
@@ -201,7 +202,6 @@ export function SidebarChatPdf() {
                         id={id}
                         to={path}
                         icon={TbPdf}
-                        refetch={refetch}
                       />
                     </span>
                   );

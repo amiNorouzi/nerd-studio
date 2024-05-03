@@ -1,80 +1,42 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 
-const EventListenerBaseApi = "http://5.78.55.161:8000/events";
-
 type EventChanelParams = {
-  eventName: EventName;
+  eventName: string;
+  onMessage?: (message: string) => void;
 };
 
-export default function useEventChanel({ eventName }: EventChanelParams) {
+export function useEventChanel({ onMessage, eventName }: EventChanelParams) {
   const [message, setMessage] = useState("");
-  const eventSource = useRef<EventSource | null>(null);
+  const eventSource = useRef<EventSource>();
   const { data: session } = useSession();
   const uuid = session?.user.sub;
 
-  const cancelStream = useCallback(() => {
-    if (eventSource.current) {
-      eventSource.current.close();
-      eventSource.current = null;
-    }
-  }, []);
-
-  const resetMessage = useCallback(() => {
-    setMessage("");
-  }, []);
-
   useEffect(() => {
     if (!eventSource.current && uuid) {
-      eventSource.current = new EventSource(`${EventListenerBaseApi}/${uuid}`);
+      eventSource.current = new EventSource(
+        `http://5.78.55.161:8000/events/${uuid}`,
+      );
       eventSource.current.addEventListener(eventName, event => {
         if (event.data) {
           const data = JSON.parse(event.data);
+          onMessage?.(data.content);
           if (data.content) setMessage(prev => prev + data.content);
         }
       });
     }
-    return () => {
-      cancelStream();
-    };
-  }, [cancelStream, eventName, uuid]);
+  }, [eventName, onMessage, uuid]);
 
   return {
     message,
-    resetMessage,
-    cancelStream,
+    reset() {
+      setMessage("");
+    },
   };
 }
 
-// export function useEventChanel({ eventName }: EventChanelParams) {
-//   const [message, setMessage] = useState("");
-//   const eventSource = useRef<EventSource>();
-//   const { data: session } = useSession();
-//   const uuid = session?.user.sub;
+const eventChanelService = {
+  useEventChanel,
+};
 
-  // useEffect(() => {
-  //   if (!eventSource.current && uuid) {
-  //     eventSource.current = new EventSource(
-  //       `http://5.78.55.161:8000/events/${uuid}`,
-  //     );
-  //     eventSource.current.addEventListener(eventName, event => {
-  //       if (event.data) {
-  //         const data = JSON.parse(event.data);
-  //         onMessage?.(data.content);
-  //         if (data.content) setMessage(prev => prev + data.content);
-  //       }
-  //     });
-  //
-  //     eventSource.current.onerror = ev => {
-  //       // console.error("Error on events chanel: ", ev);
-  //     };
-  //   }
-  // }, [eventName, onMessage, uuid]);
-//
-//   return {
-//     message,
-//     reset() {
-//       // setMessage("");
-//     },
-//   };
-// }
+export default eventChanelService;

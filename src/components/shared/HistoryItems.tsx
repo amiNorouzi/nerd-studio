@@ -31,7 +31,7 @@ interface DeletePopoverProps {
  * @param item - history item
  * @constructor
  */
-export function DeletePopOver({ item }: { item: Answer }) {
+function DeletePopOver({ item }: { item: Answer }) {
   const [open, setOpen] = useState(false);
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
 

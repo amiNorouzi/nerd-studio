@@ -9,7 +9,7 @@ import Result from "./Result";
 
 import { useGetDictionary } from "@/hooks";
 import { useCodeExplainer } from "@/services/code-generator";
-import useEventChanel from "@/services/events-chanel";
+import { useEventChanel } from "@/services/events-chanel";
 
 /**
  * code explainer feature
@@ -26,12 +26,12 @@ function CodeExplainer() {
   } = useGetDictionary();
 
   const { mutate } = useCodeExplainer();
-  const { message: generatedCode, resetMessage } = useEventChanel({
+  const { message: generatedCode, reset } = useEventChanel({
     eventName: "code",
   });
 
   const handleGenerate = () => {
-    resetMessage();
+    reset();
     mutate({
       code,
       language: currentLanguage,

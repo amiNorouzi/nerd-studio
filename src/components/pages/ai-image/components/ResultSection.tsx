@@ -1,15 +1,25 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
+import { GoHistory } from "react-icons/go";
+
+import EmptyResult from "./EmptyResult";
 import ImageHistory from "./ImageHistory";
+import GeneratedImages from "./GeneratedImages";
+import ImageCompare from "./ImageCompare";
+import { Generate } from "@/components/svg-icons";
+import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
 import useImageTabs from "../hooks/useImageTabs";
 
-import { isEmpty } from "@/lib/utils";
+import { cn, isEmpty } from "@/lib/utils";
 
 import type { HistoryItem } from "@/services/types";
-import { HistoryBox } from "@/components/shared";
-import { useImageUrlStore } from "@/stores/zustand/ai-image-store";
+import { HistoryBox, HistoryItems, Show } from "@/components/shared";
+import { iconVariants } from "@/constants/variants";
+import { useAiImageStore } from "@/stores/zustand/ai-image-store";
+import { ImageModelType } from "@/stores/zustand/types";
 
 //list of history
 //TODO: replace with real data
@@ -50,30 +60,22 @@ export function ResultSection() {
   const [isOpenMobileImageHistory, setIsOpenMobileImageHistory] =
     useState(false);
   const { currentTab, tabs } = useImageTabs();
-  const imageUrl = useImageUrlStore.use.imageUrl();
-  useEffect(() => {
-    console.log("isEmpty(imageUrl):", isEmpty(imageUrl));
-  }, [imageUrl]);
+  const images =
+    useAiImageStore.use.generatedImages()[
+      currentTab.replaceAll("-", "_") as ImageModelType
+    ];
+
   return (
     <section className="col-span-12 flex h-full gap-2.5 overflow-hidden bg-white   lg:col-span-8  ">
       <div className="my-4 ml-6 mr-4 flex h-[95%] w-full overflow-hidden rounded-xl border bg-background shadow-2xl ">
         {/*
           if there is no generated images or history, show the empty result
         */}
-        {/* {isEmpty(imageUrl) ? (
+        {isEmpty(images) && isEmpty(histories) ? (
           <EmptyResult />
-        ) : ( */}
+        ) : (
           <>
-            <div className="col flex h-full w-full items-center justify-center py-[15%]">
-              <img
-                className=" h-[140%] w-5/6 rounded-xl"
-                src={
-                  "https://nerdstudio-backend-bucket.s3.amazonaws.com/media/images/open_ai-text_to_image-396fc809-ffaa-4a13-a866-a9de9d31e54a.webp"
-                }
-                alt=""
-              />
-            </div>
-            {/* <div className="col h-full w-full">
+            <div className="col h-full w-full">
               <div className="row gap-2.5 border-b px-4 py-2.5">
                 <Generate
                   classname={cn(
@@ -106,11 +108,11 @@ export function ResultSection() {
                   </Show.When>
 
                   <Show.Else>
-                    <GeneratedImages images={imageUrl} />
+                    <GeneratedImages images={images} />
                   </Show.Else>
                 </Show>
               </div>
-            </div> */}
+            </div>
 
             {/*<ImageHistory*/}
             {/*  histories={histories}*/}
@@ -118,11 +120,10 @@ export function ResultSection() {
             {/*  setIsOpenMobileImageHistory={setIsOpenMobileImageHistory}*/}
             {/*/>*/}
           </>
-        {/* )} */}
+        )}
       </div>
       <HistoryBox>
         <ImageHistory
-          /*@ts-ignore*/
           histories={histories}
           isOpenMobileImageHistory={isOpenMobileImageHistory}
           setIsOpenMobileImageHistory={setIsOpenMobileImageHistory}

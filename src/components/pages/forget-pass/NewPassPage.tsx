@@ -14,7 +14,7 @@ import { useGetDictionary } from "@/hooks";
 import useErrorToast from "@/hooks/useErrorToast";
 
 import { cn } from "@/lib/utils";
-import { setNewPassApi } from "@/services/auth/authentication-services";
+import { setNewPassApi } from "@/services/authentication-services";
 
 interface FormTypes {
   new_password: string;

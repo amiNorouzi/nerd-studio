@@ -15,7 +15,7 @@ import { useGetDictionary } from "@/hooks";
 import useSuccessToast from "@/hooks/useSuccessToast";
 
 import { cn } from "@/lib/utils";
-import { forgotPassApi } from "@/services/auth/authentication-services";
+import { forgotPassApi } from "@/services/authentication-services";
 
 interface FormTypes {
   email: string;

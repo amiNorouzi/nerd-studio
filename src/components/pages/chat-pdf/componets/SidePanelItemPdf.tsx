@@ -20,7 +20,6 @@ interface IProps {
   to: string;
   id: string;
   icon: IconType | AppIconType;
-  refetch: () => void;
 }
 
 /**
@@ -53,7 +52,7 @@ const renderIcon = (
   );
 };
 
-const SidePanelItemPdf = ({ title, to, icon, id, refetch }: IProps) => {
+const SidePanelItemPdf = ({ title, to, icon, id }: IProps) => {
   const isSidePanelOpen = useSidbarPDfStore.use.isSidePanelOpen();
   const { mutate, isSuccess, isPending } = usePdfDelete();
   const isHoverOnSidePanel = useSidbarPDfStore.use.isHoverOnSidePanel();
@@ -98,10 +97,7 @@ const SidePanelItemPdf = ({ title, to, icon, id, refetch }: IProps) => {
           </div>
           <div className="">
             <MdDelete
-              onClick={() => {
-                refetch();
-                OnDelletHandler;
-              }}
+              onClick={OnDelletHandler}
               className={`${isPending ? "disabled:text-red-300" : "hover:text-red-600"} h-4 w-4 `}
             />
           </div>
