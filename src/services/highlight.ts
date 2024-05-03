@@ -1,57 +1,40 @@
 import { useMutation } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
+import useStream from "@/services/useStreamingApi";
+import { useCallback } from "react";
 
 type HighlightParams = {
   content: string;
   type?: HighlightType;
 } & Omit<OpenAiCompletionSchemaInput, "messages">;
 
-export function useGenerateHighlight() {
-  return useMutation({
-    async mutationFn({
-      content,
-      top_p,
-      presence_penalty,
-      frequency_penalty,
-      max_tokens,
-      temperature,
-      model,
-      type,
-      stream,
-    }: HighlightParams) {
-      const { data } = await axiosClient.post<
-        unknown,
-        any,
-        { type: HighlightParams["type"] } & OpenAiCompletionSchemaInput
-      >("/highlights/generate_highlight/", {
-        frequency_penalty,
-        max_tokens,
+export default function useGenerateHighlight() {
+  const { generateStream, ...other } = useStream({
+    eventName: "translate", //todo
+    endpoint: "/highlights/generate_highlight/",
+    invalidationQuery: { queryKey: ["generate_highlight"] },
+  });
+  const generateTranslate = useCallback(
+    ({ type, content, ...params }: HighlightParams) => {
+      return generateStream({
         messages: [
           {
-            content:
-              "Summarize content you are provided with for twitter social network.",
             role: "system",
+            content: `Summarize content you are provided with for ${type} social network.`,
           },
           {
-            content,
             role: "user",
+            content,
           },
         ],
-        model,
-        presence_penalty,
-        stream,
-        temperature,
-        top_p,
-        type,
+        ...params,
       });
-      console.warn("service", data);
-      return data;
     },
-  });
+    [generateStream],
+  );
+
+  return {
+    generateTranslate,
+    ...other,
+  };
 }
-
-const highlightService = {
-  useHighlight: useGenerateHighlight,
-};
-
-export default highlightService;
