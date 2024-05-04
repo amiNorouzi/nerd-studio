@@ -21,7 +21,7 @@ interface IProps extends React.ComponentPropsWithoutRef<"nav"> {
   onChangeTabValue?: (v: string) => void;
   defaultValue?: string;
   value?: string;
-  setShowAdvance:(v:boolean)=>void
+  setShowAdvance?:(v:boolean)=>void
 }
 
 /**
@@ -57,7 +57,7 @@ export function Categories({
 
   function handleSelect(v: string) {
     if (onChangeTabValue) {
-      setShowAdvance(false)
+      setShowAdvance?.(false)
       onChangeTabValue(v);
     } else {
       setSearchParams(name, v);
