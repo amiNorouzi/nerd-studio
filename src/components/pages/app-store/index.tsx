@@ -17,7 +17,7 @@ const categories = [
   "Programing",
   "Other",
 ];
-async function AppStorePage({ lang }: { lang: Locale }) {
+export default async function AppStorePage({ lang }: { lang: Locale }) {
   const {
     page: {
       store: { header_title },
@@ -46,5 +46,3 @@ async function AppStorePage({ lang }: { lang: Locale }) {
     </div>
   );
 }
-
-export default AppStorePage;

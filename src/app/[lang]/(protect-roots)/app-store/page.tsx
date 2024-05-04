@@ -1,4 +1,3 @@
-"use client";
 import type { LangParams } from "@/services/types";
 import AppStoreLoading from "@/app/[lang]/(protect-roots)/app-store/loading";
 import dynamic from "next/dynamic";

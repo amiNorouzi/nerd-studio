@@ -1,4 +1,3 @@
-"use client";
 import type { LangParams } from "@/services/types";
 import CustomTemplateLoading from "@/app/[lang]/(protect-roots)/(apps)/template/custom-template/create/loading";
 import dynamic from "next/dynamic";
@@ -10,8 +9,6 @@ const CustomTemplatePage = dynamic(
   },
 );
 
-const Page = ({ params: { lang } }: LangParams) => {
+export default function Page({ params: { lang } }: LangParams) {
   return <CustomTemplatePage lang={lang} />;
 };
-
-export default Page;

@@ -1,4 +1,3 @@
-"use client";
 import {
   Table,
   TableBody,
@@ -21,7 +20,7 @@ import { VscPinned } from "react-icons/vsc";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
-export function ListPdfFile() {
+export default function ListPdfFile() {
   return (
     <>
       <div className="w-full  px-[143px] py-[48px]">

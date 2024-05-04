@@ -19,7 +19,7 @@ import ModelAndSubmit from "@/components/pages/ai-image/components/ModelAndSubmi
  * used in ai-image index page
  * @constructor
  */
-export function AIImageForm() {
+export default function AIImageForm() {
   const { currentTab } = useImageTabs();
 
   const {
