@@ -6,8 +6,8 @@ export async function refreshAccessToken(token:any) {
     const {data} = await axiosClient.post<
       unknown,
       {data: {access_token:string} | {message: string}},
-      any
-    >("/auth/refresh/", {access_token: token.refreshToken});
+      {refresh_token:string;}
+    >("/auth/refresh/", {refresh_token: token.refreshToken});
 
     let accessToken = null;
     let message = null;
@@ -35,7 +35,7 @@ export async function refreshAccessToken(token:any) {
 
     return {
       ...token,
-      error: "RefreshAccessTokenError",
+      error: "RefreshAccessTokenError" as const,
     };
   }
 }

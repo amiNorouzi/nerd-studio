@@ -18,6 +18,7 @@ declare module "next-auth" {
       iat: number;
       jti: string;
     };
+    error?: "RefreshAccessTokenError";
   }
 
   interface DefaultUser {
@@ -28,5 +29,17 @@ declare module "next-auth" {
     accessToken: string;
     refreshToken: string;
     workspace: Workspace;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    accessToken: string;
+    accessTokenExpires: number;
+    refreshToken: string;
+    exp: number;
+    iat: number;
+    jti: string;
+    error?: "RefreshAccessTokenError";
   }
 }
