@@ -21,6 +21,7 @@ interface IProps extends React.ComponentPropsWithoutRef<"nav"> {
   onChangeTabValue?: (v: string) => void;
   defaultValue?: string;
   value?: string;
+  setShowAdvance?:(v:boolean)=>void
 }
 
 /**
@@ -35,6 +36,7 @@ export function Categories({
   onChangeTabValue,
   className,
   defaultValue,
+                             setShowAdvance,
   value,
   ...navProps
 }: IProps) {
@@ -55,6 +57,7 @@ export function Categories({
 
   function handleSelect(v: string) {
     if (onChangeTabValue) {
+      setShowAdvance?.(false)
       onChangeTabValue(v);
     } else {
       setSearchParams(name, v);
@@ -69,7 +72,7 @@ export function Categories({
         value={
           value
             ? value
-            : searchParams.get(name) || defaultValue || categories[0]
+            : searchParams.get(name) || defaultValue || ''
         }
       >
         <TabsList className="row w-full justify-start gap-2 bg-transparent p-0">

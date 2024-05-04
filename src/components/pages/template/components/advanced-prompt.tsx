@@ -223,7 +223,7 @@ const stepsTitle = {
 
 export function AdvancedHeader() {
   return (
-    <div className={cn("mx-[150px] flex h-[90px] w-full flex-col gap-[12px]")}>
+    <div className={cn("mx-[150px] hidden lg:flex h-[90px]  w-full flex-col gap-[12px]",)}>
       <div className="mx-auto text-[36px] font-[700px] leading-[24px]">
         {" "}
         Advance Search
@@ -260,8 +260,8 @@ export function AdvancedPrompt() {
       {/*  selectedChildItemName={selectedChildItemName}*/}
       {/*  setSelectedChildItemName={setSelectedChildItemName}*/}
       {/*/>*/}
-      <div className="col  h-full w-[80%]  rounded-xl border ">
-        <div className="col  mt-[24px] flex h-full w-full   ">
+      <div className="col  h-full w-[90%] lg:w-[80%]  rounded-xl border ">
+        <div className="col gap-[24px]  mt-[24px] flex h-full w-full   ">
           <div
             className={cn(
               "flex w-full flex-col ",
@@ -280,9 +280,10 @@ export function AdvancedPrompt() {
               selectedChildCategoryId={selectedChildCategoryId}
               setSelectedChildCategoryId={setSelectedChildCategoryId}
               setSelectedChildItemName={setSelectedChildItemName}
+              selectedChildItemName={selectedChildItemName}
             />{" "}
           </div>
-          <div className={"mx-auto flex max-h-[350px] w-full  "}>
+          <div className={" flex max-h-[350px] w-full overflow-y-auto  "}>
             <AdvancedContentTopicNew
               selectedChildCategoryId={selectedChildCategoryId}
               selectedParentCategoryId={selectedParentCategoryId}

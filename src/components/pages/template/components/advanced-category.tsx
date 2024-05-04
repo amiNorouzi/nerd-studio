@@ -40,33 +40,20 @@ export function AdvancedCategory({
   };
 
   return (
-    <div className="col   mx-[24px] w-full items-start rounded-xl ">
-      <div className="col w-full max-w-2xl gap-1.5 text-[14px] font-[500]">
+    <div className="col  lg:mx-[24px] w-full items-start rounded-xl ">
+      <div className="col w-full px-[16px] lg:px-0 lg:max-w-2xl  text-[14px] font-[500]">
+        <div className='flex flex-col w-full    gap-[12px]'>
+
         <Label>{dictionary.parent_category}</Label>
         <SelectAndDrawer
           value={getValue()}
           setValue={handleSelect}
           items={categories}
           isSelect={false}
-          buttonStyle="w-[90%] lg:max-w-2xl mb-10"
+          buttonStyle="w-full  h-[44px] lg:max-w-2xl mb-10"
         />
-        {/*<Show>*/}
-        {/*  /!*<Show.When isTrue={isLoading && !!selectedParentCategoryId}>*!/*/}
-        {/*  /!*  <AdvanceCategorySkeleton />*!/*/}
-        {/*  /!*</Show.When>*!/*/}
-        {/*  <Show.When isTrue={!isLoading && childCategories.length > 0}>*/}
-        {/*    <>*/}
-        {/*      <Label>{dictionary.child_category}</Label>*/}
-        {/*      <SelectAndDrawer*/}
-        {/*        value={getValue(true)}*/}
-        {/*        setValue={handleSelectChild}*/}
-        {/*        items={childCategories}*/}
-        {/*        isSelect={false}*/}
-        {/*        buttonStyle="max-w-2xl"*/}
-        {/*      />*/}
-        {/*    </>*/}
-        {/*  </Show.When>*/}
-        {/*</Show>*/}
+        </div>
+
       </div>
     </div>
   );
