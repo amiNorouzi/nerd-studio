@@ -8,8 +8,7 @@ import { TbWand } from "react-icons/tb";
 import { iconVariants } from "@/constants/variants";
 import type { IconType } from "react-icons";
 import { HighlightItemContentProps } from "@/components/shared/Highlight/HighlightOptionItemContent";
-import { useGenerateHighlight } from "@/services/highlight";
-import useEventChanel from "@/services/events-chanel";
+import useGenerateHighlight from "@/services/highlight";
 import useHighlightStore from "@/stores/zustand/highlight-store";
 
 export default function HighlightSocialMediaItemContent({
@@ -27,56 +26,56 @@ export default function HighlightSocialMediaItemContent({
   const {
     page: { chat },
   } = useGetDictionary();
-  const { mutate: mutateGenerate } = useGenerateHighlight();
-  const { message, resetMessage } = useEventChanel({
-    eventName: `highlight_${highlightType}`,
-  });
+  // const { mutate: mutateGenerate } = useGenerateHighlight();
+  // const { message, resetMessage } = useEventChanel({
+    // eventName: `highlight_${highlightType}`,
+  // });
   // const { message } = useEventChanel({
   //   eventName: `highlight_${highlightType}`,
   // });
   // console.info("event", message);
   const setGeneratedHighlight = useHighlightStore.use.setGeneratedHighlight();
   const highlightMessages = useHighlightStore.use.messages();
-  const [currentIndex, setCurrentIndex] = useState<number>(
-    highlightMessages[highlightType].length === 0
-      ? 0
-      : highlightMessages[highlightType].length - 1,
-  );
-  useEffect(() => {
-    setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
-  }, [currentIndex, highlightType, message, setGeneratedHighlight]);
+  // const [currentIndex, setCurrentIndex] = useState<number>(
+  //   highlightMessages[highlightType].length === 0
+  //     ? 0
+  //     : highlightMessages[highlightType].length - 1,
+  // );
+  // useEffect(() => {
+  //   setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
+  // }, [currentIndex, highlightType, message, setGeneratedHighlight]);
   // useEffect(() => {
   //   setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
   // }, [currentIndex, highlightType, message, setGeneratedHighlight]);
 
   // handle click on generate button
   function handleGenerate(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    resetMessage();
-    e.stopPropagation();
-    setShowTextArea(true);
-    mutateGenerate({
-      content: "hi",
-      presence_penalty: 0,
-      top_p: 1,
-      max_tokens: 100,
-      model: "gpt-3.5-turbo-0125",
-      temperature: 0.3,
-      type: highlightType,
-      frequency_penalty: 0,
-      stream: true,
-    });
+    // resetMessage();
+    // e.stopPropagation();
+    // setShowTextArea(true);
+    // mutateGenerate({
+    //   content: "hi",
+    //   presence_penalty: 0,
+    //   top_p: 1,
+    //   max_tokens: 100,
+    //   model: "gpt-3.5-turbo-0125",
+    //   temperature: 0.3,
+    //   type: highlightType,
+    //   frequency_penalty: 0,
+    //   stream: true,
+    // });
   }
 
   // if user click on generate button or generate button in header  , we will show generated content
-  if (isGenerate || showTextarea)
-    return (
-      <HighlightGeneratedContent
-        item={item}
-        highlightType={highlightType}
-        regenerate={handleGenerate}
-        setCurrentIndex={setCurrentIndex}
-      />
-    );
+  // if (isGenerate || showTextarea)
+  //   return (
+  //     <HighlightGeneratedContent
+  //       item={item}
+  //       highlightType={highlightType}
+  //       regenerate={handleGenerate}
+  //       setCurrentIndex={setCurrentIndex}
+  //     />
+  //   );
 
   // else we show normal content
 

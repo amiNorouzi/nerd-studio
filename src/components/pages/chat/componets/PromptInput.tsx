@@ -24,7 +24,7 @@ import { useChatStore } from "@/stores/zustand/chat-store";
 
 import { iconVariants } from "@/constants/variants";
 import { MinimalButton } from "@/components/shared";
-import useStream from "@/services/useStreamingApi";
+import { useStream } from "@/hooks/useStreamingApi";
 import { ChatList } from "./ChatList";
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import { StopResponseButton } from "./StopResponseButton";
@@ -67,7 +67,7 @@ export function PromptInput() {
     endpoint: "/chat_bot/conversation/",
     eventName: "chat_bot",
     // @ts-ignore
-    invalidationQuery: ["history"],
+    envalidationKey: ["history"],
   });
   const {
     generateStream: continueCoversation,
@@ -87,6 +87,7 @@ export function PromptInput() {
     envalidationKey: ["history"],
   });
 
+
   const formRef = useRef<HTMLFormElement>(null); //need it for submit on enter button pressed
 
   const prompt = useChatStore.use.chatTextBoxValue();
@@ -94,7 +95,7 @@ export function PromptInput() {
   const files = useChatStore.use.files();
   const engines = useFormStore.use.engines();
   const setFiles = useChatStore.use.setFiles();
-  const GPT3Turbo = engines["GPT-3.5 Turbo"];
+
 
   const {
     page: { chat: chatDictionary },
@@ -129,7 +130,7 @@ export function PromptInput() {
 
       if (conversationHistory.length > 0) {
         continueCoversation({
-          frequency_penalty: GPT3Turbo.frequency / 100,
+          frequency_penalty: 0,
           max_tokens: 100,
           messages: [
             {
@@ -138,15 +139,15 @@ export function PromptInput() {
             },
           ],
           model: "gpt-3.5-turbo-0125",
-          presence_penalty: GPT3Turbo.presence / 100,
-          temperature: GPT3Turbo.temperature / 100,
-          top_p: GPT3Turbo.top / 100,
+          presence_penalty: 0,
+          temperature: 0.3,
+          top_p: 1,
         });
         return;
       }
 
       startCoversation({
-        frequency_penalty: GPT3Turbo.frequency / 100,
+        frequency_penalty: 0,
         max_tokens: 100,
         messages: [
           {
@@ -159,25 +160,12 @@ export function PromptInput() {
           },
         ],
         model: "gpt-3.5-turbo-0125",
-        presence_penalty: GPT3Turbo.presence / 100,
-        temperature: GPT3Turbo.temperature / 100,
-        top_p: GPT3Turbo.top / 100,
+        presence_penalty: 0,
+        temperature: 0.3,
+        top_p: 1,
       });
     },
-    [
-      GPT3Turbo.frequency,
-      GPT3Turbo.presence,
-      GPT3Turbo.temperature,
-      GPT3Turbo.top,
-      continueCoversation,
-      conversationHistory,
-      prompt,
-      promptReset,
-      resetContinueMessage,
-      resetMessage,
-      showError,
-      startCoversation,
-    ],
+    [continueCoversation, conversationHistory, prompt, promptReset, resetContinueMessage, resetMessage, showError, startCoversation],
   );
 
   function handleDeleteFile(
@@ -189,30 +177,31 @@ export function PromptInput() {
     setFiles(filterList);
   }
 
+
   if (isError) {
     console.error(error);
   }
 
-  useEffect(() => {
+  useEffect(()=> {
     if (continueIsPending) {
       return;
     }
-    if (continueIsSuccess) {
+    if(continueIsSuccess) {
       setMessagesHistory(continueData);
     }
   }, [continueData, continueIsPending, continueIsSuccess]);
 
-  useEffect(() => {
+  useEffect(()=> {
     if (isPending) {
       return;
     }
-    if (isSuccess) {
+    if(isSuccess) {
       setMessagesHistory(data);
     }
   }, [data, isPending, isSuccess]);
 
   // Transform StreamData to the desired structure
-  let messages = messagesHistory?.chats.map(chat => {
+  let startMessages = messagesHistory?.chats.map(chat => {
     return {
       name: "reza",
       image: "/images/logo.png",
@@ -241,6 +230,13 @@ export function PromptInput() {
         className={cn("absolute -top-8 hidden", isPending && "flex")}
         onClick={cancelCoversation}
       />
+
+      {/*prompt input text box*/}
+      {/* <ChatList
+        messages={
+            startMessages || []
+        }
+      /> */}
       <div className="flex w-full items-start gap-4">
         <form
           ref={formRef}
@@ -255,8 +251,6 @@ export function PromptInput() {
               files={files}
               handleDeleteFile={handleDeleteFile}
             />
-            {/*prompt input text box*/}
-            <ChatList messages={messages || []} />
             {(isPending || continueIsPending) && (
               <AssistMessageCard
                 timeLine={""}

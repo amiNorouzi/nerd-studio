@@ -9,6 +9,7 @@ import { StateSetterType } from "@/services/types";
 import { TbMessagePlus } from "react-icons/tb";
 import { ChatSettings } from "./ChatSettings";
 import { PromptInput } from "./PromptInput";
+import { FormEvent, memo } from "react";
 
 function NewChatButton({
     setChatList,
@@ -32,10 +33,26 @@ function NewChatButton({
     );
   }
 
-export default function ChatArea(
-    {isChatListValid, setChatList}:{
-    isChatListValid: "chatList" | "options"
-    setChatList: React.Dispatch<React.SetStateAction<boolean>>}) {
+export default memo(function ChatArea(
+    {
+      isChatListValid, 
+      setChatList, 
+      isPending,
+      cancelCoversation,
+      generateCoversation,
+      continueIsPending,
+      message, 
+      continueMessage
+    } : {
+      isChatListValid: "chatList" | "options";
+      setChatList: React.Dispatch<React.SetStateAction<boolean>>;
+      isPending: boolean;
+      cancelCoversation: ()=>void;
+      generateCoversation:(e: FormEvent<HTMLFormElement>) => Promise<any>;
+      continueIsPending: boolean;
+      message:string;
+      continueMessage:string;
+    }) {
    
    return (
     <div className="col sticky bottom-0 w-full max-w-[760px] gap-1.5 ">
@@ -46,8 +63,15 @@ export default function ChatArea(
       {/*new chat button*/}
       <NewChatButton setChatList={setChatList} />
       {/*prompt input (text box)*/}
-      <PromptInput />
+      <PromptInput 
+        isPending={isPending}
+        cancelCoversation={cancelCoversation}
+        generateCoversation={generateCoversation}
+        continueIsPending={continueIsPending}
+        message={message}
+        continueMessage={continueMessage} 
+      />
     </div>
   </div>
    );
-}
+})
