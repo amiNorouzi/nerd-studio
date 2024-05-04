@@ -8,7 +8,7 @@ import {
   loginApi,
   oAuthLoginApi,
   signupConfirmApi,
-} from "@/services/authentication-services";
+} from "@/services/auth/authentication-services";
 
 import type { User } from "@/services/types";
 

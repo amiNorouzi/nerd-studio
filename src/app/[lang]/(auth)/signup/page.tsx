@@ -1,9 +1,9 @@
 import type { ParamsType } from "@/services/types";
-import SingUPLoading from "@/app/[lang]/(auth)/signup/loading";
 import dynamic from "next/dynamic";
+import HomeLoading from "@/app/[lang]/loading";
 
 const SignUpPage = dynamic(() => import("@/components/pages/signup"), {
-  loading: () => <SingUPLoading />,
+  loading: () => <HomeLoading />,
 });
 
 interface IProps {

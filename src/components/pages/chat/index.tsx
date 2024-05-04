@@ -1,26 +1,25 @@
 "use client";
-import React, { useState, FormEvent,
+import React, {
+  FormEvent,
   useCallback,
   useEffect,
-  useRef } from "react";
+  useRef,
+  useState,
+} from "react";
 import {
   ChatList,
+  ChatSettingAndUpload,
+  HistoryItems,
   Options,
   Title,
-  ChatSettingAndUpload,
-  StopResponseButton,
-  HistoryItems,
 } from "./componets";
-import {
-  HistoryBox,
-  SetSearchParamProvider,
-} from "@/components/shared";
+import { HistoryBox, SetSearchParamProvider } from "@/components/shared";
 import { ChatHero } from "@/components/pages/chat/componets/ChatHero";
 import type { Locale } from "../../../../i18n.config";
 import { useChatStore } from "@/stores/zustand/chat-store";
-import { Highlight, HighlightContent } from "@/components/shared/Highlight";
 import ChatArea from "./componets/ChatArea";
-import { useStream } from "@/hooks/useStreamingApi";
+import Highlight from "@/components/shared/Highlight";
+import useStream from "@/services/useStreamingApi";
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import useErrorToast from "@/hooks/useErrorToast";
 
@@ -41,7 +40,7 @@ interface StreamData {
   chats: Chat[];
 }
 
-let startMessages = 
+let startMessages =
     [
   {
     name: "reza",
@@ -231,9 +230,9 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           </Content>
 
           {/* chat settings and prompt input*/}
-          <ChatArea 
-            isChatListValid={isChatListValid} 
-            setChatList={setChatList} 
+          <ChatArea
+            isChatListValid={isChatListValid}
+            setChatList={setChatList}
             isPending={isPending}
             cancelCoversation={cancelCoversation}
             generateCoversation={generateCoversation}
@@ -243,9 +242,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           />
         </div>
 
-        <Highlight>
-          <HighlightContent key={String(isHighlightOpen)} />
-        </Highlight>
+        <Highlight />
 
         {/*history box open when history button in header clicked (value of history button save in zustand)*/}
         <HistoryBox>

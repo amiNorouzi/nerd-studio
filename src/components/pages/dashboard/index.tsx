@@ -22,7 +22,7 @@ import MobilePlansRemaining from "@/components/pages/dashboard/components/Mobile
  * @param lang lang get from the server side params
  * @constructor
  */
-async function DashboardPage({ lang }: { lang: Locale }) {
+export default async function DashboardPage({ lang }: { lang: Locale }) {
   const {
     page: {
       dashboard: { header_title },
@@ -74,5 +74,3 @@ async function DashboardPage({ lang }: { lang: Locale }) {
     </div>
   );
 }
-
-export default DashboardPage;

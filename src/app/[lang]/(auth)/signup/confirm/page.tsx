@@ -1,10 +1,10 @@
 import dynamic from "next/dynamic";
-import SignupConfirmLoading from "@/app/[lang]/(auth)/signup/confirm/loading";
+import HomeLoading from "@/app/[lang]/loading";
 
 const SignupConfirm = dynamic(
   () => import("@/components/pages/signup/SignupConfirm"),
   {
-    loading: () => <SignupConfirmLoading />,
+    loading: () => <HomeLoading />,
   },
 );
 
