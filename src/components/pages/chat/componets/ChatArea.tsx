@@ -41,7 +41,6 @@ export default memo(function ChatArea(
       cancelCoversation,
       generateCoversation,
       continueIsPending,
-      message, 
       continueMessage
     } : {
       isChatListValid: "chatList" | "options";
@@ -50,7 +49,6 @@ export default memo(function ChatArea(
       cancelCoversation: ()=>void;
       generateCoversation:(e: FormEvent<HTMLFormElement>) => Promise<any>;
       continueIsPending: boolean;
-      message:string;
       continueMessage:string;
     }) {
    
@@ -67,9 +65,6 @@ export default memo(function ChatArea(
         isPending={isPending}
         cancelCoversation={cancelCoversation}
         generateCoversation={generateCoversation}
-        continueIsPending={continueIsPending}
-        message={message}
-        continueMessage={continueMessage} 
       />
     </div>
   </div>

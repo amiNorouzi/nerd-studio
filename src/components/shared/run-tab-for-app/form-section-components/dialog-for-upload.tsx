@@ -191,10 +191,20 @@ export function DialogForUpload({
               </Button>
             )}
             {pendingButton && (
+              <>
               <Button className="w-[80px] ">
                 {uploadStatus.filter(item => item).length}/
                 {!url ? files.length : files.length + 1}
               </Button>
+              {/*  <Button*/}
+              {/*    className="w-[80px]"*/}
+
+              {/*    disabled={pendingButton }*/}
+              {/*    isPending={pendingButton}*/}
+              {/*  >*/}
+              {/*    uploading*/}
+              {/*  </Button>*/}
+              </>
             )}
           </div>
         </div>

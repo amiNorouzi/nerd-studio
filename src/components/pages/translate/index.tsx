@@ -6,8 +6,6 @@ import {
   Run,
   SetSearchParamProvider,
 } from "@/components/shared";
-
-import { HistoryInfoContent } from "./history-info-content";
 import type { ParamsType } from "@/services/types";
 import useGenerateTranslate from "@/services/translate";
 import { useSearchParams } from "next/navigation";
@@ -70,10 +68,7 @@ export default function TranslatePage({ params }: IProps) {
             <HistoryItems appName="translate" />
           </HistoryBox>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
-          <HistoryInfo>
-            <HistoryInfoContent />
-          </HistoryInfo>
-
+          <HistoryInfo />
           <Highlight />
         </Run.Editor>
       </Run>

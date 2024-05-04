@@ -9,7 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { HistoryInfo } from "@/components/shared/HistoryInfo";
+import { HistoryInfo } from "@/components/shared/History/HistoryInfo";
 import HistoryInformationContent from "./HistoryInformationContent";
 import { MinimalButton } from "@/components/shared";
 
@@ -149,9 +149,7 @@ function CodeHistoryItems({ appName }: IProps) {
         {items}
       </div>
       {/*info sheet that when a history item select then open*/}
-      <HistoryInfo>
-        <HistoryInformationContent />
-      </HistoryInfo>
+      <HistoryInfo/>
     </>
   );
 }

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGetDictionary } from "@/hooks";
-import useGenerateHighlight from "@/services/highlight";
-import  useEventChanel  from "@/services/events-chanel";
+
 import useHighlightStore from "@/stores/zustand/highlight-store";
 import HighlightGeneratedContent from "@/components/shared/Highlight/HighlightGeneratedContent";
 import { cn } from "@/lib/utils";
@@ -11,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { TbWand } from "react-icons/tb";
 import { iconVariants } from "@/constants/variants";
 import type { IconType } from "react-icons";
+import useGenerateHighlight from "@/services/highlight";
+import useEventChanel from "@/services/events-chanel";
 
 export interface HighlightItemContentProps {
   item: string;
@@ -25,20 +26,23 @@ export interface HighlightItemContentProps {
 }
 
 export default function HighlightOptionItemContent({
-  itemChecked,
-  isAnyItemSelect,
-  handleClickCheck,
-  item,
-  highlightType,
-  isGenerate = false,
-}: HighlightItemContentProps) {
+                                                     itemChecked,
+                                                     isAnyItemSelect,
+                                                     handleClickCheck,
+                                                     item,
+                                                     highlightType,
+                                                     isGenerate = false,
+                                                   }: HighlightItemContentProps) {
   // when user click generate button this state will be true
   const [showTextarea, setShowTextArea] = useState(false);
 
   const {
     page: { chat },
   } = useGetDictionary();
-  // const { mutate: mutateGenerate } = useGenerateHighlight();
+  const { generateTranslate } = useGenerateHighlight();
+  const { message, resetMessage } = useEventChanel({
+    eventName: `highlight_${highlightType}`,
+  });
 
   // console.info("event", message);
   const setGeneratedHighlight = useHighlightStore.use.setGeneratedHighlight();
@@ -49,24 +53,25 @@ export default function HighlightOptionItemContent({
       : highlightMessages[highlightType].length - 1,
   );
 
-  // useEffect(() => {
-  //   setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
-  // }, [currentIndex, highlightType, message, setGeneratedHighlight]);
+  useEffect(() => {
+    setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
+  }, [currentIndex, highlightType, message, setGeneratedHighlight]);
 
   // handle click on generate button
   function handleGenerate(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    resetMessage();
     e.stopPropagation();
     setShowTextArea(true);
-    // mutateGenerate({
-    //   content: "hi",
-    //   presence_penalty: 0.0,
-    //   top_p: 0.9,
-    //   frequency_penalty: 0.0,
-    //   max_tokens: 100,
-    //   model: "gpt-3.5-turbo-0125",
-    //   temperature: 0.0,
-    //   type: highlightType,
-    // });
+    generateTranslate({
+      content: "hi",
+      presence_penalty: 0.0,
+      top_p: 0.9,
+      frequency_penalty: 0.0,
+      max_tokens: 100,
+      model: "gpt-3.5-turbo-0125",
+      temperature: 0.0,
+      type: highlightType,
+    });
   }
 
   // if user click on generate button or generate button in header  , we will show generated content

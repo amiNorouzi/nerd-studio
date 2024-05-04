@@ -17,17 +17,16 @@ import { dirInLocalStorage } from "@/stores/browser-storage";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { Separator } from "@/components/ui/separator";
 import { useGetDictionary } from "@/hooks";
+import { HistoryInfoContent } from "@/components/pages/translate/history-info-content";
 
 interface IProps {
-  children: React.ReactNode;
 }
 
 /**
  * this component is a wrapper for history info content that open in a sheet
- * @param children - history info content
  * @constructor
  */
-export function HistoryInfo({ children }: IProps) {
+export function HistoryInfo() {
   const dir = dirInLocalStorage.get().dir ?? "ltr";
   const side = dir === "ltr" ? "right" : "left";
   const open = useHistoryStore.use.isHistoryInfoOpen();
@@ -47,7 +46,7 @@ export function HistoryInfo({ children }: IProps) {
           </SheetTitle>
         </SheetHeader>
         <Separator className="my-4" />
-        {children}
+        <HistoryInfoContent />
         <SheetFooter className="mt-9 flex flex-row flex-nowrap gap-16">
           <SheetClose asChild>
             <Button

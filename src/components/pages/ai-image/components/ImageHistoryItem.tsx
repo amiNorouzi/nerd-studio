@@ -15,7 +15,7 @@ import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
 import { useSetFavorites } from "@/services/favorite-history";
 import { useHistoryDelete } from "@/services/history";
 import { Button } from "@/components/ui/button";
-import { DeletePopOver } from "@/components/shared/HistoryItems";
+import { DeletePopOver } from "@/components/shared/History/HistoryItems";
 import { BsFillPinAngleFill, BsPinAngle } from "react-icons/bs";
 import { useSetPinHistory } from "@/services/pin-history";
 

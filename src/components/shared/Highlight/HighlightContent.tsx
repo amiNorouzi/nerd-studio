@@ -34,15 +34,15 @@ export default function HighlightContent() {
   // if user click on generate all we will show only selected items
   const listOfOptionsComponent = generate
     ? listOfOptions.filter(item => {
-        if (checkedItems[item]) return item;
-      })
+      if (checkedItems[item]) return item;
+    })
     : listOfOptions;
 
   // if user click on generate all we will show only selected items
   const listOfSocialMediaComponent = generate
     ? listOfSocialMedia.filter(item => {
-        if (checkedItems[item.title]) return item;
-      })
+      if (checkedItems[item.title]) return item;
+    })
     : listOfSocialMedia;
 
   /**
