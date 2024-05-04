@@ -121,6 +121,7 @@ export const authConfig = {
           token.accessToken = user.accessToken;
           token.refreshToken = user.refreshToken;
           token.workspace = user.workspace;
+          token.accessTokenExpires = Date.now() + 1*60*1000;
           return token;
         } else {
           //in oAuth login fetch tokens with api
@@ -135,6 +136,7 @@ export const authConfig = {
               token.accessToken = data.access_token;
               token.refreshToken = data.refresh_token;
               token.workspace = user.workspace;
+              token.accessTokenExpires = Date.now() + 1*60*1000;
               return token;
             } catch (e) {
               console.error(e);
