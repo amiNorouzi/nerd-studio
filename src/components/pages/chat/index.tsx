@@ -73,7 +73,6 @@ export default function ChatPage({ lang }: { lang: Locale }) {
   const isHighlightOpen = useChatStore.use.openHighlightBox();
   const [chatList, setChatList] = useState(false);
   const isChatListValid = chatList ? "chatList" : "options";
-  const Content = chatContent[isChatListValid];
   const prompt = useChatStore.use.chatTextBoxValue();
   const promptReset = useChatStore.use.setChatTextBoxValue();
   const engines = useFormStore.use.engines();
@@ -197,7 +196,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
   }, [data, isPending, isSuccess]);
 
   useEffect(()=> {
-    if(messagesHistory && messagesHistory?.chats?.length > 0) setChatList(true);
+    if(startMessages && startMessages?.length > 0) setChatList(true);
   }, [messagesHistory, messagesHistory?.chats?.length]);
 
   // Transform StreamData to the desired structure
@@ -223,15 +222,19 @@ export default function ChatPage({ lang }: { lang: Locale }) {
         <div className="col mx-auto h-full w-full items-center overflow-y-auto p-2 lg:p-4">
           {/* chat list or chat option*/}
           {/* @ts-ignore */}
-          <Content messages={messages || []} >
-            {/*these children are for Options component*/}
-            <Title lang={lang} />
-            <ChatHero lang={lang} />
-            <ChatSettingAndUpload />
-          </Content>
+
+          {
+            isChatListValid ? <ChatList messages={startMessages} onClick={(e, data) => console.log(e, data)}/> :
+            <Options>
+              {/*these children are for Options component*/}
+              <Title lang={lang} />
+              <ChatHero lang={lang} />
+              <ChatSettingAndUpload />
+            </Options>
+          }
 
           {/* chat settings and prompt input*/}
-          <ChatArea 
+          <ChatArea
             isChatListValid={isChatListValid} 
             setChatList={setChatList} 
             isPending={isPending}

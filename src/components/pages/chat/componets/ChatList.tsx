@@ -1,12 +1,17 @@
 "use client";
 import { UserMessageCard } from "./UserMessageCard";
 import { useSession } from "next-auth/react";
-import { AssistMessageCard } from "@/components/pages/chat/componets/AssistMessageCard";
+import {
+  AssistMessageCard,
+  EventType,
+  IChatListProps,
+} from "@/components/pages/chat/componets/AssistMessageCard";
+import { MouseEvent } from "react";
 
 /**
  * List of chat messages used in chat page
  * contains user and chatbot messages
- * give list of conversition of user and bot 
+ * give list of conversition of user and bot
  * @constructor
  */
 interface Props {
@@ -18,10 +23,14 @@ interface Props {
     id: string;
     role: string;
   }[];
+  onClick?: (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+    chatMessage: { type: EventType; data: IChatListProps },
+  ) => void;
 }
-export function ChatList({ messages }: Props) {
+export function ChatList({ messages, onClick }: Props) {
   const { data: session } = useSession();
-  
+
   return (
     <div className="col w-full max-w-[760px] flex-grow gap-6 pb-6 ">
       {messages.map(item => {
@@ -30,27 +39,33 @@ export function ChatList({ messages }: Props) {
         const name = session?.user?.name ?? "";
 
         return (
-          <div key={item.id} className="mx-auto grid max-w-3xl grid-cols-1 gap-6">
+          <div
+            key={item.id}
+            className="mx-auto grid max-w-3xl grid-cols-1 gap-6"
+          >
             {item.role === "user" && (
               <UserMessageCard
-                timeLine={""}
+                timeLine={item.timeLine}
                 prompt={item.prompt}
                 image={"/images/gemni.jpeg"}
                 name={name}
                 id={item.id}
                 role="user"
+                onClick={(e, data) => onClick && onClick(e, data)}
               />
             )}
-            {item.role === "assistance" || item.role === "assistant" && (
-              <AssistMessageCard
-                timeLine={""}
-                prompt={item.prompt}
-                image={image}
-                name={name}
-                id={item.id}
-                role="user"
-              />
-            )}
+            {item.role === "assistance" ||
+              (item.role === "assistant" && (
+                <AssistMessageCard
+                  timeLine={item.timeLine}
+                  prompt={item.prompt}
+                  image={image}
+                  name={name}
+                  id={item.id}
+                  role="user"
+                  onClick={(e, data) => onClick && onClick(e, data)}
+                />
+              ))}
           </div>
         );
       })}

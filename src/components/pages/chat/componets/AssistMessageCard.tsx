@@ -36,20 +36,28 @@ export type EventType =
   | "LIKE"
   | "DISLIKE";
 
-interface IProps {
+export interface IChatCardData {
   image: string;
   name: string;
   prompt: string[];
   timeLine: string;
   id: string;
   role: string;
+}
+
+export interface IChatListProps extends IChatCardData {
   onClick?: (
-    e: MouseEvent<SVGElement, globalThis.MouseEvent>,
-    chatMessage: { type: EventType; data: IProps },
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+    chatMessage: { type: EventType; data: IChatCardData },
   ) => void;
 }
 
-export function AssistMessageCard(props: IProps) {
+export type ChatCardMessage  = {
+  type: EventType;
+  data: IChatListProps;
+}
+
+export function AssistMessageCard(props: IChatListProps) {
   const { timeLine, prompt, image, name } = props;
   const [promptIndexToShow, setPromptIndexToShow] = useState(0);
   const setHighlightOpen = useChatStore.use.setOpenHighlightBox();
@@ -91,7 +99,16 @@ export function AssistMessageCard(props: IProps) {
                     "scale-110  rounded-full bg-white p-2 shadow shadow-primary",
                 )}
                 variant="ghost"
-                onClick={handleToggleSpeak}
+                onClick={e => {
+                  const chatMessage: ChatCardMessage = {
+                    type: "VOLUME",
+                    data: props,
+                  };
+                  if (props.onClick) {
+                    props.onClick(e, chatMessage);
+                  }
+                  handleToggleSpeak();
+                }}
               >
                 <TbVolume
                   className={cn(
@@ -99,15 +116,6 @@ export function AssistMessageCard(props: IProps) {
                     isSpeaking && "text-primary-dark",
                     iconVariants({ size: "md" }),
                   )}
-                  onClick={e => {
-                    const chatMessage = {
-                      type: "VOLUME" as EventType,
-                      data: props,
-                    };
-                    if (props.onClick) {
-                      props.onClick(e, chatMessage);
-                    }
-                  }}
                 />
               </Button>
             </MyTooltip>
@@ -119,30 +127,83 @@ export function AssistMessageCard(props: IProps) {
               <MinimalButton
                 Icon={TbThumbUp}
                 iconClassname="group-active:text-primary-dark"
+                onClick={e => {
+                  const chatMessage:ChatCardMessage = {
+                    type: "LIKE",
+                    data: props,
+                  };
+                  if (props.onClick) {
+                    props.onClick(e, chatMessage);
+                  }
+                }}
               />
               <MinimalButton
                 Icon={TbThumbDown}
                 iconClassname="group-active:text-primary-dark"
+                onClick={e => {
+                  const chatMessage : ChatCardMessage= {
+                    type: "DISLIKE",
+                    data: props,
+                  };
+                  if (props.onClick) {
+                    props.onClick(e, chatMessage);
+                  }
+                }}
               />
               <span className=" text-xs text-muted-foreground-light">
                 {timeLine}
               </span>
             </div>
             <div className="grid grid-cols-4 items-center gap-2 rounded-lg bg-background px-2 py-1">
-              <MinimalButton Icon={TbReload} title={chat.retry_button_label} />
+              <MinimalButton Icon={TbReload} title={chat.retry_button_label} onClick={e => {
+                  const chatMessage: ChatCardMessage = {
+                    type: "REGENERATE",
+                    data: props,
+                  };
+                  if (props.onClick) {
+                    props.onClick(e, chatMessage);
+                  }
+                }}/>
               <MinimalButton
                 Icon={isCopy ? LuCopyCheck : LuCopy}
                 title={chat.copy_button_label}
-                onClick={() => handleCopy(prompt[promptIndexToShow])}
+                onClick={e => {
+                  handleCopy(prompt[promptIndexToShow]);
+                  const chatMessage: ChatCardMessage = {
+                    type: "COPY",
+                    data: props,
+                  };
+                  if (props.onClick) {
+                    props.onClick(e, chatMessage);
+                  }
+                }}
               />
               <MinimalButton
                 Icon={TbBookmarks}
                 title={chat.save_button_label}
+                onClick={e => {
+                  const chatMessage: ChatCardMessage = {
+                    type: "SAVE",
+                    data: props,
+                  };
+                  if (props.onClick) {
+                    props.onClick(e, chatMessage);
+                  }
+                }}
               />
               <MinimalButton
                 Icon={TbHighlight}
                 title={chat.highlight_button_label}
-                onClick={handleClickHighlight}
+                onClick={e => {
+                  handleClickHighlight();
+                  const chatMessage: ChatCardMessage = {
+                    type: "HIGHTLIGHT",
+                    data: props,
+                  };
+                  if (props.onClick) {
+                    props.onClick(e, chatMessage);
+                  }
+                }}
               />
             </div>
           </div>

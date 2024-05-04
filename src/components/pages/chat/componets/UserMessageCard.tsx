@@ -21,20 +21,7 @@ import {
 } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { iconVariants } from "@/constants/variants";
-import { EventType } from "./AssistMessageCard";
-
-interface IProps {
-  image: string;
-  name: string;
-  prompt: string[];
-  timeLine: string;
-  id: string;
-  role: string;
-  onClick?: (
-    e: MouseEvent<SVGElement, globalThis.MouseEvent>,
-    chatMessage: { type: EventType; data: IProps },
-  ) => void;
-}
+import { EventType, IChatListProps } from "./AssistMessageCard";
 
 /**
  * in this component we show user message card
@@ -44,7 +31,7 @@ interface IProps {
  * @param name user name
  * @constructor
  */
-export function UserMessageCard(props: IProps) {
+export function UserMessageCard(props: IChatListProps) {
   const [promptIndexToShow, setPromptIndexToShow] = useState(0);
   const [isEditPrompt, setIsEditPrompt] = useState(false);
   const { handleToggleSpeak, isSpeaking } = useTextToSpeech(
@@ -79,7 +66,16 @@ export function UserMessageCard(props: IProps) {
                     "scale-110  rounded-full bg-white p-2 shadow shadow-primary",
                 )}
                 variant="ghost"
-                onClick={handleToggleSpeak}
+                onClick={e => {
+                  const chatMessage = {
+                    type: "VOLUME" as EventType,
+                    data: props,
+                  };
+                  if (props.onClick) {
+                    props.onClick(e, chatMessage);
+                  }
+                  handleToggleSpeak();
+                }}
               >
                 <TbVolume
                   className={cn(
@@ -87,15 +83,6 @@ export function UserMessageCard(props: IProps) {
                     isSpeaking && "text-primary-dark",
                     iconVariants({ size: "md" }),
                   )}
-                  onClick={e => {
-                    const chatMessage = {
-                      type: "VOLUME" as EventType,
-                      data: props,
-                    };
-                    if (props.onClick) {
-                      props.onClick(e, chatMessage);
-                    }
-                  }}
                 />
               </Button>
             </MyTooltip>
