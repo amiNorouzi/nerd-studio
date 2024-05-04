@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 
 import {
   TbBookmarks,
@@ -26,6 +26,16 @@ import {
 import { cn } from "@/lib/utils";
 import { iconVariants } from "@/constants/variants";
 
+export type EventType =
+  | "VOLUME"
+  | "SAVE"
+  | "COPY"
+  | "EDIT"
+  | "REGENERATE"
+  | "HIGHTLIGHT"
+  | "LIKE"
+  | "DISLIKE";
+
 interface IProps {
   image: string;
   name: string;
@@ -33,6 +43,10 @@ interface IProps {
   timeLine: string;
   id: string;
   role: string;
+  onClick?: (
+    e: MouseEvent<SVGElement, globalThis.MouseEvent>,
+    chatMessage: { type: EventType; data: IProps },
+  ) => void;
 }
 
 export function AssistMessageCard(props: IProps) {
@@ -55,7 +69,7 @@ export function AssistMessageCard(props: IProps) {
   }
 
   return (
-    <div className="col gap-1 lg:flex-row  lg:pe-10 w-full">
+    <div className="col w-full gap-1  lg:flex-row lg:pe-10">
       {/*assist image*/}
       <UserAvatar
         imageSrc={image}
@@ -85,6 +99,15 @@ export function AssistMessageCard(props: IProps) {
                     isSpeaking && "text-primary-dark",
                     iconVariants({ size: "md" }),
                   )}
+                  onClick={e => {
+                    const chatMessage = {
+                      type: "VOLUME" as EventType,
+                      data: props,
+                    };
+                    if (props.onClick) {
+                      props.onClick(e, chatMessage);
+                    }
+                  }}
                 />
               </Button>
             </MyTooltip>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 
 import { LuCopy, LuCopyCheck } from "react-icons/lu";
 import {
@@ -21,6 +21,7 @@ import {
 } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { iconVariants } from "@/constants/variants";
+import { EventType } from "./AssistMessageCard";
 
 interface IProps {
   image: string;
@@ -29,6 +30,10 @@ interface IProps {
   timeLine: string;
   id: string;
   role: string;
+  onClick?: (
+    e: MouseEvent<SVGElement, globalThis.MouseEvent>,
+    chatMessage: { type: EventType; data: IProps },
+  ) => void;
 }
 
 /**
@@ -39,11 +44,11 @@ interface IProps {
  * @param name user name
  * @constructor
  */
-export function UserMessageCard({ timeLine, prompt, image, name }: IProps) {
+export function UserMessageCard(props: IProps) {
   const [promptIndexToShow, setPromptIndexToShow] = useState(0);
   const [isEditPrompt, setIsEditPrompt] = useState(false);
   const { handleToggleSpeak, isSpeaking } = useTextToSpeech(
-    prompt[promptIndexToShow],
+    props.prompt[promptIndexToShow],
   );
   const [handleCopy, isCopy] = useCopyTextInClipBoard();
 
@@ -55,8 +60,8 @@ export function UserMessageCard({ timeLine, prompt, image, name }: IProps) {
     <div className="flex flex-col items-end gap-1 lg:flex-row-reverse lg:items-start lg:ps-10">
       {/*user image*/}
       <UserAvatar
-        imageSrc={image}
-        name={name ?? ""}
+        imageSrc={props.image}
+        name={props.name ?? ""}
         className="h-6 w-6 "
         fallbackClassname="text-xs"
       />
@@ -82,6 +87,15 @@ export function UserMessageCard({ timeLine, prompt, image, name }: IProps) {
                     isSpeaking && "text-primary-dark",
                     iconVariants({ size: "md" }),
                   )}
+                  onClick={e => {
+                    const chatMessage = {
+                      type: "VOLUME" as EventType,
+                      data: props,
+                    };
+                    if (props.onClick) {
+                      props.onClick(e, chatMessage);
+                    }
+                  }}
                 />
               </Button>
             </MyTooltip>
@@ -91,7 +105,7 @@ export function UserMessageCard({ timeLine, prompt, image, name }: IProps) {
               contentEditable={isEditPrompt}
               className="focus:ouline-none -mt-0.5 border-none outline-none"
             >
-              {prompt[promptIndexToShow]}
+              {props.prompt[promptIndexToShow]}
             </p>
           </div>
 
@@ -115,14 +129,14 @@ export function UserMessageCard({ timeLine, prompt, image, name }: IProps) {
               <>
                 {/*timeline that will be replaced with real data and reformat*/}
                 <span className="text-xs text-muted-foreground-light">
-                  {timeLine}
+                  {props.timeLine}
                 </span>
                 {/*action buttons like:copy, save, edit*/}
                 <div className="ms-auto grid grid-cols-3 items-center gap-2 rounded-lg bg-muted px-2 py-1">
                   <MinimalButton
                     Icon={isCopy ? LuCopyCheck : LuCopy}
                     title={chat.copy_button_label}
-                    onClick={() => handleCopy(prompt[promptIndexToShow])}
+                    onClick={() => handleCopy(props.prompt[promptIndexToShow])}
                   />
                   <MinimalButton
                     Icon={TbBookmarks}
