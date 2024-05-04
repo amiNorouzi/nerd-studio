@@ -91,7 +91,7 @@ function DeletePopOver({ item }: DeletePopoverProps) {
  * this component is for history items
  * @constructor
  */
-export function HistoryItems() {
+export default function HistoryItems() {
   const selectedHistoryItem = useChatStore.use.selectedHistoryItem();
   const setSelectedHistoryItem = useChatStore.use.setSelectHistoryItem();
   const isItemSelected = (id: string) => selectedHistoryItem?.id === id;

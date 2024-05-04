@@ -1,14 +1,8 @@
 "use client";
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { useParams, usePathname, useRouter } from "next/navigation";
 
 import { Menu, Sidebar } from "react-pro-sidebar";
-import { RiMenuFoldLine } from "react-icons/ri";
-
-import { UserMenu, UserPanel } from "@/components/user";
-import SpaceItems from "@/components/layout/side-panel/SpaceItems";
-import { Button } from "@/components/ui/button";
 
 import { useSidbarPDfStore } from "@/stores/zustand/ui-store";
 import useMobileSize from "@/hooks/useMobileSize";
@@ -16,22 +10,17 @@ import { useTheme } from "@/hooks/useTheme";
 import useOutsideClick from "@/hooks/useOutSideClick";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
-import { apps } from "@/constants/side-panel";
 import { dirInLocalStorage } from "@/stores/browser-storage";
-import SidePanelItem from "@/components/layout/side-panel/SidePanelItem";
-import { TbLayoutSidebarLeftCollapse, TbPdf } from "react-icons/tb";
-import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
+import {
+  TbLayoutSidebarLeftCollapse,
+  TbLayoutSidebarLeftExpand,
+  TbPdf,
+} from "react-icons/tb";
 import SidePanelItemPdf from "./SidePanelItemPdf";
 import { Badge } from "@/components/ui/badge";
 import { LuPlus } from "react-icons/lu";
-import { UploadPdf } from "@/components/shared/UploadPdf";
-import { UploadFilePdf } from "./uploadfilePdf";
 import PdfUploadSection from "./pdf-upload-section";
-import {
-  usePdfFileStore,
-  useSelectedFilePdfStore,
-} from "@/stores/zustand/chat-pdf-file";
-import { useGetPdf, useGetUploadedPdf } from "@/services/upload-pdf";
+import { useGetUploadedPdf } from "@/services/upload-pdf";
 
 //side panel by react-pro-sidebar
 //changed it open on hover by onMouseEnter and onMouseLeave event

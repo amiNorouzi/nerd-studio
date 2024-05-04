@@ -16,9 +16,9 @@ interface HighlightContentHeaderProps {
  * @constructor
  */
 export default function HighlightContentHeader({
-  handleClickToggleCheckAll,
-  checkAll,
-}: HighlightContentHeaderProps) {
+                                                 handleClickToggleCheckAll,
+                                                 checkAll,
+                                               }: HighlightContentHeaderProps) {
   const setHighlightIsOpen = useHighlightStore.use.setHighlightIsOpen();
   const {
     page: { chat },

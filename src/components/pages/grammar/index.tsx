@@ -6,6 +6,7 @@ import {useGenerateGrammar} from '@/services/grammar';
 import React from 'react';
 import Highlight from '@/components/shared/Highlight';
 import {useHandleGeneratedData} from '@/hooks/generates-hook';
+import useGenerateTranslate from "@/services/translate";
 
 interface IProps {
   params: ParamsType;
@@ -17,16 +18,19 @@ export default function GrammarPage({ params }: IProps) {
    *  value of it used in apps Header in  layout or form-section
    *  and everywhere that needs to know app name
    */
-  const { message, resetMessage } = useEventChanel({
-    eventName: "grammar",
-  });
-  const { mutate: generateGrammar, isPending } = useGenerateGrammar();
-  const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
+
+  const {
+    generateGrammar,
+    isPending,
+    message,
+    resetMessage,
+  } = useGenerateGrammar();  const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
     generateFn: handleGenerate,
     message,
   });
   function handleGenerate() {
     if (text) {
+      resetMessage();
       generateGrammar({
         text,
         model: "gpt-3.5-turbo-0125",
@@ -36,6 +40,7 @@ export default function GrammarPage({ params }: IProps) {
         frequency_penalty: 0,
         presence_penalty: 0,
         document_name: "grammar",
+
       });
     }
   }
