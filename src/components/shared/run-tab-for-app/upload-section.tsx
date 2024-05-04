@@ -16,6 +16,7 @@ export const useUploadData = ({ files }: Props) => {
   const [uploadStatus, setUploadStatus] = useState<boolean[]>([]);
 
   const {
+    cancel,
     mutateAsync: covertPDF,
     uploadProgress,
 
@@ -81,5 +82,6 @@ export const useUploadData = ({ files }: Props) => {
     startConverting,
     uploadIndex,
     uploadProgress,
+    cancel
   };
 };

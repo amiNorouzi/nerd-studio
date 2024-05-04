@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
+import axios from "axios";
 
 type PDFConvertorResponse = {
   text: string;
@@ -9,11 +10,17 @@ type PDFConvertorResponse = {
 export function useCovertPdfToText() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [index, setIndex] = useState<number | null>(null);
+  const [cancelToken, setCancelToken] = useState<axios.CancelToken | null>(null);
+
   const { mutate, data, ...rest } = useMutation({
     async mutationFn(pdf: File) {
       try {
         const formData = new FormData();
         formData.append("file", pdf);
+
+        //create new refresh token
+        const source = axios.CancelToken.source();
+        setCancelToken(source);
 
         const response = await axiosClient.post<PDFConvertorResponse>(
           "/uploads/convert_pdf_to_text/",
@@ -29,13 +36,18 @@ export function useCovertPdfToText() {
               );
               setUploadProgress(percentCompleted);
             },
+            cancelToken: source.token, // Pass the cancel token to the request
           },
         );
 
         return response.data.text;
       } catch (err) {
-        console.log("error happened in the upload", err);
-        console.log("error in upload index number", index);
+        if (axios.isCancel(err)) {
+          console.log('Request canceled', err.message);
+        } else {
+          console.log("Error happened in the upload", err);
+          console.log("Error in upload index number", index);
+        }
       }
     },
 
@@ -44,7 +56,14 @@ export function useCovertPdfToText() {
       setUploadProgress(0);
     },
   });
+  const cancel = () => {
+    if (cancelToken) {
+      cancelToken.cancel("Upload canceled by user");
+      setIndex(prev => (prev ? prev + 1 : 1));
 
+      setCancelToken(null); // Reset cancel token
+    }
+  };
   return {
     mutate,
     data,
@@ -52,6 +71,7 @@ export function useCovertPdfToText() {
     setIndex,
     index,
     ...rest,
+    cancel
   };
 }
 
