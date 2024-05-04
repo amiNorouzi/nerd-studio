@@ -55,8 +55,9 @@ const PdfUploadSection = () => {
     router.push("/chatpdf/edit");
   };
   return (
-    <div onClick={() => setOpenDialog(!openDialog)} className=" ">
+    <div className=" ">
       <div
+        onClick={() => setOpenDialog(!openDialog)}
         className="transition-color flex h-full flex-1
           flex-col items-center  justify-center rounded-lg border-2
           border-dashed border-[#9373EE] bg-[#F9F6FF] p-5 text-gray-400

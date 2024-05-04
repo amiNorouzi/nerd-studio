@@ -28,6 +28,9 @@ export function useUploadPdf() {
           {
             headers: {
               "Content-Type": "multipart/form-data",
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST',
+              'Access-Control-Allow-Headers': 'Content-Type',
             },
             onUploadProgress: progressEvent => {
               if (index === null) setIndex(0);
@@ -36,13 +39,14 @@ export function useUploadPdf() {
               );
               setUploadProgress(percentCompleted);
             },
+            withCredentials: true
           },
+
         );
         // console.log("res:", response.data.path);
         return response.data.path;
       } catch (err) {
-        console.log("error happened in the upload", err);
-        console.log("error in upload index number", index);
+
       }
     },
 
@@ -61,6 +65,7 @@ export function useUploadPdf() {
     ...rest,
   };
 }
+
 export function useGetPdf() {
   const { mutate, data, isPending, ...rest } = useMutation({
     async mutationFn(url: String) {
@@ -72,12 +77,13 @@ export function useGetPdf() {
             headers: {
               "Content-Type": "application/json",
             },
+            withCredentials: true
+
           },
         );
         console.log("res:", response.data.url);
         return response.data.url;
       } catch (err) {
-        console.log("error happened in the upload", err);
       }
     },
   });

@@ -8,8 +8,11 @@ import useImageTabs from "../hooks/useImageTabs";
 import { isEmpty } from "@/lib/utils";
 
 import type { HistoryItem } from "@/services/types";
-import { HistoryBox } from "@/components/shared";
+import { HistoryBox, Show } from "@/components/shared";
 import { useImageUrlStore } from "@/stores/zustand/ai-image-store";
+import GeneratedImages from "./GeneratedImages";
+import ImageCompare from "./ImageCompare";
+import EmptyResult from "./EmptyResult";
 
 //list of history
 //TODO: replace with real data

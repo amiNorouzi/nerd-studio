@@ -7,6 +7,7 @@ import Loading from "@/components/shared/Loading";
 import { useGetDictionary } from "@/hooks";
 import { EngineItem, StateSetterType } from "@/services/types";
 import useImageTabs from "@/components/pages/ai-image/hooks/useImageTabs";
+
 import {
   useAiImageStore,
   useImageUrlStore,
@@ -48,15 +49,32 @@ function ModelAndSubmit({
   const { currentTab, tabs } = useImageTabs();
   setImage("");
 
+  const isDisabledSubmit =
+    (currentModelType !== "image_upscale" && !currentTabInputs["text"]) ||
+    (currentModelType !== "text_to_image" && !currentTabInputs["image"]);
 
+  const getPic =async () => {
+    if (getValue("text")) {
+      const data =await mutateAsync({
+        model: activeModel,
+        sizePic: "",
+        prompt: String(getValue("text") || ""),
+      });
+      console.log("isPending", isSuccess);
   const getPic = async () => {
     console.log("isPending", isPending);
     console.log("isPausedImageToImage", isPausedImageToImage);
-  
 
+
+      if (isSuccess) {
+        console.log("test if");
+        setImage(data);
+      }
+    }
+  };
     if (getValue("text")) {
       console.log("test input");
-      
+
       if (currentTab == tabs.textToImage) {
         const data = await mutateAsync({
           model: activeModel,
@@ -94,7 +112,7 @@ function ModelAndSubmit({
       <Button
         className="row w-full"
         onClick={getPic}
-        disabled={isPending || isPausedImageToImage}
+        disabled={isPending || isDisabledSubmit}
       >
         <RenderIf isTrue={isPending || isPausedImageToImage}>
           <Loading
