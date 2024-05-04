@@ -77,8 +77,6 @@ export function useGetPdf() {
             headers: {
               "Content-Type": "application/json",
             },
-            withCredentials: true
-
           },
         );
         console.log("res:", response.data.url);
@@ -99,7 +97,7 @@ export function useGetUploadedPdf() {
   const { data, isLoading, refetch, isSuccess } = useQuery({
     queryKey: ["uploads"],
     async queryFn() {
-      const { data } = await axiosClient.get<getPdfs[]>("/uploads/list_of_pdf");
+      const { data } = await axiosClient.get<getPdfs[]>("/uploads/list_of_pdf/");
       return data;
     },
   });
