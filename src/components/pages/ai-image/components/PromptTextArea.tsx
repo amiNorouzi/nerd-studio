@@ -17,7 +17,7 @@ function PromptTextArea() {
     page: { image: imageDictionary },
   } = useGetDictionary();
   const { getValue, changeValue } = useInputValue();
-
+  console.log(getValue("text"));
   return (
     <div className="col gap-label-space">
       {/*label*/}

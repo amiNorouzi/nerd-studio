@@ -8,13 +8,10 @@ import {
 } from "@/components/shared";
 import { HistoryInfoContent } from "./history-info-content";
 import type { SCRPropsType } from "@/services/types";
-import { useEventChanel } from "@/services/events-chanel";
-import React, { useEffect, useState } from "react";
-import { useAIWriter } from "@/services/ai-writer";
+import React from "react";
+import useAIWriter from "@/services/ai-writer";
 import { useGetDictionary } from "@/hooks";
-import { Highlight, HighlightContent } from "@/components/shared/Highlight";
-import { useHistoryUpdate } from "@/services/history";
-import { useHistoryStore } from "@/stores/zustand/history-store";
+import Highlight from "@/components/shared/Highlight";
 import { useHandleGeneratedData } from "@/hooks/generates-hook";
 
 export default function WritePage({ params }: SCRPropsType) {
@@ -28,19 +25,15 @@ export default function WritePage({ params }: SCRPropsType) {
    *  and everywhere that needs to know app name
    */
 
-  const { message: generatedText, reset } = useEventChanel({
-    eventName: "ai_writer",
-  });
-  const { mutate: generate, isPending } = useAIWriter();
+  const { generateReWrite, isPending, message } = useAIWriter();
   const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
     generateFn: handleGenerate,
-    message: generatedText,
+    message,
   });
   function handleGenerate() {
     if (text) {
-      reset();
-      generate({
-        prompt: text,
+      generateReWrite({
+        text: text,
         model: "gpt-3.5-turbo-0125",
         temperature: 0.1,
         max_tokens: 100,
@@ -70,9 +63,7 @@ export default function WritePage({ params }: SCRPropsType) {
             <HistoryItems appName="ai_writer" />
           </HistoryBox>
 
-          <Highlight>
-            <HighlightContent />
-          </Highlight>
+          <Highlight />
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           <HistoryInfo>
             <HistoryInfoContent />
