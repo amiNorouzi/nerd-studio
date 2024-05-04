@@ -90,6 +90,7 @@ export default function TemplatePage() {
                     <Categories
                       value={tab}
                       onChangeTabValue={setTab}
+                      setShowAdvance={setShowAdvance}
                       name={TEMPLATE_TAB_PARAMS_KEY}
                       categories={[
                         ALL_PROMPT_TITLE,
@@ -98,7 +99,9 @@ export default function TemplatePage() {
                     />
 
                     {/* advance and my prompt button that change the content by set template-content in query param in url*/}
-                    <div onClick={() => setShowAdvance(prev => !prev)}>
+                    <div onClick={() => {setShowAdvance(true)
+                    setTab('')
+                    }}>
                       <AdvancedButton selected={showAdvance} />
                     </div>
                   </div>
