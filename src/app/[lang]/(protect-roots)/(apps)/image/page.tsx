@@ -1,4 +1,3 @@
-"use client";
 import ImageLoading from "@/app/[lang]/(protect-roots)/(apps)/image/loading";
 import dynamic from "next/dynamic";
 
