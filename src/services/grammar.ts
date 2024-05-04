@@ -1,6 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 import { useSession } from "next-auth/react";
+import useStream from "@/services/useStreamingApi";
+import { useCallback } from "react";
+import { GenerateTranslateParams } from "@/services/translate";
 
 export type GrammarGenerateParams = {
   text: string;
@@ -9,24 +12,15 @@ export type GrammarGenerateParams = {
 export function useGenerateGrammar() {
   const queryClient = useQueryClient();
   const { data: session } = useSession();
+  const { generateStream, ...other } = useStream({
+    eventName: "grammar",
+    endpoint: "/grammar/generate_grammar/",
+    invalidationQuery: { queryKey: ["history"] },
+  });
 
-  return useMutation({
-    mutationFn: async ({
-      text,
-      max_tokens,
-      temperature,
-      model,
-      top_p,
-      frequency_penalty,
-      presence_penalty,
-      document_name,
-    }: GrammarGenerateParams) => {
-      const { data } = await axiosClient.post<
-        unknown,
-        any,
-        OpenAiCompletionSchemaInput
-      >("/grammar/generate_grammar/", {
-        model,
+  const generateGrammar = useCallback(
+    ({ text,...params }: GrammarGenerateParams) => {
+      return generateStream({
         messages: [
           {
             content:
@@ -35,23 +29,18 @@ export function useGenerateGrammar() {
           },
           {
             role: "user",
-            content: `grammar errors of: "${text}"`,
+            content: `${text}"`,
           },
         ],
-        frequency_penalty,
-        presence_penalty,
-        temperature,
-        max_tokens,
-        top_p,
-        document_name,
-        workspace_id: session?.user.workspace.id!,
+        ...params,
       });
+    },
+    [generateStream],
+  );
 
-      return data;
-    },
-    onSuccess: () => {
-      // @ts-ignore
-      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
-    },
-  });
+  return {
+    generateGrammar,
+    ...other,
+  };
 }
+
