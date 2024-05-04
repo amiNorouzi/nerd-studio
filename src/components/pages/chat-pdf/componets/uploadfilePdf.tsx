@@ -1,6 +1,6 @@
 import PdfUploadSection from "./pdf-upload-section";
 
-export function UploadFilePdf() {
+export default function UploadFilePdf() {
   return (
     <div>
       <div className="px-[143px] py-[48px]">

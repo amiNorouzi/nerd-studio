@@ -1,3 +1,4 @@
+"use client";
 import { ChatList } from "../chat/componets";
 import { InputPromtChatPdf } from "./components/inputPromtChatPdf";
 import PdfView from "./utility/pdfView";

@@ -1,4 +1,3 @@
-"use client";
 import TemplateLoading from "@/app/[lang]/(protect-roots)/(apps)/template/loading";
 import dynamic from "next/dynamic";
 

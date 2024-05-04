@@ -32,7 +32,7 @@ import { EventType, IChatListProps } from "./AssistMessageCard";
  * @constructor
  */
 export function UserMessageCard(props: IChatListProps) {
-  const [promptIndexToShow, setPromptIndexToShow] = useState(1);
+  const [promptIndexToShow, setPromptIndexToShow] = useState(0);
   const [isEditPrompt, setIsEditPrompt] = useState(false);
   const { handleToggleSpeak, isSpeaking } = useTextToSpeech(
     props.prompt[promptIndexToShow],

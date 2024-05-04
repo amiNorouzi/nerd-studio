@@ -1,4 +1,3 @@
-"use client";
 import type { ParamsType } from "@/services/types";
 import GrammarLoading from "@/app/[lang]/(protect-roots)/(apps)/grammar/loading";
 import dynamic from "next/dynamic";

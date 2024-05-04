@@ -43,7 +43,7 @@ const histories: HistoryItem[] = [
  * if there is no generated images or history, show the empty result
  * @constructor
  */
-export function ResultSection() {
+export default function ResultSection() {
   const {
     page: { image: imageDictionary },
   } = useGetDictionary();
