@@ -39,7 +39,7 @@ export default async function AppStorePage({ lang }: { lang: Locale }) {
       >
         <BannerWithSearch name={"app-store-search"} />
         <div className="col gap-4 p-2 md:p-4 lg:gap-6 lg:p-6">
-          <Categories name={"select-apps-category"} categories={categories} />
+          <Categories name={"select-apps-category"} categories={categories}/>
           <AppsList />
         </div>
       </div>
