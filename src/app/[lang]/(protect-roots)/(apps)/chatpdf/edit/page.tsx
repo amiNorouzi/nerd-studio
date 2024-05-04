@@ -1,4 +1,3 @@
-"use client";
 import dynamic from "next/dynamic";
 import ChatPdfEditPageLoading from "@/app/[lang]/(protect-roots)/(apps)/chatpdf/edit/loading";
 
