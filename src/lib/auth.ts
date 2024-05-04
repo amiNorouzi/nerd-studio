@@ -11,6 +11,7 @@ import {
 } from "@/services/auth/authentication-services";
 
 import type { User } from "@/services/types";
+import { refreshAccessToken } from "./refreshAccessToken";
 
 export const authConfig = {
   providers: [
@@ -107,18 +108,20 @@ export const authConfig = {
   ],
   callbacks: {
     async jwt({ token, user, account, trigger, session }) {
-
+      
       // update session
       if(trigger === "update" && session.user.workspace) {
         token.workspace = session.user.workspace;
       }
 
+      // initial signup/signin
       if (user && account) {
         //get tokens from passed user in credentials login
         if (account.type === "credentials") {
           token.accessToken = user.accessToken;
           token.refreshToken = user.refreshToken;
           token.workspace = user.workspace;
+          return token;
         } else {
           //in oAuth login fetch tokens with api
           if (user) {
@@ -131,14 +134,23 @@ export const authConfig = {
               });
               token.accessToken = data.access_token;
               token.refreshToken = data.refresh_token;
+              token.workspace = user.workspace;
+              return token;
             } catch (e) {
-              console.log(e);
+              console.error(e);
             }
           }
         }
       }
-      // the token object is passed done to the session call back for persistence
-      return token;
+
+      // @ts-ignore
+      if (Date.now() < token.accessTokenExpires) {
+        return token;
+      }
+
+      console.log("Access token has expired, trying to refresh it");
+      // Access token has expired, try to update it
+      return refreshAccessToken(token);
     },
 
     async session({ session, token}) {
