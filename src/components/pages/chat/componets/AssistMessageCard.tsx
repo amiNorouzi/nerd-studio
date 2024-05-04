@@ -59,7 +59,7 @@ export type ChatCardMessage  = {
 
 export function AssistMessageCard(props: IChatListProps) {
   const { timeLine, prompt, image, name } = props;
-  const [promptIndexToShow, setPromptIndexToShow] = useState(0);
+  const [promptIndexToShow, setPromptIndexToShow] = useState(1);
   const setHighlightOpen = useChatStore.use.setOpenHighlightBox();
   const setSelectedMessageForHighlight =
     useChatStore.use.setSelectedMessageForHighlight();

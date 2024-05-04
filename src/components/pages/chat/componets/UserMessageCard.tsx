@@ -32,7 +32,7 @@ import { EventType, IChatListProps } from "./AssistMessageCard";
  * @constructor
  */
 export function UserMessageCard(props: IChatListProps) {
-  const [promptIndexToShow, setPromptIndexToShow] = useState(0);
+  const [promptIndexToShow, setPromptIndexToShow] = useState(1);
   const [isEditPrompt, setIsEditPrompt] = useState(false);
   const { handleToggleSpeak, isSpeaking } = useTextToSpeech(
     props.prompt[promptIndexToShow],
@@ -144,9 +144,9 @@ export function UserMessageCard(props: IChatListProps) {
           <MinimalButton
             Icon={TbChevronLeft}
             onClick={() => setPromptIndexToShow(v => v - 1)}
-            disabled={promptIndexToShow === 0}
+            disabled={promptIndexToShow === 1}
           />
-          <span className="text-muted-foreground-light">{`${promptIndexToShow + 1}/${prompt.length}`}</span>
+          <span className="text-muted-foreground-light">{`${promptIndexToShow}/${prompt.length + 1}`}</span>
           <MinimalButton
             Icon={TbChevronRight}
             disabled={promptIndexToShow === prompt.length - 1}
