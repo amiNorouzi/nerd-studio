@@ -7,6 +7,7 @@ import useImageTabs from "@/components/pages/ai-image/hooks/useImageTabs";
 
 import type { ImageModelType } from "@/stores/zustand/types";
 import type { ModelItem } from "@/services/types";
+import axiosClient from "./axios-client";
 
 export function useGetImageModels(currentModelType: string) {
   const { axiosFetch } = useAxiosFetcher();
@@ -56,7 +57,7 @@ function normalizeRequestData(
   }
 }
 
-export function useImageGenerate() {
+function useImageGenerate() {
   const inputs = useAiImageStore.use.inputs();
   const setGeneratedImages = useAiImageStore.use.setGeneratedImages();
   const { currentModelType } = useImageTabs();
@@ -93,6 +94,43 @@ export function useImageGenerate() {
         setGeneratedImages(currentModelType, data);
       }
       return data;
+    },
+  });
+}
+export function useGeneratePic() {
+  return useMutation({
+    async mutationFn({
+      sizePic,
+      model,
+      prompt,
+    }: {
+      model: string;
+      sizePic: string;
+      prompt: string;
+    }) {
+      try {
+        const response = await axiosClient.post<any>(
+          "/images/open_ai_generate_text_to_image/",
+          {
+            model: model,
+            n: 1,
+            prompt: prompt,
+            quality: "standard",
+            response_format: "url",
+            size: "1024x1024",
+            style: "vivid",
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        console.log("res:", response.data);
+        return response.data;
+      } catch (err) {
+        console.log("error happened in the upload", err);
+      }
     },
   });
 }

@@ -9,16 +9,13 @@ import {
 
 import { HistoryInfoContent } from "./history-info-content";
 import type { ParamsType } from "@/services/types";
-import { useEventChanel } from "@/services/events-chanel";
-import { useGenerateTranslate } from "@/services/translate";
+import useGenerateTranslate from "@/services/translate";
 import { useSearchParams } from "next/navigation";
 import { languages } from "@/components/shared/run-tab-for-app/form-section-components/contants";
 import { getLangById } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
-import { Highlight, HighlightContent } from "@/components/shared/Highlight";
-import { useHistoryStore } from "@/stores/zustand/history-store";
-import { useHistoryUpdate } from "@/services/history";
+import React from "react";
 import { useHandleGeneratedData } from "@/hooks/generates-hook";
+import Highlight from "@/components/shared/Highlight";
 
 interface IProps {
   params: ParamsType;
@@ -26,17 +23,19 @@ interface IProps {
 
 export default function TranslatePage({ params }: IProps) {
   const searchParams = useSearchParams();
-  const { message: translation, reset } = useEventChanel({
-    eventName: "translate",
-  });
-  const { mutate: generateTranslate, isPending } = useGenerateTranslate();
+  const {
+    generateTranslate,
+    isPending,
+    message: translation,
+    resetMessage,
+  } = useGenerateTranslate();
   const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
     generateFn: handleGenerate,
     message: translation,
   });
   function handleGenerate() {
     if (text) {
-      reset();
+      resetMessage();
       generateTranslate({
         text,
         trLang:
@@ -75,9 +74,7 @@ export default function TranslatePage({ params }: IProps) {
             <HistoryInfoContent />
           </HistoryInfo>
 
-          <Highlight>
-            <HighlightContent />
-          </Highlight>
+          <Highlight />
         </Run.Editor>
       </Run>
     </SetSearchParamProvider>

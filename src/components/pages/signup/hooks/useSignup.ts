@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import useErrorToast from "@/hooks/useErrorToast";
 
-import { signupApi } from "@/services/authentication-services";
+import { signupApi } from "@/services/auth/authentication-services";
 
 export interface FormTypes {
   fullName: string;

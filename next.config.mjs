@@ -1,4 +1,17 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
+import withPWAInit from "@ducanh2912/next-pwa";
+
+const withPWA = withPWAInit({
+    dest: "public/pwa",
+    cacheOnFrontEndNav: true,
+    aggressiveFrontEndNavCaching: true,
+    reloadOnOnline: true,
+    swcMinify: true,
+    // disable: process.env.NODE_ENV === "development",
+    workboxOptions: {
+        disableDevLogs: true,
+    },
+});
 
 const withBundleAnalyzer = bundleAnalyzer();
 
@@ -17,6 +30,10 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'u398193.your-storagebox.de',
             },
+            {
+                protocol: 'https',
+                hostname: 'nerdstudio-backend-bucket.s3.amazonaws.com',
+            }
         ]
     },
     async headers() {
@@ -39,4 +56,5 @@ const nextConfig = {
     },
 };
 
-export default process.env.ANALYZE === "true" ? withBundleAnalyzer(nextConfig) : nextConfig;
+const config = withPWA(nextConfig);
+export default process.env.ANALYZE === "true" ? withBundleAnalyzer(config) : config;

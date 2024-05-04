@@ -1,6 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axiosClient from "@/services/axios-client";
-import { useSession } from "next-auth/react";
+import useStream from "@/services/useStreamingApi";
+import { useCallback } from "react";
 
 export type GenerateTranslateParams = {
   text: string;
@@ -8,61 +7,33 @@ export type GenerateTranslateParams = {
   trLang: string;
 } & Omit<OpenAiCompletionSchemaInput, "stream" | "messages" | "workspace_id">;
 
-export function useGenerateTranslate() {
-  const { data: session } = useSession();
-
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async ({
-      text,
-      trLang,
-      txLang,
-      model,
-      temperature,
-      max_tokens,
-      top_p,
-      presence_penalty,
-      frequency_penalty,
-      document_name,
-    }: GenerateTranslateParams) => {
-      const { data } = await axiosClient.post<
-        unknown,
-        any,
-        OpenAiCompletionSchemaInput
-      >("/translates/generate_translate/", {
-        model,
+export default function useGenerateTranslate() {
+  const { generateStream, ...other } = useStream({
+    eventName: "translate",
+    endpoint: "/translates/generate_translate/",
+    invalidationQuery: { queryKey: ["translate"] },
+  });
+  const generateTranslate = useCallback(
+    ({ text, trLang, txLang, ...params }: GenerateTranslateParams) => {
+      return generateStream({
         messages: [
           {
+            role: "system",
+            content: `You will be provided with a sentence in ${txLang}, and your task is to translate it into ${trLang}.`,
+          },
+          {
             role: "user",
-            content: `Translate the following ${txLang} text to ${trLang}: "${text}"`,
+            content: text,
           },
         ],
-        temperature,
-        max_tokens,
-        stream: true,
-        top_p,
-        presence_penalty,
-        frequency_penalty,
-        document_name,
-        workspace_id: session?.user.workspace.id!,
+        ...params,
       });
-
-      return data;
     },
-    onSuccess: () => {
-      // @ts-ignore
+    [generateStream],
+  );
 
-      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
-    },
-  });
+  return {
+    generateTranslate,
+    ...other,
+  };
 }
-
-type PDFConvertorResponse = {
-  text: string;
-};
-
-const translateService = {
-  useGenerateTranslate,
-};
-
-export default translateService;
