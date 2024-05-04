@@ -4,17 +4,17 @@ import SpacesHeader from "@/components/layout/header/SpacesHeader";
 import { spacesTabs } from "@/constants/spaces";
 
 import type { Locale } from "../../../../i18n.config";
-import { useGetDictionary } from "@/hooks";
+import { getDictionary } from "@/lib/dictionary";
 
 /**
  * WorkspacePage with three tabs(apps, members, settings)
  * @param lang - current language get from page params
  * @constructor
  */
-export default function WorkspacePage({ lang }: { lang: Locale }) {
+export default async function WorkspacePage({ lang }: { lang: Locale }) {
   const {
     page: { workspace: workspaceDictionary },
-  } = useGetDictionary();
+  } = await getDictionary(lang);
 
   return (
     <Tabs
