@@ -26,7 +26,7 @@ import { usePicFileStore } from "@/stores/zustand/ai-image-store";
  * used in ai-image index page
  * @constructor
  */
-export function AIImageForm() {
+export default function AIImageForm() {
   const { currentTab, tabs } = useImageTabs();
 
   const {
@@ -94,7 +94,7 @@ export function AIImageForm() {
                   uploadIndex={1}
                   uploadProgress={100}
                   uploadStatus={[...uploadStatus]}
-                  typeUpload="pic"
+                  setUploadStatus={()=>console.log()}
                 />
               </RenderIf>
 
