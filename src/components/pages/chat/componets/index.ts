@@ -6,4 +6,4 @@ export { Options } from "./Options";
 export { Title } from "./Title";
 export { ChatSettingAndUpload } from "./ChatSettingAndUpload";
 export { StopResponseButton } from "./StopResponseButton";
-export { HistoryItems } from "./HistoryItems";
+export { default as HistoryItems } from "./HistoryItems";

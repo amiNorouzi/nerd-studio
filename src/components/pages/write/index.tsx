@@ -6,7 +6,6 @@ import {
   Run,
   SetSearchParamProvider,
 } from "@/components/shared";
-import { HistoryInfoContent } from "./history-info-content";
 import type { SCRPropsType } from "@/services/types";
 import React from "react";
 import useAIWriter from "@/services/ai-writer";
@@ -65,9 +64,7 @@ export default function WritePage({ params }: SCRPropsType) {
 
           <Highlight />
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
-          <HistoryInfo>
-            <HistoryInfoContent />
-          </HistoryInfo>
+          <HistoryInfo />
         </Run.Editor>
       </Run>
     </SetSearchParamProvider>

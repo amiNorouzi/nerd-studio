@@ -1,3 +1,3 @@
 //Code: export this folder components
-export { AIImageForm } from "./AIImageForm";
-export { ResultSection } from "./ResultSection";
+export { default as AIImageForm } from "./AIImageForm";
+export { default as ResultSection } from "./ResultSection";
