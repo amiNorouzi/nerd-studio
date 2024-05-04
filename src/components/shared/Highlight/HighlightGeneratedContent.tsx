@@ -26,11 +26,11 @@ type HighlightGeneratedContentProps = {
  * @constructor
  */
 export default function HighlightGeneratedContent({
-  item,
-  highlightType,
-  regenerate,
-  setCurrentIndex,
-}: HighlightGeneratedContentProps) {
+                                                    item,
+                                                    highlightType,
+                                                    regenerate,
+                                                    setCurrentIndex,
+                                                  }: HighlightGeneratedContentProps) {
   const [highlightIndexToShow, setHighlightIndexToShow] = useState(0);
   const [editable, setEditable] = useState(false);
   const highlightMessages = useHighlightStore.use.messages();
@@ -95,7 +95,7 @@ export default function HighlightGeneratedContent({
               handleCopy(
                 highlightMessages[item.toLowerCase() as HighlightType][
                   highlightIndexToShow
-                ],
+                  ],
               )
             }
           />
