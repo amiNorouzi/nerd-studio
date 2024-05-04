@@ -1,4 +1,3 @@
-"use client";
 import CodeLoading from "@/app/[lang]/(protect-roots)/(apps)/code/loading";
 import dynamic from "next/dynamic";
 
