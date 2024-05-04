@@ -113,7 +113,7 @@ export function UserPanel() {
           <div className="absolute inset-x-0 bottom-0 border-t p-2">
             {/*logout button*/}
             <UserMenuItem
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: "/login" })}
               title={menuDictionary.logout_label}
               icon={TbLogout2}
             />

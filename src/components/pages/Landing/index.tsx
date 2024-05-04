@@ -1,6 +1,3 @@
-"use client";
-//hazhir
-//TODO:Fixed this imports
 import Hero from "@/components/pages/Landing/Components/Hero";
 import Steps from "@/components/pages/Landing/Components/Steps";
 import Features from "@/components/pages/Landing/Components/Features";
@@ -14,9 +11,9 @@ import Footer from "@/components/pages/Landing/layout/Footer";
 import Comments from "@/components/pages/Landing/Components/comments";
 import Services from "@/components/pages/Landing/Components/Services";
 import MapWorld from "@/components/pages/Landing/Components/MapWorld";
+import type { LangParams } from "@/services/types";
 
-// @ts-ignore
-const Landing = ({ lang }) => {
+export default function Landing({ params: { lang } }: LangParams) {
   return (
     <div lang={lang} className="mx-auto max-w-[1920px] overflow-x-hidden">
       <Navbar />
@@ -37,5 +34,3 @@ const Landing = ({ lang }) => {
     </div>
   );
 };
-
-export default Landing;

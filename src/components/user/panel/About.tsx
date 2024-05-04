@@ -3,7 +3,7 @@ import Image from "next/image";
 /**
  * about panel in user panel dialog
  * @constructor
- * @returns {JSX.Element} - JSX about panel
+ * @returns about panel
  */
 export default function About() {
   return (
@@ -17,7 +17,7 @@ export default function About() {
         />
         <div className="col gap-1">
           <p className="text-xl font-bold">Nerd Studio</p>
-          <p className="text-muted-foreground">Version 0.1.3-2024-4-30</p>
+          <p className="text-muted-foreground">Version 0.1.6-2024-5-2</p>
         </div>
       </div>
     </div>

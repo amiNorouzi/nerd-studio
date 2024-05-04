@@ -1,38 +1,31 @@
 "use client";
-import {
-  HistoryBox,
-  HistoryItems,
-  Run,
-  SetSearchParamProvider,
-} from "@/components/shared";
-import type { ParamsType } from "@/services/types";
-import { useEventChanel } from "@/services/events-chanel";
-import { useGenerateGrammar } from "@/services/grammar";
-import React, { useState } from "react";
-import { Highlight, HighlightContent } from "@/components/shared/Highlight";
-import { useHistoryStore } from "@/stores/zustand/history-store";
+import {HistoryBox, HistoryItems, Run, SetSearchParamProvider} from '@/components/shared';
+import type {ParamsType} from '@/services/types';
+import useEventChanel from '@/services/events-chanel';
+import {useGenerateGrammar} from '@/services/grammar';
+import React from 'react';
+import Highlight from '@/components/shared/Highlight';
+import {useHandleGeneratedData} from '@/hooks/generates-hook';
 
 interface IProps {
   params: ParamsType;
 }
 
-export function GrammarPage({ params }: IProps) {
+export default function GrammarPage({ params }: IProps) {
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param
    *  value of it used in apps Header in  layout or form-section
    *  and everywhere that needs to know app name
    */
-  const grammar = useEventChanel({
+  const { message, resetMessage } = useEventChanel({
     eventName: "grammar",
   });
   const { mutate: generateGrammar, isPending } = useGenerateGrammar();
-  const [text, setText] = useState("");
-  // const [textInput, setTextInput] = useState("");
-  const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
-  const textInput = selectedHistoryItem
-    ? selectedHistoryItem.answer_text + grammar.message
-    : grammar.message;
-  const handleGenerate = () => {
+  const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
+    generateFn: handleGenerate,
+    message,
+  });
+  function handleGenerate() {
     if (text) {
       generateGrammar({
         text,
@@ -45,7 +38,7 @@ export function GrammarPage({ params }: IProps) {
         document_name: "grammar",
       });
     }
-  };
+  }
 
   return (
     <SetSearchParamProvider appName="app" appSearchParamValue="Grammar">
@@ -58,10 +51,8 @@ export function GrammarPage({ params }: IProps) {
           onSubmit={handleGenerate}
         />
 
-        <Run.Editor value={textInput} onChange={() => {}}>
-          <Highlight>
-            <HighlightContent />
-          </Highlight>
+        <Run.Editor value={textInput} onChange={setUpdateText}>
+            <Highlight/>
           <HistoryBox>
             <HistoryItems appName="grammar" />
           </HistoryBox>

@@ -1,4 +1,12 @@
-import { NewPassPage } from "@/components/pages/forget-pass/NewPassPage";
+import dynamic from "next/dynamic";
+import HomeLoading from "@/app/[lang]/loading";
+
+const NewPassPage = dynamic(
+  () => import("@/components/pages//forget-pass/NewPassPage"),
+  {
+    loading: () => <HomeLoading />,
+  },
+);
 
 function Page({
   searchParams,

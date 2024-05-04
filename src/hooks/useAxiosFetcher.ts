@@ -8,7 +8,7 @@ import { signOut } from "next-auth/react";
 import useErrorToast from "./useErrorToast";
 
 import axiosClient from "@/services/axios-client";
-import { refreshExpiredTokenClosure } from "@/services/refresh-token";
+import { refreshExpiredTokenClosure } from "@/services/auth/refresh-token";
 
 /**
  * `configObjType` is an interface that defines the configuration object for the `axiosFetch` function.
@@ -109,7 +109,7 @@ export function useAxiosFetcher() {
             return axiosInstance(prevRequest);
           } else {
             // if token is not returned sign out the user
-            await signOut();
+            await signOut({ callbackUrl: "/login" });
             return Promise.reject(error);
           }
         } else {

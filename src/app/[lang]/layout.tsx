@@ -1,15 +1,13 @@
-import React from "react";
-import type { Metadata } from "next";
+import React from 'react';
+import type {Metadata, Viewport} from 'next';
 
-import { Providers } from "@/components/providers";
-import { Toaster } from "@/components/ui/toaster";
-import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
+import {Providers} from '@/components/providers';
 
-import { i18n, type Locale } from "../../../i18n.config";
+import {i18n, type Locale} from '../../../i18n.config';
 
-import "../globals.css";
-import "../theme.css";
-import { langDir } from "@/lib/dictionary";
+import '../globals.css';
+import '../theme.css';
+import {langDir} from '@/lib/dictionary';
 
 const APP_NAME = "Nerd Studio";
 const APP_DEFAULT_TITLE = "Nerd Studio | Home";
@@ -17,11 +15,43 @@ const APP_TITLE_TEMPLATE = "Nerd Studio | %s";
 const APP_DESCRIPTION = "Nerd Studio AI";
 
 export const metadata: Metadata = {
+  applicationName: APP_NAME,
   title: {
-    template: "Nerd Studio | %s",
-    default: "Nerd Studio | Home",
+    default: APP_DEFAULT_TITLE,
+    template: APP_TITLE_TEMPLATE,
   },
-  description: "AI",
+  description: APP_DESCRIPTION,
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: APP_DEFAULT_TITLE,
+    // startUpImage: [],
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: 'website',
+    siteName: APP_NAME,
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
+  },
+  twitter: {
+    card: 'summary',
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#FFFFFF',
 };
 
 export async function generateStaticParams() {
@@ -38,10 +68,7 @@ export default async function RootLayout({
   return (
     <html lang={params.lang} dir={langDir[params.lang]}>
       <body suppressHydrationWarning className="h-dvh w-dvw">
-        <NextAuthProvider>
-          <Providers>{children}</Providers>
-        </NextAuthProvider>
-        <Toaster />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

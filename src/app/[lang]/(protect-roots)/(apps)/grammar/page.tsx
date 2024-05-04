@@ -1,5 +1,11 @@
-import { GrammarPage } from "@/components/pages/grammar";
+"use client";
 import type { ParamsType } from "@/services/types";
+import GrammarLoading from "@/app/[lang]/(protect-roots)/(apps)/grammar/loading";
+import dynamic from "next/dynamic";
+
+const GrammarPage = dynamic(() => import("@/components/pages/grammar"), {
+  loading: () => <GrammarLoading />,
+});
 
 interface IProps {
   params: ParamsType;

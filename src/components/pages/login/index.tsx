@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { CiMail, CiLock } from "react-icons/ci";
+import { CiLock, CiMail } from "react-icons/ci";
 import { TbEye, TbEyeClosed } from "react-icons/tb";
 
 import { Button } from "@/components/ui/button";
@@ -34,9 +34,9 @@ interface FormTypes {
  * It uses `useRouter` from `next/navigation` to navigate between pages.
  * It uses `useGetDictionary` to get the localized strings for the page.
  *
- * @returns {JSX.Element} The rendered login page.
+ * @returns The rendered login page.
  */
-export function LoginPage() {
+export default function LoginPage() {
   // Use `useState` to manage the state of password visibility.
   const [showPass, setShowPass] = useState(false);
 
@@ -47,12 +47,12 @@ export function LoginPage() {
 
   // Use `useRouter` from `next/navigation` to navigate between pages.
   const router = useRouter();
-
+  const [isPending, setIsPending] = useState(false);
   // Use `useForm` from `react-hook-form` to manage the form state and validation.
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormTypes>({
     defaultValues: {
       email: "",
@@ -75,6 +75,7 @@ export function LoginPage() {
    * @param {FormTypes} data - The form data.
    */
   const handleLogin = async (data: FormTypes) => {
+    setIsPending(true);
     const res = await signIn("login-credentials", {
       redirect: false,
       email: data.email,
@@ -88,21 +89,21 @@ export function LoginPage() {
         showSuccess("Logged in successfully");
       } else {
         showError(res.error!);
+        setIsPending(false);
       }
     }
   };
 
   // Render the login page.
   return (
-    <section className=" z-50 flex w-full flex-col items-center justify-center gap-8 p-3">
+    <section className=" z-50 flex w-full flex-col items-center justify-center gap-6">
       <form
         onSubmit={handleSubmit(handleLogin)}
-        className="flex h-fit w-full max-w-[480px] flex-col gap-5 rounded-xl bg-white p-5 shadow-2xl sm:px-16 sm:py-10"
+        className="flex h-fit w-full max-w-[380px] flex-col gap-5 rounded-xl bg-white shadow-2xl p-8"
       >
         <h2 className="text-center text-lg font-bold">{login.welcome}</h2>
         <div className="col items-start gap-2">
           <Label htmlFor="email">{login.email_label}</Label>
-
           <FormField
             control={control}
             autoFocus
@@ -119,7 +120,7 @@ export function LoginPage() {
                 "absolute start-2 top-[20px] -translate-y-1/2 text-muted-foreground",
                 errors.email && "text-destructive",
               )}
-              size={20}
+              size={18}
             />
           </FormField>
         </div>
@@ -165,9 +166,10 @@ export function LoginPage() {
         </div>
 
         <Button
-          disabled={isSubmitting}
           type="submit"
-          className="h-[50px] w-full text-sm font-extrabold"
+          size="lg"
+          disabled={isPending}
+          isPending={isPending}
         >
           {login.login}
         </Button>

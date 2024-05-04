@@ -7,7 +7,7 @@ import PromptTextArea from "./PromptTextArea";
 import RenderIf from "@/components/shared/RenderIf";
 import CommonSettings from "./CommonSettings";
 import AdvanceSettings from "./AdvanceSettings";
-import FormSkeleton from "./FormSkeleton";
+import FormSkeleton from "@/components/shared/skeleton/FormSkeleton";
 
 import useImageTabs from "../hooks/useImageTabs";
 import useImageModels from "../hooks/useImageModels";
@@ -54,13 +54,13 @@ export function AIImageForm() {
                 upload image for image to image and upscale
                 not render in text to image
               */}
-              <UploadZone />
+              {/* <UploadZone /> */}
 
               {/*
                 -resolution and style
                 - style not render in upscale
               */}
-              <CommonSettings settings={basicInputs} />
+              {/* <CommonSettings settings={basicInputs} /> */}
 
               {/*
                 advance settings id different for all tabs

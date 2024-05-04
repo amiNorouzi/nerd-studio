@@ -1,12 +1,11 @@
-import { useDropzone } from "react-dropzone";
 import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
 import {
   usePdfFileStore,
   useSelectedFilePdfStore,
 } from "@/stores/zustand/chat-pdf-file";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGetUploadedPdf, useUploadPdf } from "@/services/upload-pdf";
 
 const PdfUploadSection = () => {
@@ -26,7 +25,7 @@ const PdfUploadSection = () => {
   // when pdf uploaded refech the data
   const { refetch } = useGetUploadedPdf();
 
-  const route = useRouter();
+  const router = useRouter();
   const uploaderPdf = async () => {
     console.log("test upload pdf");
 
@@ -53,9 +52,7 @@ const PdfUploadSection = () => {
     setUrlPdf([...url]);
     setOpenDialog(false);
     uploaderPdf();
-    // TODO: redirect when in  the edit page
-    // redirect("/chatpdf/edit");
-    route.push("/chatpdf/edit");
+    router.push("/chatpdf/edit");
   };
   return (
     <div onClick={() => setOpenDialog(!openDialog)} className=" ">
@@ -88,6 +85,7 @@ const PdfUploadSection = () => {
         uploadIndex={1}
         uploadProgress={100}
         uploadStatus={[...uploadStatus]}
+        setUploadStatus={() => {}}
       />
     </div>
   );

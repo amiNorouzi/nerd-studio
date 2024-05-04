@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import useErrorToast from "@/hooks/useErrorToast";
 
-import { signupApi } from "@/services/authentication-services";
+import { signupApi } from "@/services/auth/authentication-services";
 
 export interface FormTypes {
   fullName: string;
@@ -19,7 +19,7 @@ export interface FormTypes {
  * It uses the `react-hook-form` for form handling and validation, and `useState` for local state management.
  * It also uses a custom hook `useErrorToast` to display error messages.
  *
- * @returns {Object} An object containing the form methods, the signup handler function,
+ * @returns An object containing the form methods, the signup handler function,
  * the function to set the email confirmation state, and the email confirmation state.
  */
 export function useSignup() {

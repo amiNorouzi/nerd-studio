@@ -1,4 +1,12 @@
-import SignupConfirm from "@/components/pages/signup/SignupConfirm";
+import dynamic from "next/dynamic";
+import HomeLoading from "@/app/[lang]/loading";
+
+const SignupConfirm = dynamic(
+  () => import("@/components/pages/signup/SignupConfirm"),
+  {
+    loading: () => <HomeLoading />,
+  },
+);
 
 function Page({
   searchParams,

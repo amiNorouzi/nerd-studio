@@ -13,10 +13,12 @@ import { useGetDictionary } from "@/hooks";
 
 import type { SCRPropsType } from "@/services/types";
 import { useGenerateTemplate } from "@/services/templates";
-import { useEventChanel } from "@/services/events-chanel";
 import { useState } from "react";
 
-export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
+export default function DynamicTemplatePage({
+  params,
+  searchParams,
+}: SCRPropsType) {
   // pass template to Form component to used its data to show and change it
   const template = useTemplateStore.use.currentTemplate();
   const {
@@ -28,14 +30,15 @@ export function DynamicTemplatePage({ params, searchParams }: SCRPropsType) {
    *  and everywhere that needs to know app name
    */
 
-  const { mutate: generateTemplate, isPending } = useGenerateTemplate();
-  const { message: generatedTemplate, reset } = useEventChanel({
-    eventName: "template",
-  });
+  const {
+    generateTemplate,
+    isPending,
+    message: generatedTemplate,
+  } = useGenerateTemplate();
+
   const [prompt, setPrompt] = useState(template.prompt);
   const handleGenerate = () => {
     if (prompt) {
-      reset();
       generateTemplate({
         prompt,
         model: "gpt-3.5-turbo-0125",

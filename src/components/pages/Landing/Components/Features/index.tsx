@@ -1,11 +1,10 @@
-"use client";
 import TitleSection from "@/components/pages/Landing/common/TitleSection";
 import { Button } from "@/components/ui/button";
 import { btnFeature } from "@/constants/Landing";
 import Image from "next/image";
 import { TbWriting } from "react-icons/tb";
 
-const Features = () => {
+export default function Features() {
   return (
     <section className="padding-y padding-x flex flex-col justify-center">
       {/*Title section*/}
@@ -86,5 +85,3 @@ const Features = () => {
     </section>
   );
 };
-
-export default Features;
