@@ -2504,11 +2504,6 @@
   dependencies:
     "@react-pdf-viewer/core" "3.12.0"
 
-"@remote-ui/rpc@^1.2.5":
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/@remote-ui/rpc/-/rpc-1.4.5.tgz#20328970c314374d96fdaae1cf93aca4b47fefee"
-  integrity sha512-Cr+06niG/vmE4A9YsmaKngRuuVSWKMY42NMwtZfy+gctRWGu6Wj9BWuMJg5CEp+JTkRBPToqT5rqnrg1G/Wvow==
-
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz#04bc0608f4aa4b2e4b1aebf284344d0f68fda283"
@@ -2550,32 +2545,6 @@
   version "1.7.2"
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.7.2.tgz"
   integrity sha512-RbhOOTCNoCrbfkRyoXODZp75MlpiHMgbE5MEBZAnnnLyQNgrigEj4p0lzsMDyc1zVsJDLrivB58tgg3emX0eEA==
-
-"@shopify/react-hooks@^3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@shopify/react-hooks/-/react-hooks-3.1.1.tgz#83e098956ff9a2417304763f4ba2f6d4a5bebada"
-  integrity sha512-XRw/GH29soCFvh1/BKSoZdd1VhcdWYdoDfE6cEXclwVKR/o6eBof8OtrApu809HNNP3b2kK+9kzukHlVQp7z9w==
-
-"@shopify/react-web-worker@^5.0.17":
-  version "5.0.17"
-  resolved "https://registry.yarnpkg.com/@shopify/react-web-worker/-/react-web-worker-5.0.17.tgz#04c1e9ee3acf4a2d8fd2b787098a6edb826fa854"
-  integrity sha512-V5T9eDIEc7Vti/5qCrJUEakCOVKZWlmsfSFOgY6yaX2iJ4SlAgu0xW1RT723GuXmkJ2T5i4FB4FUqTylcvSbWw==
-  dependencies:
-    "@shopify/react-hooks" "^3.1.1"
-    "@shopify/useful-types" "^5.1.2"
-    "@shopify/web-worker" "^6.1.2"
-
-"@shopify/useful-types@^5.1.2":
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/@shopify/useful-types/-/useful-types-5.1.2.tgz#da8f2aaa8b3496705068b21deb76091cc58fcdc4"
-  integrity sha512-EjwIljAYHT1pfIxdMFp6ytJvCUmKXa5NWsvG7zXFX5EnLs7wYp66M/QCuoyJjI0Lq+5ZVyrJXJqqeBiXQVVs0w==
-
-"@shopify/web-worker@^6.1.2":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@shopify/web-worker/-/web-worker-6.1.2.tgz#ef1abeb9fe589972e25f6d5ae30fbc57358fc74f"
-  integrity sha512-4T2XXtZwc/7/g42eevbRyi1/VA7WNM7k4qKqYvvchT+qu9V+92/oYXdlsXNPEd+jHmCwWUqor1oNhgxXBhc6mA==
-  dependencies:
-    "@remote-ui/rpc" "^1.2.5"
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
