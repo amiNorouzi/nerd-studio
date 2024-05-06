@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { LuCopy, LuCopyCheck } from "react-icons/lu";
 import { TbShare } from "react-icons/tb";

@@ -1,3 +1,4 @@
+"use client"
 import { Progress } from "@/components/ui/progress";
 import RenderIf from "@/components/shared/RenderIf";
 import { useGetDictionary } from "@/hooks";

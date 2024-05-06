@@ -47,12 +47,12 @@ function PlateEditorResponse({
       // we set textbox where we write in editor to this ref to use for copy and counter button
       editorTextBoxRef.current = document.querySelector(`[role="textbox"]`);
     }
-  }, [isActiveEditor, valueInState]);
+  }, [editorTextBoxRef, isActiveEditor, valueInState]);
 
   useEffect(() => {
     // if editor is active and debounceValue change then call onChangeEditorValue to call answer api
     isActiveEditor && onChangeEditorValue(debounceValue);
-  }, [debounceValue, isActiveEditor]);
+  }, [debounceValue, isActiveEditor, onChangeEditorValue]);
 
   // any time editorValue change initial value create and plate remount
   const initialValue = useMemo(() => {
@@ -83,7 +83,7 @@ function PlateEditorResponse({
 
     // this setter is used to store editor value in editor context
     setEditorValue(v, editorTextBoxRef.current?.textContent ?? "");
-  }, []);
+  }, [editorTextBoxRef, setEditorChange, setEditorValue]);
 
   return (
     <TooltipProvider

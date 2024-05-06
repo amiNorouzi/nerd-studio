@@ -1,3 +1,4 @@
+"use client"
 import { PlanItem } from "@/services/types";
 import RenderIf from "@/components/shared/RenderIf";
 import { useGetDictionary } from "@/hooks";

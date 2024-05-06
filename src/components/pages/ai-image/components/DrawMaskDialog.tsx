@@ -98,7 +98,7 @@ const DrawMaskDialog: FC<IProps> = ({
         canvasRef.current!.loadSaveData(savaData);
       }
     }
-  }, [isLoaded]);
+  }, [isLoaded, savaData]);
 
   /**
    * change size of brush nad eraser

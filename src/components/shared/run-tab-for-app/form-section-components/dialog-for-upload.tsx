@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { TbFileUpload } from "react-icons/tb";
 import { AiOutlineLink } from "react-icons/ai";
@@ -67,7 +68,7 @@ export function DialogForUpload({
       setOpen(false);
       setPendingButton(false);
     }
-  }, [uploadStatus]);
+  }, [files.length, setOpen, uploadStatus, url]);
   const {
     common,
     components: { form_section },

@@ -10,6 +10,7 @@ import { isEmpty } from "@/lib/utils";
 import type { HistoryItem } from "@/services/types";
 import { HistoryBox } from "@/components/shared";
 import { useImageUrlStore } from "@/stores/zustand/ai-image-store";
+import Image from "next/image";
 
 //list of history
 //TODO: replace with real data
@@ -65,12 +66,14 @@ export default function ResultSection() {
         ) : ( */}
           <>
             <div className="col flex h-full w-full items-center justify-center py-[15%]">
-              <img
+              <Image
                 className=" h-[140%] w-5/6 rounded-xl"
                 src={
                   "https://nerdstudio-backend-bucket.s3.amazonaws.com/media/images/open_ai-text_to_image-396fc809-ffaa-4a13-a866-a9de9d31e54a.webp"
                 }
                 alt=""
+                width={24}
+                height={24}
               />
             </div>
             {/* <div className="col h-full w-full">

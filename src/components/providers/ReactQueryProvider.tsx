@@ -31,7 +31,7 @@ export function ReactQueryProvider({
         refetchOnReconnect: false,
       },
     });
-  }, []);
+  }, [queryClient]);
 
   return (
     // Provide the client and the state to the children

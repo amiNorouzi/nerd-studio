@@ -1,3 +1,4 @@
+"use client"
 import React, { useCallback, useState } from "react";
 import Image from "next/image";
 
@@ -53,7 +54,7 @@ function UploadZone() {
       };
       reader.readAsDataURL(file);
     });
-  }, []);
+  }, [changeValue]);
 
   function sizeValidation(file: File) {
     if (file.size > 5000000) {

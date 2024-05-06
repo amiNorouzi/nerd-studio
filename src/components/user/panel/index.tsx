@@ -46,7 +46,7 @@ export function UserPanel() {
     if (!isOpen) {
       setActiveMenu("account");
     }
-  }, [isOpen]);
+  }, [isOpen, setActiveMenu]);
 
   //get title of active panel
   const getActiveMenuTitle = () => {

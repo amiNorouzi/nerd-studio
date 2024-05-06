@@ -1,3 +1,4 @@
+"use client"
 import { useHistoryUpdate } from "@/services/history";
 import { useEffect, useState } from "react";
 import { useHistoryStore } from "@/stores/zustand/history-store";
@@ -46,7 +47,7 @@ export const useHandleGeneratedData = ({ generateFn, message }: Props) => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [updateText]);
+  }, [selectedHistoryItem, updateHistory, updateText]);
 
   return {
     textInput,

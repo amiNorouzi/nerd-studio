@@ -1,3 +1,4 @@
+"use client"
 import React, { memo } from "react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useCustomSearchParams, useGetDictionary } from "@/hooks";

@@ -12,6 +12,8 @@ import {
 
 import type { User } from "@/services/types";
 import { refreshAccessToken } from "./refreshAccessToken";
+import { getServerSession } from "next-auth";
+import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 
 export const authConfig = {
   providers: [
@@ -179,3 +181,12 @@ export const authConfig = {
     },
   }  
 } satisfies NextAuthOptions;
+
+export async function auth(
+  ...args:
+    | [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']]
+    | [NextApiRequest, NextApiResponse]
+    | []
+) {
+  return await getServerSession(...args, authConfig);
+}

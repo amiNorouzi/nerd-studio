@@ -5,6 +5,7 @@ import { spacesTabs } from "@/constants/spaces";
 
 import type { Locale } from "../../../../i18n.config";
 import { getDictionary } from "@/lib/dictionary";
+import { auth } from "@/lib/auth";
 
 /**
  * WorkspacePage with three tabs(apps, members, settings)
@@ -15,6 +16,13 @@ export default async function WorkspacePage({ lang }: { lang: Locale }) {
   const {
     page: { workspace: workspaceDictionary },
   } = await getDictionary(lang);
+  const session = await auth();
+  console.log(session?.user.workspace);
+  const workspace_id = session?.user?.workspace?.id;
+
+  if(!workspace_id) {
+    return <div>No Workpace Founded due to workspace id loss!</div>
+  }
 
   return (
     <Tabs
@@ -39,7 +47,7 @@ export default async function WorkspacePage({ lang }: { lang: Locale }) {
         {spacesTabs.map(({ value, Component }) => (
           <TabsContent key={value} value={value}>
             {/*page content*/}
-            <Component />
+            <Component workspace_id={workspace_id}/>
           </TabsContent>
         ))}
       </div>

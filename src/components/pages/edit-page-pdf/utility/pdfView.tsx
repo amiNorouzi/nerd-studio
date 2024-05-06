@@ -1,3 +1,4 @@
+"use client"
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import { BsArrowsFullscreen, BsFillPrinterFill } from "react-icons/bs";
 import { IoIosSearch } from "react-icons/io";
@@ -173,7 +174,7 @@ export default function PdfView() {
         </>
       );
     }
-  }, [isOpenThumbnail, selectedFilePdfUrl]);
+  }, [defaultLayoutPluginInstance, selectedFilePdfUrl, thumbnailPluginInstance]);
 
   // FIXME:fix the capture all the page
 

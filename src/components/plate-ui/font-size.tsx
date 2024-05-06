@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 
@@ -61,7 +62,7 @@ export function FontSize(props: DropdownMenuProps) {
     return () => {
       mount = false;
     };
-  }, [isEditorChange]);
+  }, [editor, isEditorChange]);
 
   return (
     <DropdownMenu modal={false} {...openState} {...props}>
