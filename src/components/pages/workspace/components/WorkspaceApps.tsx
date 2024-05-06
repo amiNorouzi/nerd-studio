@@ -1,3 +1,4 @@
+"use client"
 import { FiSearch } from "react-icons/fi";
 import { IoAdd } from "react-icons/io5";
 

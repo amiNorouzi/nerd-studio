@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SpacesHeader from "@/components/layout/header/SpacesHeader";
 
 import { spacesTabs } from "@/constants/spaces";
@@ -6,6 +6,7 @@ import { spacesTabs } from "@/constants/spaces";
 import type { Locale } from "../../../../i18n.config";
 import { getDictionary } from "@/lib/dictionary";
 import { auth } from "@/lib/auth";
+import WorkspaceConatiner from "./components/WorkspaceConatiner";
 
 /**
  * WorkspacePage with three tabs(apps, members, settings)
@@ -42,15 +43,7 @@ export default async function WorkspacePage({ lang }: { lang: Locale }) {
           ))}
         </TabsList>
       </SpacesHeader>
-      <div className="max-h-page h-full w-full overflow-y-auto p-2 md:p-4 xl:p-6">
-        <TabsContent value="tabone">tab one</TabsContent>
-        {spacesTabs.map(({ value, Component }) => (
-          <TabsContent key={value} value={value}>
-            {/*page content*/}
-            <Component workspace_id={workspace_id}/>
-          </TabsContent>
-        ))}
-      </div>
+      <WorkspaceConatiner workspace_id={workspace_id}/>
     </Tabs>
   );
 }

@@ -25,19 +25,19 @@ export default function useEventChanel({ eventName }: EventChanelParams) {
     setMessage("");
   }, []);
 
-  useEffect(() => {
-    if (uuid) {
-      fetchEventSource(`${EventListenerBaseApi}/${uuid}/`, {
-        onmessage(msg) {
-          const message = (JSON.parse(msg.data).content);
-          if (msg.event === eventName && message) {
-            setMessage(prev => prev + message);
-          }
+  // useEffect(() => {
+  //   if (uuid) {
+  //     fetchEventSource(`${EventListenerBaseApi}/${uuid}/`, {
+  //       onmessage(msg) {
+  //         const message = (JSON.parse(msg.data).content);
+  //         if (msg.event === eventName && message) {
+  //           setMessage(prev => prev + message);
+  //         }
 
-        },
-      });
-    }
-  }, [eventName, uuid]);
+  //       },
+  //     });
+  //   }
+  // }, [eventName, uuid]);
 
   return {
     message,

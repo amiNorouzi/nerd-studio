@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
+    "type-check": "tsc",
     "clean": "rimraf -g \"{.next,.cache}\"",
     "clean_nodemodules": "rimraf -g \"{node_modules}\""
   },
