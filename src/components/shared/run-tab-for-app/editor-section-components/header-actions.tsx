@@ -75,7 +75,7 @@ function DownloadAndSaveButtons() {
           {editor_section[item.title]}
         </DropdownMenuItem>
       )),
-    [],
+    [editor_section, handleCopyAction, handleDownLoadAction],
   );
   return (
     <div className="flex gap-2">

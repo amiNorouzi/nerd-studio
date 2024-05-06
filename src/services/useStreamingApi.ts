@@ -23,6 +23,10 @@ export default function useStream<T>({
   const queryClient = useQueryClient();
   const [conversationHistory, setConversationHistory] = useState<T[]>([]);
 
+  const { message, resetMessage, cancelStream } = useEventChanel({
+    eventName,
+  });
+
   const { mutate, ...props } = useMutation({
     async mutationFn(requestBody: OpenAiCompletionSchemaInput) {
       const { data } = await axiosClient.post<
@@ -41,10 +45,6 @@ export default function useStream<T>({
       setConversationHistory(prev => [...prev, data]);
       queryClient.invalidateQueries(invalidationQuery); // Invalidate the query to trigger a refetch
     },
-  });
-
-  const { message, resetMessage, cancelStream } = useEventChanel({
-    eventName,
   });
 
   const generateStream = useCallback(

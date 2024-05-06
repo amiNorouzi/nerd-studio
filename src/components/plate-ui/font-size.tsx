@@ -61,7 +61,7 @@ export function FontSize(props: DropdownMenuProps) {
     return () => {
       mount = false;
     };
-  }, [isEditorChange]);
+  }, [editor, isEditorChange]);
 
   return (
     <DropdownMenu modal={false} {...openState} {...props}>

@@ -28,7 +28,7 @@ export async function refreshAccessToken(token:any) {
       ...token,
       accessToken: accessToken,
       accessTokenExpires: Date.now() + 5*60*1000,
-      refreshToken: accessToken ?? token.refreshToken, // Fall back to old refresh token
+      refreshToken:token.refreshToken ?? accessToken , // Fall back to old refresh token
     };
   } catch (error) {
     console.log(error);

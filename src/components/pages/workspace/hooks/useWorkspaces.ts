@@ -10,7 +10,7 @@ export function useWorkspaces() {
     // @ts-ignore
     queryKey: ['workspaces'],
     queryFn: async () => {
-      const {data: workspaces} = await axiosClient.get('/workspaces/get_user_workspaces');
+      const {data: workspaces} = await axiosClient.get('/workspaces/get_user_workspaces/');
       return workspaces as Workspace[];
     }, 
     refetchOnWindowFocus: false, // do not refetch workspaces data on focus out/in

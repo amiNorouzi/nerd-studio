@@ -36,7 +36,7 @@ export const authConfig = {
           });
           const user = jwtDecode(data.access_token) as User;
 
-          // console.log("data: ", data);
+          // console.log("user: ", data);
 
           if (user) {
             // Any object returned will be saved in `user` property of the JWT
@@ -112,7 +112,6 @@ export const authConfig = {
       if(trigger === "update" && session.user.workspace) {
         token.workspace = session.user.workspace;
       }
-
       // initial signup/signin
       if (user && account) {
         //get tokens from passed user in credentials login
@@ -144,7 +143,7 @@ export const authConfig = {
         }
       }
 
-      if (Date.now() < token.accessTokenExpires) {
+      else if (Date.now() < token.accessTokenExpires) {
          // If the access token has not expired yet, return it
         return token;
       } else

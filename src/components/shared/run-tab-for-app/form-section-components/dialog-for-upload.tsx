@@ -67,7 +67,7 @@ export function DialogForUpload({
       setOpen(false);
       setPendingButton(false);
     }
-  }, [uploadStatus]);
+  }, [files.length, setOpen, uploadStatus, url]);
   const {
     common,
     components: { form_section },

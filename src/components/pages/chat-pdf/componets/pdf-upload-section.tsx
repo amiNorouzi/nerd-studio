@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { useGetUploadedPdf, useUploadPdf } from "@/services/upload-pdf";
+import Image from "next/image";
 
 const PdfUploadSection = () => {
   const onDrop = (acceptedFiles: any) => {
@@ -63,7 +64,7 @@ const PdfUploadSection = () => {
            outline-none duration-300 hover:border-blue-500 hover:text-blue-500"
       >
         <div className=" flex h-fit w-fit cursor-pointer flex-col items-center justify-center">
-          <img className="h-5/6 w-5/6" src="/images/mobile-upload.svg" alt="" />
+          <Image className="h-5/6 w-5/6" src="/images/mobile-upload.svg" alt="" />
           <h1 className=" ">Select your PDF that you want </h1>
           <p>(PDF Document / 5MB & 10Doc Max)</p>
         </div>

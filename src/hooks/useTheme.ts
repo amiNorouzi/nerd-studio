@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { themeConfigStorage } from "@/stores/browser-storage";
 import type { Theme, PrimaryColor } from "@/stores/browser-storage/types";
@@ -33,34 +33,7 @@ export function useTheme() {
   const activeTheme = useUiStore.use.activeTheme();
   const setActiveTheme = useUiStore.use.setActiveTheme();
 
-  //first get user prev selected on page load to set
-  useEffect(() => {
-    //check is on client
-    if (checkWindowValidity()) {
-      //get prev selected config from storage
-      const themeConfig = themeConfigStorage.get();
-
-      if (themeConfig) {
-        const { theme = "default", primaryColor = "default" } = themeConfig;
-        //change theme after get from storage
-        changeTheme({
-          themeClass: theme,
-          primaryColorClass: primaryColor,
-        });
-      }
-    }
-  }, []);
-
-  /**
-   * This function changes the theme and primary color of the application.
-   * It first removes any existing theme and primary color classes from the body element.
-   * Then, it applies the new theme and primary color classes, if they are not 'default'.
-   * Finally, it stores the new theme and primary color in the local storage and updates the state variables.
-   *
-   * @param {IChangeThemeInput} themeClass - The class that will be added to the body class list to apply the color variant.
-   * @param {IChangeThemeInput} primaryColorClass - The class that will be added to the body class list to apply the primary color variant.
-   */
-  const changeTheme = ({
+  const changeTheme  = useCallback(({
     themeClass,
     primaryColorClass,
   }: IChangeThemeInput) => {
@@ -94,7 +67,35 @@ export function useTheme() {
     //set theme and primaryColor to stage to change componets style like primary color check and theme border color
     setActiveTheme(theme);
     setActivePrimaryColor(primaryColor);
-  };
+  },[activePrimaryColor, activeTheme, setActiveTheme]);
+
+  //first get user prev selected on page load to set
+  useEffect(() => {
+    //check is on client
+    if (checkWindowValidity()) {
+      //get prev selected config from storage
+      const themeConfig = themeConfigStorage.get();
+
+      if (themeConfig) {
+        const { theme = "default", primaryColor = "default" } = themeConfig;
+        //change theme after get from storage
+        changeTheme({
+          themeClass: theme,
+          primaryColorClass: primaryColor,
+        });
+      }
+    }
+  }, [changeTheme]);
+
+  /**
+   * This function changes the theme and primary color of the application.
+   * It first removes any existing theme and primary color classes from the body element.
+   * Then, it applies the new theme and primary color classes, if they are not 'default'.
+   * Finally, it stores the new theme and primary color in the local storage and updates the state variables.
+   *
+   * @param {IChangeThemeInput} themeClass - The class that will be added to the body class list to apply the color variant.
+   * @param {IChangeThemeInput} primaryColorClass - The class that will be added to the body class list to apply the primary color variant.
+   */
 
   return { activeTheme, activePrimaryColor, changeTheme };
 }

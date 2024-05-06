@@ -2,7 +2,8 @@
 import React, { useState, FormEvent,
   useCallback,
   useEffect,
-  useRef } from "react";
+  useRef, 
+  memo} from "react";
 import {
   ChatList,
   Options,
@@ -69,7 +70,7 @@ let startMessages =
 ];
 
 
-export default function ChatPage({ lang }: { lang: Locale }) {
+export default  memo(function ChatPage({ lang }: { lang: Locale }) {
   const isHighlightOpen = useChatStore.use.openHighlightBox();
   const [chatList, setChatList] = useState(false);
   const isChatListValid = chatList ? "chatList" : "options";
@@ -271,3 +272,4 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     </SetSearchParamProvider>
   );
 }
+)

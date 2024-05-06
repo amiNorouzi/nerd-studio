@@ -46,7 +46,7 @@ export const useHandleGeneratedData = ({ generateFn, message }: Props) => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [updateText]);
+  }, [selectedHistoryItem, updateHistory, updateText]);
 
   return {
     textInput,

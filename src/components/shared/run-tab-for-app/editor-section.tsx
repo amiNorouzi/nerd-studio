@@ -40,7 +40,7 @@ export default function EditorSection({ children, onChange, value }: Props) {
     return () => {
       setIsFullScreen(false);
     };
-  }, []);
+  }, [setIsFullScreen]);
 
   return (
     <div

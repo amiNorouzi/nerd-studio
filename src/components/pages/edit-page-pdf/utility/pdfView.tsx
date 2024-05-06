@@ -173,7 +173,7 @@ export default function PdfView() {
         </>
       );
     }
-  }, [isOpenThumbnail, selectedFilePdfUrl]);
+  }, [defaultLayoutPluginInstance, selectedFilePdfUrl, thumbnailPluginInstance]);
 
   // FIXME:fix the capture all the page
 

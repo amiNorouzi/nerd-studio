@@ -36,7 +36,7 @@ function useShowElementOnScroll(
     return () => {
       main!.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [scrollHeight, scrollableId]);
 
   return elementRef;
 }

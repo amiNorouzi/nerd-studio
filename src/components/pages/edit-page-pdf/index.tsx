@@ -34,7 +34,7 @@ export default function EditPagePdf() {
       }
     };
     getData();
-  }, [pics]);
+  }, [isPending, messages, mutateAsync, pics]);
   return (
     <div className="w-full">
       <div className=" flex w-full  grid-flow-row grid-cols-2 flex-nowrap gap-0">
