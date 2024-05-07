@@ -27,7 +27,7 @@ const Carousel = ({}: T) => {
           {openAiLogo.map(logo => (
             <div
               key={logo.id}
-              className="embla__slide flex h-max  flex-col items-center justify-center bg-[#F8F8F8] text-center md:w-[10%]"
+              className="embla__slide flex h-max  flex-col items-center justify-center bg-muted-dark text-center md:w-[10%]"
             >
               <Image
                 src={`/images/landing/${logo.image}`}
