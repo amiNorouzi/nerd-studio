@@ -15,14 +15,14 @@ import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
 
-import type { AppItem } from "@/services/types";
+import type { Workspace } from "@/services/types";
 
 /**
  * installed app card used in workspace app list tab
  * @param app - app item
  * @constructor
  */
-function InstalledAppCard({ app }: { app: AppItem }) {
+function InstalledAppCard({ app }: { app: Workspace }) {
   // get language from url for adding start of link href
   const { lang } = useParams();
   const {
@@ -31,17 +31,17 @@ function InstalledAppCard({ app }: { app: AppItem }) {
 
   return (
     // Link to app detail page
-    <Link href={`/${lang}${app.url}`}>
+    <Link href={`/${lang}/template/custom-template/create?app_id=${app.id}`}>
       <article className="row group w-full cursor-pointer gap-2 rounded-md border bg-background p-4 transition-all duration-300 hover:shadow-card-hover">
         {/*app icon*/}
         <Image
-          src={app.imageUrl}
-          alt={app.title}
+          src={""}
+          alt={""}
           width={80}
           height={80}
           className="h-10 w-10 rounded-md"
         />
-        <h3>{app.title}</h3>
+        <h3>{app.name}</h3>
         {/*hover card that show all action of installed app*/}
         <HoverCard openDelay={10} closeDelay={50}>
           <HoverCardTrigger asChild>

@@ -6,7 +6,8 @@ import { spacesTabs } from "@/constants/spaces";
 import type { Locale } from "../../../../i18n.config";
 import { getDictionary } from "@/lib/dictionary";
 import { auth } from "@/lib/auth";
-import WorkspaceConatiner from "./components/WorkspaceConatiner";
+import WorkspaceAppsConatiner from "./components/WorkspaceAppsConatiner";
+import WorkspaceDocumentsConatiner from "./components/WorkspaceDocumentsConatiner";
 
 /**
  * WorkspacePage with three tabs(apps, members, settings)
@@ -43,7 +44,8 @@ export default async function WorkspacePage({ lang }: { lang: Locale }) {
           ))}
         </TabsList>
       </SpacesHeader>
-      <WorkspaceConatiner workspace_id={workspace_id}/>
+      <WorkspaceAppsConatiner workspace_id={workspace_id}/>
+      {/* <WorkspaceDocumentsConatiner workspace_id={workspace_id}/> */}
     </Tabs>
   );
 }

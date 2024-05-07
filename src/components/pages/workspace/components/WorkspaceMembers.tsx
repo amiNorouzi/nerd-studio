@@ -17,33 +17,70 @@ import {
 import { UserAvatar } from "@/components/user";
 
 import { useGetDictionary } from "@/hooks";
+import { useGetWorkspaceMembers } from "../hooks/useGetWorkspaceMembers";
+import { useEffect } from "react";
+import { WorkspaceMember } from "../types/members";
 
 //list of workspace members
 // TODO: replace with real data from api
 const users = [
   {
-    id: "1",
-    name: "Amir Abbasi",
-    permissions: "owner",
+    id: 1,
+    user: {
+      first_name: "Amir",
+      last_name: "Abbasi",
+      email: "Amire@gmail.com",
+      username: "Amir Abbasi",
+      is_active: true,
+      date_joined: "01/01/2024",
+      phone_number: "09354587896",
+      description: "description",
+      is_verified: true
+    },
+    role: "Admin"
   },
   {
-    id: "1",
-    name: "Ali Reza Kamali",
-    permissions: "admin",
+    id: 2,
+    user:{
+      first_name: "Ali",
+      last_name: "Rezaie",
+      email: "Amire@gmail.com",
+      username: "Ali Rezaie",
+      is_active: true,
+      date_joined: "01/01/2024",
+      phone_number: "09354587896",
+      description: "description",
+      is_verified: true
+    },
+    role: "User",
   },
-] as const;
+] as WorkspaceMember[];
 
 /**
  * member tab content in workspace page
  * show all members and their permissions
  * @constructor
  */
-export function WorkspaceMembers() {
+export function WorkspaceMembers({workspace_id}:{workspace_id:number}) {
   const {
     common: { search },
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
+  const {data:members, isError, error, isSuccess} = useGetWorkspaceMembers({workspace_id});
 
+  console.log("Workspace member_id: ", workspace_id);
+
+  console.log("Workspace members: ", members);
+
+  if(isError) {
+    console.log("error");
+    console.log(error);
+  }
+  
+  useEffect(()=> {
+  },[error, isError]);
+
+  if(isSuccess)
   return (
     <>
       {/*
@@ -101,19 +138,20 @@ export function WorkspaceMembers() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {users.map(item => (
-            <TableRow key={item.id} className="[&>td]:py-2">
+          {(users.length <=0) && <div>No Members!</div>}
+          {users?.length > 0 && users?.map(member => (
+            <TableRow key={member.id} className="[&>td]:py-2">
               <TableCell>
                 {/*user full name and user avatar*/}
                 <div className="row gap-2">
-                  <UserAvatar imageSrc="" name={item.name} />
-                  <p className="font-normal capitalize">{item.name}</p>
+                  <UserAvatar imageSrc="" name={`${member.user.first_name} ${member.user.last_name}`} />
+                  <p className="font-normal capitalize">{member.user.first_name} {member.user.last_name}</p>
                 </div>
               </TableCell>
               <TableCell className="text-green-600">
                 {/*user permission(role)*/}
                 <span className="rounded-md border border-primary bg-active px-2 py-1 font-normal capitalize text-primary">
-                  {item.permissions}
+                  {member.role}
                 </span>
               </TableCell>
             </TableRow>
