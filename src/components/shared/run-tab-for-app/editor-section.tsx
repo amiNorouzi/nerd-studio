@@ -1,13 +1,26 @@
 "use client";
 import React, { PropsWithChildren, useEffect } from "react";
-import {
-  Editor,
-  EditorSectionFooter,
-  EditorSectionHeader,
-} from "./editor-section-components";
 import "./editor-section.css";
 import { cn } from "@/lib/utils";
 import { useEditorStore } from "@/stores/zustand/editor-slice";
+import dynamic from "next/dynamic";
+import HomeLoading from "@/app/[lang]/loading";
+
+const Editor = dynamic(() => import("./editor-section-components/editor"), {
+  loading: () => <HomeLoading />,
+});
+const EditorSectionFooter = dynamic(
+  () => import("./editor-section-components/footer"),
+  {
+    loading: () => <HomeLoading />,
+  },
+);
+const EditorSectionHeader = dynamic(
+  () => import("./editor-section-components/header-actions"),
+  {
+    loading: () => <HomeLoading />,
+  },
+);
 
 type Props = {
   value: string;

@@ -1,32 +1,30 @@
 "use client";
-import React, {
-  FormEvent,
+import React, { useState, FormEvent,
   useCallback,
   useEffect,
-  useRef,
-  useState,
-} from "react";
+  useRef } from "react";
 import {
   ChatList,
-  ChatSettingAndUpload,
-  HistoryItems,
   Options,
   Title,
+  ChatSettingAndUpload,
+  StopResponseButton,
+  HistoryItems,
 } from "./componets";
-import { HistoryBox, SetSearchParamProvider } from "@/components/shared";
+import {
+  HistoryBox,
+  SetSearchParamProvider,
+} from "@/components/shared";
 import { ChatHero } from "@/components/pages/chat/componets/ChatHero";
 import type { Locale } from "../../../../i18n.config";
 import { useChatStore } from "@/stores/zustand/chat-store";
 import ChatArea from "./componets/ChatArea";
-import Highlight from "@/components/shared/Highlight";
-import useStream from "@/services/useStreamingApi";
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import useErrorToast from "@/hooks/useErrorToast";
+import useStream from "@/services/useStreamingApi";
+import HighlightContent from "@/components/shared/Highlight/HighlightContent";
+import Highlight from "@/components/shared/Highlight";
 
-const chatContent = {
-  chatList: ChatList,
-  options: Options,
-};
 
 interface Chat {
   id: number;
@@ -34,11 +32,13 @@ interface Chat {
   text: string;
 }
 
+
 interface StreamData {
   message: string;
   conversation_id: string;
   chats: Chat[];
 }
+
 
 let startMessages =
     [
@@ -68,16 +68,17 @@ let startMessages =
   },
 ];
 
+
 export default function ChatPage({ lang }: { lang: Locale }) {
   const isHighlightOpen = useChatStore.use.openHighlightBox();
   const [chatList, setChatList] = useState(false);
   const isChatListValid = chatList ? "chatList" : "options";
-  const Content = chatContent[isChatListValid];
   const prompt = useChatStore.use.chatTextBoxValue();
   const promptReset = useChatStore.use.setChatTextBoxValue();
   const engines = useFormStore.use.engines();
   const { showError } = useErrorToast();
   const GPT3Turbo = engines["GPT-3.5 Turbo"];
+
 
   const [messagesHistory, setMessagesHistory] = useState<StreamData>();
   const trackMessagesRef = useRef(0);
@@ -116,6 +117,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     envalidationKey: ["history"],
   });
 
+
   /**
    * submit form to intitialize a conversation
    * @param e FormEvent
@@ -128,10 +130,13 @@ export default function ChatPage({ lang }: { lang: Locale }) {
       promptReset("");
       trackMessagesRef.current = 1;
 
+
       console.log(conversationHistory);
+
 
       //check if user write a prompt
       if (!prompt) return showError("Please! write your prompt");
+
 
       if (conversationHistory.length > 0) {
         continueCoversation({
@@ -150,6 +155,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
         });
         return;
       }
+
 
       startCoversation({
         frequency_penalty: GPT3Turbo.frequency/100,
@@ -173,9 +179,11 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     [GPT3Turbo.frequency, GPT3Turbo.presence, GPT3Turbo.temperature, GPT3Turbo.top, continueCoversation, conversationHistory, prompt, promptReset, resetContinueMessage, resetMessage, showError, startCoversation],
   );
 
+
    if (isError) {
     console.error(error);
   }
+
 
   useEffect(()=> {
     if (continueIsPending) {
@@ -186,6 +194,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     }
   }, [continueData, continueIsPending, continueIsSuccess]);
 
+
   useEffect(()=> {
     if (isPending) {
       return;
@@ -195,9 +204,11 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     }
   }, [data, isPending, isSuccess]);
 
+
   useEffect(()=> {
     if(messagesHistory && messagesHistory?.chats?.length > 0) setChatList(true);
   }, [messagesHistory, messagesHistory?.chats?.length]);
+
 
   // Transform StreamData to the desired structure
   let messages = messagesHistory?.chats.map(chat => {
@@ -211,6 +222,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     };
   });
 
+
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param
    *  value of it used in apps Header in  layout or form-section
@@ -222,12 +234,17 @@ export default function ChatPage({ lang }: { lang: Locale }) {
         <div className="col mx-auto h-full w-full items-center overflow-y-auto p-2 lg:p-4">
           {/* chat list or chat option*/}
           {/* @ts-ignore */}
-          <Content messages={messages || []} >
-            {/*these children are for Options component*/}
-            <Title lang={lang} />
-            <ChatHero lang={lang} />
-            <ChatSettingAndUpload />
-          </Content>
+          {
+            chatList ? 
+            <ChatList messages={messages || []} onClick={(e,data) => console.log({e,data})}/> 
+            : 
+            <Options >
+              {/*these children are for Options component*/}
+              <Title lang={lang} />
+              <ChatHero lang={lang} />
+              <ChatSettingAndUpload />
+            </Options>
+          }
 
           {/* chat settings and prompt input*/}
           <ChatArea
@@ -237,12 +254,14 @@ export default function ChatPage({ lang }: { lang: Locale }) {
             cancelCoversation={cancelCoversation}
             generateCoversation={generateCoversation}
             continueIsPending={continueIsPending}
-            message={message}
             continueMessage={continueMessage}
           />
         </div>
 
-        <Highlight />
+        <Highlight>
+          <HighlightContent key={String(isHighlightOpen)} />
+        </Highlight>
+
 
         {/*history box open when history button in header clicked (value of history button save in zustand)*/}
         <HistoryBox>

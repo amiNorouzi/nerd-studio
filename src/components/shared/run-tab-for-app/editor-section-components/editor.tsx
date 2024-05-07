@@ -7,7 +7,7 @@ type Props = {
   onChange: (text: string) => void;
 };
 
-export function Editor({ value, onChange }: Props) {
+export default function Editor({ value, onChange }: Props) {
   const { editorAndFooterButtonsWrapperRef } = useEditorContext();
 
   const onEdite = (doc: any) => {

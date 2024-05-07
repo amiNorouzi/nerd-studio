@@ -111,7 +111,7 @@ function DownloadAndSaveButtons() {
   );
 }
 
-export function EditorSectionHeader() {
+export default function EditorSectionHeader() {
   return (
     <div className="flex flex-col  justify-between gap-2 px-4 pb-1 pt-4 sm:flex-row">
       <InputAndSelectSpace />

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
-import axios from "axios";
+import axios, { type CancelTokenSource } from "axios";
 
 type PDFConvertorResponse = {
   text: string;
@@ -10,7 +10,9 @@ type PDFConvertorResponse = {
 export function useCovertPdfToText() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [index, setIndex] = useState<number | null>(null);
-  const [cancelToken, setCancelToken] = useState<axios.CancelToken | null>(null);
+  const [cancelToken, setCancelToken] = useState<CancelTokenSource | null>(
+    null,
+  );
 
   const { mutate, data, ...rest } = useMutation({
     async mutationFn(pdf: File) {

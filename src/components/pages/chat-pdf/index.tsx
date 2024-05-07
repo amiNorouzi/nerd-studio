@@ -1,8 +1,8 @@
 "use client";
 import { SetSearchParamProvider } from "@/components/shared";
-import { UploadFilePdf } from "@/components/pages/chat-pdf/componets/uploadfilePdf";
+import UploadFilePdf from "@/components/pages/chat-pdf/componets/uploadfilePdf";
 import { useState } from "react";
-import { ListPdfFile } from "@/components/pages/chat-pdf/componets/ListPdfFile";
+import ListPdfFile from "@/components/pages/chat-pdf/componets/ListPdfFile";
 
 export default function ChatWithPdf() {
   //   this state control the mood od user list Last pdf upload or show section of upload pdf

@@ -16,7 +16,7 @@ import { numberOfTextContent } from "@/lib/numOfChar-word-sentence-token";
 import { characterValueItems } from "./constants";
 import type { WordType } from "@/services/types";
 
-export function EditorSectionFooter() {
+export default function EditorSectionFooter() {
   const editorTextContentValue = useEditorStore.use.editorTextContent();
   const [value, setValue] = useState<string>(characterValueItems[0]);
   const {
