@@ -19,5 +19,4 @@ export * as DashboardHeroIcons from "./DashboardHeroIcons";
 export * as AppsIcons from "./AppsIcons";
 export { OpenAiBrand } from "./OpenAiBrand";
 export * from "./PlayPause";
-export { AiICon } from "./AI";
 export * from "./TbIcons";
