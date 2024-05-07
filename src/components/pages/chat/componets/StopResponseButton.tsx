@@ -1,5 +1,5 @@
-"use client"
-import { TbPlayerStopFilled } from "react-icons/tb";
+"use client";
+import { TbPlayerStop } from "react-icons/tb";
 
 import { Button, ButtonProps } from "@/components/ui/button";
 
@@ -27,7 +27,7 @@ export function StopResponseButton({ className, ...props }: IProps) {
       onClick={() => console.log("stop responding")}
       {...props}
     >
-      <TbPlayerStopFilled
+      <TbPlayerStop
         className={cn(
           "fill-primary stroke-primary",
           iconVariants({ size: "md" }),
