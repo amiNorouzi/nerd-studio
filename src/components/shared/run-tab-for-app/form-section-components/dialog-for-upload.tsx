@@ -58,16 +58,16 @@ export function DialogForUpload({
   const [tab, setTab] = useState("document");
   const [pendingButton, setPendingButton] = useState(false);
 
-  useEffect(() => {
-    if (
-      url
-        ? uploadStatus.length === files.length + 1
-        : uploadStatus.length === files.length
-    ) {
-      setOpen(false);
-      setPendingButton(false);
-    }
-  }, [uploadStatus]);
+  // useEffect(() => {
+  //   if (
+  //     url
+  //       ? uploadStatus.length === files.length + 1
+  //       : uploadStatus.length === files.length
+  //   ) {
+  //     setOpen(false);
+  //     setPendingButton(false);
+  //   }
+  // }, [uploadStatus]);
   const {
     common,
     components: { form_section },

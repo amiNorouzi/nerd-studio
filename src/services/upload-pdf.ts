@@ -21,16 +21,13 @@ export function useUploadPdf() {
       try {
         const formData = new FormData();
         formData.append("file", pdf);
-
+        console.log(formData);
         const response = await axiosClient.post<PDFConvertorResponse>(
           "/uploads/save_pdf/",
           formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'POST',
-              'Access-Control-Allow-Headers': 'Content-Type',
             },
             onUploadProgress: progressEvent => {
               if (index === null) setIndex(0);
@@ -39,14 +36,13 @@ export function useUploadPdf() {
               );
               setUploadProgress(percentCompleted);
             },
-            withCredentials: true
           },
 
         );
-        // console.log("res:", response.data.path);
+        console.log("res:", response.data);
         return response.data.path;
       } catch (err) {
-
+        console.log("errors upload pdf:",err);
       }
     },
 
@@ -79,7 +75,7 @@ export function useGetPdf() {
             },
           },
         );
-        console.log("res:", response.data.url);
+        // console.log("res:", response.data.url);
         return response.data.url;
       } catch (err) {
       }
@@ -97,7 +93,7 @@ export function useGetUploadedPdf() {
   const { data, isLoading, refetch, isSuccess } = useQuery({
     queryKey: ["uploads"],
     async queryFn() {
-      const { data } = await axiosClient.get<getPdfs[]>("/uploads/list_of_pdf/");
+      const { data } = await axiosClient.get<getPdfs[]>("/uploads/list_of_pdf");
       return data;
     },
   });
