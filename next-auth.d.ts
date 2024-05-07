@@ -14,10 +14,12 @@ declare module "next-auth" {
       accessToken: string;
       refreshToken: string;
       workspace: Workspace,
+      accessTokenExpires: number;
       exp: number;
       iat: number;
       jti: string;
     };
+    expires: string,
     error?: "RefreshAccessTokenError";
   }
 
@@ -29,6 +31,7 @@ declare module "next-auth" {
     accessToken: string;
     refreshToken: string;
     workspace: Workspace;
+    accessTokenExpires: number;
   }
 }
 

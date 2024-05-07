@@ -99,6 +99,7 @@ export interface Workspace {
   created_at: string;
   updated_at: string;
   is_default: boolean;
+  is_base: boolean;
 }
 
 export interface AuthReturn {

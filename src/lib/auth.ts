@@ -37,8 +37,9 @@ export const authConfig = {
             password: credentials.password,
           });
           const user = jwtDecode(data.access_token) as User;
+          const UserRefreshToken = jwtDecode(data.refresh_token) as User;
 
-          // console.log("data: ", data);
+          // console.log("workspace: ", data?.workspace);
 
           if (user) {
             // Any object returned will be saved in `user` property of the JWT
@@ -48,6 +49,7 @@ export const authConfig = {
               email: user.email,
               accessToken: data.access_token,
               refreshToken: data.refresh_token,
+              accessTokenExpires: UserRefreshToken.exp,
               workspace: data?.workspace || {}
             };
           } else {
@@ -57,7 +59,7 @@ export const authConfig = {
           }
         } catch (e) {
           if (isAxiosError(e)) {
-            console.log(e?.response?.data);
+            console.error(e?.response?.data);
             throw new Error(e?.response?.data.detail);
           }
           throw new Error("Failed to login user");
@@ -82,6 +84,9 @@ export const authConfig = {
           });
           //data from signup
           const user = jwtDecode(data.access_token) as User;
+          const UserRefreshToken = jwtDecode(data.refresh_token) as User;
+
+          // console.log("workspace: ", data?.workspace);
 
           if (user) {
             // Any object returned will be saved in `user` property of the JWT
@@ -91,6 +96,7 @@ export const authConfig = {
               email: user.email,
               accessToken: data.access_token,
               refreshToken: data.refresh_token,
+              accessTokenExpires: UserRefreshToken.exp,
               workspace: data?.workspace || {}
             };
           } else {
@@ -100,7 +106,7 @@ export const authConfig = {
           }
         } catch (e) {
           if (isAxiosError(e)) {
-            console.log(e?.response?.data);
+            console.error(e?.response?.data);
             throw new Error(e?.response?.data.detail);
           }
           throw new Error("Failed to sign up user");
@@ -110,29 +116,30 @@ export const authConfig = {
   ],
   callbacks: {
     async jwt({ token, user, account, trigger, session }) {
-      console.log('JWT callback triggered with:', { token, user, account, trigger, session });
+      // console.log('JWT callback triggered with:', { token, user, account, trigger, session });
   
       if(trigger === "update" && session.user.workspace) {
-        console.log('Updating session...');
+        // console.log('Updating session...');
         token.workspace = session.user.workspace;
+        return token;
       }
   
       if (user && account) {
         // Initial sign in
         if (account.type === "credentials") {
-          console.log('Credentials login detected...');
+          // console.log('Credentials login detected...');
           token.accessToken = user.accessToken;
           token.refreshToken = user.refreshToken;
           token.workspace = user.workspace;
-          token.accessTokenExpires = token.exp;
-          console.log('Returning token:', token);
+          token.accessTokenExpires = user.accessTokenExpires;
+          // console.log('Returning token:', token);
           return token;
         } else {
           // OAuth
-          console.log('OAuth login detected...');
+          // console.log('OAuth login detected...');
           if (user) {
             try {
-              console.log('Fetching tokens with API...');
+              // console.log('Fetching tokens with API...');
               const { data } = await oAuthLoginApi({
                 email: user.email!,
                 name: user.name!,
@@ -142,8 +149,8 @@ export const authConfig = {
               token.accessToken = data.access_token;
               token.refreshToken = data.refresh_token;
               token.workspace = user.workspace;
-              token.accessTokenExpires = (jwtDecode(data.refresh_token) as User).exp;
-              console.log('Returning token:', token);
+              token.accessTokenExpires = user.accessTokenExpires;              
+              // console.log('Returning token:', token);
               return token;
             } catch (e) {
               console.error('Error fetching tokens with API:', e);
@@ -152,10 +159,10 @@ export const authConfig = {
         }
       }
   
-      if (Date.now() < token.accessTokenExpires) {
-        console.log("Date.now(): ", Date.now());
-        console.log("token.accessTokenExpires: ",token.accessTokenExpires);
-        console.log('Access token has not expired yet, returning it...');
+      // console.log("Date.now(): ", Date.now());
+      // console.log("token.accessTokenExpires: ", token.accessTokenExpires);
+      if (Date.now() < token.accessTokenExpires * 1000) {
+        // console.log('Access token has not expired yet, returning it...');
         return token;
       }
   
