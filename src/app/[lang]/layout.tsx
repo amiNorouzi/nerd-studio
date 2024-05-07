@@ -8,6 +8,9 @@ import {i18n, type Locale} from '../../../i18n.config';
 import '../globals.css';
 import '../theme.css';
 import {langDir} from '@/lib/dictionary';
+import { NextAuthProvider } from '@/components/providers/NextAuthProvider';
+import { getServerSession } from 'next-auth';
+import { auth } from '@/lib/auth';
 
 const APP_NAME = "Nerd Studio";
 const APP_DEFAULT_TITLE = "Nerd Studio | Home";
@@ -65,10 +68,15 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }>) {
+
+  const session = await auth();
+
   return (
     <html lang={params.lang} dir={langDir[params.lang]}>
       <body suppressHydrationWarning className="h-dvh w-dvw">
-        <Providers>{children}</Providers>
+        <NextAuthProvider session={session}>
+          <Providers>{children}</Providers>
+        </NextAuthProvider>
       </body>
     </html>
   );

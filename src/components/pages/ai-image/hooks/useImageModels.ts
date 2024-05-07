@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
@@ -38,7 +39,7 @@ function useImageModels() {
           }),
       });
     });
-  }, []);
+  }, [axiosFetch, queryClient]);
 
   const models = data.map(item => ({
     id: item.model,
@@ -53,7 +54,7 @@ function useImageModels() {
     ) {
       setActiveModel(models[0].id);
     }
-  }, [models]);
+  }, [activeModel, models]);
 
   useEffect(() => {
     if (activeModel) {
@@ -68,7 +69,7 @@ function useImageModels() {
         });
       }
     }
-  }, [activeModel]);
+  }, [activeModel, changeInputValue, currentModelType, data, resetInputValue]);
 
   const activeModelData = data.find(item => item.model === activeModel);
 

@@ -72,7 +72,7 @@ export function WorkspaceSettings() {
             <DeleteAlertDialog
               title="Delete Workspace"
               description="Are you sure you want to delete this workspace?"
-              handleSubmit={()=>{}}
+              handleSubmit={deleteWorkspaceHandler}
             />
           }
         >

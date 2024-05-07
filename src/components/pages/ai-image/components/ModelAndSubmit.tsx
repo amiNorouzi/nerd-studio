@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { Label } from "@/components/ui/label";
 import EngineSelect from "@/components/pages/ai-image/components/EngineSelect";

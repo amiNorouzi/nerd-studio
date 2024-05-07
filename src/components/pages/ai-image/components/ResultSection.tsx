@@ -10,6 +10,7 @@ import { isEmpty } from "@/lib/utils";
 import type { HistoryItem } from "@/services/types";
 import { HistoryBox, Show } from "@/components/shared";
 import { useImageUrlStore } from "@/stores/zustand/ai-image-store";
+import Image from "next/image";
 import GeneratedImages from "./GeneratedImages";
 import ImageCompare from "./ImageCompare";
 import EmptyResult from "./EmptyResult";
@@ -69,10 +70,12 @@ export default function ResultSection() {
             <Show>
               <Show.When isTrue={currentTab !== tabs.textToImage}>
                 <div className="col flex h-full w-full items-center justify-center py-[15%]">
-                  <img
+                  <Image
                     className=" h-[140%] w-5/6 rounded-xl"
                     src={imageUrl}
                     alt=""
+                    width={24}
+                    height={24}
                   />
                 </div>
               </Show.When>

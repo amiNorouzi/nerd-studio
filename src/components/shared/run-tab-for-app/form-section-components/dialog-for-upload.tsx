@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { TbFileUpload } from "react-icons/tb";
 import { AiOutlineLink } from "react-icons/ai";
@@ -58,16 +59,16 @@ export function DialogForUpload({
   const [tab, setTab] = useState("document");
   const [pendingButton, setPendingButton] = useState(false);
 
-  // useEffect(() => {
-  //   if (
-  //     url
-  //       ? uploadStatus.length === files.length + 1
-  //       : uploadStatus.length === files.length
-  //   ) {
-  //     setOpen(false);
-  //     setPendingButton(false);
-  //   }
-  // }, [uploadStatus]);
+  useEffect(() => {
+    if (
+      url
+        ? uploadStatus.length === files.length + 1
+        : uploadStatus.length === files.length
+    ) {
+      setOpen(false);
+      setPendingButton(false);
+    }
+  }, [files.length, setOpen, uploadStatus, url]);
   const {
     common,
     components: { form_section },

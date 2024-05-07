@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import {
@@ -57,7 +58,7 @@ export function FontFamily(props: DropdownMenuProps) {
     return () => {
       mount = false;
     };
-  }, [isEditorChange]);
+  }, [editor, isEditorChange]);
 
   return (
     <DropdownMenu modal={false} {...openState} {...props}>

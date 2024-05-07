@@ -1,3 +1,4 @@
+"use client"
 import { OpenAiBrand } from "@/components/svg-icons";
 import type { Locale } from "../../../../../i18n.config";
 import { getDictionary } from "@/lib/dictionary";

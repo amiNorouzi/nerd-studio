@@ -22,7 +22,7 @@ export function MarkerIconMap({ cy, cx }: T) {
         r="13.5193"
         fill="white"
         stroke="url(#paint0_linear_2958_8182)"
-        stroke-width="2.64681"
+        strokeWidth="2.64681"
       />
       <circle
         cx="28.7345"

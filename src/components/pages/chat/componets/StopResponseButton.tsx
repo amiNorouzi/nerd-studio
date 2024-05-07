@@ -1,3 +1,4 @@
+"use client"
 import { TbPlayerStopFilled } from "react-icons/tb";
 
 import { Button, ButtonProps } from "@/components/ui/button";

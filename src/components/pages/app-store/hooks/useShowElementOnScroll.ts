@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useRef } from "react";
 
 import { checkWindowValidity } from "@/lib/auth-storage";
@@ -36,7 +37,7 @@ function useShowElementOnScroll(
     return () => {
       main!.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [scrollHeight, scrollableId]);
 
   return elementRef;
 }

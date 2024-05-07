@@ -68,7 +68,7 @@ function GrammarInputDiv({
       divRef.current.innerHTML = extractedText;
       onTextChange(extractedText);
     }
-  }, [extractedText]);
+  }, [extractedText, onTextChange]);
 
   // handle cleaning the div by clicking the trash icon
   useEffect(() => {

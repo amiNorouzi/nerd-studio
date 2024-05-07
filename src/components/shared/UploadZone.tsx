@@ -55,7 +55,7 @@ export function UploadZone({
       };
       reader.readAsDataURL(file);
     });
-  }, []);
+  }, [setDocumentFiles]);
 
   /**
    * validate file size , if size is over than 5MB show error

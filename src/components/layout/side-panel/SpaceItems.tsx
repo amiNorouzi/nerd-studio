@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 
 import { PiPlanet, PiShoppingBagLight } from "react-icons/pi";
