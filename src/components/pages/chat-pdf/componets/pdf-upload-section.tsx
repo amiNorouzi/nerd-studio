@@ -1,3 +1,4 @@
+"use client"
 import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
 import {
   usePdfFileStore,
@@ -5,7 +6,7 @@ import {
 } from "@/stores/zustand/chat-pdf-file";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetUploadedPdf, useUploadPdf } from "@/services/upload-pdf";
 
 const PdfUploadSection = () => {
@@ -31,7 +32,7 @@ const PdfUploadSection = () => {
 
     const res = await uploadPdf(url[url.length - 1]);
     console.log(res);
-    refetch();
+    await refetch();
   };
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [url, setFile] = useState<File[]>([]);
@@ -50,13 +51,19 @@ const PdfUploadSection = () => {
     console.log("test save dialog");
 
     setUrlPdf([...url]);
-    setOpenDialog(false);
+    setOpenDialog(!openDialog);
     uploaderPdf();
     router.push("/chatpdf/edit");
   };
+  useEffect(() => {
+    console.log(openDialog);
+  }, [openDialog]);
   return (
-    <div onClick={() => setOpenDialog(!openDialog)} className=" ">
+    <div className=" ">
       <div
+        onClick={() => {
+          setOpenDialog(true);
+        }}
         className="transition-color flex h-full flex-1
           flex-col items-center  justify-center rounded-lg border-2
           border-dashed border-[#9373EE] bg-[#F9F6FF] p-5 text-gray-400

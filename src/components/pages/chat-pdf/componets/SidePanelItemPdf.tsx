@@ -63,7 +63,7 @@ const SidePanelItemPdf = ({ title, to, icon, id, refetch }: IProps) => {
   const isOpenSidePanel = isSidePanelOpen || isHoverOnSidePanel;
 
   const isActive = false;
-  const OnDelletHandler = (e: React.MouseEvent<SVGElement>) => {
+  const OnDelletHandler = () => {
     if (!isPending) {
       // console.log("test delet");
       mutate({ id: id });
@@ -99,8 +99,8 @@ const SidePanelItemPdf = ({ title, to, icon, id, refetch }: IProps) => {
           <div className="">
             <MdDelete
               onClick={() => {
+                OnDelletHandler()
                 refetch();
-                OnDelletHandler;
               }}
               className={`${isPending ? "disabled:text-red-300" : "hover:text-red-600"} h-4 w-4 `}
             />
