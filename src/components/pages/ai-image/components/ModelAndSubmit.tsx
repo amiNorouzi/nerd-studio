@@ -56,6 +56,11 @@ function ModelAndSubmit({
         console.log("test if");
         setImage(data);
       }
+      if(currentTab == tabs.imageUpscale){
+        // upscale_by
+        // upscale_value
+        //   add this to
+      }
     }
   };
   return (
