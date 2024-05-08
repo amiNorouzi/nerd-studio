@@ -8,6 +8,7 @@ import {
   CommandEmpty,
   CommandGroup,
   CommandItem,
+  CommandList,
 } from "@/components/ui/command";
 
 import {
@@ -19,7 +20,6 @@ import { CreateWorkspaceDialog } from "@/components/layout/workspace/CreateWorks
 import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
 import { TransformedWorkspace } from ".";
 import { useChangeDefaultWorkSpace } from "@/components/pages/workspace/hooks/useChangeDefaultWorkSpace";
-import { useSession } from "next-auth/react";
 
 /**
  * workspace select rendered in side panel if is open else rendered in header
@@ -29,6 +29,8 @@ import { useSession } from "next-auth/react";
 export function WorkspaceItems({ isHeader = false, workspaces }: { isHeader?: boolean, workspaces:TransformedWorkspace[] }) {
   const [open, setOpen] = React.useState(false);
   const [workSpaceId, setWorkSpaceId] = React.useState<string>(workspaces[0].id);
+  
+  console.log("workspaces: ", workspaces)
 
   // hook to change workspace
   const { mutate: changeDefaultWorkspace, data: workspace } = useChangeDefaultWorkSpace();
@@ -81,25 +83,27 @@ export function WorkspaceItems({ isHeader = false, workspaces }: { isHeader?: bo
         align="center"
       >
         <Command>
-          {/*<CommandInput placeholder="Search workspaces..." />*/}
-          <CommandEmpty>No Workspace found.</CommandEmpty>
-          <CommandGroup className="p-0">
-            {workspaces.map(space => (
-              <CommandItem
-                key={space.id}
-                value={space.id}
-                onSelect={handleSelect}
-                className={cn(
-                  "mb-1 w-full cursor-pointer px-4 !text-start hover:!bg-hover",
-                  space.default && "!bg-active !text-primary",
-                )}
-              >
-                {space.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
+          <CommandList>
+            {/*<CommandInput placeholder="Search workspaces..." />*/}
+            <CommandEmpty>No Workspace found.</CommandEmpty>
+            <CommandGroup className="p-0">
+              {workspaces.map(space => (
+                <CommandItem
+                  key={space.id}
+                  value={space.id}
+                  onSelect={handleSelect}
+                  className={cn(
+                    "mb-1 w-full cursor-pointer px-4 !text-start hover:!bg-hover",
+                    space.default && "!bg-active !text-primary",
+                  )}
+                >
+                  {space.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+          <CreateWorkspaceDialog />
         </Command>
-        <CreateWorkspaceDialog />
       </PopoverContent>
     </Popover>
   );

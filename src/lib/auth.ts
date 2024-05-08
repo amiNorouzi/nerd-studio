@@ -37,7 +37,6 @@ export const authConfig = {
             password: credentials.password,
           });
           const user = jwtDecode(data.access_token) as User;
-          const UserRefreshToken = jwtDecode(data.refresh_token) as User;
 
           // console.log("workspace: ", data?.workspace);
 
@@ -49,7 +48,7 @@ export const authConfig = {
               email: user.email,
               accessToken: data.access_token,
               refreshToken: data.refresh_token,
-              accessTokenExpires: UserRefreshToken.exp,
+              accessTokenExpires: user.exp,
               workspace: data?.workspace || {}
             };
           } else {
@@ -84,7 +83,6 @@ export const authConfig = {
           });
           //data from signup
           const user = jwtDecode(data.access_token) as User;
-          const UserRefreshToken = jwtDecode(data.refresh_token) as User;
 
           // console.log("workspace: ", data?.workspace);
 
@@ -96,7 +94,7 @@ export const authConfig = {
               email: user.email,
               accessToken: data.access_token,
               refreshToken: data.refresh_token,
-              accessTokenExpires: UserRefreshToken.exp,
+              accessTokenExpires: user.exp,
               workspace: data?.workspace || {}
             };
           } else {
@@ -159,19 +157,20 @@ export const authConfig = {
         }
       }
   
-      // console.log("Date.now(): ", Date.now());
-      // console.log("token.accessTokenExpires: ", token.accessTokenExpires);
+      console.log("Date.now(): ", Date.now());
+      console.log("token.accessTokenExpires: ", token.accessTokenExpires * 1000);
       if (Date.now() < token.accessTokenExpires * 1000) {
-        // console.log('Access token has not expired yet, returning it...');
+        console.log('Access token has not expired yet, returning it...');
         return token;
       }
   
-      if (!token.refreshToken) {
-        console.error('Missing refresh token');
-        throw new Error("Missing refresh token");
-      }
+      // if (!token.refreshToken) {
+      //   console.error('Missing refresh token');
+      //   throw new Error("Missing refresh token");
+      // }
   
       console.log("Access token has expired, trying to refresh it");
+      // console.log(token);
       return refreshAccessToken(token);
     },
   

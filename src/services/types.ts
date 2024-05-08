@@ -102,6 +102,37 @@ export interface Workspace {
   is_base: boolean;
 }
 
+export interface WorkspaceApp {
+  id: number,
+  app: {
+    id: number,
+    topic: string,
+    task: string,
+    prompt: string,
+    params: [
+      {}
+    ],
+    status: string
+  },
+  workspace: Workspace
+}
+
+export interface WorkspaceDocument {
+  id: number;
+  workspace: {
+    name: string;
+  };
+  history: {
+    id: number;
+    answer_text: string;
+    uuid: string;
+    app_type: string;
+    created_at: string;
+    urls: string[];
+  };
+  name: string;
+}
+
 export interface AuthReturn {
   refresh_token: string;
   access_token: string;
