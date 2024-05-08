@@ -17,7 +17,7 @@ export default function useAIWriter() {
         messages: [
           {
             role: "system",
-            content: `you are a helpful assistant.`,
+            content: "you are a helpful assistant.",
           },
           {
             role: "user",

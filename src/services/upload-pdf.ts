@@ -21,7 +21,7 @@ export function useUploadPdf() {
       try {
         const formData = new FormData();
         formData.append("file", pdf);
-
+        console.log(formData);
         const response = await axiosClient.post<PDFConvertorResponse>(
           "/uploads/save_pdf/",
           formData,
@@ -37,12 +37,12 @@ export function useUploadPdf() {
               setUploadProgress(percentCompleted);
             },
           },
+
         );
-        // console.log("res:", response.data.path);
+        console.log("res:", response.data);
         return response.data.path;
       } catch (err) {
-        console.log("error happened in the upload", err);
-        console.log("error in upload index number", index);
+        console.log("errors upload pdf:",err);
       }
     },
 
@@ -61,6 +61,7 @@ export function useUploadPdf() {
     ...rest,
   };
 }
+
 export function useGetPdf() {
   const { mutate, data, isPending, ...rest } = useMutation({
     async mutationFn(url: String) {
@@ -74,10 +75,9 @@ export function useGetPdf() {
             },
           },
         );
-        console.log("res:", response.data.url);
+        // console.log("res:", response.data.url);
         return response.data.url;
       } catch (err) {
-        console.log("error happened in the upload", err);
       }
     },
   });

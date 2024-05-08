@@ -42,13 +42,14 @@ export default function EditPagePdf() {
           <PdfView />
         </div>
         <div className="  flex-1 ">
-          <div className="relative flex items-center justify-center bg-[#F4F7FE]">
+          <div className="relative flex items-center bg-[#F4F7FE] justify-center">
             <div
               style={{ height: "var(--apps-main-height" }}
-              className=" overflow-y-auto px-5 py-2"
+              className=" overflow-y-auto  px-5 pb-[20vh] py-2"
             >
               <ChatList messages={messages} />
             </div>
+
             <InputPromtChatPdf />
           </div>
         </div>

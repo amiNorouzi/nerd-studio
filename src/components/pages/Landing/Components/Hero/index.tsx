@@ -7,7 +7,7 @@ import { Star } from "@/components/svg-icons/Star";
 export default function Hero() {
 
   return (
-    <header className=" relative  w-full overflow-hidden bg-[#F2EEFD]">
+    <header className=" relative  w-full overflow-hidden bg-secondary">
       {/*Absolute Ellipses in Hero header*/}
       <Absolute className="hero-absolute-left absolute left-0 top-0 z-10  size-[308px] rounded-full" />
       <Absolute className="hero-absolute-right absolute right-0 top-16 z-10  hidden size-[250px] rounded-full lg:inline-block" />
@@ -59,7 +59,7 @@ export default function Hero() {
             {rewards.map(item => (
               <div
                 key={item.id}
-                className="flex size-[100px] flex-col  items-center justify-center rounded-full bg-white shadow-md max-[375px]:size-[90px]  xl:size-[155px]"
+                className="flex size-[100px] flex-col  items-center justify-center rounded-full bg-muted shadow-md max-[375px]:size-[90px]  xl:size-[155px]"
               >
                 {/*<Image*/}
                 {/*  src={`/images/hero/${item.img}`}*/}
@@ -84,7 +84,7 @@ export default function Hero() {
               <Button className=" px-[86px] py-[21px] text-sm md:px-[48px] lg:px-[52px] lg:py-6 lg:text-base">
                 Download
               </Button>
-              <Button className="bg-[#F8F8F8] px-[86px]  py-[21px]  text-sm text-[#747474] hover:text-white md:px-[48px] lg:px-[52px] lg:py-6 lg:text-base">
+              <Button className="bg-muted px-[86px]  py-[21px]  text-sm text-primary hover:text-white md:px-[48px] lg:px-[52px] lg:py-6 lg:text-base">
                 Start Chat
               </Button>
             </div>

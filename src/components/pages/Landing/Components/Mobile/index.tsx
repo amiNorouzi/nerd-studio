@@ -29,7 +29,7 @@ export default function Mobile() {
       <div className=" w-full grid-cols-3 flex-col  md:mt-[200px] md:grid   md:h-full">
         <div className="col-span-2  w-full rounded-3xl  bg-primary p-6 pb-[100px] text-white md:flex-row md:rounded-l-3xl md:rounded-r-none md:px-6 md:pb-6 md:pt-6 lg:p-[86px]">
           <div className="mb-3 flex w-full flex-row items-center justify-start">
-            <div className="flex items-center justify-center rounded-sm bg-[#F2EEFD] p-2 text-primary ">
+            <div className="flex items-center justify-center rounded-sm bg-secondary p-2 text-primary ">
               <TbMessages className="size-6" />
             </div>
             <span className="texty-[#F2EEFD] ms-3 text-lg lg:text-4xl">
@@ -47,7 +47,7 @@ export default function Mobile() {
               layouts and visual mockups
             </p>
           </div>
-          <Button className="w-full bg-[#F2EEFD] py-3.5 text-primary md:w-fit md:px-[60px] md:py-4.5">
+          <Button className="w-full bg-secondary py-3.5 text-primary md:w-fit md:px-[60px] md:py-4.5">
             Do It Now
           </Button>
         </div>

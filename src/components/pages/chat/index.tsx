@@ -1,20 +1,19 @@
 "use client";
-import React, { useState, FormEvent,
+import React, {
+  FormEvent,
   useCallback,
   useEffect,
-  useRef } from "react";
+  useRef,
+  useState,
+} from "react";
 import {
   ChatList,
+  ChatSettingAndUpload,
+  HistoryItems,
   Options,
   Title,
-  ChatSettingAndUpload,
-  StopResponseButton,
-  HistoryItems,
 } from "./componets";
-import {
-  HistoryBox,
-  SetSearchParamProvider,
-} from "@/components/shared";
+import { HistoryBox, SetSearchParamProvider } from "@/components/shared";
 import { ChatHero } from "@/components/pages/chat/componets/ChatHero";
 import type { Locale } from "../../../../i18n.config";
 import { useChatStore } from "@/stores/zustand/chat-store";
@@ -96,8 +95,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
   } = useStream<StreamData>({
     endpoint: "/chat_bot/conversation/",
     eventName: "chat_bot",
-    // @ts-ignore
-    envalidationKey: ["history"],
+    invalidationQuery: { queryKey: ["history"] },
   });
   const {
     generateStream: continueCoversation,
@@ -113,8 +111,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
   } = useStream<StreamData>({
     endpoint: `/chat_bot/continue_conversation/?conversation_id=${data?.conversation_id}&chat_id=${messagesHistory?.chats[messagesHistory.chats.length - 1].id}`,
     eventName: "chat_bot",
-    // @ts-ignore
-    envalidationKey: ["history"],
+    invalidationQuery: { queryKey: ["history"] },
   });
 
 
@@ -235,9 +232,9 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           {/* chat list or chat option*/}
           {/* @ts-ignore */}
           {
-            chatList ? 
-            <ChatList messages={messages || []} onClick={(e,data) => console.log({e,data})}/> 
-            : 
+            chatList ?
+            <ChatList messages={messages || []} onClick={(e,data) => console.log({e,data})}/>
+            :
             <Options >
               {/*these children are for Options component*/}
               <Title lang={lang} />
