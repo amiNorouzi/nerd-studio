@@ -26,7 +26,7 @@ export default function WritePage({ params }: SCRPropsType) {
 
   const { generateReWrite, isPending, message } = useAIWriter();
   const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
-    generateFn: handleGenerate,
+
     message,
   });
   function handleGenerate() {
