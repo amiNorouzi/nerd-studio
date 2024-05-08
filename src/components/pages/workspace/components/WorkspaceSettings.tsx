@@ -6,25 +6,25 @@ import TransferWorkspaceDialog from "./TransferWorkspaceDialog";
 import { useGetDictionary } from "@/hooks";
 import { useSession } from "next-auth/react";
 import { useDeleteWorkSpace } from "@/components/pages/workspace/hooks/useDeleteWorkSpace";
+import { useCallback } from "react";
 
 /**
  * settings tab content in workspace page
  * contains workspace settings like change name, transfer and delete workspace
  * @constructor
  */
-export function WorkspaceSettings() {
+export function WorkspaceSettings({ workspace_id }: { workspace_id: number }) {
   const {
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
-  const {data:session} = useSession();
+  const { data: session } = useSession();
   const { mutate: deleteWorkSpace } = useDeleteWorkSpace();
 
   const myWorkspace = session?.user.workspace;
 
-  const deleteWorkspaceHandler = () => {
-    if(myWorkspace?.id)
-    deleteWorkSpace({ workspace_id: myWorkspace?.id });
-  };
+  const deleteWorkspaceHandler = useCallback(() => {
+    if (myWorkspace?.id) deleteWorkSpace({ workspace_id: myWorkspace?.id });
+  }, [deleteWorkSpace, myWorkspace?.id]);
 
   return (
     <>
@@ -47,14 +47,14 @@ export function WorkspaceSettings() {
         {workspaceDictionary.danger_setting_title}
       </h4>
       <div className="rounded-md border">
-          {/*
+        {/*
             transfer workspace ownership to other member
             only workspace owner can transfer workspace
             TODO: implement conditional rendering based on user role(only for owner)
          */}
         <SettingItem
           title={workspaceDictionary.setting_transfer_label}
-          Action={<TransferWorkspaceDialog />}
+          Action={<TransferWorkspaceDialog workspace_id={workspace_id} />}
         >
           <p className="text-xs text-muted-foreground">
             {workspaceDictionary.setting_transfer_description}

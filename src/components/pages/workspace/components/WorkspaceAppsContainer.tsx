@@ -4,11 +4,11 @@ import React from 'react';
 import { spacesTabs } from "@/constants/spaces";
 import { TabsContent } from "@/components/ui/tabs";
 
-interface IWorkspaceAppsConatinerProps {
+interface IWorkspaceAppsContainerProps {
     workspace_id: number;
 }
 
-export default function WorkspaceAppsConatiner({workspace_id}:IWorkspaceAppsConatinerProps) {
+export default function WorkspaceAppsContainer({workspace_id}:IWorkspaceAppsContainerProps) {
    return (
     <div className="relative w-full overflow-y-auto p-2 md:p-4 xl:p-6">
     <TabsContent value="tabone">tab one</TabsContent>

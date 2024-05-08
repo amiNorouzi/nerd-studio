@@ -2,9 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 import type { WorkspaceDocument } from "@/services/types";
 
+type App_types = "template" | "ai_writer" | "translate" | "code" | "grammar" | "text_to_image" | "image_to_image" | "image_upscale" | "highlight";
+
 type UseGetWorkspaceDocumentsParams = {
   workspace_id: number;
-  app_type: string;
+  app_type: App_types;
   page: number;
 };
 

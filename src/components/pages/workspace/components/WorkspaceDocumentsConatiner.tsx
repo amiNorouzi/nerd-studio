@@ -4,11 +4,11 @@ import { spacesTabs } from "@/constants/spaces";
 import { TabsContent } from "@/components/ui/tabs";
 
 
-interface IWorkspaceDocumentsConatinerProps {
+interface IWorkspaceDocumentsContainerProps {
     workspace_id: number;
 }
 
-export default function WorkspaceDocumentsConatiner({workspace_id}:IWorkspaceDocumentsConatinerProps) {
+export default function WorkspaceDocumentsContainer({workspace_id}:IWorkspaceDocumentsContainerProps) {
    return (
     <div className="w-full overflow-y-auto p-2 md:p-4 xl:p-6">
     <TabsContent value="tabone">tab one</TabsContent>

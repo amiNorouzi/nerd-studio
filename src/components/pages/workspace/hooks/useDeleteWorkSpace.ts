@@ -41,7 +41,7 @@ export function useDeleteWorkSpace() {
       if (error.response) {
         showError(error.response.data.detail);
       } else {
-        showError("Sorry! an unkown error occurred");
+        showError("Sorry! an unknown error occurred");
       }
     },
   });
