@@ -15,9 +15,7 @@ import {
 import { ToolbarButton } from "@/components/plate-ui/toolbar";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { type BaseEditor, Transforms } from "slate";
-import { Generate } from "@/components/svg-icons";
-import { cn } from "@/lib/utils";
-import { iconVariants } from "@/constants/variants";
+import { FaWandMagicSparkles } from "react-icons/fa6";
 
 export function AiOptionsDropdownMenu(props: DropdownMenuProps) {
   const openState = useOpenState();
@@ -43,12 +41,7 @@ export function AiOptionsDropdownMenu(props: DropdownMenuProps) {
           tooltip="AI Options"
           variant="muted"
         >
-          <Generate
-            classname={cn(
-              iconVariants({ size: "md" }),
-              "!fill-muted-foreground",
-            )}
-          />
+          <FaWandMagicSparkles className="!h-4 !w-4" />
         </ToolbarButton>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

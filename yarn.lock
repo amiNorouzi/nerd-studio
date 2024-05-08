@@ -1491,6 +1491,11 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
+"@microsoft/fetch-event-source@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@microsoft/fetch-event-source/-/fetch-event-source-2.0.1.tgz#9ceecc94b49fbaa15666e38ae8587f64acce007d"
+  integrity sha512-W6CLUJ2eBMw3Rec70qrsEW0jOm/3twwJv21mrmj2yORiaVmVYGS4sSS5yUwvQc1ZlDLYGPnClVWmUUMagKNsfA==
+
 "@monaco-editor/loader@^1.4.0":
   version "1.4.0"
   resolved "https://registry.npmjs.org/@monaco-editor/loader/-/loader-1.4.0.tgz"
@@ -2911,10 +2916,10 @@
   dependencies:
     lodash "^4.17.21"
 
-"@udecode/plate-heading@33.0.0", "@udecode/plate-heading@^33.0.0":
-  version "33.0.0"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-heading/-/plate-heading-33.0.0.tgz#ff2a3e0ca0141b2c3905432e943e54277533e8a5"
-  integrity sha512-YAprSKOl7bdia7cnldvsKfpK2zsTflAQO7HfKOjO3EQ466vkKNjlHaVhf4BjqhN9wipZG44sgrsvYjI2DBXxPw==
+"@udecode/plate-heading@33.0.1", "@udecode/plate-heading@^33.0.1":
+  version "33.0.1"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-heading/-/plate-heading-33.0.1.tgz#479dcd83b3d50c5205b63701fcf6cc63edf407a2"
+  integrity sha512-C38tMF0u5o2kNMNAidqOuzIvwKwLTFfhANwHyQNcpm2JY18rng0q+lB0vH0fGNFcZIYNHjTYag3xABzOxZK4sw==
 
 "@udecode/plate-highlight@^33.0.0":
   version "33.0.0"
@@ -3037,12 +3042,12 @@
     "@udecode/plate-table" "33.0.0"
     papaparse "^5.4.1"
 
-"@udecode/plate-serializer-docx@^33.0.0":
-  version "33.0.0"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-serializer-docx/-/plate-serializer-docx-33.0.0.tgz#5caa9e50e5fd0622b7b88bfb5547625e65f8b593"
-  integrity sha512-EA4YNm/LVO668NUKWIfN8AAGRomcLAHHsp5alcPgqLBZ2aRmWnVdeEeJB8AcUH30XmKwvaKMeEk7PQ1Pzb8kWw==
+"@udecode/plate-serializer-docx@^33.0.1":
+  version "33.0.1"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-serializer-docx/-/plate-serializer-docx-33.0.1.tgz#64e1338ef56d00179b491bc33830ee5ea66cb412"
+  integrity sha512-6oyNQe1Uzr3yh3JWmXOee6IwIWxA0phP4bJ5pnElNl4UtHVBkYmokkXE5d60h0ehJPuw2nAjYFiyLnDo/dUk9Q==
   dependencies:
-    "@udecode/plate-heading" "33.0.0"
+    "@udecode/plate-heading" "33.0.1"
     "@udecode/plate-indent" "33.0.0"
     "@udecode/plate-indent-list" "33.0.0"
     "@udecode/plate-media" "33.0.0"

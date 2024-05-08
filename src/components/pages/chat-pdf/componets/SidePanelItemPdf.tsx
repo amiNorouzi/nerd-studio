@@ -1,14 +1,11 @@
 "use client";
 import { memo } from "react";
 
-import { useParams, useRouter } from "next/navigation";
-
 import { MenuItem } from "react-pro-sidebar";
 import { MdDelete } from "react-icons/md";
 
 import { cn, getHslColorByVar } from "@/lib/utils";
 
-import type { AppIconType } from "@/components/svg-icons/AppsIcons";
 import { IconType } from "react-icons";
 import { iconVariants } from "@/constants/variants";
 import { useSidbarPDfStore } from "@/stores/zustand/ui-store";
@@ -19,7 +16,7 @@ interface IProps {
   title: string;
   to: string;
   id: string;
-  icon: IconType | AppIconType;
+  icon: IconType;
   refetch: () => void;
 }
 
@@ -31,16 +28,11 @@ interface IProps {
  * @param hasCustomIcon
  */
 const renderIcon = (
-  icon: IconType | AppIconType,
+  icon: IconType,
   isOpenSidePanel: boolean,
   isActive: boolean,
-  hasCustomIcon: boolean,
 ) => {
   const Icon = icon;
-
-  if (hasCustomIcon) {
-    return <Icon isActive={isActive} hasTitle={isOpenSidePanel} />;
-  }
 
   return (
     <Icon
@@ -63,7 +55,7 @@ const SidePanelItemPdf = ({ title, to, icon, id, refetch }: IProps) => {
   const isOpenSidePanel = isSidePanelOpen || isHoverOnSidePanel;
 
   const isActive = false;
-  const OnDelletHandler = () => {
+  const onDeleteHandler = () => {
     if (!isPending) {
       // console.log("test delet");
       mutate({ id: id });
@@ -72,7 +64,7 @@ const SidePanelItemPdf = ({ title, to, icon, id, refetch }: IProps) => {
   return (
     <MenuItem
       aria-level={1}
-      icon={renderIcon(icon, isOpenSidePanel, isActive, to.includes("chatPdf"))}
+      icon={renderIcon(icon, isOpenSidePanel, isActive)}
       component={<div></div>}
       rootStyles={{
         color: getHslColorByVar("--foreground"),
@@ -99,7 +91,7 @@ const SidePanelItemPdf = ({ title, to, icon, id, refetch }: IProps) => {
           <div className="">
             <MdDelete
               onClick={() => {
-                OnDelletHandler()
+                onDeleteHandler()
                 refetch();
               }}
               className={`${isPending ? "disabled:text-red-300" : "hover:text-red-600"} h-4 w-4 `}

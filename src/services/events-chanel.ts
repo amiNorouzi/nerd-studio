@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
+import { fetchEventSource } from "@microsoft/fetch-event-source";
 
 const EventListenerBaseApi = "http://5.78.55.161:8000/events";
 
@@ -14,10 +15,10 @@ export default function useEventChanel({ eventName }: EventChanelParams) {
   const uuid = session?.user.sub;
 
   const cancelStream = useCallback(() => {
-    if (eventSource.current) {
-      eventSource.current.close();
-      eventSource.current = null;
-    }
+    // if (eventSource) {
+    //   eventSource.close();
+    //   eventSource = null;
+    // }
   }, []);
 
   const resetMessage = useCallback(() => {
@@ -25,18 +26,20 @@ export default function useEventChanel({ eventName }: EventChanelParams) {
   }, []);
 
   useEffect(() => {
-    if (!eventSource.current && uuid) {
-      eventSource.current = new EventSource(`${EventListenerBaseApi}/${uuid}`);
-      eventSource.current.addEventListener(eventName, event => {
-        if (event.data) {
-          const data = JSON.parse(event.data);
-          if (data.content) setMessage(prev => prev + data.content);
-        }
+    if (uuid) {
+      fetchEventSource(`${EventListenerBaseApi}/${uuid}/`, {
+        method: "GET",
+        onmessage(msg) {
+          const message = JSON.parse(msg.data).content;
+          if (msg.event === eventName && message) {
+            setMessage(prev => prev + message);
+          }
+        },
       });
     }
-    return () => {
-      cancelStream();
-    };
+    // return () => {
+    //   cancelStream();
+    // };
   }, [cancelStream, eventName, uuid]);
 
   return {
@@ -52,24 +55,25 @@ export default function useEventChanel({ eventName }: EventChanelParams) {
 //   const { data: session } = useSession();
 //   const uuid = session?.user.sub;
 
-  // useEffect(() => {
-  //   if (!eventSource.current && uuid) {
-  //     eventSource.current = new EventSource(
-  //       `http://5.78.55.161:8000/events/${uuid}`,
-  //     );
-  //     eventSource.current.addEventListener(eventName, event => {
-  //       if (event.data) {
-  //         const data = JSON.parse(event.data);
-  //         onMessage?.(data.content);
-  //         if (data.content) setMessage(prev => prev + data.content);
-  //       }
-  //     });
-  //
-  //     eventSource.current.onerror = ev => {
-  //       // console.error("Error on events chanel: ", ev);
-  //     };
-  //   }
-  // }, [eventName, onMessage, uuid]);
+// useEffect(() => {
+//   if (!eventSource.current && uuid) {
+//     eventSource.current = new EventSource(
+//       `http://5.78.55.161:8000/events/${uuid}`,
+//     );
+//     eventSource.current.addEventListener(eventName, event => {
+//       if (event.data) {
+//         const data = JSON.parse(event.data);
+//         onMessage?.(data.content);
+//         if (data.content) setMessage(prev => prev + data.content);
+//       }
+//       eventSource.current.onerror = ev => {
+//         console.error("Error on events chanel: ", ev);
+//      };
+//     });
+//
+//
+//   }
+// }, [eventName, onMessage, uuid]);
 //
 //   return {
 //     message,

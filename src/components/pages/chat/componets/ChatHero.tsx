@@ -1,20 +1,19 @@
-"use client";
 import { docs } from "@/constants/dashboard";
 
 import { useGetDictionary } from "@/hooks";
 import type { Locale } from "../../../../../i18n.config";
-import { getDictionary } from "@/lib/dictionary";
 import { iconVariants } from "@/constants/variants";
+import { getDictionary } from "@/lib/dictionary";
 
 /**
  * chat hero section
  * @constructor
  */
-export function ChatHero({ lang }: { lang: Locale }) {
+export default async function ChatHero({ lang }: { lang: Locale }) {
   //TODO: write chat dictionary
   const {
     page: { dashboard: dashboardDictionary, chat },
-  } = useGetDictionary();
+  } = await getDictionary(lang);
 
   return (
     <div className="form-gap hidden w-full  flex-col items-start rounded-xl border px-form-padding py-4.5 lg:flex">
@@ -30,7 +29,7 @@ export function ChatHero({ lang }: { lang: Locale }) {
               className="centered-col aspect-square h-11 rounded-lg"
               style={{ backgroundColor: item.iconBackground }}
             >
-              <item.icon className={iconVariants({ size: "lg" })} />
+              <item.Icon color={item.color} size="18" />
             </div>
             <div className="col p-3 text-sm  font-medium text-muted-foreground">
               <span className="text-xs font-light">

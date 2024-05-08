@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { FavoriteButtonAndDialog } from "@/components/shared";
-import { TbStar, TbInfoCircle, TbStarFilled } from "@/components/svg-icons";
+import { TbStar, TbInfoCircle, TbStarFilled } from "react-icons/tb";
 
 import { useTemplateStore } from "@/stores/zustand/template-store";
 import { useGetDictionary } from "@/hooks";

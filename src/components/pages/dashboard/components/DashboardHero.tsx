@@ -29,7 +29,7 @@ export function DashboardHero() {
             className="centered-col aspect-square h-14 rounded-lg lg:h-full"
             style={{ backgroundColor: item.iconBackground }}
           >
-            <item.icon />
+            <item.Icon color={item.color} size="36" />
           </div>
           <div className="col">
             <h3 className="text-xs font-normal ">

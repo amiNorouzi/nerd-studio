@@ -3,8 +3,6 @@ import { useCallback, useEffect, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { Icons } from "@/components/icons";
-import { Star } from "@/components/svg-icons/Star";
-import Image from "next/image";
 import useMobileSize from "@/hooks/useMobileSize";
 import { CommentSection } from "@/components/pages/Landing/common/Comment";
 import { Button } from "@/components/ui/button";

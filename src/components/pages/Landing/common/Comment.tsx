@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Star } from "@/components/svg-icons/Star";
+import { Star } from "lucide-react";
 
 interface Props{
   index:number;

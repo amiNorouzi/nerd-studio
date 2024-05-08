@@ -82,9 +82,7 @@ export function ActivitiesSection() {
 
       {/*activities list*/}
       {activities.map(activity => {
-        const { icon: Icon, iconBackground } = docs.find(
-          i => i.id === activity.typeId,
-        )!;
+        const item = docs.find(i => i.id === activity.typeId)!;
 
         return (
           // activity item
@@ -94,9 +92,9 @@ export function ActivitiesSection() {
           >
             <div
               className="centered-col h-10 w-10 rounded-lg"
-              style={{ backgroundColor: iconBackground }}
+              style={{ backgroundColor: item.iconBackground }}
             >
-              <Icon className="h-5 w-5" />
+              <item.Icon size="25" color={item.color}/>
             </div>
 
             <div className="col h-full justify-between">
