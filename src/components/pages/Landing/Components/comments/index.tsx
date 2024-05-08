@@ -6,9 +6,10 @@ import { Icons } from "@/components/icons";
 import useMobileSize from "@/hooks/useMobileSize";
 import { CommentSection } from "@/components/pages/Landing/common/Comment";
 import { Button } from "@/components/ui/button";
-import { LandingComment } from "@/services/landing";
+// import { LandingComment } from "@/services/landing";
 
 interface Props {
+  // @ts-ignore
   comments:LandingComment[]
 }
 const Comments = ({comments}:Props) => {
