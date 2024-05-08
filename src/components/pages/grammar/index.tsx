@@ -24,7 +24,8 @@ export default function GrammarPage({ params }: IProps) {
     isPending,
     message,
     resetMessage,
-  } = useGenerateGrammar();  const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
+  } = useGenerateGrammar();
+  const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
     generateFn: handleGenerate,
     message,
   });

@@ -6,6 +6,7 @@ interface Props {
   handleMouseMove: (e: React.MouseEvent) => void;
   divRef: RefObject<HTMLDivElement>;
   handleScroll: () => void;
+  pasteHandler:(e:React.ClipboardEvent<HTMLDivElement>)=>void
 }
 
 export default function EditableDiv({
@@ -13,7 +14,9 @@ export default function EditableDiv({
   handleMouseMove,
   divRef,
   handleScroll,
+                                      pasteHandler
 }: Props) {
+
   return (
     <div
       id="input"
@@ -23,6 +26,7 @@ export default function EditableDiv({
       ref={divRef}
       onScroll={handleScroll}
       spellCheck={false}
+      onPaste={pasteHandler}
       className={cn(
         "mb-0 h-full w-full cursor-text overflow-y-auto  rounded-lg border-0  px-[32px] pb-[50px] pt-2  leading-tight outline-none ring-0 first-line:pl-4 first-line:pt-8 ",
       )}

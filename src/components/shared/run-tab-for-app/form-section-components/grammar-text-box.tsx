@@ -40,6 +40,7 @@ const MinimalButton = ({
 
 interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   maxLength?: number;
+  value:string;
   rootClassName?: string;
   onTextAreaChange: (value: string) => void;
   renderMoreActions?: () => JSX.Element;
