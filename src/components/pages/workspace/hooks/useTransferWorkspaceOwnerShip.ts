@@ -22,7 +22,9 @@ export function useTransferWorkSpaceOwnerShip({workspace_id}:{workspace_id:numbe
           //   updateWorkspaceSession(workspace);
           // @ts-ignore
           
-          queryClient.invalidateQueries(['workspace-members', workspace_id]);
+          queryClient.invalidateQueries({
+            queryKey: ['workspace-members', workspace_id]
+          });
       },
     });
   }

@@ -6,7 +6,7 @@ import { SettingsDialog } from "@/components/shared";
 
 import { useGetDictionary } from "@/hooks";
 import { useSession } from "next-auth/react";
-import { useUpdateWorkSpace } from "../hooks/useUpdateWorkSpace";
+import { useUpdateWorkSpaceName } from "../hooks/useUpdateWorkSpaceName";
 import useErrorToast from "@/hooks/useErrorToast";
 
 /**
@@ -20,7 +20,7 @@ function ChangeWorkspaceNameDialog() {
   const { data:session } = useSession();
   const [workspaceName, setWorkspaceName] = useState(session?.user.workspace.name || "");
   const {showError} = useErrorToast();
-  const { mutate: updateWorkspace, isPending, isSuccess, isError, error, data:workspace } = useUpdateWorkSpace();
+  const { mutate: updateWorkspace, isPending, isSuccess, isError, error, data:workspace } = useUpdateWorkSpaceName();
 
 
   // form submit handler

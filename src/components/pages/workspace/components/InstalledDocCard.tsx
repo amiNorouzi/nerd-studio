@@ -15,14 +15,14 @@ import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
 
-import type { WorkspaceApp } from "@/services/types";
+import type { WorkspaceDocument } from "@/services/types";
 
 /**
- * installed app card used in workspace app list tab
- * @param app - app item
+ * installed document card used in workspace app list tab
+ * @param document - document item
  * @constructor
  */
-function InstalledAppCard({ app }: { app: WorkspaceApp }) {
+function InstalledDocCard({ document }: { document: WorkspaceDocument }) {
   // get language from url for adding start of link href
   const { lang } = useParams();
   const {
@@ -31,7 +31,7 @@ function InstalledAppCard({ app }: { app: WorkspaceApp }) {
 
   return (
     // Link to app detail page
-    <Link href={`/${lang}/template/custom-template/create?app_id=${app.id}`}>
+    <Link href={`/${lang}/template/custom-template/create?app_id=${document.id}`}>
       <article className="row group w-full cursor-pointer gap-2 rounded-md border bg-background p-4 transition-all duration-300 hover:shadow-card-hover">
         {/*app icon*/}
         <Image
@@ -41,7 +41,7 @@ function InstalledAppCard({ app }: { app: WorkspaceApp }) {
           height={80}
           className="h-10 w-10 rounded-md"
         />
-        <h3>{app.app.topic}</h3>
+        <h3>{document.name}</h3>
         {/*hover card that show all action of installed app*/}
         <HoverCard openDelay={10} closeDelay={50}>
           <HoverCardTrigger asChild>
@@ -72,4 +72,4 @@ function InstalledAppCard({ app }: { app: WorkspaceApp }) {
   );
 }
 
-export default InstalledAppCard;
+export default InstalledDocCard;

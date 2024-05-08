@@ -47,7 +47,7 @@ export function WorkspaceSettings() {
         {workspaceDictionary.danger_setting_title}
       </h4>
       <div className="rounded-md border">
-        {/*
+          {/*
             transfer workspace ownership to other member
             only workspace owner can transfer workspace
             TODO: implement conditional rendering based on user role(only for owner)

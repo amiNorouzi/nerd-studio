@@ -45,7 +45,6 @@ export default async function WorkspacePage({ lang }: { lang: Locale }) {
         </TabsList>
       </SpacesHeader>
       <WorkspaceAppsConatiner workspace_id={workspace_id}/>
-      {/* <WorkspaceDocumentsConatiner workspace_id={workspace_id}/> */}
     </Tabs>
   );
 }
