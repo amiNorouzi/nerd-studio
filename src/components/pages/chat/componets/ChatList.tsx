@@ -30,11 +30,14 @@ interface Props {
 }
 export function ChatList({ messages, onClick }: Props) {
   const { data: session } = useSession();
+  messages.map((i)=>{
 
-  console.log(messages)
+  console.log(i.role === "assistance")
+  })
+
 
   return (
-    <div className="col w-full max-w-[760px] flex-grow gap-6 pb-6 ">
+    <div className="col w-full max-w-[760px] flex-grow gap-6 w-full h-96 w-96">
       {messages.map(item => {
         // TODO: set the defult pic for the user
         const image = session?.user?.image ?? "";
@@ -56,18 +59,20 @@ export function ChatList({ messages, onClick }: Props) {
                 onClick={(e, data) => onClick && onClick(e, data)}
               />
             )}
-            {item.role === "assistance" ||
-              (item.role === "assistant" && (
-                <AssistMessageCard
-                  timeLine={item.timeLine}
-                  prompt={item.prompt}
-                  image={image}
-                  name={name}
-                  id={item.id}
-                  role="user"
-                  onClick={(e, data) => onClick && onClick(e, data)}
-                />
-              ))}
+            {(item.role === "assistance" ||item.role === "assistant")
+              && (
+                <>
+                  <AssistMessageCard
+                    timeLine={item.timeLine}
+                    prompt={item.prompt}
+                    image={image}
+                    name={name}
+                    id={item.id}
+                    role="user"
+                    // onClick={(e, data) => onClick && onClick(e, data)}
+                  />
+                </>
+              )}
           </div>
         );
       })}

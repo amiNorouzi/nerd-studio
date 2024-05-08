@@ -32,7 +32,7 @@ export default function EditorSectionFooter() {
         {`${editor_section[item]}   ${numberOfTextContent(item.split("_").pop() as WordType, editorTextContentValue)}`}
       </SelectItem>
     ));
-  }, [editorTextContentValue]);
+  }, [editorTextContentValue, editor_section]);
 
   return (
     <Select value={value} onValueChange={setValue}>

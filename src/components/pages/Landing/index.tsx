@@ -1,3 +1,4 @@
+'use server'
 import Hero from "@/components/pages/Landing/Components/Hero";
 import Steps from "@/components/pages/Landing/Components/Steps";
 import Features from "@/components/pages/Landing/Components/Features";
@@ -12,8 +13,27 @@ import Comments from "@/components/pages/Landing/Components/comments";
 import Services from "@/components/pages/Landing/Components/Services";
 import MapWorld from "@/components/pages/Landing/Components/MapWorld";
 import type { LangParams } from "@/services/types";
+// import { Landing, useLandingData } from "@/services/landing";
+import axiosClient from "@/services/axios-client";
 
-export default function Landing({ params: { lang } }: LangParams) {
+async function getData(){
+  try {
+    // @ts-ignore
+    const { data } = await axiosClient.get<Landing>("/landing/get_landing_data/");
+    return data;
+  } catch (error) {
+    // Handle the error here
+    console.error("Error fetching data:", error);
+    // You can choose to throw the error again to propagate it
+    throw error;
+  }
+}
+
+
+
+export default async function Landing({ params: { lang } }: LangParams) {
+  const data = await getData();
+  console.log('------------------data received is----------------',data);
   return (
     <div lang={lang} className="mx-auto max-w-[1920px] overflow-x-hidden">
       <Navbar />
@@ -21,13 +41,13 @@ export default function Landing({ params: { lang } }: LangParams) {
         <Hero />
         <Steps />
         <Features />
-        <Services />
+        <Services services={data.services} />
         <PromptsSection />
         <CustomPrompt />
         <Mobile />
         <MapWorld />
         <Gpts />
-        <Comments />
+        <Comments comments={data.comments} />
         <DownloadApp />
         <Footer />
       </main>

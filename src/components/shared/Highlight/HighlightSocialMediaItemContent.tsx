@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { useGetDictionary } from "@/hooks";
 import HighlightGeneratedContent from "@/components/shared/Highlight/HighlightGeneratedContent";

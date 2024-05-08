@@ -1,3 +1,4 @@
+"use client"
 import React, { TextareaHTMLAttributes, useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button, ButtonProps } from "@/components/ui/button";
@@ -39,6 +40,7 @@ const MinimalButton = ({
 
 interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   maxLength?: number;
+  value:string;
   rootClassName?: string;
   onTextAreaChange: (value: string) => void;
   renderMoreActions?: () => JSX.Element;

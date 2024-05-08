@@ -1,3 +1,4 @@
+"use client"
 import React, { useCallback, useState } from "react";
 import Image from "next/image";
 
@@ -22,7 +23,7 @@ import { TbTrash } from "react-icons/tb";
  * used in image to image. masking and upscale for upload init image
  * @constructor
  */
-function UploadZone() {
+function UploadZone({ openDialog, setOpenDialog }: any) {
   const {
     common: { delete_label },
     page: { image: imageDictionary },
@@ -53,7 +54,7 @@ function UploadZone() {
       };
       reader.readAsDataURL(file);
     });
-  }, []);
+  }, [changeValue]);
 
   function sizeValidation(file: File) {
     if (file.size > 5000000) {
@@ -82,6 +83,7 @@ function UploadZone() {
         {...getRootProps()}
         className="flex h-32 w-full gap-2 rounded-xl border
          bg-background p-2 transition-all duration-300 hover:bg-hover "
+        onClick={() => setOpenDialog(!openDialog)}
       >
         {/*
             thumbnail of the uploaded image

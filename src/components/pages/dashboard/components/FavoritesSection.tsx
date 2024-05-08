@@ -1,8 +1,8 @@
 "use client";
-import { Stars } from "@/components/svg-icons";
 import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
+import { Stars } from "lucide-react";
 
 /**
  * Favorites section of the dashboard

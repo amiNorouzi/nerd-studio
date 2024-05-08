@@ -47,37 +47,37 @@ const items = [
         value: ELEMENT_PARAGRAPH,
         label: "Paragraph",
         description: "Paragraph",
-        icon: Icons.paragraph,
+        Icon: Icons.paragraph,
       },
       {
         value: ELEMENT_H1,
         label: "Heading 1",
         description: "Heading 1",
-        icon: Icons.h1,
+        Icon: Icons.h1,
       },
       {
         value: ELEMENT_H2,
         label: "Heading 2",
         description: "Heading 2",
-        icon: Icons.h2,
+        Icon: Icons.h2,
       },
       {
         value: ELEMENT_H3,
         label: "Heading 3",
         description: "Heading 3",
-        icon: Icons.h3,
+        Icon: Icons.h3,
       },
       {
         value: ELEMENT_BLOCKQUOTE,
         label: "Quote",
         description: "Quote (⌘+⇧+.)",
-        icon: Icons.blockquote,
+        Icon: Icons.blockquote,
       },
       {
         value: ELEMENT_TABLE,
         label: "Table",
         description: "Table",
-        icon: Icons.table,
+        Icon: Icons.table,
       },
       // {
       //   value: 'ul',
@@ -95,7 +95,7 @@ const items = [
         value: ELEMENT_HR,
         label: "Divider",
         description: "Divider (---)",
-        icon: Icons.hr,
+        Icon: Icons.hr,
       },
     ],
   },
@@ -106,19 +106,19 @@ const items = [
         value: ELEMENT_CODE_BLOCK,
         label: "Code",
         description: "Code (```)",
-        icon: Icons.codeblock,
+        Icon: Icons.codeblock,
       },
       {
         value: ELEMENT_IMAGE,
         label: "Image",
         description: "Image",
-        icon: Icons.image,
+        Icon: Icons.image,
       },
       {
         value: ELEMENT_MEDIA_EMBED,
         label: "Embed",
         description: "Embed",
-        icon: Icons.embed,
+        Icon: Icons.embed,
       },
       // {
       //   value: ELEMENT_EXCALIDRAW,
@@ -135,7 +135,7 @@ const items = [
         value: ELEMENT_LINK,
         label: "Link",
         description: "Link",
-        icon: Icons.link,
+        Icon: Icons.link,
       },
     ],
   },
@@ -167,7 +167,7 @@ export function InsertDropdownMenu(props: DropdownMenuProps) {
 
             <DropdownMenuLabel>{label}</DropdownMenuLabel>
             {nestedItems.map(
-              ({ value: type, label: itemLabel, icon: Icon }) => (
+              ({ value: type, label: itemLabel, Icon }) => (
                 <DropdownMenuItem
                   key={type}
                   className="min-w-[180px]"

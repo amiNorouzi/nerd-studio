@@ -22,7 +22,6 @@ import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheck
 import { cn } from "@/lib/utils";
 import { MinimalButton, Show } from "@/components/shared";
 import { PiDiscordLogo } from "react-icons/pi";
-import { UserBalanceIcon } from "@/components/svg-icons";
 import { ShareIcon } from "lucide-react";
 
 /**
@@ -141,7 +140,7 @@ export function UserMenu() {
             <Show>
               <Show.When isTrue={hasPlan}>
                 <div className="row gap-1 text-xs text-muted-foreground">
-                  <UserBalanceIcon className="h-4 w-4 fill-muted-foreground" />
+                  {/*<UserBalanceIcon className="h-4 w-4 fill-muted-foreground" />*/}
                   67.66
                 </div>
               </Show.When>

@@ -6,7 +6,7 @@ import { SettingsDialog } from "@/components/shared";
 
 import { useGetDictionary } from "@/hooks";
 import { useSession } from "next-auth/react";
-import { useUpdateWorkSpace } from "../hooks/useUpdateWorkSpace";
+import { useUpdateWorkSpaceName } from "../hooks/useUpdateWorkSpaceName";
 import useErrorToast from "@/hooks/useErrorToast";
 
 /**
@@ -17,11 +17,19 @@ function ChangeWorkspaceNameDialog() {
   const {
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
-  const { data:session } = useSession();
-  const [workspaceName, setWorkspaceName] = useState(session?.user.workspace.name || "");
-  const {showError} = useErrorToast();
-  const { mutate: updateWorkspace, isPending, isSuccess, isError, error, data:workspace } = useUpdateWorkSpace();
-
+  const { data: session } = useSession();
+  const [workspaceName, setWorkspaceName] = useState(
+    session?.user.workspace.name || "",
+  );
+  const { showError } = useErrorToast();
+  const {
+    mutate: updateWorkspace,
+    isPending,
+    isSuccess,
+    isError,
+    error,
+    data: workspace,
+  } = useUpdateWorkSpaceName();
 
   // form submit handler
   const myWorkspace = session?.user.workspace;
@@ -30,15 +38,17 @@ function ChangeWorkspaceNameDialog() {
     // @ts-ignore
     const newWorkspaceName = e.target[0].value;
 
-    if(myWorkspace?.id)
-      updateWorkspace({ workspace_id: myWorkspace?.id, name: newWorkspaceName });
-    else 
-      showError("No Workspace Found");
+    if (myWorkspace?.id)
+      updateWorkspace({
+        workspace_id: myWorkspace?.id,
+        name: newWorkspaceName,
+      });
+    else showError("No Workspace Found");
   };
 
-  if(isError) {
+  if (isError) {
     console.error(error);
-    showError(error.message)
+    showError(error.message);
   }
 
   return (
@@ -50,7 +60,7 @@ function ChangeWorkspaceNameDialog() {
       <CustomInput
         value={workspaceName}
         // value={formValues.oldPass}
-        onChange={(e) => setWorkspaceName(e.target.value)}
+        onChange={e => setWorkspaceName(e.target.value)}
       />
     </SettingsDialog>
   );

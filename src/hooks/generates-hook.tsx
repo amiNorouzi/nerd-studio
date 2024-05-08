@@ -1,3 +1,4 @@
+"use client"
 import { useHistoryUpdate } from "@/services/history";
 import { useEffect, useState } from "react";
 import { useHistoryStore } from "@/stores/zustand/history-store";
@@ -6,16 +7,11 @@ import { GrammarGenerateParams } from "@/services/grammar";
 import { GenerateTranslateParams } from "@/services/translate";
 
 interface Props {
-  generateFn: UseMutateFunction<
-    any,
-    Error,
-    GrammarGenerateParams | GenerateTranslateParams,
-    unknown
-  >;
+
   message: string;
 }
 
-export const useHandleGeneratedData = ({ generateFn, message }: Props) => {
+export const useHandleGeneratedData = ({  message }: Props) => {
   const { mutate: updateHistory } = useHistoryUpdate();
   const [text, setText] = useState("");
   const [textInput, setTextInput] = useState("");
@@ -46,7 +42,7 @@ export const useHandleGeneratedData = ({ generateFn, message }: Props) => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [updateText]);
+  }, [selectedHistoryItem, updateHistory, updateText]);
 
   return {
     textInput,

@@ -38,7 +38,7 @@ export default function Steps() {
         {steps.map(item => (
           <div
             key={item.id}
-            className="z-30 flex  flex-col gap-y-4 rounded-[21px]  bg-[#F8F8F8] p-4 xl:max-w-[444px] xl:gap-x-0 xl:px-9 xl:py-6 min-[1920px]:p-9"
+            className="z-30 flex  flex-col gap-y-4 rounded-[21px]  bg-muted-dark p-4 xl:max-w-[444px] xl:gap-x-0 xl:px-9 xl:py-6 min-[1920px]:p-9"
           >
             {/*Card Steps*/}
             <div className="relative flex   flex-row gap-x-3">

@@ -134,3 +134,41 @@ export function useGeneratePic() {
     },
   });
 }
+export function useGeneratePicToPic() {
+  return useMutation({
+    async mutationFn({
+      sizePic,
+      model,
+      prompt,
+      pic,
+    }: {
+      model: string;
+      sizePic: string;
+      prompt: string;
+      pic: File;
+    }) {
+      try {
+        const response = await axiosClient.post<any>(
+          "/images/open_ai_generate_image_to_image/",
+          {
+            image: pic,
+            model: model,
+            n: 1,
+            prompt: prompt,
+            response_format: "url",
+            size: "1024x1024",
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        console.log("res:", response.data);
+        return response.data;
+      } catch (err) {
+        console.log("error happened in the upload", err);
+      }
+    },
+  });
+}

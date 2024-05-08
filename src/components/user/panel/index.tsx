@@ -46,7 +46,7 @@ export function UserPanel() {
     if (!isOpen) {
       setActiveMenu("account");
     }
-  }, [isOpen]);
+  }, [isOpen, setActiveMenu]);
 
   //get title of active panel
   const getActiveMenuTitle = () => {
@@ -85,7 +85,7 @@ export function UserPanel() {
                   item.i18Key as keyof typeof userPanelDictionary
                 ]
               }
-              icon={item.icon}
+              icon={item.Icon}
               key={item.id}
               onClick={() => setActiveMenu(item.key)}
             />
@@ -105,7 +105,7 @@ export function UserPanel() {
                   item.i18Key as keyof typeof userPanelDictionary
                 ]
               }
-              icon={item.icon}
+              icon={item.Icon}
               key={item.id}
               onClick={() => setActiveMenu(item.key)}
             />

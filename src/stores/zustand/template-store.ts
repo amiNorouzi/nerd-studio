@@ -15,7 +15,7 @@ const initialState = {
     name: "",
     description: "",
     category: "",
-    icon: "",
+    Icon: "",
     template: "",
   },
   currentTemplateInputs: {},

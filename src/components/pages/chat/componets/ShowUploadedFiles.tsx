@@ -1,6 +1,7 @@
 import React, { MouseEventHandler } from "react";
 import { TooltipForUploadedFile } from "@/components/shared";
 import { useStateCapturePicStore } from "@/stores/zustand/chat-pdf-file";
+import Image from "next/image";
 
 interface IProps {
   files: any[];
@@ -28,11 +29,14 @@ export function ShowUploadedFiles({
       {files.length > 0 && (
         <div className="max-w-1/2 flex flex-wrap gap-1 lg:p-2">
           {files.map((file, index) => (
-            <img
+            <Image
               className="h-10 w-10 rounded-xl"
               src={file}
               onClick={() => console.log()}
               key={index}
+              alt=""
+              width={24}
+              height={24}
             />
           ))}
         </div>

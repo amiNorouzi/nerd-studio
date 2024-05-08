@@ -4,7 +4,6 @@ import { IoIosSend } from "react-icons/io";
 import { LuCopy, LuCopyCheck } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
-import { GiftSvg } from "@/components/svg-icons";
 import ChangeReferralCodeDialog from "./ChangeReferralCodeDialog";
 import { InputWithButton, MultiValueInput } from "@/components/forms";
 import {
@@ -17,13 +16,14 @@ import {
 import { useCopyTextInClipBoard, useGetDictionary } from "@/hooks";
 
 import { SocialMedias } from "@/components/shared";
+import { TbGift } from "react-icons/tb";
 
 /**
  * component for referral and invite other user
  * used in user-panel dialog
  * @constructor
  */
-function Referral() {
+export default function Referral() {
   const userPanelDictionary = useGetDictionary().components.user.panel;
   //for copy referral code and link
   const [handleCopy, isCopied, copiedVal] = useCopyTextInClipBoard();
@@ -37,7 +37,7 @@ function Referral() {
       <div className="col overflow-hidden rounded-md border bg-popover">
         {/*hero*/}
         <div className="row bg-gradiant mb-2 gap-4 p-4">
-          <GiftSvg />
+          <TbGift />
           <div className="col gap-0.5">
             <h4 className="mb-1 text-base font-semibold">
               {userPanelDictionary.invite_user_header_title}
@@ -133,5 +133,3 @@ function Referral() {
     </div>
   );
 }
-
-export default Referral;

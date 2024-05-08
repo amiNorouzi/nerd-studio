@@ -5,7 +5,7 @@ import {
   spellCorrection,
   splitTextFunction,
 } from "@/lib/grammar-helpers";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import EditableDiv from "./EditableDiv";
 import MistakeMarker from "./MistakeMarker";
 import { useGetDictionary, useSpeechToText } from "@/hooks";
@@ -68,7 +68,7 @@ function GrammarInputDiv({
       divRef.current.innerHTML = extractedText;
       onTextChange(extractedText);
     }
-  }, [extractedText]);
+  }, [extractedText, onTextChange]);
 
   // handle cleaning the div by clicking the trash icon
   useEffect(() => {
@@ -87,6 +87,34 @@ function GrammarInputDiv({
     const splicedText = splitTextFunction(target.innerText);
     setInputText(splicedText);
   };
+
+  //converted pasted content to text only and insert it to the div
+  const onPasteHandler = (e:React.ClipboardEvent<HTMLDivElement>)=>{
+    e.preventDefault(); // Prevent default pasting behavior
+
+    // Get the pasted text from the clipboard
+    const pastedText = e.clipboardData.getData('text');
+
+    // Get the current selection range
+    const selection = window.getSelection();
+    if(selection){
+
+      const range = selection.getRangeAt(0);
+
+      // Insert the pasted text at the current cursor position
+      range.deleteContents(); // Remove any existing selected content
+      range.insertNode(document.createTextNode(pastedText));
+
+      // Move the cursor to the end of the inserted text
+      range.setStartAfter(range.endContainer);
+      range.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(range);
+      divRef && divRef.current && onTextChange(divRef.current.innerText)
+    }else return
+
+
+  }
 
   // Calculate the mouse position relative to the div's position
 
@@ -230,6 +258,7 @@ function GrammarInputDiv({
           handleInput={handleInput}
           handleMouseMove={handleMouseMove}
           handleScroll={handleScroll}
+          pasteHandler={onPasteHandler}
         />
         {isRecording ? (
           <button

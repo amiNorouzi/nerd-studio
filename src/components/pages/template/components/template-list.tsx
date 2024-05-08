@@ -70,7 +70,7 @@ export function TemplateList({
         );
       setSelectedTabData(filteredPrompts);
     }
-  }, [searchText, selectedTab]);
+  }, [isAllTab, searchText, selectedTab, templates]);
 
   return (
     <div

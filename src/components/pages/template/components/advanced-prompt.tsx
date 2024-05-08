@@ -7,7 +7,7 @@ import {
   TbChevronsRight,
   TbChevronsLeft,
   TbSearch,
-} from "@/components/svg-icons";
+} from "react-icons/tb";
 import RenderIf from "@/components/shared/RenderIf";
 import { AdvancedCategory } from "./advanced-category";
 import { AdvancedContentTopic } from "./advanced-content-topic";
@@ -228,7 +228,7 @@ export function AdvancedHeader() {
         {" "}
         Advance Search
       </div>
-      <div className="mx-auto text-[16px] text-[#747474]">
+      <div className="mx-auto text-[16px] sub-title-color">
         {" "}
         extra information about advanced setting can be written here
       </div>

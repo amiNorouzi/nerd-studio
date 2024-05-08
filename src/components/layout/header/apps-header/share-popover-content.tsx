@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 
 import { SocialMedias } from "@/components/shared/SocialMedias";

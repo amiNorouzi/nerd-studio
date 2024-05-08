@@ -63,7 +63,7 @@ export function MultiValueInput({
   // trigger onValuesChange when values array change
   useEffect(() => {
     onValuesChange(values);
-  }, [values]);
+  }, [onValuesChange, values]);
 
   // handle keydown events for input
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {

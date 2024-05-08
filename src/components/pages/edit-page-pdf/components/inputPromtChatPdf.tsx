@@ -69,7 +69,7 @@ export function InputPromtChatPdf() {
   const [file, setFile] = useState<File[]>([]);
   const onClickCap = useStateCaptureStore.use.onClick();
   return (
-    <div className="absolute bottom-16 z-30 flex w-full flex-col items-start gap-4 px-3 ">
+    <div className="absolute bottom-0 h-[20vh] z-30 flex w-full justify-center flex-col items-start  bg-[#F4F7FE] gap-4 p-3 ">
       <div onClick={onClickCap} className={" -rotate-90 "}>
         <AiOutlineScissor className="h-5 w-5 cursor-pointer text-[#B9BAC0]" />
       </div>

@@ -34,31 +34,31 @@ const items = [
     value: ELEMENT_PARAGRAPH,
     label: "Paragraph",
     description: "Paragraph",
-    icon: Icons.paragraph,
+    Icon: Icons.paragraph,
   },
   {
     value: ELEMENT_H1,
     label: "Heading 1",
     description: "Heading 1",
-    icon: Icons.h1,
+    Icon: Icons.h1,
   },
   {
     value: ELEMENT_H2,
     label: "Heading 2",
     description: "Heading 2",
-    icon: Icons.h2,
+    Icon: Icons.h2,
   },
   {
     value: ELEMENT_H3,
     label: "Heading 3",
     description: "Heading 3",
-    icon: Icons.h3,
+    Icon: Icons.h3,
   },
   {
     value: ELEMENT_BLOCKQUOTE,
     label: "Quote",
     description: "Quote (⌘+⇧+.)",
-    icon: Icons.blockquote,
+    Icon: Icons.blockquote,
   },
   // {
   //   value: 'ul',
@@ -98,7 +98,7 @@ export function TurnIntoDropdownMenu(props: DropdownMenuProps) {
   const openState = useOpenState();
 
   const selectedItem = items.find(item => item.value === value) ?? defaultItem;
-  const { icon: SelectedItemIcon, label: selectedItemLabel } = selectedItem;
+  const { Icon: SelectedItemIcon, label: selectedItemLabel } = selectedItem;
 
   return (
     <DropdownMenu modal={false} {...openState} {...props}>
@@ -140,7 +140,7 @@ export function TurnIntoDropdownMenu(props: DropdownMenuProps) {
             focusEditor(editor);
           }}
         >
-          {items.map(({ value: itemValue, label, icon: Icon }) => (
+          {items.map(({ value: itemValue, label, Icon }) => (
             <DropdownMenuRadioItem
               key={itemValue}
               value={itemValue}
