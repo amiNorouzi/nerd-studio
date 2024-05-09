@@ -25,7 +25,7 @@ export default async function Landing({ params: { lang } }: LangParams) {
         <Steps />
         <Features />
         <Services services={data.services} />
-        <PromptsSection />
+        <PromptsSection prompts={data.apps} />
         <CustomPrompt />
         <Mobile />
         <MapWorld />
