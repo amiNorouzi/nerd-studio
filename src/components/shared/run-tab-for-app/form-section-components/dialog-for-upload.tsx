@@ -94,7 +94,7 @@ export function DialogForUpload({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="flex max-h-[406px] w-[450px]    max-w-xl flex-col  justify-start gap-[8px] p-0  ">
+      <DialogContent className="flex max-h-[406px] w-[90%]  lg:w-[450px]    max-w-xl flex-col  justify-start gap-[8px] p-0  ">
         <DialogHeader className="m-[12px] mx-[16px] ">
           <DialogTitle className="flex gap-2 text-lg font-medium">
             {form_section.form_upload}
