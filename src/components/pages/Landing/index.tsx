@@ -17,9 +17,8 @@ import { getLandingData } from "@/services/landing";
 
 export default async function Landing({ params: { lang } }: LangParams) {
   const data = await getLandingData();
-  console.log("------------------data received is----------------", data);
   return (
-    <div lang={lang} className="mx-auto max-w-[1920px] overflow-x-hidden">
+    <div lang={lang} className="mx-auto h-full w-full overflow-x-hidden">
       <Navbar />
       <main>
         <Hero />
