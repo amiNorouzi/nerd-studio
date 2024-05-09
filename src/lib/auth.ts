@@ -36,6 +36,9 @@ export const authConfig = {
             email: credentials.email,
             password: credentials.password,
           });
+
+          // what if the above request throws errors like 401?! (this one was not handled now)
+
           const user = jwtDecode(data.access_token) as User;
 
           // console.log("workspace: ", data?.workspace);

@@ -1,8 +1,9 @@
 import axiosClient from "@/services/axios-client";
 import { User } from "@/services/types";
 import { jwtDecode } from "jwt-decode";
+import { JWT } from "next-auth/jwt";
 
-export async function refreshAccessToken(token:any) {
+export async function refreshAccessToken(token:any):Promise<JWT> {
   console.log("Refreshing access token");
   try {
     const res = await axiosClient.post("/auth/refresh/", { refresh_token: token.accessToken });
@@ -23,8 +24,9 @@ export async function refreshAccessToken(token:any) {
       accessToken: access_token,
       accessTokenExpires: (jwtDecode(data.refresh_token) as User).exp,
       refreshToken: refresh_token ?? token.refreshToken, // Fall back to old refresh token
-    };
+    } as JWT;
   } catch (error) {
+    console.log("Can not refresh accessToken.");
     console.error(error);
 
     return {
