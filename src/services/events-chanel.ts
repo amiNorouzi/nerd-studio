@@ -10,7 +10,7 @@ type EventChanelParams = {
 
 export default function useEventChanel({ eventName }: EventChanelParams) {
   const [message, setMessage] = useState("");
-  const eventSource = useRef<EventSource | null>(null);
+  // const eventSource = useRef<EventSource | null>(null);
   const { data: session } = useSession();
   const uuid = session?.user.sub;
 
@@ -27,7 +27,7 @@ export default function useEventChanel({ eventName }: EventChanelParams) {
 
   useEffect(() => {
     if (uuid) {
-      fetchEventSource(`${EventListenerBaseApi}/${uuid}/`, {
+      fetchEventSource('http://5.78.55.161:8000/v1/api/ai_writers/test/', {
         method: "GET",
         onmessage(msg) {
           const message = JSON.parse(msg.data).content;
@@ -40,7 +40,7 @@ export default function useEventChanel({ eventName }: EventChanelParams) {
     // return () => {
     //   cancelStream();
     // };
-  }, [cancelStream, eventName, uuid]);
+  }, []);
 
   return {
     message,
