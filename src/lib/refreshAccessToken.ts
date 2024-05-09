@@ -3,7 +3,7 @@ import { User } from "@/services/types";
 import { jwtDecode } from "jwt-decode";
 import { JWT } from "next-auth/jwt";
 
-export async function refreshAccessToken(token:any):Promise<JWT> {
+export async function refreshAccessToken(token:JWT):Promise<JWT> {
   console.log("Refreshing access token");
   try {
     const res = await axiosClient.post("/auth/refresh/", { refresh_token: token.accessToken });
