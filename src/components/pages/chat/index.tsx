@@ -12,12 +12,12 @@ import {
   HistoryItems,
   Options,
   Title,
-} from "./componets";
+} from "./components";
 import { HistoryBox, SetSearchParamProvider } from "@/components/shared";
-import ChatHero from "./componets/ChatHero";
+import ChatHero from "./components/ChatHero";
 import type { Locale } from "../../../../i18n.config";
 import { useChatStore } from "@/stores/zustand/chat-store";
-import ChatArea from "./componets/ChatArea";
+import ChatArea from "./components/ChatArea";
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import useErrorToast from "@/hooks/useErrorToast";
 import useStream from "@/services/useStreamingApi";
@@ -105,7 +105,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     error: continueError,
     data: continueData,
     resetMessage: resetContinueMessage,
-    conversationHistory: continueconversationHistory,
+    conversationHistory: continueConversationHistory,
   } = useStream<StreamData>({
     endpoint: `/chat_bot/continue_conversation/?conversation_id=${data?.conversation_id}&chat_id=${messagesHistory?.chats[messagesHistory.chats.length - 1].id}`,
     eventName: "chat_bot",
@@ -240,8 +240,8 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           ) : (
             <Options>
               {/*these children are for Options component*/}
-              <Title lang={lang} />
-              <ChatHero lang={lang} />
+              <Title />
+              <ChatHero />
               <ChatSettingAndUpload />
             </Options>
           )}
@@ -251,19 +251,19 @@ export default function ChatPage({ lang }: { lang: Locale }) {
             isChatListValid={isChatListValid}
             setChatList={setChatList}
             isPending={isPending}
-            cancelCoversation={cancelConversation}
-            generateCoversation={generateConversation}
+            cancelConversation={cancelConversation}
+            generateConversation={generateConversation}
             continueIsPending={continueIsPending}
             continueMessage={continueMessage}
           />
         </div>
 
-        <Highlight />
+        {/* <Highlight /> */}
 
         {/*history box open when history button in header clicked (value of history button save in zustand)*/}
-        <HistoryBox>
+        {/* <HistoryBox>
           <HistoryItems />
-        </HistoryBox>
+        </HistoryBox> */}
       </div>
     </SetSearchParamProvider>
   );

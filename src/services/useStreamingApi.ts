@@ -77,7 +77,7 @@ export default function useStream<T>({
         },
       });
     },
-    [mutate, uuid],
+    [mutate],
   );
 
   return {

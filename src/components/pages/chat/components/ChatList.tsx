@@ -5,13 +5,13 @@ import {
   AssistMessageCard,
   EventType,
   IChatListProps,
-} from "@/components/pages/chat/componets/AssistMessageCard";
+} from "@/components/pages/chat/components/AssistMessageCard";
 import { MouseEvent } from "react";
 
 /**
  * List of chat messages used in chat page
  * contains user and chatbot messages
- * give list of conversition of user and bot
+ * give list of conversation of user and bot
  * @constructor
  */
 interface Props {
@@ -37,9 +37,9 @@ export function ChatList({ messages, onClick }: Props) {
 
 
   return (
-    <div className="col w-full max-w-[760px] flex-grow gap-6 w-full h-96 w-96">
+    <div className="col w-full max-w-[760px] flex-grow gap-6 h-96">
       {messages.map(item => {
-        // TODO: set the defult pic for the user
+        // TODO: set the default pic for the user
         const image = session?.user?.image ?? "";
         const name = session?.user?.name ?? "";
 
@@ -59,7 +59,7 @@ export function ChatList({ messages, onClick }: Props) {
                 onClick={(e, data) => onClick && onClick(e, data)}
               />
             )}
-            {(item.role === "assistance" ||item.role === "assistant")
+            {(item.role === "assistance" || item.role === "assistant")
               && (
                 <>
                   <AssistMessageCard

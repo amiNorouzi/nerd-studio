@@ -7,8 +7,8 @@ import { TbBookmarks, TbSend, TbUpload } from "react-icons/tb";
 import { Button } from "@/components/ui/button";
 
 import { MyTooltip } from "@/components/shared/myTooltip";
-import { PromptLibraryDialog } from "../../chat/componets/PromptLibraryDialog";
-import { PromptInputTextBox } from "../../chat/componets/PromptInputTextBox";
+import { PromptLibraryDialog } from "../../chat/components/PromptLibraryDialog";
+import { PromptInputTextBox } from "../../chat/components/PromptInputTextBox";
 
 import useErrorToast from "@/hooks/useErrorToast";
 import { useGetDictionary } from "@/hooks";
