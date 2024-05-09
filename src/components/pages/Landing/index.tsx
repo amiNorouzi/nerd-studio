@@ -13,25 +13,14 @@ import Comments from "@/components/pages/Landing/Components/comments";
 import Services from "@/components/pages/Landing/Components/Services";
 import MapWorld from "@/components/pages/Landing/Components/MapWorld";
 import type { LangParams } from "@/services/types";
-import { Landing, useLandingData } from "@/services/landing";
-import axiosClient from "@/services/axios-client";
+import { getLandingData} from "@/services/landing";
 
-async function getData(){
-  try {
-    const { data } = await axiosClient.get<Landing>("/landing/get_landing_data/");
-    return data;
-  } catch (error) {
-    // Handle the error here
-    console.error("Error fetching data:", error);
-    // You can choose to throw the error again to propagate it
-    throw error;
-  }
-}
+
 
 
 
 export default async function Landing({ params: { lang } }: LangParams) {
-  const data = await getData();
+  const data = await getLandingData()
   console.log('------------------data received is----------------',data);
   return (
     <div lang={lang} className="mx-auto max-w-[1920px] overflow-x-hidden">
