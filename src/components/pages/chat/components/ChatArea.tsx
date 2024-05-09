@@ -38,16 +38,16 @@ export default memo(function ChatArea(
       isChatListValid, 
       setChatList, 
       isPending,
-      cancelCoversation,
-      generateCoversation,
+      cancelConversation: cancelConversation,
+      generateConversation: generateConversation,
       continueIsPending,
       continueMessage
     } : {
       isChatListValid: "chatList" | "options";
       setChatList: React.Dispatch<React.SetStateAction<boolean>>;
       isPending: boolean;
-      cancelCoversation: ()=>void;
-      generateCoversation:(e: FormEvent<HTMLFormElement>) => Promise<any>;
+      cancelConversation: ()=>void;
+      generateConversation:(e: FormEvent<HTMLFormElement>) => Promise<any>;
       continueIsPending: boolean;
       continueMessage:string;
     }) {
@@ -63,8 +63,8 @@ export default memo(function ChatArea(
       {/*prompt input (text box)*/}
       <PromptInput 
         isPending={isPending}
-        cancelCoversation={cancelCoversation}
-        generateCoversation={generateCoversation}
+        cancelConversation={cancelConversation}
+        generateConversation={generateConversation}
       />
     </div>
   </div>
