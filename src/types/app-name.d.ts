@@ -1,5 +1,6 @@
 type AppName =
   | "translate"
+  | "template"
   | "rewrite"
   | "chat"
   | "grammar"
