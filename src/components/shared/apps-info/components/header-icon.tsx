@@ -7,7 +7,7 @@ export function HeaderIcon() {
   const pathName = usePathname().split("/").pop() ?? "";
 
   const Icon =
-    apps.find(item => item.route.includes(pathName))?.icon ?? apps[1].icon;
+    apps.find(item => item.route.includes(pathName))?.Icon ?? apps[1].Icon;
 
   const appsIcon =
     typeof Icon === "string" ? (

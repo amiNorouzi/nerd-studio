@@ -1,10 +1,9 @@
 "use client";
 import React, { useRef } from "react";
 import { useWavesurfer } from "@wavesurfer/react";
-import Timeline from "wavesurfer.js/dist/plugins/timeline.esm.js";
 
 import { Button } from "@/components/ui/button";
-import { Pause, Play } from "@/components/svg-icons";
+import { TbAdjustmentsPause, TbPlayBasketball } from "react-icons/tb";
 
 interface IProps {
   audioUrl?: string;
@@ -45,9 +44,9 @@ export function AudioPlayer({
         onClick={() => wavesurfer?.playPause()}
       >
         {isPlaying ? (
-          <Pause className="h-4 w-4 fill-primary" />
+          <TbAdjustmentsPause className="h-4 w-4 fill-primary" />
         ) : (
-          <Play className="h-4 w-4 fill-primary" />
+          <TbPlayBasketball className="h-4 w-4 fill-primary" />
         )}
       </Button>
       <div ref={waveFormRef} className="w-full" />

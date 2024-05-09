@@ -1,16 +1,14 @@
 import {
-  AppleBrand,
-  ChromeBrand,
-  DiscordBrand,
-  FireFoxBrand,
-} from "@/components/svg-icons/brandsHero";
-import {
+  TbBrandApple,
+  TbBrandChrome,
+  TbBrandDiscord,
+  TbBrandFirefox,
   TbCamera,
+  TbCode,
   TbLanguage,
   TbMessages,
-  TbWriting,
   TbMusic,
-  TbCode,
+  TbWriting,
 } from "react-icons/tb";
 import { IconType } from "react-icons";
 
@@ -61,49 +59,49 @@ export const steps = [
 
 export const starsArray = [1, 2, 3, 4, 5];
 
-export const brandsArray = [
-  AppleBrand,
-  ChromeBrand,
-  DiscordBrand,
-  FireFoxBrand,
+export const brandsArray: IconType[] = [
+  TbBrandApple,
+  TbBrandChrome,
+  TbBrandDiscord,
+  TbBrandFirefox,
 ];
 
 interface BtnFeature {
   name: string;
   id: string;
-  icon: IconType;
+  Icon: IconType;
 }
 
 export const btnFeature: BtnFeature[] = [
   {
     name: "Rewrite",
     id: "21asr;g",
-    icon: TbWriting,
+    Icon: TbWriting,
   },
   {
     name: "Translate",
     id: "494srg",
-    icon: TbLanguage,
+    Icon: TbLanguage,
   },
   {
     name: "Chat",
     id: "156as;dv",
-    icon: TbMessages,
+    Icon: TbMessages,
   },
   {
     name: "Image",
     id: "sv;av1697",
-    icon: TbCamera,
+    Icon: TbCamera,
   },
   {
     name: "Audio",
     id: "41sdv;b56",
-    icon: TbMusic,
+    Icon: TbMusic,
   },
   {
     name: "Code",
     id: "89cd;kb56",
-    icon: TbCode,
+    Icon: TbCode,
   },
 ];
 

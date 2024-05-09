@@ -1,8 +1,8 @@
 //TODO:fixed here
 import { Button } from "@/components/ui/button";
 import { brandsArray, starsArray } from "@/constants/Landing";
-import { Star } from "@/components/svg-icons/Star";
 import React from "react";
+import { Star } from "lucide-react";
 
 const DownloadApp = () => {
   return (

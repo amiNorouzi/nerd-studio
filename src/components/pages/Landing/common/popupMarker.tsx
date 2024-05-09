@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Star } from "@/components/svg-icons/Star"; // Assuming you're using Next.js for image optimization
+import { Star } from "lucide-react";
 
 const PopupMarker = ({ left, top }: { left?: number; top?: number }) => {
   return (

@@ -25,7 +25,7 @@ export default function Features() {
               className=" h-[80px] w-full  gap-x-2 bg-muted-dark px-3 py-[25px] text-sm  font-medium leading-[18px] text-muted-foreground xl:text-base"
               key={name.id}
             >
-              <name.icon width={36} height={36} />
+              <name.Icon width={36} height={36} />
               {name.name}
             </Button>
           ))}

@@ -8,7 +8,8 @@ import { cn } from "@/lib/utils";
 import useHighlightStore from "@/stores/zustand/highlight-store";
 import HighlightContent from "@/components/shared/Highlight/HighlightContent";
 
-interface IProps extends React.ComponentPropsWithoutRef<"div"> {}
+interface IProps
+  extends Omit<React.ComponentPropsWithoutRef<"div">, "children"> {}
 
 export default function Highlight({ className, ...props }: IProps) {
   const isOpenHighlightBox = useHighlightStore.use.isHighlightOpen();

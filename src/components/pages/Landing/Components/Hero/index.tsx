@@ -2,7 +2,7 @@ import React from "react";
 import Absolute from "@/components/pages/Landing/common/Absolute";
 import { Button } from "@/components/ui/button";
 import { brandsArray, rewards, starsArray } from "@/constants/Landing";
-import { Star } from "@/components/svg-icons/Star";
+import { Star } from "lucide-react";
 
 export default function Hero() {
 

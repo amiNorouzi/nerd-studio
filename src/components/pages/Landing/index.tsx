@@ -1,4 +1,4 @@
-'use server'
+"use server";
 import Hero from "@/components/pages/Landing/Components/Hero";
 import Steps from "@/components/pages/Landing/Components/Steps";
 import Features from "@/components/pages/Landing/Components/Features";
@@ -13,15 +13,11 @@ import Comments from "@/components/pages/Landing/Components/comments";
 import Services from "@/components/pages/Landing/Components/Services";
 import MapWorld from "@/components/pages/Landing/Components/MapWorld";
 import type { LangParams } from "@/services/types";
-import { getLandingData} from "@/services/landing";
-
-
-
-
+import { getLandingData } from "@/services/landing";
 
 export default async function Landing({ params: { lang } }: LangParams) {
-  const data = await getLandingData()
-  console.log('------------------data received is----------------',data);
+  const data = await getLandingData();
+  console.log("------------------data received is----------------", data);
   return (
     <div lang={lang} className="mx-auto max-w-[1920px] overflow-x-hidden">
       <Navbar />
@@ -41,4 +37,4 @@ export default async function Landing({ params: { lang } }: LangParams) {
       </main>
     </div>
   );
-};
+}

@@ -54,7 +54,7 @@ const PromptsSection = () => {
             className=" h-[80px] w-full  gap-x-2 bg-muted-dark px-3 py-1.5 text-sm font-medium leading-[18px]  text-muted-foreground xl:px-3 xl:py-[25px] xl:text-base"
             key={name.id}
           >
-            <name.icon width={36} height={36} />
+            <name.Icon width={36} height={36} />
             {name.name}
           </Button>
         ))}

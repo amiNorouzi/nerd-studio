@@ -17,15 +17,15 @@ import { useEditorStore } from "@/stores/zustand/editor-slice";
 const items = [
   {
     value: "left",
-    icon: Icons.alignLeft,
+    Icon: Icons.alignLeft,
   },
   {
     value: "center",
-    icon: Icons.alignCenter,
+    Icon: Icons.alignCenter,
   },
   {
     value: "right",
-    icon: Icons.alignRight,
+    Icon: Icons.alignRight,
   },
   // {
   //   value: "justify",
@@ -39,7 +39,7 @@ export default function AlignToolbarGroup({
 }: DropdownMenuProps) {
   return (
     <ToolbarGroup>
-      {items.map(({ value: itemValue, icon: Icon }) => (
+      {items.map(({ value: itemValue, Icon }) => (
         <ToolbarButton key={itemValue}>
           <Icon className={iconVariants({ variant: "toolbar" })} />
         </ToolbarButton>
