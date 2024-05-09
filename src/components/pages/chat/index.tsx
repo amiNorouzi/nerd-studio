@@ -240,8 +240,8 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           ) : (
             <Options>
               {/*these children are for Options component*/}
-              <Title />
-              <ChatHero />
+              <Title lang={lang} />
+              <ChatHero lang={lang} />
               <ChatSettingAndUpload />
             </Options>
           )}
