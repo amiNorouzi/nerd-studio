@@ -1,10 +1,18 @@
-import { DashboardHeroIcons } from "@/components/svg-icons";
+import { LuFileBarChart2 } from "react-icons/lu";
+import {
+  TbCamera,
+  TbCode,
+  TbMicrophone,
+  TbMusic,
+  TbWriting,
+} from "react-icons/tb";
 
 export const docs = [
   {
     id: "1",
-    icon: DashboardHeroIcons.Dos,
+    Icon: LuFileBarChart2,
     iconBackground: "#FFF2E9",
+    color:'#FF6A00',
     titleKey: "documents_title",
     subtitleKey: "documents_subtitle",
     unitKey: "contents",
@@ -12,8 +20,9 @@ export const docs = [
   },
   {
     id: "2",
-    icon: DashboardHeroIcons.Words,
+    Icon: TbWriting,
     iconBackground: "#F3F0FF",
+    color:'#551FFF',
     titleKey: "words_title",
     subtitleKey: "words_subtitle",
     unitKey: "words",
@@ -21,8 +30,9 @@ export const docs = [
   },
   {
     id: "3",
-    icon: DashboardHeroIcons.Images,
+    Icon: TbCamera,
     iconBackground: "#EFF9FE",
+    color:'#00B7FE',
     titleKey: "images_title",
     subtitleKey: "images_subtitle",
     unitKey: "images",
@@ -30,8 +40,9 @@ export const docs = [
   },
   {
     id: "4",
-    icon: DashboardHeroIcons.Codes,
+    Icon: TbCode,
     iconBackground: "#FFF2F5",
+    color:'#FD2254',
     titleKey: "codes_title",
     subtitleKey: "codes_subtitle",
     unitKey: "codes",
@@ -39,8 +50,9 @@ export const docs = [
   },
   {
     id: "5",
-    icon: DashboardHeroIcons.Voice,
+    Icon: TbMicrophone,
     iconBackground: "#F4FFE9",
+    color:'#04C900',
     titleKey: "voiceover_title",
     subtitleKey: "voiceover_subtitle",
     unitKey: "tasks",
@@ -48,8 +60,9 @@ export const docs = [
   },
   {
     id: "6",
-    icon: DashboardHeroIcons.Audio,
+    Icon: TbMusic,
     iconBackground: "#F2EEFD",
+    color:'#D122FD',
     titleKey: "audio_title",
     subtitleKey: "audio_subtitle",
     unitKey: "audio_files",

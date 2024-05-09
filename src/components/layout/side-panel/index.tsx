@@ -160,7 +160,7 @@ export function SidePanel() {
                 key={app.id}
                 title={app.title}
                 to={app.route}
-                icon={app.icon}
+                icon={app.Icon}
               />
             ))}
 

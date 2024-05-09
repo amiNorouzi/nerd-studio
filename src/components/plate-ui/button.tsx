@@ -25,7 +25,7 @@ export const buttonVariants = cva(
         sm: "h-9 rounded-md px-3",
         sms: "h-9 w-9 rounded-md px-0",
         lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        Icon: "h-10 w-10",
         none: "",
       },
       isMenu: {

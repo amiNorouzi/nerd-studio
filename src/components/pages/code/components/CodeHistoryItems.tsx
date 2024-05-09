@@ -96,7 +96,7 @@ function CodeHistoryItems({ appName }: IProps) {
 
   useEffect(() => {
     return () => resetHistory();
-  }, []);
+  }, [resetHistory]);
 
   const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
 

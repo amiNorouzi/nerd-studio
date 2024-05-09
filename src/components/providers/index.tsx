@@ -7,7 +7,6 @@ import { EditorContextProvider } from "@/stores/contexts/editor-context";
 import { useChangeDirection } from "@/hooks";
 import { dirInLocalStorage } from "@/stores/browser-storage";
 import { ReactQueryProvider } from "./ReactQueryProvider";
-import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
 import { Toaster } from "@/components/ui/toaster";
 
 /**
@@ -21,20 +20,18 @@ export function Providers({ children }: { children: React.ReactNode }) {
   useInitialSetDirToHtmlTag();
 
   return (
-    <NextAuthProvider>
-      <ReactQueryProvider>
-        <EditorContextProvider>
-          <DirectionProvider dir={dirState}>{children}</DirectionProvider>
-          <AppProgressBar
-            height="4px"
-            color="hsl(256, 78%, 69%)"
-            options={{ showSpinner: false }}
-            shallowRouting
-          />
-          <Toaster />
-        </EditorContextProvider>
-      </ReactQueryProvider>
-    </NextAuthProvider>
+    <ReactQueryProvider>
+      <EditorContextProvider>
+        <DirectionProvider dir={dirState}>{children}</DirectionProvider>
+        <AppProgressBar
+          height="4px"
+          color="hsl(256, 78%, 69%)"
+          options={{ showSpinner: false }}
+          shallowRouting
+        />
+        <Toaster />
+      </EditorContextProvider>
+    </ReactQueryProvider>
   );
 }
 

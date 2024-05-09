@@ -6,7 +6,13 @@ import { createSelectors } from "@/stores/zustand/createSelectors";
 import { AiImageAction, AiImageState, FilePdf } from "./types";
 
 type StoreType = AiImageState & AiImageAction;
-
+interface FilePic {
+  pic: File[];
+  setPic: (pic: File[]) => void;
+}
+const initialStateFile = {
+  pic: [],
+};
 const initialState = {
   inputs: {
     text_to_image: {},
@@ -59,5 +65,21 @@ const useImageUrl = create<any>()(
     { name: "urlPdf", store: "urlPdf" },
   ),
 );
+// @ts-ignore
+const usePicFile = create<FilePic>()(
+  devtools(
+    // @ts-ignore
+
+    immer(set => ({
+      ...initialStateFile,
+      setPic: (val: File[]) =>
+        set(state => {
+          state.pic = val;
+        }),
+    })),
+    { name: "picFile", store: "picFile" },
+  ),
+);
 export const useAiImageStore = createSelectors(useAiImage);
 export const useImageUrlStore = createSelectors(useImageUrl);
+export const usePicFileStore = createSelectors(usePicFile);

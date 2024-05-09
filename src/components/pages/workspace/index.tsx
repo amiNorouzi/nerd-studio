@@ -1,10 +1,12 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SpacesHeader from "@/components/layout/header/SpacesHeader";
 
 import { spacesTabs } from "@/constants/spaces";
 
 import type { Locale } from "../../../../i18n.config";
 import { getDictionary } from "@/lib/dictionary";
+import { auth } from "@/lib/auth";
+import WorkspaceAppsContainer from "./components/WorkspaceAppsContainer";
 
 /**
  * WorkspacePage with three tabs(apps, members, settings)
@@ -15,6 +17,13 @@ export default async function WorkspacePage({ lang }: { lang: Locale }) {
   const {
     page: { workspace: workspaceDictionary },
   } = await getDictionary(lang);
+  const session = await auth();
+  console.log(session?.user.workspace);
+  const workspace_id = session?.user?.workspace?.id;
+
+  if(!workspace_id) {
+    return <div>No Workspace Founded due to workspace id loss!</div>
+  }
 
   return (
     <Tabs
@@ -34,15 +43,7 @@ export default async function WorkspacePage({ lang }: { lang: Locale }) {
           ))}
         </TabsList>
       </SpacesHeader>
-      <div className="max-h-page h-full w-full overflow-y-auto p-2 md:p-4 xl:p-6">
-        <TabsContent value="tabone">tab one</TabsContent>
-        {spacesTabs.map(({ value, Component }) => (
-          <TabsContent key={value} value={value}>
-            {/*page content*/}
-            <Component />
-          </TabsContent>
-        ))}
-      </div>
+      <WorkspaceAppsContainer workspace_id={workspace_id}/>
     </Tabs>
   );
 }

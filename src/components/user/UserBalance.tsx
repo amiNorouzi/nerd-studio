@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { UserBalanceIcon } from "@/components/svg-icons";
 
 import { useGetDictionary } from "@/hooks";
 
@@ -21,7 +20,7 @@ function UserBalance({ handleClick }: { handleClick: () => void }) {
       onClick={handleClick}
     >
       <div className="row gap-1">
-        <UserBalanceIcon />
+        {/*<UserBalanceIcon />*/}
         <div className="text-gradiant ms-1">67.66</div>
       </div>
 

@@ -1,3 +1,4 @@
+"use client"
 import useHighlightStore from "@/stores/zustand/highlight-store";
 import { useGetDictionary } from "@/hooks";
 import { Button } from "@/components/ui/button";

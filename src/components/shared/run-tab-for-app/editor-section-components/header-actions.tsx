@@ -15,12 +15,12 @@ import { useGetDictionary } from "@/hooks";
 import { useHandleCopyAndDownloadAction } from "./useHandleCopyAndDownloadAction";
 
 import { downloadDropdownItems, value } from "./constants";
-import { Save } from "@/components/svg-icons/Save";
 import { SelectAndDrawer } from "@/components/shared";
 import { iconVariants } from "@/constants/variants";
 import { useEditorStore } from "@/stores/zustand/editor-slice";
 import { RiFullscreenExitFill, RiFullscreenFill } from "react-icons/ri";
 import { TbDownload } from "react-icons/tb";
+import { Save } from "lucide-react";
 
 function InputAndSelectSpace() {
   const [selectValue, setSelectValue] = useState(value[0]);

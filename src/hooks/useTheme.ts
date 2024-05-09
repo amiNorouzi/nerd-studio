@@ -1,3 +1,4 @@
+"use client"
 import { useCallback, useEffect, useState } from "react";
 
 import { themeConfigStorage } from "@/stores/browser-storage";
@@ -33,7 +34,7 @@ export function useTheme() {
   const activeTheme = useUiStore.use.activeTheme();
   const setActiveTheme = useUiStore.use.setActiveTheme();
 
-  const changeTheme  = useCallback(({
+  const changeTheme = useCallback(({
     themeClass,
     primaryColorClass,
   }: IChangeThemeInput) => {
@@ -69,6 +70,7 @@ export function useTheme() {
     setActivePrimaryColor(primaryColor);
   },[activePrimaryColor, activeTheme, setActiveTheme]);
 
+
   //first get user prev selected on page load to set
   useEffect(() => {
     //check is on client
@@ -96,6 +98,6 @@ export function useTheme() {
    * @param {IChangeThemeInput} themeClass - The class that will be added to the body class list to apply the color variant.
    * @param {IChangeThemeInput} primaryColorClass - The class that will be added to the body class list to apply the primary color variant.
    */
-
+  
   return { activeTheme, activePrimaryColor, changeTheme };
 }

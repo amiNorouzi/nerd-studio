@@ -12,6 +12,8 @@ import {
 
 import type { User } from "@/services/types";
 import { refreshAccessToken } from "./refreshAccessToken";
+import { getServerSession } from "next-auth";
+import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 
 export const authConfig = {
   providers: [
@@ -34,6 +36,9 @@ export const authConfig = {
             email: credentials.email,
             password: credentials.password,
           });
+
+          // what if the above request throws errors like 401?! (this one was not handled now)
+
           const user = jwtDecode(data.access_token) as User;
 
           // console.log("user: ", data);
@@ -46,6 +51,7 @@ export const authConfig = {
               email: user.email,
               accessToken: data.access_token,
               refreshToken: data.refresh_token,
+              accessTokenExpires: user.exp,
               workspace: data?.workspace || {}
             };
           } else {
@@ -55,7 +61,7 @@ export const authConfig = {
           }
         } catch (e) {
           if (isAxiosError(e)) {
-            console.log(e?.response?.data);
+            console.error(e?.response?.data);
             throw new Error(e?.response?.data.detail);
           }
           throw new Error("Failed to login user");
@@ -81,6 +87,8 @@ export const authConfig = {
           //data from signup
           const user = jwtDecode(data.access_token) as User;
 
+          // console.log("workspace: ", data?.workspace);
+
           if (user) {
             // Any object returned will be saved in `user` property of the JWT
             return {
@@ -89,6 +97,7 @@ export const authConfig = {
               email: user.email,
               accessToken: data.access_token,
               refreshToken: data.refresh_token,
+              accessTokenExpires: user.exp,
               workspace: data?.workspace || {}
             };
           } else {
@@ -98,7 +107,7 @@ export const authConfig = {
           }
         } catch (e) {
           if (isAxiosError(e)) {
-            console.log(e?.response?.data);
+            console.error(e?.response?.data);
             throw new Error(e?.response?.data.detail);
           }
           throw new Error("Failed to sign up user");
@@ -107,24 +116,31 @@ export const authConfig = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account, trigger, session }) {      
-      // update session
+    async jwt({ token, user, account, trigger, session }) {
+      // console.log('JWT callback triggered with:', { token, user, account, trigger, session });
+  
       if(trigger === "update" && session.user.workspace) {
+        // console.log('Updating session...');
         token.workspace = session.user.workspace;
+        return token;
       }
-      // initial signup/signin
+  
       if (user && account) {
-        //get tokens from passed user in credentials login
+        // Initial sign in
         if (account.type === "credentials") {
+          // console.log('Credentials login detected...');
           token.accessToken = user.accessToken;
           token.refreshToken = user.refreshToken;
           token.workspace = user.workspace;
-          token.accessTokenExpires = Date.now() + token.exp;
+          token.accessTokenExpires = user.accessTokenExpires;
+          // console.log('Returning token:', token);
           return token;
         } else {
-          //in oAuth login fetch tokens with api
+          // OAuth
+          // console.log('OAuth login detected...');
           if (user) {
             try {
+              // console.log('Fetching tokens with API...');
               const { data } = await oAuthLoginApi({
                 email: user.email!,
                 name: user.name!,
@@ -134,36 +150,52 @@ export const authConfig = {
               token.accessToken = data.access_token;
               token.refreshToken = data.refresh_token;
               token.workspace = user.workspace;
-              token.accessTokenExpires = Date.now() + token.exp;
+              token.accessTokenExpires = user.accessTokenExpires;              
+              // console.log('Returning token:', token);
               return token;
             } catch (e) {
-              console.error(e);
+              console.error('Error fetching tokens with API:', e);
             }
           }
         }
       }
-
-      else if (Date.now() < token.accessTokenExpires) {
-         // If the access token has not expired yet, return it
+  
+      console.log("Date.now(): ", Date.now());
+      console.log("token.accessTokenExpires: ", token.accessTokenExpires * 1000);
+      if (Date.now() < token.accessTokenExpires * 1000) {
+        console.log('Access token has not expired yet, returning it...');
         return token;
-      } else
-        if (!token.refreshToken) throw new Error("Missing refresh token")
-      
-
+      }
+  
+      // if (!token.refreshToken) {
+      //   console.error('Missing refresh token');
+      //   throw new Error("Missing refresh token");
+      // }
+  
       console.log("Access token has expired, trying to refresh it");
-      // Access token has expired, try to update it
+      // console.log(token);
       return refreshAccessToken(token);
     },
-
+  
     async session({ session, token}) {
+      console.log('Session callback triggered with:', { session, token });
       session.error = token.error;
       const { picture, ...rest } = token;
       session.user = {
         ...(rest as any),
         image: picture,
       };
-
+      console.log('Returning session:', session);
       return session;
     },
-  },
+  }  
 } satisfies NextAuthOptions;
+
+export async function auth(
+  ...args:
+    | [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']]
+    | [NextApiRequest, NextApiResponse]
+    | []
+) {
+  return await getServerSession(...args, authConfig);
+}

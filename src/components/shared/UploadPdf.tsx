@@ -104,7 +104,7 @@ export function UploadPdf() {
           <div className="col items-center gap-3">
             <FiUpload className="h-10 w-10 text-muted-foreground-light" />
             <p className="text-center">
-              Drag and drop your PDF here, or click to select files
+             { "Drag and drop your PDF here, or click to select files"}
             </p>
             <p className="text-center text-xs font-normal text-muted-foreground">
               (PDF / 5MB Max)

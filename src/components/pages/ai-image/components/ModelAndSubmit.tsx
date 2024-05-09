@@ -1,18 +1,21 @@
+"use client"
 import React from "react";
 import { Label } from "@/components/ui/label";
 import EngineSelect from "@/components/pages/ai-image/components/EngineSelect";
 import { Button } from "@/components/ui/button";
 import RenderIf from "@/components/shared/RenderIf";
 import Loading from "@/components/shared/Loading";
-import { useGeneratePic } from "@/services/ai-image";
 import { useGetDictionary } from "@/hooks";
 import { EngineItem, StateSetterType } from "@/services/types";
 import useImageTabs from "@/components/pages/ai-image/hooks/useImageTabs";
+
 import {
   useAiImageStore,
   useImageUrlStore,
+  usePicFileStore,
 } from "@/stores/zustand/ai-image-store";
 import useInputValue from "@/components/pages/ai-image/hooks/useInputValue";
+import { useGeneratePic, useGeneratePicToPic } from "@/services/ai-image";
 
 interface IProps {
   activeModel: string;
@@ -31,17 +34,25 @@ function ModelAndSubmit({
     page: { image: imageDictionary },
   } = useGetDictionary();
   const { currentModelType } = useImageTabs();
-
   const inputs = useAiImageStore.use.inputs();
   const currentTabInputs = inputs[currentModelType];
 
   const { mutateAsync, data, isPending, isSuccess } = useGeneratePic();
+  const {
+    mutateAsync: imageToImageRespose,
+    isPaused: isPausedImageToImage,
+    isSuccess: isSuccessimageToImage,
+  } = useGeneratePicToPic();
+
+  const { getValue, changeValue } = useInputValue();
+  const setImage = useImageUrlStore.use.setUrlImage();
+  const picToImageToImage = usePicFileStore.use.pic();
+  const { currentTab, tabs } = useImageTabs();
+  setImage("");
 
   const isDisabledSubmit =
     (currentModelType !== "image_upscale" && !currentTabInputs["text"]) ||
     (currentModelType !== "text_to_image" && !currentTabInputs["image"]);
-  const { getValue, changeValue } = useInputValue();
-  const setImage = useImageUrlStore.use.setUrlImage();
 
   const getPic =async () => {
     if (getValue("text")) {
@@ -51,10 +62,39 @@ function ModelAndSubmit({
         prompt: String(getValue("text") || ""),
       });
       console.log("isPending", isSuccess);
+  const getPic = async () => {
+    console.log("isPending", isPending);
+    console.log("isPausedImageToImage", isPausedImageToImage);
+
 
       if (isSuccess) {
         console.log("test if");
         setImage(data);
+      }
+    }
+  };
+    if (getValue("text")) {
+      console.log("test input");
+
+      if (currentTab == tabs.textToImage) {
+        const data = await mutateAsync({
+          model: activeModel,
+          sizePic: "",
+          prompt: String(getValue("text") || ""),
+        });
+        console.log("isPending", isSuccess);
+      }
+      if (currentTab == tabs.imageToImage) {
+        const dataImageToImage = imageToImageRespose({
+          model: activeModel,
+          sizePic: "",
+          prompt: String(getValue("text") || ""),
+          pic: picToImageToImage[0],
+        });
+        if (isSuccessimageToImage) {
+          console.log("test if");
+          setImage(dataImageToImage);
+        }
       }
     }
   };
@@ -75,7 +115,7 @@ function ModelAndSubmit({
         onClick={getPic}
         disabled={isPending || isDisabledSubmit}
       >
-        <RenderIf isTrue={isPending}>
+        <RenderIf isTrue={isPending || isPausedImageToImage}>
           <Loading
             rootClass="-ms-1 me-1"
             svgClass="w-6 h-6 !stroke-primary-foreground"

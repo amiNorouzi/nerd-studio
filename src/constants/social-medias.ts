@@ -1,10 +1,10 @@
 import {
-  Instagram,
-  Telegram,
-  Linkedin,
-  Whatsapp,
-  Facebook,
-} from "@/components/svg-icons";
+  TbBrandInstagram,
+  TbBrandTelegram,
+  TbBrandLinkedin,
+  TbBrandWhatsapp,
+  TbBrandFacebook,
+} from "react-icons/tb";
 
 export const socialMedias = [
   // {
@@ -13,18 +13,18 @@ export const socialMedias = [
   // },
   {
     name: "facebook",
-    Icon: Facebook,
+    Icon: TbBrandFacebook,
   },
   {
     name: "linkedin",
-    Icon: Linkedin,
+    Icon: TbBrandLinkedin,
   },
   {
     name: "telegram",
-    Icon: Telegram,
+    Icon: TbBrandTelegram,
   },
   {
     name: "whatsapp",
-    Icon: Whatsapp,
+    Icon: TbBrandWhatsapp,
   },
 ] as const;

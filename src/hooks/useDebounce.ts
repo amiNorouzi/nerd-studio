@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { useEffect } from "react";
 
 export function useDebounce<T>(callback: VoidFunction, value: T, ms: number) {

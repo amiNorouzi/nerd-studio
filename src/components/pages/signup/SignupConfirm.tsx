@@ -64,7 +64,7 @@ function SignupConfirm({ email, token }: IProps) {
       }
     };
     confirmSignup();
-  }, []);
+  }, [email, router, showFetchError, token]);
 
   // Render the signup confirmation page.
   return (

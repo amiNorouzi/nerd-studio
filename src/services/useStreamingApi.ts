@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import {
   type InvalidateQueryFilters,
@@ -6,7 +6,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
-import useEventChanel from "@/services/events-chanel";
+import { fetchEventSource } from "@microsoft/fetch-event-source";
 
 interface StreamParams {
   invalidationQuery: InvalidateQueryFilters;
@@ -22,22 +22,30 @@ export default function useStream<T>({
   const { data: session } = useSession();
   const queryClient = useQueryClient();
   const [conversationHistory, setConversationHistory] = useState<T[]>([]);
+  const [message, setMessage] = useState("");
 
-  const { message, resetMessage, cancelStream } = useEventChanel({
-    eventName,
-  });
-
-  const { mutate, ...props } = useMutation({
+  const { mutate,data, ...props } = useMutation({
     async mutationFn(requestBody: OpenAiCompletionSchemaInput) {
       const { data } = await axiosClient.post<
         unknown,
         any,
         OpenAiCompletionSchemaInput
-      >(endpoint, {
-        ...requestBody,
-        workspace_id: session?.user.workspace.id!,
-        document_name: eventName,
-      });
+      >(
+        `http://5.78.55.161:8000/v1/api/ai_writers/test/`,
+        {
+          ...requestBody,
+          workspace_id: session?.user.workspace.id!,
+          document_name: eventName,
+        },
+        {
+          headers:{
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive'
+          },
+
+        },
+      );
 
       return data as T;
     },
@@ -47,22 +55,37 @@ export default function useStream<T>({
     },
   });
 
+  // const { message, resetMessage, cancelStream } = useEventChanel({
+  //   eventName,
+  // });
+  // const { data: session } = useSession();
+  const uuid = session?.user.sub;
+
   const generateStream = useCallback(
     (requestBody: OpenAiCompletionSchemaInput) => {
-      if (requestBody.messages && requestBody.messages.length > 0) {
-        resetMessage();
-        mutate(requestBody);
-      }
+      // resetMessage();
+      mutate(requestBody);
+
+      fetchEventSource(`http://5.78.55.161:8000/v1/api/ai_writers/test/`, {
+        method: 'POST',
+        onmessage(msg) {
+          const message = (JSON.parse(msg.data).content);
+          if (message) {
+            setMessage(prev => prev + message);
+          }
+
+        },
+      });
     },
-    [mutate, resetMessage],
+    [mutate, uuid],
   );
 
   return {
     message,
-    resetMessage,
+    resetMessage: () => {},
     generateStream,
-    cancelStream,
-    conversationHistory,
+    cancelStream: () => {},
+    conversationHistory,data,
     ...props,
   };
 }

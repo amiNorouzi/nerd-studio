@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { TbFileUpload } from "react-icons/tb";
 import { AiOutlineLink } from "react-icons/ai";

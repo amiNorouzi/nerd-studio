@@ -3,6 +3,7 @@ import type { IconType } from "react-icons";
 import { MyTooltip } from "@/components/shared/myTooltip";
 import { cn } from "@/lib/utils";
 import { iconVariants } from "@/constants/variants";
+import { forwardRef } from "react";
 
 interface IButtonProps extends ButtonProps {
   Icon: IconType;
@@ -18,23 +19,25 @@ interface IButtonProps extends ButtonProps {
  * @param otherProps - other button props
  * @constructor
  */
-export function MinimalButton({
-  className,
-  title,
-  Icon,
-  iconClassname,
-  ...otherProps
-}: IButtonProps) {
-  return (
-    <MyTooltip title={title} contentClass={cn(!title && "hidden")}>
-      <Button
-        type="button"
-        variant="ghost"
-        className={cn("!h-5 w-5 p-0.5 text-muted-foreground", className)}
-        {...otherProps}
-      >
-        <Icon className={cn(iconVariants({ size: "sm" }), iconClassname)} />
-      </Button>
-    </MyTooltip>
-  );
-}
+const MinimalButton = forwardRef<HTMLButtonElement, IButtonProps>(
+  ({ className, title, Icon, iconClassname, ...otherProps }, ref) => {
+    return (
+      <MyTooltip title={title} contentClass={cn(!title && "hidden")}>
+        <Button
+          ref={ref}
+          type="button"
+          variant="ghost"
+          className={cn("!h-5 w-5 p-0.5 text-muted-foreground", className)}
+          {...otherProps}
+        >
+          <Icon className={cn(iconVariants({ size: "sm" }), iconClassname)} />
+        </Button>
+      </MyTooltip>
+    );
+  }
+);
+
+MinimalButton.displayName = "MinimalButton";
+
+export { MinimalButton };
+

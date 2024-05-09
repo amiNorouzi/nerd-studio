@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { fetchEventSource } from "@microsoft/fetch-event-source";
+
+const EventListenerBaseApi = "http://5.78.55.161:8000/events";
 
 type EventChanelParams = {
   eventName: string;
@@ -15,51 +18,32 @@ export default function useEventChanel({ eventName }: EventChanelParams) {
   const [sseConnection, setSSEConnection] = useState<EventSource | null>(null);
 
   const cancelStream = useCallback(() => {
-    if (sseConnection) {
-      sseConnection.close();
-      setSSEConnection(null);
-    }
-  }, [sseConnection]);
+    // if (eventSource) {
+    //   eventSource.close();
+    //   eventSource = null;
+    // }
+  }, []);
 
   const resetMessage = useCallback(() => {
     setMessage("");
   }, []);
 
-  // Function to take care of initial connect to the SSE API
-// Also, it reconnects to the SSE API as soon as it shuts down
-// This keeps the connection alive - forever with micro second delays
-const connectToStream = useCallback(() => {
-  // Connect to /api/stream as the SSE API source
-  const eventSource = new EventSource(`${EventListenerBaseApi}/${uuid}`);
-  eventSource.onopen = () => {
-    console.log('SSE connection opened.');
-  };
-  
-  eventSource.addEventListener(eventName, (event) => {
-    const data = JSON.parse(event.data);
-    if (data.content) setMessage(prev => prev + data.content);
-  });
-   // In case of any error, close the event source
-    // So that it attempts to connect again
-    eventSource.addEventListener('error', () => {
-      eventSource.close()
-      setTimeout(connectToStream, 1)
-    })
-    // As soon as SSE API source is closed, attempt to reconnect
-    // eventSource.onClose = () => {
-    //   setTimeout(connectToStream, 1)
-    // }
-    return eventSource
-},[]);
-
-   useEffect(() => {
-    // Initiate the first call to connect to SSE API
-    const eventSource = connectToStream()
-    // As the component unmounts, close listener to SSE API
-    return () => {
-      eventSource.close()
+  useEffect(() => {
+    if (uuid) {
+      fetchEventSource(`${EventListenerBaseApi}/${uuid}/`, {
+        method: "GET",
+        onmessage(msg) {
+          const message = JSON.parse(msg.data).content;
+          if (msg.event === eventName && message) {
+            setMessage(prev => prev + message);
+          }
+        },
+      });
     }
-  }, []);
+    // return () => {
+    //   cancelStream();
+    // };
+  }, [cancelStream, eventName, uuid]);
 
   return {
     message,
@@ -67,3 +51,37 @@ const connectToStream = useCallback(() => {
     cancelStream,
   };
 }
+
+// export function useEventChanel({ eventName }: EventChanelParams) {
+//   const [message, setMessage] = useState("");
+//   const eventSource = useRef<EventSource>();
+//   const { data: session } = useSession();
+//   const uuid = session?.user.sub;
+
+// useEffect(() => {
+//   if (!eventSource.current && uuid) {
+//     eventSource.current = new EventSource(
+//       `http://5.78.55.161:8000/events/${uuid}`,
+//     );
+//     eventSource.current.addEventListener(eventName, event => {
+//       if (event.data) {
+//         const data = JSON.parse(event.data);
+//         onMessage?.(data.content);
+//         if (data.content) setMessage(prev => prev + data.content);
+//       }
+//       eventSource.current.onerror = ev => {
+//         console.error("Error on events chanel: ", ev);
+//      };
+//     });
+//
+//
+//   }
+// }, [eventName, onMessage, uuid]);
+//
+//   return {
+//     message,
+//     reset() {
+//       // setMessage("");
+//     },
+//   };
+// }

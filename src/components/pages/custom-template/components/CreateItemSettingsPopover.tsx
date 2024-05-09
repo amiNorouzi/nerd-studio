@@ -1,3 +1,4 @@
+"use client"
 import { TbPlus, TbSettings, TbTrash } from "react-icons/tb";
 import { v4 as uuidv4 } from "uuid";
 

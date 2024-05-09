@@ -35,6 +35,8 @@ export function ShowUploadedFiles({
               onClick={() => console.log()}
               key={index}
               alt=""
+              width={24}
+              height={24}
             />
           ))}
         </div>

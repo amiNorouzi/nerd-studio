@@ -1,3 +1,4 @@
+"use client"
 import useCodeFeatures from "../hooks/useCodeFeatures";
 import { Label } from "@/components/ui/label";
 import { useGetDictionary } from "@/hooks";

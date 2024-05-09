@@ -12,6 +12,7 @@ interface IProps extends React.ComponentPropsWithoutRef<"div"> {
   acceptedFiles?: Record<string, string[]>;
   placeholder?: string;
   description?: string;
+  typeUpload?: string;
 }
 
 /**
@@ -20,6 +21,7 @@ interface IProps extends React.ComponentPropsWithoutRef<"div"> {
  * @constructor
  */
 export function UploadZone({
+  typeUpload = "pdf",
   setDocumentFiles,
   documentFiles,
   className,
@@ -53,7 +55,7 @@ export function UploadZone({
       };
       reader.readAsDataURL(file);
     });
-  }, []);
+  }, [setDocumentFiles]);
 
   /**
    * validate file size , if size is over than 5MB show error
@@ -75,12 +77,15 @@ export function UploadZone({
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
     onDrop,
-    accept: acceptedFiles ?? {
-      "application/pdf": [],
-      "application/msword": [],
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-        [],
-    },
+    accept:
+      typeUpload == "pdf"
+        ? acceptedFiles ?? {
+            "application/pdf": [],
+            "application/msword": [],
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+              [],
+          }
+        :  {"image/*": [".jpeg", ".png", ".webp", ".jpg"]},
     validator: sizeValidation,
   });
 
@@ -98,7 +103,9 @@ export function UploadZone({
         <div className="col items-center gap-3">
           <FiUpload className="h-10 w-10 text-muted-foreground-light" />
           <p className="text-center">
-            {placeholder ?? upload_pdf.upload_zone_placeholder}
+            {typeUpload == "pdf"
+              ? placeholder ?? upload_pdf.upload_zone_placeholder
+              : "Drag and drop your image here, or click to select image"}
           </p>
           <p className="text-center text-xs font-normal text-muted-foreground">
             {description ?? upload_pdf.upload_size}
