@@ -240,8 +240,8 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           ) : (
             <Options>
               {/*these children are for Options component*/}
-              <Title />
-              <ChatHero />
+              <Title lang={lang} />
+              <ChatHero lang={lang} />
               <ChatSettingAndUpload />
             </Options>
           )}
@@ -258,12 +258,12 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           />
         </div>
 
-        {/* <Highlight /> */}
+        <Highlight />
 
         {/*history box open when history button in header clicked (value of history button save in zustand)*/}
-        {/* <HistoryBox>
+        <HistoryBox>
           <HistoryItems />
-        </HistoryBox> */}
+        </HistoryBox>
       </div>
     </SetSearchParamProvider>
   );
