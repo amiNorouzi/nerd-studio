@@ -28,7 +28,7 @@ export default function TranslatePage({ params }: IProps) {
     resetMessage,
   } = useGenerateTranslate();
   const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
-    generateFn: handleGenerate,
+
     message: translation,
   });
   function handleGenerate() {

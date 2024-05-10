@@ -12,16 +12,15 @@ import {
   HistoryItems,
   Options,
   Title,
-} from "./componets";
+} from "./components";
 import { HistoryBox, SetSearchParamProvider } from "@/components/shared";
-import { ChatHero } from "@/components/pages/chat/componets/ChatHero";
+import ChatHero from "@/components/pages/chat/components/ChatHero";
 import type { Locale } from "../../../../i18n.config";
 import { useChatStore } from "@/stores/zustand/chat-store";
-import ChatArea from "./componets/ChatArea";
+import ChatArea from "./components/ChatArea";
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import useErrorToast from "@/hooks/useErrorToast";
 import useStream from "@/services/useStreamingApi";
-import HighlightContent from "@/components/shared/Highlight/HighlightContent";
 import Highlight from "@/components/shared/Highlight";
 
 
@@ -82,8 +81,8 @@ export default function ChatPage({ lang }: { lang: Locale }) {
   const [messagesHistory, setMessagesHistory] = useState<StreamData>();
   const trackMessagesRef = useRef(0);
   const {
-    generateStream: startCoversation,
-    cancelStream: cancelCoversation,
+    generateStream: startConversation,
+    cancelStream: cancelConversation,
     message,
     resetMessage,
     isPending,
@@ -98,8 +97,8 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     invalidationQuery: { queryKey: ["history"] },
   });
   const {
-    generateStream: continueCoversation,
-    cancelStream: cancelContinueCoversation,
+    generateStream: continueConversation,
+    cancelStream: cancelContinueConversation,
     message: continueMessage,
     isPending: continueIsPending,
     isError: continueIsError,
@@ -107,7 +106,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     error: continueError,
     data: continueData,
     resetMessage: resetContinueMessage,
-    conversationHistory: continueconversationHistory,
+    conversationHistory: continueConversationHistory,
   } = useStream<StreamData>({
     endpoint: `/chat_bot/continue_conversation/?conversation_id=${data?.conversation_id}&chat_id=${messagesHistory?.chats[messagesHistory.chats.length - 1].id}`,
     eventName: "chat_bot",
@@ -116,10 +115,10 @@ export default function ChatPage({ lang }: { lang: Locale }) {
 
 
   /**
-   * submit form to intitialize a conversation
+   * submit form to initialize a conversation
    * @param e FormEvent
    */
-  const generateCoversation = useCallback(
+  const generateConversation = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       resetContinueMessage();
@@ -136,7 +135,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
 
 
       if (conversationHistory.length > 0) {
-        continueCoversation({
+        continueConversation({
           frequency_penalty: GPT3Turbo.frequency/100,
           max_tokens: 100,
           messages: [
@@ -154,7 +153,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
       }
 
 
-      startCoversation({
+      startConversation({
         frequency_penalty: GPT3Turbo.frequency/100,
         max_tokens: 100,
         messages: [
@@ -173,7 +172,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
         top_p: GPT3Turbo.top/100,
       });
     },
-    [GPT3Turbo.frequency, GPT3Turbo.presence, GPT3Turbo.temperature, GPT3Turbo.top, continueCoversation, conversationHistory, prompt, promptReset, resetContinueMessage, resetMessage, showError, startCoversation],
+    [GPT3Turbo.frequency, GPT3Turbo.presence, GPT3Turbo.temperature, GPT3Turbo.top, continueConversation, conversationHistory, prompt, promptReset, resetContinueMessage, resetMessage, showError, startConversation],
   );
 
 
@@ -231,34 +230,35 @@ export default function ChatPage({ lang }: { lang: Locale }) {
         <div className="col mx-auto h-full w-full items-center overflow-y-auto p-2 lg:p-4">
           {/* chat list or chat option*/}
           {/* @ts-ignore */}
-          {
-            chatList ?
-            <ChatList messages={messages || []} onClick={(e,data) => console.log({e,data})}/>
-            :
-            <Options >
+          {chatList ? (
+            <ChatList
+              messages={messages || []}
+              onClick={(e, data) => console.log({ e, data })}
+            />
+          ) : (
+            <Options>
               {/*these children are for Options component*/}
               <Title lang={lang} />
               <ChatHero lang={lang} />
               <ChatSettingAndUpload />
             </Options>
-          }
+          )}
 
           {/* chat settings and prompt input*/}
           <ChatArea
             isChatListValid={isChatListValid}
             setChatList={setChatList}
             isPending={isPending}
-            cancelCoversation={cancelCoversation}
-            generateCoversation={generateCoversation}
+            cancelConversation={cancelConversation}
+            generateConversation={generateConversation}
             continueIsPending={continueIsPending}
             continueMessage={continueMessage}
           />
         </div>
 
         <Highlight>
-          <HighlightContent key={String(isHighlightOpen)} />
+          {/* <HighlightContent key={String(isHighlightOpen)} /> */}
         </Highlight>
-
 
         {/*history box open when history button in header clicked (value of history button save in zustand)*/}
         <HistoryBox>

@@ -14,15 +14,20 @@ export function useChangeDefaultWorkSpace() {
 
   return useMutation({
     mutationFn: async ({ workspace_id }: WorkspaceChangeParams) => {
-      const { data } = await axiosClient.put<unknown, any, WorkspaceChangeParams>(`/workspaces/change_default/${workspace_id}/`);
+      const { data } = await axiosClient.put<
+        unknown,
+        any,
+        WorkspaceChangeParams
+      >(`/workspaces/change_default/${workspace_id}/`);
       return data as Workspace;
     },
-    onSuccess: (workspace) => {
-      
+    onSuccess: workspace => {
       // update session with created new workspace if workspace successfully updated
       updateWorkspaceSession(workspace);
       // @ts-ignore
-      queryClient.invalidateQueries('workspaces');
+      queryClient.invalidateQueries({
+        queryKey: ["workspaces"],
+      });
     },
   });
 }

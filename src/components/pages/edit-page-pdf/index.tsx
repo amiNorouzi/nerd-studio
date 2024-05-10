@@ -1,5 +1,5 @@
 "use client";
-import { ChatList } from "../chat/componets";
+import { ChatList } from "../chat/components";
 import { InputPromtChatPdf } from "./components/inputPromtChatPdf";
 import { useEffect, useState } from "react";
 import { useConvertPicToText } from "@/services/upload-pdf";

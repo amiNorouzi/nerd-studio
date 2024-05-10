@@ -8,7 +8,6 @@ import {
 } from "react-simple-maps";
 import geo from "@/constants/geo.json";
 import { useState } from "react";
-import { MarkerIconMap } from "@/components/svg-icons/MarkerIconMap";
 
 const MapWorld = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -69,7 +68,7 @@ const MapWorld = () => {
                 setShowPopup(false);
               }}
             >
-              <MarkerIconMap />
+              {/*<MarkerIconMap />*/}
 
               <text
                 textAnchor="middle"

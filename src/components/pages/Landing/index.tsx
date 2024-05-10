@@ -1,3 +1,4 @@
+"use server";
 import Hero from "@/components/pages/Landing/Components/Hero";
 import Steps from "@/components/pages/Landing/Components/Steps";
 import Features from "@/components/pages/Landing/Components/Features";
@@ -12,25 +13,27 @@ import Comments from "@/components/pages/Landing/Components/comments";
 import Services from "@/components/pages/Landing/Components/Services";
 import MapWorld from "@/components/pages/Landing/Components/MapWorld";
 import type { LangParams } from "@/services/types";
+import { getLandingData } from "@/services/landing";
 
-export default function Landing({ params: { lang } }: LangParams) {
+export default async function Landing({ params: { lang } }: LangParams) {
+  const data = await getLandingData();
   return (
-    <div lang={lang} className="mx-auto max-w-[1920px] overflow-x-hidden">
+    <div lang={lang} className="mx-auto h-full w-full overflow-x-hidden">
       <Navbar />
       <main>
         <Hero />
         <Steps />
         <Features />
-        <Services />
-        <PromptsSection />
+        <Services services={data.services} />
+        <PromptsSection prompts={data.apps} />
         <CustomPrompt />
         <Mobile />
         <MapWorld />
         <Gpts />
-        <Comments />
+        <Comments comments={data.comments} />
         <DownloadApp />
         <Footer />
       </main>
     </div>
   );
-};
+}

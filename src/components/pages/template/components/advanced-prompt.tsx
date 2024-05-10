@@ -7,7 +7,7 @@ import {
   TbChevronsRight,
   TbChevronsLeft,
   TbSearch,
-} from "@/components/svg-icons";
+} from "react-icons/tb";
 import RenderIf from "@/components/shared/RenderIf";
 import { AdvancedCategory } from "./advanced-category";
 import { AdvancedContentTopic } from "./advanced-content-topic";

@@ -5,7 +5,9 @@ import { jwtDecode } from "jwt-decode";
 export async function refreshAccessToken(token:any) {
   console.log("Refreshing access token");
   try {
-    const { data } = await axiosClient.post("/auth/refresh/", { refresh_token: token.refreshToken });
+    const res = await axiosClient.post("/auth/refresh/", { refresh_token: token.accessToken });
+    const {data} = res;
+    console.log("returned res from back", res);
 
     if ('message' in data) {
       console.log("Error: ", data);

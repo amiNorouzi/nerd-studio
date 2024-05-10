@@ -1,7 +1,6 @@
 "use client";
 import { useToggle } from "usehooks-ts";
 
-import { Stars } from "@/components/svg-icons";
 import { Button } from "@/components/ui/button";
 import { Collapsible, DescriptionHoverCard } from "@/components/shared";
 import {
@@ -15,6 +14,7 @@ import UpgradeDetailsProgress from "./UpgradeDetailsProgress";
 import CollapsibleToggle from "./CollapsibleToggle";
 
 import { useGetDictionary } from "@/hooks";
+import { Stars } from "lucide-react";
 
 /**
  * upgrade panel in user panel dialog

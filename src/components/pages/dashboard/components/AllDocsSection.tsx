@@ -82,7 +82,7 @@ export function AllDocsSection() {
   return (
     <section
       className="w-full rounded-xl border bg-background px-3 py-3 shadow-dashboard-card max-lg:h-fit max-md:hidden
-    lg:col-span-3 lg:row-span-3 lg:px-5"
+    lg:col-span-3 lg:row-span-3 lg:h-[350px] lg:px-5 "
     >
       <div className="col h-full w-full gap-3">
         {/*title*/}

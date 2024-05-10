@@ -24,7 +24,7 @@ export default async function RootLayout({
       <SidePanel />
       <div id="main" className="main-padding flex h-full w-full flex-col ">
         <Suspense fallback={<HomeLoading />}>
-          <main className="h-full w-full">{children}</main>
+          <main className="h-full w-full ">{children}</main>
           <SignupQuestions />
         </Suspense>
       </div>
