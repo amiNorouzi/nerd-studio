@@ -1,10 +1,8 @@
 "use client"
-import { useHistoryUpdate } from "@/services/history";
+import {  useHistoryUpdateChild } from "@/services/history";
 import { useEffect, useState } from "react";
 import { useHistoryStore } from "@/stores/zustand/history-store";
-import { UseMutateFunction } from "@tanstack/react-query";
-import { GrammarGenerateParams } from "@/services/grammar";
-import { GenerateTranslateParams } from "@/services/translate";
+
 
 interface Props {
 
@@ -12,21 +10,23 @@ interface Props {
 }
 
 export const useHandleGeneratedData = ({  message }: Props) => {
-  const { mutate: updateHistory } = useHistoryUpdate();
+  const { mutate: updateHistory } = useHistoryUpdateChild();
   const [text, setText] = useState("");
   const [textInput, setTextInput] = useState("");
   const [updateText, setUpdateText] = useState("");
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
-
   useEffect(() => {
     setTextInput(message);
   }, [message]);
   useEffect(() => {
+
     selectedHistoryItem && setTextInput(selectedHistoryItem.answer_text);
   }, [selectedHistoryItem]);
 
+
+
   useEffect(() => {
-    if (!selectedHistoryItem) return;
+    if (!selectedHistoryItem || updateText==='') return;
 
     let timeoutId: any;
 
@@ -40,9 +40,10 @@ export const useHandleGeneratedData = ({  message }: Props) => {
     timeoutId = setTimeout(timeoutFunction, 3000);
 
     return () => {
+
       clearTimeout(timeoutId);
     };
-  }, [selectedHistoryItem, updateHistory, updateText]);
+  }, [ updateHistory, updateText]);
 
   return {
     textInput,

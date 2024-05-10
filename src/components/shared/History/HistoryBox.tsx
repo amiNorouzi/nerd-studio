@@ -81,7 +81,7 @@ export function HistoryBox({ children, className, ...props }: IProps) {
       >
         {header}
         {/*content*/}
-        <div className="w-full overflow-y-auto overflow-x-hidden pt-3">
+        <div className="w-full overflow-y-auto overflow-x-hidden pt-3 px-1">
           {children}
         </div>
       </div>
