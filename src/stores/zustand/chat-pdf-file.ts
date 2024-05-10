@@ -13,6 +13,7 @@ import {
 
 const initialState = {
   urlPdf: [] as File[],
+
 };
 const initialStatePic = {
   pic: [""],
@@ -21,7 +22,7 @@ const initialStateSelectedFilePdf = {
   selectedFilePdf: "",
 };
 
-const usePdfFile = create<typeof initialState>()(
+const usePdfFile = create<FilePdf>()(
   devtools(
     immer(set => ({
       ...initialState,
@@ -34,7 +35,7 @@ const usePdfFile = create<typeof initialState>()(
   ),
 );
 
-const useSelectedFilePdf = create<typeof initialStateSelectedFilePdf>()(
+const useSelectedFilePdf = create<SelectedFilePdf>()(
   devtools(
     immer(set => ({
       ...initialStateSelectedFilePdf,
