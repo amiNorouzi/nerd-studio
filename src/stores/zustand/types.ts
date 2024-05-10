@@ -256,7 +256,8 @@ export interface conversation {
   timeLine?: string;
   name: string;
   role: string;
-  setConversation: ({}: any) => void;
+
+  setConversation(val: Partial<conversation>): void;
 }
 // {
 //       id: "2",

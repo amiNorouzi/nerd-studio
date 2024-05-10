@@ -33,9 +33,7 @@ export function useSetPinHistory() {
       return data;
     },
     onSuccess: () => {
-      // @ts-ignore
-
-      queryClient.invalidateQueries(["history-pin"]); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries({ queryKey: ["history-pin"] }); // Invalidate the query to trigger a refetch
     },
   });
 }

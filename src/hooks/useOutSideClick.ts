@@ -13,7 +13,6 @@ export default function useOutsideClick<T extends HTMLElement>(
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (isMobile) {
-        // @ts-ignore
         if (ref.current && !ref.current.contains(event.target as Node)) {
           callback(false);
         }

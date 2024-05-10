@@ -1,13 +1,12 @@
 import Image from "next/image";
 import { Star } from "lucide-react";
-// import { LandingComment } from "@/services/landing";
+import { LandingComment } from "@/services/landing";
 
-interface Props{
-  index:number;
-  f:(v:number)=>string | undefined
-  // @ts-ignore
-  comment:LandingComment
-  onSelect:(v:number) => void;
+interface Props {
+  index: number;
+  f: (v: number) => string | undefined;
+  comment: LandingComment;
+  onSelect: (v: number) => void;
 }
 
 export function CommentSection({f,index,comment,onSelect}:Props){

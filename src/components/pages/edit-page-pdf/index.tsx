@@ -27,7 +27,6 @@ export default function EditPagePdf() {
           ...messages,
           {
             id: "2",
-            // @ts-ignore
             prompt: [`${data}`],
             image: "/images/logo.png",
             timeLine: "5 Min ago",
