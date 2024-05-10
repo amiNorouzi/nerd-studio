@@ -1,13 +1,12 @@
-"use client"
-import type { Locale } from "../../../../../i18n.config";
-import { getDictionary } from "@/lib/dictionary";
-import { useGetDictionary } from "@/hooks";
 import Image from "next/image";
+import { getDictionary } from "@/lib/dictionary";
+import { Locale } from "../../../../../i18n.config";
 
-export function Title() {
+export default async function Title({ lang }: { lang: Locale }) {
   const {
     page: { chat },
-  } = useGetDictionary();
+  } = await getDictionary(lang);
+
   return (
     <div className="col items-center justify-center gap-2">
       <div className="flex items-center justify-center gap-2">
