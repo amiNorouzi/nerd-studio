@@ -1,11 +1,10 @@
 import Image from "next/image";
-import { getDictionary } from "@/lib/dictionary";
-import { Locale } from "../../../../../i18n.config";
+import { useGetDictionary } from "@/hooks";
 
-export default async function Title({ lang }: { lang: Locale }) {
+export default function Title() {
   const {
     page: { chat },
-  } = await getDictionary(lang);
+  } = useGetDictionary();
 
   return (
     <div className="col items-center justify-center gap-2">

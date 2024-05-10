@@ -11,7 +11,7 @@ export default function useAIWriter() {
     endpoint: "/ai_writers/generate_AI_writer/",
     invalidationQuery: { queryKey: ["ai_writer"] },
   });
-  const generateReWrite = useCallback(
+  const generateRewrite = useCallback(
     ({ text, ...params }: AIWritersParams) => {
       return generateStream({
         messages: [
@@ -31,7 +31,7 @@ export default function useAIWriter() {
   );
 
   return {
-    generateReWrite,
+    generateRewrite,
     ...other,
   };
 }

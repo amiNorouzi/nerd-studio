@@ -81,7 +81,7 @@ export function AiOptionsDropdownMenu(props: DropdownMenuProps) {
 }
 
 const improveList = [
-  "ReWrite",
+  "Rewrite",
   "Summarize Content",
   "Improve Writing",
   "Simplify Language",

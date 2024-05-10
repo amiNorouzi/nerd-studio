@@ -146,8 +146,8 @@
       "transfer_workspace_title": "Transfer Workspace",
       "transfer_workspace_select_placeholder": "Select a workspace member"
     },
-    "ReWrite": {
-      "form_rewrite_button": "ReWrite",
+    "rewrite": {
+      "form_rewrite_button": "Rewrite",
       "text_input_placeholder": "Paste your text that you wish to rewrite or improve ...",
       "text_label": "Text",
       "tone_label": "Tone",
@@ -369,7 +369,7 @@
     "apps_header": {
       "not_found": "Not Found",
       "translate": "Translate",
-      "ReWrite": "ReWrite",
+      "rewrite": "Rewrite",
       "grammar": "Grammar",
       "chat": "Chat",
       "code": "Code",

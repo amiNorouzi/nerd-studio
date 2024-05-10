@@ -145,7 +145,7 @@
       "transfer_workspace_title": "ワークスペースの転送",
       "transfer_workspace_select_placeholder": "ワークスペースのメンバーを選択してください"
     },
-    "ReWrite": {
+    "rewrite": {
       "form_rewrite_button": "リライト",
       "text_input_placeholder": "書き直したり改善したいテキストを貼り付けます...",
       "text_label": "文章",
@@ -364,7 +364,7 @@
     "apps_header": {
       "not_found": "見つかりません",
       "translate": "翻訳する",
-      "ReWrite": "リライト",
+      "rewrite": "リライト",
       "grammar": "文法",
       "chat": "チャット",
       "code": "コード",

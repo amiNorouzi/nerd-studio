@@ -1,16 +1,15 @@
-import React from 'react';
-import type {Metadata, Viewport} from 'next';
+import React from "react";
+import type { Metadata, Viewport } from "next";
 
-import {Providers} from '@/components/providers';
+import { Providers } from "@/components/providers";
 
-import {i18n, type Locale} from '../../../i18n.config';
+import { i18n, type Locale } from "../../../i18n.config";
 
-import '../globals.css';
-import '../theme.css';
-import {langDir} from '@/lib/dictionary';
-import { NextAuthProvider } from '@/components/providers/NextAuthProvider';
-import { getServerSession } from 'next-auth';
-import { auth } from '@/lib/auth';
+import "../globals.css";
+import "../theme.css";
+import { langDir } from "@/lib/dictionary";
+import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
+import { auth } from "@/lib/auth";
 
 const APP_NAME = "Nerd Studio";
 const APP_DEFAULT_TITLE = "Nerd Studio | Home";

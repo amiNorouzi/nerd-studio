@@ -1,6 +1,6 @@
 "use client";
-import React, {
-  FormEvent,
+import {
+  type FormEvent,
   useCallback,
   useEffect,
   useRef,
@@ -238,8 +238,8 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           ) : (
             <Options>
               {/*these children are for Options component*/}
-              <Title lang={lang} />
-              <ChatHero lang={lang} />
+              <Title />
+              <ChatHero />
               <ChatSettingAndUpload />
             </Options>
           )}

@@ -1,16 +1,15 @@
 import { docs } from "@/constants/dashboard";
-import { getDictionary } from "@/lib/dictionary";
-import { Locale } from "../../../../../i18n.config";
+import { useGetDictionary } from "@/hooks";
 
 /**
  * chat hero section
  * @constructor
  */
-export default async function ChatHero({ lang }: { lang: Locale }) {
+export default function ChatHero() {
   //TODO: write chat dictionary
   const {
     page: { dashboard: dashboardDictionary, chat },
-  } = await getDictionary(lang);
+  } = useGetDictionary();
 
   return (
     <div className="form-gap hidden w-full  flex-col items-start rounded-xl border px-form-padding py-4.5 lg:flex">

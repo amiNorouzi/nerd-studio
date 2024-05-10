@@ -145,7 +145,7 @@
       "transfer_workspace_title": "نقل مساحة العمل",
       "transfer_workspace_select_placeholder": "حدد عضوًا في مساحة العمل"
     },
-    "ReWrite": {
+    "rewrite": {
       "form_rewrite_button": "اعادة كتابة",
       "text_input_placeholder": "الصق النص الذي ترغب في إعادة كتابته أو تحسينه...",
       "text_label": "نص",
@@ -364,7 +364,7 @@
     "apps_header": {
       "not_found": "غير معثور عليه",
       "translate": "يترجم",
-      "ReWrite": "اعادة كتابة",
+      "rewrite": "اعادة كتابة",
       "grammar": "قواعد",
       "chat": "محادثة",
       "code": "شفرة",

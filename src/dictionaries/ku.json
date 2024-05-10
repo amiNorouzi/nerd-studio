@@ -145,7 +145,7 @@
       "transfer_workspace_title": "Cihê Karê Veguheztin",
       "transfer_workspace_select_placeholder": "Endamek cîhê xebatê hilbijêrin"
     },
-    "ReWrite": {
+    "rewrite": {
       "form_rewrite_button": "Qeydgûherrandin",
       "text_input_placeholder": "Nivîsara xwe ya ku hûn dixwazin ji nû ve binivîsin an çêtir bikin bixin ...",
       "text_label": "Nivîstok",
@@ -364,7 +364,7 @@
     "apps_header": {
       "not_found": "Peyda nebû",
       "translate": "Wergerandin",
-      "ReWrite": "Qeydgûherrandin",
+      "rewrite": "Qeydgûherrandin",
       "grammar": "Rêziman",
       "chat": "Galgalkirin",
       "code": "Navê dizî",
