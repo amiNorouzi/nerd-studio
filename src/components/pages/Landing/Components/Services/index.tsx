@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { ServiceSection } from "@/constants/Landing";
+import { LandingService } from "@/services/landing";
 // import { LandingService } from "@/services/landing";
 
 interface Props{
-  // @ts-ignore
   services: LandingService[];
 }
 

@@ -3,6 +3,7 @@ import Absolute from "@/components/pages/Landing/common/Absolute";
 import { Button } from "@/components/ui/button";
 import { brandsArray, rewards, starsArray } from "@/constants/Landing";
 import { Star } from "lucide-react";
+import { FaStar } from "react-icons/fa";
 
 export default function Hero() {
 
@@ -19,15 +20,15 @@ export default function Hero() {
           {/*Title*/}
           <h1 className=" mb-4 text-xl font-bold leading-[36px] min-[375px]:text-2xl min-[375px]:leading-[45px] lg:mb-[25px] lg:text-3xl  lg:leading-[45px]  xl:mb-9 2xl:text-4xl 2xl:leading-[55px] ">
             <span className="">
-              Lorem Ipsum is simply and
+             Next-gen AI-driven solutions with
               <br />
             </span>
             <div className="z-30 flex gap-x-1 lg:gap-x-2">
               <div className=" -rotate-[1.5deg] bg-primary px-2    text-white ">
-                typesetting
+                Nerd Studio
               </div>
               <div>
-                <span>industry</span>
+                <span>App</span>
               </div>
             </div>
           </h1>
@@ -39,17 +40,9 @@ export default function Hero() {
                 "text-center text-xs leading-7  md:text-start lg:text-sm lg:leading-normal xl:text-[18px] "
               }
             >
-              <span className="sub-title-color flex xl:hidden">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry text of the printing and typesetting industryLorem
-                Ipsum is simply dummy
-              </span>
-              <span className="sub-title-color hidden xl:flex">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry Lorem Ipsum is simply dummy text of the printing and
-                typesetting industryLorem Ipsum is simply dummy text of the
-                printing and typesetting industryLorem Ipsum is simply dummy
-                text of the printing and typesetting
+
+              <span className="sub-title-color ">
+                NERD STUDIO pioneers the forefront of digital innovation with our cutting-edge AI-based website solutions. Harnessing the power of artificial intelligence, we revolutionize online experiences, seamlessly blending creativity and technology to craft dynamic and personalized websites tailored to your unique needs. From intuitive user interfaces to predictive analytics, our expertise ensures your online presence stands out in a crowded digital landscape. Join us on the journey to redefine the future of web development with NERD STUDIO.
               </span>
             </span>
           </div>
@@ -91,7 +84,7 @@ export default function Hero() {
             <div className=" sub-title-color hidden flex-row items-center text-base lg:flex ">
               <div className="flex flex-row">
                 {starsArray.map(index => (
-                  <Star key={index} className={"size-[24px]"} />
+                  <FaStar key={index} className={"size-[24px] text-yellow-400"} />
                 ))}
               </div>
               <span className="mx-2">+400k followers</span>

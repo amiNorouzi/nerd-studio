@@ -9,30 +9,46 @@ import Image from "next/image";
 
 export default function  FeatureButton  (){
   const [selectedFeature, setSelectedFeature] = useState(0);
-
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsLoading(prevLoading => !prevLoading);
+      if(selectedFeature ===btnFeature.length-1 ){
+        setSelectedFeature(0)
+      }else{
+        setSelectedFeature(prev=>prev+1)
+      }
     }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [selectedFeature]);
 
   return (
     <>
-      <div className="mb-6 flex snap-start justify-between gap-x-4  overflow-x-scroll xl:flex-row">
+      <div className="mb-6 flex rounded-xl snap-start justify-between gap-x-4  overflow-x-scroll xl:flex-row ">
         {btnFeature.map((name, index) => (
-          <Button
-            variant="secondary"
-            className={cn(" h-[80px] w-full  gap-x-2 bg-muted-dark px-3 py-[25px] text-sm  font-medium leading-[18px] text-muted-foreground xl:text-base", selectedFeature === index && 'bg-secondary' )}
+          <div
             key={name.name}
-            onClick={() => setSelectedFeature(index)}
-          >
-            <name.Icon width={36} height={36} />
-            {name.name}
-          </Button>
+
+            className={cn(" flex rounded-xl  z-[0] items-center  relative h-[80px] w-full  gap-x-2 bg-muted-dark px-3 py-[25px] text-sm  font-medium leading-[18px] " +
+              "text-muted-foreground xl:text-base")}>
+
+            <Button
+              variant="secondary"
+              className={cn("relative border h-[99%] z-[10] w-full  gap-x-2 bg-muted-dark px-3 py-[32px] text-sm  font-medium leading-[18px] " +
+                "text-muted-foreground xl:text-base", selectedFeature === index && "bg-secondary")}
+              onClick={() => setSelectedFeature(index)}
+            >
+              <name.Icon width={36} height={36} />
+              {name.name}
+            </Button>
+            {
+              selectedFeature === index &&
+            <div className="absolute rounded-l-xl rounded-r-sm z-[0] top-0 left-0 h-[80px] bg-blue-300 animate-loading"></div>
+            }
+
+          </div>
         ))}
       </div>
       <div
@@ -49,20 +65,14 @@ export default function  FeatureButton  (){
             </h3>
           </div>
           <div className="mb-3 lg:mb-6">
-              <span className="sub-title-color text-xs leading-[18px] lg:text-sm lg:leading-[18px] 2xl:text-lg">
-                <span className="inline-block lg:hidden">
-                  Lorem ipsum is placeholder text commonly used in the graphic,
-                  print, and publishing industries for previewing layouts and
-                  visual mockupsLorem ipsum is placeholder .
-                </span>
+              <span className="sub-title-color text-justify text-xs leading-[18px]  lg:text-sm lg:leading-[18px] 2xl:text-lg ">
+                {/*<span className="inline-block lg:hidden">*/}
+                {/*  Lorem ipsum is placeholder text commonly used in the graphic,*/}
+                {/*  print, and publishing industries for previewing layouts and*/}
+                {/*  visual mockupsLorem ipsum is placeholder .*/}
+                {/*</span>*/}
                 <span className=" hidden lg:inline-block">
-                  Lorem ipsum is placeholder text commonly used in the graphic,
-                  print, and publishing industries for previewing layouts and
-                  visual mockupsLorem ipsum is placeholder text commonly used in
-                  the graphic, print, and publishing industries for previewing
-                  layouts and visual mockupsLorem ipsum is placeholder text
-                  commonly used in the graphic, print, and publishing industries
-                  for previewing layouts and visual mockups
+                 {btnFeature[selectedFeature].description}
                 </span>
               </span>
           </div>
