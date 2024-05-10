@@ -1,10 +1,7 @@
 "use client"
-import { docs } from "@/constants/dashboard";
 
+import { docs } from "@/constants/dashboard";
 import { useGetDictionary } from "@/hooks";
-// import type { Locale } from "../../../../../i18n.config";
-// import { iconVariants } from "@/constants/variants";
-// import { getDictionary } from "@/lib/dictionary";
 
 /**
  * chat hero section
