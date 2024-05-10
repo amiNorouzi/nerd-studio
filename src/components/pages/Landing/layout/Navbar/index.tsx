@@ -20,7 +20,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`padding-x ${isScrolled ? "ScrollBavBg shadow " : "nav-bg"}  nav-bg fixed left-0 top-0  z-[999] flex w-full flex-row items-center justify-between py-3 `}
+      className={`padding-x ${isScrolled ? "ScrollBavBg shadow " : "nav-bg"}  nav-bg backdrop-blur-3xl fixed left-0 top-0  z-[999] flex w-full flex-row items-center justify-between py-3 `}
     >
       <div className="flex flex-row items-center gap-x-2 lg:gap-x-3">
         <Image
