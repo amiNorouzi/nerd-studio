@@ -39,12 +39,12 @@ import { AssistMessageCard } from "./AssistMessageCard";
  */
 export function PromptInput({
   isPending,
-  cancelCoversation,
-  generateCoversation,
+  cancelConversation: cancelConversation,
+  generateConversation: generateConversation,
 }:{
   isPending: boolean,
-  cancelCoversation: ()=>void,
-  generateCoversation:(e: FormEvent<HTMLFormElement>) => Promise<any>,
+  cancelConversation: ()=>void,
+  generateConversation:(e: FormEvent<HTMLFormElement>) => Promise<any>,
 }) {
   const [openUploadDialog, setOpenUploadDialog] = useState(false);
 
@@ -86,7 +86,7 @@ export function PromptInput({
       {/*stop response button*/}
       <StopResponseButton
         className={cn("absolute -top-8 hidden", isPending && "flex")}
-        onClick={cancelCoversation}
+        onClick={cancelConversation}
       />
 
 
@@ -99,7 +99,7 @@ export function PromptInput({
       <div className="flex w-full items-start gap-4">
         <form
           ref={formRef}
-          onSubmit={generateCoversation}
+          onSubmit={generateConversation}
           onKeyDown={handleKeyDown}
           className="promptInputFormShadow col mx-auto h-fit w-full  rounded-lg border  border-primary-dark bg-primary-light p-2 lg:px-4 lg:py-2.5"
         >
