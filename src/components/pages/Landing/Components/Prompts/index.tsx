@@ -7,10 +7,17 @@ import { Icons } from "@/components/icons";
 
 import { useEffect, useState } from "react";
 import { Cards } from "@/components/pages/Landing/common/Cards";
+import { LandingApp } from "@/services/landing";
+import { cn } from "@/lib/utils";
 
-const PromptsSection = () => {
+interface Props{
+  prompts:LandingApp[]
+}
+
+const PromptsSection = ({prompts}:Props) => {
   const [progress, setProgress] = useState(0);
 
+const [selectedPrompt, setSelectedPrompt] = useState<string>(prompts[0].category_name);
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress(prevProgress => {
@@ -48,19 +55,24 @@ const PromptsSection = () => {
       {/*/>*/}
       {/*Buttons*/}
       <div className="mb-6 flex snap-start justify-between gap-x-4  overflow-x-scroll xl:flex-row ">
-        {btnFeature.map(name => (
+        {prompts.map((prompt,index) => (
+          <>
+            {index<5 &&
           <Button
             variant="secondary"
-            className=" h-[80px] w-full  gap-x-2 bg-muted-dark px-3 py-1.5 text-sm font-medium leading-[18px]  text-muted-foreground xl:px-3 xl:py-[25px] xl:text-base"
-            key={name.id}
+            className={cn(" h-[80px] w-full min-w-[200px]  gap-x-2 bg-muted-dark px-3 py-1.5 text-sm font-medium leading-[18px]  text-muted-foreground xl:px-3 xl:py-[25px] xl:text-base",selectedPrompt === prompt.category_name && 'bg-secondary')}
+            key={prompt.category_name}
+            onClick={()=>setSelectedPrompt(prompt.category_name)}
           >
-            <name.Icon width={36} height={36} />
-            {name.name}
+            {/*<name.Icon width={36} height={36} />*/}
+            {prompt.category_name}
           </Button>
+            }
+          </>
         ))}
       </div>
 
-     <Cards/>
+     <Cards selectedPrompt={prompts.filter(item=>item.category_name === selectedPrompt)} />
     </div>
   );
 };

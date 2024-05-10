@@ -15,7 +15,7 @@ export function Run({
   return (
     <div
       className={cn(
-        "grid h-fit max-h-full grid-cols-12 divide-y overflow-y-auto  lg:h-full lg:divide-x lg:overflow-hidden ",
+        "grid h-fit max-h-full grid-cols-12 divide-y overflow-y-auto lg:flex  lg:h-full lg:divide-x lg:overflow-hidden ",
         className,
       )}
       {...divProps}

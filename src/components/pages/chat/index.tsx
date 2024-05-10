@@ -1,6 +1,6 @@
 "use client";
 import React, {
-  type FormEvent,
+  FormEvent,
   useCallback,
   useEffect,
   useRef,
@@ -12,15 +12,16 @@ import {
   HistoryItems,
   Options,
   Title,
-} from "./componets";
+} from "./components";
 import { HistoryBox, SetSearchParamProvider } from "@/components/shared";
-import ChatHero from "./componets/ChatHero";
+import ChatHero from "@/components/pages/chat/components/ChatHero";
 import type { Locale } from "../../../../i18n.config";
 import { useChatStore } from "@/stores/zustand/chat-store";
-import ChatArea from "./componets/ChatArea";
+import ChatArea from "./components/ChatArea";
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import useErrorToast from "@/hooks/useErrorToast";
 import useStream from "@/services/useStreamingApi";
+import HighlightContent from "@/components/shared/Highlight/HighlightContent";
 import Highlight from "@/components/shared/Highlight";
 
 
@@ -77,6 +78,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
   const { showError } = useErrorToast();
   const GPT3Turbo = engines["GPT-3.5 Turbo"];
 
+
   const [messagesHistory, setMessagesHistory] = useState<StreamData>();
   const trackMessagesRef = useRef(0);
   const {
@@ -105,12 +107,13 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     error: continueError,
     data: continueData,
     resetMessage: resetContinueMessage,
-    conversationHistory: continueconversationHistory,
+    conversationHistory: continueConversationHistory,
   } = useStream<StreamData>({
     endpoint: `/chat_bot/continue_conversation/?conversation_id=${data?.conversation_id}&chat_id=${messagesHistory?.chats[messagesHistory.chats.length - 1].id}`,
     eventName: "chat_bot",
     invalidationQuery: { queryKey: ["history"] },
   });
+
 
   /**
    * submit form to initialize a conversation
@@ -124,14 +127,17 @@ export default function ChatPage({ lang }: { lang: Locale }) {
       promptReset("");
       trackMessagesRef.current = 1;
 
+
       console.log(conversationHistory);
+
 
       //check if user write a prompt
       if (!prompt) return showError("Please! write your prompt");
 
+
       if (conversationHistory.length > 0) {
         continueConversation({
-          frequency_penalty: GPT3Turbo.frequency / 100,
+          frequency_penalty: GPT3Turbo.frequency/100,
           max_tokens: 100,
           messages: [
             {
@@ -140,15 +146,16 @@ export default function ChatPage({ lang }: { lang: Locale }) {
             },
           ],
           model: "gpt-3.5-turbo-0125",
-          presence_penalty: GPT3Turbo.presence / 100,
-          temperature: GPT3Turbo.temperature / 100,
-          top_p: GPT3Turbo.top / 100,
+          presence_penalty: GPT3Turbo.presence/100,
+          temperature: GPT3Turbo.temperature/100,
+          top_p: GPT3Turbo.top/100,
         });
         return;
       }
 
+
       startConversation({
-        frequency_penalty: GPT3Turbo.frequency / 100,
+        frequency_penalty: GPT3Turbo.frequency/100,
         max_tokens: 100,
         messages: [
           {
@@ -161,53 +168,44 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           },
         ],
         model: "gpt-3.5-turbo-0125",
-        presence_penalty: GPT3Turbo.presence / 100,
-        temperature: GPT3Turbo.temperature / 100,
-        top_p: GPT3Turbo.top / 100,
+        presence_penalty: GPT3Turbo.presence/100,
+        temperature: GPT3Turbo.temperature/100,
+        top_p: GPT3Turbo.top/100,
       });
     },
-    [
-      GPT3Turbo.frequency,
-      GPT3Turbo.presence,
-      GPT3Turbo.temperature,
-      GPT3Turbo.top,
-      continueConversation,
-      conversationHistory,
-      prompt,
-      promptReset,
-      resetContinueMessage,
-      resetMessage,
-      showError,
-      startConversation,
-    ],
+    [GPT3Turbo.frequency, GPT3Turbo.presence, GPT3Turbo.temperature, GPT3Turbo.top, continueConversation, conversationHistory, prompt, promptReset, resetContinueMessage, resetMessage, showError, startConversation],
   );
 
-  if (isError) {
+
+   if (isError) {
     console.error(error);
   }
 
-  useEffect(() => {
+
+  useEffect(()=> {
     if (continueIsPending) {
       return;
     }
-    if (continueIsSuccess) {
+    if(continueIsSuccess) {
       setMessagesHistory(continueData);
     }
   }, [continueData, continueIsPending, continueIsSuccess]);
 
-  useEffect(() => {
+
+  useEffect(()=> {
     if (isPending) {
       return;
     }
-    if (isSuccess) {
+    if(isSuccess) {
       setMessagesHistory(data);
     }
   }, [data, isPending, isSuccess]);
 
-  useEffect(() => {
-    if (messagesHistory && messagesHistory?.chats?.length > 0)
-      setChatList(true);
+
+  useEffect(()=> {
+    if(messagesHistory && messagesHistory?.chats?.length > 0) setChatList(true);
   }, [messagesHistory, messagesHistory?.chats?.length]);
+
 
   // Transform StreamData to the desired structure
   let messages = messagesHistory?.chats.map(chat => {
@@ -221,6 +219,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     };
   });
 
+
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param
    *  value of it used in apps Header in  layout or form-section
@@ -232,33 +231,34 @@ export default function ChatPage({ lang }: { lang: Locale }) {
         <div className="col mx-auto h-full w-full items-center overflow-y-auto p-2 lg:p-4">
           {/* chat list or chat option*/}
           {/* @ts-ignore */}
-          {chatList ? (
-            <ChatList
-              messages={messages || []}
-              onClick={(e, data) => console.log({ e, data })}
-            />
-          ) : (
-            <Options>
+          {
+            chatList ?
+            <ChatList messages={messages || []} onClick={(e,data) => console.log({e,data})}/>
+            :
+            <Options >
               {/*these children are for Options component*/}
-              <Title lang={lang} />
-              <ChatHero lang={lang} />
+              <Title />
+              <ChatHero />
               <ChatSettingAndUpload />
             </Options>
-          )}
+          }
 
           {/* chat settings and prompt input*/}
           <ChatArea
             isChatListValid={isChatListValid}
             setChatList={setChatList}
             isPending={isPending}
-            cancelCoversation={cancelConversation}
-            generateCoversation={generateConversation}
+            cancelConversation={cancelConversation}
+            generateConversation={generateConversation}
             continueIsPending={continueIsPending}
             continueMessage={continueMessage}
           />
         </div>
 
-        <Highlight />
+        <Highlight>
+          {/* <HighlightContent key={String(isHighlightOpen)} /> */}
+        </Highlight>
+
 
         {/*history box open when history button in header clicked (value of history button save in zustand)*/}
         <HistoryBox>
