@@ -21,7 +21,6 @@ import ChatArea from "./components/ChatArea";
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import useErrorToast from "@/hooks/useErrorToast";
 import useStream from "@/services/useStreamingApi";
-import HighlightContent from "@/components/shared/Highlight/HighlightContent";
 import Highlight from "@/components/shared/Highlight";
 
 
@@ -231,17 +230,19 @@ export default function ChatPage({ lang }: { lang: Locale }) {
         <div className="col mx-auto h-full w-full items-center overflow-y-auto p-2 lg:p-4">
           {/* chat list or chat option*/}
           {/* @ts-ignore */}
-          {
-            chatList ?
-            <ChatList messages={messages || []} onClick={(e,data) => console.log({e,data})}/>
-            :
-            <Options >
+          {chatList ? (
+            <ChatList
+              messages={messages || []}
+              onClick={(e, data) => console.log({ e, data })}
+            />
+          ) : (
+            <Options>
               {/*these children are for Options component*/}
-              <Title />
-              <ChatHero />
+              <Title lang={lang} />
+              <ChatHero lang={lang} />
               <ChatSettingAndUpload />
             </Options>
-          }
+          )}
 
           {/* chat settings and prompt input*/}
           <ChatArea
@@ -258,7 +259,6 @@ export default function ChatPage({ lang }: { lang: Locale }) {
         <Highlight>
           {/* <HighlightContent key={String(isHighlightOpen)} /> */}
         </Highlight>
-
 
         {/*history box open when history button in header clicked (value of history button save in zustand)*/}
         <HistoryBox>
