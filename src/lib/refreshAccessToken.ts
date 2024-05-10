@@ -1,5 +1,6 @@
 import axiosClient from "@/services/axios-client";
 import { User } from "@/services/types";
+import { AxiosError } from "axios";
 import { jwtDecode } from "jwt-decode";
 import { JWT } from "next-auth/jwt";
 
@@ -26,12 +27,19 @@ export async function refreshAccessToken(token:any):Promise<JWT> {
       refreshToken: refresh_token ?? token.refreshToken, // Fall back to old refresh token
     } as JWT;
   } catch (error) {
+    const axError = error as AxiosError<unknown, any>;
     console.log("Can not refresh accessToken.");
     console.error(error);
 
-    return {
-      ...token,
-      error: "RefreshAccessTokenError",
+    if(axError.response?.status === 404) {
+      // redirect user to login page cause refreshToken has been expired
+      return {
+        ...token,
+        error: "RefreshAccessTokenError",
+      };
     };
+
+    // the refreshToken request failed due to other reasons than refreshToken expiration
+    return token;
   }
 }
