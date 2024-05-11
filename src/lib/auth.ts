@@ -14,6 +14,7 @@ import type { User } from "@/services/types";
 import { refreshAccessToken } from "./refreshAccessToken";
 import { getServerSession } from "next-auth";
 import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
+import moment from "moment";
 
 export const authConfig = {
   providers: [
@@ -160,9 +161,9 @@ export const authConfig = {
         }
       }
   
-      console.log("Date.now(): ", Date.now());
-      console.log("token.accessTokenExpires: ", token.accessTokenExpires * 1000);
-      if (Date.now() < token.accessTokenExpires * 1000) {
+      console.log("Date.now(): ", moment().unix());
+      console.log("token.accessTokenExpires: ", token.accessTokenExpires);
+      if (moment().unix() < token.accessTokenExpires) {
         console.log('Access token has not expired yet, returning it...');
         return token;
       }

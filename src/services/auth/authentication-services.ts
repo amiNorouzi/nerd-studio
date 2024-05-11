@@ -4,7 +4,7 @@ import axios from "axios";
 
 export function loginApi(data: { email: string; password: string }) {
   return axios.post<AuthReturn>(
-    `${process.env.NEXT_PUBLIC_API_URL}/auth/test_login/`,
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/login/`,
     data,
   );
 }

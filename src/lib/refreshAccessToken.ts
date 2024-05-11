@@ -7,7 +7,7 @@ import { JWT } from "next-auth/jwt";
 export async function refreshAccessToken(token:any):Promise<JWT> {
   console.log("Refreshing access token");
   try {
-    const res = await axiosClient.post("/auth/test_refresh/", { refresh_token: token.refreshToken });
+    const res = await axiosClient.post("/auth/refresh/", { refresh_token: token.refreshToken });
     const {data} = res;
     console.log("returned res from back", res);
 
@@ -23,7 +23,7 @@ export async function refreshAccessToken(token:any):Promise<JWT> {
     return {
       ...token,
       accessToken: access_token,
-      accessTokenExpires: (jwtDecode(data.refresh_token) as User).exp,
+      accessTokenExpires: (jwtDecode(access_token) as User).exp,
       refreshToken: refresh_token ?? token.refreshToken, // Fall back to old refresh token
     } as JWT;
   } catch (error) {
