@@ -49,8 +49,6 @@
     "@react-pdf-viewer/thumbnail": "^3.12.0",
     "@tanstack/react-query": "^5.35.1",
     "@tanstack/react-query-devtools": "^5.35.1",
-    "@types/moment": "^2.13.0",
-    "@types/react-lottie": "^1.2.10",
     "@udecode/cn": "^33.0.0",
     "@udecode/plate-alignment": "^33.0.0",
     "@udecode/plate-autoformat": "^33.0.0",
@@ -151,6 +149,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@types/react-lottie": "^1.2.10",
     "@next/bundle-analyzer": "^14.2.3",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",

@@ -50,11 +50,6 @@ const nextConfig = {
             },
         ];
     },
-    compiler: {
-        removeConsole: {
-            exclude: ["error"],
-        },
-    },
     webpack(config, context) {
         config.externals.push({ canvas: 'commonjs canvas' })
         return config
