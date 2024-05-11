@@ -33,7 +33,7 @@ export default async function DashboardPage({ lang }: { lang: Locale }) {
 
   return (
     <div className="h-full ">
-<div className='sticky top-0  bg-main-background z-[1000]'>
+<div className='sticky top-0  bg-main-background z-[50]'>
 
       <SpacesHeader>
         <h1 className="ms-2 text-[15px] font-semibold">{header_title}</h1>
