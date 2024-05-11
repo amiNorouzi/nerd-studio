@@ -90,7 +90,7 @@ function ModelAndSubmit({
         console.log("isPending", isSuccess);
       }
       if (currentTab == tabs.imageToImage) {
-        const dataImageToImage = imageToImageRespose({
+        const dataImageToImage = await imageToImageRespose({
           model: activeModel,
           sizePic: "",
           prompt: String(getValue("text") || ""),

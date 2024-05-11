@@ -51,7 +51,9 @@ const useAiImage = create<StoreType>()(
     { name: "image", store: "image" },
   ),
 );
-const useImageUrl = create<typeof initialStateImage>()(
+
+type ImageUrl = { setUrlImage(val: string): void } & typeof initialStateImage;
+const useImageUrl = create<ImageUrl>()(
   devtools(
     immer(set => ({
       ...initialStateImage,
@@ -64,7 +66,7 @@ const useImageUrl = create<typeof initialStateImage>()(
   ),
 );
 
-const usePicFile = create<typeof initialStateFile>()(
+const usePicFile = create<FilePic>()(
   devtools(
     immer(set => ({
       ...initialStateFile,
