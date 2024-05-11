@@ -35,8 +35,7 @@ function ChangeWorkspaceNameDialog() {
   const myWorkspace = session?.user.workspace;
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // @ts-ignore
-    const newWorkspaceName = e.target[0].value;
+    const newWorkspaceName = e.currentTarget.value;
 
     if (myWorkspace?.id)
       updateWorkspace({

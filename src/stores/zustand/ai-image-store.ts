@@ -3,7 +3,7 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { createSelectors } from "@/stores/zustand/createSelectors";
 
-import { AiImageAction, AiImageState, FilePdf } from "./types";
+import { AiImageAction, AiImageState } from "./types";
 
 type StoreType = AiImageState & AiImageAction;
 interface FilePic {
@@ -11,7 +11,7 @@ interface FilePic {
   setPic: (pic: File[]) => void;
 }
 const initialStateFile = {
-  pic: [],
+  pic: [] as File[],
 };
 const initialState = {
   inputs: {
@@ -25,7 +25,7 @@ const initialState = {
     image_upscale: [],
   },
 } as AiImageState;
-const initialStateIamge = {
+const initialStateImage = {
   imageUrl: "",
 };
 
@@ -51,13 +51,13 @@ const useAiImage = create<StoreType>()(
     { name: "image", store: "image" },
   ),
 );
-const useImageUrl = create<any>()(
+
+type ImageUrl = { setUrlImage(val: string): void } & typeof initialStateImage;
+const useImageUrl = create<ImageUrl>()(
   devtools(
-
-
     immer(set => ({
-      ...initialStateIamge,
-      setUrlImage: (val: string) =>// @ts-ignore
+      ...initialStateImage,
+      setUrlImage: (val: string) =>
         set(state => {
           state.imageUrl = val;
         }),
@@ -65,11 +65,9 @@ const useImageUrl = create<any>()(
     { name: "urlPdf", store: "urlPdf" },
   ),
 );
-// @ts-ignore
+
 const usePicFile = create<FilePic>()(
   devtools(
-    // @ts-ignore
-
     immer(set => ({
       ...initialStateFile,
       setPic: (val: File[]) =>

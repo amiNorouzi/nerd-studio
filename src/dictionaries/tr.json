@@ -145,7 +145,7 @@
       "transfer_workspace_title": "Çalışma Alanını Aktar",
       "transfer_workspace_select_placeholder": "Bir çalışma alanı üyesi seçin"
     },
-    "ReWrite": {
+    "rewrite": {
       "form_rewrite_button": "Yeniden yazmak",
       "text_input_placeholder": "Yeniden yazmak veya geliştirmek istediğiniz metninizi yapıştırın...",
       "text_label": "Metin",
@@ -364,7 +364,7 @@
     "apps_header": {
       "not_found": "Bulunamadı",
       "translate": "Çevirmek",
-      "ReWrite": "Yeniden yazmak",
+      "rewrite": "Yeniden yazmak",
       "grammar": "Dilbilgisi",
       "chat": "Sohbet",
       "code": "Kod",

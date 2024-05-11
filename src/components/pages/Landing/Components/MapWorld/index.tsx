@@ -8,16 +8,20 @@ import {
 } from "react-simple-maps";
 import geo from "@/constants/geo.json";
 import { useState } from "react";
+import { MdOutlinePersonPinCircle } from "react-icons/md";
+
+const commentsCoordinates:[number,number][] = [[77.6173, 130.7558],[0, 130.7558],[10, 180.7558],[35, 170.7558]]
 
 const MapWorld = () => {
   const [showPopup, setShowPopup] = useState(false);
+  const [commentIndex , setCommentIndex] = useState(0);
   // const [popupContent, setPopupContent] = useState({
   //   title: "“I like it because .”.",
   //   imageUrl: "/images/landing/Avatar.png",
   // });
 
   return (
-    <div className="padding-x  mt-0  bg-[#F8F8F8] py-6 md:mt-20 lg:py-[10px] 2xl:py-[10px]">
+    <div className="relative padding-x  mt-0  bg-[#F8F8F8] py-6 md:mt-20 lg:py-[10px] 2xl:py-[10px]">
       {/*Title section*/}
       <TitleSection
         customTrue={true}
@@ -59,51 +63,63 @@ const MapWorld = () => {
                 ))
               }
             </Geographies>
-            <Marker
-              coordinates={[37.6173, 55.7558]}
-              onMouseEnter={() => {
-                setShowPopup(true);
-              }}
-              onMouseLeave={() => {
-                setShowPopup(false);
-              }}
-            >
-              {/*<MarkerIconMap />*/}
+            {
+              commentsCoordinates.map((coordinate,index)=>(
+                <Marker
+                  key={index}
+                  coordinates={coordinate}
+                  onMouseEnter={() => {
+                    setShowPopup(true);
+                    setCommentIndex(index)
 
-              <text
-                textAnchor="middle"
-                y={15}
-                style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
-              ></text>
-              {showPopup && (
-                <g transform="translate(-60, -120)">
-                  <rect
-                    width="120"
-                    height="110"
-                    fill="white"
-                    stroke="#B388F4FF"
-                  />
-                  <image
-                    href={"/images/landing/Avatar.png"}
-                    x="10"
-                    y="10"
-                    width="100"
-                    height="50"
-                  />
+                  }}
+                  onMouseLeave={() => {
+                    setShowPopup(false);
+                  }}
+                >
+                  {/*<MarkerIconMap />*/}
+                  <MdOutlinePersonPinCircle className='text-[20px] text-blue-400'/>
+
                   <text
                     textAnchor="middle"
-                    x="60"
-                    y="80"
-                    style={{ fontFamily: "system-ui", fill: "#333" }}
-                  >
-                    “I like it because .”
-                  </text>
-                </g>
-              )}
-            </Marker>
+                    y={15}
+                    style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                  ></text>
+                  {showPopup && commentIndex ===index &&  (
+                    <g transform="translate(-60, -120)" >
+                      <rect
+                        width="120"
+                        height="110"
+                        fill="white"
+
+                        className='rounded-xl'
+                      />
+                      <image
+                        href={"/images/landing/Avatar.png"}
+                        x="10"
+                        y="10"
+                        width="100"
+                        height="50"
+                      />
+                      <text
+                        textAnchor="middle"
+                        x="60"
+                        y="80"
+                        style={{ fontFamily: "system-ui", fill: "#333" }}
+                      >
+                        “I like it because .”
+                      </text>
+                    </g>
+                  )}
+                </Marker>
+
+              ))
+            }
+
           </ComposableMap>
         </div>
       </div>
+
     </div>
   );
 };

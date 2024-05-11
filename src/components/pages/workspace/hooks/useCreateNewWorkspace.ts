@@ -23,7 +23,6 @@ export function useCreateNewWorkSpace() {
     onSuccess: workspace => {
       // update session with created new workspace if workspace successfully updated
       updateWorkspaceSession(workspace);
-      // @ts-ignore
       queryClient.invalidateQueries({
         queryKey: ["workspaces"],
       });

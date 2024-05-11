@@ -49,7 +49,8 @@ export default function AIImageForm() {
   const setPic = usePicFileStore.use.setPic();
   useEffect(() => {
     setPic(pic);
-  }, [pic]);
+  }, [pic, setPic]);
+
   return (
     <section className="relative col-span-12 flex h-fit flex-col overflow-y-auto bg-background lg:col-span-4 lg:h-full lg:max-h-full ">
       <ImageFromTabs />

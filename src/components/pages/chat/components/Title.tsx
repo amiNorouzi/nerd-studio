@@ -1,13 +1,11 @@
-"use client"
-import type { Locale } from "../../../../../i18n.config";
-import { getDictionary } from "@/lib/dictionary";
-import { useGetDictionary } from "@/hooks";
 import Image from "next/image";
+import { useGetDictionary } from "@/hooks";
 
-export function Title() {
+export default function Title() {
   const {
     page: { chat },
   } = useGetDictionary();
+
   return (
     <div className="col items-center justify-center gap-2">
       <div className="flex items-center justify-center gap-2">
