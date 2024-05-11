@@ -1,6 +1,6 @@
 "use client";
 
-import { checkWindowValidity } from "@/lib/auth-storage";
+import { checkWindowValidity } from "@/lib/auth/auth-storage";
 
 //* this class access to browser storage
 

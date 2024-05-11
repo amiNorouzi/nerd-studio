@@ -1,4 +1,4 @@
-import { checkWindowValidity } from "@/lib/auth-storage";
+import { checkWindowValidity } from "@/lib/auth/auth-storage";
 import { markdownToHtml } from "@/lib/md-to-html";
 import {
   PlateEditor,

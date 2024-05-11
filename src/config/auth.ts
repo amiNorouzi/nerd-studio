@@ -11,7 +11,7 @@ import {
 } from "@/services/auth/authentication-services";
 
 import type { User } from "@/services/types";
-import { refreshAccessToken } from "./refreshAccessToken";
+import { refreshAccessToken } from "@/lib/auth/refreshAccessToken";
 import { getServerSession } from "next-auth";
 import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 import moment from "moment";
@@ -119,13 +119,13 @@ export const authConfig = {
   callbacks: {
     async jwt({ token, user, account, trigger, session }) {
       // console.log('JWT callback triggered with:', { token, user, account, trigger, session });
-  
+
       if(trigger === "update" && session.user.workspace) {
         // console.log('Updating session...');
         token.workspace = session.user.workspace;
         return token;
       }
-  
+
       if (user && account) {
         // Initial sign in
         if (account.type === "credentials") {
@@ -151,7 +151,7 @@ export const authConfig = {
               token.accessToken = data.access_token;
               token.refreshToken = data.refresh_token;
               token.workspace = user.workspace;
-              token.accessTokenExpires = user.accessTokenExpires;              
+              token.accessTokenExpires = user.accessTokenExpires;
               // console.log('Returning token:', token);
               return token;
             } catch (e) {
@@ -160,24 +160,24 @@ export const authConfig = {
           }
         }
       }
-  
+
       console.log("Date.now(): ", moment().unix());
       console.log("token.accessTokenExpires: ", token.accessTokenExpires);
       if (moment().unix() < token.accessTokenExpires) {
         console.log('Access token has not expired yet, returning it...');
         return token;
       }
-  
+
       // if (!token.refreshToken) {
       //   console.error('Missing refresh token');
       //   throw new Error("Missing refresh token");
       // }
-  
+
       console.log("Access token has expired, trying to refresh it");
       // console.log(token);
       return refreshAccessToken(token);
     },
-  
+
     async session({ session, token}) {
       console.log('Session callback triggered with:', { session, token });
       session.error = token.error;
@@ -189,7 +189,7 @@ export const authConfig = {
       console.log('Returning session:', session);
       return session;
     },
-  }  
+  }
 } satisfies NextAuthOptions;
 
 export async function auth(
