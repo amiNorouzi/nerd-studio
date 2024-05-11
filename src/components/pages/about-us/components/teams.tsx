@@ -1,7 +1,7 @@
 "use client";
 import { useGetTeams } from "@/services/static-pages/contact-us";
 import CardContactUs from "./card";
-export interface Employe {
+export interface Employee {
   id: string;
   name: string;
   family: string;
@@ -10,7 +10,7 @@ export interface Employe {
     title: string;
   };
   about: string;
-  
+
 }
 const TeamsSection = () => {
   const { data, isLoading } = useGetTeams();
@@ -20,15 +20,16 @@ const TeamsSection = () => {
       <h1 className=" text-2xl font-medium md:text-4xl">Meet our team</h1>
       <div className="flex-wrap items-center justify-center gap-5 space-y-6  text-center md:flex">
         {!isLoading &&
-          data.map((perosn: Employe) => {
+          data.map((person: Employee) => {
             return (
               <CardContactUs
-                id={perosn.id}
-                name={perosn.name}
-                family={perosn.family}
-                avatar={perosn.avatar}
-                about={perosn.about}
-                role={perosn.role}
+                key={person.id}
+                id={person.id}
+                name={person.name}
+                family={person.family}
+                avatar={person.avatar}
+                about={person.about}
+                role={person.role}
               />
             );
           })}
