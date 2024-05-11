@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { useHistoryVersion } from "@/services/history";
 import { timePassedSince } from "@/lib/date-transform";
 import { useHistoryStore } from "@/stores/zustand/history-store";
+import { PiArrowElbowDownRightLight } from "react-icons/pi";
 
 interface Props{
   uuid:string
@@ -32,6 +33,11 @@ export function HistoryChild({uuid,mainAnswer}:Props){
       {
         data &&
 data.versions[0].answer_text !== mainAnswer &&
+        <div className='flex flex-row'>
+          <div className='flex w-[10%]'>
+
+          <PiArrowElbowDownRightLight className='text-[30px] text-blue-300'/>
+          </div>
         <div onClick={()=>clickHandler(data)} className={cn("mt-1 h-full flex w-[90%] items-start cursor-pointer   px-2 bg-white border rounded-xl min-h-[60px] ",selectedHistoryItem && selectedHistoryItem.id === data.versions[0].id&& 'bg-secondary')}>
 
           <div className="flex h-[52px] flex-col justify-between  w-full m-2 ">
@@ -53,6 +59,7 @@ data.versions[0].answer_text !== mainAnswer &&
             {/*delete and bookmark buttons*/}
 
           </div>
+        </div>
         </div>
 
       }
