@@ -69,7 +69,10 @@ export interface TemplateState {
   customTemplateDetails: {
     name: string;
     description: string;
-    category: string;
+    category: {
+      name: string;
+      id: number;
+    };
     icon: string;
     template: string;
   };
@@ -101,7 +104,12 @@ export interface TemplateAction {
   resetCustomTemplate: () => void;
   setCustomTemplateDetails: (
     key: "name" | "description" | "category" | "icon" | "template",
-    v: string,
+    v:
+      | string
+      | {
+          name: string;
+          id: number;
+        },
   ) => void;
   changeCurrentTemplateInputs: (key: string, val: string | number) => void;
   resetCurrentTemplateInputs: () => void;
@@ -248,7 +256,8 @@ export interface conversation {
   timeLine?: string;
   name: string;
   role: string;
-  setConversation: ({}: any) => void;
+
+  setConversation(val: Partial<conversation>): void;
 }
 // {
 //       id: "2",

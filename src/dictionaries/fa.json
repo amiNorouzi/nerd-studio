@@ -145,7 +145,7 @@
       "transfer_workspace_title": "انتقال فضای کاری",
       "transfer_workspace_select_placeholder": "یک عضو از فضای کاری را انتخاب کنید"
     },
-    "ReWrite": {
+    "rewrite": {
       "form_rewrite_button": "بازنویسی",
       "text_input_placeholder": "متنی را که می خواهید بازنویسی یا بهبود دهید جایگذاری کنید ...",
       "text_label": "متن",
@@ -364,7 +364,7 @@
     "apps_header": {
       "not_found": "پیدا نشد",
       "translate": "ترجمه",
-      "ReWrite": "بازنویسی",
+      "rewrite": "بازنویسی",
       "grammar": "دستور زبان",
       "chat": "گفتگو",
       "code": "کد",

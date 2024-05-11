@@ -49,9 +49,7 @@ export function useCodeConvertor() {
       return data;
     },
     onSuccess: () => {
-      // @ts-ignore
-
-      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries({ queryKey: ["history"] }); // Invalidate the query to trigger a refetch
     },
   });
 }

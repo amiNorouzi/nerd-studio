@@ -36,9 +36,7 @@ export function useSetFavorites() {
       return data;
     },
     onSuccess: () => {
-      // @ts-ignore
-
-      queryClient.invalidateQueries(["favorites"]); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries({ queryKey: ["favorites"] }); // Invalidate the query to trigger a refetch
     },
   });
 }

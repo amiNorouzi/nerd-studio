@@ -71,6 +71,11 @@ function ModelAndSubmit({
         console.log("test if");
         setImage(data);
       }
+      if(currentTab == tabs.imageUpscale){
+        // upscale_by
+        // upscale_value
+        //   add this to
+      }
     }
   };
     if (getValue("text")) {
@@ -85,7 +90,7 @@ function ModelAndSubmit({
         console.log("isPending", isSuccess);
       }
       if (currentTab == tabs.imageToImage) {
-        const dataImageToImage = imageToImageRespose({
+        const dataImageToImage = await imageToImageRespose({
           model: activeModel,
           sizePic: "",
           prompt: String(getValue("text") || ""),

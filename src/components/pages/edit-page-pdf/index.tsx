@@ -1,10 +1,14 @@
 "use client";
-import { ChatList } from "../chat/componets";
+import { ChatList } from "../chat/components";
 import { InputPromtChatPdf } from "./components/inputPromtChatPdf";
-import PdfView from "./utility/pdfView";
 import { useEffect, useState } from "react";
 import { useConvertPicToText } from "@/services/upload-pdf";
 import { useStateCapturePicStore } from "@/stores/zustand/chat-pdf-file";
+import dynamic from "next/dynamic";
+
+const PdfView = dynamic(() => import("./utility/pdfView"), {
+  loading: () => <></>,
+});
 
 export default function EditPagePdf() {
   const [messages, setMessages] = useState<any>([]);
@@ -23,7 +27,6 @@ export default function EditPagePdf() {
           ...messages,
           {
             id: "2",
-            // @ts-ignore
             prompt: [`${data}`],
             image: "/images/logo.png",
             timeLine: "5 Min ago",
@@ -34,7 +37,7 @@ export default function EditPagePdf() {
       }
     };
     getData();
-  }, [isPending, messages, mutateAsync, pics]);
+  }, [ pics]);
   return (
     <div className="w-full">
       <div className=" flex w-full  grid-flow-row grid-cols-2 flex-nowrap gap-0">

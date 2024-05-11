@@ -66,16 +66,16 @@ export default function useStream<T>({
       // resetMessage();
       mutate(requestBody);
 
-      fetchEventSource(`http://5.78.55.161:8000/v1/api/ai_writers/test/`, {
-        method: 'POST',
-        onmessage(msg) {
-          const message = (JSON.parse(msg.data).content);
-          if (message) {
-            setMessage(prev => prev + message);
-          }
-
-        },
-      });
+      // fetchEventSource(`http://5.78.55.161:8000/v1/api/ai_writers/test/`, {
+      //   method: 'POST',
+      //   onmessage(msg) {
+      //     const message = (JSON.parse(msg.data).content);
+      //     if (message) {
+      //       setMessage(prev => prev + message);
+      //     }
+      //
+      //   },
+      // });
     },
     [mutate],
   );

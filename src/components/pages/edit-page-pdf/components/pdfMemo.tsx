@@ -1,6 +1,6 @@
 "use client"
 import { Viewer, Worker } from "@react-pdf-viewer/core";
-import { useSelectedFilePdfStore } from "@/stores/zustand/chat-pdf-file";
+import { useSelectedFilePdfStore, useStateCapturePicStore } from "@/stores/zustand/chat-pdf-file";
 import { memo, ReactElement, useRef, useState } from "react";
 import { defaultLayoutPlugin, ToolbarSlot } from "@react-pdf-viewer/default-layout";
 import { BsArrowsFullscreen, BsFillPrinterFill, BsLayoutSidebar } from "react-icons/bs";
@@ -14,6 +14,7 @@ export const PdfMemo= memo(function PdfMemoFun ({ init }: { init:number }){
   const [screenCapture, setScreenCapture] = useState<string>("");
   console.log("pdf memo render");
   const thumbnailPluginInstance = thumbnailPlugin();
+  const setPic = useStateCapturePicStore.use.setPic();
 
   const { Thumbnails } = thumbnailPluginInstance;
 
@@ -140,7 +141,7 @@ export const PdfMemo= memo(function PdfMemoFun ({ init }: { init:number }){
           <Viewer
             ref={pdfRef}
             initialPage={init}
-        fileUrl={"https://nerdstudio-backend-bucket.s3.amazonaws.com/media/pdfs/pdf-5f956914-9670-4f45-a0de-c922f9b5ca39.pdf"}
+        fileUrl={selectedFilePdfUrl}
       plugins={[defaultLayoutPluginInstance, thumbnailPluginInstance]}
 />
       ):""}

@@ -145,7 +145,7 @@
       "transfer_workspace_title": "कार्यक्षेत्र स्थानांतरित करें",
       "transfer_workspace_select_placeholder": "एक कार्यक्षेत्र सदस्य का चयन करें"
     },
-    "ReWrite": {
+    "rewrite": {
       "form_rewrite_button": "फिर से लिखने",
       "text_input_placeholder": "अपना वह पाठ चिपकाएँ जिसे आप दोबारा लिखना या सुधारना चाहते हैं...",
       "text_label": "मूलपाठ",
@@ -364,7 +364,7 @@
     "apps_header": {
       "not_found": "नहीं मिला",
       "translate": "अनुवाद",
-      "ReWrite": "फिर से लिखने",
+      "rewrite": "फिर से लिखने",
       "grammar": "व्याकरण",
       "chat": "बात करना",
       "code": "कोड",

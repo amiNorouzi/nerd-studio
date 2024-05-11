@@ -145,7 +145,7 @@
       "transfer_workspace_title": "Transferir espaço de trabalho",
       "transfer_workspace_select_placeholder": "Selecione um membro do espaço de trabalho"
     },
-    "ReWrite": {
+    "rewrite": {
       "form_rewrite_button": "Reescrever",
       "text_input_placeholder": "cole o texto que deseja reescrever ou melhorar...",
       "text_label": "Texto",
@@ -364,7 +364,7 @@
     "apps_header": {
       "not_found": "Não encontrado",
       "translate": "Traduzir",
-      "ReWrite": "Reescrever",
+      "rewrite": "Reescrever",
       "grammar": "Gramática",
       "chat": "Bater papo",
       "code": "Código",

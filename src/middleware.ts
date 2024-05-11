@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 import { i18n } from "../i18n.config";
 
@@ -10,8 +10,8 @@ function getLocale(request: NextRequest): string | undefined {
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
-  // @ts-ignore locales are readonly
-  const locales: string[] = i18n.locales;
+
+  const locales = i18n.locales;
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
 
   const locale = matchLocale(languages, locales, i18n.defaultLocale);

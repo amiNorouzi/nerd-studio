@@ -136,7 +136,7 @@ export default function ResultSection() {
               </Show.When>
 
               <Show.Else>
-                <GeneratedImages images={imageUrl} />
+                <GeneratedImages images={[imageUrl]} />
               </Show.Else>
             </Show>
           </>
@@ -144,8 +144,7 @@ export default function ResultSection() {
       </div>
       <HistoryBox>
         <ImageHistory
-          /*@ts-ignore*/
-          histories={histories}
+          histories={histories as any}
           isOpenMobileImageHistory={isOpenMobileImageHistory}
           setIsOpenMobileImageHistory={setIsOpenMobileImageHistory}
         />

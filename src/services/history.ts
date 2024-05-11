@@ -61,9 +61,7 @@ export function useHistoryUpdate() {
       return data;
     },
     onSuccess: () => {
-      // @ts-ignore
-
-      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries({ queryKey: ["history"] }); // Invalidate the query to trigger a refetch
     },
   });
 }
@@ -78,9 +76,7 @@ export function useHistoryDelete() {
       return data;
     },
     onSuccess: () => {
-      // @ts-ignore
-
-      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries({ queryKey: ["history"] }); // Invalidate the query to trigger a refetch
     },
   });
 }
@@ -110,9 +106,7 @@ export function useHistoryUpdateChild() {
       return data;
     },
     onSuccess: () => {
-      // @ts-ignore
-
-      queryClient.invalidateQueries(["history-version",uuid]); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries({ queryKey: ["history-version", uuid] }); // Invalidate the query to trigger a refetch
     },
   });
 }

@@ -48,8 +48,7 @@ export function base64ToBlob(data: string, toType?: string) {
  */
 export function dataURLtoFile(dataUrl: string, filename: string) {
   let arr = dataUrl.split(","),
-    // @ts-ignore
-    mime = arr[0].match(/:(.*?);/)[1],
+    mime = arr[0].match(/:(.*?);/)?.[1],
     bStr = atob(arr[1]),
     n = bStr.length,
     u8arr = new Uint8Array(n);

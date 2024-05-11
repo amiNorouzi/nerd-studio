@@ -12,20 +12,18 @@ import {
 } from "./types";
 
 const initialState = {
-  urlPdf: [],
+  urlPdf: [] as File[],
+
 };
 const initialStatePic = {
   pic: [""],
 };
 const initialStateSelectedFilePdf = {
-  selectedFilePdf: [""],
+  selectedFilePdf: "",
 };
 
-// @ts-ignore
 const usePdfFile = create<FilePdf>()(
   devtools(
-    // @ts-ignore
-
     immer(set => ({
       ...initialState,
       setUrlPdf: (val: File[]) =>
@@ -36,17 +34,13 @@ const usePdfFile = create<FilePdf>()(
     { name: "urlPdf", store: "urlPdf" },
   ),
 );
-// @ts-ignore
+
 const useSelectedFilePdf = create<SelectedFilePdf>()(
   devtools(
-    // @ts-ignore
-
     immer(set => ({
       ...initialStateSelectedFilePdf,
       setSelectedFilePdf: (val: string) =>
         set(state => {
-          // @ts-ignore
-
           state.selectedFilePdf = val;
         }),
     })),
@@ -80,10 +74,9 @@ const useStateCapturePic = create<CaptureScreenPic>()(
     { name: "pic", store: "pic" },
   ),
 );
+
 const useStateConversation = create<conversation>()(
   devtools(
-    // @ts-ignore
-
     immer(set => ({
       id: "",
       prompt: [],
@@ -91,7 +84,7 @@ const useStateConversation = create<conversation>()(
       timeLine: "",
       name: "",
       role: "",
-      setConversation: (val: Partial<conversation>) =>
+      setConversation: (val) =>
         set(state => {
           if (val.id !== undefined) state.id = val.id;
           if (val.prompt !== undefined) state.prompt = val.prompt;
