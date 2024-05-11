@@ -10,7 +10,7 @@ export const  Cards = ({selectedPrompt}:Props)=>{
 
   return (
     <div
-      className="flex h-[450px] overflow-y-hidden grid-cols-3 flex-col gap-6  rounded-3xl bg-transparent p-0 md:grid lg:grid-cols-4 lg:justify-around lg:gap-y-6  lg:bg-secondary lg:p-6 2xl:grid-cols-4 min-[1920px]:p-[50px]">
+      className="flex h-[480px] overflow-y-hidden grid-cols-3 flex-col gap-6  rounded-3xl bg-transparent p-0 md:grid lg:grid-cols-4 lg:justify-around lg:gap-y-6  lg:bg-secondary lg:p-6 2xl:grid-cols-4 min-[1920px]:p-[50px]">
       {/*Cards*/}
       {selectedPrompt && selectedPrompt.templates.map((template,index) => (
         <>
