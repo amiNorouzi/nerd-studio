@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 
 import Lottie from "react-lottie";
 
-import * as noDocsAnimation from "@/components/animations/no-docs-animation.json";
+import * as noDocsAnimation from "../../../../../public/animations/no-docs-animation.json";
 import { useGetWorkspaceDocuments } from "../hooks/useGetWorkspaceDocuments";
 import InstalledDocCard from "./InstalledDocCard";
 
