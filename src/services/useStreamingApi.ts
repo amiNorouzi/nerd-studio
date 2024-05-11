@@ -31,7 +31,7 @@ export default function useStream<T>({
         any,
         OpenAiCompletionSchemaInput
       >(
-        `http://5.78.55.161:8000/v1/api/ai_writers/test/`,
+        `http://5.78.55.161:8000/v1/api/ai_writers/`,
         {
           ...requestBody,
           workspace_id: session?.user.workspace.id!,

@@ -15,7 +15,5 @@ export function useGetWorkspaceMembers({ workspace_id }: UseGetWorkspaceMembersP
             const response = await axiosClient.get<WorkspaceMember[]>(`/workspaces/get_workspace_members/${workspace_id}/`);
             return response.data;
         },
-        refetchOnWindowFocus: false,
-        staleTime: 1000 * 60 * 5,
     });
 }

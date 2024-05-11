@@ -27,20 +27,20 @@ export default function useEventChanel({ eventName }: EventChanelParams) {
 
   useEffect(() => {
     if (uuid) {
-      fetchEventSource('http://5.78.55.161:8000/v1/api/ai_writers/test/', {
-        method: "GET",
-        onmessage(msg) {
-          const message = JSON.parse(msg.data).content;
-          if (msg.event === eventName && message) {
-            setMessage(prev => prev + message);
-          }
-        },
-      });
+      // fetchEventSource('http://5.78.55.161:8000/v1/api/ai_writers/test/', {
+      //   method: "GET",
+      //   onmessage(msg) {
+      //     const message = JSON.parse(msg.data).content;
+      //     if (msg.event === eventName && message) {
+      //       setMessage(prev => prev + message);
+      //     }
+      //   },
+      // });
     }
     // return () => {
     //   cancelStream();
     // };
-  }, []);
+  }, [uuid]);
 
   return {
     message,
