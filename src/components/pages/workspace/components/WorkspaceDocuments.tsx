@@ -12,11 +12,11 @@ import SearchIcon from "@/components/svg-icons/SearchIcon";
 
 import Lottie from 'react-lottie';
 
-import * as animationNoApps from '@/components/animations/no-apps-animation.json';
+import * as animationNoApps from '../../../../../public/animations/no-apps-animation.json';
 
 const defaultOptions = {
   loop: true,
-  autoplay: true, 
+  autoplay: true,
   animationData: animationNoApps,
   rendererSettings: {
     preserveAspectRatio: 'xMidYMid slice'

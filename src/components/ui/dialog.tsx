@@ -2,10 +2,8 @@
 
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { AiOutlineClose as X } from "react-icons/ai";
 
 import { cn } from "@/lib/utils";
-import { checkWindowValidity } from "@/lib/auth-storage";
 
 const Dialog = DialogPrimitive.Root;
 

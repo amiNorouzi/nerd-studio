@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { WorkspaceMember } from "../types/members";
 
 type UseGetWorkspaceMembersParams = {

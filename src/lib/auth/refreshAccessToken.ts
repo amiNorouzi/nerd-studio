@@ -37,7 +37,7 @@ export async function refreshAccessToken(token:any):Promise<JWT> {
         ...token,
         error: "RefreshAccessTokenError",
       };
-    };
+    }
 
     // the refreshToken request failed due to other reasons than refreshToken expiration
     return token;

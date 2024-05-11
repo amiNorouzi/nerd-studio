@@ -5,11 +5,11 @@ import { Providers } from "@/components/providers";
 
 import { i18n, type Locale } from "../../../i18n.config";
 
-import "../globals.css";
-import "../theme.css";
+import "@/config/globals.css";
+import "@/config/theme.css";
 import { langDir } from "@/lib/dictionary";
 import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
-import { auth } from "@/lib/auth";
+import { auth } from "@/config/auth";
 
 const APP_NAME = "Nerd Studio";
 const APP_DEFAULT_TITLE = "Nerd Studio | Home";
@@ -72,7 +72,7 @@ export default async function RootLayout({
 
   return (
     <html lang={params.lang} dir={langDir[params.lang]}>
-      <body suppressHydrationWarning className="h-screen w-dvw overflow-y-hidden">
+      <body suppressHydrationWarning className="h-dvh w-dvw  ">
         <NextAuthProvider session={session}>
           <Providers>{children}</Providers>
         </NextAuthProvider>

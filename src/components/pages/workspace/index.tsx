@@ -5,7 +5,7 @@ import { spacesTabs } from "@/constants/spaces";
 
 import type { Locale } from "../../../../i18n.config";
 import { getDictionary } from "@/lib/dictionary";
-import { auth } from "@/lib/auth";
+import { auth } from "@/config/auth";
 import WorkspaceAppsContainer from "./components/WorkspaceAppsContainer";
 
 /**

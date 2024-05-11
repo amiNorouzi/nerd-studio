@@ -1,6 +1,6 @@
 import React from "react";
 import { getServerSession } from "next-auth";
-import { authConfig } from "@/lib/auth";
+import { authConfig } from "@/config/auth";
 import { redirect } from "next/navigation";
 import "@/styles/auth-layout.sass";
 import { Footer } from "@/components/pages/signup/footer";
