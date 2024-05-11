@@ -5,8 +5,8 @@ import { Providers } from "@/components/providers";
 
 import { i18n, type Locale } from "../../../i18n.config";
 
-import "../globals.css";
-import "../theme.css";
+import "@/config/globals.css";
+import "@/config/theme.css";
 import { langDir } from "@/lib/dictionary";
 import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
 import { auth } from "@/lib/auth";

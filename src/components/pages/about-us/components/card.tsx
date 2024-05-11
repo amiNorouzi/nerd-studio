@@ -2,9 +2,9 @@ import { TfiTwitter } from "react-icons/tfi";
 import { IoLogoInstagram } from "react-icons/io5";
 import { PiLinkedinLogoBold } from "react-icons/pi";
 import Link from "next/link";
-import { Employe } from "./teams";
+import { Employee } from "./teams";
 
-const CardContactUs: React.FC<Employe> = ({
+const CardContactUs: React.FC<Employee> = ({
   name,
   family,
   avatar,
