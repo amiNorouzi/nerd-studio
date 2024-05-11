@@ -72,7 +72,7 @@ export default async function RootLayout({
 
   return (
     <html lang={params.lang} dir={langDir[params.lang]}>
-      <body suppressHydrationWarning className="h-screen w-dvw overflow-y-hidden">
+      <body suppressHydrationWarning className="h-dvh w-dvw  ">
         <NextAuthProvider session={session}>
           <Providers>{children}</Providers>
         </NextAuthProvider>

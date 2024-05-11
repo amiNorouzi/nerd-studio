@@ -1,5 +1,7 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 //TODO:Fixed This component
 const Footer = () => {
   return (
@@ -21,12 +23,18 @@ const Footer = () => {
               <span>License</span>
             </div>
             <div className="flex flex-row items-center justify-between gap-x-0 text-base md:justify-start lg:gap-x-6">
-              <span>About</span>
+              <Link href="aboutus">
+                <span>About</span>
+
+              </Link>
               <span>Features</span>
               <span>Pricing</span>
               <span>News</span>
               <span>Help</span>
+              <Link href="contact">
+
               <span className="hidden lg:flex">Contact</span>
+              </Link>
             </div>
           </div>
         </div>
