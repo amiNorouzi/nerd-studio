@@ -36,13 +36,13 @@ export function HistoryInfoContent() {
   const {
     common: { copy },
     components: { custom_textarea: dictionary },
-    page: { ReWrite },
+    page: { rewrite },
   } = useGetDictionary();
   return (
     <div className="grid gap-9 ">
       {/* show prompt and inputs*/}
       <div className="grid items-start gap-3">
-        <span>{ReWrite.text_label}</span>
+        <span>{rewrite.text_label}</span>
         <div className="relative">
           <textarea
             defaultValue={selectedHistoryItem?.answer_text}
@@ -82,23 +82,23 @@ export function HistoryInfoContent() {
       {/*show options*/}
       <div className="grid grid-cols-2 gap-16">
         <div className="grid items-start gap-3">
-          <span>{ReWrite.tone_label}</span>
+          <span>{rewrite.tone_label}</span>
           <DivWrapper>1024 x 1024px</DivWrapper>
         </div>
         <div className="grid items-start gap-3">
-          <span>{ReWrite.style_label}</span>
+          <span>{rewrite.style_label}</span>
           <DivWrapper>Anime</DivWrapper>
         </div>
       </div>
       {/*show url or file*/}
       <div className="grid items-start gap-3">
-        <span>{ReWrite.Url_label}</span>
+        <span>{rewrite.Url_label}</span>
         <DivWrapper>http://www.google.com</DivWrapper>
       </div>
 
       {/*show tags*/}
       <div className="grid items-start gap-3">
-        <span>{ReWrite.tags}</span>
+        <span>{rewrite.tags}</span>
         <div className="flex flex-wrap gap-1">
           {tags.map(tag => (
             <span

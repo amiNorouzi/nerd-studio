@@ -21,6 +21,7 @@ import { timePassedSince } from "@/lib/date-transform";
 import { useFavorites, useSetFavorites } from "@/services/favorite-history";
 import { usePinHistory, useSetPinHistory } from "@/services/pin-history";
 import { BsFillPinAngleFill } from "react-icons/bs";
+import { HistoryChild } from "@/components/shared/History/HistoryChild";
 
 interface DeletePopoverProps {
   item: HistoryItem;
@@ -185,8 +186,11 @@ export function HistoryItems({ appName }: IProps) {
     sortAnswers(historyItems.answers)
       .filter(item => item.app_type === appName)
       .map(item => (
+        <div className='flex flex-col w-full' key={item.id}>
+
+
         <div
-          key={item.id}
+
           className={cn(
             "flex min-h-[73px] w-full cursor-pointer flex-col gap-3 rounded-lg border  bg-white p-2 transition-all hover:bg-muted-dark",
             isItemSelected(item.id) &&
@@ -348,6 +352,8 @@ export function HistoryItems({ appName }: IProps) {
               </span>
             </div>
           </div>
+        </div>
+          <HistoryChild uuid={item.uuid} mainAnswer={item.answer_text}/>
         </div>
       ));
 

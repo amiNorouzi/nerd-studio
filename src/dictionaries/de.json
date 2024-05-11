@@ -145,7 +145,7 @@
       "transfer_workspace_title": "Arbeitsbereich übertragen",
       "transfer_workspace_select_placeholder": "Wählen Sie ein Mitglied des Arbeitsbereichs aus"
     },
-    "ReWrite": {
+    "rewrite": {
       "form_rewrite_button": "Umschreiben",
       "text_input_placeholder": "Fügen Sie hier Ihren Text ein, den Sie umschreiben oder verbessern möchten ...",
       "text_label": "Text",
@@ -364,7 +364,7 @@
     "apps_header": {
       "not_found": "Nicht gefunden",
       "translate": "Übersetzen",
-      "ReWrite": "Umschreiben",
+      "rewrite": "Umschreiben",
       "grammar": "Grammatik",
       "chat": "Plaudern",
       "code": "Code",

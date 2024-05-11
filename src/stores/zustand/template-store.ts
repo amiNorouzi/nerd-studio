@@ -7,20 +7,28 @@ import type { TemplateAction, TemplateState } from "./types";
 
 type StoreType = TemplateState & TemplateAction;
 
-//@ts-ignore
-const initialState = {
-  currentTemplate: {},
+const initialState: TemplateState = {
+  currentTemplate: {
+    id: 0,
+    topic: "",
+    task: "",
+    prompt: "",
+    params: [],
+  },
   customTemplateInputs: [],
   customTemplateDetails: {
     name: "",
     description: "",
-    category: "",
-    Icon: "",
+    category: {
+      name: "",
+      id: 0,
+    },
     template: "",
+    icon: "",
   },
   currentTemplateInputs: {},
   currentTemplatePrompt: "",
-} as TemplateState;
+};
 
 /**
  * `useTemplate` is a Zustand store that manages the state and actions related to templates.
@@ -135,7 +143,7 @@ const useTemplate = create<StoreType>()(
         }),
       setCustomTemplateDetails: (key, v) =>
         set(state => {
-          state.customTemplateDetails[key] = v;
+          state.customTemplateDetails[key] = v as any;
         }),
       changeCurrentTemplateInputs: (key, val) =>
         set(state => {

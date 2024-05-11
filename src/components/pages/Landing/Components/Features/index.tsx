@@ -15,7 +15,7 @@ export default function Features() {
         title={"What can you do with"}
         titlePrimary={"Nerd Studio?"}
         subTitle={
-          "These are the stories of our customers who have joined us with great pleasure when using."
+          "These are the features that are available in Nerd Studio application."
         }
       />
 

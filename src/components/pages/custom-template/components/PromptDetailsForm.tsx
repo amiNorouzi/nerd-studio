@@ -51,8 +51,8 @@ export function PromptDetailsForm() {
       <Box>
         <Label>{dictionary.prompt_category_label}</Label>
         <SelectAndDrawer
-          value={customTemplateDetails.category}
-          setValue={val => setCustomTemplateDetails("category", val)}
+          value={customTemplateDetails.category.name}
+          setValue={val => setCustomTemplateDetails("category", customTemplateDetails.category)}
           items={categories.map(({ id, value }) => ({ id, value }))}
         />
       </Box>

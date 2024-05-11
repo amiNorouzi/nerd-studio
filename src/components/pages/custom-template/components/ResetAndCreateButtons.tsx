@@ -25,7 +25,7 @@ export function ResetAndCreateButtons() {
         description: input.description,
         placeholder: input.placeholder ?? "",
       })),
-      category_name: customTemplateDetails.category,
+      category_id: customTemplateDetails.category.id,
       task: customTemplateDetails.description,
       topic: customTemplateDetails.name,
     });

@@ -7,12 +7,11 @@ export function useWorkspaces() {
   // const queryClient = useQueryClient();
 
   return useQuery({
-    // @ts-ignore
     queryKey: ['workspaces'],
     queryFn: async () => {
       const {data: workspaces} = await axiosClient.get('/workspaces/get_user_workspaces');
       return workspaces as Workspace[];
-    }, 
+    },
     refetchOnWindowFocus: false, // do not refetch workspaces data on focus out/in
     staleTime: 1000 * 60 * 5, // data is fresh for 5 minutes
   });

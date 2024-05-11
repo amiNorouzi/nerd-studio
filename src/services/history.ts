@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
+import { useState } from "react";
 
 type HistoriesParams = {
   pageNumber: number;
@@ -24,15 +25,20 @@ type HistoryVersionParams = {
   uuid: string;
 };
 
-export function useHistoryVersion() {
-  return useMutation({
-    mutationFn: async ({ uuid }: HistoryVersionParams) => {
+export function useHistoryVersion({ uuid }: HistoryVersionParams) {
+
+  const { data } = useQuery({
+    queryKey: ["history-version",uuid],
+    async queryFn() {
       const { data } = await axiosClient.get<HistoryVersion>(
-        "/histories/" + uuid,
+        "/histories/version/" + uuid,
       );
       return data;
     },
   });
+
+  return { data };
+
 }
 
 type HistoryVUpdateParams = {
@@ -55,9 +61,7 @@ export function useHistoryUpdate() {
       return data;
     },
     onSuccess: () => {
-      // @ts-ignore
-
-      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries({ queryKey: ["history"] }); // Invalidate the query to trigger a refetch
     },
   });
 }
@@ -72,9 +76,7 @@ export function useHistoryDelete() {
       return data;
     },
     onSuccess: () => {
-      // @ts-ignore
-
-      queryClient.invalidateQueries(["history"]); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries({ queryKey: ["history"] }); // Invalidate the query to trigger a refetch
     },
   });
 }
@@ -86,3 +88,40 @@ const historyService = {
 };
 
 export default historyService;
+
+
+export function useHistoryUpdateChild() {
+  const queryClient = useQueryClient();
+  const [uuid,setUUID] = useState<string>();
+  return useMutation({
+    mutationFn: async ({ answerUuid,answer_text }: HistoryVUpdateParams) => {
+      setUUID(answerUuid)
+      const { data } = await axiosClient.put<Version>(
+        "/histories/update/" + answerUuid+'/',
+        {
+          answer_text,
+        },
+      );
+
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["history-version", uuid] }); // Invalidate the query to trigger a refetch
+    },
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

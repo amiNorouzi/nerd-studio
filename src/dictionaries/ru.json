@@ -145,7 +145,7 @@
       "transfer_workspace_title": "Передать рабочее пространство",
       "transfer_workspace_select_placeholder": "Выберите участника рабочего пространства"
     },
-    "ReWrite": {
+    "rewrite": {
       "form_rewrite_button": "Переписать",
       "text_input_placeholder": "вставьте текст, который вы хотите переписать или улучшить ...",
       "text_label": "Текст",
@@ -364,7 +364,7 @@
     "apps_header": {
       "not_found": "Не найдено",
       "translate": "Перевод",
-      "ReWrite": "Перефразировать",
+      "rewrite": "Перефразировать",
       "grammar": "Грамматика",
       "chat": "Чат",
       "code": "Код",

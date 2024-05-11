@@ -1,7 +1,5 @@
 "use client";
-import React, { useState } from "react";
 import { SelectEngine, UploadZone } from "@/components/shared";
-import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { ChatTools } from "@/components/pages/chat/components/ChatTools";
 import { useGetDictionary } from "@/hooks";

@@ -119,7 +119,6 @@ const DrawMaskDialog: FC<IProps> = ({
 
   //set final image to use in masking
   const handleSave = () => {
-    // @ts-ignore
     const maskData = canvasRef.current!.getDataURL();
     changeValue("mask", maskData);
     setOpen(false);
