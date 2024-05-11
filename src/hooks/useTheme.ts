@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { themeConfigStorage } from "@/stores/browser-storage";
 import type { Theme, PrimaryColor } from "@/stores/browser-storage/types";
-import { checkWindowValidity } from "@/lib/auth-storage";
+import { checkWindowValidity } from "@/lib/auth/auth-storage";
 import { useUiStore } from "@/stores/zustand/ui-store";
 
 interface IChangeThemeInput {
@@ -98,6 +98,6 @@ export function useTheme() {
    * @param {IChangeThemeInput} themeClass - The class that will be added to the body class list to apply the color variant.
    * @param {IChangeThemeInput} primaryColorClass - The class that will be added to the body class list to apply the primary color variant.
    */
-  
+
   return { activeTheme, activePrimaryColor, changeTheme };
 }

@@ -9,7 +9,7 @@ import SearchIcon from "@/components/svg-icons/SearchIcon";
 
 import Lottie from "react-lottie";
 
-import * as animationNoApps from "@/components/animations/no-apps-animation.json";
+import * as animationNoApps from "../../../../../public/animations/no-apps-animation.json";
 import CreateNewAppLink from "./CreateNewAppLink";
 import { useGetWorkspaceApps } from "../hooks/useGetWorkspaceApps";
 

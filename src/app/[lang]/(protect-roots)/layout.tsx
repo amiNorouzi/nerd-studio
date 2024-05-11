@@ -3,7 +3,7 @@ import type { Locale } from "../../../../i18n.config";
 import { SidePanel } from "@/components/layout/side-panel";
 import SignupQuestions from "@/components/shared/SignupQuestions";
 import { getServerSession } from "next-auth";
-import { authConfig } from "@/lib/auth";
+import { authConfig } from "@/config/auth";
 import { redirect } from "next/navigation";
 import HomeLoading from "@/app/[lang]/loading";
 
