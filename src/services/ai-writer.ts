@@ -1,3 +1,5 @@
+"use client"
+
 import useStream from "@/services/useStreamingApi";
 import { useCallback } from "react";
 

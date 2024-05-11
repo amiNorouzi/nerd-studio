@@ -1,18 +1,16 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import { TbHistory, TbSearch } from "react-icons/tb";
-import { useMediaQuery } from "usehooks-ts";
+import { TbSearch } from "react-icons/tb";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import { Input } from "@/components/ui/input";
 
 import { useHistoryStore } from "@/stores/zustand/history-store";
 
-import { cn } from "@/lib/utils";
 import { useGetDictionary } from "@/hooks";
-import { iconVariants } from "@/constants/variants";
+import { cn } from "@/lib/utils";
 
 interface IProps extends React.ComponentPropsWithoutRef<"div"> {
   children: React.ReactNode;
@@ -30,10 +28,16 @@ export function HistoryBox({ children, className, ...props }: IProps) {
   const isHistoryOpen = useHistoryStore.use.isHistoryOpen();
   const setSearch = useHistoryStore.use.setHistorySearch();
   const setHistoryIsOpen = useHistoryStore.use.setHistoryIsOpen();
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const [isDesktop, setIsDesktop] = useState<undefined | boolean>(undefined);
+
+  useEffect(() => {
+    setIsDesktop(window.matchMedia("(min-width: 768px)").matches);
+  }, []);
+  
   const {
     components: { history_box },
   } = useGetDictionary();
+
   const header = (
     <>
       {/*header and search section*/}
@@ -68,6 +72,7 @@ export function HistoryBox({ children, className, ...props }: IProps) {
       </div>
     </>
   );
+
   if (isDesktop) {
     return (
       <div

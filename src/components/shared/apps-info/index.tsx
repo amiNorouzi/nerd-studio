@@ -1,20 +1,19 @@
-import React, { memo } from "react";
-import remarkGfm from "remark-gfm";
 import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-import {
-  AppIntroMD as Introduction,
-  HeaderActions as HActions,
-  HeaderDescription as HDescription,
-  HeaderIcon as HIcon,
-  HeaderInfo as HInfo,
-} from "./components";
 import type { ParamsType } from "@/services/types";
-const HeaderActions = memo(HActions);
-const HeaderDescription = memo(HDescription);
-const HeaderIcon = memo(HIcon);
-const HeaderInfo = memo(HInfo);
-const AppIntroMD = memo(Introduction);
+import {
+  AppIntroMD,
+  HeaderActions,
+  HeaderDescription,
+  HeaderIcon,
+  HeaderInfo,
+} from "./components";
+// const HeaderActions = memo(HActions);
+// const HeaderDescription = memo(HDescription);
+// const HeaderIcon = memo(HIcon);
+// const HeaderInfo = memo(HInfo);
+// const AppIntroMD = memo(Introduction);
 interface IProps {
   headerDescription: string;
   mdDescription: string;

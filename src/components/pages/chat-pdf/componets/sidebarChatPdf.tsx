@@ -5,7 +5,7 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import { Menu, Sidebar } from "react-pro-sidebar";
 
 import { useSidbarPDfStore } from "@/stores/zustand/ui-store";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMobileSize from "@/hooks/useMediaQuery";
 import { useTheme } from "@/hooks/useTheme";
 import useOutsideClick from "@/hooks/useOutSideClick";
 
