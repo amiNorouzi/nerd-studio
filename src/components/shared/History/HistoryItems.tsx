@@ -187,7 +187,7 @@ export function HistoryItems({ appName }: IProps) {
     sortAnswers(historyItems.answers)
       .filter(item => item.app_type === appName).filter(item=>{
         if(!searchValue ) return true
-        return item.answer_text.toLowerCase().includes(searchValue.toLowerCase())
+        return item.answer_text.toLowerCase().trim().includes(searchValue.toLowerCase().trim())
     })
       .map(item => (
 
