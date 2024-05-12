@@ -123,6 +123,8 @@ interface IProps {
  */
 export function HistoryItems({ appName }: IProps) {
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
+  const searchValue = useHistoryStore.use.historySearch();
+
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const setHistoryInfoOpen = useHistoryStore.use.setHistoryInfoOpen();
   const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
@@ -133,7 +135,6 @@ export function HistoryItems({ appName }: IProps) {
     useSetFavorites();
   const { data: togglePinAnswer, mutate: mutatePinItems } = useSetPinHistory();
   const { data: historyItems } = useHistories({ pageNumber: 1 });
-
   //check if item is favorite or not
   const favoriteCheck = (id: number) => {
     if (!historyItems || !favoriteItems) return null;
@@ -184,8 +185,12 @@ export function HistoryItems({ appName }: IProps) {
     historyItems &&
     historyItems.answers &&
     sortAnswers(historyItems.answers)
-      .filter(item => item.app_type === appName)
+      .filter(item => item.app_type === appName).filter(item=>{
+        if(!searchValue ) return true
+        return item.answer_text.toLowerCase().includes(searchValue.toLowerCase())
+    })
       .map(item => (
+
         <div className='flex flex-col w-full' key={item.id}>
 
 
