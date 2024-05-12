@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useRef } from "react";
 
-import { checkWindowValidity } from "@/lib/auth-storage";
+import { checkWindowValidity } from "@/lib/auth/auth-storage";
 
 /**
  * get an element id and show and hide target element by pass ref when match target scroll height

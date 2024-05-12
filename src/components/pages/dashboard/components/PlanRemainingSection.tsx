@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { SemicircleProgressBar } from "@/components/shared";
 
 import { useGetDictionary } from "@/hooks";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMobileSize from "@/hooks/useMediaQuery";
 import { TbClockDollar } from "react-icons/tb";
 
 /**

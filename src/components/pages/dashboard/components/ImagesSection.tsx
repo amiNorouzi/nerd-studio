@@ -46,7 +46,7 @@ export function ImagesSection() {
 
   return (
     <section className="w-full rounded-lg border bg-background p-3 shadow-dashboard-card max-lg:h-fit lg:col-span-3 lg:row-span-3">
-      <div className="col h-80 w-full lg:h-full ">
+      <div className="col h-80 w-full  ">
         {/*title*/}
         <h2>{dashboardDictionary.generated_images_title}</h2>
         {/*description*/}

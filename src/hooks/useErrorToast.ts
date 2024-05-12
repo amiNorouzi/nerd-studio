@@ -1,6 +1,6 @@
 import { isAxiosError } from "axios";
 
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 //hook for show error toast to user
 //normal error toast with given and fetch error toast get from axios api cal error

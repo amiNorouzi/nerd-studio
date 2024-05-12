@@ -3,7 +3,7 @@ import type { Locale } from "../../../../i18n.config";
 import { SidePanel } from "@/components/layout/side-panel";
 import SignupQuestions from "@/components/shared/SignupQuestions";
 import { getServerSession } from "next-auth";
-import { authConfig } from "@/lib/auth";
+import { authConfig } from "@/config/auth";
 import { redirect } from "next/navigation";
 import HomeLoading from "@/app/[lang]/loading";
 
@@ -24,7 +24,7 @@ export default async function RootLayout({
       <SidePanel />
       <div id="main" className="main-padding flex h-full w-full flex-col ">
         <Suspense fallback={<HomeLoading />}>
-          <main className="h-full w-full">{children}</main>
+          <main className="h-full w-full ">{children}</main>
           <SignupQuestions />
         </Suspense>
       </div>

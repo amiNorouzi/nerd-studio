@@ -21,6 +21,7 @@ import { timePassedSince } from "@/lib/date-transform";
 import { useFavorites, useSetFavorites } from "@/services/favorite-history";
 import { usePinHistory, useSetPinHistory } from "@/services/pin-history";
 import { BsFillPinAngleFill } from "react-icons/bs";
+import { HistoryChild } from "@/components/shared/History/HistoryChild";
 
 interface DeletePopoverProps {
   item: HistoryItem;
@@ -122,6 +123,8 @@ interface IProps {
  */
 export function HistoryItems({ appName }: IProps) {
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
+  const searchValue = useHistoryStore.use.historySearch();
+
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
   const setHistoryInfoOpen = useHistoryStore.use.setHistoryInfoOpen();
   const isItemSelected = (id: number) => selectedHistoryItem?.id === id;
@@ -132,7 +135,6 @@ export function HistoryItems({ appName }: IProps) {
     useSetFavorites();
   const { data: togglePinAnswer, mutate: mutatePinItems } = useSetPinHistory();
   const { data: historyItems } = useHistories({ pageNumber: 1 });
-
   //check if item is favorite or not
   const favoriteCheck = (id: number) => {
     if (!historyItems || !favoriteItems) return null;
@@ -183,10 +185,17 @@ export function HistoryItems({ appName }: IProps) {
     historyItems &&
     historyItems.answers &&
     sortAnswers(historyItems.answers)
-      .filter(item => item.app_type === appName)
+      .filter(item => item.app_type === appName).filter(item=>{
+        if(!searchValue ) return true
+        return item.answer_text.toLowerCase().trim().includes(searchValue.toLowerCase().trim())
+    })
       .map(item => (
+
+        <div className='flex flex-col w-full' key={item.id}>
+
+
         <div
-          key={item.id}
+
           className={cn(
             "flex min-h-[73px] w-full cursor-pointer flex-col gap-3 rounded-lg border  bg-white p-2 transition-all hover:bg-muted-dark",
             isItemSelected(item.id) &&
@@ -348,6 +357,8 @@ export function HistoryItems({ appName }: IProps) {
               </span>
             </div>
           </div>
+        </div>
+          <HistoryChild uuid={item.uuid} mainAnswer={item.answer_text}/>
         </div>
       ));
 

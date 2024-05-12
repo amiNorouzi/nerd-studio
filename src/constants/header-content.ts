@@ -1,7 +1,7 @@
 export const headerContent = {
   apps: {
-    ReWrite: {
-      title: "ReWrite",
+    rewrite: {
+      title: "rewrite",
     },
     chat: {
       title: "chat",
@@ -21,6 +21,6 @@ export const headerContent = {
     Grammar: {
       title: "grammar",
     },
-   
+
   },
 } as const;

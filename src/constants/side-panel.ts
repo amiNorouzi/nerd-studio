@@ -28,8 +28,8 @@ export const apps = [
   {
     id: "3",
     i18Key: "",
-    title: "ReWrite",
-    route: "/ReWrite",
+    title: "Rewrite",
+    route: "/rewrite",
     Icon: TbWriting,
   },
   {

@@ -24,6 +24,15 @@ export function PromptDetailsForm() {
   const customTemplateDetails = useTemplateStore.use.customTemplateDetails();
   const categories = useTemplateParentCategories();
 
+
+  const getValue = () => {
+    return (
+      categories.find(
+        item => item.id === String(customTemplateDetails.category.id),
+      ) ?? { id: "-1", title: "select an option", value: "select an option" }
+    );
+  };
+
   return (
     <div className="grid grid-cols-2 gap-4 p-4 lg:p-7 xl:gap-7 xl:p-9">
       <Box>
@@ -51,9 +60,10 @@ export function PromptDetailsForm() {
       <Box>
         <Label>{dictionary.prompt_category_label}</Label>
         <SelectAndDrawer
-          value={customTemplateDetails.category}
-          setValue={val => setCustomTemplateDetails("category", val)}
-          items={categories.map(({ id, value }) => ({ id, value }))}
+          value={getValue()}
+          setValue={val => {setCustomTemplateDetails("category",{id:+val,name:categories.filter(item=>item.id ===val)[0].value})
+          }}
+          items={categories}
         />
       </Box>
 

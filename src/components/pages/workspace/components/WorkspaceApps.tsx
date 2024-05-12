@@ -1,6 +1,6 @@
 "use client"
 
-import * as animationNoApps from '@/components/animations/no-apps-animation.json';
+import * as animationNoApps from '../../../../../public/animations/no-apps-animation.json';
 import WorkspaceAppsSection from "./WorkspaceAppsSection";
 import WorkspaceDocumentsSection from "./WorkspaceDocumentsSection";
 

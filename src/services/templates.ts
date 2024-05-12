@@ -54,7 +54,7 @@ type CreateTemplateParams = {
     description: string;
     placeholder: string;
   }[];
-  category_name: string;
+  category_id: number;
 };
 
 export function useCreateTemplate() {
@@ -62,7 +62,7 @@ export function useCreateTemplate() {
     async mutationFn({
       prompt,
       params,
-      category_name,
+      category_id,
       topic,
       task,
     }: CreateTemplateParams) {
@@ -73,7 +73,7 @@ export function useCreateTemplate() {
       >("/templates/", {
         topic,
         params,
-        category_name,
+        category_id,
         task,
         prompt,
       });

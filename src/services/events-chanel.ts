@@ -12,6 +12,7 @@ const EventListenerBaseApi = "http://5.78.55.161:8000/events";
 
 export default function useEventChanel({ eventName }: EventChanelParams) {
   const [message, setMessage] = useState("");
+  // const eventSource = useRef<EventSource | null>(null);
   const { data: session } = useSession();
   const uuid = session?.user.sub;
 
@@ -30,20 +31,20 @@ export default function useEventChanel({ eventName }: EventChanelParams) {
 
   useEffect(() => {
     if (uuid) {
-      fetchEventSource(`${EventListenerBaseApi}/${uuid}/`, {
-        method: "GET",
-        onmessage(msg) {
-          const message = JSON.parse(msg.data).content;
-          if (msg.event === eventName && message) {
-            setMessage(prev => prev + message);
-          }
-        },
-      });
+      // fetchEventSource('http://5.78.55.161:8000/v1/api/ai_writers/test/', {
+      //   method: "GET",
+      //   onmessage(msg) {
+      //     const message = JSON.parse(msg.data).content;
+      //     if (msg.event === eventName && message) {
+      //       setMessage(prev => prev + message);
+      //     }
+      //   },
+      // });
     }
     // return () => {
     //   cancelStream();
     // };
-  }, [cancelStream, eventName, uuid]);
+  }, [uuid]);
 
   return {
     message,

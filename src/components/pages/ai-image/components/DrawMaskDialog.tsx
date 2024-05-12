@@ -28,7 +28,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMobileSize from "@/hooks/useMediaQuery";
 import {
   Drawer,
   DrawerContent,
@@ -119,7 +119,6 @@ const DrawMaskDialog: FC<IProps> = ({
 
   //set final image to use in masking
   const handleSave = () => {
-    // @ts-ignore
     const maskData = canvasRef.current!.getDataURL();
     changeValue("mask", maskData);
     setOpen(false);

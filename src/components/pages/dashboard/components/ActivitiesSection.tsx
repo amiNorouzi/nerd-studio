@@ -9,7 +9,7 @@ import { useGetDictionary } from "@/hooks";
 const activities = [
   {
     id: "1",
-    title: "ReWrite",
+    title: "Rewrite",
     date: "48 Min ago",
     typeId: "2",
   },
@@ -33,7 +33,7 @@ const activities = [
   },
   {
     id: "5",
-    title: "ReWrite",
+    title: "Rewrite",
     date: "1 Week ago",
     typeId: "2",
   },
