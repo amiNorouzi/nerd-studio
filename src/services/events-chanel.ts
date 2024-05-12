@@ -40,7 +40,7 @@ export default function useEventChanel({ eventName }: EventChanelParams) {
     // return () => {
     //   cancelStream();
     // };
-  }, []);
+  }, [uuid]);
 
   return {
     message,

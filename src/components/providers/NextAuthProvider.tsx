@@ -16,5 +16,5 @@ export const NextAuthProvider = ({ children, session }: Props) => {
     }
   }, [session]);
 
-  return <SessionProvider session={session}>{children}</SessionProvider>;
+  return <SessionProvider refetchOnWindowFocus={false} session={session}>{children}</SessionProvider>;
 };

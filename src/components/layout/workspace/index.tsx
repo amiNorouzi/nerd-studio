@@ -3,7 +3,7 @@ import * as React from "react";
 import { useWorkspaces } from "@/components/pages/workspace/hooks/useWorkspaces";
 import { WorkspaceItems } from "./workspaceItems";
 import Loading from "@/components/shared/Loading";
-import type { Workspace } from "@/services/types";
+import type { WorkspaceList } from "@/services/types";
 
 export interface TransformedWorkspace {
   id: string;
@@ -14,14 +14,14 @@ export interface TransformedWorkspace {
   default: boolean;
 }
 
-function transformWorkspaces(workspaces: Workspace[]): TransformedWorkspace[] {
+function transformWorkspaces(workspaces: WorkspaceList[]): TransformedWorkspace[] {
   return workspaces.map(workspace => ({
-      id: workspace.id.toString(),
-      created_at: workspace.created_at,
-      updated_at: workspace.updated_at,
-      label: workspace.name,
-      value: workspace.name,
-      default: workspace.is_default
+      id: workspace.workspace.id.toString(),
+      created_at: workspace.workspace.created_at,
+      updated_at: workspace.workspace.updated_at,
+      label: workspace.workspace.name,
+      value: workspace.workspace.name,
+      default: workspace.workspace.is_default
   }));
 }
 

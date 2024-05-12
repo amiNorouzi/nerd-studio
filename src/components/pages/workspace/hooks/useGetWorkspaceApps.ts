@@ -17,7 +17,5 @@ export function useGetWorkspaceApps({
       );
       return response.data;
     },
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5,
   });
 }

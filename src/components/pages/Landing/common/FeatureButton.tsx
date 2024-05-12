@@ -2,7 +2,7 @@
 
 import { btnFeature } from "@/constants/Landing";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { TbWriting } from "react-icons/tb";
 import Image from "next/image";
@@ -10,6 +10,40 @@ import Image from "next/image";
 export default function  FeatureButton  (){
   const [selectedFeature, setSelectedFeature] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const selectedButtonRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef(null);
+  const [isSectionInView, setIsSectionInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Update state based on whether the section is in view
+        setIsSectionInView(entries[0].isIntersecting);
+      },
+      { threshold: 0.5 } // Considered in view when 50% of the section is visible
+    );
+
+    // Observe the section
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      // Disconnect observer when component unmounts
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    // Scroll to the selected button only when the section is in view
+    if (isSectionInView && selectedButtonRef.current) {
+      selectedButtonRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest', // Scroll to the nearest edge of the viewport
+        inline: 'center', // Center the selected button horizontally
+      });
+    }
+  }, [isSectionInView, selectedFeature])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,17 +60,19 @@ export default function  FeatureButton  (){
 
   return (
     <>
-      <div className="mb-6 flex rounded-xl snap-start justify-between gap-x-4  overflow-x-scroll xl:flex-row ">
+      <div className="relative">
+      <div  ref={sectionRef} className="mb-6 flex rounded-xl snap-start justify-between gap-x-4  overflow-x-hidden xl:flex-row ">
+        <div className="flex w-full gap-x-[13px]">
         {btnFeature.map((name, index) => (
           <div
             key={name.name}
-
-            className={cn(" flex rounded-xl  z-[0] items-center  relative h-[80px] w-full  gap-x-2 bg-muted-dark px-3 py-[25px] text-sm  font-medium leading-[18px] " +
+            ref={index === selectedFeature ? selectedButtonRef : null}
+            className={cn(" flex rounded-xl  z-[0] items-center  relative h-[36px] lg:h-[80px] w-full  gap-x-2 bg-muted-dark px-1 lg:px-3 lg:py-[25px] text-sm  font-medium leading-[18px] " +
               "text-muted-foreground xl:text-base")}>
 
             <Button
               variant="secondary"
-              className={cn("relative border h-[99%] z-[10] w-full  gap-x-2 bg-muted-dark px-3 py-[32px] text-sm  font-medium leading-[18px] " +
+              className={cn("relative border h-[95%] lg:h-[99%] z-[10] w-full  gap-x-2 bg-muted-dark lg:px-3 lg:py-[32px] text-sm  font-medium leading-[18px] " +
                 "text-muted-foreground xl:text-base", selectedFeature === index && "bg-secondary")}
               onClick={() => setSelectedFeature(index)}
             >
@@ -45,11 +81,12 @@ export default function  FeatureButton  (){
             </Button>
             {
               selectedFeature === index &&
-            <div className="absolute rounded-l-xl rounded-r-sm z-[0] top-0 left-0 h-[80px] bg-blue-300 animate-loading"></div>
+            <div className="absolute rounded-xl lg:rounded-l-xl lg:rounded-r-sm z-[0] top-0 left-0 h-[36px] lg:h-[80px] bg-blue-300 animate-loading"></div>
             }
 
           </div>
         ))}
+        </div>
       </div>
       <div
         className="flex grid-cols-2 flex-col gap-x-6 rounded-3xl bg-primary-light px-3 py-6 md:flex-row md:p-9 lg:grid min-[1920px]:gap-[85px] ">
@@ -71,7 +108,7 @@ export default function  FeatureButton  (){
                 {/*  print, and publishing industries for previewing layouts and*/}
                 {/*  visual mockupsLorem ipsum is placeholder .*/}
                 {/*</span>*/}
-                <span className=" hidden lg:inline-block">
+                <span className=" text-justify inline-block">
                  {btnFeature[selectedFeature].description}
                 </span>
               </span>
@@ -98,7 +135,7 @@ export default function  FeatureButton  (){
           />
         </div>
       </div>
-
+      </div>
     </>
   )
 
