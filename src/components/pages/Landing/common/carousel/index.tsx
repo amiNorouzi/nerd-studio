@@ -23,7 +23,7 @@ const Carousel = ({}: T) => {
   return (
     <div>
       <div className="embla z-30 py-9 " ref={emblaRef}>
-        <div className=" flex h-max bg-gradient-to-r from-transparent via-white to-white ">
+        <div className=" flex h-max bg-muted-dark from-transparent via-white to-white ">
           {openAiLogo.map(logo => (
             <div
               key={logo.id}
@@ -34,7 +34,7 @@ const Carousel = ({}: T) => {
                 alt={logo.nameAI}
                 width={120}
                 height={120}
-                className="mb-6 size-[36px] md:size-[50px] lg:size-[80px] 2xl:size-[60px]"
+                className="mb-6 size-[36px] md:size-[50px] lg:size-[80px] 2xl:size-[60px] "
               />
               <span className="lg:text text-xs">{logo.nameAI}</span>
             </div>
