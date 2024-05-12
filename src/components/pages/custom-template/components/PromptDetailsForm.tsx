@@ -23,14 +23,13 @@ export function PromptDetailsForm() {
     useTemplateStore.use.setCustomTemplateDetails();
   const customTemplateDetails = useTemplateStore.use.customTemplateDetails();
   const categories = useTemplateParentCategories();
-  console.log('categories',categories);
-  console.log('customTemplateDetails.category.name',customTemplateDetails.category.name);
+
 
   const getValue = () => {
     return (
       categories.find(
         item => item.id === String(customTemplateDetails.category.id),
-      ) ?? { id: "-1", title: "", value: "" }
+      ) ?? { id: "-1", title: "select an option", value: "select an option" }
     );
   };
 
@@ -63,7 +62,6 @@ export function PromptDetailsForm() {
         <SelectAndDrawer
           value={getValue()}
           setValue={val => {setCustomTemplateDetails("category",{id:+val,name:categories.filter(item=>item.id ===val)[0].value})
-            console.log('val is ',categories.filter(item=>item.id ===val)[0].value);
           }}
           items={categories}
         />
