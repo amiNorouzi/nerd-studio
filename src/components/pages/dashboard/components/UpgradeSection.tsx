@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMobileSize from "@/hooks/useMediaQuery";
 
 /**
  * upgrade section used in dashboard page

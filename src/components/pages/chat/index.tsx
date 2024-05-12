@@ -1,11 +1,19 @@
 "use client";
+import ChatHero from "@/components/pages/chat/components/ChatHero";
+import { HistoryBox, SetSearchParamProvider } from "@/components/shared";
+import Highlight from "@/components/shared/Highlight";
+import useErrorToast from "@/hooks/useErrorToast";
+import useStream from "@/services/useStreamingApi";
+import { useFormStore } from "@/stores/zustand/apps-form-section-store";
+import { useChatStore } from "@/stores/zustand/chat-store";
 import {
-  type FormEvent,
   useCallback,
   useEffect,
   useRef,
   useState,
+  type FormEvent,
 } from "react";
+import type { Locale } from "../../../../i18n.config";
 import {
   ChatList,
   ChatSettingAndUpload,
@@ -13,15 +21,7 @@ import {
   Options,
   Title,
 } from "./components";
-import { HistoryBox, SetSearchParamProvider } from "@/components/shared";
-import ChatHero from "@/components/pages/chat/components/ChatHero";
-import type { Locale } from "../../../../i18n.config";
-import { useChatStore } from "@/stores/zustand/chat-store";
 import ChatArea from "./components/ChatArea";
-import { useFormStore } from "@/stores/zustand/apps-form-section-store";
-import useErrorToast from "@/hooks/useErrorToast";
-import useStream from "@/services/useStreamingApi";
-import Highlight from "@/components/shared/Highlight";
 
 
 interface Chat {
@@ -256,9 +256,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           />
         </div>
 
-        <Highlight>
-          {/* <HighlightContent key={String(isHighlightOpen)} /> */}
-        </Highlight>
+        <Highlight />
 
         {/*history box open when history button in header clicked (value of history button save in zustand)*/}
         <HistoryBox>

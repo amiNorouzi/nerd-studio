@@ -12,7 +12,7 @@ import SpaceItems from "@/components/layout/side-panel/SpaceItems";
 import { Button } from "@/components/ui/button";
 
 import { useUiStore } from "@/stores/zustand/ui-store";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { useTheme } from "@/hooks/useTheme";
 import useOutsideClick from "@/hooks/useOutSideClick";
 
@@ -26,7 +26,7 @@ import { useHistoryStore } from "@/stores/zustand/history-store";
 //overlay on hover and expand on open button click
 
 export function SidePanel() {
-  const isMobile = useMobileSize();
+  const isMobile = useMediaQuery("(max-width:1024px)");
   const isSidePanelOpen = useUiStore.use.isSidePanelOpen();
   const pathname = usePathname();
   const { lang } = useParams();

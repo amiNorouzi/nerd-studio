@@ -1,7 +1,7 @@
 "use client";
 import { getHslColorByVar } from "@/lib/utils";
 import { useGetDictionary } from "@/hooks";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMobileSize from "@/hooks/useMediaQuery";
 
 /**
  * user plans remaining component

@@ -28,7 +28,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMobileSize from "@/hooks/useMediaQuery";
 import {
   Drawer,
   DrawerContent,
