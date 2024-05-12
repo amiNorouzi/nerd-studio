@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
-import { useToast } from "@/hooks/use-toast";
 import { WorkspaceMember } from "../types/members";
 
 type UseGetWorkspaceMembersParams = {
@@ -8,7 +7,6 @@ type UseGetWorkspaceMembersParams = {
 };
 
 export function useGetWorkspaceMembers({ workspace_id }: UseGetWorkspaceMembersParams) {
-
     return useQuery<WorkspaceMember[], Error>({
         queryKey: ['workspace-members', workspace_id],
         queryFn: async () => {

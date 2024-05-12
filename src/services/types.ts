@@ -92,6 +92,23 @@ export interface CodeHistoryItem {
   engineIcon: string;
 }
 
+export interface WorkspaceList {
+  id: number;
+  role: string;
+  user: {
+    email: string;
+    username: string;
+    first_name: string;
+    last_name: string;
+    is_active: boolean;
+    date_joined: string;
+    phone_number: string;
+    description: string;
+    is_verified: boolean;
+  };
+  workspace: Workspace;
+}
+
 export interface Workspace {
   name: string;
   id: number;
@@ -103,18 +120,16 @@ export interface Workspace {
 }
 
 export interface WorkspaceApp {
-  id: number,
+  id: number;
   app: {
-    id: number,
-    topic: string,
-    task: string,
-    prompt: string,
-    params: [
-      {}
-    ],
-    status: string
-  },
-  workspace: Workspace
+    id: number;
+    topic: string;
+    task: string;
+    prompt: string;
+    params: [{}];
+    status: string;
+  };
+  workspace: Workspace;
 }
 
 export interface WorkspaceDocument {
