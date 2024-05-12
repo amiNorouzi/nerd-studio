@@ -104,7 +104,7 @@ const [selectedPrompt, setSelectedPrompt] = useState<string>(prompts[0].category
                 {
                   selectedFeature === index &&
                   <div
-                    className="absolute rounded-l-xl rounded-r-sm z-[0] top-0 left-0 h-[36px] lg:h-[80px] bg-blue-300 animate-loading"></div>
+                    className="absolute rounded-xl lg:rounded-l-xl lg:rounded-r-sm z-[0] top-0 left-0 h-[36px] lg:h-[80px] bg-blue-300 animate-loading"></div>
                 }
 
               </div>
