@@ -1,18 +1,20 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 
-const EventListenerBaseApi = "http://5.78.55.161:8000/events";
-
 type EventChanelParams = {
-  eventName: EventName;
+  eventName: string;
 };
+
+const EventListenerBaseApi = "http://5.78.55.161:8000/events";
 
 export default function useEventChanel({ eventName }: EventChanelParams) {
   const [message, setMessage] = useState("");
   // const eventSource = useRef<EventSource | null>(null);
   const { data: session } = useSession();
   const uuid = session?.user.sub;
+
+  const [sseConnection, setSSEConnection] = useState<EventSource | null>(null);
 
   const cancelStream = useCallback(() => {
     // if (eventSource) {

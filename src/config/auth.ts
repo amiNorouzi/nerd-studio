@@ -42,7 +42,7 @@ export const authConfig = {
 
           const user = jwtDecode(data.access_token) as User;
 
-          // console.log("workspace: ", data?.workspace);
+          // console.log("user: ", data);
 
           if (user) {
             // Any object returned will be saved in `user` property of the JWT

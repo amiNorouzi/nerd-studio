@@ -1,6 +1,5 @@
 "use client";
 import { memo, useRef, useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
 import {
   BsCheck2 as Check,
   BsChevronDown as ChevronDown,
@@ -35,6 +34,7 @@ import {
 import { cn } from "@/lib/utils";
 import type { StateSetterType } from "@/services/types";
 import Image from "next/image";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 type objectItem = Partial<Record<string, string>> & {
   id: string;
