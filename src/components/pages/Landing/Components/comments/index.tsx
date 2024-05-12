@@ -100,8 +100,8 @@ const onSelectHandler = (index: number) => {
           <CommentSection key={index} f={f} index={index} comment={comment} onSelect={onSelectHandler} />
         ))}
       </div>
-      <div className=" hidden flex-row items-center justify-between gap-x-5 lg:flex">
-        <div className='flex gap-[5px]'>
+      <div className=" mx-auto lg:mx-0 flex-row items-center justify-between gap-x-5 lg:flex">
+        <div className='hidden lg:flex gap-[5px]'>
           {[...Array(10)].map((_, index) => (
             <Button
               key={index}
