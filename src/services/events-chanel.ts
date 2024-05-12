@@ -2,8 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 
-const EventListenerBaseApi = "http://5.78.55.161:8000/events";
-
 type EventChanelParams = {
   eventName: string;
 };
