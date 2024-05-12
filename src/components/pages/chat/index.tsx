@@ -7,6 +7,7 @@ import useStream from "@/services/useStreamingApi";
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import { useChatStore } from "@/stores/zustand/chat-store";
 import {
+  memo,
   useCallback,
   useEffect,
   useRef,

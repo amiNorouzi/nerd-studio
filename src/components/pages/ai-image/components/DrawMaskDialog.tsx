@@ -28,7 +28,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
-import useMobileSize from "@/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import {
   Drawer,
   DrawerContent,
@@ -79,7 +79,7 @@ const DrawMaskDialog: FC<IProps> = ({
   const canvasRef = useRef<typeof CanvasDraw>(null); // ref for draw canvas
   const [savaData, setSavaData] = useState(""); //current changes that set after close dialog
   const [isLoaded, setIsLoaded] = useState(false); //need for check if component load draw saved data
-  const isMobile = useMobileSize();
+  const isDesktop = useMediaQuery("(min-width:768px)");
   const { getValue, changeValue } = useInputValue();
 
   useEffect(() => {
@@ -246,21 +246,7 @@ const DrawMaskDialog: FC<IProps> = ({
   );
 
   // un mobile size render drawer from button
-  if (isMobile)
-    return (
-      <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerContent className="p-5">
-          <DrawerHeader>
-            <DrawerTitle>{imageDictionary.draw_mask_title}</DrawerTitle>
-            <DrawerDescription>
-              {imageDictionary.draw_mask_description}
-            </DrawerDescription>
-          </DrawerHeader>
-          {renderMain()}
-        </DrawerContent>
-      </Drawer>
-    );
-
+  if (isDesktop)
   // for desktop in a dialog
   return (
     <Dialog onOpenChange={handleOpenChange} open={open}>
@@ -279,6 +265,20 @@ const DrawMaskDialog: FC<IProps> = ({
         {renderMain()}
       </DialogContent>
     </Dialog>
+  );
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerContent className="p-5">
+        <DrawerHeader>
+          <DrawerTitle>{imageDictionary.draw_mask_title}</DrawerTitle>
+          <DrawerDescription>
+            {imageDictionary.draw_mask_description}
+          </DrawerDescription>
+        </DrawerHeader>
+        {renderMain()}
+      </DrawerContent>
+    </Drawer>
   );
 };
 
