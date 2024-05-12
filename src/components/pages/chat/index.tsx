@@ -7,6 +7,7 @@ import useStream from "@/services/useStreamingApi";
 import { useFormStore } from "@/stores/zustand/apps-form-section-store";
 import { useChatStore } from "@/stores/zustand/chat-store";
 import {
+  memo,
   useCallback,
   useEffect,
   useRef,
@@ -67,7 +68,7 @@ let startMessages =
 ];
 
 
-export default function ChatPage({ lang }: { lang: Locale }) {
+export default  memo(function ChatPage({ lang }: { lang: Locale }) {
   const isHighlightOpen = useChatStore.use.openHighlightBox();
   const [chatList, setChatList] = useState(false);
   const isChatListValid = chatList ? "chatList" : "options";
@@ -266,3 +267,4 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     </SetSearchParamProvider>
   );
 }
+)

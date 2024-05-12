@@ -1,5 +1,5 @@
 "use client";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { CustomInput } from "@/components/forms";
 import { SettingsDialog } from "@/components/shared";
@@ -35,20 +35,21 @@ function ChangeWorkspaceNameDialog() {
   const myWorkspace = session?.user.workspace;
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newWorkspaceName = e.currentTarget.value;
 
     if (myWorkspace?.id)
       updateWorkspace({
         workspace_id: myWorkspace?.id,
-        name: newWorkspaceName,
+        name: workspaceName,
       });
     else showError("No Workspace Found");
   };
 
-  if (isError) {
-    console.error(error);
-    showError(error.message);
-  }
+  useEffect(()=>{
+    if (isError) {
+      console.error(error);
+      showError(error.message);
+    }
+  }, [error, isError, showError]);
 
   return (
     <SettingsDialog

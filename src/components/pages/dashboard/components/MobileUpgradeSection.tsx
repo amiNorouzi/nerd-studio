@@ -14,7 +14,7 @@ export function MobileUpgradeSection() {
   const {
     page: { dashboard: dashboardDictionary },
   } = useGetDictionary();
-  const isMobile = useMobileSize();
+  const isMobile = useMobileSize("(max-width:1024px)");
 
   // only show on mobile
   if (!isMobile) return null;

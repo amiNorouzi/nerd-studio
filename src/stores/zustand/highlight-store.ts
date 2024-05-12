@@ -36,7 +36,7 @@ const useHighlight = create<HighlightState & HighlightAction>()(
           // console.log("store", v);
           const [key] = Object.keys(v) as HighlightType[];
           const newState = { ...(state.messages ?? {}) };
-          newState[key][index] += v[key]?.[0];
+          newState[key as keyof HighlightMessage][index] += v[key as keyof Partial<HighlightMessage>]?.[0];
           state.messages = newState;
         }),
       setSelectedMessageForHighlight: v =>
