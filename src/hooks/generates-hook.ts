@@ -15,6 +15,8 @@ export const useHandleGeneratedData = ({  message }: Props) => {
   const [textInput, setTextInput] = useState("");
   const [updateText, setUpdateText] = useState("");
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
+  console.log('textInput',textInput);
+  console.log('updateText',updateText);
   useEffect(() => {
     setTextInput(message);
   }, [message]);
@@ -26,7 +28,7 @@ export const useHandleGeneratedData = ({  message }: Props) => {
 
 
   useEffect(() => {
-    if (!selectedHistoryItem || updateText==='') return;
+    if (!selectedHistoryItem || updateText==='' || textInput.trim() === updateText.trim()) return;
 
     let timeoutId: any;
 
