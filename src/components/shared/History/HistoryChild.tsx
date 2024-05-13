@@ -5,25 +5,27 @@ import { useHistoryVersion } from "@/services/history";
 import { timePassedSince } from "@/lib/date-transform";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { PiArrowElbowDownRightLight } from "react-icons/pi";
+import { HistoryVersion, Version } from "@/types/history";
 
 interface Props{
   uuid:string
-  mainAnswer:string
+  versions:Version
+  appType:string
 }
 
-export function HistoryChild({uuid,mainAnswer}:Props){
+export function HistoryChild({uuid,versions,appType}:Props){
 
   const {data} = useHistoryVersion({uuid})
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
 
-  const clickHandler = (data:HistoryVersion)=>{
+  const clickHandler = (data:Version)=>{
   const obj = {
- id:data.versions[0].id,
-    answer_text:data.versions[0].answer_text,
-    uuid:data.answer.uuid,
-    app_type:data.answer.app_type,
-    created_at:data.versions[0].created_at
+ id:data.id,
+    answer_text:data.answer_text,
+    uuid:uuid,
+    app_type:appType,
+    created_at:versions.updated_at
 
   }
     setSelectHistoryItem(obj)
@@ -31,14 +33,12 @@ export function HistoryChild({uuid,mainAnswer}:Props){
   return(
     <>
       {
-        data &&
-data.versions[0].answer_text !== mainAnswer &&
         <div className='flex flex-row'>
           <div className='flex w-[10%]'>
 
           <PiArrowElbowDownRightLight className='text-[30px] text-blue-300'/>
           </div>
-        <div onClick={()=>clickHandler(data)} className={cn("mt-1 h-full flex w-[90%] items-start cursor-pointer   px-2 bg-white border rounded-xl min-h-[60px] ",selectedHistoryItem && selectedHistoryItem.id === data.versions[0].id&& 'bg-secondary')}>
+        <div onClick={()=>clickHandler(versions)} className={cn("mt-1 h-full flex w-[90%] items-start cursor-pointer   px-2 bg-white border rounded-xl min-h-[60px] ",selectedHistoryItem && selectedHistoryItem.id === versions.id&& 'bg-secondary')}>
 
           <div className="flex h-[52px] flex-col justify-between  w-full m-2 ">
 
@@ -47,13 +47,13 @@ data.versions[0].answer_text !== mainAnswer &&
               " w-[115px] truncate font-[400] ",
             )}
           >
-                {data.versions[0].answer_text}
+                {versions.answer_text}
               </span>
 
               {" "}
               <span className="text-[#B9BAC0] ml-auto">
                 {" "}
-                {timePassedSince(data.versions[0].created_at)}
+                {timePassedSince(versions.updated_at)}
               </span>
 
             {/*delete and bookmark buttons*/}

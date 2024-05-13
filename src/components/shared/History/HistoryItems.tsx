@@ -22,6 +22,7 @@ import { useFavorites, useSetFavorites } from "@/services/favorite-history";
 import { usePinHistory, useSetPinHistory } from "@/services/pin-history";
 import { BsFillPinAngleFill } from "react-icons/bs";
 import { HistoryChild } from "@/components/shared/History/HistoryChild";
+import { Answer } from "@/types/history";
 
 interface DeletePopoverProps {
   item: HistoryItem;
@@ -358,7 +359,9 @@ export function HistoryItems({ appName }: IProps) {
             </div>
           </div>
         </div>
-          <HistoryChild uuid={item.uuid} mainAnswer={item.answer_text}/>
+          {item.versions.length>0 &&
+          <HistoryChild uuid={item.uuid} appType={item.app_type} versions={item.versions[0]} />
+          }
         </div>
       ));
 

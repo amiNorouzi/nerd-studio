@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/services/axios-client";
 import { useState } from "react";
+import { History, HistoryVersion, Version } from "@/types/history";
 
 type HistoriesParams = {
   pageNumber: number;
@@ -106,7 +107,7 @@ export function useHistoryUpdateChild() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["history-version", uuid] }); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries({ queryKey: ["history"] }); // Invalidate the query to trigger a refetch
     },
   });
 }
