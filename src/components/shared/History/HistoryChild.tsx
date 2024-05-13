@@ -15,7 +15,6 @@ interface Props{
 
 export function HistoryChild({uuid,versions,appType}:Props){
 
-  const {data} = useHistoryVersion({uuid})
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
 
