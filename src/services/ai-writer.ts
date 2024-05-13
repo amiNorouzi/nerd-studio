@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
 import useStream from "@/services/useStreamingApi";
 import { useCallback } from "react";
 
 type AIWritersParams = {
   text: string;
-} & Omit<OpenAiCompletionSchemaInput, "stream" | "messages" | "workspace_id">;
+} & OpenAiCompletionParams;
 
 export default function useAIWriter() {
   const { generateStream, ...other } = useStream({
-    eventName: "ai_writer",
+    appType: "ai_writer",
     endpoint: "/ai_writers/generate_AI_writer/",
     invalidationQuery: { queryKey: ["ai_writer"] },
   });

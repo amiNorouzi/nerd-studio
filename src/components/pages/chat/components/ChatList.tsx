@@ -31,8 +31,6 @@ interface Props {
 export function ChatList({ messages, onClick }: Props) {
   const { data: session } = useSession();
   messages.map((i)=>{
-
-  console.log(i.role === "assistance")
   })
 
 

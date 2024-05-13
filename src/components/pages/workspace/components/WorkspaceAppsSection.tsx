@@ -36,7 +36,6 @@ export default function WorkspaceAppsSection({
   } = useGetDictionary();
   const { lang } = useParams();
   const { data: workspaceApps } = useGetWorkspaceApps({ workspace_id });
-  console.log("workspaceApps: ", workspaceApps);
 
   return (
     <div>

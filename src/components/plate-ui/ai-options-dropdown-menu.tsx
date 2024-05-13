@@ -21,14 +21,14 @@ export function AiOptionsDropdownMenu(props: DropdownMenuProps) {
   const openState = useOpenState();
   const editor = useEditorRef();
   function handleClickImproveItem(item: string) {
-    console.log(item);
+
     const text = getSelectionText(editor);
     //TODO: fetch response from AI and replace with this text
     Transforms.insertText(editor as BaseEditor, item);
   }
 
   function handleClickOptionItem(key: string, item: string) {
-    console.log(key, item);
+
     const text = getSelectionText(editor);
     //TODO: fetch response from AI and replace with this text
     Transforms.insertText(editor as BaseEditor, key + item);

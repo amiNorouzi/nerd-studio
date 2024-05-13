@@ -32,14 +32,10 @@ export function CreateWorkspaceDialog() {
     createWorkspaceMutation({ name: workspaceName });
   }
 
-  console.log(session);
-  console.log(isSuccess);
-  console.log(workspace);
-
   if(isError) {
     console.error(error);
     showError(error.message)
-  };
+  }
 
   if(isSuccess) {
     // update session with created new workspace

@@ -21,8 +21,6 @@ export default function EditPagePdf() {
       const data = await mutateAsync(pics[pics.length - 1]);
 
       if (!isPending && data) {
-        console.log("padding");
-
         setMessages([
           ...messages,
           {

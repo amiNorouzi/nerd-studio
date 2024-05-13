@@ -13,7 +13,7 @@ export function useGenerateGrammar() {
   const queryClient = useQueryClient();
   const { data: session } = useSession();
   const { generateStream, ...other } = useStream({
-    eventName: "grammar",
+    appType: "grammar",
     endpoint: "/grammar/generate_grammar/",
     invalidationQuery: { queryKey: ["history"] },
   });

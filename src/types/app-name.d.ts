@@ -9,3 +9,12 @@ type AppName =
   | "text_to_image"
   | "image_to_image"
   | "image_to_upscale";
+
+type AppsType =
+  | "chat_bot"
+  | "translate"
+  | "ai_writer"
+  | "template"
+  | "code"
+  | "grammar"
+  | `highlight`;

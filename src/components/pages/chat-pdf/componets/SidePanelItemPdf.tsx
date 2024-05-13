@@ -57,7 +57,6 @@ const SidePanelItemPdf = ({ title, to, icon, id, refetch }: IProps) => {
   const isActive = false;
   const onDeleteHandler = () => {
     if (!isPending) {
-      // console.log("test delet");
       mutate({ id: id });
     }
   };

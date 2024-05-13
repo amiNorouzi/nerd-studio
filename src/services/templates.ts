@@ -8,14 +8,11 @@ import { useCallback } from "react";
 
 type GenerateTemplateParams = {
   prompt: string;
-} & Omit<
-  OpenAiCompletionSchemaInput,
-  "stream" | "messages" | "document_name" | "workspace_id"
->;
+} & OpenAiCompletionParams;
 
 export function useGenerateTemplate() {
   const { generateStream, ...other } = useStream({
-    eventName: "template",
+    appType: "template",
     endpoint: "/templates/generate_template/",
     invalidationQuery: { queryKey: ["generate_template"] },
   });
@@ -114,7 +111,7 @@ export function useTemplateParentCategories() {
       }),
   });
 
-  return !!categories ? getData(categories) : [];
+  return categories ? getData(categories) : [];
 }
 
 export function useChildCategories(selectedParentCategoryId: number) {
@@ -128,7 +125,7 @@ export function useChildCategories(selectedParentCategoryId: number) {
     enabled: !!selectedParentCategoryId,
   });
 
-  const childCategories = !!childCategoriesData
+  const childCategories = childCategoriesData
     ? getData(childCategoriesData)
     : [];
 

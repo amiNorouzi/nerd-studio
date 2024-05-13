@@ -9,7 +9,7 @@ export type GenerateTranslateParams = {
 
 export default function useGenerateTranslate() {
   const { generateStream, ...other } = useStream({
-    eventName: "translate",
+    appType: "translate",
     endpoint: "/translates/generate_translate/",
     invalidationQuery: { queryKey: ["translate"] },
   });

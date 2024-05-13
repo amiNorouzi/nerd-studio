@@ -10,7 +10,7 @@ type HighlightParams = {
 
 export default function useGenerateHighlight() {
   const { generateStream, ...other } = useStream({
-    eventName: "translate", //todo
+    appType: "translate", //todo
     endpoint: "/highlights/generate_highlight/",
     invalidationQuery: { queryKey: ["generate_highlight"] },
   });

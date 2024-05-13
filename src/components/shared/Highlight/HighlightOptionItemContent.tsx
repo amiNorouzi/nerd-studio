@@ -12,7 +12,6 @@ import { TbWand } from "react-icons/tb";
 import { iconVariants } from "@/constants/variants";
 import type { IconType } from "react-icons";
 import useGenerateHighlight from "@/services/highlight";
-import useEventChanel from "@/services/events-chanel";
 
 export interface HighlightItemContentProps {
   item: string;
@@ -41,9 +40,9 @@ export default function HighlightOptionItemContent({
     page: { chat },
   } = useGetDictionary();
   const { generateTranslate } = useGenerateHighlight();
-  const { message, resetMessage } = useEventChanel({
-    eventName: `highlight_${highlightType}`,
-  });
+  // const { message, resetMessage } = useEventChanel({
+  //   eventName: `highlight_${highlightType}`,
+  // });
 
   // console.info("event", message);
   const setGeneratedHighlight = useHighlightStore.use.setGeneratedHighlight();
@@ -54,25 +53,25 @@ export default function HighlightOptionItemContent({
       : highlightMessages[highlightType].length - 1,
   );
 
-  useEffect(() => {
-    setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
-  }, [currentIndex, highlightType, message, setGeneratedHighlight]);
+  // useEffect(() => {
+  //   setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
+  // }, [currentIndex, highlightType, message, setGeneratedHighlight]);
 
   // handle click on generate button
   function handleGenerate(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    resetMessage();
+    // resetMessage();
     e.stopPropagation();
     setShowTextArea(true);
-    generateTranslate({
-      content: "hi",
-      presence_penalty: 0.0,
-      top_p: 0.9,
-      frequency_penalty: 0.0,
-      max_tokens: 100,
-      model: "gpt-3.5-turbo-0125",
-      temperature: 0.0,
-      type: highlightType,
-    });
+    // generateTranslate({
+    //   content: "hi",
+    //   presence_penalty: 0.0,
+    //   top_p: 0.9,
+    //   frequency_penalty: 0.0,
+    //   max_tokens: 100,
+    //   model: "gpt-3.5-turbo-0125",
+    //   temperature: 0.0,
+    //   type: highlightType,
+    // });
   }
 
   // if user click on generate button or generate button in header  , we will show generated content

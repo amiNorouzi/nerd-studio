@@ -12,7 +12,6 @@ import { HighlightItemContentProps } from "@/components/shared/Highlight/Highlig
 
 import useHighlightStore from "@/stores/zustand/highlight-store";
 import useGenerateHighlight from "@/services/highlight";
-import useEventChanel from "@/services/events-chanel";
 
 export default function HighlightSocialMediaItemContent({
                                                           itemChecked,
@@ -30,43 +29,43 @@ export default function HighlightSocialMediaItemContent({
     page: { chat },
   } = useGetDictionary();
   const { generateTranslate } = useGenerateHighlight();
-  const { message, resetMessage } = useEventChanel({
-    eventName: `highlight_${highlightType}`,
-  });
+  // const { message, resetMessage } = useEventChanel({
+  //   eventName: `highlight_${highlightType}`,
+  // });
   // const { message } = useEventChanel({
   //   eventName: `highlight_${highlightType}`,
   // });
   // console.info("event", message);
   const setGeneratedHighlight = useHighlightStore.use.setGeneratedHighlight();
   const highlightMessages = useHighlightStore.use.messages();
-  const [currentIndex, setCurrentIndex] = useState<number>(
-    highlightMessages[highlightType].length === 0
-      ? 0
-      : highlightMessages[highlightType].length - 1,
-  );
-  useEffect(() => {
-    setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
-  }, [currentIndex, highlightType, message, setGeneratedHighlight]);
+  // const [currentIndex, setCurrentIndex] = useState<number>(
+  //   highlightMessages[highlightType].length === 0
+  //     ? 0
+  //     : highlightMessages[highlightType].length - 1,
+  // );
+  // useEffect(() => {
+  //   setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
+  // }, [currentIndex, highlightType, message, setGeneratedHighlight]);
   // useEffect(() => {
   //   setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
   // }, [currentIndex, highlightType, message, setGeneratedHighlight]);
 
   // handle click on generate button
   function handleGenerate(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    resetMessage();
+    // resetMessage();
     e.stopPropagation();
     setShowTextArea(true);
-    generateTranslate({
-      content: "hi",
-      presence_penalty: 0,
-      top_p: 1,
-      max_tokens: 100,
-      model: "gpt-3.5-turbo-0125",
-      temperature: 0.3,
-      type: highlightType,
-      frequency_penalty: 0,
-      stream: true,
-    });
+    // generateTranslate({
+    //   content: "hi",
+    //   presence_penalty: 0,
+    //   top_p: 1,
+    //   max_tokens: 100,
+    //   model: "gpt-3.5-turbo-0125",
+    //   temperature: 0.3,
+    //   type: highlightType,
+    //   frequency_penalty: 0,
+    //   stream: true,
+    // });
   }
 
   // if user click on generate button or generate button in header  , we will show generated content
@@ -76,7 +75,8 @@ export default function HighlightSocialMediaItemContent({
         item={item}
         highlightType={highlightType}
         regenerate={handleGenerate}
-        setCurrentIndex={setCurrentIndex}
+        // setCurrentIndex={setCurrentIndex}
+        setCurrentIndex={()=>{}}
       />
     );
 

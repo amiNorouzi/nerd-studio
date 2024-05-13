@@ -13,13 +13,11 @@ import Image from "next/image";
 const PdfUploadSection = () => {
   const onDrop = (acceptedFiles: any) => {
     // Handle PDF files here
-    console.log("Accepted files:", acceptedFiles);
     acceptedFiles.forEach((file: any) => {
       const reader = new FileReader();
       reader.onload = () => {
         // You can perform actions with the file content here
         const binaryStr = reader.result;
-        console.log(binaryStr);
       };
       reader.readAsArrayBuffer(file);
     });
@@ -29,10 +27,8 @@ const PdfUploadSection = () => {
 
   const router = useRouter();
   const uploaderPdf = async () => {
-    console.log("test upload pdf");
 
     const res = await uploadPdf(url[url.length - 1]);
-    console.log(res);
     await refetch();
   };
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -49,7 +45,6 @@ const PdfUploadSection = () => {
     index: uploadIndex,
   } = useUploadPdf();
   const handleSaveDialog = async () => {
-    console.log("test save dialog");
 
     setUrlPdf([...url]);
     setOpenDialog(!openDialog);
@@ -57,7 +52,7 @@ const PdfUploadSection = () => {
     router.push("/chatpdf/edit");
   };
   useEffect(() => {
-    console.log(openDialog);
+
   }, [openDialog]);
   return (
     <div className=" ">
