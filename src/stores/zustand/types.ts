@@ -17,6 +17,8 @@ export interface IUiState {
   setUserPanelActiveMenu: (val: string) => void;
   activeTheme: Theme;
   setActiveTheme: (val: Theme) => void;
+  isLandingDrawerOpen:boolean,
+  setIsLandingDrawerOpen:(val:boolean)=>void
 }
 
 //editor

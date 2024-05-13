@@ -14,6 +14,7 @@ const initialState = {
   openUserPanelDialog: false,
   userPanelActiveMenu: accountSettingsItems[0].key,
   activeTheme: "default" as Theme,
+  isLandingDrawerOpen:false
 };
 
 //for all the componets related states like open dialogs
@@ -48,6 +49,11 @@ export const useUi = create<IUiState>()(
           state.activeTheme = val;
         });
       },
+      setIsLandingDrawerOpen: val =>
+        set(state => {
+          state.isLandingDrawerOpen = val;
+        }),
+
     })),
     { name: "ui", store: "ui" },
   ),
@@ -85,6 +91,10 @@ export const useSidbarPDf = create<IUiState>()(
           state.activeTheme = val;
         });
       },
+      setIsLandingDrawerOpen: val =>
+        set(state => {
+          state.isLandingDrawerOpen = val;
+        }),
     })),
     { name: "ui", store: "ui" },
   ),
