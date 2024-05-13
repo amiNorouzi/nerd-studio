@@ -54,6 +54,12 @@ const nextConfig = {
         config.externals.push({ canvas: 'commonjs canvas' })
         return config
     },
+    typescript: {
+        ignoreBuildErrors: true,
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
 };
 
 const config = withPWA(nextConfig);

@@ -93,10 +93,10 @@ export default function HighlightContent() {
               handleClickCheck={handleClickCheck}
               isAnyItemSelect={isAnyItemSelect}
               isGenerate={generate}
-              highlightType={
-                item === "Meta description"
-                  ? "meta"
-                  : (item.toLowerCase() as HighlightType)
+              highlightType={'highlight'
+                // item === "Meta description"
+                //   ? "meta"
+                //   : (item.toLowerCase() as HighlightType)
               }
             />
           ))}

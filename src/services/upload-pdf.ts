@@ -64,7 +64,7 @@ export function useUploadPdf() {
 
 export function useGetPdf() {
   const { mutate, data, isPending, ...rest } = useMutation({
-    async mutationFn(url: String) {
+    async mutationFn(url: string) {
       try {
         const response = await axiosClient.post<GetPdf>(
           "/uploads/import_pdf_from_url/",
@@ -78,6 +78,7 @@ export function useGetPdf() {
         // console.log("res:", response.data.url);
         return response.data.url;
       } catch (err) {
+        console.error(err);
       }
     },
   });

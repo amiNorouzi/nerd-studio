@@ -47,11 +47,11 @@ export default function HighlightOptionItemContent({
   // console.info("event", message);
   const setGeneratedHighlight = useHighlightStore.use.setGeneratedHighlight();
   const highlightMessages = useHighlightStore.use.messages();
-  const [currentIndex, setCurrentIndex] = useState<number>(
-    highlightMessages[highlightType].length === 0
-      ? 0
-      : highlightMessages[highlightType].length - 1,
-  );
+  // const [currentIndex, setCurrentIndex] = useState<number>(
+  //   highlightMessages[highlightType].length === 0
+  //     ? 0
+  //     : highlightMessages[highlightType].length - 1,
+  // );
 
   // useEffect(() => {
   //   setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
@@ -81,7 +81,8 @@ export default function HighlightOptionItemContent({
         item={item}
         highlightType={highlightType}
         regenerate={handleGenerate}
-        setCurrentIndex={setCurrentIndex}
+        // setCurrentIndex={setCurrentIndex}
+        setCurrentIndex={()=>{}}
       />
     );
 

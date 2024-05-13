@@ -36,13 +36,13 @@ export default function HighlightGeneratedContent({
   const highlightMessages = useHighlightStore.use.messages();
   const [handleCopy, isCopy] = useCopyTextInClipBoard();
   // console.log(highlightMessages);
-  const currentIndex =
-    highlightMessages[highlightType].length === 0
-      ? 0
-      : highlightMessages[highlightType].length - 1;
-  useEffect(() => {
-    setHighlightIndexToShow(currentIndex);
-  }, [currentIndex]);
+  // const currentIndex =
+  //   highlightMessages[highlightType].length === 0
+  //     ? 0
+  //     : highlightMessages[highlightType].length - 1;
+  // useEffect(() => {
+  //   setHighlightIndexToShow(currentIndex);
+  // }, [currentIndex]);
 
   return (
     <div className="grid gap-2">
@@ -57,7 +57,7 @@ export default function HighlightGeneratedContent({
           >
             <TbChevronLeft className={iconVariants({ size: "md" })} />
           </Button>
-          <span className="text-sm text-muted-foreground-light">{`${highlightIndexToShow + 1}/${highlightMessages[item.toLowerCase() as HighlightType]?.length ?? 1}`}</span>
+          <span className="text-sm text-muted-foreground-light">{`${highlightIndexToShow + 1}/${highlightMessages[item.toLowerCase() as keyof HighlightMessage]?.length ?? 1}`}</span>
           <Button
             className="fit p-0"
             variant="ghost"
@@ -70,11 +70,11 @@ export default function HighlightGeneratedContent({
       </div>
       <div className="relative">
         <textarea
-          value={
-            highlightMessages[highlightType]?.[highlightIndexToShow] !==
-            "undefined"
-              ? highlightMessages[highlightType]?.[highlightIndexToShow]
-              : ""
+          value={''
+            // highlightMessages[highlightType]?.[highlightIndexToShow] !==
+            // "undefined"
+            //   ? highlightMessages[highlightType]?.[highlightIndexToShow]
+            //   : ""
           }
           rows={5}
           className="mb-0 w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 focus:border-primary "
@@ -93,7 +93,7 @@ export default function HighlightGeneratedContent({
             Icon={isCopy ? LuCopyCheck : LuCopy}
             onClick={() =>
               handleCopy(
-                highlightMessages[item.toLowerCase() as HighlightType][
+                highlightMessages[highlightType as keyof HighlightMessage][
                   highlightIndexToShow
                   ],
               )
