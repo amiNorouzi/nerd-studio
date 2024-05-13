@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 /**
  * upgrade section used in dashboard page
@@ -16,7 +16,7 @@ export function UpgradeSection() {
   const {
     page: { dashboard: dashboardDictionary },
   } = useGetDictionary();
-  const isMobile = useMobileSize();
+  const isMobile = useMediaQuery("(max-width:1024px)");
 
   //don't show in mobile
   if (isMobile) return null;

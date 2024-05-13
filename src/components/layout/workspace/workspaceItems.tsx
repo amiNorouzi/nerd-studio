@@ -29,8 +29,6 @@ import { useChangeDefaultWorkSpace } from "@/components/pages/workspace/hooks/us
 export function WorkspaceItems({ isHeader = false, workspaces }: { isHeader?: boolean, workspaces:TransformedWorkspace[] }) {
   const [open, setOpen] = React.useState(false);
   const [workSpaceId, setWorkSpaceId] = React.useState<string>(workspaces[0].id);
-  
-  console.log("workspaces: ", workspaces)
 
   // hook to change workspace
   const { mutate: changeDefaultWorkspace, data: workspace } = useChangeDefaultWorkSpace();
@@ -53,7 +51,7 @@ export function WorkspaceItems({ isHeader = false, workspaces }: { isHeader?: bo
 
   if (isHeader && isSidePanelOpen) return null;
 
-  
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>

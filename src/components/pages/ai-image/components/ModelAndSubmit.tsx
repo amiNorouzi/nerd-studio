@@ -61,14 +61,9 @@ function ModelAndSubmit({
         sizePic: "",
         prompt: String(getValue("text") || ""),
       });
-      console.log("isPending", isSuccess);
+
   const getPic = async () => {
-    console.log("isPending", isPending);
-    console.log("isPausedImageToImage", isPausedImageToImage);
-
-
       if (isSuccess) {
-        console.log("test if");
         setImage(data);
       }
       if(currentTab == tabs.imageUpscale){
@@ -77,9 +72,8 @@ function ModelAndSubmit({
         //   add this to
       }
     }
-  };
+  }
     if (getValue("text")) {
-      console.log("test input");
 
       if (currentTab == tabs.textToImage) {
         const data = await mutateAsync({
@@ -87,7 +81,6 @@ function ModelAndSubmit({
           sizePic: "",
           prompt: String(getValue("text") || ""),
         });
-        console.log("isPending", isSuccess);
       }
       if (currentTab == tabs.imageToImage) {
         const dataImageToImage = await imageToImageRespose({
@@ -97,7 +90,6 @@ function ModelAndSubmit({
           pic: picToImageToImage[0],
         });
         if (isSuccessimageToImage) {
-          console.log("test if");
           setImage(dataImageToImage);
         }
       }

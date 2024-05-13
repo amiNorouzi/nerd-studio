@@ -9,7 +9,6 @@ import Result from "./Result";
 
 import { useGetDictionary } from "@/hooks";
 import { useCodeExplainer } from "@/services/code-generator";
-import useEventChanel from "@/services/events-chanel";
 
 /**
  * code explainer feature
@@ -26,23 +25,23 @@ function CodeExplainer() {
   } = useGetDictionary();
 
   const { mutate } = useCodeExplainer();
-  const { message: generatedCode, resetMessage } = useEventChanel({
-    eventName: "code",
-  });
+  // const { message: generatedCode, resetMessage } = useEventChanel({
+  //   eventName: "code",
+  // });
 
   const handleGenerate = () => {
-    resetMessage();
-    mutate({
-      code,
-      language: currentLanguage,
-      info: additionalInfo,
-      model: "gpt-3.5-turbo-0125",
-      temperature: 0.1,
-      max_tokens: 100,
-      top_p: 1.0,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-    });
+    // resetMessage();
+    // mutate({
+    //   code,
+    //   language: currentLanguage,
+    //   info: additionalInfo,
+    //   model: "gpt-3.5-turbo-0125",
+    //   temperature: 0.1,
+    //   max_tokens: 100,
+    //   top_p: 1.0,
+    //   frequency_penalty: 0,
+    //   presence_penalty: 0,
+    // });
   };
 
   return (
@@ -84,7 +83,7 @@ function CodeExplainer() {
         submitButtonTitle={codeDictionary.explainer_button_label}
       />
 
-      <Result generatedCode={generatedCode} outputLanguage={currentLanguage} />
+      <Result generatedCode={'generatedCode'} outputLanguage={currentLanguage} />
     </div>
   );
 }

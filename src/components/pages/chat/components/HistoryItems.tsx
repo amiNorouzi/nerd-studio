@@ -45,8 +45,7 @@ function DeletePopOver({ item }: DeletePopoverProps) {
             iconClassname={isItemSelected(item.id) ? "text-destructive" : ""}
             onClick={e => {
               e.stopPropagation();
-              setOpen(true);
-              console.log("deleted itemId: ", item.id);
+              setOpen(true);;
             }}
           />
         </div>
@@ -122,7 +121,6 @@ export default function HistoryItems() {
             iconClassname={isItemSelected(item.id) ? "text-primary" : ""}
             onClick={e => {
               e.stopPropagation();
-              console.log("bookmark itemId: ", item.id);
             }}
           />
           <DeletePopOver item={item} />

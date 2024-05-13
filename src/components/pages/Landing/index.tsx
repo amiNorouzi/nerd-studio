@@ -1,4 +1,3 @@
-"use server";
 import Hero from "@/components/pages/Landing/Components/Hero";
 import Steps from "@/components/pages/Landing/Components/Steps";
 import Features from "@/components/pages/Landing/Components/Features";

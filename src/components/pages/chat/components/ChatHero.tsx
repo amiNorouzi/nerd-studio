@@ -1,3 +1,5 @@
+"use client"
+
 import { docs } from "@/constants/dashboard";
 import { useGetDictionary } from "@/hooks";
 

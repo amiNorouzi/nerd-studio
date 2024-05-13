@@ -8,7 +8,6 @@ import CodeExplainer from "./CodeExplainer";
 import { useGetDictionary } from "@/hooks";
 import useCodeFeatures from "../hooks/useCodeFeatures";
 import { HistoryBox, HistoryItems } from "@/components/shared";
-import CodeHistoryItems from "@/components/pages/code/components/CodeHistoryItems";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { cn } from "@/lib/utils";
 import Highlight from "@/components/shared/Highlight";

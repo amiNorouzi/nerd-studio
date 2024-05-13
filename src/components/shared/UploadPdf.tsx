@@ -26,7 +26,7 @@ export function UploadPdf() {
     common: { delete_label },
     page: { image: imageDictionary },
   } = useGetDictionary();
-  console.log(pdfFile);
+
   const onDrop = useCallback((acceptedFiles: any) => {
     acceptedFiles.forEach((file: File) => {
       setPdfFile(file);

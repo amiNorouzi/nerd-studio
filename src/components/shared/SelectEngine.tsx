@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useMediaQuery } from "usehooks-ts";
 import {
@@ -285,11 +285,17 @@ function SettingPopover({ engine }: SettingPopoverProps) {
 function SelectEngineDropDown({ buttonStyle }: { buttonStyle?: ClassValue }) {
   const [searchParams, setSearchParams] = useCustomSearchParams();
   const [open, setOpen] = useState(false);
-  const engine = searchParams.get("engine") ?? engines[0];
+  const [isDesktop, setIsDesktop] = useState<undefined | boolean>(undefined);
+  const engine = useMemo(() => searchParams.get("engine") ?? engines[0], [searchParams]);
+  
   const {
     components: { select_engine },
   } = useGetDictionary();
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  
+  useEffect(() => {
+    setIsDesktop(window.matchMedia("(min-width: 768px)").matches);
+  }, []);
+
   const buttonContent = engine
     ? engines.find(item => item.toLowerCase() === engine.toLowerCase())
     : select_engine.select_an_option;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useMediaQuery } from "usehooks-ts";
 
@@ -14,7 +14,11 @@ interface IProps
 export default function Highlight({ className, ...props }: IProps) {
   const isOpenHighlightBox = useHighlightStore.use.isHighlightOpen();
   const setOpenHighLightBox = useHighlightStore.use.setHighlightIsOpen();
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const [isDesktop, setIsDesktop] = useState<undefined | boolean>(undefined);
+
+  useEffect(() => {
+    setIsDesktop(window.matchMedia("(min-width: 768px)").matches);
+  }, []);
 
   if (isDesktop) {
     return (

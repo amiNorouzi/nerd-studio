@@ -31,7 +31,6 @@ export default function WorkspaceDocumentsSection({
   } = useGetDictionary();
   const { lang } = useParams();
   const { data: WorkspaceDocs } = useGetWorkspaceDocuments({ workspace_id, app_type:"template", page:1 });
-  console.log("WorkspaceDocs: ", WorkspaceDocs);
 
   return (
     <div className="flex grow flex-col">

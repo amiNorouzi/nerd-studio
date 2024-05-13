@@ -41,8 +41,6 @@ export const WorkspaceApps: React.FC<WorkspaceAppsProps> = ({ workspace_id }) =>
 
   const {data: workspaceApps} = useGetWorkspaceApps({ workspace_id });
 
-  console.log("workspaceApps: ", workspaceApps);
-
   return (
     <>
       <div className="flex items-start justify-between sm:items-center">

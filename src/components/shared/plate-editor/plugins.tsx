@@ -268,10 +268,10 @@ const createExamplePlugin = createPluginFactory({
   key: KEY_EXAMPLE,
   handlers: {
     onChange: editor => value => {
-      console.info(editor, value);
+
     },
     onKeyDown: editor => event => {
-      console.info(`You pressed ${event.key}`);
+
     },
   },
 });

@@ -18,7 +18,7 @@ export default async function WorkspacePage({ lang }: { lang: Locale }) {
     page: { workspace: workspaceDictionary },
   } = await getDictionary(lang);
   const session = await auth();
-  console.log(session?.user.workspace);
+
   const workspace_id = session?.user?.workspace?.id;
 
   if(!workspace_id) {

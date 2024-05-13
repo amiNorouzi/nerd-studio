@@ -21,7 +21,7 @@ export default function PdfView() {
   }, []);
 
   const onStartCapture = useCallback(() => {
-    console.log("Starting Capture");
+
   }, []);
 
   const StartCapture = useStateCaptureStore.use.setOnClick();
@@ -33,25 +33,22 @@ export default function PdfView() {
       style={{ height: "var(--apps-main-height" }}
       className=" w-[600px] overflow-auto "
     >
-      {/* @ts-ignore */}
-      <ScreenCapture
-        key={screenKey}
-        onEndCapture={handleScreenCapture}
-        /* @ts-ignore*/
-        onStartCapture={onStartCapture}
-        componentDidMount={() => console.log("componentDidMount")}
-        componentWillUnmount={() => console.log("componentWillUnmount")}
-      >
-        {({ onStartCapture }: any) => {
-          StartCapture(onStartCapture);
-          console.log("test if");
-          return (
-            <>
-              <PdfMemo key={pdfKey} init={1} />
-            </>
-          );
-        }}
-      </ScreenCapture>
+      {/*<ScreenCapture*/}
+      {/*  key={screenKey}*/}
+      {/*  onEndCapture={handleScreenCapture}*/}
+      {/*  onStartCapture={onStartCapture}*/}
+      {/*  componentDidMount={() => console.log("componentDidMount")}*/}
+      {/*  componentWillUnmount={() => console.log("componentWillUnmount")}*/}
+      {/*>*/}
+      {/*  {({ onStartCapture }: any) => {*/}
+      {/*    StartCapture(onStartCapture);*/}
+      {/*    return (*/}
+      {/*      <>*/}
+      {/*        <PdfMemo key={pdfKey} init={1} />*/}
+      {/*      </>*/}
+      {/*    );*/}
+      {/*  }}*/}
+      {/*</ScreenCapture>*/}
     </div>
   );
 }

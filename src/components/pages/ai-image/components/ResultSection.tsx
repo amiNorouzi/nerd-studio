@@ -56,8 +56,7 @@ export default function ResultSection() {
   const { currentTab, tabs } = useImageTabs();
   const imageUrl = useImageUrlStore.use.imageUrl();
   useEffect(() => {
-    console.log("isEmpty(imageUrl):", isEmpty(imageUrl));
-  }, [imageUrl]);
+     }, [imageUrl]);
   return (
     <section className="col-span-12 flex h-full gap-2.5 overflow-hidden bg-white   lg:col-span-8  ">
       <div className="my-4 ml-6 mr-4 flex h-[95%] w-full overflow-hidden rounded-xl border bg-background shadow-2xl ">

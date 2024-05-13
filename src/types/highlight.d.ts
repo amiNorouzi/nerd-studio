@@ -7,17 +7,17 @@ interface Highlight {
   role: string;
 }
 
-interface HighlightMessage {
-  facebook: string[];
-  youtube: string[];
-  linkedin: string[];
-  telegram: string[];
-  whatsapp: string[];
+type HighlightMessage = {
   instagram: string[];
   tiktok: string[];
+  linkedin: string[];
+  youtube: string[];
+  telegram: string[];
+  whatsapp: string[];
+  facebook: string[];
   meta: string[];
   summary: string[];
-}
+};
 
 type HighlightType =
   | "facebook"
@@ -38,6 +38,12 @@ interface HighlightAction {
   setHighlightIsOpen(isOpen: boolean): void;
 }
 
-interface HighlightState extends Highlight {
+interface HighlightState {
   isHighlightOpen: boolean;
+  messages: HighlightMessage;
+  name: string;
+  role: string;
+  prompts: string[];
+  image: string;
+  timeLine: string;
 }

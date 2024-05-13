@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMobileSize from "@/hooks/useMediaQuery";
 
 /**
  * upgrade section used in dashboard when user has free plan
@@ -14,7 +14,7 @@ export function MobileUpgradeSection() {
   const {
     page: { dashboard: dashboardDictionary },
   } = useGetDictionary();
-  const isMobile = useMobileSize();
+  const isMobile = useMobileSize("(max-width:1024px)");
 
   // only show on mobile
   if (!isMobile) return null;

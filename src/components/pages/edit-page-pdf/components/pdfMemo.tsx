@@ -12,7 +12,7 @@ import { thumbnailPlugin } from "@react-pdf-viewer/thumbnail";
 
 export const PdfMemo= memo(function PdfMemoFun ({ init }: { init:number }){
   const [screenCapture, setScreenCapture] = useState<string>("");
-  console.log("pdf memo render");
+
   const thumbnailPluginInstance = thumbnailPlugin();
   const setPic = useStateCapturePicStore.use.setPic();
 

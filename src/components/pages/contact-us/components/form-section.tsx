@@ -10,19 +10,18 @@ export const FormSectionContactUs = () => {
   const { mutateAsync, isPending, isSuccess } = useSendDataContactUs();
   const { control, handleSubmit } = useForm();
   const contactSchema = z.object({
-    name: z.string().min(1, { message: "Name is required" }), 
-    email: z.string().email({ message: "Invalid email address" }), 
+    name: z.string().min(1, { message: "Name is required" }),
+    email: z.string().email({ message: "Invalid email address" }),
     message: z.string().min(1, { message: "Message is required" }),
   });
 
   const onSubmitData = async (data: any) => {
-    console.log(data);
+
     const validationResult = contactSchema.safeParse(data);
 
     if (validationResult.success) {
       await mutateAsync(data);
       if (isSuccess) {
-        console.log("isSuccess");
       }
     }
   };

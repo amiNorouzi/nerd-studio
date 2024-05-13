@@ -27,15 +27,19 @@ export function Run({
 
 const EditorSection = dynamic(() => import("./editor-section"), {
   loading: () => <HomeLoading />,
+  ssr: false
 });
 const FormSection = dynamic(() => import("./form-section"), {
   loading: () => <HomeLoading />,
+  ssr: false
 });
 const TranslateFormSection = dynamic(() => import("./translate-form"), {
   loading: () => <HomeLoading />,
+  ssr: false
 });
 const GrammarFormSection = dynamic(() => import("./grammar-form"), {
   loading: () => <HomeLoading />,
+  ssr: false
 });
 
 Run.Editor = EditorSection;

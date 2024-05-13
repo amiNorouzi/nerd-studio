@@ -122,7 +122,6 @@ function CodeHistoryItems({ appName }: IProps) {
             title={save_label}
             onClick={e => {
               e.stopPropagation();
-              console.log("bookmark itemId: ", item.id);
             }}
             Icon={TbBookmark}
             iconClassname={cn(

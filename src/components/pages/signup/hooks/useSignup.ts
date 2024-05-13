@@ -49,11 +49,7 @@ export function useSignup() {
    */
   const handleSignup = async (data: FormTypes) => {
     const { password, email, fullName } = data;
-    console.log({
-      password,
-      email,
-      username: fullName,
-    });
+
     try {
       // Send a request to the signup API with the form data.
       const { data } = await signupApi({
@@ -61,7 +57,7 @@ export function useSignup() {
         email,
         username: fullName,
       });
-      console.log(data);
+
 
       // If the request is successful, update the email confirmation state to true for showing the email confirmation message.
       setShowEmailConfirmation(true);

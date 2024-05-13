@@ -50,7 +50,6 @@ function GeneratedImages({ images }: { images: string[] }) {
     page: { image: imageDictionary },
   } = useGetDictionary();
 
-  console.log({ images });
   if (isEmpty(images)) return <EmptyResult />;
 
   return (

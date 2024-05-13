@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { Icons } from "@/components/icons";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { CommentSection } from "@/components/pages/Landing/common/Comment";
 import { Button } from "@/components/ui/button";
 import { LandingComment } from "@/services/landing";
@@ -12,7 +12,7 @@ interface Props {
   comments:LandingComment[]
 }
 const Comments = ({comments}:Props) => {
-  const isMobile = useMobileSize();
+  const isMobile = useMediaQuery("(max-width:1024px)");
   const [active, setActive] = useState(
     "bg-primary-light border-[2px] border-primary shadow-xl",
   );

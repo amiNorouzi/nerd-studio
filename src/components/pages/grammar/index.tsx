@@ -1,12 +1,15 @@
 "use client";
-import {HistoryBox, HistoryItems, Run, SetSearchParamProvider} from '@/components/shared';
-import type {ParamsType} from '@/services/types';
-import useEventChanel from '@/services/events-chanel';
-import {useGenerateGrammar} from '@/services/grammar';
-import React from 'react';
-import Highlight from '@/components/shared/Highlight';
-import {useHandleGeneratedData} from '@/hooks/generates-hook';
-import useGenerateTranslate from "@/services/translate";
+import {
+  HistoryBox,
+  HistoryItems,
+  Run,
+  SetSearchParamProvider,
+} from "@/components/shared";
+import type { ParamsType } from "@/services/types";
+import { useGenerateGrammar } from "@/services/grammar";
+import React from "react";
+import Highlight from "@/components/shared/Highlight";
+import { useHandleGeneratedData } from "@/hooks/generates-hook";
 
 interface IProps {
   params: ParamsType;

@@ -8,7 +8,6 @@ import Result from "./Result";
 
 import { useGetDictionary } from "@/hooks";
 import { useGenerateCode } from "@/services/code-generator";
-import useEventChanel from "@/services/events-chanel";
 
 /**
  * generate code by explanation feature
@@ -23,13 +22,13 @@ function CodeGenerator() {
     page: { code: codeDictionary },
   } = useGetDictionary();
   const { mutate } = useGenerateCode();
-  const { message: generatedCode, resetMessage } = useEventChanel({
-    eventName: "code",
-  });
+  // const { message: generatedCode, resetMessage } = useEventChanel({
+  //   eventName: "code",
+  // });
   const [prompt, setPrompt] = useState("");
 
   const handleGenerate = () => {
-    resetMessage();
+    // resetMessage();
     mutate({
       prompt,
       language: currentLanguage,
@@ -69,7 +68,7 @@ function CodeGenerator() {
         submitButtonTitle={codeDictionary.generate_button_label}
       />
 
-      <Result generatedCode={generatedCode} outputLanguage={currentLanguage} />
+      <Result generatedCode={'generatedCode'} outputLanguage={currentLanguage} />
     </div>
   );
 }

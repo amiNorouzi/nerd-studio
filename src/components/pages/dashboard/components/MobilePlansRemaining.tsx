@@ -1,7 +1,7 @@
 "use client";
 import { getHslColorByVar } from "@/lib/utils";
 import { useGetDictionary } from "@/hooks";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 /**
  * user plans remaining component
@@ -15,7 +15,7 @@ function MobilePlansRemaining({ percentage }: { percentage: number }) {
   const {
     page: { dashboard: dashboardDictionary },
   } = useGetDictionary();
-  const isMobile = useMobileSize();
+  const isMobile = useMediaQuery("(max-width:1024px)");
 
   // if not mobile, return null
   if (!isMobile) return null;

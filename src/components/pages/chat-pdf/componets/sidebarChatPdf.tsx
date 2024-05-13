@@ -5,7 +5,7 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import { Menu, Sidebar } from "react-pro-sidebar";
 
 import { useSidbarPDfStore } from "@/stores/zustand/ui-store";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { useTheme } from "@/hooks/useTheme";
 import useOutsideClick from "@/hooks/useOutSideClick";
 
@@ -27,7 +27,7 @@ import { useGetUploadedPdf } from "@/services/upload-pdf";
 //overlay on hover and expand on open button click
 
 export function SidebarChatPdf() {
-  const isMobile = useMobileSize();
+  const isMobile = useMediaQuery("");
   const isSidePanelOpen = useSidbarPDfStore.use.isSidePanelOpen();
   const pathname = usePathname();
   const { lang } = useParams();

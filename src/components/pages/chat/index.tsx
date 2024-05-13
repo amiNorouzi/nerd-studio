@@ -1,11 +1,20 @@
 "use client";
+import ChatHero from "@/components/pages/chat/components/ChatHero";
+import { HistoryBox, SetSearchParamProvider } from "@/components/shared";
+import Highlight from "@/components/shared/Highlight";
+import useErrorToast from "@/hooks/useErrorToast";
+import useStream from "@/services/useStreamingApi";
+import { useFormStore } from "@/stores/zustand/apps-form-section-store";
+import { useChatStore } from "@/stores/zustand/chat-store";
 import {
-  type FormEvent,
+  memo,
   useCallback,
   useEffect,
   useRef,
   useState,
+  type FormEvent,
 } from "react";
+import type { Locale } from "../../../../i18n.config";
 import {
   ChatList,
   ChatSettingAndUpload,
@@ -13,15 +22,7 @@ import {
   Options,
   Title,
 } from "./components";
-import { HistoryBox, SetSearchParamProvider } from "@/components/shared";
-import ChatHero from "@/components/pages/chat/components/ChatHero";
-import type { Locale } from "../../../../i18n.config";
-import { useChatStore } from "@/stores/zustand/chat-store";
 import ChatArea from "./components/ChatArea";
-import { useFormStore } from "@/stores/zustand/apps-form-section-store";
-import useErrorToast from "@/hooks/useErrorToast";
-import useStream from "@/services/useStreamingApi";
-import Highlight from "@/components/shared/Highlight";
 
 
 interface Chat {
@@ -38,36 +39,7 @@ interface StreamData {
 }
 
 
-let startMessages =
-    [
-  {
-    name: "reza",
-    image: "/images/logo.png",
-    prompt: ["Hello, how are you?"],
-    timeLine: "5 Min ago",
-    id: "1",
-    role: "user",
-  },
-  {
-    name: "ali",
-    image: "/images/user.png",
-    prompt: ["I'm fine, thank you!"],
-    timeLine: "4 Min ago",
-    id: "2",
-    role: "assistant",
-  },
-  {
-    name: "reza",
-    image: "/images/logo.png",
-    prompt: ["Great to hear that!"],
-    timeLine: "3 Min ago",
-    id: "3",
-    role: "user",
-  },
-];
-
-
-export default function ChatPage({ lang }: { lang: Locale }) {
+export default  memo(function ChatPage({ lang }: { lang: Locale }) {
   const isHighlightOpen = useChatStore.use.openHighlightBox();
   const [chatList, setChatList] = useState(false);
   const isChatListValid = chatList ? "chatList" : "options";
@@ -93,7 +65,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     conversationHistory,
   } = useStream<StreamData>({
     endpoint: "/chat_bot/conversation/",
-    eventName: "chat_bot",
+    appType: "chat_bot",
     invalidationQuery: { queryKey: ["history"] },
   });
   const {
@@ -109,7 +81,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     conversationHistory: continueConversationHistory,
   } = useStream<StreamData>({
     endpoint: `/chat_bot/continue_conversation/?conversation_id=${data?.conversation_id}&chat_id=${messagesHistory?.chats[messagesHistory.chats.length - 1].id}`,
-    eventName: "chat_bot",
+    appType: "chat_bot",
     invalidationQuery: { queryKey: ["history"] },
   });
 
@@ -126,51 +98,47 @@ export default function ChatPage({ lang }: { lang: Locale }) {
       promptReset("");
       trackMessagesRef.current = 1;
 
-
-      console.log(conversationHistory);
-
-
       //check if user write a prompt
       if (!prompt) return showError("Please! write your prompt");
 
 
       if (conversationHistory.length > 0) {
-        continueConversation({
-          frequency_penalty: GPT3Turbo.frequency/100,
-          max_tokens: 100,
-          messages: [
-            {
-              content: prompt,
-              role: "user",
-            },
-          ],
-          model: "gpt-3.5-turbo-0125",
-          presence_penalty: GPT3Turbo.presence/100,
-          temperature: GPT3Turbo.temperature/100,
-          top_p: GPT3Turbo.top/100,
-        });
+        // continueConversation({
+        //   frequency_penalty: GPT3Turbo.frequency/100,
+        //   max_tokens: 100,
+        //   messages: [
+        //     {
+        //       content: prompt,
+        //       role: "user",
+        //     },
+        //   ],
+        //   model: "gpt-3.5-turbo-0125",
+        //   presence_penalty: GPT3Turbo.presence/100,
+        //   temperature: GPT3Turbo.temperature/100,
+        //   top_p: GPT3Turbo.top/100,
+        // });
         return;
       }
 
-
-      startConversation({
-        frequency_penalty: GPT3Turbo.frequency/100,
-        max_tokens: 100,
-        messages: [
-          {
-            content: "you are a helpful assistant.",
-            role: "system",
-          },
-          {
-            content: prompt,
-            role: "user",
-          },
-        ],
-        model: "gpt-3.5-turbo-0125",
-        presence_penalty: GPT3Turbo.presence/100,
-        temperature: GPT3Turbo.temperature/100,
-        top_p: GPT3Turbo.top/100,
-      });
+      //
+      // startConversation({
+      //   frequency_penalty: GPT3Turbo.frequency/100,
+      //   max_tokens: 100,
+      //   messages: [
+      //     {
+      //       content: "you are a helpful assistant.",
+      //       role: "system",
+      //     },
+      //     {
+      //       content: prompt,
+      //       role: "user",
+      //     },
+      //   ],
+      //   model: "gpt-3.5-turbo-0125",
+      //   presence_penalty: GPT3Turbo.presence/100,
+      //   temperature: GPT3Turbo.temperature/100,
+      //   top_p: GPT3Turbo.top/100,
+      // });
     },
     [GPT3Turbo.frequency, GPT3Turbo.presence, GPT3Turbo.temperature, GPT3Turbo.top, continueConversation, conversationHistory, prompt, promptReset, resetContinueMessage, resetMessage, showError, startConversation],
   );
@@ -207,7 +175,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
 
 
   // Transform StreamData to the desired structure
-  let messages = messagesHistory?.chats.map(chat => {
+  const messages = messagesHistory?.chats.map(chat => {
     return {
       name: "reza",
       image: "/images/logo.png",
@@ -229,7 +197,6 @@ export default function ChatPage({ lang }: { lang: Locale }) {
       <div className="max-h-apps-page flex h-full w-full overflow-hidden bg-background p-0">
         <div className="col mx-auto h-full w-full items-center overflow-y-auto p-2 lg:p-4">
           {/* chat list or chat option*/}
-          {/* @ts-ignore */}
           {chatList ? (
             <ChatList
               messages={messages || []}
@@ -256,9 +223,7 @@ export default function ChatPage({ lang }: { lang: Locale }) {
           />
         </div>
 
-        <Highlight>
-          {/* <HighlightContent key={String(isHighlightOpen)} /> */}
-        </Highlight>
+        <Highlight />
 
         {/*history box open when history button in header clicked (value of history button save in zustand)*/}
         <HistoryBox>
@@ -268,3 +233,4 @@ export default function ChatPage({ lang }: { lang: Locale }) {
     </SetSearchParamProvider>
   );
 }
+)

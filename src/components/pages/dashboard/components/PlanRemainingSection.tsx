@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { SemicircleProgressBar } from "@/components/shared";
 
 import { useGetDictionary } from "@/hooks";
-import useMobileSize from "@/hooks/useMobileSize";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { TbClockDollar } from "react-icons/tb";
 
 /**
@@ -17,7 +17,7 @@ export function PlanRemainingSection() {
   const {
     page: { dashboard: dashboardDictionary },
   } = useGetDictionary();
-  const isMobile = useMobileSize();
+  const isMobile = useMediaQuery("(max-width:1024px)");
 
   // don't show in mobile view
   if (isMobile) return null;
