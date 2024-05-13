@@ -43,7 +43,7 @@ export const useHandleGeneratedData = ({  message }: Props) => {
 
       clearTimeout(timeoutId);
     };
-  }, [selectedHistoryItem, updateHistory, updateText]);
+  }, [ updateHistory, updateText]);
 
   return {
     textInput,

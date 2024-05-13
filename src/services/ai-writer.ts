@@ -11,7 +11,7 @@ export default function useAIWriter() {
   const { generateStream, ...other } = useStream({
     appType: "ai_writer",
     endpoint: "/ai_writers/generate_AI_writer/",
-    invalidationQuery: { queryKey: ["ai_writer"] },
+    invalidationQuery: { queryKey: ["history"] },
   });
   const generateRewrite = useCallback(
     ({ text, ...params }: AIWritersParams) => {
