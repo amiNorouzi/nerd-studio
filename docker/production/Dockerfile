@@ -24,7 +24,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # This will do the trick, use the corresponding env file for each environment.
 COPY .env.production.sample .env.production
-RUN npm install npm@latest
+RUN npm i -g npm
 RUN npm run clean
 RUN npm run build
 
