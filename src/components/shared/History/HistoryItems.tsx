@@ -360,7 +360,7 @@ export function HistoryItems({ appName }: IProps) {
           </div>
         </div>
           {item.versions.length>0 &&
-          <HistoryChild uuid={item.uuid} appType={item.app_type} versions={item.versions[0]} />
+          <HistoryChild mainAnswer ={item.answer_text} uuid={item.uuid} appType={item.app_type} versions={item.versions[0]} />
           }
         </div>
       ));

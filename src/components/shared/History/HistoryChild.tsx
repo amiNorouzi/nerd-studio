@@ -11,9 +11,10 @@ interface Props{
   uuid:string
   versions:Version
   appType:string
+  mainAnswer:string
 }
 
-export function HistoryChild({uuid,versions,appType}:Props){
+export function HistoryChild({uuid,versions,appType,mainAnswer}:Props){
 
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
@@ -31,7 +32,7 @@ export function HistoryChild({uuid,versions,appType}:Props){
   }
   return(
     <>
-      {
+      {versions.answer_text !== mainAnswer &&
         <div className='flex flex-row'>
           <div className='flex w-[10%]'>
 
