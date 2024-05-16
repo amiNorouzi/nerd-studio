@@ -1,10 +1,17 @@
 "use client";
 import { NavigationMenuDropDown } from "@/components/pages/Landing/common/navbarDropDown";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useHistoryStore } from "@/stores/zustand/history-store";
+import { useUiStore } from "@/stores/zustand/ui-store";
+import { HistoryBox, HistoryItems } from "@/components/shared";
+import { MenuDrawer } from "@/components/pages/Landing/common/MenuDrawer";
+import { IoCloseSharp } from "react-icons/io5";
+import { DrawerOption } from "@/components/pages/Landing/common/DrawerOption";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,7 +24,8 @@ const Navbar = () => {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+  const setDrawer = useUiStore.use.setIsLandingDrawerOpen()
+  const isDrawerOpen = useUiStore.use.isLandingDrawerOpen()
   return (
     <nav
       className={`padding-x ${isScrolled ? "ScrollBavBg shadow " : "nav-bg"}  nav-bg backdrop-blur-3xl fixed left-0 top-0  z-[999] flex w-full flex-row items-center justify-between py-3 `}
@@ -34,7 +42,7 @@ const Navbar = () => {
           Nerd Studio
         </span>
       </div>
-      <div className="hidden lg:flex">
+      <div  className="hidden lg:flex">
         <NavigationMenuDropDown />
       </div>
       <div>
@@ -45,13 +53,13 @@ const Navbar = () => {
         </Link>
         {/*TODO:convert this image to svg tag
          */}
-        <Image
-          className="flex lg:hidden"
-          src={"/images/landing/menu.svg"}
-          alt={"menu"}
-          width={18}
-          height={12}
-        />
+        {!isDrawerOpen && <RxHamburgerMenu className='text-[20px] lg:hidden' onClick={()=>setDrawer(true)} />}
+        {isDrawerOpen &&<IoCloseSharp className='text-[20px]   lg:hidden ' onClick={()=>setDrawer(false)}/>}
+        <MenuDrawer>
+          <div className=' h-auto w-screen bg-muted flex flex-col '>
+<DrawerOption/><DrawerOption/><DrawerOption/><DrawerOption/>
+          </div>
+        </MenuDrawer>
       </div>
     </nav>
   );

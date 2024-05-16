@@ -32,14 +32,14 @@ export default async function DashboardPage({ lang }: { lang: Locale }) {
   const activePlan = false;
 
   return (
-    <div className="h-full ">
-<div className='sticky top-0  bg-main-background z-[50]'>
+    <div className="h-full w-full  ">
+<div className='sticky top-0  bg-main-background z-[10]'>
 
       <SpacesHeader>
         <h1 className="ms-2 text-[15px] font-semibold">{header_title}</h1>
       </SpacesHeader>
 </div>
-      <div className=" col max-h-page h-fit w-full gap-4  bg-main-background p-4 xl:gap-5 xl:p-6 ">
+      <div className=" flex flex-col  lg:col lg:max-h-page h-fit w-full gap-4  bg-main-background p-4 xl:gap-5 xl:p-6 ">
         <div
           className="flex h-fit w-full grid-cols-4 flex-col gap-4 lg:grid
          lg:h-[calc(100vh+200px)] lg:grid-rows-8 xl:h-screen xl:grid-rows-7 xl:gap-6"

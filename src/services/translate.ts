@@ -11,7 +11,7 @@ export default function useGenerateTranslate() {
   const { generateStream, ...other } = useStream({
     appType: "translate",
     endpoint: "/translates/generate_translate/",
-    invalidationQuery: { queryKey: ["translate"] },
+    invalidationQuery: { queryKey: ["history"] },
   });
   const generateTranslate = useCallback(
     ({ text, trLang, txLang, ...params }: GenerateTranslateParams) => {

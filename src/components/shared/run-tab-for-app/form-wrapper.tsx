@@ -13,7 +13,7 @@ function FormWrapper({
     <div
       className={cn(
         "form-gap form-padding col-span-12 flex h-fit flex-col overflow-y-auto bg-background lg:w-[500px] lg:h-full lg:max-h-full",
-        isFullScreenEditor && "hidden",
+        isFullScreenEditor && "hidden lg:h-[0px]",
         className,
       )}
     >

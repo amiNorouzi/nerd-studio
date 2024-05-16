@@ -24,23 +24,29 @@ export default function WritePage({ params }: SCRPropsType) {
    *  and everywhere that needs to know app name
    */
 
-  const { generateRewrite, isPending, message } = useAIWriter();
+  const { generateRewrite, isPending, message,cancelStream } = useAIWriter();
   const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
 
     message,
   });
   function handleGenerate() {
+    if(isPending){
+      cancelStream()
+    }else{
+
+
     if (text) {
       generateRewrite({
         text: text,
         model: "gpt-3.5-turbo-0125",
         temperature: 0.1,
-        max_tokens: 100,
+        max_tokens: 550,
         frequency_penalty: 0,
         presence_penalty: 0,
         top_p: 0,
         document_name: "AI Writer",
       });
+    }
     }
   }
   //reset the stream everytime item in history is selected
@@ -56,6 +62,7 @@ export default function WritePage({ params }: SCRPropsType) {
           onSubmit={handleGenerate}
           buttonContent={rewrite.form_rewrite_button}
           mainTextAreaPlaceholder={rewrite.text_input_placeholder}
+
         />
         <Run.Editor value={textInput} onChange={setUpdateText}>
           <HistoryBox>

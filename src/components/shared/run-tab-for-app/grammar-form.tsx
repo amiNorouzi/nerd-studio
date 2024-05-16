@@ -18,6 +18,7 @@ interface IProps {
   onSubmit(): void;
   value: string;
   isPending: boolean;
+  cancelStream:() => Promise<any>
 }
 
 /**
@@ -35,6 +36,7 @@ export default function GrammarFormSection({
   onTextAreaChange,
   onSubmit,
   isPending,
+                                             cancelStream
 }: IProps) {
   const {
     page: { translate },
@@ -61,6 +63,7 @@ export default function GrammarFormSection({
           />
           {/*submit button and select engine with setting*/}
           <SubmitButtonSelectEngine
+
             isDisabledSubmit={!value}
             isPending={isPending}
             onClick={onSubmit}
