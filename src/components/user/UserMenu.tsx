@@ -105,11 +105,12 @@ export function UserMenu() {
             </div>
           </div>
           {/*user menu items*/}
-          <UserMenuItem
-            onClick={() => {}}
-            title={userMenuDictionary.community_label}
-            icon={PiDiscordLogo}
-          />
+          <a target="_blank" href="https://discord.com/invite/SbKjRMdY">
+            <UserMenuItem
+              title={userMenuDictionary.community_label}
+              icon={PiDiscordLogo}
+            />
+          </a>
           <UserMenuItem
             onClick={() => handleOpenAccountDialog("account")}
             title={userMenuDictionary.account_label}
