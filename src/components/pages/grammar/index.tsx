@@ -27,12 +27,18 @@ export default function GrammarPage({ params }: IProps) {
     isPending,
     message,
     resetMessage,
+    cancelStream
   } = useGenerateGrammar();
   const { setUpdateText, text, setText, textInput } = useHandleGeneratedData({
 
     message,
   });
   function handleGenerate() {
+    if(isPending){
+      cancelStream()
+    }else{
+
+
     if (text) {
       resetMessage();
       generateGrammar({
@@ -47,6 +53,7 @@ export default function GrammarPage({ params }: IProps) {
 
       });
     }
+    }
   }
 
   return (
@@ -58,6 +65,7 @@ export default function GrammarPage({ params }: IProps) {
           onTextAreaChange={setText}
           value={text}
           onSubmit={handleGenerate}
+          cancelStream={cancelStream}
         />
 
         <Run.Editor value={textInput} onChange={setUpdateText}>

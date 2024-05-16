@@ -15,8 +15,7 @@ export const useHandleGeneratedData = ({  message }: Props) => {
   const [textInput, setTextInput] = useState("");
   const [updateText, setUpdateText] = useState("");
   const selectedHistoryItem = useHistoryStore.use.selectedHistoryItem();
-  console.log('textInput',textInput);
-  console.log('updateText',updateText);
+  // console.log('updateText',updateText);
   useEffect(() => {
     setTextInput(message);
   }, [message]);

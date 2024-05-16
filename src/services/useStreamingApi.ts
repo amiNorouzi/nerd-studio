@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import {
   type InvalidateQueryFilters,
@@ -24,13 +24,16 @@ export default function useStream<T>({ invalidationQuery, endpoint, appType }: S
   const [conversationHistory, setConversationHistory] = useState<T[]>([]);
   const [message, setMessage] = useState("");
   const { data: session } = useSession();
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const { mutate, ...props } = useMutation({
     async mutationFn(requestBody: MutationParams) {
+      abortControllerRef.current = new AbortController();
+      const signal = abortControllerRef.current.signal;
       await fetchEventSource(process.env.NEXT_PUBLIC_API_URL + endpoint, {
         method: "POST",
         onmessage(event) {
-          console.log(event);
+          // console.log(event);
           const json = event.data;
           if (json) {
             const { content } = JSON.parse(json);
@@ -45,6 +48,7 @@ export default function useStream<T>({ invalidationQuery, endpoint, appType }: S
           "Content-Type": "application/json",
           Authorization: `Bearer ${session!.user.accessToken}`,
         },
+        signal,
         onerror(error) {
           console.error(error);
         },
@@ -69,6 +73,8 @@ export default function useStream<T>({ invalidationQuery, endpoint, appType }: S
   );
 
   const cancelStream = useCallback(() => {
+    console.log('cancell response');
+    abortControllerRef.current?.abort();
     return stopResponding(appType);
   }, [appType]);
 
