@@ -5,7 +5,7 @@ import React from "react";
 import type { ParamsType } from "@/services/types";
 
 import { useGetDictionary } from "@/hooks";
-import "@/styles/mark-down.sass";
+import "@/styles/mark-down.css";
 
 interface IProps {
   children: React.ReactNode;
