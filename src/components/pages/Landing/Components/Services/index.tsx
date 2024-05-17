@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { ServiceSection } from "@/constants/Landing";
-import { LandingService } from "@/services/landing";
+import { LandingService } from "@/services/static-pages/landing";
+
 // import { LandingService } from "@/services/landing";
 
-interface Props{
-  services: LandingService[];
+interface Props {
+  services?: LandingService[];
 }
 
 export default function Services({services}:Props) {

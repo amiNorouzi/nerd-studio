@@ -20,7 +20,7 @@ export default async function RootLayout({
   if (!session) return redirect("/login");
 
   return (
-    <div className="flex h-dvh w-dvw ">
+    <div className="flex w-full h-full">
       <SidePanel />
       <div id="main" className="main-padding flex h-full w-full flex-col ">
         <Suspense fallback={<HomeLoading />}>

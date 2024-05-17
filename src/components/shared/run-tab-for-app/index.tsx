@@ -1,7 +1,8 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
-import HomeLoading from "@/app/[lang]/loading";
+import EditorSkeleton from "@/components/shared/skeleton/EditorSkeleton";
+import FormSkeleton from "@/components/shared/skeleton/FormSkeleton";
 
 interface IProps extends React.ComponentPropsWithoutRef<"div"> {
   children: React.ReactNode;
@@ -26,20 +27,20 @@ export function Run({
 }
 
 const EditorSection = dynamic(() => import("./editor-section"), {
-  loading: () => <HomeLoading />,
-  ssr: false
+  loading: () => <EditorSkeleton />,
+  ssr: false,
 });
 const FormSection = dynamic(() => import("./form-section"), {
-  loading: () => <HomeLoading />,
-  ssr: false
+  // loading: () => <FormSkeleton />,
+  ssr: false,
 });
 const TranslateFormSection = dynamic(() => import("./translate-form"), {
-  loading: () => <HomeLoading />,
-  ssr: false
+  // loading: () => <FormSkeleton />,
+  ssr: false,
 });
 const GrammarFormSection = dynamic(() => import("./grammar-form"), {
-  loading: () => <HomeLoading />,
-  ssr: false
+  // loading: () => <FormSkeleton />,
+  ssr: false,
 });
 
 Run.Editor = EditorSection;

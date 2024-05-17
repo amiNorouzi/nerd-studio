@@ -1,13 +1,13 @@
 import {
   ActivitiesSection,
   AllDocsSection,
+  ChartsSection,
   DashboardHero,
   ImagesSection,
+  MobileUpgradeSection,
   PieChartSection,
   PlanRemainingSection,
   UpgradeSection,
-  MobileUpgradeSection,
-  ChartsSection,
 } from "./components";
 import SpacesHeader from "@/components/layout/header/SpacesHeader";
 
@@ -32,14 +32,13 @@ export default async function DashboardPage({ lang }: { lang: Locale }) {
   const activePlan = false;
 
   return (
-    <div className="h-full w-full  ">
-<div className='sticky top-0  bg-main-background z-[10]'>
-
-      <SpacesHeader>
-        <h1 className="ms-2 text-[15px] font-semibold">{header_title}</h1>
-      </SpacesHeader>
-</div>
-      <div className=" flex flex-col  lg:col lg:max-h-page h-fit w-full gap-4  bg-main-background p-4 xl:gap-5 xl:p-6 ">
+    <div className="h-full w-full">
+      <div className="sticky top-0  z-[10] bg-main-background">
+        <SpacesHeader>
+          <h1 className="ms-2 text-[15px] font-semibold">{header_title}</h1>
+        </SpacesHeader>
+      </div>
+      <div className=" lg:col lg:max-h-page  flex h-fit w-full flex-col gap-4  bg-main-background p-4 xl:gap-5 xl:p-6 ">
         <div
           className="flex h-fit w-full grid-cols-4 flex-col gap-4 lg:grid
          lg:h-[calc(100vh+200px)] lg:grid-rows-8 xl:h-screen xl:grid-rows-7 xl:gap-6"

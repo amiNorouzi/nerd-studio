@@ -6,9 +6,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useHistoryStore } from "@/stores/zustand/history-store";
 import { useUiStore } from "@/stores/zustand/ui-store";
-import { HistoryBox, HistoryItems } from "@/components/shared";
 import { MenuDrawer } from "@/components/pages/Landing/common/MenuDrawer";
 import { IoCloseSharp } from "react-icons/io5";
 import { DrawerOption } from "@/components/pages/Landing/common/DrawerOption";
@@ -28,7 +26,7 @@ const Navbar = () => {
   const isDrawerOpen = useUiStore.use.isLandingDrawerOpen()
   return (
     <nav
-      className={`padding-x ${isScrolled ? "ScrollBavBg shadow " : "nav-bg"}  nav-bg backdrop-blur-3xl fixed left-0 top-0  z-[999] flex w-full flex-row items-center justify-between py-3 `}
+      className={`padding-x ${isScrolled ? "ScrollBavBg shadow " : "nav-bg"}  nav-bg absolute left-0 top-0 z-[999]  flex w-full flex-row items-center justify-between py-3 backdrop-blur-3xl `}
     >
       <div className="flex flex-row items-center gap-x-2 lg:gap-x-3">
         <Image
@@ -42,7 +40,7 @@ const Navbar = () => {
           Nerd Studio
         </span>
       </div>
-      <div  className="hidden lg:flex">
+      <div className="hidden lg:flex">
         <NavigationMenuDropDown />
       </div>
       <div>
@@ -53,11 +51,24 @@ const Navbar = () => {
         </Link>
         {/*TODO:convert this image to svg tag
          */}
-        {!isDrawerOpen && <RxHamburgerMenu className='text-[20px] lg:hidden' onClick={()=>setDrawer(true)} />}
-        {isDrawerOpen &&<IoCloseSharp className='text-[20px]   lg:hidden ' onClick={()=>setDrawer(false)}/>}
+        {!isDrawerOpen && (
+          <RxHamburgerMenu
+            className="text-[20px] lg:hidden"
+            onClick={() => setDrawer(true)}
+          />
+        )}
+        {isDrawerOpen && (
+          <IoCloseSharp
+            className="text-[20px]   lg:hidden "
+            onClick={() => setDrawer(false)}
+          />
+        )}
         <MenuDrawer>
-          <div className=' h-auto w-screen bg-muted flex flex-col '>
-<DrawerOption/><DrawerOption/><DrawerOption/><DrawerOption/>
+          <div className=" flex h-auto w-screen flex-col bg-muted ">
+            <DrawerOption />
+            <DrawerOption />
+            <DrawerOption />
+            <DrawerOption />
           </div>
         </MenuDrawer>
       </div>

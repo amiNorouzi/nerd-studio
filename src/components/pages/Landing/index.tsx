@@ -12,24 +12,24 @@ import Comments from "@/components/pages/Landing/Components/comments";
 import Services from "@/components/pages/Landing/Components/Services";
 import MapWorld from "@/components/pages/Landing/Components/MapWorld";
 import type { LangParams } from "@/services/types";
-import { getLandingData } from "@/services/landing";
+import { getLandingData } from "@/services/static-pages/landing";
 
 export default async function Landing({ params: { lang } }: LangParams) {
   const data = await getLandingData();
   return (
-    <div lang={lang} className="mx-auto h-full w-full overflow-x-hidden">
+    <div lang={lang} className="mx-auto h-full w-full overflow-x-hidden relative">
       <Navbar />
       <main>
         <Hero />
         <Steps />
         <Features />
-        <Services services={data.services} />
-        <PromptsSection prompts={data.apps} />
+        <Services services={data?.services} />
+        <PromptsSection prompts={data?.apps} />
         <CustomPrompt />
         <Mobile />
         <MapWorld />
         <Gpts />
-        <Comments comments={data.comments} />
+        <Comments comments={data?.comments} />
         <DownloadApp />
         <Footer />
       </main>

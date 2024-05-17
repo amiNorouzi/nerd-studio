@@ -2,22 +2,22 @@
 import { btnFeature } from "@/constants/Landing";
 import { Button } from "@/components/ui/button";
 import TitleSection from "@/components/pages/Landing/common/TitleSection";
-import Image from "next/image";
-import { Icons } from "@/components/icons";
 
 import { useEffect, useRef, useState } from "react";
 import { Cards } from "@/components/pages/Landing/common/Cards";
-import { LandingApp } from "@/services/landing";
+import { LandingApp } from "@/services/static-pages/landing";
 import { cn } from "@/lib/utils";
 
-interface Props{
-  prompts:LandingApp[]
+interface Props {
+  prompts?: LandingApp[];
 }
 
 const PromptsSection = ({prompts}:Props) => {
 
 
-const [selectedPrompt, setSelectedPrompt] = useState<string>(prompts[0].category_name);
+  const [selectedPrompt, setSelectedPrompt] = useState<string>(
+    prompts?.[0].category_name ?? "",
+  );
   const [selectedFeature, setSelectedFeature] = useState(0)
   const [isLoading, setIsLoading] = useState(false);
   const selectedButtonRef = useRef<HTMLDivElement>(null);
@@ -82,7 +82,7 @@ const [selectedPrompt, setSelectedPrompt] = useState<string>(prompts[0].category
       <div className="relative">
       <div ref={sectionRef} className="mb-6 flex rounded-xl snap-start justify-between gap-x-4  overflow-x-hidden xl:flex-row ">
         <div className="flex w-full gap-x-[13px]">
-          {prompts.map((prompt, index) => (
+          {prompts?.map((prompt, index) => (
           <>
 
             {index < 6 &&
@@ -113,7 +113,7 @@ const [selectedPrompt, setSelectedPrompt] = useState<string>(prompts[0].category
         ))}</div>
       </div>
       </div>
-      <Cards selectedPrompt={prompts[selectedFeature]} />
+      <Cards selectedPrompt={prompts?.[selectedFeature]} />
     </div>
   );
 };

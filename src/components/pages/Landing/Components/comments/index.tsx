@@ -6,10 +6,10 @@ import { Icons } from "@/components/icons";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { CommentSection } from "@/components/pages/Landing/common/Comment";
 import { Button } from "@/components/ui/button";
-import { LandingComment } from "@/services/landing";
+import { LandingComment } from "@/services/static-pages/landing";
 
 interface Props {
-  comments:LandingComment[]
+  comments?: LandingComment[];
 }
 const Comments = ({comments}:Props) => {
   const isMobile = useMediaQuery("(max-width:1024px)");
@@ -39,10 +39,10 @@ const Comments = ({comments}:Props) => {
   }, [emblaApi,selectedIndex]);
 
   const scrollNext = useCallback(() => {
-    if(selectedIndex >=comments.length-1){
-      setSelectedIndex(0)
-    }else{
-      setSelectedIndex(prev=>prev+1)
+    if (selectedIndex >= (comments?.length ?? 0) - 1) {
+      setSelectedIndex(0);
+    } else {
+      setSelectedIndex(prev => prev + 1);
     }
     setActive("bg-primary-light border-[2px] border-primary shadow-xl");
     if (emblaApi) emblaApi.scrollNext();

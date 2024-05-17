@@ -9,7 +9,6 @@ const Landing = dynamic(() => import("@/components/pages/Landing"), {
 export default function Home({ params}: LangParams) {
   return (
     <div className='w-full'>
-
     <Landing params={params} />
     </div>
 )

@@ -58,7 +58,7 @@ export async function getLandingData(){
     // Handle the error here
     console.error("Error fetching data:", error);
     // You can choose to throw the error again to propagate it
-    throw error;
+    // throw error;
   }
 }
 
