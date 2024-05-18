@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { useMediaQuery } from "usehooks-ts";
-
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 
 import { cn } from "@/lib/utils";

@@ -1,20 +1,20 @@
-import { useMutation } from "@tanstack/react-query";
-import axiosClient from "@/services/axios-client";
 import useStream from "@/services/useStreamingApi";
 import { useCallback } from "react";
 
 type HighlightParams = {
   content: string;
-  type?: HighlightType;
-} & Omit<OpenAiCompletionSchemaInput, "messages">;
+  type: HighlightType;
+} & OpenAiCompletionParams;
 
 export default function useGenerateHighlight() {
-  const { generateStream, ...other } = useStream({
-    appType: "translate", //todo
-    endpoint: "/highlights/generate_highlight/",
-    invalidationQuery: { queryKey: ["generate_highlight"] },
-  });
-  const generateTranslate = useCallback(
+  const { generateStream, ...other } = useStream<Pick<HighlightParams, "type">>(
+    {
+      appType: "highlight",
+      endpoint: "/highlights/generate_highlight/",
+      invalidationQuery: { queryKey: ["generate_highlight"] },
+    },
+  );
+  const generateHighlight = useCallback(
     ({ type, content, ...params }: HighlightParams) => {
       return generateStream({
         messages: [
@@ -27,6 +27,7 @@ export default function useGenerateHighlight() {
             content,
           },
         ],
+        type,
         ...params,
       });
     },
@@ -34,7 +35,7 @@ export default function useGenerateHighlight() {
   );
 
   return {
-    generateTranslate,
+    generateHighlight,
     ...other,
   };
 }

@@ -21,13 +21,14 @@ type MutationParams = Omit<
 
 export default function useStream<T>({ invalidationQuery, endpoint, appType }: StreamParams) {
   const queryClient = useQueryClient();
-  const [conversationHistory, setConversationHistory] = useState<T[]>([]);
+  const [conversationHistory, setConversationHistory] = useState<string[]>([]);
   const [message, setMessage] = useState("");
   const { data: session } = useSession();
   const abortControllerRef = useRef<AbortController | null>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const { mutate, ...props } = useMutation({
-    async mutationFn(requestBody: MutationParams) {
+    async mutationFn(requestBody: MutationParams & T) {
       abortControllerRef.current = new AbortController();
       const signal = abortControllerRef.current.signal;
       await fetchEventSource(process.env.NEXT_PUBLIC_API_URL + endpoint, {
@@ -54,8 +55,8 @@ export default function useStream<T>({ invalidationQuery, endpoint, appType }: S
         },
       });
     },
-    onSuccess(data: any) {
-      setConversationHistory(prev => [...prev, data]);
+    onSuccess() {
+      setIsSuccess(true);
       queryClient.invalidateQueries(invalidationQuery); // Invalidate the query to trigger a refetch
     },
   });
@@ -64,8 +65,13 @@ export default function useStream<T>({ invalidationQuery, endpoint, appType }: S
     setMessage("");
   }, []);
 
+  if (isSuccess) {
+    setConversationHistory(prev => [...prev, message]);
+    setIsSuccess(false)
+  }
+
   const generateStream = useCallback(
-    (requestBody: MutationParams) => {
+    (requestBody: MutationParams & T) => {
       resetMessage();
       mutate(requestBody);
     },
@@ -73,7 +79,6 @@ export default function useStream<T>({ invalidationQuery, endpoint, appType }: S
   );
 
   const cancelStream = useCallback(() => {
-    console.log('cancell response');
     abortControllerRef.current?.abort();
     return stopResponding(appType);
   }, [appType]);

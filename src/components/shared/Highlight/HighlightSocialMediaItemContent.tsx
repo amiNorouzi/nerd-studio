@@ -1,5 +1,5 @@
-"use client"
-import { useEffect, useState } from "react";
+"use client";
+import { useState } from "react";
 import { useGetDictionary } from "@/hooks";
 import HighlightGeneratedContent from "@/components/shared/Highlight/HighlightGeneratedContent";
 import { cn } from "@/lib/utils";
@@ -9,63 +9,45 @@ import { TbWand } from "react-icons/tb";
 import { iconVariants } from "@/constants/variants";
 import type { IconType } from "react-icons";
 import { HighlightItemContentProps } from "@/components/shared/Highlight/HighlightOptionItemContent";
-
-import useHighlightStore from "@/stores/zustand/highlight-store";
 import useGenerateHighlight from "@/services/highlight";
 
 export default function HighlightSocialMediaItemContent({
-                                                          itemChecked,
-                                                          isAnyItemSelect,
-                                                          handleClickCheck,
-                                                          item,
-                                                          Icon,
-                                                          highlightType,
-                                                          isGenerate = false,
-                                                        }: HighlightItemContentProps & { Icon: IconType }) {
+  itemChecked,
+  isAnyItemSelect,
+  handleClickCheck,
+  item,
+  Icon,
+  highlightType,
+  isGenerate = false,
+}: HighlightItemContentProps & { Icon: IconType }) {
   // when user click generate button this state will be true
   const [showTextarea, setShowTextArea] = useState(false);
 
   const {
     page: { chat },
   } = useGetDictionary();
-  const { generateTranslate } = useGenerateHighlight();
-  // const { message, resetMessage } = useEventChanel({
-  //   eventName: `highlight_${highlightType}`,
-  // });
-  // const { message } = useEventChanel({
-  //   eventName: `highlight_${highlightType}`,
-  // });
-  // console.info("event", message);
-  const setGeneratedHighlight = useHighlightStore.use.setGeneratedHighlight();
-  const highlightMessages = useHighlightStore.use.messages();
-  // const [currentIndex, setCurrentIndex] = useState<number>(
-  //   highlightMessages[highlightType].length === 0
-  //     ? 0
-  //     : highlightMessages[highlightType].length - 1,
-  // );
-  // useEffect(() => {
-  //   setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
-  // }, [currentIndex, highlightType, message, setGeneratedHighlight]);
-  // useEffect(() => {
-  //   setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
-  // }, [currentIndex, highlightType, message, setGeneratedHighlight]);
+  const { generateHighlight, message, conversationHistory } =
+    useGenerateHighlight();
 
+  const [currentIndex, setCurrentIndex] = useState<number>(
+    conversationHistory.length - 1,
+  );
+  console.log(conversationHistory);
   // handle click on generate button
-  function handleGenerate(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    // resetMessage();
-    e.stopPropagation();
+  function handleGenerate() {
     setShowTextArea(true);
-    // generateTranslate({
-    //   content: "hi",
-    //   presence_penalty: 0,
-    //   top_p: 1,
-    //   max_tokens: 100,
-    //   model: "gpt-3.5-turbo-0125",
-    //   temperature: 0.3,
-    //   type: highlightType,
-    //   frequency_penalty: 0,
-    //   stream: true,
-    // });
+    setCurrentIndex(i => i++);
+    generateHighlight({
+      content: "hi",
+      presence_penalty: 0,
+      top_p: 1,
+      max_tokens: 100,
+      model: "gpt-3.5-turbo-0125",
+      temperature: 0.3,
+      type: highlightType,
+      frequency_penalty: 0,
+      document_name: "",
+    });
   }
 
   // if user click on generate button or generate button in header  , we will show generated content
@@ -75,8 +57,7 @@ export default function HighlightSocialMediaItemContent({
         item={item}
         highlightType={highlightType}
         regenerate={handleGenerate}
-        // setCurrentIndex={setCurrentIndex}
-        setCurrentIndex={()=>{}}
+        values={conversationHistory}
       />
     );
 
@@ -89,7 +70,7 @@ export default function HighlightSocialMediaItemContent({
         "flex h-9 cursor-pointer items-center gap-2 overflow-hidden rounded-lg border bg-muted py-0 ps-2",
         itemChecked && " border-primary bg-primary-light text-primary-dark",
       )}
-      onClick={e => handleClickCheck(e, item)}
+      onClick={() => handleClickCheck(item)}
     >
       <span className="me-auto flex items-center gap-2 text-sm">
         <Icon />
@@ -98,7 +79,7 @@ export default function HighlightSocialMediaItemContent({
       {isAnyItemSelect ? (
         <Checkbox
           checked={itemChecked}
-          onClick={e => handleClickCheck(e, item)}
+          onClick={() => handleClickCheck(item)}
           className="me-4 rounded-full"
         />
       ) : (

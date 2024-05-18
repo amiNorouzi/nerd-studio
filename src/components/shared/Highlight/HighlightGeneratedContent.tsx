@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useHighlightStore from "@/stores/zustand/highlight-store";
 import { useCopyTextInClipBoard } from "@/hooks";
 import { Button } from "@/components/ui/button";
@@ -15,34 +15,36 @@ import { HighlightItemContentProps } from "@/components/shared/Highlight/Highlig
 
 type HighlightGeneratedContentProps = {
   highlightType: HighlightType;
-  regenerate: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  setCurrentIndex: Dispatch<SetStateAction<number>>;
+  regenerate: () => void;
+  values: string[];
 } & Pick<HighlightItemContentProps, "item">;
 /**
  * this component is for generated content (textarea and action buttons)  of highlight
  * @param item
  * @param highlightType
  * @param regenerate
+ * @param setCurrentIndex
+ * @param value
+ * @param isLastSlide
+ * @param slideCount
  * @constructor
  */
 export default function HighlightGeneratedContent({
-                                                    item,
-                                                    highlightType,
-                                                    regenerate,
-                                                    setCurrentIndex,
-                                                  }: HighlightGeneratedContentProps) {
-  const [highlightIndexToShow, setHighlightIndexToShow] = useState(0);
+  item,
+  highlightType,
+  regenerate,
+  values,
+}: HighlightGeneratedContentProps) {
+  const [highlightIndexToShow, setHighlightIndexToShow] = useState(1);
   const [editable, setEditable] = useState(false);
   const highlightMessages = useHighlightStore.use.messages();
   const [handleCopy, isCopy] = useCopyTextInClipBoard();
-  // console.log(highlightMessages);
-  // const currentIndex =
-  //   highlightMessages[highlightType].length === 0
-  //     ? 0
-  //     : highlightMessages[highlightType].length - 1;
-  // useEffect(() => {
-  //   setHighlightIndexToShow(currentIndex);
-  // }, [currentIndex]);
+  const slideCount = values.length === 0 ? 1 : values.length;
+  const isLastSlide = highlightIndexToShow === slideCount;
+  const [textValue, setTextValue] = useState('');
+  useEffect(() => {
+    setTextValue(values[highlightIndexToShow - 1]);
+  }, [highlightIndexToShow, values]);
 
   return (
     <div className="grid gap-2">
@@ -53,16 +55,16 @@ export default function HighlightGeneratedContent({
             className="fit p-0"
             variant="ghost"
             onClick={() => setHighlightIndexToShow(v => v - 1)}
-            disabled={highlightIndexToShow === 0}
+            disabled={highlightIndexToShow === 1}
           >
             <TbChevronLeft className={iconVariants({ size: "md" })} />
           </Button>
-          <span className="text-sm text-muted-foreground-light">{`${highlightIndexToShow + 1}/${highlightMessages[item.toLowerCase() as keyof HighlightMessage]?.length ?? 1}`}</span>
+          <span className="text-sm text-muted-foreground-light">{`${highlightIndexToShow}/${slideCount}`}</span>
           <Button
             className="fit p-0"
             variant="ghost"
-            onClick={() => setHighlightIndexToShow(v => v + 1)}
-            disabled={!Object.values(highlightMessages).length}
+            onClick={() => !isLastSlide && setHighlightIndexToShow(v => v + 1)}
+            disabled={isLastSlide}
           >
             <TbChevronRight className={iconVariants({ size: "md" })} />
           </Button>
@@ -70,34 +72,20 @@ export default function HighlightGeneratedContent({
       </div>
       <div className="relative">
         <textarea
-          value={''
-            // highlightMessages[highlightType]?.[highlightIndexToShow] !==
-            // "undefined"
-            //   ? highlightMessages[highlightType]?.[highlightIndexToShow]
-            //   : ""
-          }
+          value={textValue}
           rows={5}
           className="mb-0 w-full rounded-lg border bg-muted px-[26px] pb-6 pt-2 outline-none ring-0 focus:border-primary "
           disabled={!editable}
+          onChange={event => {
+            setTextValue(event.currentTarget.value);
+          }}
         />
         <div className="absolute bottom-2 end-3 flex w-fit gap-1 rounded-lg bg-background px-1 py-0.5 text-muted-foreground">
-          <MinimalButton
-            Icon={TbReload}
-            onClick={e => {
-              regenerate(e);
-              setCurrentIndex(prev => prev + 1);
-            }}
-          />
+          <MinimalButton Icon={TbReload} onClick={regenerate} />
           <MinimalButton Icon={TbEdit} onClick={() => setEditable(v => !v)} />
           <MinimalButton
             Icon={isCopy ? LuCopyCheck : LuCopy}
-            onClick={() =>
-              handleCopy(
-                highlightMessages[highlightType as keyof HighlightMessage][
-                  highlightIndexToShow
-                  ],
-              )
-            }
+            onClick={() => handleCopy(textValue)}
           />
         </div>
       </div>

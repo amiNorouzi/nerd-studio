@@ -1,8 +1,6 @@
-"use client"
-import { useEffect, useState } from "react";
+"use client";
+import React, { useState } from "react";
 import { useGetDictionary } from "@/hooks";
-
-import useHighlightStore from "@/stores/zustand/highlight-store";
 import HighlightGeneratedContent from "@/components/shared/Highlight/HighlightGeneratedContent";
 import { cn } from "@/lib/utils";
 import RenderIf from "@/components/shared/RenderIf";
@@ -10,68 +8,49 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { TbWand } from "react-icons/tb";
 import { iconVariants } from "@/constants/variants";
-import type { IconType } from "react-icons";
 import useGenerateHighlight from "@/services/highlight";
 
 export interface HighlightItemContentProps {
   item: string;
   itemChecked: boolean;
-  handleClickCheck: (
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-    item: string,
-  ) => void;
+
+  handleClickCheck(item: string): void;
   isAnyItemSelect: boolean;
   isGenerate?: boolean;
   highlightType: HighlightType;
 }
 
 export default function HighlightOptionItemContent({
-                                                     itemChecked,
-                                                     isAnyItemSelect,
-                                                     handleClickCheck,
-                                                     item,
-                                                     highlightType,
-                                                     isGenerate = false,
-                                                   }: HighlightItemContentProps) {
+  itemChecked,
+  isAnyItemSelect,
+  handleClickCheck,
+  item,
+  highlightType,
+  isGenerate = false,
+}: HighlightItemContentProps) {
   // when user click generate button this state will be true
   const [showTextarea, setShowTextArea] = useState(false);
 
   const {
     page: { chat },
   } = useGetDictionary();
-  const { generateTranslate } = useGenerateHighlight();
-  // const { message, resetMessage } = useEventChanel({
-  //   eventName: `highlight_${highlightType}`,
-  // });
-
-  // console.info("event", message);
-  const setGeneratedHighlight = useHighlightStore.use.setGeneratedHighlight();
-  const highlightMessages = useHighlightStore.use.messages();
-  // const [currentIndex, setCurrentIndex] = useState<number>(
-  //   highlightMessages[highlightType].length === 0
-  //     ? 0
-  //     : highlightMessages[highlightType].length - 1,
-  // );
-
-  // useEffect(() => {
-  //   setGeneratedHighlight(currentIndex, { [highlightType]: [message] });
-  // }, [currentIndex, highlightType, message, setGeneratedHighlight]);
+  const { generateHighlight, conversationHistory } =
+    useGenerateHighlight();
 
   // handle click on generate button
-  function handleGenerate(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    // resetMessage();
-    e.stopPropagation();
+  function handleGenerate() {
     setShowTextArea(true);
-    // generateTranslate({
-    //   content: "hi",
-    //   presence_penalty: 0.0,
-    //   top_p: 0.9,
-    //   frequency_penalty: 0.0,
-    //   max_tokens: 100,
-    //   model: "gpt-3.5-turbo-0125",
-    //   temperature: 0.0,
-    //   type: highlightType,
-    // });
+    generateHighlight({
+      content: "hi",
+      presence_penalty: 0.0,
+      top_p: 0.9,
+      frequency_penalty: 0.0,
+      max_tokens: 100,
+      model: "gpt-3.5-turbo-0125",
+      temperature: 0.0,
+      type: highlightType,
+      document_name: "",
+    });
   }
 
   // if user click on generate button or generate button in header  , we will show generated content
@@ -79,10 +58,9 @@ export default function HighlightOptionItemContent({
     return (
       <HighlightGeneratedContent
         item={item}
+        values={conversationHistory}
         highlightType={highlightType}
         regenerate={handleGenerate}
-        // setCurrentIndex={setCurrentIndex}
-        setCurrentIndex={()=>{}}
       />
     );
 
@@ -94,12 +72,12 @@ export default function HighlightOptionItemContent({
         "flex h-9 cursor-pointer items-center gap-2 overflow-hidden rounded-lg border bg-muted ps-2",
         itemChecked && " border-primary bg-primary-light text-primary-dark",
       )}
-      onClick={e => handleClickCheck(e, item)}
+      onClick={e => handleClickCheck(item)}
     >
       <RenderIf isTrue={isAnyItemSelect}>
         <Checkbox
           checked={itemChecked}
-          onClick={e => handleClickCheck(e, item)}
+          onClick={() => handleClickCheck(item)}
           className="data-[state=checked]:border-primary-dark data-[state=checked]:bg-transparent data-[state=checked]:text-primary-dark "
         />
       </RenderIf>

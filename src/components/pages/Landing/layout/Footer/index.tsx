@@ -23,7 +23,7 @@ const Footer = () => {
               <span>License</span>
             </div>
             <div className="flex flex-row items-center justify-between gap-x-0 text-base md:justify-start lg:gap-x-6">
-              <Link href="aboutus">
+              <Link href="/about">
                 <span>About</span>
 
               </Link>

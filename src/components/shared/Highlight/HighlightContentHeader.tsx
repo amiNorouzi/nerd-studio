@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import useHighlightStore from "@/stores/zustand/highlight-store";
 import { useGetDictionary } from "@/hooks";
 import { Button } from "@/components/ui/button";
@@ -17,13 +17,17 @@ interface HighlightContentHeaderProps {
  * @constructor
  */
 export default function HighlightContentHeader({
-                                                 handleClickToggleCheckAll,
-                                                 checkAll,
-                                               }: HighlightContentHeaderProps) {
+  handleClickToggleCheckAll,
+  checkAll,
+}: HighlightContentHeaderProps) {
   const setHighlightIsOpen = useHighlightStore.use.setHighlightIsOpen();
   const {
     page: { chat },
   } = useGetDictionary();
+
+  const handleClose=()=> {
+    setHighlightIsOpen(false);
+  }
 
   return (
     <div className="flex justify-between p-4.5">
@@ -39,7 +43,7 @@ export default function HighlightContentHeader({
       <Button
         variant="ghost"
         className="h-fit w-fit p-2"
-        onClick={() => setHighlightIsOpen(false)}
+        onClick={handleClose}
       >
         <TbX className={iconVariants({ size: "md" })} />
       </Button>
