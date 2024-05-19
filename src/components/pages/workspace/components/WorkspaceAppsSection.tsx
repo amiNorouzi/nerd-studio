@@ -12,6 +12,14 @@ import Lottie from "react-lottie";
 import * as animationNoApps from "../../../../../public/animations/no-apps-animation.json";
 import CreateNewAppLink from "./CreateNewAppLink";
 import { useGetWorkspaceApps } from "../hooks/useGetWorkspaceApps";
+import ToggleApp from "@/components/pages/workspace/components/ToggleApp";
+import { useState } from "react";
+import { useAddAppToWorkspace, useGetUserApps } from "@/services/workspace";
+import { AppCard } from "@/components/pages/workspace/components/AppCard";
+import { useWorkspaceStore } from "@/stores/zustand/workspace";
+import { useSession } from "next-auth/react";
+import { useWorkspaces } from "@/components/pages/workspace/hooks/useWorkspaces";
+import { WorkspacePagination } from "@/components/pages/workspace/components/WorkspacePagination";
 
 const defaultOptions = {
   loop: true,
@@ -25,43 +33,31 @@ const defaultOptions = {
 
 interface IWorkspaceAppsSectionProps {
   workspace_id: number;
+  ActiveApp:string
 }
 
 export default function WorkspaceAppsSection({
   workspace_id,
+                                               ActiveApp
 }: IWorkspaceAppsSectionProps) {
   const {
     common: { search },
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
-  const { lang } = useParams();
-  const { data: workspaceApps } = useGetWorkspaceApps({ workspace_id });
 
+  //receive Apps of the workspace
+
+  const {data:MainWorkspaceApps} = useGetUserApps()
+  const {data:childWorkspaceApps} = useGetWorkspaceApps({workspace_id});
+
+  //get all workspaces
+  const {data:workspaces, error, isLoading, isFetching, isError, isSuccess} = useWorkspaces();
+  const { lang } = useParams();
   return (
     <div>
-      <div className="flex items-start justify-between sm:items-center">
-        <h1 className="text-xl font-bold">{workspaceDictionary.apps_title}</h1>
 
-        <div className="flex flex-col items-end gap-2 sm:flex-row-reverse sm:items-center">
-          <CreateNewAppLink
-            href={`/${lang}/template/custom-template/create`}
-            label={workspaceDictionary.add_app_button_label}
-          />
 
-          <div className="relative h-9">
-            <Input
-              type="search"
-              className="!h-9 w-60 bg-muted ps-7 text-sm font-light"
-              placeholder={search}
-            />
-            <div className="absolute start-2 top-1/2 h-4 w-4 -translate-y-1/2">
-              <SearchIcon />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {workspaceApps?.length === 0 ? (
+      {(MainWorkspaceApps?.length === 0 && childWorkspaceApps?.length===0) ? (
         <div className="mt-12 flex h-full grow items-center justify-center gap-4">
           <div>
             <Lottie options={defaultOptions} height={156} width={131} />
@@ -83,11 +79,29 @@ export default function WorkspaceAppsSection({
           </div>
         </div>
       ) : (
+        <div className='w-full flex flex-col gap-5'>
+
+
         <section className="grid grid-cols-1 gap-4 pt-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {workspaceApps?.map(app => (
-            <InstalledAppCard app={app} key={app.id} />
+
+
+
+          { childWorkspaceApps?.map(app => (
+            <InstalledAppCard appId ={app.id}  app={app.app} key={app.id} workspace_id={workspace_id} workspaces={workspaces} />
+            // <AppCard/>
           ))}
+
         </section>
+          <div className='w-full flex items-center justify-center '>
+            {(ActiveApp ==='Apps' && ((MainWorkspaceApps && MainWorkspaceApps.length>0) || (childWorkspaceApps && childWorkspaceApps.length>0))) &&
+
+<div className='flex w-[90%]'>
+
+          <WorkspacePagination pages={10} />
+</div>
+            }
+          </div>
+        </div>
       )}
     </div>
   );

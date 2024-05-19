@@ -24,10 +24,10 @@ export function SubmitButtonSelectEngine({
       <Button
         className="row w-full"
         onClick={onClick}
-        disabled={isPending || isDisabledSubmit}
+
         isPending={isPending}
       >
-        {buttonContent}
+        {isPending?'cancel' :buttonContent}
       </Button>
     </div>
   );

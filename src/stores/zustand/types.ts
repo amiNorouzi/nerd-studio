@@ -4,6 +4,7 @@
  */
 import { TemplateItem } from "@/services/types";
 import { Theme } from "@/stores/browser-storage/types";
+import { Answer } from "@/types/history";
 
 export interface IUiState {
   isSidePanelOpen: boolean;
@@ -157,6 +158,11 @@ export interface HistoryState {
   historySearch: string;
   isHistoryInfoOpen: boolean;
   selectedHistoryItem: Answer | null;
+}
+
+export interface WorkspaceState{
+  workspaceID:number
+  setWorkspaceID:(v:number)=>void
 }
 
 export interface HistoryAction {

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { GoPerson } from "react-icons/go";
 import { CiLock, CiMail } from "react-icons/ci";
@@ -27,6 +27,7 @@ import { useGetDictionary } from "@/hooks";
 import { useSignup } from "./hooks/useSignup";
 import ConfirmEmailMessage from "@/components/shared/ConfirmEmailMessage";
 import { TbEye, TbEyeClosed } from "react-icons/tb";
+import { useConfirmInviteToWorkspaceWithRegister } from "@/services/workspace";
 
 /**
  * `Form` is a React component that handles the signup process.
@@ -36,9 +37,21 @@ import { TbEye, TbEyeClosed } from "react-icons/tb";
  *
  * @returns The rendered signup form.
  */
-export default function Form() {
+
+interface Props {
+  searchParams:{token:string,email:string}
+
+}
+export default function Form({searchParams}:Props) {
   // Use `useState` to manage the state of password visibility.
   const [showPass, setShowPass] = useState(false);
+  //set the email value if the user is invited to a workspace via an email
+  useEffect(() => {
+    if(searchParams.email){
+      form.setValue('email',searchParams.email)
+    }
+  }, []);
+
 
   // Use `useGetDictionary` to get the localized strings for the page.
   const {
@@ -46,6 +59,10 @@ export default function Form() {
     page: { signup },
     common,
   } = useGetDictionary();
+
+  //Use the custom hook for confirmation of workspace invite while no account is registered with the email
+  const {mutate,isError,isSuccess}=useConfirmInviteToWorkspaceWithRegister()
+
 
   // Use the custom hook `useSignup` to get the form methods, the signup handler function,
   // the function to set the email confirmation state, and the email confirmation state.
@@ -56,6 +73,7 @@ export default function Form() {
     showEmailConfirmation,
   } = useSignup();
 
+
   // Use `useForm` from `react-hook-form` to manage the form state and validation.
   const {
     control,
@@ -63,8 +81,14 @@ export default function Form() {
     formState: { errors, isSubmitting },
     getValues,
   } = form;
-
   // Render the signup form.
+
+  //handle confirmation for workspace invitation
+  const handleConfirmInvite = (e:React.FormEvent)=>{
+    e.preventDefault()
+    const values = form.getValues()
+    mutate({email:searchParams.email,token:searchParams.token,username:values.fullName,password:values.password})
+  }
   return (
     <>
       <section
@@ -74,7 +98,15 @@ export default function Form() {
         <FormProvider {...form}>
           <form
             method="post"
-            onSubmit={handleSubmit(handleSignup)}
+            onSubmit={(e)=>{
+              if(searchParams.token && searchParams.email) {
+                handleConfirmInvite(e)
+
+              }else {
+
+                handleSubmit(handleSignup)(e)
+              }
+            }}
             className="flex h-fit w-full max-w-[380px] flex-col gap-5 rounded-xl bg-white p-8 shadow-2xl"
           >
             <h2 className="text-center text-lg font-bold">

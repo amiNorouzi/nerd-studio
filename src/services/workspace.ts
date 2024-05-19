@@ -1,0 +1,170 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import axiosClient from "@/services/axios-client";
+import { Workspace, WorkspaceApp } from "@/services/types";
+import { Version } from "@/types/history";
+import { useState } from "react";
+
+type UseGetWorkspaceAppsParams = {
+  workspace_id: number;
+};
+
+export interface AllApps{
+
+  id:number;
+  topic:string;
+  task:string;
+  prompt:string
+  params:string[]
+status:string
+}
+export function useGetUserApps() {
+  return useQuery<AllApps[], Error>({
+    queryKey: ["workspace-apps"],
+    queryFn: async () => {
+      const response = await axiosClient.get<AllApps[]>(
+        `/workspaces/get_user_apps/`,
+      );
+      return response.data;
+    },
+  });
+}
+
+interface AddAppToWorkspace{
+  app_id:number
+  workspace_id:number
+}
+interface AddAppRequest{
+  app_id:number
+}
+
+export function useAddAppToWorkspace() {
+  const [workspaceId, setWorkspaceId] = useState<number>(0);
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ app_id ,workspace_id}: AddAppToWorkspace) => {
+      setWorkspaceId(workspace_id)
+
+      const {data}= await axiosClient.post<unknown, any, AddAppRequest>(`/workspaces/add_app_to_workspace/${workspace_id}/`, { app_id });
+      return data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["workspace-apps",workspaceId] }); // Invalidate the query to trigger a refetch
+    },
+  });
+}
+
+export function useDeleteApps() {
+  const [workspaceId, setWorkspaceId] = useState<number>(0);
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ app_id ,workspace_id}: AddAppToWorkspace ) => {
+      setWorkspaceId(workspace_id)
+      const { data } = await axiosClient.delete<WorkspaceApp>(
+        `workspaces/delete_app_from_workspace/${workspace_id}/${app_id}/`,
+      );
+
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["workspace-apps",workspaceId] }); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries({ queryKey: ["workspace-apps"] });
+    },
+
+  });
+}
+
+interface MoveApp{
+  app_id:number,
+  workspace_id:number,
+
+}
+
+export function useMoveAppToWorkspace({sourceWorkspace}:{sourceWorkspace:number}) {
+  const [workspaceId, setWorkspaceId] = useState<number>(0);
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ app_id ,workspace_id}: AddAppToWorkspace) => {
+      setWorkspaceId(workspace_id)
+
+      const {data}= await axiosClient.put<unknown, any, MoveApp>(`/workspaces/move_app/?workspace_id=${sourceWorkspace}`, { app_id,workspace_id});
+      return data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["workspace-apps",sourceWorkspace] });
+      queryClient.invalidateQueries({ queryKey: ["workspace-apps",workspaceId] }); // Invalidate the query to trigger a refetch
+    },
+  });
+}
+
+interface ConfirmInviteToWorkspace {
+  email:string
+  token:string
+}
+
+
+export function useConfirmInviteToWorkspace(){
+
+  return useMutation({
+    mutationFn: async ({email,token}: ConfirmInviteToWorkspace) => {
+
+
+      const {data}= await axiosClient.post<unknown, any, ConfirmInviteToWorkspace>(`/workspaces/confirm_invite_to_workspace_without_register/`, { email,token });
+      return data
+    },
+
+  });
+
+}
+
+interface  ConfirmInviteToWorkspaceWithRegister{
+  email:string
+  username:string;
+  password:string;
+  token:string
+}
+export function useConfirmInviteToWorkspaceWithRegister() {
+
+  return useMutation({
+    mutationFn: async ({ email, username, password, token }: ConfirmInviteToWorkspaceWithRegister) => {
+
+
+      const { data } = await axiosClient.post<unknown, any, ConfirmInviteToWorkspaceWithRegister>(`/workspaces/confirm_invite_to_workspace_with_register/`, {
+        email,
+        username,
+        password,
+        token
+      });
+      return data
+    },
+
+  });
+}
+
+interface DeleteUserFromWorkspace {
+  workspace_id:number
+  member_id:number
+}
+
+export function useDeleteUserFromWorkspace() {
+  const [workspaceId, setWorkspaceId] = useState<number>(0);
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ workspace_id,member_id}: DeleteUserFromWorkspace ) => {
+      setWorkspaceId(workspace_id)
+      const { data } = await axiosClient.delete<DeleteUserFromWorkspace>(
+        `workspaces/delete_workspace_members/${workspace_id}/${member_id}/
+`,
+      );
+
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['workspace-members', workspaceId] }); // Invalidate the query to trigger a refetch
+
+    },
+
+  });
+}
+

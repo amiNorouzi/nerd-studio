@@ -8,7 +8,9 @@ const SignUpPage = dynamic(() => import("@/components/pages/signup"), {
 
 interface IProps {
   params: ParamsType;
+  searchParams:{token:string,email:string}
 }
-export default function SignUp({ params }: IProps) {
-  return <SignUpPage params={params} />;
+export default function SignUp({ params,searchParams }: IProps) {
+
+  return <SignUpPage params={params} searchParams={searchParams} />;
 }

@@ -6,8 +6,12 @@ import { useParams } from "next/navigation";
 import Lottie from "react-lottie";
 
 import * as noDocsAnimation from "../../../../../public/animations/no-docs-animation.json";
-import { useGetWorkspaceDocuments } from "../hooks/useGetWorkspaceDocuments";
+import { App_types, useGetWorkspaceDocuments } from "../hooks/useGetWorkspaceDocuments";
 import InstalledDocCard from "./InstalledDocCard";
+import ToggleApp from "@/components/pages/workspace/components/ToggleApp";
+import { useState } from "react";
+import { WorkspacePagination } from "@/components/pages/workspace/components/WorkspacePagination";
+const sections:{name:string,app_type:App_types}[] = [{name:'Chatbot',app_type:'highlight'},{name:'Rewrite',app_type:"ai_writer"},{name:'image',app_type:"image_to_image"},{name:'Translate',app_type:"translate"},{name:'Grammar',app_type:"grammar"},{name:'Code',app_type:"code"},{name:'Prompt Library' ,app_type:"template"}]
 
 const defaultOptions = {
   loop: true,
@@ -20,40 +24,31 @@ const defaultOptions = {
 
 interface IWorkspaceDocumentsSectionProps {
   workspace_id: number;
+  ActiveApp:string
 }
 
 export default function WorkspaceDocumentsSection({
   workspace_id,
+                                                    ActiveApp
 }: IWorkspaceDocumentsSectionProps) {
   const {
     common: { search },
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
-  const { lang } = useParams();
-  const { data: WorkspaceDocs } = useGetWorkspaceDocuments({ workspace_id, app_type:"template", page:1 });
+  //set the category of the document
+const [activeTab,setActiveTab] = useState<string>(sections[0].name)
 
+  //get the documents in respect to the selected category
+  const { data: WorkspaceDocs } = useGetWorkspaceDocuments({ workspace_id, app_type:sections.filter(item=>item.name ===activeTab)[0].app_type, page:1 });
   return (
-    <div className="flex grow flex-col">
+    <div className="flex  grow flex-col">
       {/* ٌWorkspace Apps bar */}
-      <div className="flex items-start justify-between sm:items-center">
-        <h1 className="text-xl font-bold">Documents</h1>
+      <div className="flex flex-col gap-6 ">
+        {ActiveApp ==='All' && <h1 className="text-xl font-bold mx-[36px]">Documents</h1>}
 
-        <div className="flex flex-col items-end gap-2 sm:flex-row-reverse sm:items-center">
-          {/* <CreateNewAppLink
-            href={`/${lang}/template/custom-template/create`}
-            label={workspaceDictionary.add_app_button_label}
-          />
+        <div className="w-full flex mx-auto  justify-center">
+          <ToggleApp setActiveApp={setActiveTab} sections={sections.map(item=>item.name)}/>
 
-          <div className="relative h-9">
-            <Input
-              type="search"
-              className="!h-9 w-60 bg-muted ps-7 text-sm font-light"
-              placeholder={search}
-            />
-            <div className="absolute start-2 top-1/2 h-4 w-4 -translate-y-1/2">
-              <SearchIcon />
-            </div>
-          </div> */}
         </div>
       </div>
 
@@ -72,21 +67,34 @@ export default function WorkspaceDocumentsSection({
                 You can create different documents in other pages of your
                 workspace on the sidebar!
               </span>
-              {/* <CreateNewAppLink
-                href={`/${lang}/template/custom-template/create`}
-                label={workspaceDictionary.add_app_button_label}
-                className="w-full"
-            /> */}
+
             </div>
           </div>
         </div>
       ) : (
-        <section className="grid grid-cols-1 gap-4 pt-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {/* ٌWorkspace Docs */}
-          {WorkspaceDocs?.map(doc => (
-            <InstalledDocCard document={doc} key={doc.id} />
-          ))}
-        </section>
+        <div className='flex flex-col w-full gap-5'>
+
+          <div className="flex flex-wrap  w-full mx-5 gap-3 my-5">
+            {/* ٌWorkspace Docs */}
+            {WorkspaceDocs?.map(doc => (
+              <div key={doc.id} className='max-w-[350px]'>
+
+                <InstalledDocCard document={doc}
+                                  appName={sections.filter(item => item.name === activeTab)[0].app_type} />
+              </div>
+            ))}
+          </div>
+          <div className='w-full flex items-center justify-center '>
+            {(ActiveApp === 'Documents' && (WorkspaceDocs && WorkspaceDocs.length > 0) &&
+
+              <div className='flex w-[90%]'>
+
+                <WorkspacePagination pages={10} />
+              </div>
+            )}
+          </div>
+
+        </div>
       )}
     </div>
   );
