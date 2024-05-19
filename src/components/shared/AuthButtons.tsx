@@ -9,7 +9,7 @@ export function GoogleSignInButton() {
 
   return (
     <Button onClick={handleClick} variant="outline" size="lg">
-      <FcGoogle size={25} />
+      {/*<FcGoogle size={25} />*/}
       <span className="ml-4">Continue with Google</span>
     </Button>
   );

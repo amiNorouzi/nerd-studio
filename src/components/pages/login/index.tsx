@@ -115,13 +115,13 @@ export default function LoginPage() {
             placeholder={login.email_placeholder}
             rules={{ required: login.email_error_message }}
           >
-            <CiMail
-              className={cn(
-                "absolute start-2 top-[20px] -translate-y-1/2 text-muted-foreground",
-                errors.email && "text-destructive",
-              )}
-              size={18}
-            />
+            {/*<CiMail*/}
+            {/*  className={cn(*/}
+            {/*    "absolute start-2 top-[20px] -translate-y-1/2 text-muted-foreground",*/}
+            {/*    errors.email && "text-destructive",*/}
+            {/*  )}*/}
+            {/*  size={18}*/}
+            {/*/>*/}
           </FormField>
         </div>
         <div className="col items-start gap-2">
@@ -142,13 +142,13 @@ export default function LoginPage() {
               },
             }}
           >
-            <CiLock
-              className={cn(
-                "absolute start-2 top-[20px] -translate-y-1/2 text-muted-foreground",
-                errors.password && "text-destructive",
-              )}
-              size={20}
-            />
+            {/*<CiLock*/}
+            {/*  className={cn(*/}
+            {/*    "absolute start-2 top-[20px] -translate-y-1/2 text-muted-foreground",*/}
+            {/*    errors.password && "text-destructive",*/}
+            {/*  )}*/}
+            {/*  size={20}*/}
+            {/*/>*/}
             <MinimalButton
               Icon={showPass ? TbEyeClosed : TbEye}
               onClick={e => setShowPass(!showPass)}
