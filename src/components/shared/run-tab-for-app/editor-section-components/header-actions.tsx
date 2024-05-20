@@ -21,9 +21,20 @@ import { useEditorStore } from "@/stores/zustand/editor-slice";
 import { RiFullscreenExitFill, RiFullscreenFill } from "react-icons/ri";
 import { TbDownload } from "react-icons/tb";
 import { Save } from "lucide-react";
+import { useWorkspaces } from "@/components/pages/workspace/hooks/useWorkspaces";
+import { useWorkspaceStore } from "@/stores/zustand/workspace";
 
 function InputAndSelectSpace() {
-  const [selectValue, setSelectValue] = useState(value[0]);
+  //fetch all workspaces available
+  const {data:workspaces} = useWorkspaces();
+
+  //using global state to store selected workspace and document name for generating
+    const setWorkspaceID = useWorkspaceStore.use.setWorkspaceID()
+    const setDocumentName = useWorkspaceStore.use.setDocumentName()
+
+ ;
+  const [selectValue, setSelectValue] =
+    useState(workspaces? workspaces.map(item=>item.workspace.name)[0] : '');
   const items = useMemo(() => {
     return value.map(item => (
       <SelectItem key={item} value={item} className="text-xsm">
@@ -37,15 +48,25 @@ function InputAndSelectSpace() {
         type="text"
         className="text-xsm w-full max-w-[180px] px-6 py-1"
         defaultValue="New Document"
+        onChange={(e)=>{
+          setDocumentName(e.target.value)
+        }}
       />
+      {
+        workspaces &&
 
       <SelectAndDrawer
         value={selectValue}
-        setValue={setSelectValue}
-        items={value}
+        setValue={(val)=>{
+          setSelectValue(val)
+          const selectedID = workspaces!.filter(item=>item.workspace.name === val)[0].workspace.id
+          setWorkspaceID(selectedID)
+        }}
+        items={workspaces.map(workspace=>workspace.workspace.name)}
         buttonStyle="w-full max-w-[180px] px-6 py-1 capitalize"
         itemClassName="capitalize"
       />
+      }
     </div>
   );
 }

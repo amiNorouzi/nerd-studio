@@ -5,7 +5,8 @@ import { createSelectors } from "@/stores/zustand/createSelectors";
 import { HistoryAction, HistoryState, WorkspaceState } from "@/stores/zustand/types";
 
 const initialState = {
-  workspaceID:0
+  workspaceID:0,
+  documentName:''
 } as WorkspaceState;
 
 const useWorkspace = create<WorkspaceState>()(
@@ -15,6 +16,10 @@ const useWorkspace = create<WorkspaceState>()(
       setWorkspaceID: v =>
         set(state => {
           state.workspaceID = v;
+        }),
+      setDocumentName: v =>
+        set(state => {
+          state.documentName = v;
         }),
 
     })),

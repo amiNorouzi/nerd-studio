@@ -61,7 +61,7 @@ function InstalledAppCard({ app,workspace_id ,workspaces,appId}: Props) {
   }, [DeleteIsSuccess,DeleteIsError,MoveIsSuccess,MoveIsError]);
   return (
     // Link to app detail page
-    <Link href={`/${lang}/template/custom-template/create?app_id=${app.id}`}>
+    <Link href={`/${lang}/template/${app.id}`}>
       <article className="row group w-full cursor-pointer gap-2 rounded-md border bg-background p-4 transition-all duration-300 hover:shadow-card-hover">
 
         <div className='h-10 w-10 rounded-xl bg-green-400'></div>

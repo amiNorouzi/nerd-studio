@@ -163,6 +163,8 @@ export interface HistoryState {
 export interface WorkspaceState{
   workspaceID:number
   setWorkspaceID:(v:number)=>void
+  setDocumentName:(v:string)=>void
+  documentName:string
 }
 
 export interface HistoryAction {

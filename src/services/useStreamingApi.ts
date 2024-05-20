@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-query";
 import { stopResponding } from "@/services/general";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
+import { useWorkspaceStore } from "@/stores/zustand/workspace";
 
 type StreamParams = {
   invalidationQuery: InvalidateQueryFilters;
@@ -25,7 +26,8 @@ export default function useStream<T>({ invalidationQuery, endpoint, appType }: S
   const [message, setMessage] = useState("");
   const { data: session } = useSession();
   const abortControllerRef = useRef<AbortController | null>(null);
-
+  //get the workspace id that is set in the editor header
+  const worskapceID = useWorkspaceStore.use.workspaceID()
   const { mutate, ...props } = useMutation({
     async mutationFn(requestBody: MutationParams) {
       abortControllerRef.current = new AbortController();
@@ -42,7 +44,7 @@ export default function useStream<T>({ invalidationQuery, endpoint, appType }: S
         },
         body: JSON.stringify({
           ...requestBody,
-          workspace_id: session!.user.workspace.id!,
+          workspace_id: worskapceID? worskapceID :session!.user.workspace.id!,
         }),
         headers: {
           "Content-Type": "application/json",
