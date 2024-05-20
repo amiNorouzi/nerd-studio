@@ -45,11 +45,15 @@ import { useDeleteUserFromWorkspace } from "@/services/workspace";
  * show all members and their permissions
  * @constructor
  */
+const invitePermissions = [{title:'Can Read',type:'member_can_read'},{title:'Can Write',type:'member_can_all'}]
 export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
   const [email, setEmail] = useState("");
   const [isOwner, setIsOwner] = useState<boolean>(false);
+  // error and success toast components
   const { showSuccess } = useSuccessToast();
   const { showError } = useErrorToast();
+  // set permissions for invitation email
+  const [invitePermission, setInvitePermission] = useState(invitePermissions[0].title)
   const { data: session } = useSession();
 
   //deleting member from the workspace
@@ -130,12 +134,13 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
   const InviteMemberHandler = useCallback(() => {
     if (email.length === 0) {
       showError("Email is not provided yet!");
+      return
     }
 
     inviteMember({
       email,
       workspace_id,
-      role:'member_can_read'
+      role:invitePermissions.filter(perm=>perm.title ===invitePermission )[0].type
     });
   }, [email, inviteMember, showError, workspace_id]);
 
@@ -197,6 +202,7 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
                   className="absolute start-2 top-1/2 -translate-y-1/2"
                 />
               </div>
+              {isOwner &&
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   {/*invite member button*/}
@@ -213,12 +219,27 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
                 <span className="absolute left-2 top-1/2 -translate-y-1/2">
                   <MdOutlineEmail size={16} className="text-gray-400" />
                 </span>
+                    <div className='flex flex-row gap-2'>
+
                     <Input
                       placeholder="Email"
                       className="pl-7 ps-7"
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                     />
+                      <div className='w-[150px]'>
+
+                    <SelectAndDrawer
+                      value={invitePermission}
+                      setValue={(val)=>{
+                        setInvitePermission(val)
+
+                      }}
+                      items={invitePermissions.map(item=>item.title)}
+                    />
+                      </div>
+
+                    </div>
                   </div>
                   <AlertDialogFooter>
                     {/*
@@ -234,6 +255,7 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
+              }
             </div>
             <div className="flex flex-col w-full h-full  gap-2   ">
               <div className='flex flex-row justify-between w-full h-[40px] border-b'>
@@ -265,6 +287,7 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
                           Owner
                         </div>
                         }
+
                         {
                           isOwner && member.role.title !=='owner' &&
 
@@ -281,18 +304,18 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
                                 <AlertDialogTitle>Delete Member</AlertDialogTitle>
                               </AlertDialogHeader>
                               <div className="relative ">
-               <span className='text-[15px]'>
-                 This will remove the member from the workspace.
-               </span>
+                                     <span className='text-[15px]'>
+                                       This will remove the member from the workspace.
+                                     </span>
                               </div>
                               <AlertDialogFooter>
                                 {/*
-                cancel button that close the dialog
-              */}
+                                      cancel button that close the dialog
+                                                         */}
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                                 {/*
-                    delete button that call handleSubmit function
-                */}
+                                        delete button that call handleSubmit function
+                                                              */}
                                 <Button variant="destructive" onClick={()=>{
                                   DeleteMemberMutate({workspace_id,member_id:member.id})
                                 }}>
@@ -305,11 +328,14 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
 
 
                         }
+                        {
+                          member.role.title !=='owner' &&
                         <SelectAndDrawer
-                          value={'owner'}
+                          value={member.role.access_level[0].title}
                           setValue={()=>{}}
                           items={member.role.access_level.map(item=>item.title)}
                         />
+                        }
                       </div>
                     </div>
                   )

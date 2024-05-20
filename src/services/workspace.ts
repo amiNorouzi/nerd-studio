@@ -168,3 +168,69 @@ export function useDeleteUserFromWorkspace() {
   });
 }
 
+interface ChangeMemberRole{
+
+  member_id:number;
+  role:'read' | 'read-write'
+}
+
+export function useChangeMemberRole({workspace_id}:{workspace_id:number}) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ member_id,role}: ChangeMemberRole) => {
+
+      const {data}= await axiosClient.put<unknown, any, ChangeMemberRole>(`/workspaces/change_member_role/${workspace_id}/`, { member_id,role});
+      return data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['workspace-members', workspace_id]});
+
+    },
+  });
+}
+
+
+export function useDeleteWorkspace(workspace_id:{workspace_id:number}) {
+  return useMutation({
+    mutationFn: async ({ app_id ,workspace_id}: AddAppToWorkspace ) => {
+      const { data } = await axiosClient.delete<WorkspaceApp>(
+        `workspaces/delete_workspace/${workspace_id}/
+`,
+      );
+
+      return data;
+    },
+
+
+  });
+}
+
+interface ChangeWorkspaceName{
+  name:string
+}
+
+export function useChangeWorkspaceName({workspace_id}:{workspace_id:number}) {
+
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ name}: ChangeWorkspaceName) => {
+
+      const {data}= await axiosClient.put<unknown, any, ChangeWorkspaceName>(`/workspaces/update_workspace/${workspace_id}/`,{name});
+      return data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['workspaces'] });
+    }
+
+  });
+}
+
+
+
+
+
+
+
+

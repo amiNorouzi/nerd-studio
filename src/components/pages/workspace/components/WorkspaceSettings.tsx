@@ -36,7 +36,7 @@ export function WorkspaceSettings({ workspace_id }: { workspace_id: number }) {
       <div className="col mb-5 rounded-md border">
         <SettingItem
           title={workspaceDictionary.setting_name_label}
-          Action={<ChangeWorkspaceNameDialog />}
+          Action={<ChangeWorkspaceNameDialog workspace_id={workspace_id} />}
         >
           <p className="text-foreground/80">{myWorkspace?.name}</p>
         </SettingItem>
