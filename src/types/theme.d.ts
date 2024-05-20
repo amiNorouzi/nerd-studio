@@ -2,7 +2,7 @@
  * ! Warning
  * @deprecated don't use this type directly. All types must be in the types directory'
  */
-export type PrimaryColor =
+type PrimaryColor =
   | "default"
   | "primary-blue"
   | "primary-azure"
@@ -14,18 +14,18 @@ export type PrimaryColor =
   | "primary-cerise"
   | "primary-desert-sand";
 
-export type Theme =
+type AppTheme =
   | "default"
   | "theme-brown-light"
   | "theme-dark"
   | "theme--dark"
   | "theme-blue-dark";
 
-export interface IThemeConfig {
+interface IThemeConfig {
   primaryColor: PrimaryColor;
   theme: Theme;
 }
 
-export interface DirType {
+interface DirType {
   dir: "ltr" | "rtl";
 }
