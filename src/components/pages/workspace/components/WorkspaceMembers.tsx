@@ -45,7 +45,7 @@ import { useDeleteUserFromWorkspace } from "@/services/workspace";
  * show all members and their permissions
  * @constructor
  */
-const invitePermissions = [{title:'Can Read',type:'member_can_read'},{title:'Can Write',type:'member_can_all'}]
+const invitePermissions = [{title:'Can Read',type:'read'},{title:'Can Write',type:'read-write'}]
 export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
   const [email, setEmail] = useState("");
   const [isOwner, setIsOwner] = useState<boolean>(false);
