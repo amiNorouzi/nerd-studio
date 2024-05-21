@@ -10,7 +10,7 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { SelectAndDrawer } from "@/components/shared";
 import { WorkspaceMember } from "@/components/pages/workspace/types/members";
-import { useDeleteUserFromWorkspace } from "@/services/workspace";
+import { useChangeMemberRole, useDeleteUserFromWorkspace } from "@/services/workspace";
 import useSuccessToast from "@/hooks/useSuccessToast";
 import useErrorToast from "@/hooks/useErrorToast";
 import { useEffect } from "react";
@@ -20,14 +20,17 @@ interface Props{
 isOwner:boolean
   workspace_id:number
 }
-
+const accessLevel = [{title:'Read',type:'read'},{title:'Read and Write',type:'read-write'}]
 const MembersTable = ({members,isOwner,workspace_id}:Props)=>{
-
+  console.log('members',members);
   const {mutate:DeleteMemberMutate,isSuccess:deleteMemberIsSuccess,isError:deleteMemberIsError} = useDeleteUserFromWorkspace()
 
   // error and success toast components
   const { showSuccess } = useSuccessToast();
   const { showError } = useErrorToast();
+
+  //service for role change
+  const {mutate:ChangeRoleMutate,isSuccess:ChangeRoleIsSuccess ,isError:ChangeRoleIsError } = useChangeMemberRole({workspace_id})
 
   //show some toast with actions
   useEffect(() => {
@@ -35,6 +38,10 @@ const MembersTable = ({members,isOwner,workspace_id}:Props)=>{
     deleteMemberIsError && showError('member is not deleted');
   }, [deleteMemberIsSuccess,deleteMemberIsError]);
 
+  useEffect(() => {
+    ChangeRoleIsSuccess && showSuccess('members role is changed successfully.');
+    ChangeRoleIsError && showError('could not change members role')
+  }, [ChangeRoleIsSuccess,ChangeRoleIsError]);
 
   return (
     <div className="flex flex-col w-full h-full  gap-2   ">
@@ -110,10 +117,17 @@ const MembersTable = ({members,isOwner,workspace_id}:Props)=>{
                   {
                     member.role.title !== 'owner' &&
                     <SelectAndDrawer
-                      value={member.role.access_level[0].title}
-                      setValue={() => {
+                      value={member.role.access_level.length===1 ? 'Read' : 'Read and Write'}
+                      setValue={(val) => {
+                        if(member.role.access_level.length===1 && val ==='Read and Write'){
+                          ChangeRoleMutate({member_id:member.id,role:'read-write'})
+                        }
+                        if(member.role.access_level.length===2 && val==='Read'){
+                          ChangeRoleMutate({member_id:member.id,role:'read'})
+
+                        }
                       }}
-                      items={member.role.access_level.map(item => item.title)}
+                      items={accessLevel.map(item => item.title)}
                     />
                   }
                 </div>

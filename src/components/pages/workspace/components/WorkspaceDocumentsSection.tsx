@@ -9,9 +9,10 @@ import * as noDocsAnimation from "../../../../../public/animations/no-docs-anima
 import { App_types, useGetWorkspaceDocuments } from "../hooks/useGetWorkspaceDocuments";
 import InstalledDocCard from "./InstalledDocCard";
 import ToggleApp from "@/components/pages/workspace/components/ToggleApp";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { WorkspacePagination } from "@/components/pages/workspace/components/WorkspacePagination";
 import { SelectAndDrawer } from "@/components/shared";
+import { cn } from "@/lib/utils";
 const sections:{name:string,app_type:App_types}[] = [{name:'Chatbot',app_type:'highlight'},{name:'Rewrite',app_type:"ai_writer"},{name:'image',app_type:"image_to_image"},{name:'Translate',app_type:"translate"},{name:'Grammar',app_type:"grammar"},{name:'Code',app_type:"code"},{name:'Prompt Library' ,app_type:"template"}]
 
 const defaultOptions = {
@@ -41,21 +42,51 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
 
   //get the documents in respect to the selected category
   const { data: WorkspaceDocs } = useGetWorkspaceDocuments({ workspace_id, app_type:sections.filter(item=>item.name ===activeTab)[0].app_type, page:1 });
+//show more in all tabs
+  const [showMore,setShowMore] = useState(false)
+
+  //check for screen size
+  const [isDesktop, setIsDesktop] = useState<undefined | boolean>(undefined);
+
+  useEffect(() => {
+    const updateIsDesktop = () => {
+      setIsDesktop(window.matchMedia("(min-width: 1024px)").matches);
+    };
+
+    // Initial check
+    updateIsDesktop();
+
+    // Event listener for window resize
+    window.addEventListener('resize', updateIsDesktop);
+
+    // Cleanup function to remove event listener
+    return () => {
+      window.removeEventListener('resize', updateIsDesktop);
+    };
+  }, []);
+
+  const DocumentsToShowInMobileInAllTab = WorkspaceDocs ? (showMore ?WorkspaceDocs.documents : WorkspaceDocs.documents.slice(0, 4)) : []
+  const DocumentsToShowInDesktopInAllTab = WorkspaceDocs ? (showMore ?WorkspaceDocs.documents : WorkspaceDocs.documents.slice(0, 8)) : []
+
+
+
   return (
-    <div className="flex w-full  grow flex-col">
+    <div className="flex w-full  grow flex-col ">
       {/* ٌWorkspace Apps bar */}
-      <div className="flex w-full flex-col gap-6 ">
-        {ActiveApp ==='All' && <h1 className="text-xl font-bold mx-[36px]">Documents</h1>}
+      <div className="flex w-full flex-col gap-6 lg:mx-0 ">
+        {ActiveApp ==='All' && <h1 className="text-xl font-bold mx-[16px]  lg:mx-[36px]">Documents</h1>}
 
         <div className="w-full hidden lg:flex mx-auto  justify-center">
           <ToggleApp setActiveApp={setActiveTab} sections={sections.map(item=>item.name)}/>
 
-        </div>  <div className="w-full flex lg:hidden mx-auto  justify-center">
+        </div>
+        <div className="w-[90%] mx-auto flex lg:hidden   justify-center">
 
         <SelectAndDrawer
           value={activeTab}
           setValue={(val)=>{setActiveTab(val)}}
           items={sections.map(item=>item.name)}
+
         />
         </div>
 
@@ -83,16 +114,48 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
       ) : (
         <div className='flex flex-col w-full gap-5 '>
 
-          <div className="flex flex-wrap  w-full   gap-3 my-5">
+          <div className="flex flex-wrap  w-full  gap-3 my-5">
             {/* ٌWorkspace Docs */}
-            {WorkspaceDocs && WorkspaceDocs.documents.map(doc => (
-              <div key={doc.id} className='lg:max-w-[350px]'>
+            <div className='flex  flex-wrap w-full mx-[16px] lg:mx-[36px] gap-2'>
+
+            {ActiveApp ==='Documents' && WorkspaceDocs && WorkspaceDocs.documents.map(doc => (
+              <div key={doc.id} className='w-[315px] lg:max-w-[350px]'>
 
                 <InstalledDocCard document={doc}
                                   appName={sections.filter(item => item.name === activeTab)[0].app_type} />
               </div>
             ))}
+              {ActiveApp ==='All' && !isDesktop && WorkspaceDocs && DocumentsToShowInMobileInAllTab.map(doc => (
+                <div key={doc.id} className='w-[315px] lg:max-w-[350px]'>
+
+                  <InstalledDocCard document={doc}
+                                    appName={sections.filter(item => item.name === activeTab)[0].app_type} />
+                </div>
+              ))}
+              {ActiveApp ==='All' && isDesktop && WorkspaceDocs && DocumentsToShowInDesktopInAllTab.map(doc => (
+                <div key={doc.id} className='w-[315px] lg:max-w-[350px]'>
+
+                  <InstalledDocCard document={doc}
+                                    appName={sections.filter(item => item.name === activeTab)[0].app_type} />
+                </div>
+              ))}
+            </div>
           </div>
+          {
+            ActiveApp ==='All' && WorkspaceDocs && WorkspaceDocs.documents.length>3 &&
+            <div className='w-full flex  '>
+              {
+
+                <div onClick={()=>setShowMore(prev=>!prev)} className={cn(' cursor-pointer  h-[37px] flex bg-secondary text-primary border rounded-xl  items-center justify-center',!isDesktop ?"w-full" : 'w-[134px] mx-auto')}>
+                  <p>
+
+                    {showMore ? 'Show Less' : 'Show More'}
+                  </p>
+                </div>
+              }
+            </div>
+
+          }
           <div className='w-full flex items-center justify-center '>
             {(ActiveApp === 'Documents' && (WorkspaceDocs && WorkspaceDocs.documents.length > 0) &&
 

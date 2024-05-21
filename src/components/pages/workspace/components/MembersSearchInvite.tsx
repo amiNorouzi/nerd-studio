@@ -26,7 +26,7 @@ interface Props {
 
   workspace_id:number
 }
-const invitePermissions = [{title:'Can Read',type:'read'},{title:'Can Write',type:'read-write'}]
+const invitePermissions = [{title:'Can Read',type:'read'},{title:'Can Read/Write',type:'read-write'}]
 
 const MembersSearchInvite = ({ isOwner,workspace_id }: Props) => {
   const [email, setEmail] = useState("");
@@ -48,7 +48,7 @@ const MembersSearchInvite = ({ isOwner,workspace_id }: Props) => {
 
   //show toast for invitation action
   useEffect(() => {
-    isInviteMemberSuccess && showSuccess('check your email')
+    isInviteMemberSuccess && showSuccess('email is sent')
     invitedMemberError && showError('enter a correct email')
   }, [isInviteMemberSuccess,invitedMemberError]);
 
@@ -70,8 +70,8 @@ const MembersSearchInvite = ({ isOwner,workspace_id }: Props) => {
   }, [email, inviteMember, showError, workspace_id]);
 
   return (
-    <div className="flex flex-row gap-2">
-      <div className="fit relative">
+    <div className="flex flex-row w-full gap-2 justify-end lg:justify-start">
+      <div className="fit relative ">
         <Input
           type="search"
           className="w-60 bg-muted ps-7 font-light"
@@ -83,6 +83,9 @@ const MembersSearchInvite = ({ isOwner,workspace_id }: Props) => {
         />
       </div>
       {isOwner &&
+        <div>
+
+
         <AlertDialog>
           <AlertDialogTrigger asChild>
             {/*invite member button*/}
@@ -135,6 +138,7 @@ const MembersSearchInvite = ({ isOwner,workspace_id }: Props) => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
+        </div>
       }
     </div>
   )

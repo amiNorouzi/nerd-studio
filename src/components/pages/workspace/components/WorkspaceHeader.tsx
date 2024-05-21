@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import SearchIcon from "@/components/svg-icons/SearchIcon";
 import { useParams } from "next/navigation";
 import { useGetDictionary } from "@/hooks";
+import { IoIosSearch } from "react-icons/io";
+
 const sections = ['All','Apps','Documents']
 
 interface Props{
@@ -19,21 +21,21 @@ export const WorkspaceHeader = ({setActiveApp,ActiveApp}:Props)=>{
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
   return (
-    <div className='flex w-full flex-col lg:flex-row  justify-between'>
-      <div className='flex justify-between flex-row items-center'>
+    <div className='flex w-full flex-col lg:flex-row  justify-between gap-[24px] lg:gap-0 '>
+      <div className='flex justify-between flex-row items-center mx-[16px] lg:mx-[32px] lg:gap-4'>
 
-      <h1 className="text-xl font-bold mx-[32px]">{ActiveApp ==='All'?'Apps':ActiveApp}</h1>
+      <h1 className="text-xl font-bold ">{ActiveApp ==='All'?'Apps':ActiveApp}</h1>
       <ToggleApp setActiveApp={setActiveApp}  sections={sections} />
       </div>
       <div>
 
 
       {
-        <div className="flex w-full items-start justify-between sm:items-center">
+        <div className="flex w-full items-end lg:items-start  sm:items-center   lg:mx-0  ">
 
 
-          <div className="flex  w-full flex-row-reverse justify-between  items-end gap-2 sm:flex-row-reverse sm:items-center ml-auto">
-            <div>
+          <div className="flex flex-row-reverse justify-end sm:justify-start gap-2 lg:justify-end  w-full mx-[16px] lg:mx-[32px] ">
+            <div >
 
             {(ActiveApp === 'All' || ActiveApp === 'Apps') &&
 
@@ -44,14 +46,15 @@ export const WorkspaceHeader = ({setActiveApp,ActiveApp}:Props)=>{
             }
 
             </div>
-            <div className="relative h-9">
+            <div className="relative h-[37px] flex-1 lg:w-[295px] lg:auto">
               <Input
                 type="search"
-                className="!h-9 w-60 bg-muted ps-7 text-sm font-light"
+                style={{height:'100%',width:'100%'}}
+                className={'px-5'}
                 placeholder={search}
               />
-              <div className="absolute start-2 top-1/2 h-4 w-4 -translate-y-1/2">
-                <SearchIcon />
+              <div className="absolute text-[15px]  start-0 top-1/2 items-center -translate-y-1/2">
+                <IoIosSearch />
               </div>
             </div>
           </div>

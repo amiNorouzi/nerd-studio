@@ -13,13 +13,14 @@ import * as animationNoApps from "../../../../../public/animations/no-apps-anima
 import CreateNewAppLink from "./CreateNewAppLink";
 import { useGetWorkspaceApps } from "../hooks/useGetWorkspaceApps";
 import ToggleApp from "@/components/pages/workspace/components/ToggleApp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAddAppToWorkspace, useGetUserApps } from "@/services/workspace";
 import { AppCard } from "@/components/pages/workspace/components/AppCard";
 import { useWorkspaceStore } from "@/stores/zustand/workspace";
 import { useSession } from "next-auth/react";
 import { useWorkspaces } from "@/components/pages/workspace/hooks/useWorkspaces";
 import { WorkspacePagination } from "@/components/pages/workspace/components/WorkspacePagination";
+import { cn } from "@/lib/utils";
 
 const defaultOptions = {
   loop: true,
@@ -53,6 +54,32 @@ export default function WorkspaceAppsSection({
   //get all workspaces
   const {data:workspaces, error, isLoading, isFetching, isError, isSuccess} = useWorkspaces();
   const { lang } = useParams();
+
+  //show more in all tabs
+  const [showMore,setShowMore] = useState(false)
+  //check for screen size
+  const [isDesktop, setIsDesktop] = useState<undefined | boolean>(undefined);
+
+  useEffect(() => {
+    const updateIsDesktop = () => {
+      setIsDesktop(window.matchMedia("(min-width: 1024px)").matches);
+    };
+
+    // Initial check
+    updateIsDesktop();
+
+    // Event listener for window resize
+    window.addEventListener('resize', updateIsDesktop);
+
+    // Cleanup function to remove event listener
+    return () => {
+      window.removeEventListener('resize', updateIsDesktop);
+    };
+  }, []);
+
+  const appToShowInMobileInAllTab = childWorkspaceApps ? (showMore ?childWorkspaceApps.apps : childWorkspaceApps.apps.slice(0, 4)) : []
+  const appToShowInDesktopInAllTab = childWorkspaceApps ? (showMore ?childWorkspaceApps.apps : childWorkspaceApps.apps.slice(0, 8)) : []
+
   return (
     <div>
 
@@ -82,23 +109,50 @@ export default function WorkspaceAppsSection({
         <div className='w-full flex flex-col gap-5'>
 
 
-        <section className="grid grid-cols-1 gap-4 pt-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <section className='flex flex-col mx-[16px] gap-4 lg:mx-[32px]'>
 
 
 
-          {childWorkspaceApps && childWorkspaceApps.apps.map(app => (
+          <div  className="grid grid-cols-1 gap-4 pt-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+
+          {ActiveApp ==='Apps' && childWorkspaceApps && childWorkspaceApps.apps.map(app => (
             <InstalledAppCard appId ={app.id}  app={app.app} key={app.id} workspace_id={workspace_id} workspaces={workspaces} />
             // <AppCard/>
           ))}
 
+          {ActiveApp ==='All' && !isDesktop &&  appToShowInMobileInAllTab.map(app => (
+            <InstalledAppCard appId ={app.id}  app={app.app} key={app.id} workspace_id={workspace_id} workspaces={workspaces} />
+            // <AppCard/>
+          ))}
+          {ActiveApp ==='All' && isDesktop &&  appToShowInDesktopInAllTab.map(app => (
+            <InstalledAppCard appId ={app.id}  app={app.app} key={app.id} workspace_id={workspace_id} workspaces={workspaces} />
+            // <AppCard/>
+          ))}
+
+          </div>
+          {
+            ActiveApp ==='All' &&childWorkspaceApps && childWorkspaceApps.apps.length>3 &&
+            <div className='w-full flex  '>
+              {
+
+                <div onClick={()=>setShowMore(prev=>!prev)} className={cn(' cursor-pointer  h-[37px] flex bg-secondary text-primary border rounded-xl  items-center justify-center',!isDesktop ?"w-full" : 'w-[134px] mx-auto')}>
+                  <p>
+
+                    {showMore ? 'Show Less' : 'Show More'}
+                  </p>
+                </div>
+              }
+            </div>
+
+          }
         </section>
           <div className='w-full flex items-center justify-center '>
             {(ActiveApp ==='Apps' && ((MainWorkspaceApps && MainWorkspaceApps.length>0) || (childWorkspaceApps && childWorkspaceApps.apps.length>0))) &&
 
-<div className='flex w-[90%]'>
+          <div className='flex w-[90%]'>
 
-          <WorkspacePagination pages={10} />
-</div>
+                    <WorkspacePagination pages={10} />
+          </div>
             }
           </div>
         </div>

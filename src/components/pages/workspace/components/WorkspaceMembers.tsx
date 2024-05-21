@@ -41,6 +41,7 @@ import { useDeleteUserFromWorkspace } from "@/services/workspace";
 import MembersStatus from "@/components/pages/workspace/components/MembersStatus";
 import MembersSearchInvite from "@/components/pages/workspace/components/MembersSearchInvite";
 import MembersTable from "@/components/pages/workspace/components/MembersTable";
+import useIsWorkspaceOwner from "@/hooks/use-isWorkspaceOwner";
 
 // const permissionOptions:{title:string,type:string}[] = [{title:'Owner',type:'owner'},{title:'Can Read',type:'read'},{title:'Can Write',type:'write'}]
 /**
@@ -49,7 +50,6 @@ import MembersTable from "@/components/pages/workspace/components/MembersTable";
  * @constructor
  */
 export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
-  const [isOwner, setIsOwner] = useState<boolean>(false);
 
   const { data: session } = useSession();
 
@@ -62,17 +62,8 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
   } = useGetWorkspaceMembers({ workspace_id });
 
   //set if the user is the owner of the workspace or not for some actions like deleting and changing permissions
-  useEffect(() => {
-    if(members && session){
-      console.log('owner checking is running');
-    const OwnerAccount = members.filter(member=>member.role.title==='owner');
-      session.user.email === OwnerAccount[0].user.email && setIsOwner(true)
-    }else{
-      setIsOwner(false)
-    }
+  const {isOwner} =useIsWorkspaceOwner({members})
 
-
-  }, [members,session]);
 
   //error handling of getting members of the workspace
   useEffect(() => {
@@ -91,9 +82,9 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
         {isSuccess &&
 
 
-      <div className='flex flex-col lg:flex-row w-full   max-h-page'>
+      <div className='flex gap-[24px] flex-col lg:flex-row w-full   max-h-page'>
         {/*members status and count*/}
-        <div className='flex w-[300px] h-full    '>
+        <div className='flex w-full  items-center justify-center lg:w-[300px] h-full    '>
 
               <MembersStatus members={members} />
         </div>
