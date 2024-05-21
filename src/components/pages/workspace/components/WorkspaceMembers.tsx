@@ -96,6 +96,7 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
             <MembersSearchInvite
               isOwner={isOwner} workspace_id={workspace_id}/>
               {/*members table list*/}
+
             <MembersTable members={members} isOwner={isOwner} workspace_id={workspace_id}  />
           </div>
         </div>

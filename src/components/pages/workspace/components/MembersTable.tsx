@@ -45,16 +45,19 @@ const MembersTable = ({members,isOwner,workspace_id}:Props)=>{
 
   return (
     <div className="flex flex-col w-full h-full  gap-2   ">
+      <div className='flex flex-col  w-full px-[16px] lg:px-[32px]'>
+
+
       <div className='flex flex-row justify-between w-full h-[40px] border-b'>
         <p className='text-muted-foreground-light text-[15px]'>User Name</p>
         <p className='text-muted-foreground-light text-[15px]'>permissions</p>
 
       </div>
-      {members.length > 0 &&
+      {members.length >0 &&
         <div className='flex flex-col gap-5'>
           {members.map((member, index) => {
             return (
-              <div className='flex flex-row justify-between border-b pb-4'>
+              <div className='flex flex-row justify-between border-b py-4'>
                 <div>
 
                   <div className="row gap-2" key={member.id}>
@@ -137,6 +140,7 @@ const MembersTable = ({members,isOwner,workspace_id}:Props)=>{
 
         </div>
       }
+      </div>
     </div>
 
   )

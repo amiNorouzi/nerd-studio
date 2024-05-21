@@ -70,76 +70,81 @@ const MembersSearchInvite = ({ isOwner,workspace_id }: Props) => {
   }, [email, inviteMember, showError, workspace_id]);
 
   return (
-    <div className="flex flex-row w-full gap-2 justify-end lg:justify-start">
-      <div className="fit relative ">
-        <Input
-          type="search"
-          className="w-60 bg-muted ps-7 font-light"
-          placeholder={search}
-        />
-        <FiSearch
-          size="1rem"
-          className="absolute start-2 top-1/2 -translate-y-1/2"
-        />
-      </div>
-      {isOwner &&
-        <div>
+    <div className="flex flex-row w-full  ">
+      <div className="flex flex-row w-full gap-2 justify-end lg:justify-start mx-[16px] lg:mx-[32px]">
 
 
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            {/*invite member button*/}
-            <Button className="w-fit">
-              <LuUserPlus className="me-2 h-4 w-4" />
-              {workspaceDictionary.members_invite_button_label}
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent className="max-w-md ">
-            <AlertDialogHeader>
-              <AlertDialogTitle>Invite Member</AlertDialogTitle>
-            </AlertDialogHeader>
-            <div className="relative ">
+        <div className="fit relative flex-1 lg:flex-grow-0 lg:w-60  ">
+          <Input
+            type="search"
+            className="w-full lg:w-60 bg-muted ps-7 font-light"
+
+            placeholder={search}
+          />
+          <FiSearch
+            size="1rem"
+            className="absolute start-2 top-1/2 -translate-y-1/2"
+          />
+        </div>
+        {isOwner &&
+          <div>
+
+
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                {/*invite member button*/}
+                <Button className="w-fit lg:w-[100px]">
+                  <LuUserPlus className="me-2 h-4 w-4" />
+                  {workspaceDictionary.members_invite_button_label}
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="max-w-md ">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Invite Member</AlertDialogTitle>
+                </AlertDialogHeader>
+                <div className="relative ">
                 <span className="absolute left-2 top-1/2 -translate-y-1/2">
                   <MdOutlineEmail size={16} className="text-gray-400" />
                 </span>
-              <div className='flex flex-row gap-2'>
+                  <div className='flex flex-row gap-2'>
 
-                <Input
-                  placeholder="Email"
-                  className="pl-7 ps-7"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                />
-                <div className='w-[150px]'>
+                    <Input
+                      placeholder="Email"
+                      className="pl-7 ps-7"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                    />
+                    <div className='w-[150px]'>
 
-                  <SelectAndDrawer
-                    value={invitePermission}
-                    setValue={(val) => {
-                      setInvitePermission(val)
+                      <SelectAndDrawer
+                        value={invitePermission}
+                        setValue={(val) => {
+                          setInvitePermission(val)
 
-                    }}
-                    items={invitePermissions.map(item => item.title)}
-                  />
+                        }}
+                        items={invitePermissions.map(item => item.title)}
+                      />
+                    </div>
+
+                  </div>
                 </div>
-
-              </div>
-            </div>
-            <AlertDialogFooter>
-              {/*
+                <AlertDialogFooter>
+                  {/*
                 cancel button that close the dialog
               */}
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              {/*
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  {/*
                     delete button that call handleSubmit function
                 */}
-              <Button variant="destructive" onClick={InviteMemberHandler}>
-                Invite New Member
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-        </div>
-      }
+                  <Button variant="destructive" onClick={InviteMemberHandler}>
+                    Invite New Member
+                  </Button>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        }
+      </div>
     </div>
   )
 }
