@@ -116,7 +116,7 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
 
           <div className="flex flex-wrap  w-full  gap-3 my-5">
             {/* ٌWorkspace Docs */}
-            <div className='flex  flex-wrap w-full mx-[16px] lg:mx-[36px] gap-2'>
+            <div className='grid grid-cols-1 gap-4 pt-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto lg:mx-[36px] '>
 
             {ActiveApp ==='Documents' && WorkspaceDocs && WorkspaceDocs.documents.map(doc => (
               <div key={doc.id} className='w-[315px] lg:max-w-[350px]'>

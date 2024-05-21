@@ -29,7 +29,7 @@ export default function WorkspaceAppsContainer({workspace_id}:IWorkspaceAppsCont
    return (
     <div className="relative w-full overflow-y-auto ">
     <TabsContent value="tabone">tab one</TabsContent>
-      <TabsList className="flex justify-evenly lg:hidden  w-full  ">
+      <TabsList className="flex sticky top-0 z-[200] justify-evenly lg:hidden  w-full  ">
         {spacesTabs.map(tab => (
           <TabsTrigger
             value={tab.value}

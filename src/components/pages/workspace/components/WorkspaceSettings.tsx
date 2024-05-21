@@ -27,7 +27,10 @@ export function WorkspaceSettings({ workspace_id }: { workspace_id: number }) {
   }, [deleteWorkSpace, myWorkspace?.id]);
 
   return (
-    <>
+    <div className='flex flex-col w-full'>
+      <div className='flex flex-col w-full px-[16px] lg:px-[32px]'>
+
+
       {/* basic settings */}
       <h4 className="mb-1.5 text-[15px] font-semibold">
         {workspaceDictionary.basic_setting_title}
@@ -81,6 +84,7 @@ export function WorkspaceSettings({ workspace_id }: { workspace_id: number }) {
           </p>
         </SettingItem>
       </div>
-    </>
+      </div>
+    </div>
   );
 }
