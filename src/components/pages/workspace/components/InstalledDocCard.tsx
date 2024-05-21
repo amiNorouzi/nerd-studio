@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
 
-import type { WorkspaceDocument } from "@/services/types";
+import { WorkspaceDocument, WorkspaceDocumentProps } from "@/services/types";
 import { useHistoryStore } from "@/stores/zustand/history-store";
 import { useFavorites, useSetFavorites } from "@/services/favorite-history";
 import { usePinHistory, useSetPinHistory } from "@/services/pin-history";
@@ -35,7 +35,7 @@ import { DeletePopOver } from "@/components/shared/History/HistoryItems";
  * @param document - document item
  * @constructor
  */
-function InstalledDocCard({ document,appName }: { document: WorkspaceDocument,appName:string }) {
+function InstalledDocCard({ document,appName }: { document: WorkspaceDocumentProps,appName:string }) {
 
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
 

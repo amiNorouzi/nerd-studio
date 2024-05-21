@@ -7,6 +7,15 @@ type UseGetWorkspaceAppsParams = {
   workspace_id: number;
 };
 export interface ResponseGetWorkspaceAppsParams {
+  apps:ResponseGetWorkspaceAppsProps[]
+  paginator: {
+    per_page:number
+    num_pages:number
+  }
+  current_page:number
+}
+
+export interface ResponseGetWorkspaceAppsProps{
   id:number
   app:{
     id:number;
@@ -23,10 +32,10 @@ export interface ResponseGetWorkspaceAppsParams {
 export function useGetWorkspaceApps({
   workspace_id,
 }: UseGetWorkspaceAppsParams) {
-  return useQuery<ResponseGetWorkspaceAppsParams[], Error>({
+  return useQuery<ResponseGetWorkspaceAppsParams, Error>({
     queryKey: ["workspace-apps", workspace_id],
     queryFn: async () => {
-      const response = await axiosClient.get<ResponseGetWorkspaceAppsParams[]>(
+      const response = await axiosClient.get<ResponseGetWorkspaceAppsParams>(
         `/workspaces/get_workspace_apps/${workspace_id}/`,
       );
       return response.data;

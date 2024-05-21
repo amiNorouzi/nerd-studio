@@ -61,7 +61,7 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
 
       </div>
 
-      {WorkspaceDocs?.length === 0 ? (
+      {WorkspaceDocs?.documents.length === 0 ? (
         <div className="mt-12  flex h-full grow items-center justify-center gap-4">
           {/* ٌWorkspace No Docs */}
           <div>
@@ -85,7 +85,7 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
 
           <div className="flex flex-wrap  w-full   gap-3 my-5">
             {/* ٌWorkspace Docs */}
-            {WorkspaceDocs?.map(doc => (
+            {WorkspaceDocs && WorkspaceDocs.documents.map(doc => (
               <div key={doc.id} className='lg:max-w-[350px]'>
 
                 <InstalledDocCard document={doc}
@@ -94,7 +94,7 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
             ))}
           </div>
           <div className='w-full flex items-center justify-center '>
-            {(ActiveApp === 'Documents' && (WorkspaceDocs && WorkspaceDocs.length > 0) &&
+            {(ActiveApp === 'Documents' && (WorkspaceDocs && WorkspaceDocs.documents.length > 0) &&
 
               <div className='flex w-[90%]'>
 

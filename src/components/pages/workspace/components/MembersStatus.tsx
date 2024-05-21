@@ -27,16 +27,16 @@ interface MembersStatusProps {
      return { verifiedMembers, notVerifiedMembers };
    }, []);
    return (
-     <div className='flex flex-col gap-5'>
+     <div className='flex w-full  flex-row lg:flex-col gap-5'>
 
-       <div className=" w-[248px] h-[294px] flex border rounded-xl bg-muted items-center justify-center">
+       <div className="w-[166px] h-[166px] lg:w-[248px] lg:h-[294px] flex border rounded-xl bg-muted items-center justify-center">
             <span className="text-3xl font-bold">
               {countVerifiedMembers(members).verifiedMembers}
             </span>
          <p className="text-[15px]">{workspaceDictionary.members_label}</p>
        </div>
 
-       <div className="w-[248px] h-[294px] flex border rounded-xl bg-muted items-center justify-center">
+       <div className="w-[166px] h-[166px] lg:w-[248px] lg:h-[294px] flex border rounded-xl bg-muted items-center justify-center">
             <span className="text-3xl font-bold">
               {countVerifiedMembers(members).notVerifiedMembers}
             </span>

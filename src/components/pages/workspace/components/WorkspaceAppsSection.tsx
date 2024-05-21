@@ -57,7 +57,7 @@ export default function WorkspaceAppsSection({
     <div>
 
 
-      {(MainWorkspaceApps?.length === 0 && childWorkspaceApps?.length===0) ? (
+      {(MainWorkspaceApps?.length === 0 && childWorkspaceApps?.apps.length===0) ? (
         <div className="mt-12 flex h-full grow items-center justify-center gap-4">
           <div>
             <Lottie options={defaultOptions} height={156} width={131} />
@@ -86,14 +86,14 @@ export default function WorkspaceAppsSection({
 
 
 
-          { childWorkspaceApps?.map(app => (
+          {childWorkspaceApps && childWorkspaceApps.apps.map(app => (
             <InstalledAppCard appId ={app.id}  app={app.app} key={app.id} workspace_id={workspace_id} workspaces={workspaces} />
             // <AppCard/>
           ))}
 
         </section>
           <div className='w-full flex items-center justify-center '>
-            {(ActiveApp ==='Apps' && ((MainWorkspaceApps && MainWorkspaceApps.length>0) || (childWorkspaceApps && childWorkspaceApps.length>0))) &&
+            {(ActiveApp ==='Apps' && ((MainWorkspaceApps && MainWorkspaceApps.length>0) || (childWorkspaceApps && childWorkspaceApps.apps.length>0))) &&
 
 <div className='flex w-[90%]'>
 

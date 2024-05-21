@@ -91,7 +91,7 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
         {isSuccess &&
 
 
-      <div className='flex flex-row w-full   max-h-page'>
+      <div className='flex flex-col lg:flex-row w-full   max-h-page'>
         {/*members status and count*/}
         <div className='flex w-[300px] h-full    '>
 

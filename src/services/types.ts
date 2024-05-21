@@ -133,6 +133,16 @@ export interface WorkspaceApp {
 }
 
 export interface WorkspaceDocument {
+
+documents:WorkspaceDocumentProps[]
+  paginator: {
+    per_page:number
+    num_pages:number
+  }
+  current_page:number
+}
+
+export interface WorkspaceDocumentProps{
   id: number;
   workspace: {
     name: string;
@@ -146,6 +156,7 @@ export interface WorkspaceDocument {
     urls: string[];
   };
   name: string;
+
 }
 
 export interface AuthReturn {
