@@ -45,7 +45,7 @@ function InstalledDocCard({ document,appName }: { document: WorkspaceDocument,ap
 
       (
 
-        <div className='flex flex-col w-full' key={document.id}>
+        <div className='flex flex-col w-full ' key={document.id}>
 
 
           <div

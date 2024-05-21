@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { MdDeleteOutline } from "react-icons/md";
 import { IoIosMore, IoMdMore } from "react-icons/io";
@@ -50,6 +50,9 @@ function InstalledAppCard({ app,workspace_id ,workspaces,appId}: Props) {
   const {mutate:DeleteMutate,isSuccess:DeleteIsSuccess,isError:DeleteIsError,error:DeleteErrorResponse} = useDeleteApps()
   const {mutate:MoveMutate,isSuccess:MoveIsSuccess,isError:MoveIsError,error:MoveErrorResponse} =useMoveAppToWorkspace({sourceWorkspace:workspace_id})
 
+  //using router to navigate user to the template page with the selected App
+  const router = useRouter();
+
   const { showSuccess } = useSuccessToast();
   const { showError } = useErrorToast();
 // show toasts for actions
@@ -61,19 +64,26 @@ function InstalledAppCard({ app,workspace_id ,workspaces,appId}: Props) {
   }, [DeleteIsSuccess,DeleteIsError,MoveIsSuccess,MoveIsError]);
   return (
     // Link to app detail page
-    <Link href={`/${lang}/template/${app.id}`}>
+    <div onClick={()=>{
+      router.push(`/${lang}/template/${app.id}`)
+    }}>
       <article className="row group w-full cursor-pointer gap-2 rounded-md border bg-background p-4 transition-all duration-300 hover:shadow-card-hover">
 
         <div className='h-10 w-10 rounded-xl bg-green-400'></div>
         <h3>{app.topic}</h3>
         {/*hover card that show all action of installed app*/}
         <HoverCard openDelay={10} closeDelay={50}>
-          <HoverCardTrigger asChild>
+          <HoverCardTrigger   asChild>
             <Button
               variant="ghost"
-              className="fit ms-auto p-1 opacity-0 transition-all duration-200 group-hover:opacity-100 data-[state=open]:opacity-100"
+              className="fit z-[100] ms-auto p-1 transition-all duration-200 opacity-100 data-[state=open]:opacity-100"
+
             >
-              <IoMdMore size="1rem" />
+              <IoMdMore size="1rem"   onClick={(e)=>{
+                e.stopPropagation()
+
+
+              }} />
             </Button>
           </HoverCardTrigger>
           <HoverCardContent side="bottom" className="col max-w-36 p-1">
@@ -139,7 +149,7 @@ side='right'
           </HoverCardContent>
         </HoverCard>
       </article>
-    </Link>
+    </div>
   );
 }
 

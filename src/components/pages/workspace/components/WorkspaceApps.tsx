@@ -3,7 +3,7 @@
 import * as animationNoApps from '../../../../../public/animations/no-apps-animation.json';
 import WorkspaceAppsSection from "./WorkspaceAppsSection";
 import WorkspaceDocumentsSection from "./WorkspaceDocumentsSection";
-import { useState } from "react";
+import React, { useState } from "react";
 import ToggleApp from "@/components/pages/workspace/components/ToggleApp";
 import { WorkspaceHeader } from "@/components/pages/workspace/components/WorkspaceHeader";
 
@@ -25,8 +25,10 @@ export const WorkspaceApps = ({ workspace_id }:{workspace_id:number}) => {
 
   return (
     <div className="h-full flex flex-col grow gap-4">
-      {/* ٌWorkspace apps */}
       <WorkspaceHeader ActiveApp={ActiveApp} setActiveApp={setActiveApp}/>
+
+      {/* ٌWorkspace apps */}
+      {/*<WorkspaceHeader ActiveApp={ActiveApp} setActiveApp={setActiveApp}/>*/}
       {(ActiveApp ==='All' || ActiveApp==='Apps') && <WorkspaceAppsSection workspace_id={workspace_id} ActiveApp={ActiveApp}/>}
       {/* ٌWorkspace documents */
       }

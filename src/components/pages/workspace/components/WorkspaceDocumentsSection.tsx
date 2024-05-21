@@ -11,6 +11,7 @@ import InstalledDocCard from "./InstalledDocCard";
 import ToggleApp from "@/components/pages/workspace/components/ToggleApp";
 import { useState } from "react";
 import { WorkspacePagination } from "@/components/pages/workspace/components/WorkspacePagination";
+import { SelectAndDrawer } from "@/components/shared";
 const sections:{name:string,app_type:App_types}[] = [{name:'Chatbot',app_type:'highlight'},{name:'Rewrite',app_type:"ai_writer"},{name:'image',app_type:"image_to_image"},{name:'Translate',app_type:"translate"},{name:'Grammar',app_type:"grammar"},{name:'Code',app_type:"code"},{name:'Prompt Library' ,app_type:"template"}]
 
 const defaultOptions = {
@@ -41,15 +42,23 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
   //get the documents in respect to the selected category
   const { data: WorkspaceDocs } = useGetWorkspaceDocuments({ workspace_id, app_type:sections.filter(item=>item.name ===activeTab)[0].app_type, page:1 });
   return (
-    <div className="flex  grow flex-col">
+    <div className="flex w-full  grow flex-col">
       {/* ٌWorkspace Apps bar */}
-      <div className="flex flex-col gap-6 ">
+      <div className="flex w-full flex-col gap-6 ">
         {ActiveApp ==='All' && <h1 className="text-xl font-bold mx-[36px]">Documents</h1>}
 
-        <div className="w-full flex mx-auto  justify-center">
+        <div className="w-full hidden lg:flex mx-auto  justify-center">
           <ToggleApp setActiveApp={setActiveTab} sections={sections.map(item=>item.name)}/>
 
+        </div>  <div className="w-full flex lg:hidden mx-auto  justify-center">
+
+        <SelectAndDrawer
+          value={activeTab}
+          setValue={(val)=>{setActiveTab(val)}}
+          items={sections.map(item=>item.name)}
+        />
         </div>
+
       </div>
 
       {WorkspaceDocs?.length === 0 ? (
@@ -72,12 +81,12 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
           </div>
         </div>
       ) : (
-        <div className='flex flex-col w-full gap-5'>
+        <div className='flex flex-col w-full gap-5 '>
 
-          <div className="flex flex-wrap  w-full mx-5 gap-3 my-5">
+          <div className="flex flex-wrap  w-full   gap-3 my-5">
             {/* ٌWorkspace Docs */}
             {WorkspaceDocs?.map(doc => (
-              <div key={doc.id} className='max-w-[350px]'>
+              <div key={doc.id} className='lg:max-w-[350px]'>
 
                 <InstalledDocCard document={doc}
                                   appName={sections.filter(item => item.name === activeTab)[0].app_type} />

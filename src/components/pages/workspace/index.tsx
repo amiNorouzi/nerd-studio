@@ -28,12 +28,16 @@ export default function WorkspacePage({ lang }: { lang: Locale }) {
   }
 
   return (
+    <div className='flex w-full h-full'>
+
+
     <Tabs
       defaultValue={spacesTabs[0].value}
       className="flex h-full w-full flex-col"
     >
       <SpacesHeader childrenWrapperClassName="pb-0 ps-2">
-        <TabsList className="flex h-full w-full flex-1 items-end justify-start gap-2 bg-transparent pb-0">
+
+        <TabsList className="hidden lg:flex h-full w-full flex-1 items-end justify-start gap-2 bg-transparent pb-0 ">
           {spacesTabs.map(tab => (
             <TabsTrigger
               value={tab.value}
@@ -45,7 +49,9 @@ export default function WorkspacePage({ lang }: { lang: Locale }) {
           ))}
         </TabsList>
       </SpacesHeader>
+
       <WorkspaceAppsContainer workspace_id={workspace_id}/>
     </Tabs>
+    </div>
   );
 }
