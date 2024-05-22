@@ -7,4 +7,4 @@ services:
       dockerfile: docker/production/Dockerfile
     image: nerd-studio-production
     ports:
-      - "3000:3000"
+      - "80:80"
