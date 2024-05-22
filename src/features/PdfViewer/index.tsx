@@ -3,7 +3,7 @@ import { Document, Page } from "react-pdf";
 import "./pdf.worker";
 
 type Props = {
-  pdf: File;
+  pdf?: File;
 };
 export default function PdfViewer({ pdf }: Props) {
   return (

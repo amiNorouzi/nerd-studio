@@ -19,7 +19,7 @@ export default function PdfView() {
       style={{ height: "var(--apps-main-height" }}
       className=" w-[600px] overflow-auto "
     >
-      <PdfViewer pdf={}/>
+      <PdfViewer/>
     </div>
   );
 }
