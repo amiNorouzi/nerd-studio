@@ -8,12 +8,14 @@ import { useGetDictionary } from "@/hooks";
 import { useSession } from "next-auth/react";
 import { useUpdateWorkSpaceName } from "../hooks/useUpdateWorkSpaceName";
 import useErrorToast from "@/hooks/useErrorToast";
+import { useChangeWorkspaceName } from "@/services/workspace";
+import useSuccessToast from "@/hooks/useSuccessToast";
 
 /**
  * edit workspace name dialog used in workspace settings dialog
  * @constructor
  */
-function ChangeWorkspaceNameDialog() {
+function ChangeWorkspaceNameDialog({workspace_id}:{workspace_id:number}) {
   const {
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
@@ -22,14 +24,12 @@ function ChangeWorkspaceNameDialog() {
     session?.user.workspace.name || "",
   );
   const { showError } = useErrorToast();
-  const {
-    mutate: updateWorkspace,
-    isPending,
-    isSuccess,
-    isError,
-    error,
-    data: workspace,
-  } = useUpdateWorkSpaceName();
+  const {showSuccess} = useSuccessToast()
+// custom hook for changing workspace name
+  const {mutate:updateWorkspaceName,isError:updateWorkspaceNameIsError,isSuccess:updateWorkspaceNameIsSuccess}=useChangeWorkspaceName({workspace_id})
+
+
+
 
   // form submit handler
   const myWorkspace = session?.user.workspace;
@@ -37,19 +37,16 @@ function ChangeWorkspaceNameDialog() {
     e.preventDefault();
 
     if (myWorkspace?.id)
-      updateWorkspace({
-        workspace_id: myWorkspace?.id,
+      updateWorkspaceName({
         name: workspaceName,
       });
     else showError("No Workspace Found");
   };
 
-  useEffect(()=>{
-    if (isError) {
-      console.error(error);
-      showError(error.message);
-    }
-  }, [error, isError, showError]);
+  useEffect(() => {
+    updateWorkspaceNameIsSuccess && showSuccess('workspace name is updated')
+    updateWorkspaceNameIsError && showError('could not update workspace name')
+  }, [updateWorkspaceNameIsError,updateWorkspaceNameIsSuccess]);
 
   return (
     <SettingsDialog

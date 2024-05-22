@@ -7,6 +7,7 @@ import { AxiosError } from "axios";
 type WorkspaceInviteMemberParams = {
   workspace_id: number;
   email: string;
+  role:string
 };
 
 type InvitedMemberDetailsType = {
@@ -34,12 +35,13 @@ export function useInviteMember({ workspace_id }: { workspace_id: number }) {
     mutationFn: async ({
       workspace_id,
       email,
+      role
     }: WorkspaceInviteMemberParams) => {
       const { data } = await axiosClient.post<
         unknown,
         any,
         WorkspaceInviteMemberParams
-      >("/workspaces/invite_to_workspace/", { workspace_id, email });
+      >("/workspaces/invite_to_workspace/", { workspace_id, email,role });
       return data as InvitedMemberDetailsType;
     },
     onSuccess: () => {
@@ -47,13 +49,6 @@ export function useInviteMember({ workspace_id }: { workspace_id: number }) {
         queryKey: ["workspace-members", workspace_id],
       });
     },
-    onError: (error: AxiosError<{ detail: string }>) => {
-      console.log(error);
-      if (error.response) {
-        showError(error.response.data.detail);
-      } else {
-        showError("Sorry! an unknown error occurred");
-      }
-    },
+
   });
 }

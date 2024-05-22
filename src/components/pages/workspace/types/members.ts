@@ -13,6 +13,9 @@ export type WorkspaceMember = {
     description: null | string;
     is_verified: boolean;
   };
-  role: string;
+  role:{
+    title:string;
+    access_level:{title:string}[]
+  }
   workspace: Workspace;
 };

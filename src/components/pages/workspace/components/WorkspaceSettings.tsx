@@ -27,7 +27,10 @@ export function WorkspaceSettings({ workspace_id }: { workspace_id: number }) {
   }, [deleteWorkSpace, myWorkspace?.id]);
 
   return (
-    <>
+    <div className='flex flex-col w-full'>
+      <div className='flex flex-col w-full px-[16px] lg:px-[32px]'>
+
+
       {/* basic settings */}
       <h4 className="mb-1.5 text-[15px] font-semibold">
         {workspaceDictionary.basic_setting_title}
@@ -36,7 +39,7 @@ export function WorkspaceSettings({ workspace_id }: { workspace_id: number }) {
       <div className="col mb-5 rounded-md border">
         <SettingItem
           title={workspaceDictionary.setting_name_label}
-          Action={<ChangeWorkspaceNameDialog />}
+          Action={<ChangeWorkspaceNameDialog workspace_id={workspace_id} />}
         >
           <p className="text-foreground/80">{myWorkspace?.name}</p>
         </SettingItem>
@@ -81,6 +84,7 @@ export function WorkspaceSettings({ workspace_id }: { workspace_id: number }) {
           </p>
         </SettingItem>
       </div>
-    </>
+      </div>
+    </div>
   );
 }

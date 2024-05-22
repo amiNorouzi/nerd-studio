@@ -20,6 +20,7 @@ import { CreateWorkspaceDialog } from "@/components/layout/workspace/CreateWorks
 import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheckSidePanelOpen";
 import { TransformedWorkspace } from ".";
 import { useChangeDefaultWorkSpace } from "@/components/pages/workspace/hooks/useChangeDefaultWorkSpace";
+import { useSession } from "next-auth/react";
 
 /**
  * workspace select rendered in side panel if is open else rendered in header
@@ -28,8 +29,8 @@ import { useChangeDefaultWorkSpace } from "@/components/pages/workspace/hooks/us
  */
 export function WorkspaceItems({ isHeader = false, workspaces }: { isHeader?: boolean, workspaces:TransformedWorkspace[] }) {
   const [open, setOpen] = React.useState(false);
-  const [workSpaceId, setWorkSpaceId] = React.useState<string>(workspaces[0].id);
-
+  const { data: session } = useSession();
+  const [workSpaceId, setWorkSpaceId] = React.useState<string>(session?.user.workspace.id && session?.user.workspace.id.toString() || '' );
   // hook to change workspace
   const { mutate: changeDefaultWorkspace, data: workspace } = useChangeDefaultWorkSpace();
 

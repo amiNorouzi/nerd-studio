@@ -12,7 +12,7 @@ interface ICreateNewAppLinkProps {
 const CreateNewAppLink = forwardRef<HTMLAnchorElement, ICreateNewAppLinkProps>(
   ({ href, className, label }, ref) => {
     const classes = cn(
-      'inline-flex h-[37px] w-[134px] items-center justify-center gap-2 text-nowrap rounded-lg bg-violet-500 px-[23px] py-1.5 hover:bg-violet-800 transition duration-300',
+      'inline-flex w-[77px] h-full lg:w-[134px] items-center justify-center gap-2 text-nowrap rounded-lg bg-violet-500 px-[23px] py-1.5 hover:bg-violet-800 transition duration-300',
       className
     );
 

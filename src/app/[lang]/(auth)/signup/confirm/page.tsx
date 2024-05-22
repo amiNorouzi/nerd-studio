@@ -13,6 +13,7 @@ function Page({
 }: {
   searchParams: { token: string; email: string };
 }) {
+
   return (
     <SignupConfirm token={searchParams.token} email={searchParams.email} />
   );

@@ -1,32 +1,25 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { useGetDictionary } from "@/hooks";
-import { SettingsDialog } from "@/components/shared";
+import { SelectAndDrawer, SettingsDialog } from "@/components/shared";
 import { useGetWorkspaceMembers } from "../hooks/useGetWorkspaceMembers";
 import useErrorToast from "@/hooks/useErrorToast";
 import { useTransferWorkSpaceOwnerShip } from "../hooks/useTransferWorkspaceOwnerShip";
+import useSuccessToast from "@/hooks/useSuccessToast";
 
-type transferredMemberDataType = {
-  workspace_id: number;
-  email: string;
-};
+
 
 /**
  * transfer workspace to other members dialog used in workspace settings dialog
  * @constructor
  */
 function TransferWorkspaceDialog({ workspace_id }: { workspace_id: number }) {
+  //set the user that is chosen to be the new owner
   const [memberEmail, setMemberEmail] = useState<string | null>(null);
   const { showError } = useErrorToast();
-
+  const {showSuccess} = useSuccessToast()
   const {
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
@@ -44,37 +37,28 @@ function TransferWorkspaceDialog({ workspace_id }: { workspace_id: number }) {
     isSuccess: isTransferredOwnershipSuccess,
   } = useTransferWorkSpaceOwnerShip({ workspace_id });
 
-  console.log("Workspace member_id: ", workspace_id);
-  console.log("Workspace members: ", members);
-
+//show toast for transfer owner
   useEffect(() => {
-    if (isError) {
-      showError(
-        "Transferring ownership to ${} was unsuccessful. please try again! ",
-      );
-      console.error(error);
-    }
-  }, [error, isError, showError]);
+    isTransferredOwnershipSuccess && showSuccess('Ownership Successfully changed');
+    IsTransferOwnerShipError && showError(' Failed to transfer thw ownership');
+  }, [isTransferredOwnershipSuccess,IsTransferOwnerShipError]);
+
+
 
   const onMemberChange = useCallback(async (email: string) => {
     setMemberEmail(email);
   }, []);
 
   const handleSubmit = useCallback(async () => {
-    if (!memberEmail) {
+    if (!memberEmail || !members) {
       showError("You have to select a member!");
       return;
     } else {
-      const transferredMemberData = {
-        workspace_id,
-        email: memberEmail,
-      } as transferredMemberDataType;
-      console.log(transferredMemberData);
-      transferOwnershipTo({ workspace_id, email: memberEmail });
+      const newMemberId = members.filter((member) => member.user.email === memberEmail);
+      newMemberId.length===1 &&  transferOwnershipTo({ workspace_id, member_id: newMemberId[0].id });
       return;
     }
   }, [memberEmail, showError, transferOwnershipTo, workspace_id]);
-
   return (
     <SettingsDialog
       onSubmit={handleSubmit}
@@ -86,25 +70,17 @@ function TransferWorkspaceDialog({ workspace_id }: { workspace_id: number }) {
         select member to transfer workspace to
         TODO: get members from server
       */}
-      <Select onValueChange={onMemberChange}>
-        <SelectTrigger className="w-full">
-          <SelectValue
-            placeholder={
-              workspaceDictionary.transfer_workspace_select_placeholder
-            }
-          />
-        </SelectTrigger>
-        <SelectContent>
-          {/*
-            TODO: get members from server and map through it and render SelectItem
-          */}
-          {members?.map(member => (
-            <SelectItem key={member.id} value={member.user.email}>
-              {member.user.first_name} {member.user.last_name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+
+      {members &&
+
+      <SelectAndDrawer
+        value={memberEmail? memberEmail : ''}
+        setValue={(val)=>{
+          setMemberEmail(val)
+        }}
+        items={members.filter(member=>member.role.title!=='owner').map(item=>item.user.email)}
+      />
+      }
     </SettingsDialog>
   );
 }
