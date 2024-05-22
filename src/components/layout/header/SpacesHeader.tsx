@@ -24,7 +24,7 @@ function SpacesHeader({
   return (
     <header
       className={cn(
-        "h-header row w-full border-b z-[1000] px-2 pt-2",
+        "h-header row w-full border-b px-2 pt-2",
         rootClassName,
       )}
     >

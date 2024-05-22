@@ -72,12 +72,13 @@ export default async function RootLayout({
 
   return (
     <html lang={params.lang} dir={langDir[params.lang]}>
-      <body suppressHydrationWarning className="flex justify-center">
-        <div className="max-w-[1920px] w-full">
-          <NextAuthProvider session={session}>
-            <Providers>{children}</Providers>
-          </NextAuthProvider>
-        </div>
+      <body
+        suppressHydrationWarning
+        className="flex h-dvh w-full max-w-[1920px] justify-center"
+      >
+        <NextAuthProvider session={session}>
+          <Providers>{children}</Providers>
+        </NextAuthProvider>
       </body>
     </html>
   );

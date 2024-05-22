@@ -7,10 +7,5 @@ const Dashboard = dynamic(() => import("@/components/pages/dashboard"), {
 });
 
 export default function DashboardPage({ params: { lang } }: LangParams) {
-  return (
-    <div className='w-full'>
-
-    <Dashboard lang={lang} />
-    </div>
-)
+  return <Dashboard lang={lang} />;
 }

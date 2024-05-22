@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 import { ToggleSidePanelButton } from "./ToggleSidePanelButton";
 import { AppsHeader } from "./apps-header";

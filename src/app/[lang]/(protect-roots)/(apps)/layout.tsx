@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/header";
 import { useSearchParams } from "next/navigation";
 import { Info } from "@/components/shared";
 import { ParamsType } from "@/services/types";
+import Main from "@/components/layout/Main";
 export default function AppsLayout({
   children, // will be a page or nested layout
   params,
@@ -20,12 +21,11 @@ export default function AppsLayout({
   const tab = searchParams.get("apps-tab") ?? "run";
 
   return (
-    <section className="flex h-full w-full flex-col ">
+    <div className="h-full w-full">
       {/* header for apps that includes share , history , tabs and app title */}
       <Header className="h-apps-header" />
       {/*apps*/}
-      <div
-        style={{ height: "var(--apps-main-height" }}
+      <Main
         className="bg-main-background"
       >
         {/* children are run tabs and Info is info tab*/}
@@ -38,8 +38,8 @@ export default function AppsLayout({
             params={params}
           />
         )}
-      </div>
-    </section>
+      </Main>
+    </div>
   );
 }
 

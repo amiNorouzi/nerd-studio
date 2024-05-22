@@ -48,7 +48,7 @@ export function SidePanel() {
         <Sidebar
           ref={sidebarRef}
           collapsed={isCollapsed}
-          collapsedWidth={isMobile ? "0" : isHoverOnSidePanel ? "180px" : "68px"}
+          collapsedWidth={isMobile ? "0" : isHoverOnSidePanel ? "180px" : "60px"}
           width="180px"
           transitionDuration={500}
           backgroundColor={getHslColorByVar("--background")}
