@@ -74,7 +74,7 @@ export function ActivitiesSection() {
   } = useGetDictionary();
 
   return (
-    <section className="col w-full overflow-y-auto rounded-xl border bg-background shadow-dashboard-card max-lg:h-fit lg:row-span-5 ">
+    <section className="col w-full overflow-y-auto rounded-xl border bg-background shadow-dashboard-card h-[580px]">
       {/*title*/}
       <h3 className="border-b px-5 py-3 text-lg">
         {dashboardDictionary.activities_title}
@@ -98,8 +98,8 @@ export function ActivitiesSection() {
             </div>
 
             <div className="col h-full justify-between">
-              <p>{activity.title}</p>
-              <p className="font-normal text-muted-foreground">
+              <p className="m-0">{activity.title}</p>
+              <p className="font-normal text-muted-foreground m-0">
                 {activity.date}
               </p>
             </div>

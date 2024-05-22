@@ -20,7 +20,7 @@ export function MobileUpgradeSection() {
   if (!isMobile) return null;
 
   return (
-    <div className="spacing-row h-fit rounded-xl bg-gradient-to-r from-[#5729DA] to-[#341D75] px-4 py-3 text-white shadow-dashboard-card lg:hidden">
+    <div className="spacing-row col-span-3 lg:col-span-1 h-fit rounded-xl bg-gradient-to-r from-[#5729DA] to-[#341D75] px-4 py-3 text-white shadow-dashboard-card lg:hidden">
       <p className="text-sm font-bold">Free Plan</p>
 
       <Button className="h-8 w-fit bg-gradient-to-r from-[#9D7AFF] to-[#52D5FF] text-xs">

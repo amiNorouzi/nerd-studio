@@ -81,8 +81,8 @@ export function AllDocsSection() {
 
   return (
     <section
-      className="w-full rounded-xl border bg-background px-3 py-3 shadow-dashboard-card max-lg:h-fit max-md:hidden
-    lg:col-span-3 lg:row-span-3 lg:h-[350px] lg:px-5 "
+      className="w-full rounded-xl border bg-background px-3 py-3 shadow-dashboard-card
+    lg:col-span-3 h-[350px] lg:px-5 row-span-4"
     >
       <div className="col h-full w-full gap-3">
         {/*title*/}
@@ -95,7 +95,7 @@ export function AllDocsSection() {
 
           {/*tabs to filter*/}
           <Tabs defaultValue="1" className=" w-full ">
-            <TabsList className="flex w-full justify-end overflow-hidden bg-transparent pb-0">
+            <TabsList className="flex w-full justify-end bg-transparent pb-0">
               {docs.map(item => (
                 <TabsTrigger
                   value={item.id}

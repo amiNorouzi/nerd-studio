@@ -65,12 +65,11 @@ export function ChartsSection() {
   } = useGetDictionary();
 
   return (
-    <section className="col flex w-full rounded-xl bg-background p-3 shadow-dashboard-card lg:w-[68%]">
+    <section className="col flex col-span-1 lg:col-span-2 rounded-xl bg-background p-3 shadow-dashboard-card">
       <div className="flex h-80 w-full flex-col gap-3">
         {/*title*/}
         <div className="row mb-3 gap-2 border-b">
           <TbWriting className="mb-2 h-9 w-9 min-w-9 rounded-lg bg-primary-light p-1.5 text-primary" />
-
           <div className="pb-2 max-sm:hidden">
             <h2 className="whitespace-nowrap">
               {dashboardDictionary.words_chart_title}
@@ -81,8 +80,8 @@ export function ChartsSection() {
           </div>
 
           {/*tabs to filter*/}
-          <Tabs defaultValue="1" className=" w-full ">
-            <TabsList className="flex w-full justify-end overflow-hidden bg-transparent pb-0">
+          <Tabs defaultValue="1" className="w-full overflow-x-auto">
+            <TabsList className="flex justify-end bg-transparent pb-0">
               {docs.map(item => (
                 <TabsTrigger
                   value={item.id}
@@ -98,9 +97,6 @@ export function ChartsSection() {
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={data}
-            margin={{
-              right: 40,
-            }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <Xaxis/>

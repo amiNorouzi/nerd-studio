@@ -3,8 +3,6 @@
  * @deprecated don't use this type directly. All types must be in the types directory'
  */
 import { TemplateItem } from "@/services/types";
-import { Theme } from "@/stores/browser-storage/types";
-import { Answer } from "@/types/history";
 
 export interface IUiState {
   isSidePanelOpen: boolean;
@@ -16,8 +14,8 @@ export interface IUiState {
   setOpenUserPanelDialog: (val: boolean) => void;
   userPanelActiveMenu: string;
   setUserPanelActiveMenu: (val: string) => void;
-  activeTheme: Theme;
-  setActiveTheme: (val: Theme) => void;
+  activeTheme: AppTheme;
+  setActiveTheme: (val: AppTheme) => void;
   isLandingDrawerOpen:boolean,
   setIsLandingDrawerOpen:(val:boolean)=>void
 }

@@ -1,7 +1,18 @@
-//@ts-nocheck
-import { Children, JSX } from "react";
+import { Children, isValidElement, ReactElement, ReactNode } from "react";
 
-import type { ChildrenProps } from "@/services/types";
+interface ShowProps {
+  children: ReactNode;
+}
+
+interface WhenProps {
+  isTrue: boolean;
+  children: ReactNode;
+}
+
+interface ElseProps {
+  children: ReactNode;
+  render?: ReactNode;
+}
 
 /**
  * This is a React functional component that conditionally renders its children based on a boolean prop.
@@ -10,18 +21,20 @@ import type { ChildrenProps } from "@/services/types";
  * If a child does not have an 'isTrue' prop, it sets that child as the 'otherwise' child.
  * It returns the 'when' child if it exists, otherwise it returns the 'otherwise' child.
  *
- * @param {ChildrenProps} props - The props of the component, which include the children to be rendered.
- * @returns {JSX.Element | null} The child to be rendered, either the 'when' child or the 'otherwise' child.
+ * @param {ShowProps} props - The props of the component, which include the children to be rendered.
+ * @returns {ReactElement | null} The child to be rendered, either the 'when' child or the 'otherwise' child.
  */
-export function Show(props: ChildrenProps) {
-  let when: JSX.Element | null = null;
-  let otherwise: JSX.Element | null = null;
+export function Show(props: ShowProps): ReactElement | null {
+  let when: ReactElement | null = null;
+  let otherwise: ReactElement | null = null;
 
   Children.forEach(props.children, child => {
-    if (child.props.isTrue === undefined) {
-      otherwise = child;
-    } else if (!when && child.props.isTrue === true) {
-      when = child;
+    if (isValidElement(child)) {
+      if ((child.props as WhenProps).isTrue === undefined) {
+        otherwise = child;
+      } else if (!when && (child.props as WhenProps).isTrue) {
+        when = child;
+      }
     }
   });
 
@@ -31,26 +44,21 @@ export function Show(props: ChildrenProps) {
 /**
  * This is a subcomponent of the Show component that renders its children if the 'isTrue' prop is true.
  *
- * @param {Object} props - The props of the component.
- * @param {boolean} props.isTrue - A boolean indicating whether the children should be rendered.
- * @param {JSX.Element} props.children - The children to be rendered.
- * @returns {JSX.Element | false} The children if 'isTrue' is true, otherwise false.
+ * @param {WhenProps} props - The props of the component.
+ * @returns {ReactElement | null} The children if 'isTrue' is true, otherwise null.
  */
-Show.When = ({
+Show.When = function When({
   isTrue,
   children,
-}: {
-  isTrue: boolean;
-  children: JSX.Element;
-}) => isTrue && children;
-
+}: WhenProps): ReactElement | null {
+  return isTrue ? <>{children}</> : null;
+};
 /**
  * This is a subcomponent of the Show component that renders its children or a render prop.
  *
- * @param {Object} props - The props of the component.
- * @param {any} [props.render] - An optional render prop.
- * @param {JSX.Element} props.children - The children to be rendered.
- * @returns {JSX.Element} The children or the render prop.
+ * @param {ElseProps} props - The props of the component.
+ * @returns {ReactElement} The children or the render prop.
  */
-Show.Else = ({ render, children }: { render?: any; children: JSX.Element }) =>
-  render || children;
+Show.Else = function Else({ render, children }: ElseProps): ReactElement {
+  return <>{render || children}</>;
+};

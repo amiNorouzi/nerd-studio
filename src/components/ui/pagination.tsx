@@ -71,7 +71,7 @@ const PaginationPrevious = ({
     {...props}
   >
     <TbArrowLeft className="h-4 w-4" />
-    <span>Previous</span>
+    <span className="max-sm:hidden sm:block">Previous</span>
   </PaginationLink>
 );
 PaginationPrevious.displayName = "PaginationPrevious";
@@ -86,7 +86,7 @@ const PaginationNext = ({
     className={cn("gap-1 pr-2.5", className)}
     {...props}
   >
-    <span>Next</span>
+    <span className="max-sm:hidden sm:block">Next</span>
     <TbArrowRight className="h-4 w-4" />
   </PaginationLink>
 );
@@ -102,7 +102,6 @@ const PaginationEllipsis = ({
     {...props}
   >
     <TbDots className="h-4 w-4" />
-    <span className="sr-only">More pages</span>
   </span>
 );
 PaginationEllipsis.displayName = "PaginationEllipsis";

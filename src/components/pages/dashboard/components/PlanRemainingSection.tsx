@@ -23,7 +23,7 @@ export function PlanRemainingSection() {
   if (isMobile) return null;
 
   return (
-    <section className="col w-ful relative rounded-xl bg-background shadow-dashboard-card max-lg:hidden max-lg:h-fit lg:row-span-3">
+    <section className="col w-ful relative rounded-xl bg-background shadow-dashboard-card max-lg:hidden max-lg:h-fit">
       <div className="row gap-2 border-b p-3">
         {/*remaining plan icon*/}
         <TbClockDollar className="h-7 w-7 rounded-lg bg-primary-light p-1.5 text-primary" />

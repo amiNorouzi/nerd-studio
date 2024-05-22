@@ -45,7 +45,7 @@ export function ImagesSection() {
   };
 
   return (
-    <section className="w-full rounded-lg border bg-background p-3 shadow-dashboard-card max-lg:h-fit lg:col-span-3 lg:row-span-3">
+    <section className="w-full rounded-lg border row-span-1 bg-background p-3 shadow-dashboard-card max-lg:h-fit col-span-3">
       <div className="col h-80 w-full  ">
         {/*title*/}
         <h2>{dashboardDictionary.generated_images_title}</h2>
@@ -55,7 +55,7 @@ export function ImagesSection() {
         </p>
 
         {/*image gallery wrapper for limit size*/}
-        <div className="relative mx-auto mb-2 h-full w-full max-w-7xl overflow-hidden transition-all delay-300">
+        <div className="mx-auto mb-2 w-full max-w-7xl overflow-hidden transition-all delay-300">
           {/*image gallery*/}
           <div className="relative columns-6 gap-1 md:columns-7 lg:columns-8 xl:columns-10">
             {generatedImages.map(item => (

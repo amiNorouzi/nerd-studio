@@ -16,6 +16,7 @@ import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "../../../../i18n.config";
 import { Show } from "@/components/shared";
 import MobilePlansRemaining from "@/components/pages/dashboard/components/MobilePlansRemaining";
+import Main from "@/components/layout/Main";
 
 /**
  * Dashboard page is the main page for the user to see their data
@@ -32,17 +33,12 @@ export default async function DashboardPage({ lang }: { lang: Locale }) {
   const activePlan = false;
 
   return (
-    <div className="h-full w-full">
-      <div className="sticky top-0  z-[10] bg-main-background">
-        <SpacesHeader>
-          <h1 className="ms-2 text-[15px] font-semibold">{header_title}</h1>
-        </SpacesHeader>
-      </div>
-      <div className=" lg:col lg:max-h-page  flex h-fit w-full flex-col gap-4  bg-main-background p-4 xl:gap-5 xl:p-6 ">
-        <div
-          className="flex h-fit w-full grid-cols-4 flex-col gap-4 lg:grid
-         lg:h-[calc(100vh+200px)] lg:grid-rows-8 xl:h-screen xl:grid-rows-7 xl:gap-6"
-        >
+    <>
+      <SpacesHeader>
+        <h1 className="ms-2 text-[15px] font-semibold">{header_title}</h1>
+      </SpacesHeader>
+      <Main className="grid gap-4 bg-main-background p-4 xl:gap-5 xl:p-6">
+        <div className="grid w-full grid-cols-3 lg:grid-cols-4 gap-4 xl:gap-6">
           <Show>
             <Show.When isTrue={activePlan}>
               <MobilePlansRemaining percentage={50} />
@@ -52,7 +48,7 @@ export default async function DashboardPage({ lang }: { lang: Locale }) {
             </Show.Else>
           </Show>
           <DashboardHero />
-          <div className="col w-full gap-4 max-lg:h-fit lg:col-span-1 lg:row-span-8 lg:grid lg:grid-rows-8 xl:row-span-7 xl:gap-6">
+          <div className="col w-full gap-4 col-span-3 lg:col-span-1 xl:gap-6 row-span-6">
             <Show>
               <Show.When isTrue={activePlan}>
                 <PlanRemainingSection />
@@ -63,16 +59,14 @@ export default async function DashboardPage({ lang }: { lang: Locale }) {
             </Show>
             <ActivitiesSection />
           </div>
-
           <AllDocsSection />
           <ImagesSection />
         </div>
-
-        <div className="flex flex-col gap-4 lg:flex-row xl:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:flex-row xl:gap-6">
           <PieChartSection />
           <ChartsSection />
         </div>
-      </div>
-    </div>
+      </Main>
+    </>
   );
 }

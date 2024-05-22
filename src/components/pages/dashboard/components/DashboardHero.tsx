@@ -15,9 +15,9 @@ export function DashboardHero() {
 
   return (
     <section
-      className="grid w-full grid-cols-3 px-1 py-2 max-xl:gap-2 max-lg:h-fit
-        md:grid-cols-6 lg:col-span-3 lg:row-span-2 lg:grid-cols-3
-     lg:rounded-xl lg:border lg:bg-background lg:shadow-dashboard-card xl:row-span-1 xl:grid-cols-6"
+      className="grid w-full h-fit grid-cols-3 col-span-3 px-1 py-2 max-xl:gap-2 max-lg:h-fit
+        md:grid-cols-6 lg:col-span-3 lg:grid-cols-3
+     lg:rounded-xl lg:border lg:bg-background lg:shadow-dashboard-card xl:grid-cols-6"
     >
       {docs.map(item => (
         <div
@@ -26,13 +26,13 @@ export function DashboardHero() {
           max-lg:border max-lg:bg-background max-lg:shadow-dashboard-card lg:flex-row xl:[&:not(:last-child)]:border-e lg:[&:not(:nth-child(3n))]:border-e"
         >
           <div
-            className="centered-col aspect-square h-14 rounded-lg lg:h-full"
+            className="centered-col aspect-square h-14 rounded-lg"
             style={{ backgroundColor: item.iconBackground }}
           >
             <item.Icon color={item.color} size="36" />
           </div>
           <div className="col">
-            <h3 className="text-xs font-normal ">
+            <h3 className="text-xs font-normal my-1">
               {dashboardDictionary[item.titleKey]}
             </h3>
             <p className="text-[11px] font-normal text-muted-foreground max-lg:hidden">

@@ -103,7 +103,7 @@ export function PieChartSection() {
   };
 
   return (
-    <section className="col relative h-fit w-full rounded-xl border bg-background p-3 shadow-dashboard-card lg:w-[32%]">
+    <section className="col relative h-fit w-full rounded-xl border bg-background p-3 shadow-dashboard-card">
       {/*title*/}
       <div className="h-80">
         <h2>{dashboardDictionary.pie_chart_title}</h2>

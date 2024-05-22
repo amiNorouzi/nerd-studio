@@ -22,7 +22,7 @@ export function UpgradeSection() {
   if (isMobile) return null;
 
   return (
-    <section className="relative w-full pt-[35px] max-lg:hidden max-lg:h-fit lg:row-span-3">
+    <section className="relative w-full pt-[35px]">
       <div
         className="centered-col absolute left-1/2 top-0 h-[70px] w-[70px] -translate-x-1/2 rounded-full border-[3px]
       border-main-background bg-gradient-to-b from-[#5729DA] to-[#341D75]"
