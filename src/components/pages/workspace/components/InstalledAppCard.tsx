@@ -118,6 +118,7 @@ e.stopPropagation()
                                    MoveMutate({ app_id: appId, workspace_id: item.workspace.id });
                                    e.stopPropagation();
                                    setInnerOpen(false);
+                                   // setOuterOpen(false)
                                  }}>{item.workspace.name}</div>
                           }
                         </>

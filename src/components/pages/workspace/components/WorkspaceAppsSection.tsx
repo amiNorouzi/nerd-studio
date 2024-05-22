@@ -50,10 +50,11 @@ export default function WorkspaceAppsSection({
     page: { workspace: workspaceDictionary },
   } = useGetDictionary();
 
-  //receive Apps of the workspace
+  //page number
+  const [page,setPage]=useState(1);
 
-  const {data:MainWorkspaceApps} = useGetUserApps()
-  const {data:childWorkspaceApps} = useGetWorkspaceApps({workspace_id});
+  // const {data:MainWorkspaceApps} = useGetUserApps()
+  const {data:childWorkspaceApps} = useGetWorkspaceApps({workspace_id,page});
 
   //get all workspaces
   const { lang } = useParams();
@@ -71,7 +72,7 @@ export default function WorkspaceAppsSection({
     <div>
 
 
-      {(MainWorkspaceApps?.length === 0 && childWorkspaceApps?.apps.length===0) ? (
+      {( childWorkspaceApps?.apps.length===0) ? (
         <div className="mt-12 flex h-full grow items-center justify-center gap-4">
           <div>
             <Lottie options={defaultOptions} height={156} width={131} />
@@ -155,11 +156,11 @@ export default function WorkspaceAppsSection({
           }
         </section>
           <div className='w-full flex items-center justify-center '>
-            {(ActiveApp ==='Apps' && ((MainWorkspaceApps && MainWorkspaceApps.length>0) || (childWorkspaceApps && childWorkspaceApps.apps.length>0))) &&
+            {ActiveApp ==='Apps' && childWorkspaceApps && childWorkspaceApps.paginator.num_pages>1 &&
 
           <div className='flex w-[90%]'>
 
-                    <WorkspacePagination pages={10} />
+                    <WorkspacePagination pages={childWorkspaceApps.paginator.num_pages} currenPage = {childWorkspaceApps.current_page} setPage={setPage} />
           </div>
             }
           </div>
