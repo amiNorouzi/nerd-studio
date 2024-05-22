@@ -51,7 +51,7 @@ const nextConfig = {
         ];
     },
     webpack(config, context) {
-        config.externals.push({ canvas: 'commonjs canvas' })
+        config.resolve.alias.canvas = false;
         return config
     },
     typescript: {

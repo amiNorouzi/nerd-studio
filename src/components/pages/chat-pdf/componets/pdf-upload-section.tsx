@@ -1,11 +1,10 @@
-"use client"
+"use client";
 import { DialogForUpload } from "@/components/shared/run-tab-for-app/form-section-components/dialog-for-upload";
 import {
   usePdfFileStore,
   useSelectedFilePdfStore,
 } from "@/stores/zustand/chat-pdf-file";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useGetUploadedPdf, useUploadPdf } from "@/services/upload-pdf";
 import Image from "next/image";
@@ -27,7 +26,6 @@ const PdfUploadSection = () => {
 
   const router = useRouter();
   const uploaderPdf = async () => {
-
     const res = await uploadPdf(url[url.length - 1]);
     await refetch();
   };
@@ -45,34 +43,30 @@ const PdfUploadSection = () => {
     index: uploadIndex,
   } = useUploadPdf();
   const handleSaveDialog = async () => {
-
     setUrlPdf([...url]);
     setOpenDialog(!openDialog);
     uploaderPdf();
     router.push("/chatpdf/edit");
   };
-  useEffect(() => {
-
-  }, [openDialog]);
+  useEffect(() => {}, [openDialog]);
   return (
-    <div className=" ">
-      <div
-        onClick={() => {
-          setOpenDialog(true);
-        }}
-        className="transition-color flex h-full flex-1
-          flex-col items-center  justify-center rounded-lg border-2
-          border-dashed border-[#9373EE] bg-[#F9F6FF] p-5 text-gray-400
-           outline-none duration-300 hover:border-blue-500 hover:text-blue-500"
-      >
-        <div className=" flex h-fit w-fit cursor-pointer flex-col items-center justify-center">
-          <Image className="h-5/6 w-5/6" src="/images/mobile-upload.svg" alt="" width={36} height={36}/>
-          <h1 className=" ">Select your PDF that you want </h1>
-          <p>(PDF Document / 5MB & 10Doc Max)</p>
-        </div>
-      </div>
-      {/*  TODO: remove it */}
-      <Link href={"/chatpdf/edit"}>edit</Link>
+    <div
+      onClick={() => {
+        setOpenDialog(true);
+      }}
+      className="transition-color flex w-8/12 cursor-pointer
+          flex-col items-center justify-center rounded-lg border-2 p-5
+          border-dashed border-[#9373EE] bg-[#F9F6FF] text-gray-400
+          hover:border-blue-500 hover:text-blue-500"
+    >
+      <Image
+        src="/images/mobile-upload.svg"
+        alt="mobile-upload"
+        width={152}
+        height={152}
+      />
+      <p className='text-2xl m-0'>Select your PDF that you want </p>
+      <p>(PDF Document / 5MB & 10Doc Max)</p>
       <DialogForUpload
         open={openDialog}
         setOpen={setOpenDialog}

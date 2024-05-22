@@ -6,7 +6,7 @@ import { useConvertPicToText } from "@/services/upload-pdf";
 import { useStateCapturePicStore } from "@/stores/zustand/chat-pdf-file";
 import dynamic from "next/dynamic";
 
-const PdfView = dynamic(() => import("./utility/pdfView"), {
+const PdfView = dynamic(() => import("./PdfView"), {
   loading: () => <></>,
 });
 
