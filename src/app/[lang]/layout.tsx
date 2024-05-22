@@ -72,6 +72,9 @@ export default async function RootLayout({
 
   return (
     <html lang={params.lang} dir={langDir[params.lang]}>
+      <head>
+        <meta name="cryptomus" content="4e5e222e" />
+      </head>
       <body
         suppressHydrationWarning
         className="flex h-dvh w-full max-w-[1920px] justify-center"

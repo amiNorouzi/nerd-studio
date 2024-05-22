@@ -10,9 +10,6 @@ const Landing = dynamic(() => import("@/components/pages/Landing"), {
 export default function Home({ params}: LangParams) {
   return (
     <div className="w-full">
-      <Head>
-        <meta name="cryptomus" content="4e5e222e" />
-      </Head>
       <Landing params={params} />
     </div>
   );
