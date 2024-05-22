@@ -1,45 +1,64 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
-import { useParams } from "next/navigation";
+import { DeleteAlertDialog } from "@/components/shared";
 
-import { MdDeleteOutline } from "react-icons/md";
+;
 import { IoMdMore } from "react-icons/io";
 
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import { Button } from "@/components/ui/button";
-
-import { useGetDictionary } from "@/hooks";
-
-import { WorkspaceDocument, WorkspaceDocumentProps } from "@/services/types";
+import { WorkspaceDocument, WorkspaceDocumentProps, WorkspaceList } from "@/services/types";
 import { useHistoryStore } from "@/stores/zustand/history-store";
-import { useFavorites, useSetFavorites } from "@/services/favorite-history";
-import { usePinHistory, useSetPinHistory } from "@/services/pin-history";
-import { useHistories } from "@/services/history";
-import { Answer } from "@/types/history";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { BsFillPinAngleFill, BsPinAngle } from "react-icons/bs";
-import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
+
 import { HiArrowLongRight } from "react-icons/hi2";
 import { timePassedSince } from "@/lib/date-transform";
-import { HistoryChild } from "@/components/shared/History/HistoryChild";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DeletePopOver } from "@/components/shared/History/HistoryItems";
+import { FaRegTrashCan } from "react-icons/fa6";
+import { useDeleteDocs, useMoveDocToWorkspace } from "@/services/workspace";
+import useSuccessToast from "@/hooks/useSuccessToast";
+import useErrorToast from "@/hooks/useErrorToast";
+import { PiArrowBendDoubleUpRightLight } from "react-icons/pi";
+import { Button } from "@/components/ui/button";
 
 /**
  * installed document card used in workspace app list tab
  * @param document - document item
+ * @param appName
+ * @param app_type
+ * @param workspace_id
  * @constructor
  */
-function InstalledDocCard({ document,appName }: { document: WorkspaceDocumentProps,appName:string }) {
+interface Props{
+  workspaces: WorkspaceList[] | undefined
+  document: WorkspaceDocumentProps,
+  appName:string,
+  app_type:string,
+  workspace_id:number
+}
+function InstalledDocCard({ document,appName,app_type,workspace_id,workspaces }: Props) {
+  //toast components
+  const { showSuccess } = useSuccessToast();
+  const { showError } = useErrorToast();
 
-  const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
+  const [outerOpen, setOuterOpen] = useState(false);
+  const [innerOpen, setInnerOpen] = useState(false);
+const {mutate:DeleteMutate,isError:DeleteIsError,isSuccess:DeleteIsSuccess} =useDeleteDocs({app_type})
+const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMoveDocToWorkspace({sourceWorkspace:workspace_id})
 
+  //show toast after server actions
+  useEffect(() => {
+    DeleteIsSuccess && showSuccess('document deleted')
+    DeleteIsError && showError('document didnt deleted')
+  }, [DeleteIsError,DeleteIsSuccess]);
 
+  useEffect(() => {
+    MoveIsSuccess && showSuccess('document moved')
+    MoveIsError && showError('document didnt moved')
+  }, [MoveIsSuccess,MoveIsError]);
 
   const items =
 
@@ -51,54 +70,124 @@ function InstalledDocCard({ document,appName }: { document: WorkspaceDocumentPro
           <div
 
             className={cn(
-              "flex min-h-[73px] w-full cursor-pointer flex-col gap-3 rounded-lg border  bg-white p-2 transition-all hover:bg-muted-dark",
+              "flex min-h-[73px] w-full cursor-pointer flex-col gap-3 rounded-lg border  bg-white  transition-all hover:bg-muted-dark",
 
             )}
 
           >
             {/*title and delete and bookmark button*/}
 
-            <div className="mt-1 flex w-full items-start  justify-between  px-2">
-              {appName !== "translate" && (
-                <span
-                  className={cn(
-                    " w-[115px] truncate font-[400]",
+            <div className="py-[12px] flex flex-col w-full items-start px-[16px]  gap-2   ">
+              <div className="w-full flex flex-row justify-between ">
 
-                  )}
-                >
+
+                {appName !== "translate" && (
+                  <span
+                    className={cn(
+                      " max-w-[115px] truncate font-[400] overflow-x-hidden",
+                    )}
+                  >
                 {document.history.answer_text}
               </span>
-              )}{" "}
-              {appName === "translate" && (
-                <div className=" flex flex-col gap-2.5 ">
+                )}{" "}
+                {appName === "translate" && (
+                  <div className=" flex flex-col gap-2.5 ">
                 <span
                   className={cn(
                     " w-[115px] truncate text-[12px] font-[400]",
-
                   )}
                 >
                   English to Persian
                 </span>
-                  <div>
-                    {" "}
-                    <span className=" text-[#B9BAC0]"> text & upload doc</span>
+                    <div>
+                      {" "}
+                      <span className=" text-[#B9BAC0]"> text & upload doc</span>
+                    </div>
                   </div>
+                )}
+                <div className="flex flex-row gap-2 text-[12px]">
+                  <DeleteAlertDialog
+                    title="Delete Workspace"
+                    description="Are you sure you want to delete this Document?"
+                    Trigger={
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-fit w-fit  transition-all hover:scale-110"
+                        onClick={e => {
+                          e.stopPropagation();
+                          setOuterOpen(true);
+                        }}
+                      >
+                    <FaRegTrashCan className='fill-muted-foreground-light' />
+                      </Button>
+
+                    }
+
+                    handleSubmit={()=>{
+                      DeleteMutate({workspace_id,document_id:document.id})
+                    }}
+                  />
+
+                  <Popover open={outerOpen} onOpenChange={setOuterOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-fit w-fit  transition-all hover:scale-110"
+                        onClick={e => {
+                          e.stopPropagation();
+                          setOuterOpen(true);
+                        }}
+                      >
+                        <PiArrowBendDoubleUpRightLight
+                          className="fill-muted-foreground-light" // Customize this as needed
+                        />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent align="start" side="right" className="flex w-[159px] h-auto   flex-col gap-2" collisionPadding={20}>
+                      <div onClick={(e) => {
+                        e.stopPropagation();
+
+                      }} className="flex flex-col    w-full h-full ">
+                        {workspaces && workspaces.map(item => {
+                          return (
+                            <>
+                              {item.workspace.id !== workspace_id &&
+                                <div key={item.id} className="h-[30px] w-full flex justify-center items-center rounded-xl cursor-pointer border-b  lg:border-0 hover:bg-gray-200"
+                                     onClick={(e) => {
+                                       // AddMutate({workspace_id:item.workspace.id , app_id:app.id})
+                                       MoveMutate({ document_id:document.id , workspace_id: item.workspace.id });
+                                       e.stopPropagation();
+                                       setInnerOpen(false);
+                                     }}>{item.workspace.name}</div>
+                              }
+                            </>
+                          );
+                        })}
+                      </div>
+
+                    </PopoverContent>
+                  </Popover>
                 </div>
-              )}
+              </div>
               {/*delete and bookmark buttons*/}
 
-            {/*data and Text & upload*/}
-            {/* <div className="flex w-full items-center justify-start gap-8 text-muted-foreground-light">
+              {/*data and Text & upload*/}
+              {/* <div className="flex w-full items-center justify-start gap-8 text-muted-foreground-light">
             <span>48 Min ago</span>
             <span>Text & Upload doc</span>
           </div> */}
             {/*description*/}
-            <div className="mt-1 line-clamp-2 flex flex-row items-center  justify-between  px-2">
+            <div className="line-clamp-2 flex flex-row items-center  justify-between  w-full ">
+              <div className={'w-full h-auto flex'}>
+
+
               {appName === "grammar" && (
-                <div className="flex flex-row items-center">
-                  <p className="mx-1 text-[#B9BAC0]"> Spell </p>
+                <div className="flex flex-row items-center gap-2">
+                  <p className=" text-[#B9BAC0]"> Spell </p>
                   <HiArrowLongRight className="text-[#B9BAC0]" />{" "}
-                  <p className="mx-1 "> Your </p>
+                  <p className=" "> Your </p>
                 </div>
               )}
               {appName === "translate" && (
@@ -131,7 +220,9 @@ function InstalledDocCard({ document,appName }: { document: WorkspaceDocumentPro
                 Convert and explanation
               </span>
               )}
-              <div className={`${appName === "translate" && "mb-1 "}`}>
+
+              </div>
+              <div className={`${appName === "translate" && "mb-1 "} w-full flex  justify-end`}>
                 {" "}
                 <span className="text-[#B9BAC0]">
                 {" "}

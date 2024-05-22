@@ -16,20 +16,30 @@ import { MdOutlineEmail } from "react-icons/md";
 import { SelectAndDrawer } from "@/components/shared";
 import { useGetDictionary } from "@/hooks";
 import { useDeleteUserFromWorkspace } from "@/services/workspace";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useSuccessToast from "@/hooks/useSuccessToast";
 import useErrorToast from "@/hooks/useErrorToast";
 import { useInviteMember } from "@/components/pages/workspace/hooks/useInviteMember";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import SearchModalMobileSize from "@/components/pages/workspace/components/SearchModalMobileSize";
+import { WorkspaceMember } from "@/components/pages/workspace/types/members";
 
 interface Props {
   isOwner: boolean
+  searchWord:string
+  setSearchWord:(value:string) => void
 
   workspace_id:number
+  members: WorkspaceMember[] | null
 }
 const invitePermissions = [{title:'Can Read',type:'read'},{title:'Can Read/Write',type:'read-write'}]
 
-const MembersSearchInvite = ({ isOwner,workspace_id }: Props) => {
+const MembersSearchInvite = ({ isOwner,workspace_id,setSearchWord,members,searchWord }: Props) => {
   const [email, setEmail] = useState("");
+
+  //search modal state for mobile version
+  const [openSearch,setOpenSearch]=useState(false);
+
   // set permissions for invitation email
   const [invitePermission, setInvitePermission] = useState(invitePermissions[0].title)
   const {
@@ -69,16 +79,23 @@ const MembersSearchInvite = ({ isOwner,workspace_id }: Props) => {
     });
   }, [email, inviteMember, showError, workspace_id]);
 
+  //using media query for search modal in mobile version
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+
+
   return (
     <div className="flex flex-row w-full  ">
       <div className="flex flex-row w-full gap-2 justify-end lg:justify-start mx-[16px] lg:mx-[32px]">
 
 
-        <div className="fit relative flex-1 lg:flex-grow-0 lg:w-60  ">
+        <div onClick={()=>{
+          if(isDesktop) return
+          setOpenSearch(true)
+        }}  className="fit relative flex-1 lg:flex-grow-0 lg:w-60  ">
           <Input
             type="search"
             className="w-full lg:w-60 bg-muted ps-7 font-light"
-
+              onChange={e=>setSearchWord(e.target.value)}
             placeholder={search}
           />
           <FiSearch
@@ -145,6 +162,23 @@ const MembersSearchInvite = ({ isOwner,workspace_id }: Props) => {
           </div>
         }
       </div>
+
+      {/*search modal in mobile size*/}
+      <SearchModalMobileSize setOpenSearch={setOpenSearch} openSearch={openSearch} placeHolder={search} setSearchWord={setSearchWord} >
+        <div className='h-[600px] pr-[16px] flex flex-col gap-2 w-full bg-muted'>
+          {searchWord && members &&
+          members.map(member => {
+            return(
+              <div key={member.id} className='w-full minh-[50px] border-b py-4 '>
+                {member.user.username}
+              </div>
+            )
+          })
+          }
+        </div>
+
+      </SearchModalMobileSize>
+
     </div>
   )
 }

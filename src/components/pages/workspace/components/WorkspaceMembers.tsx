@@ -64,6 +64,8 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
   //set if the user is the owner of the workspace or not for some actions like deleting and changing permissions
   const {isOwner} =useIsWorkspaceOwner({members})
 
+  //searched word
+  const [searchWord,setSearchWord]=useState("");
 
   //error handling of getting members of the workspace
   useEffect(() => {
@@ -73,8 +75,11 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
     }
   }, [error, isError]);
 
+  //filter members with searched word
+  const filteredMember = members?(!searchWord ? members : members.filter(member=>member.user.username.toLowerCase().trim().includes(searchWord.trim().toLowerCase()))):null
 
-    return (
+
+  return (
       <>
         {!isSuccess && <div>member area</div>
 
@@ -82,26 +87,28 @@ export function WorkspaceMembers({ workspace_id }: { workspace_id: number }) {
         {isSuccess &&
 
 
-      <div className='flex gap-[24px] flex-col lg:flex-row w-full   max-h-page'>
-        {/*members status and count*/}
-        <div className='flex w-full  items-center justify-center lg:w-[300px] h-full    '>
+            <div className='flex gap-[24px] flex-col lg:flex-row w-full   max-h-page'>
+              {/*members status and count*/}
+              <div className='flex w-full  items-center justify-center lg:w-[300px] h-full    '>
 
-              <MembersStatus members={members} />
-        </div>
-        <div className="flex flex-1  ">
-          <div className="flex flex-col w-full gap-5 ">
+                    <MembersStatus members={members} />
+              </div>
+              <div className="flex flex-1  ">
+                <div className="flex flex-col w-full gap-5 ">
 
-            {/*members invite and search*/}
+                  {/*members invite and search*/}
 
-            <MembersSearchInvite
-              isOwner={isOwner} workspace_id={workspace_id}/>
-              {/*members table list*/}
+                  <MembersSearchInvite
+                    isOwner={isOwner} workspace_id={workspace_id} searchWord={searchWord} setSearchWord={setSearchWord} members={filteredMember} />
+                    {/*members table list*/}
+                  {filteredMember &&
 
-            <MembersTable members={members} isOwner={isOwner} workspace_id={workspace_id}  />
-          </div>
-        </div>
+                  <MembersTable members={filteredMember} isOwner={isOwner} workspace_id={workspace_id}   />
+                  }
+                </div>
+              </div>
 
-      </div>
+            </div>
         }
       </>
     );

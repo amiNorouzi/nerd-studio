@@ -21,6 +21,8 @@ import { useSession } from "next-auth/react";
 import { useWorkspaces } from "@/components/pages/workspace/hooks/useWorkspaces";
 import { WorkspacePagination } from "@/components/pages/workspace/components/WorkspacePagination";
 import { cn } from "@/lib/utils";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import { WorkspaceList } from "@/services/types";
 
 const defaultOptions = {
   loop: true,
@@ -35,11 +37,13 @@ const defaultOptions = {
 interface IWorkspaceAppsSectionProps {
   workspace_id: number;
   ActiveApp:string
+  searched:string
+  workspaces: WorkspaceList[] | undefined
 }
 
 export default function WorkspaceAppsSection({
   workspace_id,
-                                               ActiveApp
+                                               ActiveApp,searched,workspaces
 }: IWorkspaceAppsSectionProps) {
   const {
     common: { search },
@@ -52,30 +56,13 @@ export default function WorkspaceAppsSection({
   const {data:childWorkspaceApps} = useGetWorkspaceApps({workspace_id});
 
   //get all workspaces
-  const {data:workspaces, error, isLoading, isFetching, isError, isSuccess} = useWorkspaces();
   const { lang } = useParams();
 
   //show more in all tabs
   const [showMore,setShowMore] = useState(false)
   //check for screen size
-  const [isDesktop, setIsDesktop] = useState<undefined | boolean>(undefined);
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
-  useEffect(() => {
-    const updateIsDesktop = () => {
-      setIsDesktop(window.matchMedia("(min-width: 1024px)").matches);
-    };
-
-    // Initial check
-    updateIsDesktop();
-
-    // Event listener for window resize
-    window.addEventListener('resize', updateIsDesktop);
-
-    // Cleanup function to remove event listener
-    return () => {
-      window.removeEventListener('resize', updateIsDesktop);
-    };
-  }, []);
 
   const appToShowInMobileInAllTab = childWorkspaceApps ? (showMore ?childWorkspaceApps.apps : childWorkspaceApps.apps.slice(0, 4)) : []
   const appToShowInDesktopInAllTab = childWorkspaceApps ? (showMore ?childWorkspaceApps.apps : childWorkspaceApps.apps.slice(0, 8)) : []
@@ -116,7 +103,18 @@ export default function WorkspaceAppsSection({
           <div  className="grid grid-cols-1 gap-4 pt-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
 
           {ActiveApp ==='Apps' && childWorkspaceApps && childWorkspaceApps.apps.map(app => (
+            <>
+              {searched ==='' &&
+
             <InstalledAppCard appId ={app.id}  app={app.app} key={app.id} workspace_id={workspace_id} workspaces={workspaces} />
+              }
+              {
+                searched.length>0 &&
+                app.app.topic.trim().toLowerCase().includes(searched.trim().toLowerCase()) &&
+                <InstalledAppCard appId ={app.id}  app={app.app} key={app.id} workspace_id={workspace_id} workspaces={workspaces} />
+
+              }
+            </>
             // <AppCard/>
           ))}
 
@@ -125,7 +123,17 @@ export default function WorkspaceAppsSection({
             // <AppCard/>
           ))}
           {ActiveApp ==='All' && isDesktop &&  appToShowInDesktopInAllTab.map(app => (
+            <>
+              {searched ==='' &&
             <InstalledAppCard appId ={app.id}  app={app.app} key={app.id} workspace_id={workspace_id} workspaces={workspaces} />
+              }
+              {
+                searched.length>0 &&
+                app.app.topic.trim().toLowerCase().includes(searched.trim().toLowerCase()) &&
+                <InstalledAppCard appId ={app.id}  app={app.app} key={app.id} workspace_id={workspace_id} workspaces={workspaces} />
+
+              }
+                </>
             // <AppCard/>
           ))}
 

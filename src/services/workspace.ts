@@ -228,6 +228,51 @@ export function useChangeWorkspaceName({workspace_id}:{workspace_id:number}) {
 }
 
 
+interface MoveDocToWorkspace{
+  document_id:number,
+  workspace_id:number,
+}
+
+export function useMoveDocToWorkspace({sourceWorkspace}:{sourceWorkspace:number}) {
+  const [workspaceId, setWorkspaceId] = useState<number>(0);
+  const [appType,setAppType] = useState()
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ document_id ,workspace_id}: MoveDocToWorkspace) => {
+      setWorkspaceId(workspace_id)
+
+      const {data}= await axiosClient.put<unknown, any, MoveDocToWorkspace>(`/workspaces/move_document/?workspace_id=${sourceWorkspace}`, { document_id,workspace_id});
+      return data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["workspace-docs",sourceWorkspace,"grammar" ]});
+      queryClient.invalidateQueries({ queryKey: ["workspace-docs",workspaceId,'grammar'] }); // Invalidate the query to trigger a refetch
+    },
+  });
+}
+
+interface DeleteDoc {   document_id: number
+   workspace_id: number }
+
+export function useDeleteDocs({app_type}:{app_type:string}) {
+  const [workspaceId, setWorkspaceId] = useState<number>(0);
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ document_id ,workspace_id}: DeleteDoc ) => {
+      setWorkspaceId(workspace_id)
+      const { data } = await axiosClient.delete<DeleteDoc>(
+        `workspaces/delete_workspace_history/${workspace_id}/${document_id}/`,
+      );
+
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["workspace-docs",workspaceId,app_type ] }); // Invalidate the query to trigger a refetch
+    },
+
+  });
+}
 
 
 

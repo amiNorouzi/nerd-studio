@@ -27,7 +27,7 @@ export default function WorkspaceAppsContainer({workspace_id}:IWorkspaceAppsCont
   const {isOwner} = useIsWorkspaceOwner({members})
 
    return (
-    <div className="relative w-full overflow-y-auto ">
+    <div className="relative w-full overflow-y-auto  lg:mt-[40px] ">
     <TabsContent value="tabone">tab one</TabsContent>
       <TabsList className="flex sticky top-0 z-[200] justify-evenly lg:hidden  w-full  ">
         {spacesTabs.map(tab => (

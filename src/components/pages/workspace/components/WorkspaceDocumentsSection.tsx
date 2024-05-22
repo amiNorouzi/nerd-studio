@@ -13,6 +13,8 @@ import { useState,useEffect } from "react";
 import { WorkspacePagination } from "@/components/pages/workspace/components/WorkspacePagination";
 import { SelectAndDrawer } from "@/components/shared";
 import { cn } from "@/lib/utils";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import { WorkspaceList } from "@/services/types";
 const sections:{name:string,app_type:App_types}[] = [{name:'Chatbot',app_type:'highlight'},{name:'Rewrite',app_type:"ai_writer"},{name:'image',app_type:"image_to_image"},{name:'Translate',app_type:"translate"},{name:'Grammar',app_type:"grammar"},{name:'Code',app_type:"code"},{name:'Prompt Library' ,app_type:"template"}]
 
 const defaultOptions = {
@@ -27,11 +29,12 @@ const defaultOptions = {
 interface IWorkspaceDocumentsSectionProps {
   workspace_id: number;
   ActiveApp:string
+  workspaces: WorkspaceList[] | undefined
+
 }
 
 export default function WorkspaceDocumentsSection({
-  workspace_id,
-                                                    ActiveApp
+  workspace_id, ActiveApp,workspaces
 }: IWorkspaceDocumentsSectionProps) {
   const {
     common: { search },
@@ -46,24 +49,8 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
   const [showMore,setShowMore] = useState(false)
 
   //check for screen size
-  const [isDesktop, setIsDesktop] = useState<undefined | boolean>(undefined);
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
-  useEffect(() => {
-    const updateIsDesktop = () => {
-      setIsDesktop(window.matchMedia("(min-width: 1024px)").matches);
-    };
-
-    // Initial check
-    updateIsDesktop();
-
-    // Event listener for window resize
-    window.addEventListener('resize', updateIsDesktop);
-
-    // Cleanup function to remove event listener
-    return () => {
-      window.removeEventListener('resize', updateIsDesktop);
-    };
-  }, []);
 
   const DocumentsToShowInMobileInAllTab = WorkspaceDocs ? (showMore ?WorkspaceDocs.documents : WorkspaceDocs.documents.slice(0, 4)) : []
   const DocumentsToShowInDesktopInAllTab = WorkspaceDocs ? (showMore ?WorkspaceDocs.documents : WorkspaceDocs.documents.slice(0, 8)) : []
@@ -122,21 +109,36 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
               <div key={doc.id} className='w-[315px] lg:max-w-[350px]'>
 
                 <InstalledDocCard document={doc}
-                                  appName={sections.filter(item => item.name === activeTab)[0].app_type} />
+                                  appName={sections.filter(item => item.name === activeTab)[0].app_type}
+                                  app_type={sections.filter(item=>item.name ===activeTab)[0].app_type}
+                                  workspace_id={workspace_id}
+                                  workspaces={workspaces}
+                />
               </div>
             ))}
               {ActiveApp ==='All' && !isDesktop && WorkspaceDocs && DocumentsToShowInMobileInAllTab.map(doc => (
                 <div key={doc.id} className='w-[315px] lg:max-w-[350px]'>
 
                   <InstalledDocCard document={doc}
-                                    appName={sections.filter(item => item.name === activeTab)[0].app_type} />
+                                    appName={sections.filter(item => item.name === activeTab)[0].app_type}
+                                    app_type={sections.filter(item=>item.name ===activeTab)[0].app_type}
+                                    workspace_id={workspace_id}
+                                    workspaces={workspaces}
+
+
+                  />
                 </div>
               ))}
               {ActiveApp ==='All' && isDesktop && WorkspaceDocs && DocumentsToShowInDesktopInAllTab.map(doc => (
                 <div key={doc.id} className='w-[315px] lg:max-w-[350px]'>
 
                   <InstalledDocCard document={doc}
-                                    appName={sections.filter(item => item.name === activeTab)[0].app_type} />
+                                    appName={sections.filter(item => item.name === activeTab)[0].app_type}
+                                    app_type={sections.filter(item=>item.name ===activeTab)[0].app_type}
+                                    workspace_id={workspace_id}
+                                    workspaces={workspaces}
+
+                  />
                 </div>
               ))}
             </div>

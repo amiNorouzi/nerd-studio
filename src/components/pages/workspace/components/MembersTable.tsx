@@ -22,7 +22,6 @@ isOwner:boolean
 }
 const accessLevel = [{title:'Read',type:'read'},{title:'Read and Write',type:'read-write'}]
 const MembersTable = ({members,isOwner,workspace_id}:Props)=>{
-  console.log('members',members);
   const {mutate:DeleteMemberMutate,isSuccess:deleteMemberIsSuccess,isError:deleteMemberIsError} = useDeleteUserFromWorkspace()
 
   // error and success toast components
