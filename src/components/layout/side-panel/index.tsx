@@ -146,13 +146,7 @@ export function SidePanel() {
             }}
             onClick={() => {
               setGrammarHistoryIsOpen(false);
-              setSelectHistoryItem({
-                answer_text: "",
-                id: 0,
-                app_type: "grammar",
-                uuid: "12121212",
-                created_at: "12121212",
-              });
+              setSelectHistoryItem(null);
             }}
           >
             {apps.map(app => (

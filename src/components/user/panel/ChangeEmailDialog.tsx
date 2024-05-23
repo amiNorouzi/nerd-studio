@@ -1,10 +1,13 @@
 "use client";
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { CustomInput, InputWithButton } from "@/components/forms";
 import { SettingsDialog } from "@/components/shared";
 
 import { useGetDictionary } from "@/hooks";
+import { useChangeEmailUserConfirm, useChangeEmailUserTokenRequest } from "@/services/user-setting";
+import useErrorToast from "@/hooks/useErrorToast";
+import useSuccessToast from "@/hooks/useSuccessToast";
 
 /**
  * change email popover used in user panel account settings panel
@@ -16,10 +19,45 @@ function ChangeEmailDialog() {
       user: { panel: userPanelDictionary },
     },
   } = useGetDictionary();
+  //entered Email
+  const [email,setEmail] = useState('')
+
+  //entered token
+  const [token , setToken] = useState('')
+
+  const {showError} = useErrorToast()
+  const {showSuccess} = useSuccessToast()
+
+  const {data:TokenReqData,mutate:TokenReqMutate,isSuccess:TokenReqIsSuccess,isError:TokenReqIsError} =useChangeEmailUserTokenRequest()
+
+  //confirm email change token
+  const {mutate:ConfirmEmailTokenMutate,isSuccess:ConformTokenIsSuccess,isError:ConfirmTokenIsError} =useChangeEmailUserConfirm()
+
+  //sending token to the email
+  const handleSentToken = ()=>{
+    if(!email) return
+    TokenReqMutate({email})
+  }
+
+  //show toasts
+  useEffect(() => {
+    TokenReqIsSuccess && showSuccess('code is sent to your Email')
+    TokenReqIsError && showError('could not send code')
+  }, [TokenReqIsSuccess,TokenReqIsError]);
+
+
+  useEffect(() => {
+    ConformTokenIsSuccess && showSuccess('email is change')
+    ConfirmTokenIsError && showError('could change the email')
+  }, [ConformTokenIsSuccess,ConfirmTokenIsError]);
+
+
 
   //form submit handler
   //TODO: implement
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {};
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    ConfirmEmailTokenMutate({email,token})
+  };
 
   return (
     <SettingsDialog
@@ -32,14 +70,16 @@ function ChangeEmailDialog() {
         rootClassName="mb-2"
         type="email"
         // value={formValues.oldPass}
-        // onChange={handleChange}
+        onChange={(e)=>setEmail(e.target.value)}
       />
 
       <InputWithButton
         btnTitle={userPanelDictionary.change_email_send_code_button_label}
         btnVariant="outline"
         btnClassName="text-primary"
-        handleClickButton={() => {}}
+        onChange={(e)=>setToken(e.target.value)}
+        handleClickButton={handleSentToken}
+
       />
     </SettingsDialog>
   );

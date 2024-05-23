@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 
 import { useSession } from "next-auth/react";
 
@@ -11,6 +11,8 @@ import { DeleteAlertDialog, SettingItem } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 
 import { useGetDictionary } from "@/hooks";
+import { useGetUserInfo, useUploadProfileImage } from "@/services/user-setting";
+import Image from "next/image";
 
 /**
  * AccountSettings component show the account settings on user panel
@@ -26,11 +28,29 @@ function AccountSettings() {
   // for handle when click on upload button open file dialog
   const uploadInputRef = useRef<HTMLInputElement>(null);
 
+  //store uploaded image
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  //get user info
+  const {data:userData} =useGetUserInfo()
+
+  //using upload service
+  const {mutate,isSuccess,isError} = useUploadProfileImage()
+
+
+  //handle upload image
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files ? event.target.files[0] : null;
+    if (file) {
+      setSelectedFile(file);
+      mutate(file)
+    }
+  };
   //user info
   const { data: session } = useSession();
 
   return (
-    <div className="col gap-2">
+    <div className="col gap-2 ">
       {/*profile settings*/}
       <h4>{userPanelDictionary.account_profile_title}</h4>
       <div className="col mb-4 rounded-md border">
@@ -45,14 +65,16 @@ function AccountSettings() {
               >
                 {userPanelDictionary.account_edit_button_label}
               </Button>
-              <input type="file" hidden ref={uploadInputRef} />
+              <input type="file" hidden ref={uploadInputRef} onChange={handleFileChange}/>
             </>
           }
         >
           <UserAvatar
-            imageSrc={session?.user?.image || ""}
+            imageSrc={userData?.profile_image || ""}
             name={session?.user?.name || ""}
           />
+
+
         </SettingItem>
 
         {/*change username*/}
