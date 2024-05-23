@@ -21,6 +21,7 @@ import useCheckSidePanelOpen from "@/components/layout/side-panel/hooks/useCheck
 import { TransformedWorkspace } from ".";
 import { useChangeDefaultWorkSpace } from "@/components/pages/workspace/hooks/useChangeDefaultWorkSpace";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 /**
  * workspace select rendered in side panel if is open else rendered in header
@@ -31,6 +32,11 @@ export function WorkspaceItems({ isHeader = false, workspaces }: { isHeader?: bo
   const [open, setOpen] = React.useState(false);
   const { data: session } = useSession();
   const [workSpaceId, setWorkSpaceId] = React.useState<string>(session?.user.workspace.id && session?.user.workspace.id.toString() || '' );
+  useEffect(()=>{
+    if(session){
+      setWorkSpaceId(session.user.workspace.id.toString())
+    }
+  },[session])
   // hook to change workspace
   const { mutate: changeDefaultWorkspace, data: workspace } = useChangeDefaultWorkSpace();
 
@@ -70,9 +76,8 @@ export function WorkspaceItems({ isHeader = false, workspaces }: { isHeader?: bo
               ? getFirstLetter(workspaces.find(s => s.default)!.label)
               : "W"}
           </div>
-          {workSpaceId
-            ? workspaces.find(s => s.default)?.label
-            : "Select Workspace..."}
+          {session ? session.user.workspace.name : 'select a workspace'
+            }
           <ChevronsUpDown className="ms-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
