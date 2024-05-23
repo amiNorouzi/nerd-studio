@@ -133,3 +133,24 @@ export function useChangeEmailUserConfirm() {
 
 }
 
+interface ChangePasswordParams{
+  old_password:string
+  new_password:string
+  confirm_password:string
+}
+
+export function useChangePassword() {
+  return useMutation({
+
+    async mutationFn(params:ChangePasswordParams) {
+      const { data } = await axiosClient.post<{detail:string}>(
+        "users/change/password/",{...params}
+      );
+
+      return data;
+    },
+  });
+
+
+}
+
