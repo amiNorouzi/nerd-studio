@@ -14,7 +14,7 @@ const useSuccessToast = () => {
       title: "Success",
       description: message,
       className:
-        "border-blue-400  rounded-lg success-toast bg-popover first-letter:capitalize",
+        "border-green-400  rounded-lg success-toast bg-popover first-letter:capitalize",
     });
 
   };

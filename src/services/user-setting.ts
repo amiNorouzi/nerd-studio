@@ -22,7 +22,7 @@ export function useUploadProfileImage() {
       try {
         const formData = new FormData();
         formData.append("file", image);
-        console.log(formData);
+
         const response = await axiosClient.post<UploadProfile>(
           "/users/change/profile_image/",
           formData,
@@ -34,10 +34,10 @@ export function useUploadProfileImage() {
           },
 
         );
-        console.log("res:", response.data);
+
         return response.data.profile_image;
       } catch (err) {
-        console.log("errors upload image:",err);
+
       }
     },
 
@@ -74,6 +74,7 @@ export function useGetUserInfo() {
 
 }
 
+
 interface UpdateUserInfoParams {
   username?: string;
   first_name?: string;
@@ -81,7 +82,6 @@ interface UpdateUserInfoParams {
   phone_number?: string;
   description?: string;
 }
-
 
 export function useUpdateInfo() {
   return useMutation({
