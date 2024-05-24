@@ -50,9 +50,28 @@ const nextConfig = {
             },
         ];
     },
-    webpack(config, context) {
-        config.resolve.alias.canvas = false;
-        return config
+    experimental: {
+        turbo: {
+            rules: {
+                "*.svg": {
+                    loaders: ["@svgr/webpack"],
+                    as: "*.js",
+                },
+            },
+            resolveAlias: {
+                underscore: "lodash",
+                mocha: { browser: "mocha/browser-entry.js" },
+            },
+            resolveExtensions: [
+                ".mdx",
+                ".tsx",
+                ".ts",
+                ".jsx",
+                ".js",
+                ".mjs",
+                ".json",
+            ],
+        },
     },
     typescript: {
         ignoreBuildErrors: true,
