@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { APP_VERSION } from "@/constants/app-info";
 
 /**
  * about panel in user panel dialog
@@ -17,7 +18,7 @@ export default function About() {
         />
         <div className="col gap-1">
           <p className="text-xl font-bold">Nerd Studio</p>
-          <p className="text-muted-foreground">Version 0.3.0-2024-5-17</p>
+          <p className="text-muted-foreground">Version {APP_VERSION}</p>
         </div>
       </div>
     </div>

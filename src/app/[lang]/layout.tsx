@@ -10,11 +10,7 @@ import { auth } from "@/config/auth";
 import "@/config/globals.css";
 import "@/config/theme.css";
 import { langDir } from "@/lib/dictionary";
-
-const APP_NAME = "Nerd Studio";
-const APP_DEFAULT_TITLE = "Nerd Studio | Home";
-const APP_TITLE_TEMPLATE = "Nerd Studio | %s";
-const APP_DESCRIPTION = "Nerd Studio AI";
+import { APP_DEFAULT_TITLE, APP_DESCRIPTION, APP_NAME, APP_TITLE_TEMPLATE } from "@/constants/app-info";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
