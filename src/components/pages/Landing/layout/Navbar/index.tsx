@@ -44,7 +44,7 @@ const Navbar = () => {
         <NavigationMenuDropDown />
       </div>
       <div>
-        <Link href="dashboard">
+        <Link href="/dashboard">
           <Button className="hidden px-9 py-[19px]  lg:flex">
             Get Start For free
           </Button>

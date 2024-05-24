@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -77,7 +77,7 @@ export default function LoginPage() {
   const handleLogin = async (data: FormTypes) => {
     setIsPending(true);
     const res = await signIn("login-credentials", {
-      redirect: false,
+      redirect: true,
       email: data.email,
       password: data.password,
       callbackUrl: "/dashboard",
@@ -85,7 +85,6 @@ export default function LoginPage() {
 
     if (!!res) {
       if (res.ok) {
-        router.push("/dashboard");
         showSuccess("Logged in successfully");
       } else {
         showError(res.error!);
@@ -99,7 +98,7 @@ export default function LoginPage() {
     <section className=" z-50 flex w-full flex-col items-center justify-center gap-6">
       <form
         onSubmit={handleSubmit(handleLogin)}
-        className="flex h-fit w-full max-w-[380px] flex-col gap-5 rounded-xl bg-white shadow-2xl p-8"
+        className="flex h-fit w-full max-w-[380px] flex-col gap-5 rounded-xl bg-white p-8 shadow-2xl"
       >
         <h2 className="text-center text-lg font-bold">{login.welcome}</h2>
         <div className="col items-start gap-2">
@@ -115,13 +114,13 @@ export default function LoginPage() {
             placeholder={login.email_placeholder}
             rules={{ required: login.email_error_message }}
           >
-            {/*<CiMail*/}
-            {/*  className={cn(*/}
-            {/*    "absolute start-2 top-[20px] -translate-y-1/2 text-muted-foreground",*/}
-            {/*    errors.email && "text-destructive",*/}
-            {/*  )}*/}
-            {/*  size={18}*/}
-            {/*/>*/}
+            <CiMail
+              className={cn(
+                "absolute start-2 top-[20px] -translate-y-1/2 text-muted-foreground",
+                errors.email && "text-destructive",
+              )}
+              size={18}
+            />
           </FormField>
         </div>
         <div className="col items-start gap-2">
@@ -142,13 +141,13 @@ export default function LoginPage() {
               },
             }}
           >
-            {/*<CiLock*/}
-            {/*  className={cn(*/}
-            {/*    "absolute start-2 top-[20px] -translate-y-1/2 text-muted-foreground",*/}
-            {/*    errors.password && "text-destructive",*/}
-            {/*  )}*/}
-            {/*  size={20}*/}
-            {/*/>*/}
+            <CiLock
+              className={cn(
+                "absolute start-2 top-[20px] -translate-y-1/2 text-muted-foreground",
+                errors.password && "text-destructive",
+              )}
+              size={20}
+            />
             <MinimalButton
               Icon={showPass ? TbEyeClosed : TbEye}
               onClick={e => setShowPass(!showPass)}

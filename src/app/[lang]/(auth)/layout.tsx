@@ -14,7 +14,7 @@ interface IProps {
 export default async function Layout({ children, params }: IProps) {
   // this function get info from Google and if session was valid (user signed in) redirect users to dashboard
   const session = await getServerSession(authConfig);
-  if (session) return redirect("/");
+  if (session) return redirect("/dashboard");
 
   return (
     <div className="bg-linearGradient relative flex-col flex h-full w-full items-center justify-center overflow-hidden">

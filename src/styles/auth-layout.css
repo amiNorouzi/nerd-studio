@@ -9,14 +9,6 @@
    transform: rotate(180deg);
 }
 
-svg {
-   position: relative;
-   display: block;
-   width: calc(169% + 1.3px);
-   height: 500px;
-}
-
-
 .shape-fill {
       fill: #ffffff
 }

@@ -9,13 +9,11 @@ const Form = dynamic(() => import("./form"), {
 
 interface IProps {
   params: ParamsType;
-  searchParams:{token:string,email:string}
-
+  searchParams: { token: string; email: string };
 }
 
 export default function SignUpPage({ params ,searchParams}: IProps) {
   return (
-
     <div className="flex h-full w-full flex-col items-center">
       <Header params={params} />
       <Form searchParams={searchParams} />
