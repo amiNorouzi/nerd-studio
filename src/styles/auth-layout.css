@@ -8,7 +8,12 @@
    line-height: 0;
    transform: rotate(180deg);
 }
-
+.custom-shape-divider-top-1709011671 svg {
+   position: relative;
+   display: block;
+   width: calc(169% + 1.3px);
+   height: 500px;
+}
 .shape-fill {
       fill: #ffffff
 }
