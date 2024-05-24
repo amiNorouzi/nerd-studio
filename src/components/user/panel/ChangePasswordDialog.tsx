@@ -1,11 +1,14 @@
 "use client";
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { Label } from "@/components/ui/label";
 import { CustomInput } from "@/components/forms";
 import { SettingsDialog } from "@/components/shared";
 
 import { useGetDictionary } from "@/hooks";
+import { useChangePassword } from "@/services/user-setting";
+import useSuccessToast from "@/hooks/useSuccessToast";
+import useErrorToast from "@/hooks/useErrorToast";
 
 /**
  * change password dialog used in user panel account settings panel
@@ -19,9 +22,31 @@ function ChangePasswordDialog() {
     },
   } = useGetDictionary();
 
+  //toast
+  const{showSuccess} =useSuccessToast()
+  const {showError}= useErrorToast()
+
+  //old password
+  const [oldPassword, setOldPassword] = useState("");
+
+  //new password
+  const [newPassword, setNewPassword] = useState("");
+
+  //confirm newPassword
+  const[confirmNewPassword, setConfirmNewPassword] = useState("");
+
+  //change password service
+  const {mutate,isSuccess,isError} =useChangePassword()
+
+  useEffect(() => {
+    isSuccess && showSuccess('password changed successfully')
+    isError && showError('password change failed')
+  }, [isSuccess,isError]);
   //form submit handler
   //TODO: implement
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {};
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    mutate({old_password: oldPassword, new_password: newPassword, confirm_password: confirmNewPassword});
+  };
 
   const renderMain = () => (
     <form
@@ -39,7 +64,7 @@ function ChangePasswordDialog() {
         rootClassName="mb-2"
         isPassword
         // value={formValues.oldPass}
-        // onChange={handleChange}
+        onChange={(e)=>setOldPassword(e.target.value)}
       />
 
       {/*new password */}
@@ -52,7 +77,7 @@ function ChangePasswordDialog() {
         rootClassName="mb-2"
         isPassword
         // value={formValues.oldPass}
-        // onChange={handleChange}
+        onChange={(e)=>setNewPassword(e.target.value)}
       />
 
       {/*old password */}
@@ -64,7 +89,7 @@ function ChangePasswordDialog() {
         name="newRePass"
         isPassword
         // value={formValues.newRePass}
-        // onChange={handleChange}
+        onChange={(e)=>setConfirmNewPassword(e.target.value)}
       />
     </form>
   );

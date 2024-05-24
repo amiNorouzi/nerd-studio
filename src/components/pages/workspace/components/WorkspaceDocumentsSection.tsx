@@ -63,7 +63,7 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
     <div className="flex w-full  grow flex-col ">
       {/* ٌWorkspace Apps bar */}
       <div className="flex w-full flex-col gap-6 lg:mx-0 ">
-        {ActiveApp ==='All' && <h1 className="text-xl font-bold mx-[16px]  lg:mx-[36px]">Documents</h1>}
+        {ActiveApp ==='All' && <h1 className="text-xl font-bold mx-[16px]  lg:mx-[32px]">Documents</h1>}
 
         <div className="w-full hidden lg:flex mx-auto  justify-center">
           <ToggleApp setActiveApp={setActiveTab} sections={sections.map(item=>item.name)}/>

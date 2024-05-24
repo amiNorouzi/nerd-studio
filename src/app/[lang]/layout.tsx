@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: "default",
     title: APP_DEFAULT_TITLE,
     // startUpImage: [],
   },
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    type: 'website',
+    type: "website",
     siteName: APP_NAME,
     title: {
       default: APP_DEFAULT_TITLE,
@@ -43,12 +43,15 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
   },
   twitter: {
-    card: 'summary',
+    card: "summary",
     title: {
       default: APP_DEFAULT_TITLE,
       template: APP_TITLE_TEMPLATE,
     },
     description: APP_DESCRIPTION,
+  },
+  other: {
+    cryptomus: "4e5e222e",
   },
 };
 
@@ -72,9 +75,6 @@ export default async function RootLayout({
 
   return (
     <html lang={params.lang} dir={langDir[params.lang]}>
-      <head>
-        <meta name="cryptomus" content="4e5e222e" />
-      </head>
       <body
         suppressHydrationWarning
         className="flex h-dvh w-full max-w-[1920px] justify-center"
