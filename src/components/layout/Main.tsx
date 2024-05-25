@@ -6,6 +6,10 @@ export default function Main({
   ...props
 }: HTMLProps<HTMLDivElement>) {
   return (
-    <main className={cn("h-full w-full overflow-auto", className)} {...props} />
+    <main
+      style={{ height: "calc(100vh - 52px)" }}
+      className={cn("h-full w-full overflow-auto", className)}
+      {...props}
+    />
   );
 }
