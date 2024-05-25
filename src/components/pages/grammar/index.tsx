@@ -5,17 +5,15 @@ import {
   Run,
   SetSearchParamProvider,
 } from "@/components/shared";
-import type { ParamsType } from "@/services/types";
+import type { ParamsType, SCRPropsType } from "@/services/types";
 import { useGenerateGrammar } from "@/services/grammar";
 import React from "react";
 import Highlight from "@/components/shared/Highlight";
 import { useHandleGeneratedData } from "@/hooks/generates-hook";
 
-interface IProps {
-  params: ParamsType;
-}
 
-export default function GrammarPage({ params }: IProps) {
+
+export default function GrammarPage({ params,searchParams }: SCRPropsType) {
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param
    *  value of it used in apps Header in  layout or form-section
@@ -71,7 +69,7 @@ export default function GrammarPage({ params }: IProps) {
         <Run.Editor value={textInput} onChange={setUpdateText}>
             <Highlight/>
           <HistoryBox>
-            <HistoryItems appName="grammar" />
+            <HistoryItems appName="grammar"  selectedItemFromWorkSpace={searchParams.item}/>
           </HistoryBox>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           {/* <HistoryInfo>

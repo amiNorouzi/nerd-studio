@@ -233,7 +233,7 @@ interface MoveDocToWorkspace{
   workspace_id:number,
 }
 
-export function useMoveDocToWorkspace({sourceWorkspace}:{sourceWorkspace:number}) {
+export function useMoveDocToWorkspace({sourceWorkspace,app_type}:{sourceWorkspace:number,app_type:string}) {
   const [workspaceId, setWorkspaceId] = useState<number>(0);
   const [appType,setAppType] = useState()
   const queryClient = useQueryClient();
@@ -246,8 +246,8 @@ export function useMoveDocToWorkspace({sourceWorkspace}:{sourceWorkspace:number}
       return data
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["workspace-docs",sourceWorkspace,"grammar" ]});
-      queryClient.invalidateQueries({ queryKey: ["workspace-docs",workspaceId,'grammar'] }); // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries({ queryKey: ["workspace-docs",sourceWorkspace,app_type]});
+      queryClient.invalidateQueries({ queryKey: ["workspace-docs",workspaceId,app_type] }); // Invalidate the query to trigger a refetch
     },
   });
 }

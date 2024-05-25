@@ -60,13 +60,22 @@ function InstalledAppCard({ app,workspace_id ,workspaces,appId}: Props) {
     MoveIsSuccess && showSuccess('App is moved')
     MoveIsError && showError('could not move the app')
   }, [DeleteIsSuccess,DeleteIsError,MoveIsSuccess,MoveIsError]);
+
+  //handle click on the card
+  const handleClick = () => {
+    const url = `/${lang}/template/${app.id}`;
+
+    if (typeof window !== 'undefined') {
+      window.open(url, '_blank');
+    } else {
+      router.push(url);
+    }
+  };
+
   return (
     // Link to app detail page
     <div>
-    <div onClick={()=>{
-      console.log('clicked on link');
-      router.push(`/${lang}/template/${app.id}`)
-    }}>
+    <div onClick={handleClick}>
       <article className="row group w-full cursor-pointer gap-2 rounded-md border bg-background p-4 transition-all duration-300 hover:shadow-card-hover">
 
         <div className='h-10 w-10 rounded-xl bg-green-400'></div>

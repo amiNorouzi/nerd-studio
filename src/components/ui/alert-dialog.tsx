@@ -23,6 +23,7 @@ const AlertDialogOverlay = React.forwardRef<
     )}
     {...props}
     ref={ref}
+    onClick={(e)=>e.stopPropagation()}
   />
 ));
 AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;
@@ -121,6 +122,8 @@ const AlertDialogCancel = React.forwardRef<
       "mt-2 sm:mt-0",
       className,
     )}
+    onClick={(e)=>e.stopPropagation()}
+
     {...props}
   />
 ));

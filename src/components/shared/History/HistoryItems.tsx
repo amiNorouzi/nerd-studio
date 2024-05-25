@@ -103,6 +103,7 @@ export function DeletePopOver({ item }: { item: Answer }) {
 
 interface IProps {
   appName: string;
+  selectedItemFromWorkSpace?:string | string[]
   historyItems?:
     | {
         answers: {
@@ -122,7 +123,7 @@ interface IProps {
  * @param historyItems
  * @constructor
  */
-export function HistoryItems({ appName }: IProps) {
+export function HistoryItems({ appName,selectedItemFromWorkSpace }: IProps) {
   const setSelectHistoryItem = useHistoryStore.use.setSelectHistoryItem();
   const searchValue = useHistoryStore.use.historySearch();
 
@@ -135,7 +136,23 @@ export function HistoryItems({ appName }: IProps) {
   const { data: toggleFavoriteAnswer, mutate: mutateFavoriteItems } =
     useSetFavorites();
   const { data: togglePinAnswer, mutate: mutatePinItems } = useSetPinHistory();
+
+
   const { data: historyItems } = useHistories({ pageNumber: 1 });
+
+  //set the item history if it is  selected from workspace
+  useEffect(() => {
+    if(!selectedItemFromWorkSpace || !historyItems) return
+    const item = historyItems.answers.find(item => item.id === +selectedItemFromWorkSpace)
+    if(item){
+
+    setSelectHistoryItem(item);
+    setGrammarHistoryIsOpen(true);
+    }
+  }, [selectedItemFromWorkSpace,historyItems]);
+
+
+
   //check if item is favorite or not
   const favoriteCheck = (id: number) => {
     if (!historyItems || !favoriteItems) return null;

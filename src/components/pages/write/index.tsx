@@ -13,11 +13,12 @@ import { useGetDictionary } from "@/hooks";
 import Highlight from "@/components/shared/Highlight";
 import { useHandleGeneratedData } from "@/hooks/generates-hook";
 
-export default function WritePage({ params }: SCRPropsType) {
+
+
+export default function WritePage({ params,searchParams }: SCRPropsType) {
   const {
     page: { rewrite },
   } = useGetDictionary();
-
   /**
    * * Important: SetSearchParamProvider is used to set apps name to url search param
    *  value of it used in apps Header in  layout or form-section
@@ -66,7 +67,7 @@ export default function WritePage({ params }: SCRPropsType) {
         />
         <Run.Editor value={textInput} onChange={setUpdateText}>
           <HistoryBox>
-            <HistoryItems appName="ai_writer" />
+            <HistoryItems appName="ai_writer"  selectedItemFromWorkSpace={searchParams.item} />
           </HistoryBox>
 
           <Highlight />
