@@ -6,7 +6,7 @@ import {
   Run,
   SetSearchParamProvider,
 } from "@/components/shared";
-import type { ParamsType } from "@/services/types";
+import { ParamsType, SearchParamsType } from "@/services/types";
 import useGenerateTranslate from "@/services/translate";
 import { useSearchParams } from "next/navigation";
 import { languages } from "@/components/shared/run-tab-for-app/form-section-components/contants";
@@ -17,10 +17,12 @@ import Highlight from "@/components/shared/Highlight";
 
 interface IProps {
   params: ParamsType;
+  searchedParams: SearchParamsType
 }
 
-export default function TranslatePage({ params }: IProps) {
+export default function TranslatePage({ params,searchedParams }: IProps) {
   const searchParams = useSearchParams();
+
   const {
     generateTranslate,
     isPending,
@@ -65,7 +67,7 @@ export default function TranslatePage({ params }: IProps) {
         />
         <Run.Editor value={textInput} onChange={setUpdateText}>
           <HistoryBox>
-            <HistoryItems appName="translate" />
+            <HistoryItems appName="translate" selectedItemFromWorkSpace={  searchedParams.item} />
           </HistoryBox>
           {/* this is a sheet that when user select an item in history then this sheet open and show history information */}
           <HistoryInfo />

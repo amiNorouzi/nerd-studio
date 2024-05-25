@@ -1,4 +1,4 @@
-import type { ParamsType } from "@/services/types";
+import type { ParamsType, SCRPropsType } from "@/services/types";
 import GrammarLoading from "@/app/[lang]/(protect-roots)/(apps)/grammar/loading";
 import dynamic from "next/dynamic";
 
@@ -9,6 +9,6 @@ const GrammarPage = dynamic(() => import("@/components/pages/grammar"), {
 interface IProps {
   params: ParamsType;
 }
-export default function Page({ params }: IProps) {
-  return <GrammarPage params={params} />;
+export default function Page({ searchParams, params }: SCRPropsType) {
+  return <GrammarPage params={params} searchParams={searchParams} />;
 }

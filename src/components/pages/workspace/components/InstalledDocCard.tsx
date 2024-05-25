@@ -71,10 +71,14 @@ function InstalledDocCard({ document,app_type,workspace_id,workspaces,route }: P
 
   //handle click on the card
   const  clickHandler= () => {
-    // useHistoryStore.getState().push(`/workspace/${workspace_id}/document/${document.id}`);
-    // router.push(`/${route}`)
-    console.log('clicked');
+    const url =`/${route}?item=${document.history.id}`
+    if (typeof window !== 'undefined') {
+      window.open(url, '_blank');
+    } else {
+      router.push(url);
+    }
   };
+
   const items =
 
       (
