@@ -53,7 +53,7 @@ function InstalledDocCard({ document,app_type,workspace_id,workspaces,route }: P
 
   //delete and move document to another workspace
   const {mutate:DeleteMutate,isError:DeleteIsError,isSuccess:DeleteIsSuccess} =useDeleteDocs({app_type})
-  const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMoveDocToWorkspace({sourceWorkspace:workspace_id})
+  const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMoveDocToWorkspace({sourceWorkspace:workspace_id,app_type})
 
   //router
   const router = useRouter()
