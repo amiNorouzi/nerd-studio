@@ -42,7 +42,7 @@ export default function WorkspacePage({ lang }: { lang: Locale }) {
             <TabsTrigger
               value={tab.value}
               key={tab.id}
-              className="rounded-none border-b-2 border-transparent bg-transparent pb-3 text-foreground hover:text-primary/80  data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none"
+              className="rounded-none border-b-2 border-transparent bg-transparent p-4 text-foreground hover:text-primary/80  data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none"
             >
               {workspaceDictionary[tab["i18TitleKey"]]}
             </TabsTrigger>

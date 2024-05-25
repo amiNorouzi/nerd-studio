@@ -17,7 +17,7 @@ export default async function Layout({ children, params }: IProps) {
   if (session) return redirect("/dashboard");
 
   return (
-    <div className="bg-linearGradient relative flex-col flex h-full w-full items-center justify-center overflow-hidden">
+    <div className="bg-linearGradient relative flex-col flex h-full w-full items-center justify-center">
       {/* this div is wave white background*/}
       <div className="custom-shape-divider-top-1709011671">
         <svg

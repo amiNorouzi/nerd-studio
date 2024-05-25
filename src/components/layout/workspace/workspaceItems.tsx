@@ -67,12 +67,12 @@ export function WorkspaceItems({ isHeader = false, workspaces }: { isHeader?: bo
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "row gap-1.5 px-2",
+            "row gap-1.5 px-[2px]",
             isHeader ? "me-2 w-44" : "mt-1.5 w-full",
           )}
         >
           <div className="centered-col h-6 w-6 rounded-md bg-active text-primary">
-            {!!workSpaceId
+            {workSpaceId
               ? getFirstLetter(workspaces.find(s => s.default)!.label)
               : "W"}
           </div>

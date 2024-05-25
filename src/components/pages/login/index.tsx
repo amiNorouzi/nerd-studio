@@ -83,7 +83,7 @@ export default function LoginPage() {
       callbackUrl: "/dashboard",
     });
 
-    if (!!res) {
+    if (res) {
       if (res.ok) {
         showSuccess("Logged in successfully");
       } else {

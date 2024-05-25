@@ -24,17 +24,17 @@ function SpacesHeader({
   return (
     <header
       className={cn(
-        "h-header row w-full border-b px-2 pt-2",
+        "h-header row w-full border-b px-2",
         rootClassName,
       )}
     >
-      <div className="row pb-2">
+      <div className="row py-4">
         {/*for open and close side panel*/}
         <ToggleSidePanelButton />
         {/* workspace select rendered when side panel closed*/}
         <Workspace isHeader />
       </div>
-      <div className={cn("row h-full w-full pb-2", childrenWrapperClassName)}>
+      <div className={cn("row h-full w-full", childrenWrapperClassName)}>
         {children}
       </div>
     </header>

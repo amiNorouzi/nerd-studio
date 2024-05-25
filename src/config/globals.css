@@ -45,7 +45,7 @@
 
         --apps-header-height: 3.5rem;
         --apps-main-height: calc(100dvh - 3.5rem);
-        --header-height: 3rem;
+        --header-height: 52px;
         --main-height: calc(100dvh - 3rem);
 
         --spacing-form-label: 8px;
