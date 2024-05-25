@@ -14,7 +14,10 @@ import { SelectAndDrawer } from "@/components/shared";
 import { cn } from "@/lib/utils";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { WorkspaceList } from "@/services/types";
-const sections:{name:string,app_type:App_types}[] = [{name:'Chatbot',app_type:'highlight'},{name:'Rewrite',app_type:"ai_writer"},{name:'image',app_type:"image_to_image"},{name:'Translate',app_type:"translate"},{name:'Grammar',app_type:"grammar"},{name:'Code',app_type:"code"},{name:'Prompt Library' ,app_type:"template"}]
+
+//sections of the documents
+const sections:{name:string,app_type:App_types,route:string}[] = [{name:'Chatbot',app_type:'highlight',route: 'highlight'},{name:'Rewrite',app_type:"ai_writer",route:'rewrite'},{name:'image',app_type:"image_to_image",route:'image'},{name:'Translate',app_type:"translate",route:'translate'}
+  ,{name:'Grammar',app_type:"grammar",route:'grammar'},{name:'Code',app_type:"code",route:'code'},{name:'Prompt Library' ,app_type:"template",route:'template'}]
 
 const defaultOptions = {
   loop: true,
@@ -112,10 +115,11 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
                 <div key={doc.id} className='w-[315px] lg:max-w-[350px]'>
 
                   <InstalledDocCard document={doc}
-                                    appName={sections.filter(item => item.name === activeTab)[0].app_type}
+
                                     app_type={sections.filter(item => item.name === activeTab)[0].app_type}
                                     workspace_id={workspace_id}
                                     workspaces={workspaces}
+                                    route={sections.filter(item => item.name === activeTab)[0].route}
                   />
                 </div>
               ))}
@@ -123,10 +127,11 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
                 <div key={doc.id} className='w-[315px] lg:max-w-[350px]'>
 
                   <InstalledDocCard document={doc}
-                                    appName={sections.filter(item => item.name === activeTab)[0].app_type}
+
                                     app_type={sections.filter(item => item.name === activeTab)[0].app_type}
                                     workspace_id={workspace_id}
                                     workspaces={workspaces}
+                                    route={sections.filter(item => item.name === activeTab)[0].route}
 
 
                   />
@@ -136,10 +141,11 @@ const [activeTab,setActiveTab] = useState<string>(sections[0].name)
                 <div key={doc.id} className='w-[315px] lg:max-w-[350px]'>
 
                   <InstalledDocCard document={doc}
-                                    appName={sections.filter(item => item.name === activeTab)[0].app_type}
+
                                     app_type={sections.filter(item => item.name === activeTab)[0].app_type}
                                     workspace_id={workspace_id}
                                     workspaces={workspaces}
+                                    route={sections.filter(item => item.name === activeTab)[0].route}
 
                   />
                 </div>

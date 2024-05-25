@@ -68,7 +68,9 @@ export function DeleteAlertDialog({
           {/*
                 delete button that call handleSubmit function
             */}
-          <Button variant="destructive" onClick={handleSubmit}>
+          <Button variant="destructive" onClick={(e)=>{
+            e.stopPropagation()
+            handleSubmit()}}>
             {delete_alert_button_label}
           </Button>
         </AlertDialogFooter>

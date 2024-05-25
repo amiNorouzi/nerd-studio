@@ -23,11 +23,11 @@ import useSuccessToast from "@/hooks/useSuccessToast";
 import useErrorToast from "@/hooks/useErrorToast";
 import { PiArrowBendDoubleUpRightLight } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 /**
  * installed document card used in workspace app list tab
  * @param document - document item
- * @param appName
  * @param app_type
  * @param workspace_id
  * @constructor
@@ -35,19 +35,28 @@ import { Button } from "@/components/ui/button";
 interface Props{
   workspaces: WorkspaceList[] | undefined
   document: WorkspaceDocumentProps,
-  appName:string,
   app_type:string,
   workspace_id:number
+  route:string
 }
-function InstalledDocCard({ document,appName,app_type,workspace_id,workspaces }: Props) {
+
+//route names
+
+function InstalledDocCard({ document,app_type,workspace_id,workspaces,route }: Props) {
   //toast components
   const { showSuccess } = useSuccessToast();
   const { showError } = useErrorToast();
 
+  //open and close popovers
   const [outerOpen, setOuterOpen] = useState(false);
   const [innerOpen, setInnerOpen] = useState(false);
-const {mutate:DeleteMutate,isError:DeleteIsError,isSuccess:DeleteIsSuccess} =useDeleteDocs({app_type})
-const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMoveDocToWorkspace({sourceWorkspace:workspace_id})
+
+  //delete and move document to another workspace
+  const {mutate:DeleteMutate,isError:DeleteIsError,isSuccess:DeleteIsSuccess} =useDeleteDocs({app_type})
+  const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMoveDocToWorkspace({sourceWorkspace:workspace_id})
+
+  //router
+  const router = useRouter()
 
   //show toast after server actions
   useEffect(() => {
@@ -60,11 +69,17 @@ const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMove
     MoveIsError && showError('document didnt moved')
   }, [MoveIsSuccess,MoveIsError]);
 
+  //handle click on the card
+  const  clickHandler= () => {
+    // useHistoryStore.getState().push(`/workspace/${workspace_id}/document/${document.id}`);
+    // router.push(`/${route}`)
+    console.log('clicked');
+  };
   const items =
 
       (
 
-        <div className='flex flex-col w-full ' key={document.id}>
+        <div onClick={clickHandler}   className='flex flex-col w-full max-w-[285px] ' key={document.id}>
 
 
           <div
@@ -77,11 +92,11 @@ const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMove
           >
             {/*title and delete and bookmark button*/}
 
-            <div className="py-[12px] flex flex-col w-full items-start px-[16px]  gap-2   ">
+            <div  className="py-[12px] flex flex-col w-full items-start px-[16px]  gap-2   ">
               <div className="w-full flex flex-row justify-between ">
 
 
-                {appName !== "translate" && (
+                {app_type !== "translate" && (
                   <span
                     className={cn(
                       " max-w-[115px] truncate font-[400] overflow-x-hidden",
@@ -90,7 +105,7 @@ const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMove
                 {document.history.answer_text}
               </span>
                 )}{" "}
-                {appName === "translate" && (
+                {app_type === "translate" && (
                   <div className=" flex flex-col gap-2.5 ">
                 <span
                   className={cn(
@@ -109,6 +124,7 @@ const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMove
                   <DeleteAlertDialog
                     title="Delete Workspace"
                     description="Are you sure you want to delete this Document?"
+
                     Trigger={
                       <Button
                         variant="ghost"
@@ -183,14 +199,14 @@ const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMove
               <div className={'w-full h-auto flex'}>
 
 
-              {appName === "grammar" && (
+              {app_type === "grammar" && (
                 <div className="flex flex-row items-center gap-2">
                   <p className=" text-[#B9BAC0]"> Spell </p>
                   <HiArrowLongRight className="text-[#B9BAC0]" />{" "}
                   <p className=" "> Your </p>
                 </div>
               )}
-              {appName === "translate" && (
+              {app_type === "translate" && (
                 <span
                   className={cn(
                     " mb-1 w-[115px] truncate font-[400]",
@@ -200,7 +216,7 @@ const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMove
                 {document.history.answer_text}
               </span>
               )}{" "}
-              {appName === "ai_writer" && (
+              {app_type === "ai_writer" && (
                 <span
                   className={cn(
                     " w-[115px] truncate font-[400] text-[#B9BAC0]",
@@ -210,7 +226,7 @@ const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMove
                 English
               </span>
               )}{" "}
-              {appName === "code" && (
+              {app_type === "code" && (
                 <span
                   className={cn(
                     " w-[115px] truncate font-[400] text-[#B9BAC0]",
@@ -222,7 +238,7 @@ const {mutate:MoveMutate,isSuccess:MoveIsSuccess ,isError:MoveIsError } =useMove
               )}
 
               </div>
-              <div className={`${appName === "translate" && "mb-1 "} w-full flex  justify-end`}>
+              <div className={`${app_type === "translate" && "mb-1 "} w-full flex  justify-end`}>
                 {" "}
                 <span className="text-[#B9BAC0]">
                 {" "}
