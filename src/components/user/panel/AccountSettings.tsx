@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 import { useSession } from "next-auth/react";
 
@@ -13,6 +13,8 @@ import { Button } from "@/components/ui/button";
 import { useGetDictionary } from "@/hooks";
 import { useGetUserInfo, useUploadProfileImage } from "@/services/user-setting";
 import Image from "next/image";
+import useSuccessToast from "@/hooks/useSuccessToast";
+import useErrorToast from "@/hooks/useErrorToast";
 
 /**
  * AccountSettings component show the account settings on user panel
@@ -28,6 +30,10 @@ function AccountSettings() {
   // for handle when click on upload button open file dialog
   const uploadInputRef = useRef<HTMLInputElement>(null);
 
+  //toast
+  const{showSuccess} = useSuccessToast()
+  const {showError} = useErrorToast()
+
   //store uploaded image
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -37,6 +43,16 @@ function AccountSettings() {
   //using upload service
   const {mutate,isSuccess,isError} = useUploadProfileImage()
 
+
+  //show toast when upload image
+  useEffect(()=>{
+    if(isSuccess){
+      showSuccess("Profile image uploaded successfully")
+    }
+    if(isError){
+      showError("Profile image upload failed")
+    }
+  },[isSuccess,isError])
 
   //handle upload image
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
