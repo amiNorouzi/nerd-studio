@@ -28,7 +28,7 @@ export function Header({ className, ...otherProps }: IProps) {
 
   return (
     <header
-      className={cn("row w-full items-center border-b px-4", className)}
+      className={cn("h-header row w-full items-center border-b px-4", className)}
       {...otherProps}
     >
       <ToggleSidePanelButton />

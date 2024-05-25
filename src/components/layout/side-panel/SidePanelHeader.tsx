@@ -18,7 +18,7 @@ export default function SidePanelHeader({
   return (
     <div
       className={cn(
-        "row gap-2.5 border-b py-2",
+        "row gap-2.5 border-b h-header",
         !isCollapsed || isHoverOnSidePanel
           ? "px-4 "
           : "!w-full overflow-hidden px-4",
