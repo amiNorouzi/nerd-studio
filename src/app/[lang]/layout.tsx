@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
   },
   other: {
-    cryptomus: "4e5e222e",
+    cryptomus: "4588b137",
   },
 };
 
